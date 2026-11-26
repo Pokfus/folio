@@ -5,7 +5,12 @@
     python3 .claude/bengali/run.py --level a2      # another level (inventory first: inventory.py)
     python3 .claude/bengali/run.py --level phr     # the phrases deck (its list: phrases.py)
     python3 .claude/bengali/run.py --no-fetch      # reuse whatever is cached
-    python3 .claude/bengali/alphabet.py            # the alphabet deck (reads lex.json)
+
+AFTER ANY RUN (the beginner pass, 2026-11-19): this script numbers a deck by position and
+deals it by frequency, and neither is what ships.  `node .claude/decks/bengali-fix.js --pin`,
+`node .claude/decks/bengali-order.js`, `node .claude/decks/bengali-fix.js`, then
+`node .claude/decks/build-bengali-alphabet.js` (the alphabet deck, which `alphabet.py` here
+used to write) and `node .claude/build-lang-decks.js`.  `bengali-fix.js`'s header says why.
 
 ONE LEVEL PER RUN (`bengali_level` reads the level once, at import).  Downloads
 its sources into `.claude/bengali-cache/` (gitignored, about 160 MB, most of it

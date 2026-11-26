@@ -137,6 +137,25 @@ GLOSS = {
     'перед': ['in front of, before (+ instrumental)'],
     'под': ['under (+ instrumental: where; + accusative: where to)'],
     'для': ['for (+ genitive)'],
+    # THE WORDS `extra.py` BUILDS (Nov 2026, the beginner pass): function words the
+    # fill turned away, glossed on the same rule -- no more than the entry's senses.
+    'весь|det': ['all, the whole'],
+    'весь|pron': ['everything (the neuter, всё)', 'everyone, everybody (the plural, все)'],
+    'так|adv': ['so, like this, this way', 'so, so much (to a high degree)'],
+    'так|conj': ['so, then (therefore)'],
+    'такой|det': ['such, such a, like this, that kind of'],
+    'такой|adv': ['so (to a high degree, before an adjective)'],
+    'ну|intj': ['well'],
+    'правда|noun': ['truth'],
+    'правда|intj': ['is that so? really?', 'indeed, as a matter of fact'],
+    'больше': ['more (the comparative of много)', 'bigger, larger (the comparative of большой)',
+               'any more (after не: no longer)'],
+    'лучше': ['better (the comparative of хороший and хорошо)', 'rather, had better'],
+    'возможно': ['perhaps, possibly'],
+    'плохо|adv': ['badly, bad', 'unwell'],
+    'при|prep': ['in the time of, in the presence of, with, during (+ prepositional)',
+                 'at, by (+ prepositional)'],
+    'парень': ['guy, lad, boy', 'boyfriend'],
 }
 GLOSS_POS = {'это': 'pron', 'этот': None, 'тот': None}
 
@@ -503,7 +522,12 @@ def main():
                 forms = verb_forms([e0])
                 table = verb_tables(e0)
             else:
-                table = generic_table(e0)
+                # WIKTIONARY KEEPS ONE DECLENSION TABLE PER SPELLING, and the entry the
+                # note leads with may not be the one that holds it: `этот`, `тот` and
+                # `какой` shipped with no panel at all, the table being on the pronoun
+                # entry (found by the beginner pass, Nov 2026; the shipped cards were
+                # given theirs through `extra.py` and the record).
+                table = next((t for t in (generic_table(m) for m in members) if t), '')
         fields = {
             'Russian': f'<div class="uc-word">{E(headword)}</div>',
             'Word': word,

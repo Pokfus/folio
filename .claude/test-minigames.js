@@ -87,14 +87,15 @@ function registry() {
   return {
     daily: list(daily),
     valid: list(valid),
-    meta: ["crossword", "picture", "whatyear"].filter((k) => new RegExp("\\n\\s*" + k + ":\\s*\\[\"[^\"]+ — Folio\"").test(src)),
-    names: ["crossword", "picture", "whatyear"].filter((k) => new RegExp(k + ": \\[\"[^\"]+\", ICON\\." + k).test(src)),
+    meta: ["crossword", "picture", "whatyear", "whoisthis"].filter((k) => new RegExp("\\n\\s*" + k + ":\\s*\\[\"[^\"]+ — Folio\"").test(src)),
+    names: ["crossword", "picture", "whatyear", "whoisthis"].filter((k) => new RegExp(k + ": \\[\"[^\"]+\", ICON\\." + k).test(src)),
   };
 }
 
 const NEW_GAMES = [
   { key: "crossword", title: "Crossword", id: "g-crossword" },
   { key: "whatyear", title: "What year?", id: "g-whatyear" },
+  { key: "whoisthis", title: "Who is this?", id: "g-whoisthis" },   // 2026-11-19
 ];
 
 /* ---------- two years of puzzles, generated in Node ----------

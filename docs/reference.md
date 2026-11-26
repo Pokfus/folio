@@ -4866,10 +4866,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     collections at once from a row that names none of them.
   · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
     (`langCtxId`, `.dk-langhead`, `data-langhead`). **It seeds SHUT, like a collection and like a community
-    deck with subdecks (Oct 2026, on request), and while EVERY deck under it is still to be fetched it carries
-    `Download all <size>` (`[data-langdlall]`, `data-decks`)**, which runs the per-row `langDeckDownload` over
-    the decks one after another and repaints once at the end, so the button and its deck-counting bar survive
-    the first file landing. It claims cards — `entryCardIds` unions its members,
+    deck with subdecks (Oct 2026, on request), and — like EVERY collection row since Nov 2026 (a language, a
+    curated collection, a group, a community collection, a signpost; `dlUnder` / `dlAllBtn` in the home list's
+    row builder) — while ANY deck drawn under it, folded or not, is still to be fetched or stale it carries ONE
+    `Download all <size>` / `Update all` (`[data-dlall]`, `data-decks` / `data-shared` / `data-ups`, each deck
+    once)**, which runs the per-row calls (`langDeckDownload`, `communityFetchDeckById` + `uDeckInstall`,
+    `langDeckUpdate`) over the decks one after another and repaints once at the end, so the button and its
+    deck-counting bar survive the first file landing; updates end on one `openDeckUpdateSheet`.
+    `test-lang-decks.js` asserts the button. It claims cards — `entryCardIds` unions its members,
     which is what draws its pile counts and its bar — and **a row that claims cards and refuses to deal them
     is the only one on the list that does**, so it carries `data-review` and takes the generic
     tap-studies / hold-opens-the-options pair. **It studies as a GROUP, not as a deck** (`entryScope`), both
@@ -5698,7 +5702,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a period from an event among them — the first draft tried "the basis row holds a range" and called the Second
   World War a single event. So the span is authored, with `.claude/set-timeline.js`, from the card's own rows
   wherever they give one, and the helper refuses a card whose kind (first tag) is not `event`, `era`, `battle` or
-  `war` (`--force` overrides and says so). The neighbours are the two before and the two after among the field-
+  `war` (`--force` overrides and says so). **RULERS ARE THE ONE KIND OF INDIVIDUAL THAT GETS A TIMELINE (2026-11-20, on request: "cards about individuals should not have timeline sections. Make an exception for rulers (emperors, kings, presidents, prime ministers etc). The dates of their reign should be shown as periods on the timeline and they should have a timeline section")**: a `person` / `ruler` card tagged `ruler`, or a person whose date line has a President, Prime Minister, Chancellor or In power row, carries `timeline: { from, to }` = its reign, read from the first reign row of its date line by `.claude/set-ruler-timelines.js` (365 cards on the day; 133 skipped and listed — a single year, an open end, a reign in tradition, two reigns, no reign row; `--check` names a ruler left without one). `set-timeline.js` accepts a ruler and refuses `at` for one. The neighbours (2026-11-19, on request) are the THREE before and the THREE after on a desktop and a tablet, TWO and two on a phone (the outer pair is drawn as `.tl-it.outer`, hidden at ≤ 640 px and left out of `tlLayout`'s window there), among the field-
   carrying cards of `cardCollectionRoot`, by start date then id (`cardTimelineItems`); a card with no neighbour
   draws nothing. Two designs, chosen by the 640 px phone query at layout: the RAIL (one axis, marks packed into
   lanes, each name with its date behind it on a desktop and UNDER it on a tablet, 641 – 1024 px, the `.two` class the layout sets) and the LEDGER (time down a spine, a bar a column, names
@@ -5718,7 +5722,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   way out; a date that does not parse is marked `aria-invalid` and not written. The key is `cardTimeline`, never
   `timeline`: that name was v1's map delta and `normalizeAdminEdits` drops it on read. The rollout began with
   the first 20 cards of The Second World War (11 carry the field). By 24 Oct 2026 it covers the event, era, battle and war cards of WW2, China, the United States, Russia, Korea, World History, Ancient Greece, Ancient Rome, Japan and Ancient Egypt — left off are myths, festivals, cards marked undatable, open-ended eras and dates beyond the six-digit year (the Mya cards). The axis ladder runs to 500,000-year steps and a BCE month tick reads "480 BCE", both for those collections.
-  Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
+  THE WAY BACK FROM THE WHOLE TIMELINE (2026-11-19, on request): the section's "whole timeline" link (`.tl-all`, one delegated listener) opens `#timeline/<collection>` and fills `tlHold` (`{ card, rec }`, the study record captured before routing, as `bookHold` does); PAGES.timeline then shows the book reader's "Back to card" pill (`#tlpToCard`), which resumes the study session on the same card with its answer showing, else opens `#card/<id>`; it survives moves within the timeline page and route() drops it on any other.
+  Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` / `tlHold` /
   `mountCardTimelines` / `set-timeline.js` / the `.tl-` rules: `node .claude/test-card-timeline.js`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as
   a **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens
@@ -7912,6 +7917,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   follow it into numerals. The tool deliberately leaves that to the eye.
 - **Centuries and millennia are always numbered** ("11th century", "2nd millennium BCE" — never "eleventh century"),
   whatever the ordinal.
+- **A COUNT of centuries is in words** (2026-11-16, on request: "before the word centuries … two centuries should
+  always be written in words rather than numbers; before the singular century it should still be numbers, 21st
+  century"). The one exception to the numerals-for-time-spans rule of 2026-11-13. `check-style.js` rule 6 reports
+  "N centuries", "N or M", "N to M", "N–M", and `--fix --only=6` converts (367 at once on the day; rule 1 no longer
+  turns "twenty-five centuries" back). The Roman voting and army units are a count of UNITS and keep their numerals:
+  `CENT_UNIT_EXCLUDE` masks those phrases by name, because context words ("legion", "cohort", "Servius") also stand
+  beside real spans.
 - **Eras are BCE and CE, and NEVER BC or AD** (Aug 2026, on request: "ensure the use of BCE and CE always … across
   the whole website"). It reaches everywhere a reader can see one — a card's question, its background and its date
   line, a glossary description and its date line, an artefact, an Atlas country description, **and the text a
@@ -9787,3 +9799,12 @@ division-capital city tier are inert dead code.
     typing is safe; it is select-all, paste and heavy restructuring that strip them. **Check the marker
     count after editing prose that carries citations**, which is what `check-overlay.js` does.
   **📖 `docs/accounts-sync.md` also carries this bullet's account, moved out of here.**
+### Card example section (2026-11-20)
+
+On request (phi-049: "between the background section and sources section, add an Example section showcasing a truth
+table"), a card may carry the optional HEAVY field `example` — `{ intro?, table: { head: [...], rows: [[...]] }, note? }` —
+listed in `CARD_EXTRA_FIELDS` (app.js) and `EXTRA_FIELDS` (`.claude/card-io.js`), which `split-cards.js --check` keeps
+equal. `cardExampleHTML` draws it as `.card-example` directly under the Background fold and above the Atlas box; the
+cells are DATA and are escaped (the intro and note keep only `<b>`, `<i>`, `<sup>`), so no table markup lives in a card
+file. `serializeCardData` carries it through the editor's export. Re-run after touching `cardExampleHTML`, the field
+lists or the `.card-example` rules: `node .claude/test-card-example.js`.

@@ -332,18 +332,38 @@ EX_NOTE = ('Every word also carries three real example sentences'
            + (f'; the sentence corpus has nothing at all for the other {ex0}, which are kept '
               'because the word list is set by the exam board and not by the corpus' if ex0 else ''))
 
+# WHAT THE DESCRIPTION SAYS ABOUT THE LIST IS THE LEVEL'S OWN (Nov 2026, the German beginner pass).
+# These three were A1's sentences typed into DESC, so the first A2 deck written here called itself
+# "words for the Goethe-Zertifikat A1: Start Deutsch 1" from "about 650 words".  A1's strings are
+# the ones that were in DESC, character for character, so its description is what it was.
+EXAM_NAME = {'a1': 'Goethe-Zertifikat A1: Start Deutsch 1'}.get(LEVEL, 'Goethe-Zertifikat ' + LEVEL.upper())
+LIST_NAME = {'a1': 'Goethe-Zertifikat A1 Start Deutsch 1 Wortliste'}.get(
+    LEVEL, 'Goethe-Zertifikat ' + LEVEL.upper() + ' Wortliste')
+if LEVEL == 'a1':
+    LIST_NOTE = (
+        "The vocabulary is the exam board's own published word list, read out of the Wortliste the "
+        "Goethe-Institut prints for that exam: its alphabetical list of about 650 words, including "
+        "the derivable sub-entries it marks (das Ende under enden, die Antwort under antworten), "
+        f"plus the {groups} words of its Wortgruppenliste — the numbers, the days, the months, the "
+        "seasons, the colours, the compass points and the units — which the alphabet leaves out, so "
+        "that a deck built from the list alone would have no word for Monday in it. ")
+else:
+    _wl = json.load(open(lvlf('wortliste.json')))
+    _wg = json.load(open(lvlf('wordgroups.json')))
+    LIST_NOTE = (
+        "The vocabulary is the exam board's own published word list, read out of the Wortliste the "
+        f"Goethe-Institut prints for that exam: the {len(_wl):,} entries of its alphabetical list and "
+        f"the {len(_wg)} words of its Wortgruppenliste (the groups it sets apart: the numbers, "
+        "the days and the times of day, the family, jobs, school subjects, countries and the like). Words the decks of the lower "
+        f"levels already teach are not repeated, which leaves the {n} here. ")
+
 DESC = (
     "Both study directions in one deck: German → English (see the German, recall the meaning) "
     "and English → German (see an English meaning, recall the German). Each direction is a card "
     f"of its own with its own schedule, so recognising a word and producing it are learnt "
-    f"separately. {n} words for the Goethe-Zertifikat A1: Start Deutsch 1, the German "
+    f"separately. {n} words for the {EXAM_NAME}, the German "
     "qualification awarded by the Goethe-Institut. "
-    "The vocabulary is the exam board's own published word list, read out of the Wortliste the "
-    "Goethe-Institut prints for that exam: its alphabetical list of about 650 words, including "
-    "the derivable sub-entries it marks (das Ende under enden, die Antwort under antworten), "
-    f"plus the {groups} words of its Wortgruppenliste — the numbers, the days, the months, the "
-    "seasons, the colours, the compass points and the units — which the alphabet leaves out, so "
-    "that a deck built from the list alone would have no word for Monday in it. "
+    + LIST_NOTE +
     "The cards are ordered roughly by how common the word is in everyday German, so the words "
     "you meet most often come first: the order is taken from a frequency list built from film "
     "and television subtitles, with a phrase — which a list of single words cannot see — placed "
@@ -365,7 +385,7 @@ DESC = (
     + EX_NOTE +
     ", chosen where possible to show three different inflected forms rather than the same one "
     "three times, with the word picked out in colour and a speaker beside it. "
-    "Word list: Goethe-Zertifikat A1 Start Deutsch 1 Wortliste (goethe.de) — the list of words "
+    f"Word list: {LIST_NAME} (goethe.de) — the list of words "
     "only; the example sentences printed beside them in that document are the Goethe-Institut's "
     "own and are not reproduced here. Meanings, genders, plurals, feminines and conjugations: "
     "English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Frequency ordering: a word "

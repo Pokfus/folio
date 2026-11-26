@@ -16,7 +16,14 @@
    PHASE 5: the v1 shape files (world.js, us-states.js, china-provinces.js, russia-subjects.js, world-capitals.js, us-cities.js) are gone. Their names, label points, near-ring boxes, dot tables and neighbour
    lists were frozen ONCE into .claude/atlas-build/frozen/layers.json (freeze-v1.js, docs/atlas-v2-phase5-plan.md §4.6), and this builder reads that: the join to the engine's entity table, and every check
    below, are unchanged. A world row gains an 8th element, the largest ring's bounding-box area (Find it's size filter); the neighbour lists the "describe the map" setting prints go to their own lazy file,
-   atlas/data/card-neighbours.js. */
+   atlas/data/card-neighbours.js.
+
+   THE STATES OF THE PAST (2026-11-19, the Historical States collection; docs/historical-states-card-plan.md). The layer `past-states` is read off atlas/data/history.bin, not off a shape file: one key per
+   polity of the history (kind `polity`, less the 1920 `snapshot` series of .claude/polity-spec.json, which exist for one card's borders), named as the Atlas names it IN THE YEAR OF ITS GREATEST EXTENT
+   (atlas/data/polity-names.js: "Roman Empire" for pol:rome at 117). The row is [entity id, label lon, lat, west, south, east, north, YEAR, view lon, view lat, zoom]: the year, the zoom and the box are
+   build-glossary-places.js `entityExtent` — the glossary windows' own rule, so a term's window and a card's window of one state agree on the year — the view's centre is the middle of that box, and the label point is the anchor of
+   the largest face alive that year (a point inside the state). The window draws the whole history at that year and tints the entity (atlas-windows.js `pastLayer`). Its neighbours for the
+   "describe the map" sentence are EXACT: the other polities whose faces of that year share an arc with one of its own, by the names they carry that year. */
 "use strict";
 const fs = require("fs"), path = require("path"), crypto = require("crypto");
 const HERE = __dirname, ROOT = path.join(HERE, "..", "..");
@@ -57,6 +64,8 @@ const LAYERS = [
 const r3 = (v) => Math.round(v * 1000) / 1000;
 // the layers whose units are in atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md), one per country of admin1-spec.json
 const ADMIN1_LAYERS = [{ layer: "india-states", a3: "IND", parent: "adm0:ind" }];
+/* the layers read off atlas/data/history.bin: the states of the past, each at the year of its greatest extent (the header above) */
+const PAST_LAYERS = [{ layer: "past-states" }];
 const Lbl = require("./lib/label.js");
 const EXTRACT = JSON.parse(fs.readFileSync(path.join(HERE, "admin1-source.json"), "utf8")), SPEC = JSON.parse(fs.readFileSync(path.join(HERE, "admin1-spec.json"), "utf8"));
 /* the seats' coordinates are Wikidata's (admin1-capitals.json, fetched 2026-11-14): a source block of its own, as build-places.js writes for its Wikidata items */
@@ -68,7 +77,7 @@ function build() {
   const byIso = new Map(ENT.filter((e) => e.iso).map((e) => [e.iso.toUpperCase(), e]));
   const byName1 = new Map(ENT.filter((e) => e.kind === "admin1").map((e) => [fold(e.name), e]));
   const usedIds = new Set();
-  const nbrs = {};
+  const nbrs = {}, pastYears = {};
   for (const L of LAYERS) {
     const FZ = FROZEN[L.layer];
     if (!FZ) { problems.push(L.layer + ": frozen/layers.json has no such layer"); continue; }
@@ -127,6 +136,44 @@ function build() {
     }
     nbrs[AL.layer] = nb;
   }
+  for (const PL of PAST_LAYERS) {
+    const AF = require(path.join(ROOT, "atlas", "atlas-format.js")), { entityExtent } = require("./build-glossary-places.js");
+    const HT = AF.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas", "data", "history.bin")))), H = HT.header;
+    const spec = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"), "utf8")).polities;
+    const PN = (() => { const g = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "polity-names.js"), "utf8"))(g); return g.ATLAS_POLITY_NAMES.names; })();
+    const nameAt = (e, y) => { const r = (PN[e.id] || []).find((q) => q[0] <= y && y <= q[1]); return r ? r[2] : e.name; };
+    const isState = (e) => e.kind === "polity" && !((spec[e.id.replace(/^pol:/, "")] || {}).snapshot);
+    const out = layers[PL.layer] = {}, nb = {}, rowOf = new Map();
+    for (const e of H.entities) {
+      if (!isState(e)) continue;
+      const x = entityExtent(HT, e.id); if (!x || !x.box) { problems.push(`${PL.layer}: ${e.id} has no step in history.bin`); continue; }
+      const key = nameAt(e, x.year);
+      if (out[key]) { problems.push(`${PL.layer}: "${key}" names ${out[key][0]} and ${e.id}`); continue; }
+      if (key.indexOf("|") >= 0) { problems.push(`${PL.layer}: "${key}" contains a pipe`); continue; }
+      /* the view's centre: the middle of the frame, where the frame is less than half the globe wide (the glossary window's centre is the area-weighted mean of the faces' anchors, which for a
+         state of ONE face is that face's label point — Rome's is in the Po valley); a state that spans more (the Spanish and Portuguese empires) keeps the weighted centre and the widest zoom */
+      const wide = x.box[2] - x.box[0] >= 180, wrap = (v) => ((v + 180) % 360 + 360) % 360 - 180;
+      const vlon = wide ? x.lon : wrap((x.box[0] + x.box[2]) / 2), vlat = wide ? x.lat : (x.box[1] + x.box[3]) / 2;
+      out[key] = [e.id, r3(x.at[0]), r3(x.at[1]), r3(x.box[0]), r3(x.box[1]), r3(x.box[2]), r3(x.box[3]), x.year, r3(vlon), r3(vlat), Math.round(x.zoom * 100) / 100];
+      rowOf.set(e.id, { key, year: x.year });
+    }
+    /* the neighbours, exact: at the state's year, every other polity one of whose faces alive then shares an arc with one of the state's own (a contested or nested face counts for the state it
+       is shared with or belongs to — entityExtent's own rule — and names nobody) */
+    const arcsOf = (fi) => { const a = new Set(); for (const ring of HT.faces[fi].rings) for (const ref of ring) a.add(Math.abs(ref) - 1); return a; };
+    for (const [id, r] of rowOf) {
+      const alive = H.steps.filter((st) => st[1] <= r.year && r.year <= st[2]);
+      const ownerOf = (st) => { const o = H.entities[st[0]]; return o.kind === "polity" ? [o] : o.kind === "contested" || o.kind === "nested" ? (o.partners || []).slice(0, o.kind === "nested" ? 1 : 9).map((pid) => H.entities.find((q) => q.id === pid)).filter(Boolean) : []; };
+      const mine = new Set(); for (const st of alive) if (ownerOf(st).some((o) => o.id === id)) for (const a of arcsOf(st[3])) mine.add(a);
+      const n = new Set();
+      for (const st of alive) { const os = ownerOf(st).filter((o) => o.id !== id && o.kind === "polity"); if (!os.length) continue; let touch = false; for (const a of arcsOf(st[3])) if (mine.has(a)) { touch = true; break; } if (touch) for (const o of os) n.add(nameAt(o, r.year)); }
+      nb[r.key] = [...n].sort((a, b) => a.localeCompare(b));
+    }
+    dots[PL.layer] = {};
+    nbrs[PL.layer] = nb;
+    /* a card of the layer says its year in its question ("In 117 CE, the state highlighted on the map was _____."): the year is this file's, so a rebuild of history.bin that moves a state's
+       greatest extent fails here until the card's question is rewritten */
+    pastYears[PL.layer] = (c, keys) => { for (const k of keys) { const row = out[k]; if (!row) continue; const y = row[7], want = y < 0 ? -y + " BCE" : y < 1000 ? y + " CE" : String(y); const q = String(c.question || "").replace(/<[^>]+>/g, " "); if (!new RegExp("(^|[^0-9,])" + want.replace(/ /g, "\\s") + "([^0-9]|$)").test(q)) problems.push(`${c.id}: its question does not name ${want}, the year ${k} is drawn at (${PL.layer})`); } };
+  }
   // every map card's layer, keys and dot are in the file
   const cards = loadCards().cards || loadCards();
   let nMap = 0;
@@ -138,6 +185,7 @@ function build() {
     if (!keys) { const inv = new Map(Object.entries(lay).map(([k, row]) => [row[0], k])); keys = (c.places || []).slice().sort().filter((id) => inv.has(id)).map((id) => inv.get(id)); if (!keys.length) problems.push(`${c.id}: no map.key, and no id of its places is a shape of ${c.map.layer}`); }
     for (const k of keys) if (!lay[k]) problems.push(`${c.id}: key "${k}" is not in ${c.map.layer}`);
     if (c.map.dot && !dots[c.map.layer][c.map.dot]) problems.push(`${c.id}: dot "${c.map.dot}" is not in ${c.map.layer}'s dots`);
+    if (pastYears[c.map.layer]) pastYears[c.map.layer](c, keys);
   }
   return { layers, dots, problems, nMap, nbrs };
 }
@@ -150,11 +198,14 @@ function build() {
    locators whose place's REGISTRY kind is water (the same pick), and of the name fallback only a name that BEGINS or ENDS with the water word ("Caspian Sea",
    "Lake Onega", "River Deben"; not "Operation Sea Lion" or "Fish River Canyon"; a ", <place>" qualifier set aside) — the window draws no dot for them and writes the name as a
    water name, blue and italic — `marks.rings` those of them whose locator name is a water outline of Find it's table (atlas/data/findit-waters.js: the window shades it,
-   fetching that file only for these), and `marks.peak` those whose place is a mountain or a hill, whose own mark is the Atlas's peak triangle (study.js markClass). */
+   fetching that file only for these), and `marks.peak` those whose place is a mountain or a hill, whose own mark is the Atlas's peak triangle (study.js markClass).
+   THE CAPITAL'S SQUARE (2026-11-20, the owner: "Ensure Rome and Athens always have square icons instead of dots in atlas windows"): `marks.capital` is the locators whose
+   place — the registry row whose name or alias IS the locator's name — is of kind `capital` (a present-day national capital — the glossary windows' rule of 2026-11-16, applied to the cards): the window draws its own mark, a studied
+   sibling at it and an `also` entry of the same name as the capital's square (atlas-windows.js `capitalCard` / `capitalName`). */
 function waterCards() {
   const R = require(path.join(ROOT, ".claude", "places-registry.js")), reg = R.loadRegistry();
   const WATER = new Set(["river", "lake", "sea", "ocean", "strait", "gulf"]), NAME = /\b(lake|lagoon|loch|lough|bay|gulf|strait|channel|sea|river)\b/i;
-  const registry = [], declared = [], byName = [], peak = [], nameWater = [];
+  const registry = [], declared = [], byName = [], peak = [], nameWater = [], capital = [];
   const byId = new Map((loadCards().cards || loadCards()).map((c) => [c.id, c]));
   const FW = (() => { const g = { window: {} }; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "findit-waters.js"), "utf8"))(g.window); return g.window.ATLAS_FINDIT_WATERS.waters; })();
   const EDGE = /^(lake|lagoon|loch|lough|bay|gulf|strait|sea|river)\b|\b(lake|lagoon|loch|lough|bay|gulf|strait|sea|river)$/i;
@@ -162,14 +213,15 @@ function waterCards() {
     if (!c.locator) continue;
     const kind = c.locator.kind || "point", rows = (c.places || []).map((id) => reg.rows.get(id)).filter(Boolean);
     if (rows.length) {
-      const f = R.fold(c.locator.name || ""), pick = rows.find((q) => R.fold(q.name || "") === f || (q.aliases || []).some((a) => R.fold(a) === f)) || rows[0];
+      const f = R.fold(c.locator.name || ""), named = rows.find((q) => R.fold(q.name || "") === f || (q.aliases || []).some((a) => R.fold(a) === f)), pick = named || rows[0];
       if (WATER.has(pick.kind)) registry.push(c.id);
       else if (pick.kind === "mountain" || pick.kind === "hill") peak.push(c.id);
+      else if (named && named.kind === "capital") capital.push(c.id);   // only a locator NAMED as the capital (its name or an alias): not the Forum, the pomerium or Arpinum, whose first place is Rome
     } else if (kind === "river" || kind === "sea") declared.push(c.id);
     else if (kind === "point" && NAME.test(c.locator.name || "")) { byName.push(c.id); if (EDGE.test(String(c.locator.name).split(",")[0].trim())) nameWater.push(c.id); }
   }
   const sort = (l) => l.slice().sort();
-  return { cards: sort(registry.concat(declared, byName)), registry: registry.length, declared: sort(declared), byName: sort(byName), marks: { water: sort(registry.concat(nameWater)), rings: sort(registry.concat(nameWater).filter((id) => FW[String((byId.get(id).locator || {}).name || "").trim().toLowerCase()])), peak: sort(peak) } };
+  return { cards: sort(registry.concat(declared, byName)), registry: registry.length, declared: sort(declared), byName: sort(byName), marks: { water: sort(registry.concat(nameWater)), rings: sort(registry.concat(nameWater).filter((id) => FW[String((byId.get(id).locator || {}).name || "").trim().toLowerCase()])), peak: sort(peak), capital: sort(capital) } };
 }
 const W = waterCards();
 const r = build();
@@ -177,12 +229,12 @@ if (r.problems.length) { console.error("build-card-faces: " + r.problems.length 
 const payload = { format: 1, layers: r.layers, dots: r.dots, water: { cards: W.cards, declared: W.declared, byName: W.byName }, marks: W.marks };
 const json = JSON.stringify(payload).replace(/\{"/g, '{\n"').replace(/\],"/g, '],\n"');
 const digest = crypto.createHash("sha256").update(JSON.stringify(payload)).digest("hex").slice(0, 16);
-const body = "/* sources: " + JSON.stringify(headerSources(["ne-10m-admin0", "ne-10m-admin1", "ne-10m-populated-places"]).concat([WD_SEATS])) + " */\n" +
-  "/* atlas/data/card-faces.js — GENERATED by .claude/atlas-build/build-card-faces.js (docs/atlas-v2-card-windows.md). Do not edit. For the map cards on the Atlas engine: layer → key → [entity id,\n   label lon, lat, west, south, east, north] and the dot tables (capitals and cities: name → [lon, lat, state]), and `water` — the locator cards whose subject is water (a registry kind of river / lake / sea / ocean / strait / gulf for the locator's place; `declared` and `byName` are the fallbacks for a locator with no resolved place), and `marks` — the locators whose own mark is a water name (`water`) or a peak (`peak`), by the same registry kind. From Natural Earth (public domain) through the v1 shape files. */\n" +
+const body = "/* sources: " + JSON.stringify(headerSources(["ne-10m-admin0", "ne-10m-admin1", "ne-10m-populated-places", "cliopatria"]).concat([WD_SEATS])) + " */\n" +
+  "/* atlas/data/card-faces.js — GENERATED by .claude/atlas-build/build-card-faces.js (docs/atlas-v2-card-windows.md). Do not edit. For the map cards on the Atlas engine: layer → key → [entity id,\n   label lon, lat, west, south, east, north] and the dot tables (capitals and cities: name → [lon, lat, state]), and `water` — the locator cards whose subject is water (a registry kind of river / lake / sea / ocean / strait / gulf for the locator's place; `declared` and `byName` are the fallbacks for a locator with no resolved place), and `marks` — the locators whose own mark is a water name (`water`) or a peak (`peak`), by the same registry kind. From Natural Earth (public domain) through the v1 shape files. The layer `past-states` is the states of atlas/data/history.bin (Cliopatria, CC BY 4.0), each at the year of its greatest extent: [entity id, label lon, lat, west, south, east, north, year, view lon, view lat, zoom]. */\n" +
   "window.ATLAS_CARD_FACES = " + json.replace(/^\{"format":1,/, '{"format":1,"digest":"' + digest + '",') + ";\n";
 /* the "describe the map" sentence's data (Settings → Describe geography maps): layer → the card's key (a shape's name, or a key-list joined by "|") → the names of the shapes it borders, among that layer's own shapes.
    Lazy: only a reader who switched the setting on fetches it. Frozen from the shapes by freeze-v1.js (the proximity-on-a-grid rule, two cells to count). */
-const nbrBody = "/* sources: " + JSON.stringify(headerSources(["ne-10m-admin0", "ne-10m-admin1"])) + " */\n" +
+const nbrBody = "/* sources: " + JSON.stringify(headerSources(["ne-10m-admin0", "ne-10m-admin1", "cliopatria"])) + " */\n" +
   "/* atlas/data/card-neighbours.js — GENERATED by .claude/atlas-build/build-card-faces.js from frozen/layers.json. Do not edit. layer → map-card key → the shapes it borders on that layer's own map (the sentence the\n   \"Describe geography maps\" setting prints under a map card). */\n" +
   "window.ATLAS_CARD_NEIGHBOURS = " + JSON.stringify({ format: 1, layers: r.nbrs }).replace(/\],"/g, '],\n"') + ";\n";
 if (process.argv.includes("--check")) {

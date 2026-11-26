@@ -3,12 +3,17 @@
    Reads every decks/Bengali-*.folio-deck.json and fails on the faults this pipeline has had or could have:
    a word taught on two levels, a card defined by a pointer rather than English ("alternative form of …",
    "objective of …"), a headword that is not in the Bengali script, a level card with no romanisation, a forms label
-   the generator does not write, unbalanced HTML, an id out of sequence, two notes sharing an English side
-   (the reverse card would have two answers), a table cell the y-stem template botched (সময়য়ের). */
+   the generator does not write, unbalanced HTML, an id that is not the note's PINNED one
+   (.claude/decks/bengali-ids.json; until the beginner pass of 2026-11-19 the ids were positions), two notes
+   sharing an English side (the reverse card would have two answers), a table cell the y-stem template botched
+   (সময়য়ের), a তুমি row that carries তুই's form (করতি for করতে), a card with neither a romanisation nor a
+   pronunciation.  The pin, the order and the alphabet deck have checks of their own:
+   `node .claude/decks/bengali-fix.js --check`, `node .claude/decks/build-bengali-alphabet.js --check`. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
+const IDS = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "decks", "bengali-ids.json"), "utf8"));
 const LABELS = new Set(["the", "plural", "of", "present", "past", "having done", "objective", "possessive"]);
 // a gloss that IS a pointer, anchored at its start: "my; genitive of আমি (ami)" carries its meaning
 const POINTER = /^(?:alternative|obsolete|dated|rare|sadhu) (?:form|spelling) of |^(?:inflection|synonym) of [^;]*$|^(?:objective|genitive|possessive|locative|oblique)[^;]* of \S+(?: \([^)]*\))?$|^(?:first|second|third)-person[^;]* of /i;
@@ -24,17 +29,23 @@ for (const f of files) {
   const alphabet = /Alphabet/.test(d.meta.title);
   const sides = new Map();
   d.cards.forEach((c, i) => {
-    const F = c.fields, w = F.Word;
-    if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
-    if (!BENG.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not in the Bengali script: " + w);
+    const F = c.fields, w = alphabet ? F.Key : F.Word;
+    const pinned = (IDS[id] || {})[w];
+    if (!pinned || c.id !== "u_" + id + "_" + pinned) bad(f + ": " + w + " has id " + c.id + ", pinned " + pinned);
     if (alphabet) {
+      if (!F.Letter) bad(f + ": " + w + " shows no letter");
+      if (c.type !== "bn-abc") return;                // a rule card has one side
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);
       return;
     }
+    if (!BENG.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not in the Bengali script: " + w);
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
-    if (!F.Roman) bad(f + ": " + w + " has no romanisation");
+    if (!F.Roman && !F.IPA) bad(f + ": " + w + " has neither a romanisation nor a pronunciation");
+    const hab = /<div class="uc-cjh">habitual past<\/div>(.*?)<\/div><\/div>/.exec(F.Table || "");
+    const tumi = hab && /<span class="uc-cj-p">তুমি<\/span><span class="uc-cj-f">([^<]*)/.exec(hab[1]);
+    if (tumi && /তি$/.test(tumi[1])) bad(f + ": " + w + " prints তুই's habitual past in তুমি's row: " + tumi[1]);
     if (!F.English) bad(f + ": " + w + " has no English");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());

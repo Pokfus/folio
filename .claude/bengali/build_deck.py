@@ -12,6 +12,10 @@ WHAT A CARD CARRIES:
   · the headword in the Bengali script, with Wiktionary's ROMANISATION beneath
     it (kôra, ami), so a learner still reading slowly is never stuck on the
     script -- the Hindi set's rule, kept for its sister;
+  · beneath that, Wiktionary's PRONUNCIATION in IPA where it gives one (the
+    field `IPA`, the beginner pass of 2026-11-19): the romanisation follows the
+    SPELLING (bola, hoōẇa) and the transcription gives the SOUND (/bɔla/,
+    /hɔo̯a/).  `extract.ipa_of` says which transcription; none is composed;
   · the meanings, grouped by part of speech.  Bengali has NO grammatical
     gender, so a noun's label is bare;
   · one line of key forms: a noun's definite form ("the ...", -টা), its plural
@@ -37,7 +41,7 @@ from bengali_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'bengali'
 COLOR = '#574518'
-FIELDS = ['Bengali', 'Roman', 'Word', 'English', 'Forms', 'Table', 'Examples']
+FIELDS = ['Bengali', 'Roman', 'IPA', 'Word', 'English', 'Forms', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'pron': 'pronoun', 'det': 'determiner', 'postp': 'postposition',
@@ -47,7 +51,8 @@ POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
 
 SAY = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>'
 WORD = ('<div class="uc-word">{{Bengali}}' + SAY + '</div>'
-        '{{#Roman}}<div class="uc-rom">{{Roman}}</div>{{/Roman}}')
+        '{{#Roman}}<div class="uc-rom">{{Roman}}</div>{{/Roman}}'
+        '{{#IPA}}<div class="uc-ipa">{{IPA}}</div>{{/IPA}}')
 ASK = '<div class="uc-ask">Say it in Bengali</div><div class="uc-field">{{English}}</div>'
 FORMS = '{{#Forms}}{{Forms}}{{/Forms}}'
 TAIL = ('{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
@@ -189,6 +194,10 @@ def english(ents, word=''):
             t = gloss_text(g['g'])
             if not t:
                 continue
+            # WHOSE WORD IT IS: Wiktionary's own label of the community or the side of the
+            # border a sense belongs to (`extract.whose`), kept in front of the meaning
+            if g.get('whose') and e['pos'] not in GLOSS.get(word, {}):
+                t = f"({g['whose']}) {t}"
             if t and t not in seen:
                 seen.add(t)
                 gl.append(t)
@@ -280,11 +289,15 @@ def noun_cell(tb, case, num, word=''):
 
 def person(tb, base, skip=()):
     """আমি, তুই, তুমি, সে, আপনি: the two familiar second persons share their tags,
-    and Wiktionary's table gives the intimate (তুই) form first."""
+    and Wiktionary's table gives the intimate (তুই) form first.  Where it gives তুই TWO
+    forms (the habitual past: করতিস, করতি, then তুমি's করতে) the তুমি cell is the LAST of
+    the run, not the second: until the beginner pass (2026-11-19) 137 tables printed
+    তুই's করতি in তুমি's row."""
     sk = ('participle',) + tuple(skip)
+    fam = cells(tb, *base, 'familiar', 'second-person', skip=sk)
     return [('আমি', cell(tb, *base, 'first-person', skip=sk)),
             ('তুই', cell(tb, *base, 'familiar', 'second-person', skip=sk)),
-            ('তুমি', cell(tb, *base, 'familiar', 'second-person', skip=sk, nth=1)),
+            ('তুমি', fam[-1] if len(fam) > 1 else None),
             ('সে', cell(tb, *base, 'familiar', 'third-person', skip=sk)),
             ('আপনি', cell(tb, *base, 'polite', skip=sk))]
 
@@ -394,10 +407,15 @@ def build(rows, lex, exs):
         main = ents[0]
         word = r['word']
         roman = r.get('roman') or main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
+        # the pronunciation of THIS spelling: a word printed in the inventory's spelling of
+        # another entry (নেই, filed under নাই) takes its own entry's, never the target's
+        ipa = r.get('ipa', '') if r.get('via') else \
+            (main.get('ipa') or next((e['ipa'] for e in ents if e.get('ipa')), ''))
         ex = exs.get(r['key'], [])
         cards.append({'sub': r.get('sub', ''), 'fields': {
             'Bengali': f'<div class="uc-word">{E(word)}</div>',
             'Roman': E(roman),
+            'IPA': E(ipa),
             'Word': word,
             'English': english(ents, word),
             'Forms': forms_line(main, word, main['roman']),
@@ -405,7 +423,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex, ' ' in word),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'], 'sub': r.get('sub', ''),
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'ipa': bool(ipa),
+                        'forms': bool(cards[-1]['fields']['Forms'])})
     return cards, entries
 
 
@@ -418,7 +437,9 @@ def desc(entries, n):
     ex3 = sum(1 for e in entries if e['examples'] == 3)
     ex0 = sum(1 for e in entries if e['examples'] == 0)
     nouns = sum(1 for e in entries if e['pos'] == 'noun')
+    nouns_f = sum(1 for e in entries if e['pos'] == 'noun' and e['forms'])
     verbs = sum(1 for e in entries if e['pos'] == 'verb')
+    ipa = sum(1 for e in entries if e['ipa'])
     SC = SCOPE[LEVEL]
     EX_NOTE = ('Every word carries three real example sentences' if ex3 == n else
                f'Real example sentences come with {n - ex0:,} of the {n:,} words, three apiece for '
@@ -443,13 +464,20 @@ def desc(entries, n):
         "the words you meet most often come first. The deck teaches the standard colloquial "
         "language (cholito bhasha) shared by West Bengal and Bangladesh; where an everyday word "
         "differs between the two — জল and পানি for water, নমস্কার and সালাম for a greeting — "
-        "both are taught. Every headword is printed in the Bengali script with a romanisation "
-        "beneath it, Wiktionary's own (ô for the open o of the inherent vowel, ō where the "
-        "o-sign is written, a dot under the retroflex letters, ẏ and ẇ for the glides: kôra, "
-        "bhalō), so the deck can be studied before the script is fluent; the Bengali Alphabet "
-        "deck, the first in this collection, teaches the script itself. Bengali has no "
-        f"grammatical gender. The {nouns} nouns show their definite form ('the …', with -টা), "
-        "their plural and their genitive ('of …'); "
+        "both are taught, and a meaning the dictionary marks as one community's or one "
+        "country's carries that mark: (Hinduism), (chiefly Islam), (chiefly India). Every "
+        "headword is printed in the Bengali script with two lines beneath it. The first is "
+        "Wiktionary's romanisation, which follows the SPELLING (ô or o for the inherent vowel, "
+        "ō where the o-sign is written, ś for the three s-letters, a dot under the retroflex "
+        "letters, ẏ and ẇ for the glides: kôra, bhalō) and is not a guide to the sound, "
+        f"Bengali spelling being far from Bengali speech. The second, on {ipa:,} of the {n:,} "
+        "cards, is Wiktionary's pronunciation in the International Phonetic Alphabet "
+        "(/kɔɾa/) — where it gives one for each of two accents, the one it labels Rarh, the "
+        "other being Dhaka. The Bengali Alphabet deck, the first in this collection, teaches "
+        "the script and the sound each of those symbols stands for. Bengali has no "
+        f"grammatical gender. {nouns_f} of the {nouns} nouns show their definite form ('the …', "
+        "with -টা), their plural and their genitive ('of …'), the others having no table in "
+        "the dictionary; "
         f"the {verbs} verbs show their present, their past and their 'having done' form, where "
         "the stem's vowel changes and the irregular verbs show, and behind the All forms fold "
         "every tense by person, at the three levels of address — তুই intimate, তুমি familiar, "
@@ -474,9 +502,11 @@ def desc_phr(entries, n):
         "own. This is a companion to the five level decks, Bengali A1 to C1, and not one of them: a "
         "level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
         "here is taught by any of the levels. The Phrases subdeck holds greetings and wishes of both "
-        "communities (শুভ সকাল, ঈদ মোবারক, শুভ বিজয়া), the phrasebook sentences a learner needs whole "
-        "(আপনি কেমন আছেন, আমি বুঝি না, আমার সাহায্য লাগবে), with তুই, তুমি and আপনি where the "
-        "dictionary gives them, and the set everyday expressions (কিছু না, বার বার, দেখতে পাওয়া); "
+        "communities (শুভ সন্ধ্যা, ঈদ মোবারক, শুভ বিজয়া), the phrasebook sentences a learner needs "
+        "whole (আমার সাহায্য লাগবে, আমি জানতে চাই, আমার প্রশ্ন আছে) and the set everyday expressions "
+        "(কিছু না, বার বার, দেখতে পাওয়া) — the first greetings and questions of all (আসসালামু "
+        "আলাইকুম, শুভ সকাল, আপনি কেমন আছেন, আপনার নাম কি) are cards of Bengali A1, where a "
+        "beginner needs them; "
         "the Idioms are expressions whose meaning is not their words' (ঘোড়ার ডিম, 'a horse's egg', "
         "means nothing at all); the Proverbs are complete sayings. WHERE THESE COME FROM: every "
         "expression of English Wiktionary's Bengali that no level teaches was read, and these were "
@@ -485,7 +515,8 @@ def desc_phr(entries, n):
         "in Arabic, and vulgarities were left out. The dictionary's Bengali is small, so this deck is "
         "too. Within each subdeck the commonest expressions come first, by a frequency list built "
         "from film and television subtitles. Every expression is printed in the Bengali script with "
-        "Wiktionary's romanisation beneath it. "
+        "Wiktionary's romanisation beneath it and, where the dictionary gives one, its "
+        "pronunciation in the International Phonetic Alphabet. "
         + (f"Real example sentences come with {ex} of the {n} expressions. " if ex else "")
         + "Sources. Meanings and romanisation: English Wiktionary, via the kaikki.org extraction "
         "(CC BY-SA 4.0). Frequency: a word list built from OpenSubtitles (hermitdave/FrequencyWords, "

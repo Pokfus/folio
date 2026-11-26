@@ -69,7 +69,7 @@ exists).
 | `category` | the collection's name, e.g. `"Ancient Rome"` |
 | `question` | the clue — see **Questions** |
 | `questions` | an array of EXACTLY 2 more phrasings of the clue, same rules |
-| `answer` | the answer term, plain, **no leading "the", "a" or "an"** |
+| `answer` | the answer term, plain, **no leading "the", "a" or "an"** — the plan line's plain, most famous term; unique within the collection, but it MAY repeat a card of another collection (never steer away from the famous term for that) |
 | `answerText` | the same term again as plain text |
 | `answerDate` | the date line — see **Date line** — or `""` if the term has no date |
 | `abstract` | the background — see **Background** |
@@ -124,7 +124,7 @@ exists).
   facts ("scholars still disagree about…").
 - **British spelling** (colour, civilisation, centre, defence, practise as a verb).
 - **BCE / CE, never BC / AD**; the numeral leads ("301 CE").
-- **Centuries are numerals**: "11th century", "2nd millennium BCE".
+- **A century named is a numeral ordinal**: "11th century", "2nd millennium BCE" (a COUNT of centuries is in words, below).
 - **Non-round numbers above 20 are numerals** ("27 chapters"); round ones may be words ("thirty
   kings"). Write "32,000", never "32 thousand".
 - **Troop numbers and army sizes are always numerals** (2026-11-13, on request): "10,000 men", "300 hoplites",
@@ -133,8 +133,14 @@ exists).
   "8 metres", "3 years", "a 5-day battle", "100 years", never "fourteen miles" or "three years". The one
   exception is a span of ONE, which stays a word ("one day", "one year"). Proper names keep their words
   (the Seven Years' War, the Hundred Days), and so do quotations and translations.
+- **A count of centuries is in words** (2026-11-16, on request): "two centuries", "twelve to fifteen
+  centuries", never "2 centuries". The singular stays a numeral ordinal: "21st century", "the 5th century
+  BCE". A Roman century the voting or army UNIT keeps its numeral ("the 80 centuries of the first class").
+  `check-style.js` rule 6 enforces it; `--fix --only=6` converts.
 - **A span counted back from today runs from old to new** (2026-11-13, on request): "16,000 to 11,000 years
   ago", "between 50 and 40 million years ago", never the larger number second.
+- **A percentage takes the sign** (2026-11-20, on request): "35%", "5%", "between 15 and 20%", never
+  "35 per cent", "35 percent" or "five per cent". A quotation keeps its own words.
 - **Times of day are numerals with a colon and AM / PM** (2026-11-13, on request): "11:15 AM", "5:00 PM",
   never "five o'clock", "6.00", "11 am" or a 24-hour "13:32". Quotations keep their own wording.
 - **Saint is written in full in a name** (2026-11-13, on request): Saint Petersburg, Saint Louis, Saint Paul's
@@ -368,7 +374,7 @@ with no single country attached. Same style rules as cards.
 - [ ] Valid JSON, nothing outside it; every `"` inside an HTML string escaped as `\"`.
 - [ ] Each question: one sentence, 20–34 words, blank mid-sentence, no modern scholar named.
 - [ ] Exactly 2 extra `questions`, each from a different angle.
-- [ ] `answer` has no leading article; bold in the background is the term only, article outside.
+- [ ] `answer` has no leading article and no other card of the SAME collection answers it (other collections may); bold in the background is the term only, article outside.
 - [ ] Background: 10 sentences, 5 + ` <br><br> ` + 5, 270–330 words, a marker on every sentence.
 - [ ] 5–8 sources, each ending in a URL you have actually opened; every source pointed at; no
       Wikipedia; nothing invented.

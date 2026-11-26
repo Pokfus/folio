@@ -59,6 +59,7 @@ never touch `topology.bin`, `tiles/`, `water*` or `relief/` without the land fil
 | `card-places.js`, `glossary-places.js` | card → places, glossary term → place | `build-card-places.js`, `build-glossary-places.js` (inputs: the cards' heavy `places`, `.claude/atlas-build/glossary-places-input.json`) |
 | `wars.js` | every `card.war` side resolved to entities | `build-wars.js --check` |
 | `land-changes.js` (29 KB) | the dated land-change layer (2026-10-18): areas that were water until a sourced year — the Zuiderzee polders — drawn in the lake colour over the land in the years before each fell dry, with the coast of the day | `build-land-changes.js` (`--check` in CI); 📖 `docs/atlas-v2-historical-coastlines.md` |
+| `us-reservations.js` (117 KB) | a card window's set of areas (2026-11-20, `us-084`, `members.areas`): today's reservations and Oklahoma's former ones from the Census Bureau's 2023 AIANNH file, painted by the window (docs/map-cards.md, last section) | `build-area-sets.js --check` |
 | `card-faces.js`, `card-neighbours.js` | a map card's key joined to an engine entity; the "describe the map" sentence's neighbours | `build-card-faces.js --check` |
 | `country-names.js` | the 257 present-day countries with a label point, and the 55 v1 spellings → v2 names | `build-country-names.js --check` |
 | `findit-areas.js` | Find it's dated area rings (frozen from the retired `polities.js`) | frozen once; no builder (`.claude/atlas-build/frozen/README.md`) |

@@ -4325,7 +4325,7 @@ rumu or the meltage fee).
   `Secret_succession`, `Ethnic_Classification_Project`, `Ward-and-market_system`, `Siyi_Guan` (a redirect
   to Hanlin Academy), `Yu_ji_tu`. `Ever-normal_granary`, `Weisuo_system` and `Huguang_fills_Sichuan` are
   redirect titles.
-- **Later plan lines that now need another answer**: `arch-351` (Siheyuan, now `cnh-766`), `ph-293`
+- **Later plan lines that now need another answer**: `arch-351` (Siheyuan, now `cnh-766`), `phi-293`
   (Filial piety, now `cnh-743`); `eg-810` should not take bare "corvée" (`cnh-717`); `cnh-820`/`cnh-821`
   should not take huiguan or piaohao; `ko-472` (the Joseon censorate) should take a Korean answer.
 - Aliases dropped before import because they already mean something else in the corpus: "Son of Heaven"
@@ -4355,7 +4355,7 @@ plan lines already were an answer and were kept (`Qianzhuang`, `Mozi`, `Wu Xing`
 
 **How the batch was steered.** As for `cnh-702`–`801`: each plan line was given one suggested answer checked
 against every card answer, glossary key and alias, and plan line of every plan, before twenty writers started.
-Twenty-three plan lines already matched something. The Philosophy plan (`ph-286`–`ph-313`) has a line for
+Twenty-three plan lines already matched something. The Philosophy plan (`phi-286`–`phi-313`) has a line for
 nearly every Chinese school and thinker, so the cards took another angle and say so in their notes:
 Chinese philosophy → **Huang–Lao**, Hundred Schools → **Lüshi Chunqiu**, Confucius → **Yan Hui**,
 Analects → **Zilu**, Ren → **Shu (reciprocity)**, Li → **Liji**, Junzi → **Zhongyong**, Confucianism →
@@ -4369,7 +4369,7 @@ Academy is `cnh-183`; Champa rice, Tael, jiaozi, huizi, Diyu, Guandi, Kitchen Go
 White Horse Temple were all already taken, which is why `cnh-803` is **Hemudu culture**, `cnh-811`
 **Sycee**, `cnh-810` **Great Ming Treasure Note**, `cnh-870` **Dongyue Dadi**, `cnh-868` **Wenchang Wang**
 and `cnh-882` **Liu Ying**. `cnh-895` took **Emperor Taiwu of Northern Wei** because the Huichang persecution
-is `cnh-389`. `cnh-867` took the **Science and Metaphysics debate** because New Confucianism is `ph-336`.
+is `cnh-389`. `cnh-867` took the **Science and Metaphysics debate** because New Confucianism is `phi-336`.
 
 **What carried the batch.** Chinese Wikisource for the dynastic histories and the classics (the juan URLs differ
 per work: 卷006 for some, 卷6 for others, and a few titles 404), archive.org full texts for Legge, Giles,
@@ -4496,8 +4496,8 @@ unlinked: `Two_Handles` (Greek amphorae), `City_God_(China)` (Babylonian and Gre
   take **Qimin yaoshu** (`cnh-802`); `cnh-980` (Compass) should take the invention and navigation, since
   **Luopan** (`cnh-872`) stays on the geomancer's disc; `cnh-937` (Dunhuang manuscripts) and `cnh-958` (Jingdezhen)
   must not repeat **Mogao Caves** (`cnh-893`) and the **Belitung shipwreck** (`cnh-817`); `cnh-992` (Dujiangyan)
-  is free because `cnh-804` took the Zhengguo Canal; `ph-294` (the rectification of names), `ph-305` (the butterfly
-  dream), `ph-307`/`ph-308` (universal love, Mohist logic), `ph-312` (Gongsun Long) and `ph-336` (New Confucianism)
+  is free because `cnh-804` took the Zhengguo Canal; `phi-294` (the rectification of names), `phi-305` (the butterfly
+  dream), `phi-307`/`phi-308` (universal love, Mohist logic), `phi-312` (Gongsun Long) and `phi-336` (New Confucianism)
   were deliberately left alone.
 - **Dates the writers converted from reign years** (the sources give only reign years): Zhang Di's visit 85 CE, the
   Tang decrees 619, 630 and 739 (`cnh-833`); Hou Hanshu dates for Liu Ying (39–71 CE); 290 CE for the Dharmaraksa

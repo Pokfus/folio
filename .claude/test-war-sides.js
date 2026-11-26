@@ -75,7 +75,9 @@ const warHash = crypto.createHash("sha256").update(JSON.stringify(warCards.map((
    225–222 and 396–265 BCE); nothing else in any block moved. Before it: 6ad97d32… (sha256 of JSON.stringify of every war card [id, war] on main at 352d151; 2d changed none). */
 /* Re-pinned 2026-10-25 for ONE deliberate change: gr-521, wh-330 and gr-561 carry `zoom: 24`, because their sides are now drawn town by town (war-poleis.json) and
    the fit of the poleis of Sicily, the Hellespont and Thrace opened the window on the whole Mediterranean. Before it: 61e5ff91…. */
-const WAR_FIELD_SHA = "9c7725852c9031ac8a16f3716e9697c4a8aff529892061dc5f97e61a241ab1f8";
+/* Re-pinned 2026-11-20 for ONE deliberate change: gr-521 carries `year: -431` (the owner: "a single map showing the two sides at the start of the war"; the window draws that
+   year alone, with no timeline — docs/war-cards.md "One map: `year`"). Before it: 9c772585…. */
+const WAR_FIELD_SHA = "fab869b6c62669d4a7411a0c98e051a21efad42954ba88d2f45654a79972758b";
 check("the cards' `war` blocks are byte-identical to main's (v1 reads them until Phase 5)", warHash === WAR_FIELD_SHA, warHash.slice(0, 16));
 
 console.log("\n2) the table is derived\n");

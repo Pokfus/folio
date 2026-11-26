@@ -476,7 +476,7 @@
      Keep this list in step with EXTRA_FIELDS in .claude/card-io.js — split-cards.js --check slices
      this declaration out by text and fails if the two have drifted, because a field app.js expects
      lazily and the splitter leaves eager is a field that ships twice. */
-  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at; nothing reads it until 3b
+  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places", "example"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at; nothing reads it until 3b
   const cardExtraPrefix = (id) => String(id || "").replace(/-\d+$/, "");
   /* Has this card's heavy half arrived? A community card never has one (its whole record is in the
      deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */
@@ -543,6 +543,9 @@
   // a cloud-published overlay, or a bare {}) can never leave a section undefined for applyAdminEdits
   function normalizeAdminEdits(o) {
     if (!o || typeof o !== "object") o = {};
+    /* the philosophy cards became `phi-NNN` (2026-11-26; see PH_CARD): an overlay saved or published before carries
+       their old ids as keys and list entries. Only an exact quoted card id is rewritten — never text inside a field. */
+    try { const j = JSON.stringify(o); if (/"ph-\d{3}"/.test(j)) o = JSON.parse(j.replace(/"ph-(\d{3})"/g, '"phi-$1"')); } catch (e) {}
     const t = o.tree || {};
     return {
       cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossarySources: o.glossarySources || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
@@ -643,7 +646,15 @@
     toast("Undid last edit");
   }
   // per-card "don't auto-gloss these terms" list — set when the editor removes a gloss link in the background, so it stays removed
-  function glossOffList(id) { return (id && ADMIN_EDITS.glossOff && ADMIN_EDITS.glossOff[id]) || []; }
+  /* A TERM ONE CARD MUST NOT AUTO-LINK, SHIPPED (2026-11-18, on request: ww2-899's "wheel orders" are an Enigma machine's rotors, not the wheel):
+     the baked twin of the editor's `ADMIN_EDITS.glossOff`, merged under it. A hand-written data-k still links. */
+  /* …and us-375 (2026-11-19, on request): "Declaration of Independence" links site-wide, but its "Anti-Masonic Declaration of Independence" is another document */
+  /* …and jp-234, jp-237, jp-239 (2026-11-22, on request): "Taira" links the Taira clan, but these cards' first Taira is Taira no Yoritsuna or Taira no Kagetaka, men with no term of their own, and no bare clan mention follows */
+  const GLOSS_OFF_CARD = { "ww2-899": ["Wheel"], "us-375": ["United_States_Declaration_of_Independence"], "jp-234": ["Taira_clan"], "jp-237": ["Taira_clan"], "jp-239": ["Taira_clan"], "gw-907": ["Izu_Province"] };   // gw-907: "Fuji-Hakone-Izu National Park" is the park's name, not the old province
+  function glossOffList(id) {
+    const ed = (id && ADMIN_EDITS.glossOff && ADMIN_EDITS.glossOff[id]) || [], sh = (id && GLOSS_OFF_CARD[id]) || [];
+    return sh.length ? ed.concat(sh.filter((k) => ed.indexOf(k) < 0)) : ed;
+  }
   function setGlossOff(id, key, off) {
     if (!id || !key) return;
     if (!ADMIN_EDITS.glossOff) ADMIN_EDITS.glossOff = {};
@@ -1388,10 +1399,14 @@
      popup over the map; the precedent is the Atlas's card popup, which strips the locator block), none for a community deck's term; and when the engine cannot draw it (the bundle refused, no WebGL2 for a state of the
      past, a face the engine cannot find) the block GOES rather than the card window's sentence — a popup without a map is the popup of before. WHERE IT SITS (the owner, 2026-10-23): below the
      description and the Library banner, above the Sources fold — the definition is read first, the map is where it happened, the works come last. */
-  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as the gold square (a mountain or a hill as the peak triangle, 2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
+  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as a gold mark: the square a present-day capital's, the circle any other's (2026-11-16), a mountain or a hill the peak triangle (2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
+  /* A PRESENT-DAY NATIONAL CAPITAL IS THE ONLY SQUARE (2026-11-16, on request; atlas-windows.js `ownSquare`). The registry's `capital` is Natural Earth's ADM0CAP flag, which also marks
+     Johannesburg, not one of South Africa's three capitals (Pretoria, Cape Town and Bloemfontein). Its kind is read as a city's here. */
+  const GLOSS_NOT_CAPITAL = new Set(["Johannesburg"]);
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
+    if (w.kind === "capital" && GLOSS_NOT_CAPITAL.has(key)) w = Object.assign({}, w, { kind: "city" });
     const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' + (w.kind ? ' data-map-placekind="' + esc(w.kind) + '"' : "") +
@@ -1571,7 +1586,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "large", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", era: "ce", theme: "folio", fontSize: "large", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1782,8 +1797,13 @@
   /* A KEY or a LIST ENTRY is always an id, so either is mapped whenever the table names it. A string VALUE in
      an object is mapped only when it is shaped like a card id (`handoff.id`, a card-of-the-day record), because
      a value may be free text — a note, a name — and a reader called "dino" is not a collection. */
+  /* …AND PHILOSOPHY'S CARDS ARE `phi-NNN` (2026-11-26, on request: "Rename the philosophy card codes from 'ph' to
+     'phi'"). A rule rather than a table, since every card keeps its number: ph-007 is phi-007. Only CARD ids move —
+     the decks keep their `ph-…` ids, which no reader sees — so the rule matches three digits and nothing else. */
+  const PH_CARD = /^ph-(\d{3})$/;
+  function idRemap(v) { if (DINO_TO_PAL[v]) return DINO_TO_PAL[v]; const m = PH_CARD.exec(v); return m ? "phi-" + m[1] : v; }
   function dinoRemap(v, inObject) {
-    if (typeof v === "string") return (!inObject || /^dino-\d{3}$/.test(v)) ? (DINO_TO_PAL[v] || v) : v;
+    if (typeof v === "string") return (!inObject || /^(?:dino|ph)-\d{3}$/.test(v)) ? idRemap(v) : v;
     if (Array.isArray(v)) {
       const out = [];
       v.forEach((x) => {
@@ -1796,7 +1816,7 @@
     if (v && typeof v === "object") {
       const o = {};
       Object.keys(v).forEach((k) => {
-        const nk = DINO_TO_PAL[k] || k;
+        const nk = idRemap(k);
         if (nk !== k && (nk in v || nk in o)) return;   // the new id is already there: it is the newer record
         o[nk] = dinoRemap(v[k], true);
       });
@@ -1810,7 +1830,7 @@
       const v = st[k];
       if (!v || typeof v !== "object" || k === "user") return;   // `user` is the reader's name and join date
       const was = JSON.stringify(v);
-      if (was.indexOf('"dino') < 0) return;
+      if (was.indexOf('"dino') < 0 && was.indexOf('"ph-') < 0) return;
       const now = dinoRemap(v, false);
       if (JSON.stringify(now) !== was) st[k] = now;
     });
@@ -2012,7 +2032,9 @@
 
   /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
      sfx(name): click (buttons — a soft bubble pop), toggle (switches), pop (reveal / image viewer), good / bad (grades),
-     discover (a term or place opened for the first time),
+     discover (a term or place opened for the first time), reveal / reveal-right (a study card's answer shown — the second when
+     the typed answer was right), complete / timeup (a study session ends), add / remove (a deck in or out of the daily study),
+     fav (a favourite), plus good / bad on every daily game's verdict (2026-11-22),
      win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
      on by default); the shared AudioContext is created lazily and resumed inside the click gesture,
      which satisfies every browser's autoplay policy. Volumes are deliberately tiny. */
@@ -2118,6 +2140,8 @@
   }
   function sfx(name) {
     if (!sfxEnabled()) return;
+    // never queue a sound outside a gesture (a page drawn at load): a suspended context would play it late, on the next tap
+    try { if (navigator.userActivation && !navigator.userActivation.isActive && (!_sfxCtx || _sfxCtx.state !== "running")) return; } catch (e) {}
     const ctx = sfxCtx(); if (!ctx) return;
     const t = ctx.currentTime + 0.001;
     // the bubble itself, and a quieter one an octave above it that dies first — see sfxBubble
@@ -2132,6 +2156,30 @@
       sfxTone(ctx, t + 0.19, 1976, 0.26, 0.02, "sine");
       sfxTone(ctx, t + 0.28, 2637, 0.22, 0.014, "sine");
     }
+    /* ---- added 2026-11-22 (on request: sounds for a reveal, a finished session and more) ---- */
+    else if (name === "reveal") {   // a card turning over: a soft paper tap and an airy rising glide
+      sfxTap(ctx, t, 1800, 0.03, 0.035);
+      sfxTone(ctx, t + 0.01, 520, 0.16, 0.04, "sine", 780);
+      sfxTone(ctx, t + 0.08, 1040, 0.14, 0.012, "sine");
+    }
+    else if (name === "reveal-right") {   // the same turn, ending on a bright interval: what was typed was the answer
+      sfxTap(ctx, t, 1800, 0.03, 0.035);
+      sfxTone(ctx, t + 0.01, 587, 0.1, 0.04, "sine", 784);
+      sfxTone(ctx, t + 0.1, 1175, 0.2, 0.03, "triangle");
+    }
+    else if (name === "complete") {   // a study session finished: a calm rising arpeggio settling on a held chord
+      [392, 494, 587, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.1, f, 0.22, 0.04, "triangle"));
+      [392, 587, 784].forEach((f) => sfxTone(ctx, t + 0.42, f, 0.8, 0.022, "sine"));
+      sfxTone(ctx, t + 0.5, 1568, 0.5, 0.012, "sine");
+    }
+    else if (name === "timeup") {   // a timed box ran out: two soft falling bell tones
+      sfxTone(ctx, t, 880, 0.3, 0.04, "sine"); sfxTone(ctx, t + 0.22, 659, 0.45, 0.04, "sine");
+    }
+    else if (name === "add") {   // a deck joins the daily study: a quick upward pair
+      sfxTone(ctx, t, 523, 0.08, 0.04, "triangle"); sfxTone(ctx, t + 0.07, 784, 0.14, 0.04, "triangle");
+    }
+    else if (name === "remove") sfxTone(ctx, t, 494, 0.14, 0.035, "sine", 330);   // …and leaves it: one soft falling glide
+    else if (name === "fav") { sfxTone(ctx, t, 988, 0.12, 0.03, "sine"); sfxTone(ctx, t + 0.06, 1319, 0.2, 0.022, "sine"); }   // a favourite: a small chime
     else if (name === "levelup") {   // the level-up fanfare: a quick rising run into a held major chord with a sparkle on top
       [392, 523, 659, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.07, f, 0.14, 0.05, "triangle"));
       [523, 659, 784, 1047].forEach((f) => sfxTone(ctx, t + 0.32, f, 0.55, 0.03, "triangle"));
@@ -2185,7 +2233,8 @@
   /* WHAT LANGUAGE? IS DORMANT (2026-11-15, on request: "Make the following minigames completely dormant: What language?"), exactly as
      Multiple Choice is: out of DAILY_GAMES (the sweep needs nine again), off the home grid and refused by `route`; PAGES.whatlang, its
      pool (whatlang.js, still lazy), name, icon and meta stay, so reviving it is putting "whatlang" back here, in `valid`, and its tile back. */
-  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie"];
+  /* WHO IS THIS? (2026-11-19) joins the sweep, so it needs ten again. */
+  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whoisthis"];
   const DORMANT_GAMES = ["picture", "challenge", "whatlang"];
   /* ---------- THE GAMES ARCHIVE (Nov 2026, on request: admins may play any past day's draw) ----------
      Every daily draw is a pure function of a "YYYY-MM-DD" key, so replaying a past day is a matter of
@@ -2407,7 +2456,20 @@
      are separate functions rather than one with a flag because the difference matters in one direction only
      and getting it wrong is invisible: a blob that carries the log is a log that is capped again, since the
      whole record is re-sent on every save. */
-  function progressBlob() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
+  /* THE STUDY SETTINGS SYNC TOO (2026-11-22, on request: "active collection settings like daily limits or deck-specific limits
+     should synchronise across devices"). A deck's own limits were already synced (`deckOpts`); the DEFAULTS every deck follows —
+     new cards a day, the review cap, the order, variety, the day's end, easy days, the schedule — live in `S.settings`, which is a
+     device record (theme, text size, sound), so they never left the device. They ride in the blob as ONE derived field,
+     `studySettings`, picked from `S.settings` by `SYNCED_SETTINGS` and written back by `applyProgress`; `S.settings` stays the one
+     place every reader reads, so nothing migrates. A blob without the field (an older row, a fresh account) leaves this device's
+     settings as they are, and only keys the blob carries are written. */
+  const SYNCED_SETTINGS = ["newPerDay", "maxReviewsPerDay", "limitsCustom", "reviewRandom", "reviewOrder", "questionVariety", "loadBalance", "easyDays", "attemptFirst", "recallFirst", "dayEnd", "sched", "retention", "fsrsParams"];
+  function studySettingsBlob() { const o = {}, st = (S && S.settings) || {}; SYNCED_SETTINGS.forEach((k) => { if (st[k] !== undefined) o[k] = st[k]; }); return o; }
+  function applyStudySettings(o) {
+    if (!o || typeof o !== "object" || Array.isArray(o) || !S.settings) return;
+    SYNCED_SETTINGS.forEach((k) => { if (o[k] !== undefined) S.settings[k] = JSON.parse(JSON.stringify(o[k])); });
+  }
+  function progressBlob() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); p.studySettings = studySettingsBlob(); return JSON.parse(JSON.stringify(p)); }
   /* Install a whole progress record. The per-review log rides ALONGSIDE rather than inside it — it has a
      table of its own — so it is cleared here by name, which is the load-bearing half: without it, signing
      into a second account on one device would leave the first reader's card-by-card history sitting in Card
@@ -2423,6 +2485,7 @@
   function applyProgress(p, keepLog) {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
+    applyStudySettings(p && p.studySettings);   // the synced study defaults (see SYNCED_SETTINGS); absent = this device's stay
     /* An adopted blob carries its own `themes`, so a reader signing in on a fresh device must not have
        the theme they are wearing pulled out from under them: grandfather again on the new set, exactly as
        boot does. `themeGrandfather` only ever unlocks, so this can never take one away. */
@@ -3060,7 +3123,7 @@
       if (revTableMissing(r)) { _revTableMissing = true; return null; }
       if (!r.ok || !Array.isArray(r.data)) return from ? out : null;   // a half-read archive is still a truthful prefix
       r.data.forEach((row) => out.push([
-        DINO_TO_PAL[row.card_id] || row.card_id, Date.parse(row.reviewed_at), row.grade, row.state,
+        idRemap(row.card_id), Date.parse(row.reviewed_at), row.grade, row.state,
         row.prev_min, row.next_min, row.ease100, row.ds,
       ]));
       if (onPage) onPage(out.length);
@@ -3431,7 +3494,7 @@
          writers arrive. */
       const merged = Object.assign({}, row.data || {});
       if (movedDuringPull) {
-        PROGRESS_FIELDS.forEach((k) => {
+        PROGRESS_FIELDS.concat("studySettings").forEach((k) => {
           if (stableJson(afterPull[k]) !== stableJson(beforePull[k])) merged[k] = afterPull[k];
         });
       }
@@ -3537,7 +3600,12 @@
   }
   function esc(s) {
     return (s || "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
-  }
+  }  /* …and the same, keeping the italic and bold a title or caption is written with (2026-11-26, on request: "In the
+     Think It Through section, italics are not displayed correctly; for example, it says '<i>Daodejing</i>'. I've
+     noticed the same thing happen in the descriptions of images"). Everything is escaped first, then only a bare
+     <i>, </i>, <b>, </b>, <em>, </em> is given back — no attribute can ride through. */
+  function escInline(s) { return esc(s).replace(/&lt;(\/?)(i|b|em)&gt;/g, "<$1$2>"); }
+
   function stripHtml(s) { return (s || "").replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim(); }
 
   /* ---------- HTML sanitizer, for content Folio did NOT author ----------
@@ -4122,8 +4190,37 @@
        several collections and share no tag, so `text` is the test rather than a root: the term links in a card whose background names
        the empire (and in a popup whose own term's description does), and the "themes" of a book or a painting stay plain everywhere else.
        Not a bare /Byzanti/: gr-357, a poet's card, cites "the Suda, a Byzantine reference work" beside "his great theme". */
+    /* ASTRONOMY'S OWN SENSES (2026-11-20, on request: "vacuum (collection-specific gloss)", "Sun (collection-specific)", "eccentricity
+       (collection-specific gloss)"): "the Sun god" in an Egyptian card, "a vacuum of power", "his eccentricity" are not these terms.
+       Jupiter and Saturn carry their bare names as aliases of the PLANETS here only — in a Roman card they are the gods. */
+    /* "recite its Vedic hymns from memory" in a history card is not the cognitive faculty (2026-11-22, on request: "memory should be a collection-specific gloss for psychology") */
+    Memory: { roots: ["psych"], tags: ["psychology", "neuroscience"] },
+    /* the inference, not the kidnapping: "abduction" links by itself only in Philosophy (2026-11-26, on request, phi-026) */
+    Abductive_reasoning: { roots: ["phil"], tags: ["philosophy", "logic", "epistemology"] },
+    /* 2026-11-26, on request: the Roman auxilia link by themselves only in Ancient Rome ("auxiliaries" in a Chinese or
+       Greek card are not Rome's); a crop's ear is not the organ, so Ear links by itself only in Biology and Psychology
+       (eg-021); and "scales" is Biology's term alone (gr-607's comic weighing of verse is not fish scales) */
+    Auxilia: { roots: ["col-40"], tags: ["rome", "roman"] },
+    Ear: { roots: ["bio", "psych"], tags: ["biology", "anatomy", "psychology", "hearing", "neuroscience"] },
+    "Scale_(zoology)": { roots: ["bio"], tags: ["biology", "zoology"] },
+    Sun: { roots: ["astro"], tags: ["astronomy"] },
+    Vacuum: { roots: ["astro"], tags: ["astronomy", "physics"] },
+    Orbital_eccentricity: { roots: ["astro"], tags: ["astronomy"] },
+    "Jupiter_(planet)": { roots: ["astro"], tags: ["astronomy"] },
+    "Saturn_(planet)": { roots: ["astro"], tags: ["astronomy"] },
     "Theme_(Byzantine_district)": { roots: [], text: /Byzantine (?:Empire|empire|emperors?|state|army|provinces?)|Byzantium|Eastern Roman Empire/, tags: ["byzantium", "byzantine", "byzantine empire"] },
   };
+  /* A TERM THAT MEANS SOMETHING ELSE INSIDE A COLLECTION (2026-11-16, on request: "in the Ancient Egypt collection,
+     whenever the word Egypt is a gloss link, it should refer to the Ancient Egypt gloss, not the modern country").
+     Collection root id → { the key a surface resolves to: the key it opens instead }. Applied to a card's own
+     auto-links only (pass `cardId`); a hand-written data-k is left as written. */
+  const GLOSS_REDIRECT_IN = {
+    egypt: { Egypt: "Ancient_Egypt" },
+  };
+  function glossRedirectsFor(cardId) {
+    const root = cardId ? cardCollectionRoot(cardId) : null;
+    return (root && GLOSS_REDIRECT_IN[root.id]) || null;
+  }
   function glossScopedOff(cardId, text) {
     const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
     return Object.keys(GLOSS_ONLY_IN).filter((k) => {
@@ -4162,14 +4259,33 @@
     });
     let nd;
     while ((nd = walk.nextNode())) nodes.push(nd);
+    const redir = (!scope || scope === GLOSS_SCOPE_SITE) ? glossRedirectsFor(cardId) : null;   // GLOSS_REDIRECT_IN
     for (const tn of nodes) {
       const text = tn.nodeValue;
       idx.re.lastIndex = 0;
       let m, last = 0, frag = null;
       while ((m = idx.re.exec(text))) {
-        const surface = m[0];
-        const key = resolveGlossKey(idx, surface);
-        if (!key || linked.has(key) || surface.toLowerCase() === answer) continue;
+        let surface = m[0];
+        let key = resolveGlossKey(idx, surface);
+        /* …AND NOT THE SHORTER NAME AT THE SAME PLACE EITHER (2026-11-26, found on ww2-911: "Los Alamos laboratory" matched
+           the proper surface "Los Alamos Laboratory" in the wrong case, so "Los Alamos", starting at the SAME character,
+           was never tried and the term linked at its second mention). Before stepping one character on, the match's own
+           word-boundary prefixes are tried, longest first. */
+        if (!key) {
+          for (let i = surface.length - 1; i > 0 && !key; i--) {
+            if (!/[\s\-]/.test(surface[i])) continue;
+            const pre = surface.slice(0, i).replace(/[\s\-]+$/, "");
+            const k2 = pre.length >= 3 ? resolveGlossKey(idx, pre) : null;
+            if (k2) { key = k2; surface = pre; idx.re.lastIndex = m.index + pre.length; }
+          }
+        }
+        if (key && redir && redir[key] && (redir[key] in (window.GLOSSARY || {}))) key = redir[key];
+        /* A MATCH THAT RESOLVES TO NOTHING MUST NOT SWALLOW THE NAME INSIDE IT (2026-11-22, on a report: jp-202 linked
+           Go-Shirakawa at its SECOND mention). The pattern is case-insensitive, so "emperor Go-Shirakawa" matched the
+           proper surface "Emperor Go-Shirakawa", failed its exact-case lookup and consumed the whole phrase; the
+           search now resumes one character in, where "Go-Shirakawa" alone is found. */
+        if (!key) { idx.re.lastIndex = m.index + 1; continue; }
+        if (linked.has(key) || surface.toLowerCase() === answer) continue;
         if (!frag) frag = document.createDocumentFragment();
         if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
         const span = document.createElement("span");
@@ -4274,6 +4390,12 @@
      book the reader reached some other way. `bookSeek` is the quotation the reader is to find the paragraph of
      (`bookParaFind`), consumed by the book's first full paint. */
   let bookHold = null, bookSeek = null;
+  /* …AND THE SAME TRIP INTO THE TIMELINE PAGE AND BACK (2026-11-19, on request: "going to Egypt's whole timeline there
+     should be a button to go back to the card the reader was studying"). The delegated `.tl-all` listener fills it —
+     `{ card, rec }`, `rec` the study record captured BEFORE routing (route() clears it) or null where the card was not
+     being studied — and PAGES.timeline shows the "Back to card" pill while it holds. It survives moves WITHIN the
+     timeline page (the collection picker, the day buttons) and route() drops it on any other page. */
+  let tlHold = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -5732,7 +5854,13 @@
        it reads no global and no clock beyond its `t`, which is what lets `test-scheduler.js` walk every
        path as arithmetic. This needs the reader's own day boundary and the pre-grade `firstToday`, both
        of which are already in hand at this point and neither of which the scheduler is allowed to see. */
-    if (g !== "again" && firstToday) critMark(c);
+    /* A MISS RESETS THE PIPS (2026-11-22, on request: "When a card is answered incorrectly, these three dots should
+       reset. Only cards that are answered correctly three consecutive times on three different days should be
+       considered as 'learned'"). The three days must be an unbroken run: any "again", even on a card already
+       learned, empties the record, and only the next day's first correct recall starts it again. Undo restores
+       the whole card, `crit` included (undoSnapshot). */
+    if (g === "again") c.crit = [];
+    else if (firstToday) critMark(c);
     bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
     logReview(preStatus === "review", g !== "again", activeMs != null ? activeMs : ms, activeMs != null);
     logReviewDay(firstToday, g !== "again");
@@ -5847,7 +5975,7 @@
     const done = n >= CRIT_DAYS;
     const words = done
       ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
-      : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.";
+      : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not. A wrong answer starts the count again.";
     const lbl = done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days";
     return '<div class="crit-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-info="crit" data-cid="' + esc(id) + '" title="' + esc(words) +
       '" aria-label="' + esc(words) + '">' +
@@ -5891,8 +6019,8 @@
     if (kind === "crit") {
       const n = critCount(id), done = n >= CRIT_DAYS;
       return '<span class="ib-title">' + (done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days") + "</span>" +
-        '<span class="ib-row">Each dot is a <b>separate day</b> on which you answered this card correctly. Two right answers on the same day fill one dot, not two.</span>' +
-        '<span class="ib-row">After ' + CRIT_DAYS + " separate days the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
+        '<span class="ib-row">Each dot is a <b>separate day</b> on which you answered this card correctly. Two right answers on the same day fill one dot, not two, and a wrong answer empties all three.</span>' +
+        '<span class="ib-row">After ' + CRIT_DAYS + " separate days in a row without a miss the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
         '<span class="ib-row ib-quiet">The dots do not change when the card is next due — the schedule decides that on its own.</span>';
     }
     /* ONE DAY OF THE HOME PAGE'S WEEK (Oct 2026, on request) — the bar carries its own three figures (homeWeekHTML),
@@ -7772,9 +7900,11 @@
     // buried too: a card put off until tomorrow is not part of what this deck offers today
     const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
     const lrIds = [], rvIds = [], nwIds = [];
+    const held = isLangCtxId(id) && langAlphabetPending(id);   // the language's row deals only its alphabet as new
+    const heldA1 = isLangCtxId(id) && langA1Pending(id);       // …and no phrase before A1 is introduced
     ids.forEach((cid) => {
       const c = S.cards[cid];
-      if (!c) { nwIds.push(cid); return; }
+      if (!c) { if (langMayIntroduce(id, cid, held, heldA1)) nwIds.push(cid); return; }
       if (schedIsLearning(c.status)) lrIds.push(cid);
       else if (isDueNow(cid)) rvIds.push(cid);
     });
@@ -7851,7 +7981,7 @@
        `seen` stays GLOBAL across the buckets, so a card claimed by one deck cannot be dealt twice — a card
        a language's cap then drops is out of this session, which it would be anyway, the only decks it can
        sit in also being that language's. */
-    const buckets = new Map();
+    const buckets = new Map(), alphaHeld = new Map(), a1Held = new Map();
     const bucketFor = (k) => { let b = buckets.get(k); if (!b) buckets.set(k, b = { due: [], fresh: [] }); return b; };
     activeEntryIds().forEach((e) => {
       // "Skip today" sits the deck out without removing it — its LANGUAGE can sit it out too
@@ -7868,6 +7998,16 @@
           seen.add(id); b.due.push(id); if (!learning) rv--;
         });
       let nw = deckNewRemaining(e);
+      // a language still learning its alphabet introduces only alphabet cards — see langAlphabetPending
+      const lk = langCtxOf(e);
+      if (lk && !isScriptEntry(e)) {
+        if (!alphaHeld.has(lk)) alphaHeld.set(lk, langAlphabetPending(lk));
+        if (alphaHeld.get(lk)) nw = 0;
+      }
+      if (lk && isPhraseEntry(e)) {   // …and a phrase deck waits for A1 — see langA1Pending
+        if (!a1Held.has(lk)) a1Held.set(lk, langA1Pending(lk));
+        if (a1Held.get(lk)) nw = 0;
+      }
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
       // dedupe BEFORE the slice, or a card an earlier deck already claimed eats one of this deck's places
@@ -8273,6 +8413,32 @@
     }
     return _langById.get(deckId) || null;
   }
+  /* WHERE A CATALOGUE DECK STANDS IN ITS LANGUAGE (2026-11-22, on request: "the active collections/deck lists should
+     be ordered the same way as on the collections page … the new Sounds and Spellings deck … moved to the bottom of
+     the active collection instead of the top, and its cards aren't prioritised when studying the collection").
+     LANG_DECKS is written in each language's teaching order — the start-here deck (alphabet, sounds, pinyin) first —
+     and the Collections page draws it in that order, so the index IS the page's order. -1 for anything else. */
+  let _langRank = null;
+  function langCatalogRank(entryId) {
+    const d = uDeckIdOf(entryId);
+    if (!d) return -1;
+    if (!_langRank) {
+      _langRank = new Map();
+      (window.LANG_DECKS || []).forEach((r, i) => { if (r && r.id && !_langRank.has(r.id)) _langRank.set(r.id, i); });
+    }
+    const i = _langRank.get(d);
+    return i == null ? -1 : i;
+  }
+  /* …and a list re-dealt so its catalogue decks stand in that order. Only their SLOTS are refilled, exactly as the
+     curated collections' are at the top level: a group or another deck the reader dragged in keeps its place, and
+     the entries of one deck (its subdecks, its two directions) keep their own order among themselves. */
+  function inCatalogOrder(ids) {
+    const cat = ids.filter((e) => langCatalogRank(e) >= 0)
+      .map((e, i) => ({ e, i, r: langCatalogRank(e) }))
+      .sort((x, y) => x.r - y.r || x.i - y.i).map((x) => x.e);
+    let k = 0;
+    return ids.map((e) => (langCatalogRank(e) >= 0 ? cat[k++] : e));
+  }
   /* The entry names a deck this device has not downloaded — one of the LANGUAGE catalogue's, or one the
      signed-in account installed on another device (`sharedPendingMap`). Both draw the same row and neither
      yields a card; what differs is where the row reads its title from and which fetch its button runs. */
@@ -8451,7 +8617,7 @@
     cur.updatedAt = Date.now();
     // the subdecks a reader already had may have been renamed under them; the cascade is the download's
     const saved = uDeckSaveAll(deckId);
-    return { ok: true, deck: cur, saved: saved, kept: kept.length, notes: (norm.index || []).length, changes: changes };
+    return { ok: true, deck: cur, saved: saved, kept: kept.length, keptIds: kept, notes: (norm.index || []).length, changes: changes };
   }
   /* WHAT AN UPDATE CHANGED, as counts (Oct 2026, on request: "when users update one of their downloaded
      collections, a popup should appear with a very summarised changelog"). A deck file carries no
@@ -8490,6 +8656,7 @@
   /* The popup itself: one short line per kind of change, per deck, and the promise that matters most to
      the reader — their progress is kept — said once at the foot. `results` is [{ deck, changes, kept }]. */
   function openDeckUpdateSheet(results) {
+    const dropped = [].concat(...results.map((r) => r.keptIds || [])).filter((id) => UCARDS[id]);
     const line = (n, one, many) => n ? "<li>" + plural(n, one, many) + "</li>" : "";
     const blocks = results.map((r) => {
       const c = r.changes || {};
@@ -8510,10 +8677,45 @@
       (results.length === 1 ? "Deck updated" : plural(results.length, "deck", "decks") + " updated") + "</span></div>" +
       blocks +
       '<p class="dm-note">Your progress on every card is kept.</p>' +
-      '<div class="dm-actions"><button type="button" class="btn" data-act="close">Done</button></div>';
+      '<div class="dm-actions">' +
+      (dropped.length ? '<button type="button" class="btn ghost" data-act="drop">Remove ' + plural(dropped.length, "dropped card", "dropped cards") + "</button>" : "") +
+      '<button type="button" class="btn" data-act="close">Done</button></div>';
     deckSheet("What\u2019s new", html, (ov, close) => {
       ov.querySelector('[data-act="close"]').addEventListener("click", close);
+      const drop = ov.querySelector('[data-act="drop"]');
+      if (drop) drop.addEventListener("click", () => {
+        close();
+        inlineConfirm("Remove the " + plural(dropped.length, "card", "cards") + " the update dropped from this device? Their progress goes with them.", () => {
+          const n = langDeckRemoveDropped(dropped);
+          renderInPlace();
+          toast(plural(n, "card", "cards") + " removed");
+        }, "Remove");
+      });
     });
+  }
+  /* THE CARDS AN UPDATE DROPPED, removed on request (Nov 2026: "on this completion screen, there should be
+     a button to remove all of those cards"). An update keeps them, with their progress, by default — that
+     stays the rule; this is the reader choosing otherwise. Only ids the deck still holds and the shipped file
+     no longer lists are passed in (`keptIds`), and each goes the way `uDeckPruneEmpty` sends an empty card:
+     its cards' records and suspensions first, then the note, one save per deck. */
+  function langDeckRemoveDropped(ids) {
+    const byDeck = {};
+    let n = 0;
+    ids.forEach((id) => {
+      const c = UCARDS[id], d = c && UDECKS[c.deckId];
+      if (!d) return;
+      uNoteCardIds(id).forEach((cid) => { delete S.cards[cid]; if (S.suspended) delete S.suspended[cid]; });
+      delete UCARDS[id];
+      (byDeck[d.id] = byDeck[d.id] || []).push(id);
+      n++;
+    });
+    Object.keys(byDeck).forEach((deckId) => {
+      const gone = new Set(byDeck[deckId]), d = UDECKS[deckId];
+      d.cardIds = (d.cardIds || []).filter((x) => !gone.has(x));
+      uDeckSave(deckId, null, byDeck[deckId]);
+    });
+    if (n) save();
+    return n;
   }
   // the immediate children of a path ("" for the top level), in card order
   function uSubChildren(deckId, prefix) {
@@ -8829,7 +9031,7 @@
     o.remoteId = /^[0-9a-fA-F-]{36}$/.test(String(m && m.remoteId)) ? String(m.remoteId) : "";
     o.slug = /^[a-z0-9][a-z0-9-]{2,63}$/.test(String(m && m.slug)) ? String(m.slug) : "";
     o.origin = (m && m.origin === "installed") ? "installed" : "mine";
-    o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
+    o.remoteStatus = ["draft", "published", "unlisted", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
     o.ownerName = uSP(m && m.ownerName).slice(0, 80);
@@ -9732,12 +9934,133 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ".uc-note {\n  margin-top: 16px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
         ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
     },
+    /* FIVE MORE (Nov 2026, the authoring audit): the shapes a deck that is not vocabulary is most often made
+       of. Each is plain on purpose — a few named boxes and a centred card — because their job is to spare an
+       author the Card types tab, not to show what a template can do. */
+    {
+      id: "definition",
+      name: "Definition",
+      blurb: "A term on the front; what it means, and an example, on the back.",
+      fields: ["Term", "Definition", "Example"],
+      front: '<div class="uc-q">{{Term}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-def">{{Definition}}</div>' +
+        '{{#Example}}<div class="uc-block"><div class="uc-blocklabel">Example</div><div class="uc-note">{{Example}}</div></div>{{/Example}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-q {\n  font-size: 26px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-def {\n  font-size: 18px;\n  line-height: 1.55;\n}\n" +
+        ".uc-block {\n  margin-top: 16px;\n}\n" +
+        ".uc-blocklabel {\n  margin-bottom: 4px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
+        ".uc-note {\n  font-size: 15px;\n  line-height: 1.65;\n  font-style: italic;\n  opacity: 0.85;\n}\n",
+    },
+    {
+      id: "event",
+      name: "Date and event",
+      blurb: "An event asked for its date, and the date asked for its event — two cards from one note.",
+      fields: ["Event", "Date", "What happened"],
+      cards: [
+        {
+          name: "Event → Date",
+          front: '<div class="uc-ask">When?</div><div class="uc-q">{{Event}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Date}}</div>{{#What happened}}<div class="uc-note">{{What happened}}</div>{{/What happened}}',
+        },
+        {
+          name: "Date → Event",
+          front: '<div class="uc-ask">What happened?</div><div class="uc-q">{{Date}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Event}}</div>{{#What happened}}<div class="uc-note">{{What happened}}</div>{{/What happened}}',
+        },
+      ],
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-ask {\n  margin-bottom: 8px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        ".uc-q {\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-a {\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
+    {
+      id: "person",
+      name: "Person",
+      blurb: "A name on the front; what they are known for, their dates and a picture on the back.",
+      fields: ["Name", "Known for", "Dates", "Picture", "Notes"],
+      front: '<div class="uc-ask">Who was this?</div><div class="uc-q">{{Name}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '{{#Picture}}<div class="uc-pic"><img src="{{Picture}}" alt="{{Name}}" loading="lazy"></div>{{/Picture}}' +
+        '<div class="uc-a">{{Known for}}</div>' +
+        '{{#Dates}}<div class="uc-dates">{{Dates}}</div>{{/Dates}}' +
+        '{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-ask {\n  margin-bottom: 8px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        ".uc-q {\n  font-size: 26px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-pic img {\n  max-width: 100%;\n  max-height: 260px;\n  border-radius: 12px;\n  margin-bottom: 12px;\n}\n" +
+        ".uc-a {\n  font-size: 19px;\n  font-weight: 600;\n  line-height: 1.45;\n}\n" +
+        ".uc-dates {\n  margin-top: 7px;\n  font-size: 13px;\n  letter-spacing: 0.04em;\n  opacity: 0.65;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
+    {
+      id: "formula",
+      name: "Formula",
+      blurb: "What a formula is called on the front; the formula, what its symbols mean and a worked example on the back.",
+      fields: ["Name", "Formula", "Symbols", "Example"],
+      front: '<div class="uc-ask">What is the formula?</div><div class="uc-q">{{Name}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-formula">{{Formula}}</div>' +
+        '{{#Symbols}}<div class="uc-block"><div class="uc-blocklabel">Where</div><div class="uc-note">{{Symbols}}</div></div>{{/Symbols}}' +
+        '{{#Example}}<div class="uc-block"><div class="uc-blocklabel">Example</div><div class="uc-note">{{Example}}</div></div>{{/Example}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-ask {\n  margin-bottom: 8px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        ".uc-q {\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-formula {\n  font-size: 26px;\n  line-height: 1.4;\n  font-style: italic;\n}\n" +
+        ".uc-block {\n  margin-top: 16px;\n}\n" +
+        ".uc-blocklabel {\n  margin-bottom: 4px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
+        ".uc-note {\n  font-size: 15px;\n  line-height: 1.65;\n  opacity: 0.85;\n}\n",
+    },
+    {
+      id: "choice",
+      name: "Multiple choice",
+      blurb: "A question with up to four options on the front; the right one, and why, on the back.",
+      fields: ["Question", "Option A", "Option B", "Option C", "Option D", "Answer", "Why"],
+      front:
+        '<div class="uc-q">{{Question}}</div><div class="uc-opts">' +
+        '{{#Option A}}<div class="uc-opt"><b>A</b> {{Option A}}</div>{{/Option A}}' +
+        '{{#Option B}}<div class="uc-opt"><b>B</b> {{Option B}}</div>{{/Option B}}' +
+        '{{#Option C}}<div class="uc-opt"><b>C</b> {{Option C}}</div>{{/Option C}}' +
+        '{{#Option D}}<div class="uc-opt"><b>D</b> {{Option D}}</div>{{/Option D}}' +
+        "</div>",
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-a">{{Answer}}</div>' +
+        '{{#Why}}<div class="uc-note">{{Why}}</div>{{/Why}}',
+      css:
+        ".card {\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-q {\n  font-size: 20px;\n  font-weight: 600;\n  line-height: 1.35;\n}\n" +
+        ".uc-opts {\n  margin-top: 14px;\n}\n" +
+        ".uc-opt {\n  margin-top: 7px;\n  padding: 9px 12px;\n  border: 1px solid currentColor;\n  border-radius: 10px;\n  opacity: 0.9;\n}\n" +
+        ".uc-opt b {\n  margin-right: 8px;\n  opacity: 0.6;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-a {\n  font-size: 20px;\n  font-weight: 600;\n  text-align: center;\n}\n" +
+        ".uc-note {\n  margin-top: 12px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
   ];
+  /* A LINE BREAK TYPED INTO A FIELD IS A LINE BREAK ON THE CARD. A field's value is HTML, where a newline is
+     white space, so "line one⏎line two" came out as one line everywhere but the vocabulary type's
+     conjugations box. Every preset's text blocks keep their line breaks now; it is on the LEAF classes only,
+     never on `.card`, where a newline between two of a template's own tags would become a blank line. */
+  const PRESET_PRELINE = ".uc-word, .uc-target, .uc-note, .uc-ask, .uc-q, .uc-a, .uc-passage, .uc-def, .uc-formula, .uc-dates, .uc-opt {\n  white-space: pre-line;\n}\n";
   function cardTypePreset(id) { return CARD_TYPE_PRESETS.find((p) => p.id === id) || null; }
   // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
   // owns because it is the one that has to keep them unique within the deck
   function cardTypePresetSpec(p, lang) {
-    const spec = { id: p.id, fields: p.fields.slice(), css: p.css, speechLang: lang || "", cloze: !!p.cloze };
+    const spec = { id: p.id, fields: p.fields.slice(), css: p.css + PRESET_PRELINE, speechLang: lang || "", cloze: !!p.cloze };
     /* A preset declares EITHER a `cards` list or the single `front`/`back` pair the older three were written
        with; uTypeSanitize folds the second form into a one-card list, so nothing here has to choose. */
     if (Array.isArray(p.cards)) spec.cards = p.cards.map((c) => Object.assign({}, c));
@@ -9889,16 +10212,66 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     uCardTouched(cardId);
   }
 
-  function uCardCreate(deckId) {
+  /* `opts` (Nov 2026): `type` and `sub` are what the new card starts as — the Studio hands it the kind of
+     the card the author was on, so twenty vocabulary cards are not twenty trips to the type picker — and
+     `after` puts it directly under that card instead of at the foot of the deck. */
+  function uCardCreate(deckId, opts) {
     const d = UDECKS[deckId];
     if (!d) return null;
     if (d.cardIds.length >= UDECK_MAX_CARDS) { toast("A deck holds at most " + UDECK_MAX_CARDS + " cards."); return null; }
     const c = { id: nextUCardId(d), deckId: deckId };
     CARD_FIELDS.forEach((f) => { c[f] = ""; });
+    const t = opts && opts.type ? uTypeGet(deckId, opts.type) : null;
+    if (t) { c.type = t.id; c.fields = {}; }
+    const sub = opts && opts.sub ? uSubNormalize(sanitizePlain(opts.sub).slice(0, 200)) : "";
+    if (sub) c.sub = sub;
     UCARDS[c.id] = c;
-    d.cardIds.push(c.id);
+    const at = opts && opts.after ? d.cardIds.indexOf(opts.after) : -1;
+    if (at >= 0) d.cardIds.splice(at + 1, 0, c.id); else d.cardIds.push(c.id);
     uCardTouched(c.id);
     return c;
+  }
+  // a copy of a card, placed under it: same type, subdeck and text, a fresh id and no study record
+  function uCardDuplicate(cardId) {
+    const src = UCARDS[cardId], d = src && UDECKS[src.deckId];
+    if (!d) return null;
+    if (d.cardIds.length >= UDECK_MAX_CARDS) { toast("A deck holds at most " + UDECK_MAX_CARDS + " cards."); return null; }
+    const c = uCardSanitize(JSON.parse(JSON.stringify(src)), d.id, 0);
+    c.id = nextUCardId(d); c.deckId = d.id;
+    UCARDS[c.id] = c;
+    d.cardIds.splice(d.cardIds.indexOf(cardId) + 1, 0, c.id);
+    uCardTouched(c.id);
+    return c;
+  }
+  // …and a deleted card put back where it was, which is what the Studio's Undo calls. `snap` is what
+  // uCardSnapshot took before the delete: the record, its position and its study records.
+  function uCardSnapshot(cardId) {
+    const c = UCARDS[cardId], d = c && UDECKS[c.deckId];
+    if (!d) return null;
+    const recs = {};
+    uNoteCardIds(cardId).forEach((id) => { if (S.cards[id]) recs[id] = S.cards[id]; });
+    return { card: JSON.parse(JSON.stringify(c)), at: d.cardIds.indexOf(cardId), recs: recs };
+  }
+  function uCardRestore(snap) {
+    const d = snap && snap.card && UDECKS[snap.card.deckId];
+    if (!d || UCARDS[snap.card.id]) return null;
+    UCARDS[snap.card.id] = snap.card;
+    d.cardIds.splice(Math.max(0, Math.min(snap.at, d.cardIds.length)), 0, snap.card.id);
+    Object.keys(snap.recs || {}).forEach((id) => { S.cards[id] = snap.recs[id]; });
+    uCardTouched(snap.card.id);
+    save();
+    return snap.card;
+  }
+  // a card moved to a 1-based place in its deck in one step (uCardMove is one row at a time)
+  function uCardMoveTo(cardId, pos) {
+    const c = UCARDS[cardId], d = c && UDECKS[c.deckId];
+    if (!d) return;
+    const i = d.cardIds.indexOf(cardId);
+    const j = Math.max(0, Math.min(d.cardIds.length - 1, (parseInt(pos, 10) || 1) - 1));
+    if (i < 0 || i === j) return;
+    d.cardIds.splice(i, 1);
+    d.cardIds.splice(j, 0, cardId);
+    uDeckSave(d.id);
   }
   /* A card's subdeck. It is NOT one of CARD_FIELDS — those are the Basic format's thirteen, and uCardSet
      refuses anything outside them — so it gets its own setter, the way the type and its fields do. Empty
@@ -10131,6 +10504,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const meta = {};
     UDECK_META_KEYS.forEach((f) => { meta[f] = rec.meta[f]; });
     downloadDeckFile(meta, rec.cards, rec.gloss);
+    deckBackupMark(deckId, rec.cards.length);   // a file is a copy kept: the Studio's "stored only here" line stands down
   }
   /* The same file, for a deck the reader has NOT installed (Aug 2026, on request — the deck page's
      "Download the deck file"). It goes through `remoteToLocal` and then strips the publishing keys exactly
@@ -10246,7 +10620,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
      not a promise that anything under it will import on any device. */
   const UDECK_MAX_BYTES = 208 * 1024 * 1024;
-  function uDeckImportFile(file, cb) {
+  /* WHAT A CHOSEN FILE IS, read off its CONTENT (Nov 2026). The extension used to decide — `.txt` was a list
+     and everything else was JSON — so a list saved without an extension, and Anki's own default export,
+     both answered "That file isn't valid JSON." An .apkg is a zip of a database and is not read; what it
+     gets now is the one sentence that says which export Anki offers instead. */
+  const APKG_MSG = "That is an Anki package (.apkg), which Folio can’t open. In Anki choose File → Export → “Notes in Plain Text (.txt)”, then import that file here.";
+  function deckTextKind(text, fileName) {
+    const t = String(text || "");
+    if (/\.(apkg|colpkg|anki2|anki21)$/i.test(fileName || "") || /^PK\u0003\u0004/.test(t) || /^SQLite format 3/.test(t)) return "apkg";
+    const lead = t.replace(/^﻿/, "").replace(/^\s+/, "");
+    if (lead.charAt(0) === "{" && /"folioDeck"/.test(lead.slice(0, 4000))) return "deck";
+    if (lead.charAt(0) === "{" || lead.charAt(0) === "[") { try { JSON.parse(lead); return "deck"; } catch (e) {} }
+    return "list";
+  }
+  /* A deck file is imported at once. A LIST is shown first — `preview(text, name)`, the Studio's paste sheet —
+     because a list is the one input Folio has to interpret (which character divides it, whether its first
+     line is a heading, which side is the front), and an interpretation nobody was shown is how a wrong one
+     was reported as "Imported". Without `preview` a list is imported as it is read, as before. */
+  function uDeckImportFile(file, cb, preview) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
       cb({ error: "That file is " + Math.round(file.size / 1048576) + " MB and a deck file may be at most "
@@ -10254,8 +10645,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     const fr = new FileReader();
-    const plain = /\.(txt|tsv|csv)$/i.test(file.name || "");   // an Anki or Quizlet text export (uDeckImportPlainText)
-    fr.onload = () => cb(plain ? uDeckImportPlainText(String(fr.result || ""), file.name) : uDeckImportText(String(fr.result || ""), false));
+    fr.onload = () => {
+      const text = String(fr.result || ""), kind = deckTextKind(text, file.name);
+      if (kind === "apkg") cb({ error: APKG_MSG });
+      else if (kind === "deck") cb(uDeckImportText(text, false));
+      else if (preview) { preview(text, file.name); cb(null); }
+      else cb(uDeckImportPlainText(text, file.name));
+    };
     fr.onerror = () => cb({ error: "Couldn't read that file." });
     fr.readAsText(file);
   }
@@ -10286,7 +10682,43 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (f !== "" || row.length) { row.push(f); rows.push(row); }
     return rows;
   }
-  function ankiTextToDeck(text, fileName) {
+  /* WHICH CHARACTERS STAND BETWEEN A FRONT AND A BACK (Nov 2026, the authoring audit). The first version
+     knew tab, comma and semicolon and chose between the last two by counting — so a list written
+     "bonjour - hello" came in as questions with no answers, and said "Imported". A separator is now the
+     candidate that the MOST LINES contain, tab first, and one that fewer than half the lines contain is no
+     separator at all. `multi` ones are longer than a character, so the row parser never sees them: the
+     first occurrence on each line is turned into a tab before it runs. */
+  const CARD_SEPS = [
+    { id: "tab", ch: "\t", label: "Tab (a spreadsheet, Anki, Quizlet)" },
+    { id: "pipe", ch: "|", label: "Bar  |" },
+    { id: "semicolon", ch: ";", label: "Semicolon  ;" },
+    { id: "dash", ch: " - ", multi: /\s[-–—]\s/, label: "Dash  -" },
+    { id: "equals", ch: " = ", multi: /\s=\s/, label: "Equals  =" },
+    { id: "comma", ch: ",", label: "Comma  ," },
+    { id: "colon", ch: ": ", multi: /:\s/, label: "Colon  :" },
+  ];
+  function cardSepById(id) { return CARD_SEPS.find((x) => x.id === id) || null; }
+  function cardSepDetect(body) {
+    const lines = String(body || "").split("\n").map((l) => l.trim()).filter(Boolean).slice(0, 200);
+    if (!lines.length) return CARD_SEPS[0];
+    let best = null, bestN = 0;
+    CARD_SEPS.forEach((c) => {
+      const n = lines.filter((l) => (c.multi ? c.multi.test(l) : l.indexOf(c.ch) >= 0)).length;
+      if (n > bestN) { best = c; bestN = n; }   // strictly more, so the earlier candidate wins a tie
+    });
+    return best && bestN * 2 >= lines.length ? best : CARD_SEPS[0];
+  }
+  const CARD_HEADER_RX = /^(front|back|term|terms|definition|definitions|question|answer|word|meaning|translation|prompt|response|q|a|side ?[12ab])$/i;
+  /* `opts` (all optional): `sep` a CARD_SEPS id (else Anki's own header, else detected) · `header` true/false
+     to drop or keep the first row (else guessed from its words) · `swap` to turn every card round ·
+     `kind` "two-way" to make each row a note asked in both directions.
+     ANKI'S NOTE TYPES ARE KEPT (item 40 of the audit): a cloze note becomes a note of Folio's own
+     fill-in-the-blank type — both write {{c1::…}} — and a "Basic (and reversed card)" note a two-way one,
+     where the first version flattened both to Basic. The types they need travel in the deck's `meta.types`,
+     built from the same presets the Studio offers.
+     Returns the deck plus `info`, which is what the preview shows before anything is stored. */
+  function ankiTextToDeck(text, fileName, opts) {
+    opts = opts || {};
     text = String(text || "").replace(/^﻿/, "");
     const head = {}, lines = text.split(/\r?\n/);
     let skip = 0;
@@ -10295,46 +10727,82 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       head[m[1].trim().toLowerCase()] = m[2].trim();
       skip++;
     }
-    const body = lines.slice(skip).join("\n");
+    let body = lines.slice(skip).join("\n");
     const SEPS = { tab: "\t", comma: ",", semicolon: ";", pipe: "|", space: " ", colon: ":" };
-    let sep = head.separator ? (SEPS[head.separator.toLowerCase()] || head.separator.charAt(0)) : "";
-    if (!sep) {
-      const sample = body.split("\n").slice(0, 50).join("\n");
-      sep = sample.indexOf("\t") >= 0 ? "\t" : (sample.split(";").length > sample.split(",").length ? ";" : ",");
+    const anki = !!head.separator;
+    let sepDef = opts.sep ? cardSepById(opts.sep) : null, sep;
+    if (sepDef) sep = sepDef.ch;
+    else if (anki) { sep = SEPS[head.separator.toLowerCase()] || head.separator.charAt(0); sepDef = CARD_SEPS.find((x) => x.ch === sep) || { id: "", ch: sep, label: sep }; }
+    else { sepDef = cardSepDetect(body); sep = sepDef.ch; }
+    if (sepDef.multi) {
+      body = body.split("\n").map((l) => l.replace(sepDef.multi, "\t")).join("\n");
+      sep = "\t";
     }
     const html = /^(true|yes|1)$/i.test(head.html || "");
     const col = (k) => (head[k + " column"] ? (parseInt(head[k + " column"], 10) || 0) - 1 : -1);
     const special = { guid: col("guid"), notetype: col("notetype"), deck: col("deck"), tags: col("tags") };
     const skipCols = new Set(Object.values(special).filter((x) => x >= 0));
     const toHtml = (v) => (html ? String(v) : esc(String(v)).replace(/\n/g, "<br>"));
-    const CLOZE = /\{\{c\d+::([\s\S]*?)(?:::[\s\S]*?)?\}\}/g;
-    const cards = [];
-    let cloze = 0;
-    ankiParseRows(body, sep).forEach((r) => {
+    const CLOZE = /\{\{c\d+::[\s\S]*?\}\}/;
+    let rows = ankiParseRows(body, sep);
+    /* A LIST THAT IS NOT A TABLE. A comma or a semicolon inside a definition is prose, not a column: "Paris,
+       the capital of France, on the Seine" is a front and one back. So outside an Anki export, unless every
+       row has the same number of cells (a real CSV) or a cell was quoted, a row is cut at its FIRST separator
+       and the rest is the back. */
+    if (!anki && !sepDef.multi && sep !== "\t") {
+      const counts = {};
+      rows.forEach((r) => { if (r.some((v) => String(v).trim())) counts[r.length] = 1; });
+      if (Object.keys(counts).length > 1 && !/(^|\n)\s*"/.test(body)) rows = rows.map((r) => (r.length > 2 ? [r[0], r.slice(1).join(sep === "," || sep === ";" ? sep + " " : sep).replace(/\s+/g, " ")] : r));
+    }
+    rows = rows.map((r) => r.map((v) => String(v).trim())).filter((r) => r.some((v) => v));
+    const firstCells = rows[0] ? rows[0].filter((v, i) => !skipCols.has(i)) : [];
+    const headerGuess = !anki && firstCells.length >= 2 && firstCells.slice(0, 2).every((v) => CARD_HEADER_RX.test(v));
+    const dropHeader = opts.header === undefined ? headerGuess : !!opts.header;
+    if (dropHeader && rows.length) rows = rows.slice(1);
+    const typeOf = (name) => (/cloze/i.test(name) ? "cloze" : /revers/i.test(name) ? "two-way" : "");
+    const globalType = typeOf(head.notetype || "");
+    const cards = [], used = {};
+    let cloze = 0, noBack = 0, cols = 0;
+    rows.forEach((r) => {
       const fields = r.filter((v, i) => !skipCols.has(i));
-      if (!fields.length || !fields.some((v) => String(v).trim())) return;
+      if (!fields.length || !fields.some((v) => v)) return;
+      cols = Math.max(cols, fields.length);
       let front = fields[0] || "", back = fields[1] || "";
-      if (CLOZE.test(front)) {
+      if (opts.swap) { const t = front; front = back; back = t; }
+      if (!front && !back) return;
+      const rest = fields.slice(2).filter((v) => v);
+      let kind = special.notetype >= 0 ? typeOf(r[special.notetype] || "") : globalType;
+      if (!kind && CLOZE.test(front)) kind = "cloze";
+      if (kind === "cloze" && !CLOZE.test(front)) kind = "";
+      if (!kind && opts.kind === "two-way") kind = "two-way";
+      let c;
+      if (kind === "cloze") {
         cloze++;
-        CLOZE.lastIndex = 0;
-        const full = front.replace(CLOZE, "$1");
-        front = front.replace(CLOZE, "[...]");
-        back = full + (back ? (html ? "<br><br>" : "\n\n") + back : "");
+        c = { type: "cloze", fields: { Text: toHtml(front), Notes: [back].concat(rest).filter(Boolean).map(toHtml).join("<br>") } };
+      } else if (kind === "two-way") {
+        c = { type: "two-way", fields: { Front: toHtml(front), Back: toHtml(back), Notes: rest.map(toHtml).join("<br>") } };
+      } else {
+        c = { question: toHtml(front), answer: toHtml(back) + rest.map((v) => "<hr>" + toHtml(v)).join("") };
       }
-      CLOZE.lastIndex = 0;
-      if (!String(front).trim() && !String(back).trim()) return;
-      const c = { question: toHtml(front), answer: toHtml(back) + fields.slice(2).filter((v) => String(v).trim()).map((v) => "<hr>" + toHtml(v)).join("") };
+      if (kind) used[kind] = 1;
+      if (!back && kind !== "cloze") noBack++;
       if (special.deck >= 0 && r[special.deck]) c.sub = String(r[special.deck]);
       cards.push(c);
     });
-    const title = (head.deck || String(fileName || "Imported deck").replace(/\.(txt|tsv|csv)$/i, "").replace(/[_-]+/g, " ")).trim().slice(0, 80) || "Imported deck";
-    return { deck: { folioDeck: UDECK_FORMAT, meta: { title: title, desc: "Imported from a text export." }, cards: cards }, cloze: cloze };
+    const types = {};
+    Object.keys(used).forEach((k) => { const p = cardTypePreset(k); if (p) types[k] = Object.assign({ name: p.name }, cardTypePresetSpec(p)); });
+    const title = (head.deck || String(fileName || "Imported deck").replace(/\.(txt|tsv|csv|text)$/i, "").replace(/[_-]+/g, " ")).trim().slice(0, 80) || "Imported deck";
+    const meta = { title: title, desc: "Imported from a text export." };
+    if (Object.keys(types).length) meta.types = types;
+    return { deck: { folioDeck: UDECK_FORMAT, meta: meta, cards: cards }, cloze: cloze,
+      info: { sep: sepDef.id, anki: anki, header: dropHeader, headerGuess: headerGuess, noBack: noBack, cols: cols, twoWay: used["two-way"] ? 1 : 0 } };
   }
-  function uDeckImportPlainText(text, fileName) {
-    const got = ankiTextToDeck(text, fileName);
+  function uDeckImportPlainText(text, fileName, opts) {
+    const got = ankiTextToDeck(text, fileName, opts);
     if (!got.deck.cards.length) return { error: "No cards were found in that file. Export notes as plain text, one note a line." };
+    if (opts && opts.title) got.deck.meta.title = String(opts.title).slice(0, 80);
     const r = uDeckImportText(JSON.stringify(got.deck), false);   // no id in the file, so it is given a fresh one
-    if (r && !r.error && got.cloze) setTimeout(() => toast(got.cloze + " cloze note" + (got.cloze === 1 ? " was" : "s were") + " brought in as Basic cards"), 2500);
+    if (r && !r.error && got.cloze && !(opts && opts.quiet)) setTimeout(() => toast(plural(got.cloze, "cloze note", "cloze notes") + " brought in as fill-in-the-blank cards"), 2500);
     return r;
   }
   /* EXPORT writes any deck a reader can open — one of Folio's, a collection, a language, or one of their own — as the
@@ -10381,13 +10849,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     setTimeout(() => URL.revokeObjectURL(url), 30000);
     toast(n.toLocaleString("en-GB") + " cards written for Anki" + (left ? " · " + left + " map or picture cards left out" : ""));
   }
-  function uDeckPickFile(cb) {
+  function uDeckPickFile(cb, preview) {
     const inp = document.createElement("input");
     inp.type = "file";
-    inp.accept = ".json,application/json,.txt,.tsv,.csv,text/plain,text/csv,text/tab-separated-values";
+    // .apkg is offered so that choosing one is ANSWERED (see APKG_MSG) rather than greyed out with no reason
+    inp.accept = ".json,application/json,.txt,.tsv,.csv,text/plain,text/csv,text/tab-separated-values,.apkg,.colpkg";
     inp.style.display = "none";
     document.body.appendChild(inp);
-    inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) uDeckImportFile(f, cb); });
+    inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) uDeckImportFile(f, cb, preview); });
     inp.click();
   }
 
@@ -10401,6 +10870,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      scheduling on the cards that didn't change survives. */
   function uDeckIsMine(d) { return !d || d.origin !== "installed"; }
   function uDeckIsPublished(d) { return !!(d && d.remoteId && d.remoteStatus === "published"); }
+  /* SHARED BY LINK (Nov 2026): status `unlisted`. The deck has its page and anyone holding the address can
+     open and add it, but it is in no list — not the shared decks page, not the home page's shelf, not "more
+     from this author". It needs section 19 of .claude/supabase-schema.sql; on a database without it the
+     share is refused with a sentence (linkOnlyMsg) and nothing is changed. */
+  function uDeckIsLinkOnly(d) { return !!(d && d.remoteId && d.remoteStatus === "unlisted"); }
+  function uDeckIsShared(d) { return uDeckIsPublished(d) || uDeckIsLinkOnly(d); }
+  function deckShareUrl(slug) { return location.origin + location.pathname + "#deck/" + encodeURIComponent(slug); }
+  // the platform's own share sheet where there is one (a phone), the clipboard everywhere else — shareBook's rule
+  function shareDeck(title, slug) {
+    const url = deckShareUrl(slug);
+    const data = { title: title, text: title + " — a deck of flashcards on Folio", url: url };
+    if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
+      navigator.share(data).catch((e) => { if (e && e.name !== "AbortError") copySelText(url, "Link copied"); });
+      return;
+    }
+    copySelText(url, "Link copied");
+  }
+  const LINK_ONLY_MSG = "Sharing by link only isn’t set up on this site yet. Share the deck with everyone, or export its file and send that.";
+  const LINK_ONLY_MSG_ADMIN = "Link-only sharing isn’t set up on this database yet. Run section 19 (LINK-ONLY SHARING) of .claude/supabase-schema.sql once in the Supabase SQL editor, then share again.";
+  function linkOnlyMsg() { return isAdmin() ? LINK_ONLY_MSG_ADMIN : LINK_ONLY_MSG; }
+  // the status column's check constraint refusing a value it has not been taught
+  function statusCheckFailed(r) {
+    const body = r && r.data;
+    const msg = body ? String(body.message || "") + " " + String(body.code || "") : "";
+    return !!(r && r.status === 400 && /status_check|23514/.test(msg));
+  }
   function slugify(s, salt) {
     let base = sanitizePlain(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
     if (base.length < 3) base = "deck-" + base;
@@ -10410,7 +10905,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return {
       slug: d.slug, title: d.title || "Untitled deck", subtitle: d.subtitle || "", description: d.desc || "",
       author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
-      tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
+      tags: d.tags || [], gloss_mode: d.glossMode || "site", status: d._shareAs === "unlisted" ? "unlisted" : "published", version: (d.publishedVersion || 0) + 1,
       // the author's default colour, sent only when they chose one — `user_decks.color` arrived after the
       // phase-2 block, so a colourless deck still publishes from a database whose owner has not run
       // section 11 of .claude/supabase-schema.sql yet (the same courtesy `types` gets, one line down)
@@ -10448,15 +10943,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function colorColumnMsg() { return isAdmin() ? COLOR_COLUMN_MSG_ADMIN : COLOR_COLUMN_MSG; }
   function colorColumnMissing(r) { return missingColumn(r, "color"); }
   // returns { ok } | { error }
-  async function uDeckPublish(deckId) {
+  /* `opts.status` (Nov 2026): "published" lists the deck, "unlisted" shares it by link only; left out, a deck
+     already shared keeps the way it is shared and a new one is listed. CARDS WITH NOTHING ON THEM ARE NOT
+     UPLOADED — a blank left behind by one press too many used to be published with the rest. */
+  async function uDeckPublish(deckId, opts) {
     const d = UDECKS[deckId];
     if (!d) return { error: "That deck is gone." };
-    if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to publish your own version." };
-    if (!supaLoggedIn()) return { error: "Sign in on the Account page to publish a deck." };
+    if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to share your own version." };
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to share a deck." };
     await uWarmDeck(deckId);   // publishing uploads every card, so all of them have to be in hand first
-    const cards = uDeckCards(d);
-    if (!cards.length) return { error: "Write at least one card before publishing." };
-    if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a title before publishing." };
+    const cards = uDeckCards(d).filter((c) => !uCardIsEmpty(c));
+    if (!cards.length) return { error: "Write at least one card before sharing." };
+    if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a name before sharing." };
+    const wantStatus = (opts && opts.status) || (uDeckIsLinkOnly(d) ? "unlisted" : "published");
+    d._shareAs = wantStatus;   // read by uDeckRemotePayload; never stored (uDeckMetaRecord whitelists)
 
     if (!d.slug) d.slug = slugify(d.title);
     let row = null;
@@ -10479,7 +10979,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           method: "PATCH", body: payload(), headers: { Prefer: "return=representation" },
         });
       }
-      if (!r.ok) return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the published deck.") };
+      if (!r.ok) return { error: statusCheckFailed(r) ? linkOnlyMsg() : typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the shared deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
@@ -10490,7 +10990,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
         if (colorColumnMissing(r) && d.color && !dropColor) { dropColor = true; warn = colorColumnMsg(); continue; }
-        return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't publish the deck.") };
+        return { error: statusCheckFailed(r) ? linkOnlyMsg() : typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't share the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
     }
@@ -10797,7 +11297,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const out = {};
     r.data.forEach((row) => {
       const d = localDeckForRemote(row.id);
-      if (d && row.status === "published" && Number(row.version) > Number(d.installedVersion || 0)) out[d.id] = row.version;
+      // a deck shared by link offers its updates exactly as a listed one does
+      if (d && (row.status === "published" || row.status === "unlisted") && Number(row.version) > Number(d.installedVersion || 0)) out[d.id] = row.version;
     });
     return out;
   }
@@ -11409,10 +11910,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     crossword: { files: ["crossword.js"] },
     whatyear: { files: ["whatyear.js"] },
     pie: { files: ["pie.js"] },
+    whoisthis: { files: ["whoisthis.js"] },   // Who is this?'s pool (2026-11-19): the ids of the cards whose picture depicts their person, generated by .claude/build-whoisthis.js; read by that game alone
     whatlang: { files: ["whatlang.js"] },   // What language?'s 200 passages (2026-11-09): read by that game alone, never on the eager path   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
-    atlas2cards: { files: ["atlas/data/card-faces.js"] },
+    atlas2cards: { files: ["atlas/data/card-faces.js", "atlas/data/border-packs.js"] },   // border-packs.js (2026-11-20): which lazy border pack holds a members group's state history.bin does not carry (docs/atlas-v2-border-packs.md)
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
+    // a members window's SET OF AREAS (`members.areas`, 2026-11-20, us-084): two parts of rings painted by the window, generated by .claude/atlas-build/build-area-sets.js; one bundle per set, named `area:<set>`
+    "area:us-reservations": { files: ["atlas/data/us-reservations.js"] },
     atlas2waters: { files: ["atlas/data/findit-waters.js"] },   // a card or glossary window whose place is a sea, a gulf or a strait shades its outline (atlas-windows.js waterRings, 2026-11-14)
     atlas2findit: { files: ["atlas/data/findit-areas.js", "atlas/data/findit-waters.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
     atlas2places: { files: ["atlas/data/card-places.js"] },   // card → registry places (62 KB): the "Discovered!" chip on a card's window asks it
@@ -12679,6 +13183,86 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
      every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
   "Thomas Hobbes": "#263700",
+  /* Nov 2026, adding The Social Contract, and the band is still full. Measured as CIE76 distance over the
+     same band and bars (L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second
+     papers, 22 or more from the fifteen light inks), a sweep of the cube at a step of 3 tops out at 14.7.
+     THE EURIPIDES TEST: of the sweep's best, a violet stood 14.7 from Magna Carta, a political text read
+     beside this one, so this dark brown was taken: its nearest are Sophocles 14.6, Confucius 14.8 and
+     Beowulf 15.2, none read beside Rousseau, and the books that are stand well off — Plato 34.0, Hobbes
+     38.7, Jefferson 46.2, Aristotle 46.5, Machiavelli 63.3 and Magna Carta 72.4. It reads 5.77:1 on the
+     tightest light paper. */
+  "Jean-Jacques Rousseau": "#663930",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-three colours placed (Nov 2026, adding the Critique of Pure
+     Reason): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band is full, as Hobbes's row found: a sweep at a
+     step of 3, refined to 1 around the best, tops out at 14.8. THE EURIPIDES TEST: this violet's nearest are
+     Euripides 14.8, Snorri Sturluson 14.9, Herodotus 15.0 and the King James Bible 15.1, none a book read
+     beside Kant; the philosophers stand well off — Seneca 19.6, Plato 26.3, Machiavelli 38.8, Aristotle 50.5,
+     Augustine 66.9, Marcus Aurelius 79.3, Boethius 85.8, Hobbes 87.9, Lucretius 97.8, Aquinas 119.3. The
+     sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
+     Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
+  "Immanuel Kant": "#592F85",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-five colours placed (Nov 2026, adding the Res Gestae): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on all
+     forty-five light papers, cards and second papers. A sweep of the cube at a step of 3 tops out at 14.6, and
+     this purple is that best. THE EURIPIDES TEST: its nearest are Valmiki 14.6, Plato 14.9, Euripides 14.9
+     and Thucydides 15.0, none a book read beside Augustus; the Romans who are stand off — Polybius 16.0,
+     Tacitus 27.1, Seneca 27.6, Ovid 28.6, Cassius Dio 35.6, Virgil 42.1, Livy 59.8, Suetonius 83.0 and
+     Julius Caesar 83.4. It reads 4.70:1 on the tightest light paper. */
+  "Augustus": "#84307B",
+  /* Nov 2026, adding Utopia; the band is still full. Measured as the rows above (CIE76 over L 12.3–47.8,
+     chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen
+     light inks), a sweep of the cube at a step of 3 tops out at 14.6. THE EURIPIDES TEST: the sweep's best
+     were magentas 14.6–14.9 from Plato, whose Republic is the book Utopia is read beside, and a green 14.5
+     from Aquinas, so this dark claret was taken: its nearest are Livy 14.3, the Poetic Edda 14.7 and Virgil
+     14.8, none read beside More, and the books that are stand off — Augustine 20.5, Rousseau 24.1, Plato
+     41.8, Hobbes 54.4, Luther 61.4, Machiavelli 80.9. It reads 8.79:1 on the tightest light paper. */
+  "Thomas More": "#5A0009",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-six colours placed (Nov 2026, adding the Discourse on the Method):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band is full: a sweep at a step of 3 tops out at 14.6, and its
+     best sit by Plato, Kant, Aquinas or Augustine. THE EURIPIDES TEST, kept strict here: the first candidate of
+     the sweep whose every philosopher stands 19 or more off is this brick red (13.9): its nearest are
+     Aristophanes 13.9, Sophocles 14.0, Sun Tzu 14.1 and Strabo 14.2, none read beside Descartes; the
+     philosophers stand off — More 19.7, Rousseau 28.1, Augustine 34.7, Plato 40.0, Hobbes 63.0, Kant 64.7,
+     Aristotle 68.9, Seneca 73.7, Lucretius 74.0, Aquinas 93.5. (The dark crimson first measured for this row,
+     #5A0009, was taken by More's the same day.) It reads 4.74:1 on the tightest light paper. */
+  "René Descartes": "#962A30",
+  /* Nov 2026, adding Apollodorus's Library, the band still full. Measured as the rows above: CIE76 distance,
+     L 12.3–47.8 and chroma 18–85, 22 or more from the fifteen light inks and 4.5:1 on all forty-five light
+     papers, cards and second papers; a sweep of the cube at a step of 3, refined to 1 around the best, tops
+     out at 14.9. THE EURIPIDES TEST refused that best, a magenta 14.9 from EURIPIDES, whose plays are among
+     the Library's sources, so this dark green was taken at 14.7: its nearest are Aquinas 14.7, the Quran 14.9
+     and the Rigveda 14.9, none read beside a handbook of Greek myth, and the books that are stand well off —
+     Diodorus 37.4, Sophocles 69.6, Pausanias 75.3, Ovid 86.6, Euripides 115.0, Homer 118.5. It reads 4.59:1
+     on the tightest light paper. */
+  "Apollodorus": "#2F5F00",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-nine colours placed (Nov 2026, adding On the Origin of Species):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     all forty-five light papers, cards and second papers. The band is full: a sweep at a step of 3 tops out at
+     14.2. THE EURIPIDES TEST: the sweep's best, a violet, stood 16.1 from Kant, and the oxblood first taken for
+     this row was taken by Thomas More's the same day, so this dark brown was chosen: its nearest are Livy 14.2,
+     Vyasa's Bhagavad Gita 14.5 and Diodorus 14.5, none read beside Darwin, and the books that might be stand
+     well off — Hobbes 30.9, Lucretius 47.7, Plato 52.2, Aristotle 60.5, Kant 76.2. It reads 6.91:1 on the
+     tightest light paper. */
+  "Charles Darwin": "#573006",
+  /* MEASURED AS EVERY ROW ABOVE, with seventy colours placed (Nov 2026, adding Jerome's Letters): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on every
+     light paper, card and second paper. A sweep at a step of 3, refined to 1 around the best, tops out at
+     14.4 — the band is full. The crimson first measured for this row (#832D78) was taken by Augustus the same
+     day, 1.1 away. THE EURIPIDES TEST: this violet's nearest are Snorri Sturluson and Valmiki 14.4, Plato 14.5
+     and the Song of Roland 14.7, none a book read beside Jerome; the ones that are stand well off — Kant 17.0,
+     Augustus 19.3, Dante 21.5, the King James Bible 27.0, Seneca 30.0, Luther 37.7, Virgil 40.6, Augustine
+     52.5, Bede 63.4, Boethius 70.2, Aquinas 102.5. It reads 5.39:1 on the tightest light paper. */
+  "Jerome": "#5D3B75",
+  /* Nov 2026, adding the Elements, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on
+     all forty-five light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of
+     the cube at a step of 3). The band's best is a plum 14.6 from Valmiki and 14.9 from PLATO, who is read
+     beside Euclid, so it failed THE EURIPIDES TEST; held 25 or more from Plato, Aristotle, Herodotus,
+     Thucydides, Lucretius and Kant, the best is this dark red, 14.3 from Livy, 14.7 from the Poetic Edda and
+     14.8 from Virgil, none a book read beside this one; Plato stands 41.8 off, Aristotle 68.1. It reads 8.79:1
+     on the tightest light paper. */
+  "Euclid": "#5A0009",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15898,6 +16482,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "hamlet",
+      title: "Hamlet",
+      subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+      author: "William Shakespeare",
+      /* "c.": written around 1599–1601; first printed in the quarto of 1603. */
+      written: "c. 1600",
+      year: 1600,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1968 (Wikidata Q19560296), so it clears the US pre-1929 rule but NOT life plus seventy until
+         2039 — public domain in the United States only, which the rights text says. */
+      rights:
+        "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+        "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+        "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+        "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+        "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+        "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+        "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+        "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -16184,6 +16799,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ],
     },
     {
+      id: "apollodorus-library",
+      title: "The Library",
+      // the work's own Greek title, as the Perseus Greek column gives it
+      subtitle: "Βιβλιοθήκη",
+      author: "Apollodorus",
+      /* "Generally dated to the first or second century AD" (Wikipedia); Frazer's introduction puts the
+         earliest possible date at the middle of the first century BCE, since the book quotes Castor. The
+         key is a single year inside the span. */
+      written: "1st–2nd century CE",
+      year: 100,
+      translator: "Sir James George Frazer",
+      edition: "Loeb Classical Library, 1921",
+      /* Expired on every ground: the Loeb of 1921 is pre-1929 and Frazer died in 1941. Perseus's digital
+         editions are CC BY-SA 4.0. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. The English is Sir James George Frazer's " +
+        "translation, published with his Greek text in two volumes of the Loeb Classical Library by " +
+        "William Heinemann in London and Harvard University Press in Cambridge, Massachusetts, in 1921, so " +
+        "it is public domain in the United States as a pre-1929 publication; Frazer died in 1941, so it is " +
+        "also public domain wherever copyright lasts for the author's life plus seventy years. The notes " +
+        "are his, from the same edition. The digital editions of both texts are prepared by the Perseus " +
+        "Digital Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. The Library was written in Greek in the first " +
+        "or second century CE. (Robin Hard's translation of 1997 is still in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+      /* Paired on the SECTION, Strabo's way — "Apollodorus 2.5.11" is book, chapter, section, and a marker
+         reads "5.11" inside book 2 — and the two columns agree on all 386 sections. The fourth tab is the
+         Epitome, the abridgement that carries the lost end of the work. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      count: 4,
+      total: 4,
+    },
+    {
       id: "anglo-saxon-chronicle",
       title: "The Anglo-Saxon Chronicle",
       /* Annals kept by many anonymous hands, so the colour row keys on the id — see song-of-roland. */
@@ -16376,7 +17027,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     },
     {
       id: "king-james-bible",
-      title: "The King James Bible",
+      title: "The Bible",
       subtitle: "The Holy Bible, Authorized Version, 1611",
       /* Many hands over more than a thousand years; tradition's attributions cover only part of it.
          Shelved as the Rigveda is, and keyed for colour by id — see bookColor. */
@@ -16626,6 +17277,296 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
         "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
         "Tyrannicides"],
+    },
+    {
+      id: "rousseau-social-contract",
+      title: "The Social Contract",
+      subtitle: "Du contrat social, ou Principes du droit politique",
+      author: "Jean-Jacques Rousseau",
+      written: "1762",
+      year: 1762,
+      translator: "G. D. H. Cole",
+      edition: "The Social Contract and Discourses, Everyman's Library, London, 1913",
+      /* A LIMIT TO STATE, on the translation: published in 1913, so public domain in the United States;
+         Cole died in 1959, so life plus seventy runs to 1 January 2030. See .claude/fetch-book.js. */
+      rights:
+        "The French text is public domain everywhere: Rousseau published it in 1762 and died in 1778. " +
+        "G. D. H. Cole's English translation was published in London in 1913, so it is in the public " +
+        "domain in the United States. Cole died in 1959, so where copyright runs for the author's life " +
+        "plus seventy years his translation stays in copyright until 1 January 2030.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Social_Contract_(tr._Cole)",
+      /* Paired on the CHAPTER, as The Prince is: neither Cole nor the 1762 edition numbers anything below
+         it. The French is the first edition (Amsterdam, Marc Michel Rey, 1762) as validated on French
+         Wikisource. Section 1, Rousseau's Foreword, has no French: that transcription gives it no page. */
+      origLang: "fr",
+      origName: "French",
+      /* Forty-nine sections — the Foreword and the forty-eight chapters of the four Books — so a tab runs
+         one ahead of the chapter's place in the book; each title opens with its chapter's numeral in its
+         Book. "Section" so that no tab claims to be a chapter it is not (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      parts: [
+        { n: 1, label: "Book I", note: "The Foreword and chapters I–IX — the compact and the state it creates" },
+        { n: 2, label: "Book II", note: "Chapters I–XII — sovereignty, the general will, law and the Legislator" },
+        { n: 3, label: "Book III", note: "Chapters I–XVIII — government, its forms, and how it usurps the sovereign" },
+        { n: 4, label: "Book IV", note: "Chapters I–IX — voting, the Roman institutions, civil religion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Saint-Pierre is the Abbé (IV. 3), not the islands; Providence is not the capital of Rhode
+         Island; "Talent is buried" (II. 9) is ability, not the weight; the Palatine of IV. 4's note is a
+         Polish Count Palatine, not the hill; and Sovereignty's entry is the modern interstate sense, where
+         Rousseau's is the people's. Israel and Syria go where he means the biblical and ancient lands, as
+         they do on Leviathan's shelf. */
+      glossOff: ["Saint-Pierre,_Saint_Pierre_and_Miquelon", "Providence", "Talent_(measurement)", "Palatine_Hill",
+        "Sovereignty", "Israel", "Syria"],
+    },
+    {
+      id: "kant-critique-of-pure-reason",
+      title: "Critique of Pure Reason",
+      subtitle: "Kritik der reinen Vernunft",
+      author: "Immanuel Kant",
+      written: "1781, revised 1787",
+      year: 1781,
+      translator: "J. M. D. Meiklejohn",
+      edition: "Bohn's Philosophical Library, Henry G. Bohn, London, 1855",
+      /* No limit to state: Kant died in 1804 and his translator more than a century ago. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Immanuel Kant died in 1804. J. M. D. Meiklejohn's translation was " +
+        "published in London in 1855 and its translator died more than a century ago. The text is the " +
+        "proofread Wikisource transcription of the 1855 printing, from a scan held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Critique_of_Pure_Reason_(Meiklejohn)",
+      /* NO `origLang`: no proofread German of the SECOND edition, the one Meiklejohn translates, was found.
+         Nineteen sections in Kant's own divisions, each titled from the 1855 contents page; the book's
+         chapters restart within each Book, so "Section" rather than "Chapter" (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 19,
+      total: 19,
+      parts: [
+        { n: 1, label: "Prefaces and Introduction", note: "The prefaces to the first and second editions, and the Introduction — analytic and synthetic judgments" },
+        { n: 2, label: "Doctrine of Elements · Transcendental Æsthetic", note: "Space and time as the forms of intuition" },
+        { n: 3, label: "Transcendental Logic · The Analytic", note: "The categories, their deduction, the schematism and the principles; phænomena and noumena" },
+        { n: 4, label: "Transcendental Logic · The Dialectic", note: "The illusions of reason — the paralogisms, the antinomy and the ideal" },
+        { n: 5, label: "Transcendental Doctrine of Method", note: "The discipline, canon, architectonic and history of pure reason" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 19 sections (every `.ttip`,
+         Nov 2026). Kant's WOLF is Christian Wolff, the philosopher, not the grey wolf; SUBSISTENCE is the
+         category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
+         the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
+      glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "augustus-res-gestae",
+      title: "Res Gestae Divi Augusti",
+      subtitle: "The Deeds of the Divine Augustus",
+      author: "Augustus",
+      // the last chapter: "At the time of writing this I was in my seventy-sixth year" — 14 CE
+      written: "14 CE",
+      year: 14,
+      translator: "Frederick W. Shipley",
+      edition: "Velleius Paterculus and Res Gestae Divi Augusti, Loeb Classical Library, William Heinemann and G. P. Putnam's Sons, 1924",
+      /* The Cassius Dio ground: a 1924 Loeb, public domain in the United States as a pre-1929 publication, in
+         Bill Thayer's public-domain transcription. Shipley's death year was not established, so no
+         life-plus term is claimed. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Frederick W. Shipley's translation and his text of the Latin were " +
+        "published in the Loeb Classical Library in 1924, before 1929, so their copyright has expired in " +
+        "the United States. The text is taken from Bill Thayer's transcription on LacusCurtius, which " +
+        "states that its pages of this kind are in the public domain; Thayer's own notes are not " +
+        "reproduced. (Thomas Bushnell's translation of 1998, often found online, is in copyright and is " +
+        "not used.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+      /* Paired on Augustus's CHAPTER, both columns read off the same LacusCurtius pages (the Loeb prints
+         them a row at a time) — see `layout: "monumentum"` in the importer. The Greek version is not set. */
+      origLang: "la",
+      origName: "Latin",
+      /* The Loeb's six Parts and its Summary; the thirty-five chapters are the section numbers inside them. */
+      chapterWord: "Part",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all seven Parts (every `.ttip`,
+         Nov 2026). The MODERN COUNTRIES and CONTINENTS go where Augustus means a Roman province or an ancient
+         land, as on the Primary Chronicle's and the King James Bible's shelves: the Spains, the Gauls and
+         Germany as provinces, Egypt, Syria, Asia and Africa as provinces, Greater Armenia, all Italy, the kings
+         of India, and Ethiopia, which here is the kingdom of Meroë. NAMESAKES: Caesar is Tiberius, Gaius or
+         Lucius Caesar and "the grove of the Caesars", never the dictator; Tiberius Nero is Tiberius, not the
+         emperor Nero; Quintus Lucretius, Marcus Crassus and Paullus Fabius Maximus are the consuls of 19, 14 and
+         11 BCE, not the poet, the triumvir or the Delayer; Jupiter Libertas is not a freedman; Pax Augusta is
+         not the capital of Maine; and the embassies of chapter 31 are envoys, not a modern permanent mission. */
+      glossOff: ["Germany", "Spain", "Italy", "Egypt", "Syria", "Armenia", "India", "Ethiopia", "Asia", "Africa",
+        "Julius_Caesar", "Nero", "Lucretius", "Marcus_Licinius_Crassus", "Quintus_Fabius_Maximus", "Libertus",
+        "Augusta", "Embassy"],
+      id: "descartes-discourse-on-method",
+      title: "Discourse on the Method",
+      subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
+      author: "René Descartes",
+      written: "1637",
+      year: 1637,
+      translator: "John Veitch",
+      edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
+      /* No limit to state: Descartes died in 1650 and Veitch in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. René Descartes published the Discourse in 1637 and died in 1650. John " +
+        "Veitch's translation was first published in 1850 and this second edition in Edinburgh in 1853; " +
+        "Veitch died in 1894. The text is the proofread Wikisource transcription of the 1853 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Discourse_on_the_Method",
+      /* Paired on the PART, as The Prince is on the chapter: neither Veitch nor Cousin numbers anything below
+         it. The French is Victor Cousin's edition (Paris, 1824) as validated on French Wikisource. Seven
+         sections — Descartes's prefatory note and the six Parts — so "Section", and a tab runs one ahead of
+         the Part (The Social Contract's arrangement). */
+      origLang: "fr",
+      origName: "French",
+      chapterWord: "Section",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 7 sections
+         (every `.ttip`, Nov 2026). The MEDITATIONS of the front matter are Descartes's of 1641, not Marcus
+         Aurelius's; and Descartes's GERMANY is the Empire of the Thirty Years' War, not the modern state (as on
+         Leviathan's shelf). */
+      glossOff: ["Meditations", "Germany"],
+    },
+    {
+      id: "more-utopia",
+      title: "Utopia",
+      subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+      author: "Thomas More",
+      written: "1516",
+      year: 1516,
+      translator: "Gilbert Burnet",
+      edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+      /* No limit to state: More died in 1535, Burnet in 1715, Morley in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+        "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+        "Morley, who edited this printing of 1901, died in 1894.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+      /* NO `origLang`: the Latin on la.wikisource is in two Books, and Morley's first chapter holds Book I
+         and the opening of Book II, so the two cannot be paired without cutting a page. Nine chapters,
+         Morley's, titled from the work page's contents; no parts, for the same reason. */
+      chapterWord: "Chapter",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 9 chapters (every `.ttip`,
+         Nov 2026). Plato's 'Commonwealth' is the Republic, not the Commonwealth of Nations; Providence is
+         divine, not the capital of Rhode Island; the monstrous Colossus is a figure of speech, not the statue
+         at Rhodes; the Germans are the mercenaries of More's day and "the Greek" Hythloday knows is the
+         language, not the modern states; the Syrians beside the Romans and Carthaginians are the ancient
+         kingdom's, as on Leviathan's shelf. */
+      glossOff: ["Commonwealth_of_Nations", "Providence", "Colossus_of_Rhodes", "Germany", "Greece", "Syria"],
+    },
+    {
+      id: "darwin-origin-of-species",
+      title: "On the Origin of Species",
+      subtitle: "By Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life",
+      author: "Charles Darwin",
+      written: "1859",
+      year: 1859,
+      /* NO `translator`: written in English, like Leviathan. */
+      edition: "The first edition, John Murray, London, 1859",
+      /* No limit to state: printed in 1859, its author dead since 1882. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Charles Darwin published On the Origin of Species in London in 1859 " +
+        "and died in 1882, so the book has never been in copyright anywhere since. The text is the " +
+        "validated Wikisource transcription of the first edition, from a facsimile scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/On_the_Origin_of_Species_(1859)",
+      /* NO `origLang`: the book is English. Fifteen sections — Darwin's Introduction and his fourteen
+         chapters — so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each title
+         (Leviathan's arrangement; the front matter says so). No `parts`: the book has none. */
+      chapterWord: "Section",
+      count: 15,
+      total: 15,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 15 sections (every `.ttip`,
+         93 keys, Nov 2026). NAMESAKES: Darwin's Pallas is Peter Simon Pallas the naturalist, not Mark Antony's
+         freedman; his Philippi is the naturalist R. A. Philippi, not the Macedonian city; the Silla of Caracas
+         is a mountain, not the Korean kingdom; his Rhea is the American ostrich, not the Titaness; his Hydra is
+         the freshwater polyp, not the Lernaean monster. ORDINARY WORDS and names inside names: the Sounds of
+         Tierra del Fuego (inlets, not acoustics), the Jerusalem artichoke, Mr. Smith of Jordan Hill, and an
+         Arab or Arabian horse (a breed, not the people or the peninsula). Iran is the legendary "Iran and
+         Turan" of a quotation, not the modern state. What stays is right in place: Agassiz, Lubbock, the
+         Glacial period, natural and sexual selection, and the countries and seas of Darwin's own world. */
+      glossOff: ["Marcus_Antonius_Pallas", "Philippi", "Silla", "Rhea_(mythology)", "Lernaean_Hydra", "Sound",
+        "Jerusalem", "Jordan", "Arabs", "Arabian_Peninsula", "Iran"],
+    },
+    {
+      id: "jerome-letters",
+      title: "The Letters of St. Jerome",
+      subtitle: "Epistulae",
+      author: "Jerome",
+      /* Letter 1 is "probably the earliest extant composition of Jerome (c. 370)" in the edition's own
+         headnote, and the last letters to Augustine are of 418–419; `year` is the first, for the date sort. */
+      written: "c. 370–419 CE",
+      year: 370,
+      translator: "W. H. Fremantle",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "Second Series, Vol. VI, ed. Philip Schaff and Henry Wace, 1893",
+      /* A LIMIT TO STATE, on two of the three translators: published 1893, so public domain in the United
+         States; Fremantle died in 1916, but Wikisource gives Martley only as "c. 1860 – c. 1920" and Lewis
+         no dates at all, so no life-plus-seventy claim is made for theirs. See .claude/fetch-book.js. */
+      rights:
+        "Jerome died in 420. W. H. Fremantle's translation, made with the Rev. G. Lewis and the Rev. " +
+        "W. G. Martley, was published in 1893 in the Nicene and Post-Nicene Fathers, Second Series, " +
+        "Volume VI, so it is in the public domain in the United States. Fremantle died in 1916, so his " +
+        "share is out of copyright wherever the term runs for the author's life plus seventy years; the " +
+        "dates of his two assistants are not established, so no such claim is made for theirs. The " +
+        "volume's Prolegomena, treatises and prefaces are not reproduced. There is no Latin facing it, " +
+        "and the book's own first page says why.",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_II/Volume_VI/The_Letters_of_St._Jerome",
+      /* ONE LETTER TO A TAB, Seneca's shape, numbered as every edition numbers them (Vallarsi's 1–150), each
+         titled from its own printed heading ("To Heliodorus, Monk"). About fifty are printed by this edition
+         as a summary only; the front matter says so. No `origLang`: Migne's Latin on Latin Wikisource could
+         not be paired — see .claude/fetch-book.js. */
+      chapterWord: "Letter",
+      count: 150,
+      total: 150,
+      /* Vallarsi's five classes, as Migne heads them in Patrologia Latina 22. */
+      parts: [
+        { n: 1, label: "The desert", note: "Letters 1–18 · 370–380, mostly from the desert of Chalcis" },
+        { n: 2, label: "Rome", note: "Letters 19–45 · the three years in Rome, with Damasus, Marcella and Paula" },
+        { n: 3, label: "Bethlehem, to 400", note: "Letters 46–95 · from 386, and the Origenist quarrel" },
+        { n: 4, label: "Bethlehem, from 401", note: "Letters 96–144 · Augustine, the sack of Rome, the Pelagians" },
+        { n: 5, label: "Of uncertain date", note: "Letters 145–150 · three of them not his" },
+      ],
+      id: "euclid-elements",
+      title: "The Elements",
+      subtitle: "Books I–VI, XI and XII",
+      author: "Euclid",
+      written: "c. 300 BCE",
+      year: -300,
+      translator: "Robert Simson, revised by Isaac Todhunter",
+      edition: "The Elements of Euclid for the Use of Schools and Colleges, Macmillan and Co., London, 1872 (first published 1862)",
+      /* No limit to state: Simson's English is of 1756 and Todhunter, who revised it, died in 1884. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Euclid wrote the Elements about 300 BCE. Robert Simson's English " +
+        "translation was published in 1756, and Isaac Todhunter's revision of it in 1862; Todhunter died in " +
+        "1884. The text is the proofread Wikisource transcription of the 1872 reprint.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Elements_of_Euclid_for_the_Use_of_Schools_and_Colleges",
+      /* NO `origLang`. The eight books Todhunter's school edition prints, one tab each; his notes, appendix
+         and exercises are not imported, and the figures (pictures) are dropped — the propositions name their
+         points by letters. */
+      chapterWord: "Book",
+      count: 8,
+      total: 8,
+      parts: [
+        { n: 1, label: "Plane geometry", note: "Books I–IV — triangles and parallels, areas, the circle, figures in and about circles" },
+        { n: 2, label: "Proportion", note: "Books V–VI — the theory of ratio between magnitudes, and similar figures" },
+        { n: 3, label: "Solid geometry", note: "Books XI–XII — lines and planes in space, solid angles, and the opening of Book XII" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all eight books (every `.ttip`,
+         Nov 2026). Every one is a figure named by its points: the triangle EDF is not the European Defence
+         Fund, AEF not the American Expeditionary Forces, FAC not the Foreign Affairs Council, ECA not the
+         European Court of Auditors. */
+      glossOff: ["European_Defence_Fund", "American_Expeditionary_Forces", "Foreign_Affairs_Council",
+        "European_Court_of_Auditors"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -16895,6 +17836,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     howfar:    ["How far? — Folio", "Guess the distance between two places on the globe."],
     pie:       ["What share? — Folio", "Drag out a slice of the pie: what share of the whole is it?"],
     whatlang:  ["What language? — Folio", "Read a short passage and name the language it is written in."],
+    whoisthis: ["Who is this? — Folio", "Five portraits of historical figures: name each one from four."],
     admin:     ["Admin — Folio", "Folio's content editor."],
     gamearchive: ["Games archive — Folio", "Play any past day of the daily games (admins only)."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
@@ -16932,6 +17874,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // …and the book hold to the book a card's quotation opened: any other page, or another book, ends it
     if (!(name === "book" && bookHold && params && params.id === bookHold.book)) bookHold = null;
     if (name !== "book") bookSeek = null;
+    if (name !== "timeline") tlHold = null;   // the timeline page's way back to its card (PAGES.timeline)
     document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());   // the reader's pill lives on <body>; PAGES.book draws it again
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
@@ -17132,6 +18075,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // `kilometers` here, and doing it the other way round would hand U_METRIC a word it still lists but
     // that the bracket test was written against in its British form.
     spellTree(root);
+    // …and the reader's era labels (BC / AD or BCE / CE), after both — see eraTree
+    eraTree(root);
     // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
     // shared deck's sample card). The study card's own reveal paints after this and wires its own.
     wireSpeakControls(root);
@@ -17585,7 +18530,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*" + U_DENOM + "(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
-  function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
+  /* A BARE "in" AFTER A FIGURE IS INCHES (2026-11-26, on request: wh-214's "10 centimetres (4 in)" showed both figures
+     whatever the setting). `in` is in U_FILL as the preposition, so "(4 in)" carried no imperial unit as far as
+     U_HAS_IMP_RX could see and the bracket was left alone; "(3 ft 5 in)" worked only because of its `ft`. */
+  const U_IN_RX = /\d\s*in\.?\s*$/i;
+  function isImperialParen(s) { return U_ONLY_RX.test(s) && (U_HAS_IMP_RX.test(s) || U_IN_RX.test(s)) && U_HAS_NUM_RX.test(s); }
   // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
   function unitizeText(text, imperial) {
     if (!text || text.indexOf("(") < 0) return text;
@@ -18236,6 +19185,64 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     render();   // the transform is one-way per render, so the other system comes back with a fresh paint
   }
 
+  /* ---------- THE ERA LABELS (2026-11-18, on request: "add the option to switch between BC/AD and BCE/CE. This should
+     automatically apply across the entire website") ----------
+     Content is authored BCE / CE; a reader who chooses BC / AD gets a text-node pass, exactly as the spelling and units
+     switches do it — nothing stored changes. BCE becomes BC wherever it stands; a CE year becomes AD placed BEFORE it, as
+     the convention has it ("c. 200 – 900 CE" → "c. AD 200 – 900", "43 CE" → "AD 43"), and "1st century CE" → "1st
+     century AD". A bare "CE" with no number or century before it is left alone (it is too often something else). The
+     same skips as spelling: citations (`.notranslate`), quotations (`.verbatim`), the Library's books, a foreign card.
+     The Atlas's own year box and timeline labels ask `window.FolioEra()` (atlas.js, atlas-windows.js). */
+  const ERAS = ["ce", "ad"];
+  function eraSystem() { return ERAS.includes(S.settings && S.settings.era) ? S.settings.era : "ce"; }
+  window.FolioEra = () => eraSystem();
+  const ERA_BCE_RX = /\bBCE\b/g;
+  const ERA_CE_RX = /((?:\bc\.|\bca\.|\bcirca)\s*)?(\b\d[\d,]*)((?:\s*(?:–|—|-|\/|to|and|or)\s*(?:c\.\s*)?\d[\d,]*)*)\s+CE\b/g;
+  const ERA_CENT_RX = /\b(centur(?:y|ies)|millenni(?:um|a))\s+CE\b/g;
+  function eraText(t) {
+    if (!t || t.indexOf("CE") < 0) return t;
+    return t.replace(ERA_BCE_RX, "BC").replace(ERA_CE_RX, (m, c, a, rest) => (c || "") + "AD " + a + rest).replace(ERA_CENT_RX, "$1 AD");
+  }
+  window.FolioEraText = (t) => (eraSystem() === "ad" ? eraText(t) : t);
+  function eraTree(root) {
+    if (!root || eraSystem() !== "ad") return;
+    const foreign = !!(document.querySelector(SPELL_FOREIGN_SEL));
+    if (root.nodeType === 3) {
+      if (spellSkip(root.parentNode, foreign)) return;
+      const v = eraText(root.nodeValue); if (v !== root.nodeValue) root.nodeValue = v;
+      return;
+    }
+    if (!root.querySelectorAll) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = []; let n;
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.indexOf("CE") >= 0) nodes.push(n);
+    nodes.forEach((node) => {
+      if (spellSkip(node.parentNode, foreign)) return;
+      const v = eraText(node.nodeValue);
+      if (v !== node.nodeValue) node.nodeValue = v;
+    });
+  }
+  let _eraObserver = null;
+  function applyEra() {
+    if (_eraObserver) { _eraObserver.disconnect(); _eraObserver = null; }
+    if (eraSystem() !== "ad") return;   // the authored labels: no pass, no observer
+    eraTree(document.body);
+    _eraObserver = new MutationObserver((muts) => {
+      muts.forEach((m) => {
+        if (m.type === "characterData") { eraTree(m.target); return; }
+        m.addedNodes && m.addedNodes.forEach((nd) => eraTree(nd));
+      });
+    });
+    _eraObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+  function setEra(sys) {
+    if (!ERAS.includes(sys) || sys === eraSystem()) return;
+    S.settings.era = sys;
+    save();
+    applyEra();
+    render();   // one-way per render, like the spelling: the other labels come back with a fresh paint
+  }
+
   // Reflect the current admin / first-time-visitor mode in the top bar and body class.
   function applyMode() {
     const admin = isAdmin();
@@ -18273,9 +19280,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       document.body.appendChild(el);
     }
     el.textContent = msg;
+    el.classList.remove("toast-act");
     el.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove("show"), ms || 2200);
+    /* AS LONG AS IT TAKES TO READ (Nov 2026). A fixed 2.2 s was right for "Card deleted" and far too short
+       for the thirty-word sentences a failed publish answers with, which were gone before the second line.
+       Roughly 55 ms a character over the first forty, capped at eight seconds; a caller's own `ms` wins. */
+    const len = String(msg == null ? "" : msg).length;
+    toastTimer = setTimeout(() => el.classList.remove("show", "toast-act"), ms || Math.min(8000, 2200 + Math.max(0, len - 40) * 55));
+  }
+  /* A toast with ONE thing to press — "Undo" after a delete, "Add to daily study" after an import. The
+     plain toast ignores the pointer; this one takes it for as long as it shows. `run` fires once. */
+  function toastAction(msg, label, run, ms) {
+    toast(msg, ms || 6500);
+    const el = document.getElementById("toast");
+    if (!el) return;
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "toast-btn"; b.textContent = label;
+    b.addEventListener("click", () => { el.classList.remove("show", "toast-act"); clearTimeout(toastTimer); run(); });
+    el.appendChild(b);
+    el.classList.add("toast-act");
   }
   // in-page replacement for native prompt()/confirm() — those are silently blocked in sandboxed/embedded contexts
   // (so the New-collection/rename/delete buttons appeared dead). onOk fires only on confirm (value for prompts, true for confirms).
@@ -20807,9 +21831,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      likely to have skimmed. Each has its own "?" bringing it back. */
   const LIB_TOUR_KEY = "folio_library_tour_v1";
   const LIB_HELP_TIPS = [
-    "<b>Whole books, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the book's own first page.",
-    "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a book for its options: star it to the top of the shelf, or share it.",
-    "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a book.",
+    "<b>Whole texts, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the text's own first page.",
+    "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a text for its options: star it to the top of the shelf, or share it.",
+    "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a text.",
   ];
   function openLibHelp(quiet) {
     pageHelp("The Library", LIB_HELP_TIPS, "Start reading",
@@ -20918,7 +21942,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* …and the card's canvas has a pixel budget (8.4M backing pixels, 32 MB): past it the ink is drawn at a
      little under devicePixelRatio rather than at it. iOS refuses a canvas over 16.7M pixels outright — it
      stops drawing without an error — and a long card at 2× or 3× reaches that. The book's canvas is the
-     viewport's size and is not affected. */
+     viewport's size and is not affected. SINCE 2026-11-16 THE CARD IS NOT EITHER: it uses the book's
+     screen-sized canvas and vector strokes (see CARD INK), because the budget resampled a revealed card's
+     ink below devicePixelRatio and blurred it. The raster path below stays for a caller with no vector
+     backend; no page uses it now. */
   const WB_MAX_PX = 8388608;
   function wbFreeCanvas(c) { if (c) { c.width = 0; c.height = 0; } }
   function wbFreeHist(list) { list.forEach((e) => { wbFreeCanvas(e.before); wbFreeCanvas(e.after); }); list.length = 0; }
@@ -22304,7 +23331,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          render() because the collections page is a tree the reader has expanded by hand, and rebuilding
          it would fold that back up. */
       refreshAddButtons();
-      toast(wantOn ? "Added to daily review" : "Removed from review");
+      toast(wantOn ? "Added to daily review" : "Removed from review"); sfx(wantOn ? "add" : "remove");
     });
   }
   // re-state every + / ✓ on the page from S.active. `data-id` is a tree node, `data-uadd` one of the
@@ -22507,10 +23534,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!ttsSupported()) { done(); return; }
     const text = ((p && p.text) || "").trim();
     if (!text) { done(); return; }
-    const chunks = p.zh ? [text] : ttsChunks(text);
+    const chunks = (p.zh || p.native) ? [text] : ttsChunks(text);
     chunks.forEach((chunk, i) => {
       const u = new SpeechSynthesisUtterance(chunk);
       if (p.zh) { u.lang = "zh-CN"; u.rate = TTS_RATE_ZH; const v = ttsVoiceZh(); if (v) u.voice = v; }
+      else if (p.native) {
+        u.lang = p.native;
+        try { const pre = p.native.slice(0, 2).toLowerCase(), v = speechSynthesis.getVoices().find((x) => String(x.lang || "").toLowerCase().indexOf(pre) === 0); if (v) u.voice = v; } catch (e) {}
+      }
       else {
         u.lang = "en-US"; u.rate = ttsRateEn(); u.pitch = 0.9;
         const v = ttsVoiceEn();
@@ -22546,7 +23577,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!ttsSupported()) { toast(ttsSilentNote(), TTS_NOTE_MS); return; }
     if (btn && btn.classList.contains("tts-paused")) { ttsPauseToggle(); return; }   // paused: the play button resumes
     if (btn && btn.classList.contains("tts-playing")) { ttsStop(); return; }
-    const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && !p.zh);
+    const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && !p.zh && !p.native);
     list.forEach((p) => { if (btn && !p.btn) p.btn = btn; });
     ttsSay(list, 0);
     const gen = _ttsSeq;
@@ -22567,7 +23598,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (kind === "answer") {
       const t = ttsStrip((c && (c.answerText || c.answer)) || "");
       const parts = [{ text: t, baked: bakedUrl(id, "a", t) }];
-      if (c && c.hanzi) parts.push({ text: c.hanzi, zh: true });   // Chinese stays on the device voice (no commercially-safe zh Piper voice)
+      /* the answer's native name stays on the device voice (no commercially-safe Piper voice for any of them). Only a
+         Chinese one is `zh`; a Japanese, Korean, Russian or (2026-11-26) ancient Greek one carries its own language,
+         so it is never read in a Chinese voice — see answerNameLang */
+      if (c && c.hanzi) { const L = answerNameLang(c); parts.push(L.cls === "zh" ? { text: c.hanzi, zh: true } : { text: c.hanzi, native: L.tag }); }
       return parts;
     }
     /* THE BACKGROUND IS READ WHOLE (Oct 2026, on request): a card with a book quotation renders its abstract as
@@ -23160,12 +24194,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function cardSpeakText(el) {
     return String((el && (el.getAttribute("data-say") || el.textContent)) || "").replace(/\s+/g, " ").trim();
   }
+  /* A ONE-LETTER WORD IS SPOKEN AS A WORD (Nov 2026, on a report that the French card "à" was read out as
+     "a accent grave"). Speech engines spell a lone character, so a word that is one accented letter comes back
+     as the letter's NAME. In the languages listed, the plain letter's name is the word's own sound (French à
+     and a are both /a/, Italian è is near enough to the letter e), so the base letter is what is spoken. Only a
+     single accented Latin letter is touched, and only in these languages: Vietnamese, say, keeps its tone
+     letters, whose names are what its alphabet deck teaches. */
+  const SPEAK_LETTER_LANGS = /^(fr|it|pt|es|ca)$/;
+  function speakableWord(text, lang) {
+    const t = String(text || "").normalize("NFC");
+    if (Array.from(t).length !== 1 || !SPEAK_LETTER_LANGS.test(String(lang || "").toLowerCase().split(/[-_]/)[0])) return text;
+    const base = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return base !== t && /^[a-z]$/i.test(base) ? base.toLowerCase() : text;
+  }
   function cardSpeak(el) {
     if (!el || !ttsSupported()) return;
-    const text = cardSpeakText(el);
-    if (!text) return;
     const holder = el.closest("[lang]");
     const lang = holder ? holder.getAttribute("lang") : "";
+    const text = speakableWord(cardSpeakText(el), lang);
+    if (!text) return;
     ttsStop();                              // …which also clears every .tts-playing, so mark it after
     const gen = _ttsSeq;
     try {
@@ -23663,6 +24710,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its physical geography turns on. `lotus` is the India HISTORY collection's and is deliberately not reused (the
        two Chinas' rule). Not drawn new, so not looked at small beyond what every other `drop` row already shows. */
     "geo-india": "drop",
+    /* Historical States (2026-11-19) takes the EXISTING `crown`, which no collection wore: kingdoms and empires are what the
+       collection is, and the mark is already drawn and already in the symbol picker. Not drawn new, so not looked at small
+       beyond the picker's own rows. */
+    "geo-states": "crown",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -25386,9 +26437,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       o: { lang: "lzh", t: "大人者，不失其赤子之心者也。", a: "孟子", s: "《孟子·離婁下》" } },
     { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian", s: "Letter to Ren An",
       o: { lang: "lzh", t: "人固有一死，或重於泰山，或輕於鴻毛。", a: "司馬遷", s: "《報任安書》" } },
-    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76",
+    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76", g: { "Seneca": "Seneca_the_Younger" },
       o: { lang: "la", t: "Tamdiu discendum est, quemadmodum vivas, quamdiu vivas.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 76.3" } },
-    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7",
+    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7", g: { "Seneca": "Seneca_the_Younger" },
       o: { lang: "la", t: "Homines dum docent discunt.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 7.8" } },
     { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero", s: "Orator 34.120",
       o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
@@ -25400,7 +26451,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // project's own books/marcus-aurelius-meditations.grc.js rather than set down from memory. The
       // English above is a free rendering of the section's opening two clauses; those are the clauses here.
       o: { lang: "grc", t: "Τὰ προγεγονότα ἀναθεωρεῖν, τὰς τοσαύτας τῶν ἡγεμονιῶν μεταβολάς· ἔξεστι καὶ τὰ ἐσόμενα προεφορᾶν.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν Ζ΄.49" } },
-    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
+    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e", g: { "Republic": "Republic_(Plato)" },
       o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
     { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
       o: { lang: "grc", t: "ἀμήχανον γάρ, ἅ τις οἴεται εἰδέναι, ταῦτα ἄρχεσθαι μανθάνειν.", a: "Ἐπίκτητος", s: "Διατριβαί Β΄.17" } },
@@ -25466,7 +26517,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // الحق" — nothing is fitter for the seeker of truth than the truth — which this translation does not
     // carry, and a flip that answered with a clause the reader was never shown would be the wrong half of
     // the page. Tagore's entry cuts for the same reason.
-    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century",
+    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century", g: { "Philosophy": "" },
       o: { lang: "ar", t: "وينبغي لنا أن لا نستحي من استحسان الحق، واقتناء الحق من أين أتى، وإن أتى من الأجناس القاصية عنا، والأمم المباينة.", a: "الكندي", s: "الفلسفة الأولى، خطبة الكتاب" } },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
@@ -25486,7 +26537,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // rather than what the search results say. And the Arabic keeps al-Biruni's own frame: the words are a
     // standing Arabic proverb, so he writes "the saying of him who said it is true" rather than claiming
     // the line for himself, which is worth a reader seeing when they flip it.
-    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030",
+    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030", g: { "India": "" },
       o: { lang: "ar", t: "إنما صدق قول القائل ليس الخبر كالعيان.", a: "البيروني", s: "تحقيق ما للهند، المقدمة" } },
     // TWO SOURCES WERE READ AND THEY DISAGREE BY ONE LETTER, WHICH IS WHY BOTH WERE READ. Arabic
     // Wikisource's Muqaddimah has "بطبعته" where the printed text has "بطبيعته" — the second is the
@@ -25511,17 +26562,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
     // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
     // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
-    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a", g: { "Babylonian": "" },
       o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
-    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
+    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1", g: { "Histories": "Histories_(Herodotus)" },
       o: { lang: "grc", t: "ὡς μήτε τὰ γενόμενα ἐξ ἀνθρώπων τῷ χρόνῳ ἐξίτηλα γένηται.", a: "Ἡρόδοτος", s: "Ἱστορίαι Α΄.1" } },
     /* The German carried only the closing clause — "Er will bloß zeigen…" — against an English of two
        sentences, so flipping the quote over shrank it to a fragment (Aug 2026, on a report). Both halves
        now give Ranke's whole sentence, and the original is his 1824 spelling verbatim ("blos", "Aemter"),
        checked against the printed preface rather than the form the line is usually quoted in. */
-    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
+    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824", g: { "Latin": "" },
       o: { lang: "de", t: "Man hat der Historie das Amt, die Vergangenheit zu richten, die Mitwelt zum Nutzen zukünftiger Jahre zu belehren, beigemessen: so hoher Aemter unterwindet sich gegenwärtiger Versuch nicht: er will blos zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
     { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
       o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
@@ -25570,8 +26621,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        on the ground that the pool held historical voices only. The speaker is the character and `s` names the work (and the episode), so
        nothing reads as a historical attribution. Tyrion's first line is the television wording of season 1, episode 1 (the novel's is
        longer: "for surely the world will not … Armor yourself in it"); his second is the novel's, A Game of Thrones, said to Jon Snow. ---- */
-    { t: "Power resides where men believe it resides.", a: "Varys", s: "Game of Thrones, season 2, episode 3, “What Is Dead May Never Die” (2012)" },
-    { t: "Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.", a: "Tyrion Lannister", s: "Game of Thrones, season 1, episode 1, “Winter Is Coming” (2011)" },
+    /* These two were the TELEVISION lines credited to the characters until Nov 2026, when the owner asked that every line from
+       Westeros name George R. R. Martin and cite the A Song of Ice and Fire book it is in. Varys's riddle is in A Clash of Kings, his
+       talk with Tyrion; the novel goes on "No more and no less." Tyrion's is now the NOVEL's wording (A Game of Thrones, said to Jon
+       Snow), since the show's shorter "Wear it like armor" is not what the cited book prints. */
+    { t: "Power resides where men believe it resides.", a: "George R. R. Martin", s: "A Clash of Kings (1998), Varys" },
+    { t: "Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.", a: "George R. R. Martin", s: "A Game of Thrones (1996), Tyrion Lannister to Jon Snow" },
     { t: "A mind needs books as a sword needs a whetstone, if it is to keep its edge.", a: "George R. R. Martin", s: "A Game of Thrones (1996), spoken by Tyrion Lannister" },
     { t: "Understanding is the first step to acceptance, and only with acceptance can there be recovery.", a: "Albus Dumbledore", s: "J. K. Rowling, Harry Potter and the Goblet of Fire (2000)" },
     { t: "Pride is not the opposite of shame, but its source. True humility is the only antidote to shame.", a: "Uncle Iroh", s: "Avatar: The Last Airbender, book 2, “Bitter Work” (2006)" },
@@ -25718,6 +26773,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the day's own pick the reader has been carried this visit. It lives outside the page's render, so a
      re-render (a setting, a sync) keeps the quote on screen rather than snapping back to the day's first. */
   let _dqStep = 0;
+  /* A QUOTE'S `g` CORRECTS ITS CAPTION'S GLOSSARY LINKS (Nov 2026, on request: Plato's "Republic" opened the
+     generic Republic term). The caption is auto-linked by surface (wireDailyQuote), and a word of a title can be
+     a different term's name: { surface: key } links that surface to the right term by hand (autoLinkGlossary
+     keeps a hand link), { surface: "" } keeps it plain — those surfaces ride on the figcaption and
+     wireDailyQuote turns them into the keys it leaves off. A hand link goes on the surface's first appearance
+     in the English caption only. */
+  function dqCaptionGloss(g, cap) {
+    if (!g) return cap;
+    const plain = [];
+    Object.keys(g).forEach((surf) => {
+      if (!g[surf]) { plain.push(surf); return; }
+      const at = cap.indexOf('<span class="dq-live">');
+      const hit = at < 0 ? -1 : cap.indexOf(esc(surf), at);
+      if (hit >= 0) cap = cap.slice(0, hit) + '<span class="ttip" data-k="' + esc(g[surf]) + '">' + esc(surf) + "</span>" + cap.slice(hit + esc(surf).length);
+    });
+    return plain.length ? cap.replace("<figcaption>", '<figcaption data-gloss-plain="' + esc(JSON.stringify(plain)) + '">') : cap;
+  }
   function dailyQuoteHTML() {
     const q = QUOTES[QUOTE_ORDER[(dayIndex() + _dqStep) % QUOTE_ORDER.length]];
     const o = q.o;
@@ -25730,12 +26802,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // its place, so where `o.s` is missing the one line is emitted UNPAIRED and simply stays put — which
     // is also what it is, the modern reference for the passage rather than a second language of it.
     const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
+    const cap = dqCaptionGloss(q.g, "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
+      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") + "</figcaption>");
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
       '<blockquote class="verbatim">' + pair(q.t, o && o.t) + "</blockquote>" +   // a quotation is someone's words, in a spelling and units we did not choose: EVERY entry is `.verbatim` (the pool is published translations only), and both passes skip it (2026-10-19)
-      "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
-      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
-      "</figcaption></figure>";
+      cap + "</figure>";
   }
   // flip the whole figure between the reader's language and the original. The swap itself is still the
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
@@ -25768,8 +26840,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         fig.insertAdjacentHTML("afterend", dailyQuoteHTML());
         const next = fig.nextElementSibling;
         fig.remove();
-        wireDailyQuote(root);
-        homeReadingSwap(root, 1);   // the reading box turns on the quote's minute (homeReadingHTML)
+        wireDailyQuote(root);   // (the reading box no longer turns with it — by hand only since Nov 2026, homeReadingHTML)
         if (!prefersReducedMotion() && next) {
           next.classList.add("dq-in");
           requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("dq-in")));
@@ -25834,10 +26905,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const cap = fig.querySelector("figcaption");
     if (cap && uiLang() === "en") {
       try {
+        // the surfaces the quote's `g` keeps plain (dailyQuoteHTML), resolved here to the keys they would link to
+        let plain = null;
+        try { plain = JSON.parse(cap.getAttribute("data-gloss-plain") || "null"); } catch (e) {}
+        const idx = plain && glossIndexFor("site");
+        const off = idx ? plain.map((sf) => resolveGlossKey(idx, sf)).filter(Boolean) : null;
         const live = cap.querySelectorAll(".dq-live");
-        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", null, "site"));
+        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", off, "site"));
         const src = cap.querySelector(".dq-src");
-        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", null, "site");
+        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", off, "site");
         setupTooltips(cap);
       } catch (e) { /* a quote with no linkable term is the ordinary case, not a fault */ }
     }
@@ -26065,7 +27141,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      for every reader, Nov 2026), so swiping back and forth shows the same two and a fresh book
      file is not fetched every other minute. The swap is homeReadingSwap: wireDailyQuote's advance calls it as
      the quote moves on (one timer, held while the tab is hidden, as the quote is), and a horizontal swipe or
-     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone. */
+     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone.
+     NO LONGER ON A TIMER (Nov 2026, on request: "shouldn't automatically switch between the two"): the
+     quote's advance does not call homeReadingSwap any more; the box stays on its face until the reader
+     swipes or presses an arrow key, and the dots still say there is a second face. */
   let _hrPair = null;   // { cont, sug, mode } — the two books of this build's box; null when it has one face
   /* ONE SUGGESTED READING A DAY, THE SAME FOR EVERY READER (Nov 2026, on request: "there should be one
      suggested reading for the whole website displayed every day and changed to a random new section the
@@ -26193,6 +27272,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "julius-caesar", n: 3, t: "Act III", p: 142,
       text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
+    { book: "hamlet", n: 3, t: "Act III", p: 25,
+      text: "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and, by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause. There's the respect That makes calamity of so…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -26201,6 +27282,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Their ritual, then, is such as I have described. As you enter the temple that they name the Parthenon, all the sculptures you see on what is called the pediment refer to the birth of Athena, those on the rear pediment represent the contest for the land between Athena and Poseidon. The statue itself is made of ivory and gold. On the middle of her helmet is placed a likeness of the Sphinx—the tale of the Sphinx I will give when I come to my description of Boeotia—and on either side of the helmet are griffins in relief. These griffins, Aristeas of Proconnesus says in his poem, fight for the gold…" },
     { book: "strabo-geography", n: 1, t: "Book 1", p: 0,
       text: "IF the scientific investigation of any subject be the proper avocation of the philosopher, Geography, the science of which we propose to treat, is certainly entitled to a high place; and this is evident from many considerations. They who first ventured to handle the matter were distinguished men. Homer, Anaximander the Milesian, and Hecataeus, (his fellow-citizen according to Eratosthenes,) Democritus, Eudoxus, Dicaearchus, Ephorus, with many others, and after these Erastosthenes, Polybius, and Posidonius, all of them philosophers. Nor is the great learning, through which alone this subject…" },
+    { book: "apollodorus-library", n: 1, t: "Book I", p: 31,
+      text: "Prometheus moulded men out of water and earth and gave them also fire, which, unknown to Zeus, he had hidden in a stalk of fennel. But when Zeus learned of it, he ordered Hephaestus to nail his body to Mount Caucasus, which is a Scythian mountain. On it Prometheus was nailed and kept bound for many years. Every day an eagle swooped on him and devoured the lobes of his liver, which grew by night. That was the penalty that Prometheus paid for the theft of fire until Hercules afterwards released him, as we shall show in dealing with Hercules." },
     { book: "diodorus-library", n: 2, t: "Book 2", p: 5,
       text: "Since after the founding of this city Ninus made a campaign against Bactriana, where he married Semiramis, the most renowned of all women of whom we have any record, it is necessary first of all to tell how she rose from a lowly fortune to such fame. Now there is in Syria a city known as Ascalon, and not far from it a large and deep lake, full of fish. On its shore is a precinct of a famous goddess whom the Syrians call Derceto; and this goddess has the head of a woman but all the rest of her body is that of a fish, the reason being something like this. The story as given by the most learned…" },
     { book: "anglo-saxon-chronicle", n: 1, t: "To 599", p: 0,
@@ -26213,6 +27296,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "more-utopia", n: 1, t: "Discourses of Raphael Hythloday, of the Best State of a Commonwealth", p: 2,
+      text: "'The increase of pasture,' said I, 'by which your sheep, which are naturally mild, and easily kept in order, may be said now to devour men and unpeople, not only villages, but towns; for wherever it is found that the sheep of any soil yield a softer and richer wool than ordinary, there the nobility and gentry, and even those holy men, the abbots! not contented with the old rents which their farms yielded, nor thinking it enough that they, living at their ease, do no good to the public, resolve to do it hurt instead of good. They stop the course of agriculture, destroying houses and towns, reserving only the churches, and enclose grounds that they may lodge their sheep in them." },
+    { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
+      text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
+    { book: "augustus-res-gestae", n: 6, t: "Part VI", p: 2,
+      text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
+    { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
+      text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "euclid-elements", n: 1, t: "Book I", p: 1,
+      text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
@@ -26221,6 +27314,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
     { book: "quran", n: 1, t: "The Opening", p: 1,
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
+    { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
+      text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
@@ -26421,10 +27516,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* ---------- THE TERM OF THE DAY (2026-11-13, on request) ----------
      "Since the Suggested Reading box now sits in the bottom left on those formats with nothing to the right of it, add a box
      there with a randomly selected daily highlighted gloss term, preferably one with an image." A tablet's and a desktop's
-     alone (styles.css hides it on a phone, where the reading box stands by itself as before). The draw is `dayPick` over the
+     alone at first; since 2026-11-16 a phone's too, directly below the reading box (both at `order:3` in styles.css). The draw is `dayPick` over the
      curated glossary — never a deck's own terms — so everyone sharing a day shares a term and it does not change on a reload;
      the pool is the terms WITH a picture and a text (the pictures and texts ride the lazy glossExtra bundle, so the box is drawn
-     empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup. */
+     empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup.
+     SWAPPED (2026-11-18, on request: "switch around the positions of the Suggested Reading and the Gloss of the Day boxes"):
+     the term box now comes first in `.home-two` — left on a tablet and a desktop, above the reading box on a phone. */
   function homeTermPick() {
     const G = window.GLOSSARY || {}, I = window.GLOSSARY_IMAGES || {};
     const keys = Object.keys(G).filter((k) => !uGlossParse(k) && G[k]);
@@ -26438,11 +27535,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const d = document.createElement("div"); d.innerHTML = String(glossText(k) || "");
     d.querySelectorAll("sup").forEach((x) => x.remove());
     const txt = (d.textContent || "").replace(/\s+/g, " ").trim();
+    /* THE SUGGESTED READING BOX'S TEMPLATE (2026-11-19, on request: "ensure the Daily Gloss and the Suggested Reading boxes
+       look similar"): the picture where the spine stands, title / dates / a small mono line in `.hb-body`, then the
+       definition as the passage is drawn — a rule, a small label, serif text fading out downwards (`.hb-next`). */
     return '<span class="hb-k">Term of the day</span>' +
-      '<span class="ht-term">' + (img ? '<img class="ht-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : "") +
-      '<span class="ht-body"><b>' + (GLOSS_WORK_KEYS.has(k) ? "<i>" + esc(title) + "</i>" : esc(title)) + "</b>" +
-      (dates ? "<span>" + esc(glossDatesFlat(dates)) + "</span>" : "") + "</span></span>" +
-      '<span class="ht-text">' + esc(txt) + "</span>";
+      '<span class="hb-book ht-term">' + (img ? '<img class="ht-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : "") +
+      '<span class="hb-body"><b>' + (GLOSS_WORK_KEYS.has(k) ? "<i>" + esc(title) + "</i>" : esc(title)) + "</b>" +
+      (dates ? "<span>" + esc(glossDatesFlat(dates)) + "</span>" : "") + "<em>From the glossary</em></span></span>" +
+      '<span class="hb-next ht-text"><span class="hb-next-k">Definition</span><span class="hb-next-p">' + esc(txt) + "</span></span>";
   }
   function homeTermHTML() {
     const k = dataReady("glossExtra") ? homeTermPick() : null;
@@ -26590,8 +27690,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (trio) {
       const gd = figs(day), gw = figs(week);
       return '<div class="home-trio" role="group" aria-label="Today and this week">' +
-        '<div class="home-box ht-cell ht-today"><span class="hb-k">Today</span><div class="ht-big">' + day.cards + '</div><div class="ht-lab">cards studied</div>' +
-          '<div class="ht-pair"><div><b>' + esc(gd.time) + '</b><div class="ht-lab">time studied</div></div><div><b class="g">' + gd.recall + '</b><div class="ht-lab">recalled</div></div></div></div>' +
+        /* TODAY IS LAID OUT AS THIS WEEK IS (2026-11-19, on request): three label / figure rows, not a big number over a pair */
+        '<div class="home-box ht-cell ht-today"><span class="hb-k">Today</span><div class="ht-rows">' +
+          '<div><span>cards</span><b>' + day.cards + '</b></div><div><span>time</span><b>' + esc(gd.time) + '</b></div><div><span>recalled</span><b class="g">' + gd.recall + "</b></div></div></div>" +
         '<div class="home-box ht-cell ht-days"><span class="hb-k">The last seven days</span>' + bars + "</div>" +
         '<div class="home-box ht-cell ht-week"><span class="hb-k">This week</span><div class="ht-rows">' +
           '<div><span>cards</span><b>' + week.cards + '</b></div><div><span>time</span><b>' + esc(gw.time) + '</b></div><div><span>recalled</span><b class="g">' + gw.recall + "</b></div></div></div></div>";
@@ -26600,16 +27701,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
       '<div class="hw-week"><span class="hb-k">This week</span>' + bars + line(week) + "</div></div>";
   }
-  /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
-     Site cards only: a community card's text lives per note and may not be loaded yet.
-     NEVER A CARD WHOSE QUESTION NEEDS ITS PICTURE (Oct 2026, on request: "the preview doesn't include an
-     image or atlas box and the question makes no sense by itself"): a map card's question points at the
-     atlas, a flag or draw-the-flag card's at the flag, an artwork card's at the picture — "The country or
-     territory whose flag is shown is ___" is nothing on a card that shows no flag. The preview holds text
-     only, so it skips past those to the next card whose question stands alone. */
-  function previewable(c) {
-    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
-  }
+
   /* THE WEEK AHEAD, ABOVE THE MINIGAMES (Nov 2026, on request; until the same month the foot of the daily-study banner, design B of the forecast
      mock-ups). Seven chips — today, then the next six days — so the week's load is seen on every visit
      without opening the statistics. TODAY is the banner's own count (what is waiting now, new cards
@@ -26658,17 +27750,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     })();
   });
 
-  function reviewPreviewHTML(ids) {
-    const pick = [];
-    for (const id of ids) { const c = CARD_BY_ID[id]; if (previewable(c)) pick.push(c); if (pick.length === 3) break; }
-    if (!pick.length) return "";
-    const txt = (q) => esc(String(q).replace(/<[^>]+>/g, "")).replace(/_{3,}/g, '<u class="pv-blank"></u>');
-    const name = (c) => { const r = cardCollectionRoot(c.id); return r ? nodeTitle(r) : ""; };
-    const state = (c) => { const rec = S.cards[c.id]; return !rec ? "New" : schedIsLearning(rec.status) ? "Learning" : "Review"; };
-    return '<div class="rv-preview" aria-hidden="true">' + pick.map((c, i) =>
-      '<div class="pv-card pv' + (i + 1) + '"><span class="pv-eb">' + esc(name(c)) + (i === 0 ? "<em>next up</em>" : "") + "</span>" +
-      "<p>" + txt(c.question) + '</p><span class="pv-ft">' + state(c) + "</span></div>").reverse().join("") + "</div>";
-  }
+
 
   /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
      Adding a collection brings its whole subtree into the review (see addActive), and a 1,000-card plan's
@@ -27205,6 +28287,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // What language? — two speech bubbles, one behind the other: the same words said twice, in two tongues
     whatlang:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h11v8H8l-3 3v-3H3z"/><path d="M17 8h4v8h-2v3l-3-3h-5v-2"/></svg>',
+    // Who is this? — a head and shoulders inside an upright frame: a portrait, where the Picture round's mark is a landscape
+    whoisthis:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="2"/><circle cx="12" cy="10" r="3.2"/><path d="M7 21.5c.5-3.6 2.6-5.8 5-5.8s4.5 2.2 5 5.8"/></svg>',
     // What share? — a pie with one slice drawn out of it, which is the answer the reader gives
     pie:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 4.6A8 8 0 1 0 19.4 13.5H10.5z"/><path d="M13.5 2.6a8 8 0 0 1 7.9 7.9h-7.9z" fill="currentColor"/></svg>',
@@ -27652,23 +28737,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const members = (langCtx.get(id) || []).filter((e) => !nestParentOf(e));
           const kids = members.concat(kidsOf(id));
           const h = groupColor(id) || langCtxHue(id) || hue;
-          /* WHEN EVERY DECK UNDER IT IS STILL TO BE DOWNLOADED, THE LANGUAGE ROW OFFERS TO FETCH THEM ALL
-             (Oct 2026, on request: "when all decks in an active collection need to be downloaded, the
-             collection itself should also display a download button which downloads every deck within it
-             at once"). The decks are collected by DECK id, once each, however many entries of a deck the
-             reader holds; the button carries the sum of the catalogue's sizes, as each row's own does. A
-             container with one deck already here offers nothing — the remaining rows have their own button. */
-          const dlAll = [], dlSeen = new Set();
-          let dlBytes = 0, dlEvery = kids.length > 0;
-          kids.forEach((e) => {
-            const dId = uDeckIdOf(e), cat = dId && !UDECKS[dId] && entryPending(e) ? langCatalogById(dId) : null;
-            if (!cat) { dlEvery = false; return; }
-            if (dlSeen.has(dId)) return;
-            dlSeen.add(dId); dlAll.push(dId); dlBytes += cat.bytes || 0;
-          });
-          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids,
-                      dlAll: dlEvery ? dlAll : [], dlBytes });
-          orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
+          // its "Download all" / "Update all" button is gathered once the list is built (see dlUnder below)
+          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
+          // the catalogue decks always in the Collections page's order, whatever was dragged (langCatalogRank)
+          inCatalogOrder(orderedIds(id, kids)).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
         const n = NODE_BY_ID[id];
@@ -27926,6 +28998,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
       rows.forEach((r) => parentOf.set(r.drag, r.parent || ""));
+      /* EVERY COLLECTION ROW OFFERS ONE BUTTON FOR WHAT IS WAITING UNDER IT (Nov 2026, on request: "if an
+         active collection has any decks inside it that need updating or downloading, the collection's own
+         banner should include a single Download (or Update) button that installs all of them at once"). It
+         generalises the language header's old "Download all", which appeared only while EVERY deck under it
+         was still to be fetched: any collection-like row — a language, a curated collection, a group, a
+         community collection, a signpost collection — now gathers each pending (catalogue or shared) and
+         stale deck drawn anywhere beneath it, folded or not, ONCE per deck. "Download all" while any of them
+         is still to be fetched, "Update all" when every one is an update. Wired by `[data-dlall]`. */
+      const dlUnder = new Map();
+      const isCollRow = (r) => !!(r.langhead || r.group || r.coll || (r.node && !r.node.parentId));
+      const rowByDrag = new Map(rows.map((r) => [r.drag, r]));
+      rows.forEach((r) => {
+        const dl = r.pending && !r.shared && langCatalogById(r.pending) ? r.pending : "";
+        const sh = r.pending && r.shared ? r.shared : "";
+        const up = r.update || "";
+        if (!dl && !sh && !up) return;
+        for (let p = parentOf.get(r.drag); p; p = parentOf.get(p)) {
+          const c = rowByDrag.get(p);
+          if (!c || !isCollRow(c) || c.pending) continue;
+          let a = dlUnder.get(p);
+          if (!a) dlUnder.set(p, (a = { dl: [], sh: [], up: [], bytes: 0 }));
+          if (dl && a.dl.indexOf(dl) < 0) { a.dl.push(dl); a.bytes += (langCatalogById(dl) || {}).bytes || 0; }
+          if (sh && a.sh.indexOf(sh) < 0) a.sh.push(sh);
+          if (up && a.up.indexOf(up) < 0) a.up.push(up);
+        }
+      });
+      const dlAllBtn = (r) => {
+        const a = dlUnder.get(r.drag);
+        if (!a) return "";
+        const fetch = a.dl.length + a.sh.length;
+        // a size only where every file to fetch states one: a shared deck's weight is unknown (see the pending row)
+        const label = fetch ? "Download all" + (a.dl.length && !a.sh.length ? " " + fmtDeckSize(a.bytes) : "") : "Update all";
+        const n = fetch + a.up.length;
+        return `<button class="btn tiny dk-dl dk-dlall${fetch ? "" : " dk-up"}" type="button" data-dlall="${esc(r.drag)}" data-decks="${esc(a.dl.join(" "))}" data-shared="${esc(a.sh.join(" "))}" data-ups="${esc(a.up.join(" "))}" title="${esc((fetch ? "Download" : "Update") + " " + plural(n, "deck", "decks") + " in " + rowTitle(r) + " at once")}">${esc(label)}</button>`;
+      };
       /* ONE reading of a row's name, for the two places that had grown their own copy of the same
          expression — the drag handle's label and the row's own title. A reader's rename beats everything
          (see `adOwnTitle`), then whatever the build put on the row, then the node's title; a group's
@@ -28004,11 +29111,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
-              ${r.dlAll && r.dlAll.length
-                /* every deck of the language is still to be fetched: one button for the lot (see the row builder),
-                   wired by `[data-langdlall]` beside the per-deck `[data-langdl]` */
-                ? `<button class="btn tiny dk-dl" type="button" data-langdlall="${esc(r.drag)}" data-decks="${esc(r.dlAll.join(" "))}">Download all ${esc(fmtDeckSize(r.dlBytes))}</button>`
-                : ""}
+              ${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28030,6 +29133,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
+              ${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28071,7 +29175,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}${deadlineTagHTML(r.drag)}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
-              ${up}
+              ${up}${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28084,6 +29188,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.node.id)}</div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
+              ${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28119,6 +29224,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
             </div>
+            ${dlAllBtn(r)}
             ${chev}
           </div>`;
         })
@@ -28150,8 +29256,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedHowFarToday = gamePlayedToday("howfar");
     const playedPieToday = gamePlayedToday("pie");
     const playedWhatLangToday = gamePlayedToday("whatlang");
+    const playedWhoIsThisToday = gamePlayedToday("whoisthis");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar"), pie: gameWonToday("pie"), whatlang: gameWonToday("whatlang") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar"), pie: gameWonToday("pie"), whatlang: gameWonToday("whatlang"), whoisthis: gameWonToday("whoisthis") };
     /* The day's completion mark is at module scope, beside ICON — see `doneMarkHTML`. */
     /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
        page, the tile should flip around and reveal the user's general stats and site-wide average
@@ -28211,7 +29318,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE NINE TILE HUES, IN ONE PLACE (Oct 2026): the grid below reads them for its tiles and the
        tablet's rail (sweepRowHTML) reads them for its glyph discs, so a re-coloured game changes in both. The
        values and the reasoning for each are unchanged — see the tile calls in gameGrid. */
-    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E", pie: "#A0186C", whatlang: "#206878" };
+    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E", pie: "#A0186C", whatlang: "#206878", whoisthis: "#754B81" };
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
       /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
@@ -28318,6 +29425,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             palette's tightest pair at 27.8) inside the palette's own lightness and chroma, and white reads above 7:1 on it. */""}
       ${tile({ id: "g-pie", key: "pie", cls: "g-pie", color: GAME_HUE.pie, glyph: ICON.pie, title: "What share?", sub: gameSub("pie"), done: playedPieToday, won: wonToday.pie })}
       ${/* WHAT LANGUAGE? IS DORMANT (2026-11-15): its tile is gone; see DORMANT_GAMES. */""}
+      ${/* WHO IS THIS? (2026-11-19) is the tenth tile in play. The band the palette was swept in (L 48–63) has nothing left that clears the palette's tightest pair (27.8)
+            outside the yellows, which the What year? note above rules out, so the sweep was widened to the darker band What share? and What language? already sit in
+            (L 38–63): this aubergine is the farthest colour from all twelve hues there, 29.4 from its nearest (Timeline), 29.6 from the Picture round's pink and 30.3
+            from Who said it?'s violet, and white reads 6.8:1 on the fill. Rendered in the unplayed state before it was kept: it opens the desktop's fourth row under What year?'s green, diagonal to What
+            share?'s berry, and reads apart from both and from Who said it?'s violet. */""}
+      ${tile({ id: "g-whoisthis", key: "whoisthis", cls: "g-whoisthis", color: GAME_HUE.whoisthis, glyph: ICON.whoisthis, title: "Who is this?", sub: gameSub("whoisthis"), done: playedWhoIsThisToday, won: wonToday.whoisthis })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -28442,9 +29555,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!rb || rb.classList.contains("hero")) return;
       const p = listPiles(), st = rvState(p);
       rb.innerHTML = rvBannerInner(p);
-      // the week ahead's Today is the banner's own count, so a fold that changes one redraws the other (rvWeekHTML)
-      const wk = root.querySelector(".rv-week");
-      if (wk) { const t = document.createElement("div"); t.innerHTML = rvWeekHTML(p.nw + p.lr + p.rv, activeIds.length); if (t.firstElementChild) wk.replaceWith(t.firstElementChild); }
       rb.querySelectorAll(".xp[data-pct]").forEach((x) => { const f = x.querySelector(".xp-fill"); if (f) f.style.width = x.dataset.pct + "%"; });
       rb.classList.toggle("done", st.done); rb.classList.toggle("won", st.won);
       if (rg) { rg.classList.toggle("rv-done", st.done); rg.classList.toggle("rv-won", st.won); }
@@ -28508,7 +29618,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   control inside a button had to be a `role="button"` span the banner's own handler deferred
                   to. */""}
           </div>
-          ${reviewPreviewHTML(pile.ids)}`;
+          ${/* the fanned preview of the next three cards stood here, desktop only, until 2026-11-26 (on request:
+                "remove these previews and reorganise the desktop banner to be organised cleanly") — the desktop
+                now takes the tablet's full-width layout, see .rv-banner in styles.css */""}`;
     }
     /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
        request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
@@ -28655,9 +29767,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
         ${homeWeekHTML(true)}
-        ${/* THE WEEK AHEAD stands here, between the Today / This week figures and the minigames, the full width of
-              the column (Nov 2026, on request) — it was at the foot of the daily-study banner (rvWeekHTML) */""}
-        ${fresh ? "" : rvWeekHTML(pileN, activeIds.length)}
+        ${/* THE WEEK AHEAD (rvWeekHTML) is no longer drawn on the home page (2026-11-19, on request: "remove the upcoming
+              week card load bar"); the full forecast stays under Account → Review statistics. */""}
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
@@ -28666,7 +29777,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </section>
         ${/* ON THIS DAY sits directly under the minigames, above Suggested reading (Nov 2026, on request) */""}
         ${homeOnThisDayHTML()}
-        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
+        <div class="home-two">${homeTermHTML()}${homeWeekHTML()}${homeReadingHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
@@ -28858,47 +29969,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         renderInPlace();   // the reader is standing on this list: the row turns into the deck under them
       });
     });
-    /* EVERY DECK OF A LANGUAGE IN ONE PRESS (Oct 2026, on request) — the button the language's own row
-       carries while all of its decks are still to be fetched (see the row builder). The decks are fetched
-       ONE AFTER ANOTHER through the same `langDeckDownload` each row's button uses, so a deck arriving this
-       way is in every respect the deck that would have arrived from its own row — same import, same
-       `langRev`, same cascade of subdeck entries. The page is repainted ONCE, after the last of them, rather
-       than once per deck through `uImportDone`: that repaint rebuilds this very list and would take the
-       button, and the bar in it, away under the reader after the first file. The bar counts decks as well as
-       bytes ("2/5 · 40%"), each deck's own percentage filling its share of the whole. A deck that fails is
-       reported and the rest still land; its row keeps its own button for another try. */
-    root.querySelectorAll("[data-langdlall]").forEach((b) => {
+    /* EVERY PENDING DECK UNDER A COLLECTION IN ONE PRESS (Oct 2026 for a language whose decks were all still
+       to be fetched; Nov 2026 for any collection row with anything waiting under it — see dlUnder in the row
+       builder). The decks are fetched ONE AFTER ANOTHER through the very calls each row's own button makes —
+       `langDeckDownload` for a catalogue deck, `communityFetchDeckById` + `uDeckInstall` for a shared one,
+       `langDeckUpdate` for a stale one — so a deck arriving this way is in every respect the deck that would
+       have arrived from its own row. The page is repainted ONCE, after the last of them, rather than once per
+       deck through `uImportDone`: that repaint rebuilds this very list and would take the button, and the bar
+       in it, away under the reader after the first file. The bar counts decks as well as bytes ("2/5 · 40%"),
+       each deck's own percentage filling its share of the whole. A deck that fails is reported and the rest
+       still land; its row keeps its own button for another try. Updates end on the one update sheet. */
+    root.querySelectorAll("[data-dlall]").forEach((b) => {
       b.addEventListener("pointerdown", (e) => e.stopPropagation());
       b.addEventListener("click", async (e) => {
         e.stopPropagation();
         if (b.disabled) return;
-        const ids = String(b.dataset.decks || "").split(" ").filter(Boolean);
-        if (!ids.length) return;
+        const list = (k) => String(b.dataset[k] || "").split(" ").filter(Boolean);
+        const jobs = list("decks").map((id) => ["dl", id])
+          .concat(list("shared").map((id) => ["sh", id]), list("ups").map((id) => ["up", id]));
+        if (!jobs.length) return;
+        const fetching = jobs.some((j) => j[0] !== "up");
         b.disabled = true;
         const was = b.textContent;
         b.classList.add("dk-dl-busy");
-        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        b.innerHTML = '<span class="dkdl-t">' + (fetching ? "Downloading…" : "Updating…") + '</span><i class="dkdl-fill" style="width:0%"></i>';
         const fill = b.querySelector(".dkdl-fill"), lab = b.querySelector(".dkdl-t");
-        const saves = [], failed = [];
+        const saves = [], failed = [], updated = [];
         let got = 0;
-        for (let i = 0; i < ids.length; i++) {
-          const r = await langDeckDownload(ids[i], (have, total) => {
+        for (let i = 0; i < jobs.length; i++) {
+          const kind = jobs[i][0], id = jobs[i][1];
+          const step = (have, total) => {
             if (!b.isConnected) return;
             const part = total > 0 ? Math.min(1, have / total) : 0;   // this file's share, or none where the server sends no length
-            fill.style.width = (((i + part) / ids.length) * 100).toFixed(1) + "%";
-            lab.textContent = (i + 1) + "/" + ids.length + (total > 0 ? " · " + Math.round(part * 100) + "%" : "");
-          });
-          if (r.error) failed.push(r.error);
-          else { got++; if (r.saved) saves.push(r.saved); }
+            fill.style.width = (((i + part) / jobs.length) * 100).toFixed(1) + "%";
+            lab.textContent = (i + 1) + "/" + jobs.length + (total > 0 ? " · " + Math.round(part * 100) + "%" : "");
+          };
+          step(0, 0);
+          let r;
+          if (kind === "sh") {
+            const row = await communityFetchDeckById(id);
+            r = (row.error || !row.row) ? { error: row.error === "notfound" ? "That deck is no longer available" : (row.error || "Couldn't load that deck.") }
+              : await uDeckInstall(row.row, row.cards, row.gloss);
+          } else r = await (kind === "up" ? langDeckUpdate : langDeckDownload)(id, step);
+          if (!r || r.error) { failed.push((r && r.error) || "A deck couldn't be read."); continue; }
+          got++;
+          if (r.saved) saves.push(r.saved);
+          if (kind === "up") updated.push(r);
         }
         if (!got) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; toast(failed[0] || "Those decks couldn't be read."); return; }
-        renderInPlace();   // the reader is standing on this list: the rows turn into the decks under them
         if (saves.length) {
           const slow = setTimeout(() => toast("Saving the decks to this device…"), 400);
           await Promise.all(saves);
           clearTimeout(slow);
         }
-        toast(failed.length ? "Downloaded " + got + " of " + ids.length + " decks — " + failed[0] : "Downloaded " + got + (got === 1 ? " deck" : " decks"));
+        renderInPlace();   // the reader is standing on this list: the rows turn into the decks under them
+        const verb = fetching ? "Downloaded " : "Updated ";
+        toast(failed.length ? verb + got + " of " + jobs.length + " decks — " + failed[0] : verb + got + (got === 1 ? " deck" : " decks"));
+        if (updated.length) openDeckUpdateSheet(updated);
       });
     });
     /* THE SAME BUTTON, FETCHING THE SAME FILE, FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report).
@@ -29674,6 +30801,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (sel) sel.addEventListener("change", () => route("timeline", sel.value ? { q: sel.value } : {}));
     root.querySelector("#tlpMine").addEventListener("change", (e) => { try { localStorage.setItem("folio.timeline.mine", e.target.checked ? "1" : "0"); } catch (er) {} PAGES.timeline(root, params); });
     root.querySelectorAll(".tlp-row").forEach((b) => b.addEventListener("click", () => route("card", { id: b.dataset.card })));
+    /* "BACK TO CARD" (2026-11-19, on request): only when a card's "whole timeline" link brought the reader here (`tlHold`).
+       The book reader's pill (`.bk-tocard`: on <body>, pinned above the tab bar, removed by route() on every move), since
+       the reader scrolls a long axis away from the page head. It returns to the study session as it was (the queue, the
+       card, the answer showing), else to the card's own address. One use: the hold is spent. */
+    document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());
+    if (tlHold && (tlHold.rec || tlHold.card)) {
+      const tc = document.createElement("button");
+      tc.type = "button"; tc.className = "bk-tocard tlp-tocard"; tc.id = "tlpToCard";
+      tc.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg><span>Back to card</span>';
+      document.body.appendChild(tc);
+      tc.addEventListener("click", () => {
+        const h = tlHold; tlHold = null;
+        if (h && h.rec) { writeStudySession(h.rec); route("study", { scope: h.rec.scope, resume: h.rec }); }
+        else if (h && h.card) route("card", { id: h.card });
+        else route("home");
+      });
+    }
   };
 
   /* ---------- WEAK SPOTS (2026-11-15, on request: "retention by deck, tag and period, with a one-tap 'study my
@@ -30015,7 +31160,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        below, which is what keeps them out of History and gives the daily-study list its mark for them, and
        the Collections page draws them at the head of the Shared decks section (`specialCollections`). */
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", psych: "Science", bio: "Science", paleo: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", "geo-states": "Geography", psych: "Science", bio: "Science", paleo: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -30106,6 +31251,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 466, "geo-russia": 163,
     /* India's 190 planned (docs/india-geography-card-plan.md): 36 states and union territories, 34 capitals, 40 cities, 40 + 40 physical. */
     "geo-india": 190,
+    /* Historical States' 137 (docs/historical-states-card-plan.md): the polities of the Atlas's history that are states, in seven period decks. */
+    "geo-states": 137,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -30211,7 +31358,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               page now, top to bottom. */""}
         <span class="eyebrow">Study</span>
         <h1>Collections</h1>
-        <p>Curated collections of flashcards. New subjects are on the way.</p>
+        <p>Curated collections of flashcards. New subjects are on the way. <button type="button" class="sa-link coll-own" id="collOwn">Or write a deck of your own.</button></p>
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
@@ -30277,6 +31424,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       collTab = b.dataset.colltab;
       renderInPlace();
     }));
+    // the page's own sentence about writing a deck: the Your decks tab, with its three buttons in view
+    const own = root.querySelector("#collOwn");
+    if (own) own.addEventListener("click", () => {
+      collTab = "community";
+      renderInPlace();
+      studioReveal(document.querySelector("#yourDecks"));
+    });
     /* SCROLL THE ACTIVE CHIP INTO VIEW (Sep 2026, on a bug report found by measurement).
        The bar scrolls sideways on a phone — six words do not fit on 390px — and the default tab is
        ALL, which is last. Measured at 390px: the row is 512px of content in a 358px track and the
@@ -30316,7 +31470,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(d.title) + '</span>' +
-            (installed ? '<span class="pill udeck-tag">installed</span>' : uDeckIsPublished(d) ? '<span class="pill udeck-tag">shared</span>' : "") +
+            (installed ? '<span class="pill udeck-tag">installed</span>' : uDeckIsPublished(d) ? '<span class="pill udeck-tag">shared</span>' : uDeckIsLinkOnly(d) ? '<span class="pill udeck-tag">shared by link</span>' : "") +
             (_deckUpdates[d.id] ? '<span class="pill udeck-upd">update</span>' : "") +
             (n ? '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' : '<span class="pill soon">Empty</span>') +
           '</div>' +
@@ -30439,12 +31593,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="udeck-actions studio-actions">' +
         '<button class="btn" type="button" id="stNew">New deck</button>' +
         '<button class="btn ghost" type="button" id="stImport">Import a deck…</button>' +
-        '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
+        // "Browse shared decks" stood here and only scrolled to the section directly below (removed Nov 2026)
+        '<button class="btn ghost" type="button" id="stPasteNew">Paste cards…</button>' +
       '</div>' +
       '<div class="collection-list studio-list">' +
         (decks.length
           ? decks.map((d) => udeckRowHTML(d) + (studioState.deck === d.id ? '<div class="studio-inline" id="stInline"></div>' : "")).join("")
-          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you, or a plain-text export from Anki or Quizlet.</div>') +
+          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one. “Import a deck…” opens a deck file someone sent you, or a text export from Anki or Quizlet. “Paste cards…” takes a list copied from anywhere.</div>') +
       '</div>' +
       orphanSectionHTML() +
     '</div>';
@@ -30471,16 +31626,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
     // under `#studio` the tab is set by the route itself (PAGES.studio), so the reader's own tab choice stands
-    const openInline = (id) => { studioState.deck = id; studioState.card = null; if (!collTabIs("community") && !(current && current.name === "studio")) collTab = "community"; render(); };
+    /* A deck opens on its CARDS, with the list unfiltered — the tab and the search are remembered while one
+       deck is open, and used to follow the reader into the next deck they opened (Nov 2026). The editor is
+       brought into view, since it opens under the deck's row and that row may be anywhere on the page. */
+    const openInline = (id) => {
+      if (studioState.deck !== id) { studioState.tab = "cards"; studioState.q = ""; studioState.type = ""; studioState.term = null; }
+      studioState.deck = id; studioState.card = null;
+      if (!collTabIs("community") && !(current && current.name === "studio")) collTab = "community";
+      studioRepaint();
+      studioReveal(document.querySelector('.studio-deck[data-sd="' + cssEsc(id) + '"]'));
+    };
+    _studioOpenInline = openInline;
     const nw = root.querySelector("#stNew");
-    if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); openInline(d.id); });
+    // a new deck opens with its name selected: the first thing typed is what it is called
+    if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.focus = "title"; openInline(d.id); });
     const im = root.querySelector("#stImport");
-    if (im) im.addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
-    const br = root.querySelector("#udBrowse");
-    if (br) br.addEventListener("click", () => {
-      const sec = document.querySelector("#sharedDecks");
-      if (sec) sec.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
-    });
+    if (im) im.addEventListener("click", () => uDeckPickFile((r) => { studioImportLanded(r); }, (text, name) => openPasteCards({ text: text, fileName: name })));
+    const pn = root.querySelector("#stPasteNew");
+    if (pn) pn.addEventListener("click", () => openPasteCards({}));
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
     root.querySelectorAll("[data-uaddsub]").forEach((b) => wireAddButton(b, b.dataset.uaddsub));
     root.querySelectorAll("[data-usub]").forEach((rowEl) => {
@@ -30496,7 +31659,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     root.querySelectorAll("[data-uedit]").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (studioState.deck === b.dataset.uedit) { studioState.deck = null; studioState.card = null; render(); }
+      if (studioState.deck === b.dataset.uedit) {
+        const n = uDeckPruneEmpty(b.dataset.uedit); if (n) toast(plural(n, "empty card", "empty cards") + " removed");
+        studioState.deck = null; studioState.card = null; studioRepaint();
+      }
       else openInline(b.dataset.uedit);
     }));
     root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); uDeckExport(b.dataset.export); }));
@@ -30527,7 +31693,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const d = UDECKS[studioState.deck];
       if (!uWarmed(d.cardIds || [])) {
         inline.innerHTML = '<div class="data-loading">Loading this deck…</div>';
-        uWarmDeck(d.id).then(() => { if (current && (current.name === "decks" || current.name === "studio")) render(); });
+        uWarmDeck(d.id).then(() => { if (current && (current.name === "decks" || current.name === "studio")) studioRepaint(); });
       } else studioRenderDeck(inline, d);
     }
   }
@@ -31125,6 +32291,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        never read as one row), 29 from Russia's amber; 6.2:1 against white. Laterite is the subject's own argument: the word was coined
        for the red building earth of Malabar (Buchanan, 1807), and it takes none of the flag's colours. */
     "geo-india": { bg: "#934E3F" },
+    /* slate ink (Historical States, in the Geography section, 2026-11-19) — MEASURED like the rest: swept in CIELAB inside the shelf's band
+       (L 28-55, chroma 25-62, 4.5:1 against white), the magenta band's standing rejection kept and the greens left out (the section has two).
+       The shelf holds 85 hues now and the free peak was a burnt orange (ΔE 13.5), which on THIS section's shelf sits beside India's laterite
+       and Russia's amber; the next free family was this grey-blue, ΔE 12.4 from its nearest neighbour anywhere (Polish) and well apart from
+       every Geography hue (China's is a saturated cobalt). L 43, chroma 29, 5.8:1 against white. The ink of an old atlas's borders. */
+    "geo-states": { bg: "#546494" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -31376,6 +32548,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* BULGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB (ΔE 1976) inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept, the greens
+       left out, and nothing within 20 of the two colours of Bulgaria's flag. Against all 79 hues on the page: a purple,
+       14.0 from its nearest neighbour (Danish), 14.2 from Ancient Rome and 14.3 from Hindi; 6.9:1 against white. The
+       raw winner was a leaf green 15.1 from Middle-earth, refused as the greens are. Not a flag colour. */
+    "lang-bulgarian":  { bg: "#813F8D" }, // measured purple
     /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
        rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
@@ -31405,6 +32583,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* CZECH (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all the hues on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the red or
+       blue of the Czech flag refused. Twice a parallel session merged first onto Czech's sweep: Navajo took
+       #3C7676 (0.1 from Czech's #3C7675), then Somali #485A5A (0.4 from Czech's re-swept #495A5A). Re-swept again
+       at the merge against all 82 other hues: two points tied at 13.1, a warm taupe at exactly 4.5:1 against white
+       and this rust red, 13.1 from its nearest neighbour (Russia's lacquer), then 13.3 from the Viking Age and
+       14.7 from Ukrainian, against a tightest existing pair of 0.4. The tie went to the rust for its contrast,
+       8.7:1 against white; 29.1 from the flag's red. Not a flag colour. */
+    "lang-czech":      { bg: "#8F2302" }, // measured rust red
+    /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
+       The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
+       and Geography (all within 15.5 of it). This turquoise-teal is the best point of the cyan band: 13.9 from its
+       nearest neighbours (Economics and France, then Philosophy at 14.1), against a tightest existing pair of 4.0;
+       5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
+       the Diné, of the sacred mountain of the south. Not a flag colour. */
+    "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
+    /* MONGOLIAN (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 80 hues on
+       the page, the magenta band's standing rejection kept and the greens left out. Its first sweep found a muted
+       teal, #3C7676 — and Navajo's, run in a parallel session, found the same colour and merged first; re-swept at
+       the merge: this golden ochre, 14.0 from its nearest neighbours (Palaeontology's ochre and India's saffron),
+       then 14.2 from Russia's Geography amber, against a tightest existing pair of 4.0; 4.5:1 against white. Not a
+       flag colour. */
+    "lang-mongolian":  { bg: "#A16C02" }, // measured golden ochre
+    /* SOMALI (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from every hue on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the light blue
+       of the Somali flag refused. Its first sweep chose a teal, #3C7575 — and Navajo's, run in a parallel session,
+       took #3C7676 and merged first; re-swept at the merge against all 81 other hues: two points tied at 13.2, a
+       burnt orange in the crowded red-brown band (Ukrainian, Spanish, China) and this slate teal, 13.2 from its
+       nearest neighbour (Philosophy), then 13.3 from Korean and 14.4 from the Cold War, against a tightest existing
+       pair of 4.0. The tie went to the slate, nearest the collection's first colour. 7.3:1 against white; 52.4 from
+       the flag's blue. Not a flag colour. */
+    "lang-somali":     { bg: "#485A5A" }, // measured slate teal
+    /* SERBIAN (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues
+       on the page, the magenta band's standing rejection kept; re-swept at the merge against all 82 others
+       (Navajo, Mongolian and Somali having joined), with the same answer. The winner is this deep forest green, 15.0 from
+       its nearest neighbour (Geography's olive), then 15.3 from World Geography's green and 15.5 from Biology's
+       forest; with the greens left out, the best was a teal at 13.8. 10.0:1 against white. Not a flag colour. */
+    "lang-serbian":    { bg: "#1C4C0E" }, // measured forest green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -31438,7 +32659,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
     ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
     japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
-    flags: "2026-09-18", gga: "2026-10-10", "geo-india": "2026-10-30",
+    flags: "2026-09-18", gga: "2026-10-10", "geo-india": "2026-10-30", "geo-states": "2026-11-19",
   };
   function fmtYmd(s) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
@@ -31862,7 +33083,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
-      const gUnseen = gIds.filter((id) => !isSeen(id));
+      // a language still learning its alphabet deals only alphabet cards as new — see langAlphabetPending
+      const gHeld = gLang && langAlphabetPending(scope.id);
+      const gA1 = gLang && langA1Pending(scope.id);
+      const gUnseen = gIds.filter((id) => !isSeen(id) && langMayIntroduce(scope.id, id, gHeld, gA1));
       // by difficulty the day's new cards are the group's EASIEST unseen ones, not its first ones sorted — see the deck branch
       const gNew = (deckByDifficulty(scope.id) ? sortByDifficulty(gUnseen) : gUnseen).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
@@ -32390,7 +33614,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      be raised above a canvas that is a child of the stage — no z-index settles this. Clipping does: the
      bar is pinned to the viewport and so is the canvas, so its band is simply excluded, and a stroke
      that runs under it is cut off at its edge exactly as one under a real bookmark would be. */
-  function inkReplay(strokes, frame) {
+  function inkReplay(strokes, frame, clipTop) {
     const c = WB.canvas, ctx = WB.ctx;
     if (!c || !ctx || !frame) return;
     const dpr = window.devicePixelRatio || 1;
@@ -32402,8 +33626,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.lineCap = "round"; ctx.lineJoin = "round";
-    const bar = document.querySelector(".bk-barwrap");
-    const top = bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
+    // the book clips under its chapter bar; a study card passes its own top (CARD INK)
+    const bar = clipTop == null ? document.querySelector(".bk-barwrap") : null;
+    const top = clipTop != null ? Math.max(0, clipTop) : bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
     if (top > 0) { ctx.beginPath(); ctx.rect(0, top, vw, Math.max(0, vh - top)); ctx.clip(); }
     (strokes || []).forEach((s) => {
       const pts = s.p || [];
@@ -32480,6 +33705,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       paint();
       wbUpdateHistBtns();
     };
+  }
+
+  /* ============================================================
+     CARD INK — the study card's marker is vectors too (Nov 2026, on a report: "on my tablet, when I write
+     on the empty space below the question, as soon as the answer is revealed all of the lines I've drawn
+     become slightly blurry").
+
+     The card's ink used to be a RASTER canvas the height of the whole card, with a pixel budget
+     (WB_MAX_PX) because iOS refuses a canvas over 16.7M pixels. A question-only card fitted at
+     devicePixelRatio; the revealed card is ~3,100px tall, which on an iPad (834 or 1194 wide at 2×) is
+     past the budget, so the canvas was rebuilt at 1.5–1.8× and the strokes already on it were RESAMPLED
+     into it — measured: 2.0 → 1.80 portrait, 2.0 → 1.50 landscape. No budget fixes that for every card,
+     so the card now uses the book's arrangement: a canvas the size of the SCREEN at devicePixelRatio
+     (wbResize's `fixed` branch) and a list of strokes re-drawn from scratch on a resize, a reveal or a
+     scroll. Nothing is ever resampled, at any card length, and the memory is the screen's, not the card's.
+
+     A point is kept in CSS pixels from the STAGE's top-left corner (the frame is a constant 1000 so
+     inkRecord's fractions are pixels / 1000), which is where the raster canvas had its origin: a stroke
+     stays on the words it was drawn over when the answer opens beneath them, as before. The ink is
+     clipped at the stage's top, which is where the old canvas began. Nothing is stored — a card's ink
+     dies with the card, as it always has. */
+  const CARD_INK_FRAME = 1000;
+  function cardInkMount() {
+    let strokes = [], past = [], future = [];
+    const stageOf = () => (WB.canvas && WB.canvas.parentElement) || document.querySelector(".stage");
+    const frameOf = () => {
+      const st = stageOf(), r = st ? st.getBoundingClientRect() : { left: 0, top: 0 };
+      return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: CARD_INK_FRAME, h: CARD_INK_FRAME };
+    };
+    const clipTop = () => { const st = stageOf(); return st ? st.getBoundingClientRect().top : 0; };
+    const paint = () => inkReplay(strokes, frameOf(), clipTop());
+    const step = (next) => { past.push(strokes.slice()); while (past.length > WB_HIST_MAX) past.shift(); strokes = next; future.length = 0; };
+    const settle = () => { paint(); wbUpdateHistBtns(); };
+    WB.onInk = (s) => {
+      const rec = inkRecord(s, frameOf());
+      if (!rec.p.length) return;
+      const next = strokes.concat([rec]);
+      while (next.length > INK_MAX_STROKES) next.shift();
+      step(next);
+      settle();   // repainted so a stroke begun above the stage is clipped like the rest
+    };
+    WB.onRedraw = paint;
+    WB.onScroll = paint;
+    WB.onUndo = () => { if (!past.length) return; future.push(strokes.slice()); strokes = past.pop(); settle(); };
+    WB.onRedo = () => { if (!future.length) return; past.push(strokes.slice()); strokes = future.pop(); settle(); };
+    WB.onCanUndo = () => past.length > 0;
+    WB.onCanRedo = () => future.length > 0;
+    WB.onClear = () => { if (!strokes.length) return; step([]); settle(); };
+    /* the ink is fixed to the screen and the card is not, so a scroll moves the marks — one repaint per
+       frame; the listener takes itself off once a later card (or another page) has replaced this paint */
+    let raf = 0;
+    const onScroll = () => {
+      if (WB.onScroll !== paint) { window.removeEventListener("scroll", onScroll); return; }
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; if (WB.onScroll === paint) paint(); });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   /* ============================================================
@@ -32787,7 +34069,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const words = bookFold(q).split(/\s+/).filter(Boolean);
       const hits = sorted.filter((b) => bookMatches(b, words));
       if (!hits.length)
-        return `<div class="lib-none"><p>No book here matches <b>${esc(q.trim())}</b>.</p></div>`;
+        return `<div class="lib-none"><p>No text here matches <b>${esc(q.trim())}</b>.</p></div>`;
       const favs = hits.filter((b) => isBookFav(b.id));
       const rest = hits.filter((b) => !isBookFav(b.id));
       return favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest);
@@ -32802,20 +34084,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const countLine = (q) => {
       const words = bookFold(q).split(/\s+/).filter(Boolean);
       const shown = sorted.filter((b) => bookMatches(b, words)).length, all = sorted.length;
-      const n = (v) => v + " book" + (v === 1 ? "" : "s");
+      const n = (v) => v + " text" + (v === 1 ? "" : "s");
       return words.length ? `${shown} of ${n(all)}` : n(all);
     };
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
-        <h1>Books</h1>
-        <p>Historical books in the public domain, completely free to read.</p>
+        <h1>Texts</h1>
+        <p>Historical texts in the public domain, completely free to read.</p>
       </div>
       ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
             a control that appears the day a second book lands is one nobody knows to look for. Beside it
             the direction, in the chosen field's own words rather than as a bare arrow. */""}
       <div class="lib-tools">
-        <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
+        <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these texts…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
         <span class="lib-count" id="bkCount" aria-live="polite">${countLine(bookQuery)}</span>
         ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
         ${/* the way back to the first-visit card, exactly as the Atlas's "?" is — a page that explains
@@ -32916,7 +34198,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="dm-item' + (fav ? " dm-choice on" : "") + '" data-act="fav" aria-pressed="' + (fav ? "true" : "false") + '">' +
         "<b>" + (fav ? "Remove from favourites" : "Add to favourites") + "</b>" +
         "<small>" + (fav ? "Take it out of the section at the top of the shelf" : "Pin it to a section at the top of the shelf") + "</small></button>" +
-      '<button type="button" class="dm-item" data-act="share"><b>Share this book</b>' +
+      '<button type="button" class="dm-item" data-act="share"><b>Share this text</b>' +
         "<small>A link that opens it here, at its first page</small></button>";
     return deckSheet("Options for " + b.title, html, (ov, close) => {
       ov.querySelectorAll(".dm-item").forEach((btn) => btn.addEventListener("click", () => {
@@ -32924,7 +34206,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const on = toggleBookFav(id);
           close();
           render();
-          toast(on ? "Added to favourites" : "Removed from favourites");
+          toast(on ? "Added to favourites" : "Removed from favourites"); if (on) sfx("fav");
           return;
         }
         close();
@@ -33863,7 +35145,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
   // type "" = the built-in Basic row; `tpl` is which of the open type's card templates is being edited
-  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "", tpl: 0 };
+  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "", tpl: 0, q: "", focus: "", design: false };
+  let _studioOpenInline = null;   // the Your-decks section's own "open this deck's editor", for callers outside it
+  /* THE STUDIO REPAINTS IN PLACE (Nov 2026, the authoring audit). Every one of its controls used to call
+     render(), which is a NAVIGATION: it scrolls the reader to the top of the Collections page — and the
+     editor is a screen and a half below that on a phone, so "Add a card" looked as if it had done nothing.
+     A press inside the editor is never a navigation; this is render() with the scroll and the page ghost
+     off (see renderInPlace). `studioState.focus` asks the next paint to put the caret somewhere:
+     "card" = the open card's first field, "title" = the deck's name. */
+  function studioRepaint() { renderInPlace(); }
+  // bring part of the editor into view — only when it is not already there, so a press never moves a
+  // reader who can see what they pressed for
+  function studioReveal(el) {
+    if (!el || !el.getBoundingClientRect) return;
+    const r = el.getBoundingClientRect(), vh = window.innerHeight || 800;
+    if (r.top >= 70 && r.top <= vh * 0.6) return;
+    window.scrollTo({ top: Math.max(0, window.scrollY + r.top - 84), behavior: "auto" });
+  }
+  function caretToEnd(el) {
+    try {
+      const rg = document.createRange(); rg.selectNodeContents(el); rg.collapse(false);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg);
+    } catch (e) {}
+  }
+  /* A CARD WITH NOTHING ON IT. "Add a card" pressed once too often used to leave a blank card that was dealt
+     in a session and uploaded in a publish. A Basic card is empty with no question, answer, background or
+     picture; a typed one with every field of its type blank. */
+  function uCardIsEmpty(c) {
+    if (!c) return true;
+    const has = (v) => !!String(v == null ? "" : v).replace(/<(?!img\b)[^>]*>/gi, "").replace(/&nbsp;/g, " ").trim();
+    if (c.image && c.image.src) return false;
+    if (c.video && c.video.src) return false;
+    if (cardTypeOf(c)) return !Object.keys(c.fields || {}).some((k) => has(c.fields[k]));
+    if (has(c.question) || has(c.answer) || has(c.abstract) || has(c.answerDate)) return false;
+    return !(Array.isArray(c.questions) && c.questions.some(has));
+  }
+  // …and the sweep: every empty card but `keepId` goes. Returns how many went. Called where a deck leaves
+  // the editor — Study, export, sharing, the way back to the list — never while one is being written.
+  function uDeckPruneEmpty(deckId, keepId) {
+    const d = UDECKS[deckId];
+    if (!d || !uDeckIsMine(d) || !uWarmed(d.cardIds || [])) return 0;
+    const gone = uDeckCards(d).filter((c) => c.id !== keepId && uCardIsEmpty(c));
+    gone.forEach((c) => {
+      uNoteCardIds(c.id).forEach((id) => { delete S.cards[id]; if (S.suspended) delete S.suspended[id]; });
+      uCardDelete(c.id);
+    });
+    if (gone.length) { if (studioState.card && !UCARDS[studioState.card]) studioState.card = null; save(); }
+    return gone.length;
+  }
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -33929,7 +35258,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function orphanSectionHTML() {
     const rows = orphanRemoteDecks();
     if (!rows.length) return "";
-    const where = { published: "on the shared decks page", draft: "unlisted — it has a page, but nobody can find it", hidden: "hidden by a moderator" };
+    const where = { published: "on the shared decks page", unlisted: "shared by link only", draft: "sharing stopped — nobody else can open it", hidden: "hidden by a moderator" };
     return '<div class="studio-orphans">' +
       '<h2 class="studio-sec">Published, but not on this device</h2>' +
       '<p class="studio-sec-note">Your account owns these and there is no copy here — deleted on another device, or before deleting a deck took its shared copy with it. Removing one deletes it, its cards and its reviews for good; anyone who already installed it keeps their copy.</p>' +
@@ -33963,31 +35292,43 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!studioState.card && cards.length) studioState.card = cards[0].id;
     if (!uDeckIsMine(d)) { studioRenderInstalled(root, d, cards); return; }
 
-    const pubState = uDeckIsPublished(d) ? (Number(d.publishedVersion || 0) < Number(d.version || 1) ? "stale" : "live")
+    /* ONE VOCABULARY FOR SHARING (Nov 2026): a deck is Not shared, Shared, Shared by link, or its sharing is
+       stopped — and the buttons say Share, Send changes, Stop sharing. It was Publish / Unpublish / Unlisted /
+       Not shared, four words for two states. "stale" is either kind of share with edits not yet sent. */
+    const shared = uDeckIsShared(d), linkOnly = uDeckIsLinkOnly(d);
+    const pubState = shared ? (Number(d.publishedVersion || 0) < Number(d.version || 1) ? "stale" : "live")
       : (d.remoteId ? "unlisted" : "none");
 
     root.innerHTML =
       '<div class="studio-head">' +
-        '<button class="btn tiny ghost" type="button" id="stAll">&larr; All decks</button>' +
-        '<h1 class="studio-title" id="stTitleH">' + esc(d.title) + '</h1>' +
+        '<button class="btn tiny ghost" type="button" id="stAll" aria-label="Back to all decks">&larr;<span class="st-all-t"> All decks</span></button>' +
+        /* THE NAME IS EDITED WHERE IT IS READ (Nov 2026). It used to live only inside the folded "Deck
+           details", so a new deck stayed "Untitled deck" until Publish refused it. The heading is the field;
+           the box in Deck details stays, and the two write through the same setter. */
+        '<h1 class="studio-title" id="stTitleH" contenteditable="true" role="textbox" aria-label="Deck name" spellcheck="false" title="Tap to rename">' + esc(d.title) + '</h1>' +
         '<div class="studio-head-actions">' +
-          (cards.length ? '<button class="btn tiny" type="button" id="stStudy">Study</button>' : "") +
-          '<button class="btn tiny ghost" type="button" id="stExport">Export</button>' +
+          (cards.some((c) => !uCardIsEmpty(c)) ? '<button class="btn tiny" type="button" id="stStudy">Study</button>' : "") +
+          '<button class="btn tiny ghost st-more" type="button" id="stMore" aria-label="More: export, deck details, delete" title="Export, deck details, delete">&#8943;</button>' +
         '</div>' +
       '</div>' +
-      '<div class="studio-publish' + (pubState === "live" || pubState === "stale" ? " on" : "") + '">' +
+      '<div class="studio-publish' + (shared ? " on" : "") + '">' +
         '<div class="sp-state">' +
           (pubState === "none" ? "<b>Not shared.</b> This deck is on this device only."
-           : pubState === "unlisted" ? "<b>Unpublished.</b> It has a page but nobody can find it."
-           : pubState === "stale" ? "<b>Shared</b> — with edits you haven't published yet."
-           : "<b>Shared.</b> Anyone can find and install it.") +
-          (d.slug && pubState !== "none" ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">View its page</a>' : "") +
+           : pubState === "unlisted" ? "<b>Sharing stopped.</b> Nobody else can open it now."
+           : pubState === "stale" ? "<b>" + (linkOnly ? "Shared by link" : "Shared") + "</b> — with changes you haven't sent yet."
+           : linkOnly ? "<b>Shared by link.</b> Only people you send the link to can open it."
+           : "<b>Shared.</b> Anyone can find and add it.") +
+          (d.slug && shared ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">View its page</a>' : "") +
         '</div>' +
         '<div class="sp-acts">' +
-          '<button class="btn tiny" type="button" id="stPublish">' + (pubState === "none" || pubState === "unlisted" ? "Publish" : "Publish changes") + '</button>' +
-          (pubState === "live" || pubState === "stale" ? '<button class="btn tiny ghost" type="button" id="stUnpublish">Unpublish</button>' : "") +
+          (shared && d.slug ? '<button class="btn tiny ghost" type="button" id="stShareLink">Copy link</button>' : "") +
+          (pubState === "live" ? '<button class="btn tiny ghost" type="button" id="stPublish">Sharing options</button>'
+            : '<button class="btn tiny" type="button" id="stPublish">' + (pubState === "stale" ? "Send changes" : "Share…") + '</button>') +
+          (shared ? '<button class="btn tiny ghost" type="button" id="stUnpublish">Stop sharing</button>' : "") +
         '</div>' +
       '</div>' +
+      /* A DECK YOU WROTE LIVES IN THIS BROWSER (see backupNoteHTML): said once it is worth losing. */
+      backupNoteHTML(d, cards.length) +
       '<details class="studio-settings"><summary>Deck details</summary><div class="studio-settings-body">' +
         STUDIO_META_FIELDS.map(([f, label, type, ph]) =>
           '<label class="admin-field"><span class="af-label">' + esc(label) + '</span><input class="af-input" data-meta="' + f + '" type="' + type + '" value="' + esc(d[f] || "") + '" placeholder="' + esc(ph) + '" /></label>').join("") +
@@ -34026,12 +35367,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        studioState.tab === "types" ? studioTypesHTML(d) :
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
-          '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span><button class="btn tiny" type="button" id="stAddCard">Add a card</button></div>' +
-          /* THE WAY TO THE PROMPTS, at the top of the list a reader is about to fill. It is a line rather
-             than a button because it is a suggestion, not one of this panel's commands — and it is here
-             rather than in the card editor because the moment somebody wants ten cards is the moment they
-             are looking at an empty list. */
-          '<div class="studio-aihint">Writing a lot of these? <button class="sa-link" type="button" id="stAiHelp">Prompts for generating them with an AI</button></div>' +
+          /* A SPLIT BUTTON (Nov 2026). The left half adds a card of the kind the author is already writing —
+             the open card's type and subdeck — and the right half opens the kinds, so the ready-made shapes
+             are one press from the list instead of a tab, a gallery and a dropdown away. */
+          '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span>' +
+            '<span class="st-addgrp"><button class="btn tiny" type="button" id="stAddCard">Add a card</button>' +
+            '<button class="btn tiny st-addkind" type="button" id="stAddKind" aria-label="Add another kind of card" title="Add another kind of card">&#9662;</button></span></div>' +
+          /* THE WAYS TO WRITE MANY AT ONCE, at the top of the list a reader is about to fill: a pasted list
+             (two columns from a spreadsheet, a Quizlet export, an AI's reply) and the prompts that produce
+             one. Lines rather than buttons because they are suggestions, not this panel's commands. */
+          '<div class="studio-aihint"><button class="sa-link" type="button" id="stPaste">Paste a list of cards</button>' +
+            ' &middot; <button class="sa-link" type="button" id="stAiHelp">Write them with an AI</button></div>' +
+          // a search box once the list is longer than a screen of rows; it filters in place, never repaints
+          (cards.length > 7 ? '<input class="af-input st-cardq" id="stCardQ" type="search" placeholder="Find a card…" aria-label="Find a card in this deck" value="' + esc(studioState.q || "") + '" />' : "") +
           '<div class="studio-cardrows" id="stRows">' +
             (cards.length ? cards.map((c, i) =>
               '<div class="studio-cardrow' + (c.id === studioState.card ? " active" : "") + '" data-card="' + esc(c.id) + '">' +
@@ -34047,18 +35395,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="studio-editor" id="stEditor"></div>' +
       '</div>');
 
-    root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; render(); }));
-    root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); render(); }));
+    root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; studioRepaint(); }));
+    root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); studioRepaint(); }));
     if (studioState.tab === "gloss") { studioWireGloss(root, d); }
     if (studioState.tab === "types") { studioWireTypes(root, d); }
 
-    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
-    const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
-    const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
+    // leaving the editor sweeps the cards nothing was written on (uDeckPruneEmpty), and says so
+    const sweep = (keepId) => { const n = uDeckPruneEmpty(d.id, keepId); if (n) toast(plural(n, "empty card", "empty cards") + " removed"); return n; };
+    root.querySelector("#stAll").addEventListener("click", () => { sweep(); studioState.deck = null; studioState.card = null; studioRepaint(); studioReveal(document.querySelector("#yourDecks")); });
+    const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => { sweep(); route("study", { scope: { type: "udeck", id: d.id } }); });
+    const more = root.querySelector("#stMore"); if (more) more.addEventListener("click", () => openDeckMoreSheet(d, root));
+    // the row's title, the heading and the box in Deck details are one name
+    const titleSync = (from) => {
+      const h = root.querySelector("#stTitleH"); if (h && h !== from) h.textContent = d.title;
+      const inp = root.querySelector('[data-meta="title"]'); if (inp && inp !== from) inp.value = d.title === "Untitled deck" ? "" : d.title;
+      document.querySelectorAll('.studio-deck[data-sd="' + cssEsc(d.id) + '"] .collection-title').forEach((el) => { el.textContent = d.title; });
+    };
     root.querySelectorAll("[data-meta]").forEach((el) => el.addEventListener("input", () => {
       uDeckSetMeta(d.id, el.dataset.meta, el.value);
-      if (el.dataset.meta === "title") { const h = root.querySelector("#stTitleH"); if (h) h.textContent = d.title; }
+      if (el.dataset.meta === "title") titleSync(el);
     }));
+    const th = root.querySelector("#stTitleH");
+    if (th) {
+      th.addEventListener("input", () => { uDeckSetMeta(d.id, "title", th.textContent.replace(/\s+/g, " ")); titleSync(th); });
+      th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); th.blur(); } });
+      th.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const t = ((e.clipboardData || window.clipboardData) || { getData: () => "" }).getData("text/plain").replace(/\s+/g, " ").trim();
+        document.execCommand("insertText", false, t);
+      });
+      // an emptied name is not a name: it goes back to the placeholder title rather than to nothing
+      th.addEventListener("blur", () => {
+        if (!th.textContent.trim()) { uDeckSetMeta(d.id, "title", "Untitled deck"); d.title = d.title || "Untitled deck"; }
+        th.textContent = d.title; titleSync(th);
+      });
+      // a new deck opens with its name selected, so the first thing typed is what it is called
+      if (studioState.focus === "title") {
+        studioState.focus = "";
+        th.focus();
+        try { const rg = document.createRange(); rg.selectNodeContents(th); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg); } catch (e) {}
+      }
+    }
     const tg = root.querySelector("#stTags"); if (tg) tg.addEventListener("input", () => uDeckSetTags(d.id, tg.value));
     // the swatches mark themselves and stay put, like the review sheet's — nothing on this page repaints
     // from a colour, and re-rendering would fold the details panel the reader is working in
@@ -34067,31 +35444,447 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       root.querySelectorAll("#stColors .dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
     }));
     const aih = root.querySelector("#stAiHelp");
-    if (aih) aih.addEventListener("click", () => route("mission", { scrollTo: "aiPrompts" }));
+    if (aih) aih.addEventListener("click", () => openAiPromptSheet(d));
+    const pst = root.querySelector("#stPaste");
+    if (pst) pst.addEventListener("click", () => openPasteCards({ deckId: d.id }));
     const addC = root.querySelector("#stAddCard");   // absent on the Glossary tab
-    if (addC) addC.addEventListener("click", () => {
-      const c = uCardCreate(d.id);
-      if (c) { studioState.card = c.id; render(); }
-    });
-    root.querySelectorAll("[data-copen]").forEach((b) => b.addEventListener("click", () => { studioState.card = b.dataset.copen; render(); }));
-    root.querySelectorAll("[data-up]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.up, -1); render(); }));
-    root.querySelectorAll("[data-down]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.down, 1); render(); }));
+    if (addC) addC.addEventListener("click", () => studioAddCard(d));
+    const addK = root.querySelector("#stAddKind");
+    if (addK) addK.addEventListener("click", () => openAddKindSheet(d, (typeId) => studioAddCard(d, typeId)));
+    root.querySelectorAll("[data-copen]").forEach((b) => b.addEventListener("click", () => {
+      studioState.card = b.dataset.copen; studioRepaint();
+      studioReveal(document.querySelector("#stEditor"));
+    }));
+    root.querySelectorAll("[data-up]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.up, -1); studioRepaint(); }));
+    root.querySelectorAll("[data-down]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.down, 1); studioRepaint(); }));
+    /* The search filters the rows that are already there. No repaint — a repaint per keystroke takes the
+       caret out of the box — and the query is kept in studioState so the next repaint draws it back. */
+    const cq = root.querySelector("#stCardQ");
+    const applyQ = () => {
+      const q = (studioState.q || "").trim().toLowerCase();
+      root.querySelectorAll("#stRows .studio-cardrow").forEach((r) => {
+        const c = UCARDS[r.dataset.card];
+        r.hidden = !!q && !(c && studioCardHay(c).indexOf(q) >= 0);
+      });
+    };
+    if (cq) { cq.addEventListener("input", () => { studioState.q = cq.value; applyQ(); }); applyQ(); }
+    // the open card's row is brought into view INSIDE the list's own scroller, never by moving the page
+    const act = root.querySelector("#stRows .studio-cardrow.active"), rowsEl = root.querySelector("#stRows");
+    if (act && rowsEl && rowsEl.scrollHeight > rowsEl.clientHeight) {
+      const top = act.offsetTop - rowsEl.offsetTop;
+      if (top < rowsEl.scrollTop || top + act.offsetHeight > rowsEl.scrollTop + rowsEl.clientHeight) rowsEl.scrollTop = Math.max(0, top - rowsEl.clientHeight / 2);
+    }
 
     const pub = root.querySelector("#stPublish");
-    if (pub) pub.addEventListener("click", async () => {
-      const label = pub.textContent;
-      pub.disabled = true; pub.textContent = "Publishing…";
-      const r = await uDeckPublish(d.id);
-      if (r.error) { toast(r.error); pub.disabled = false; pub.textContent = label; return; }
-      toast(r.warn || "Published — anyone can find this deck now");
-      render();
+    if (pub) pub.addEventListener("click", () => {
+      // edits to a deck that is already shared go straight up, the way it is shared: one press, as before
+      if (pubState === "stale") { studioShareNow(d, pub, {}); return; }
+      openShareSheet(d);
     });
+    const lnk = root.querySelector("#stShareLink");
+    if (lnk) lnk.addEventListener("click", () => shareDeck(d.title, d.slug));
     const unpub = root.querySelector("#stUnpublish");
     if (unpub) unpub.addEventListener("click", () => inlineConfirm(
-      "Unpublish “" + d.title + "”? It disappears from the shared list. People who already installed it keep their copy.",
-      async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "Unpublished"); render(); }, "Unpublish"));
+      "Stop sharing “" + d.title + "”? " + (linkOnly ? "Its link stops working." : "It leaves the shared decks page and its link stops working.") + " People who already added it keep their copy.",
+      async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "No longer shared"); studioRepaint(); }, "Stop sharing"));
+    const bk = root.querySelector("#stBackup");
+    if (bk) bk.addEventListener("click", () => { uDeckPruneEmpty(d.id, studioState.card); uDeckExport(d.id); });
+    const bkx = root.querySelector("#stBackupNo");
+    if (bkx) bkx.addEventListener("click", () => { deckBackupMark(d.id, uDeckCards(d).length); const n = root.querySelector(".st-backup"); if (n) n.remove(); });
 
     if (studioState.tab === "cards") studioRenderCardEditor(root.querySelector("#stEditor"));
+  }
+
+  /* ---------- adding a card, and choosing what kind (Nov 2026, the authoring audit) ----------
+     THE KINDS a deck can add: "Question and answer" (the built-in Basic card, whose editor now opens in its
+     short form — see `compact` in liveCardEditorHTML), every type the deck already has, and every ready-made
+     shape it has not got yet. Choosing a shape the deck lacks CREATES the type on the spot (`studioPickKind`),
+     so nobody has to visit the Card types tab to make their first vocabulary card. */
+  function studioKinds(d) {
+    const own = uTypeList(d.id);
+    const rows = [{ id: CARD_TYPE_BASIC, name: "Question and answer", blurb: "A question and its answer, with room for notes and a picture." }];
+    own.forEach((t) => rows.push({ id: t.id, name: t.name, blurb: (t.fields || []).join(" · "), own: true }));
+    CARD_TYPE_PRESETS.forEach((p) => { if (!own.some((t) => t.id === p.id)) rows.push({ id: p.id, name: p.name, blurb: p.blurb }); });
+    return rows;
+  }
+  // `cb(typeId)` with "" for the built-in card; a preset's type is made first if the deck has none
+  function studioPickKind(d, kindId, cb) {
+    if (!kindId || kindId === CARD_TYPE_BASIC) { cb(""); return; }
+    const have = uTypeGet(d.id, kindId);
+    if (have) { cb(have.id); return; }
+    const p = cardTypePreset(kindId);
+    if (!p) return;
+    const make = (lang) => { const t = uTypeCreate(d.id, p.name, cardTypePresetSpec(p, lang)); if (t) cb(t.id); };
+    if (p.askLang) openSpeechLangSheet(p, make); else make();
+  }
+  function openAddKindSheet(d, cb) {
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Add a card</span>' +
+        '<span class="dm-where">Choose what kind. The button beside this one adds the same kind again.</span></div></div>' +
+      studioKinds(d).map((k) =>
+        '<button type="button" class="dm-item" data-addkind="' + esc(k.id) + '"><b>' + esc(k.name) + "</b><small>" + esc(k.blurb) + "</small></button>").join("");
+    return deckSheet("Add a card", html, (ov, close) => {
+      ov.querySelectorAll("[data-addkind]").forEach((b) => b.addEventListener("click", () => { close(); studioPickKind(d, b.dataset.addkind, cb); }));
+    });
+  }
+  /* ONE PRESS, ONE CARD TO WRITE ON. With no `typeId` the new card is the kind the author is already on —
+     the open card's type and subdeck. With one it is that kind ("" = the built-in card). And a card nothing
+     has been written on is REUSED rather than stacked: a second press on "Add a card" used to leave a blank
+     card behind, which was then dealt in a session and uploaded in a publish. */
+  function studioAddCard(d, typeId) {
+    const cur = UCARDS[studioState.card];
+    const explicit = typeId !== undefined;
+    studioState.tab = "cards"; studioState.q = "";
+    if (cur && cur.deckId === d.id && uCardIsEmpty(cur)) {
+      if (explicit && (cur.type || "") !== (typeId || "")) uCardSetType(cur.id, typeId || CARD_TYPE_BASIC);
+      studioState.focus = "card"; studioRepaint(); return;
+    }
+    const c = uCardCreate(d.id, { type: explicit ? typeId : (cur ? cur.type : ""), sub: cur ? cur.sub : "" });
+    if (c) { studioState.card = c.id; studioState.focus = "card"; studioRepaint(); }
+  }
+  // what the list's search box matches: everything written on the card, as plain lower-case text
+  function studioCardHay(c) {
+    const parts = [c.question, c.answer, c.abstract, c.sub];
+    if (c.fields) Object.keys(c.fields).forEach((k) => parts.push(c.fields[k]));
+    return sanitizePlain(parts.filter(Boolean).join(" ")).toLowerCase();
+  }
+  /* THE DECK'S OWN MENU — one "more" button in the editor's head instead of a second Export beside the
+     row's. Everything that is done TO the deck rather than to a card. */
+  function openDeckMoreSheet(d, root) {
+    const item = (act, title, note, cls) => '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '"><b>' + title + "</b><small>" + note + "</small></button>";
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(d.title) + '</span>' +
+        '<span class="dm-where">' + plural(uDeckCards(d).length, "card", "cards") + '</span></div></div>' +
+      item("paste", "Paste a list of cards", "Two columns from a spreadsheet, a Quizlet export, an AI’s reply") +
+      item("details", "Deck details", "Subtitle, author, description, tags, colour, glossary") +
+      item("export", "Export the deck file", "A <code>.folio-deck.json</code> to keep as a backup or send to someone") +
+      item("anki", "Export for Anki", "A text file Anki’s File → Import reads as it is") +
+      item("delete", "Delete this deck", "For good — export it first if you want a copy", "dm-danger");
+    return deckSheet("Deck options", html, (ov, close) => {
+      ov.querySelectorAll("[data-act]").forEach((b) => b.addEventListener("click", () => {
+        const act = b.dataset.act;
+        close();
+        if (act === "paste") openPasteCards({ deckId: d.id });
+        else if (act === "export") { uDeckPruneEmpty(d.id, studioState.card); uDeckExport(d.id); }
+        else if (act === "anki") ankiExportEntry(uDeckEntry(d.id));
+        else if (act === "delete") confirmDeleteDeck(d);
+        else if (act === "details") {
+          const det = root && root.querySelector(".studio-settings");
+          if (det) { det.open = true; studioReveal(det); const f = det.querySelector('[data-meta="subtitle"]'); if (f) f.focus(); }
+        }
+      }));
+    });
+  }
+
+  /* ---------- after an import, and the paste sheet (Nov 2026, the authoring audit) ----------
+     THE TAIL OF EVERY STUDIO IMPORT. `r` is what uDeckImportText returned; null means a list went to the
+     preview sheet instead and there is nothing to report yet. A deck brought in from a FILE is shown in the
+     list, not opened — opening the editor warms every note, and an imported deck may be tens of thousands of
+     them that nobody has asked to edit — while one made from PASTED cards is opened (`opt.open`), since
+     pasting is writing. Either way the toast offers the one thing a reader does next. */
+  async function studioImportLanded(r, opt) {
+    if (!r) return;
+    if (r.error) { toast(r.error); return; }
+    const d = r.deck, entry = uDeckEntry(d.id);
+    if (opt && opt.open && _studioOpenInline) _studioOpenInline(d.id);
+    else { renderInPlace(); studioReveal(document.querySelector('.studio-deck[data-sd="' + cssEsc(d.id) + '"]')); }
+    if (r.saved) {
+      const slow = setTimeout(() => toast("Saving “" + d.title + "” to this device…"), 400);
+      await r.saved;
+      clearTimeout(slow);
+    }
+    const n = uDeckStudyIds(d.cardIds || []).length;
+    const msg = "Imported “" + d.title + "” — " + plural(n, "card", "cards");
+    if (isActive(entry)) { toast(msg); return; }
+    toastAction(msg, "Add to daily study", () => { addActive(entry); refreshAddButtons(); toast("Added to daily review"); sfx("add"); });
+  }
+  /* Cards added to a deck in ONE write. The Studio's own setters save per field, which is right for a
+     keystroke and wrong for a pasted list of five hundred: this sanitizes each record the way an import
+     does (uCardSanitize — the same choke point), numbers them after the deck's highest id, and saves the
+     index and the new notes together. A type the deck lacks is made from its preset first. */
+  function uCardsAppend(deckId, raws) {
+    const d = UDECKS[deckId];
+    if (!d || !Array.isArray(raws)) return 0;
+    let next = 1;
+    (d.cardIds || []).forEach((id) => { const m = /_(\d+)$/.exec(id); if (m && +m[1] >= next) next = +m[1] + 1; });
+    const room = Math.max(0, UDECK_MAX_CARDS - d.cardIds.length), ids = [];
+    raws.slice(0, room).forEach((raw) => {
+      if (raw && raw.type && !uTypeGet(deckId, raw.type)) {
+        const p = cardTypePreset(raw.type);
+        if (p) uTypeCreate(deckId, p.name, cardTypePresetSpec(p));
+      }
+      const id = "u_" + d.id + "_" + next++;
+      const c = uCardSanitize(Object.assign({}, raw, { id: id }), deckId, 0);
+      c.id = id; c.deckId = deckId;
+      if (c.type && !uTypeGet(deckId, c.type)) { delete c.type; delete c.fields; }
+      UCARDS[id] = c;
+      d.cardIds.push(id);
+      ids.push(id);
+    });
+    if (ids.length) uDeckSave(deckId, ids);
+    return ids.length;
+  }
+  /* PASTE CARDS — and the preview every list goes through. Three ways in, one sheet: `deckId` adds the cards
+     to that deck; `text` (+ `fileName`) is a text file the import picker was handed; neither is a new deck
+     from whatever is pasted. Quizlet's export is a box of text to copy, an AI answers in a chat window and a
+     spreadsheet is two selected columns: none of them is a FILE, and a phone cannot make one.
+     What is shown is what will be stored: the first rows as front and back, the divider that was found (and
+     a way to overrule it), whether the first line was taken as a heading, and how many lines came out with
+     no back — the figures that were invisible when a list was imported unseen.
+     A pasted Folio deck file (JSON, which is what the first AI prompt asks for) is recognised and imported
+     as the deck it is. */
+  function openPasteCards(o) {
+    o = o || {};
+    const into = o.deckId ? UDECKS[o.deckId] : null;
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' +
+        (into ? "Paste a list of cards" : o.fileName ? "Import “" + esc(o.fileName) + "”" : "Paste cards") + '</span>' +
+        '<span class="dm-where">' + (into ? "They are added to “" + esc(into.title) + "”. " : "") + 'One card a line: the front, then the back.</span></div></div>' +
+      '<textarea class="af-input pc-text" id="pcText" rows="6" spellcheck="false" aria-label="The cards, one a line" placeholder="bonjour — hello&#10;merci — thank you&#10;&#10;Copy two columns from a spreadsheet, a Quizlet export, or an AI’s reply."></textarea>' +
+      '<div class="pc-opts">' +
+        '<label class="pc-opt"><span>Divided by</span><select class="af-input" id="pcSep"><option value="">Detect</option>' +
+          CARD_SEPS.map((c) => '<option value="' + c.id + '">' + esc(c.label) + "</option>").join("") + "</select></label>" +
+        '<label class="pc-opt"><span>Make them</span><select class="af-input" id="pcKind">' +
+          '<option value="">Question and answer</option><option value="two-way">Two-way — asked in both directions</option></select></label>' +
+        '<label class="pc-check"><input type="checkbox" id="pcHeader" /> The first line is a heading</label>' +
+        '<label class="pc-check"><input type="checkbox" id="pcSwap" /> Swap front and back</label>' +
+      "</div>" +
+      (into ? "" : '<label class="dm-field pc-titlerow"><span>Deck name</span><input class="af-input" id="pcTitle" type="text" maxlength="80" placeholder="What is this deck about?" /></label>') +
+      '<div class="pc-preview" id="pcPreview" aria-live="polite"></div>' +
+      '<button type="button" class="dm-item pc-go" id="pcGo" disabled><b>Nothing to add yet</b><small>Paste a list above</small></button>';
+    return deckSheet("Paste cards", html, (ov, close) => {
+      ov.classList.add("pc-sheet");
+      const ta = ov.querySelector("#pcText"), sepSel = ov.querySelector("#pcSep"), kindSel = ov.querySelector("#pcKind");
+      const hdr = ov.querySelector("#pcHeader"), swp = ov.querySelector("#pcSwap"), ttl = ov.querySelector("#pcTitle");
+      const pv = ov.querySelector("#pcPreview"), go = ov.querySelector("#pcGo");
+      let hdrTouched = false, state = null;
+      if (o.text) ta.value = o.text;
+      if (ttl && o.fileName) ttl.value = String(o.fileName).replace(/\.(txt|tsv|csv|text|json)$/i, "").replace(/[_-]+/g, " ").trim().slice(0, 80);
+      const plain = (h) => sanitizePlain(String(h == null ? "" : h).replace(/<br\s*\/?>/gi, " ")).slice(0, 160);
+      const setGo = (on, title, note) => { go.disabled = !on; go.querySelector("b").textContent = title; go.querySelector("small").textContent = note; };
+      const listOpts = () => ({ sep: sepSel.value || undefined, header: hdrTouched ? hdr.checked : undefined, swap: swp.checked, kind: kindSel.value });
+      function compute() {
+        const text = ta.value;
+        state = null;
+        ov.querySelector(".pc-opts").hidden = false;
+        if (!text.trim()) { pv.innerHTML = ""; setGo(false, "Nothing to add yet", "Paste a list above"); return; }
+        const kind = deckTextKind(text, o.fileName);
+        if (kind === "apkg") { pv.innerHTML = '<p class="pc-warn">' + esc(APKG_MSG) + "</p>"; setGo(false, "Can’t read this", "Export it from Anki as plain text"); return; }
+        if (kind === "deck") {
+          let raw = null;
+          try { raw = JSON.parse(text.replace(/^﻿/, "")); } catch (e) {}
+          const n = raw && Array.isArray(raw.cards) ? raw.cards.length : 0;
+          ov.querySelector(".pc-opts").hidden = true;
+          if (!raw || !raw.folioDeck || !n) { pv.innerHTML = '<p class="pc-warn">This looks like a deck file, but it is not one Folio can read: it needs <code>"folioDeck": 1</code> and a list of <code>cards</code>.</p>'; setGo(false, "Can’t read this", "Check that the whole reply was copied"); return; }
+          const t = sanitizePlain(raw.meta && raw.meta.title) || "Untitled deck";
+          pv.innerHTML = '<p class="pc-note">A Folio deck file: <b>' + esc(t) + "</b>, " + plural(n, "card", "cards") + ".</p>";
+          if (ttl && !ttl.value) ttl.value = t;
+          state = { deck: true };
+          setGo(true, into ? "Add its " + plural(n, "card", "cards") + " to this deck" : "Import the deck", into ? "They join “" + into.title + "”" : "It appears under Your decks");
+          return;
+        }
+        const got = ankiTextToDeck(text, o.fileName, listOpts());
+        const cards = got.deck.cards, info = got.info;
+        if (!hdrTouched) hdr.checked = !!info.header;
+        const found = cardSepById(info.sep);
+        sepSel.options[0].textContent = "Detect" + (!sepSel.value && found ? " — found: " + found.label.replace(/\s{2,}.*$/, "") : "");
+        if (!cards.length) { pv.innerHTML = '<p class="pc-warn">No cards found. Put each card on its own line.</p>'; setGo(false, "Nothing to add yet", "No cards were found"); return; }
+        const side = (c, i) => plain(c.type === "cloze" ? (i ? c.fields.Notes : c.fields.Text) : c.type ? (i ? c.fields.Back : c.fields.Front) : (i ? c.answer : c.question));
+        pv.innerHTML =
+          '<table class="pc-table"><thead><tr><th>Front</th><th>Back</th></tr></thead><tbody>' +
+          cards.slice(0, 5).map((c) => "<tr><td>" + esc(side(c, 0)) + "</td><td>" + (side(c, 1) ? esc(side(c, 1)) : c.type === "cloze" ? '<i>the hidden words</i>' : '<i class="pc-none">nothing</i>') + "</td></tr>").join("") +
+          "</tbody></table>" +
+          (cards.length > 5 ? '<p class="pc-note">…and ' + (cards.length - 5).toLocaleString("en-GB") + " more.</p>" : "") +
+          (info.noBack ? '<p class="pc-warn">' + plural(info.noBack, "line has", "lines have") + " no back. If that is most of them, the divider is wrong — choose it above.</p>" : "") +
+          (got.cloze ? '<p class="pc-note">' + plural(got.cloze, "line", "lines") + " with {{c1::…}} become fill-in-the-blank cards.</p>" : "");
+        state = { got: got };
+        // what the list MAKES: a two-way line is two cards, a fill-in-the-blank line one per numbered blank
+        const made = cards.reduce((a, c) => {
+          if (c.type === "two-way") return a + 2;
+          if (c.type === "cloze") { const seen = {}; String(c.fields.Text).replace(/\{\{c(\d+)::/g, (m, d1) => { seen[d1] = 1; return m; }); return a + Math.max(1, Object.keys(seen).length); }
+          return a + 1;
+        }, 0);
+        setGo(true, (into ? "Add " : "Make a deck of ") + plural(made, "card", "cards"),
+          into ? "They join “" + into.title + "”" : "It appears under Your decks, open for editing");
+      }
+      [ta, sepSel, kindSel, swp].forEach((el) => el.addEventListener("input", compute));
+      hdr.addEventListener("change", () => { hdrTouched = true; compute(); });
+      go.addEventListener("click", () => {
+        if (!state) return;
+        const text = ta.value, title = ttl ? ttl.value.trim() : "";
+        if (into) {
+          let raws = [];
+          if (state.deck) { const norm = uDeckNormalize(JSON.parse(text.replace(/^﻿/, ""))); raws = norm ? norm.cards : []; }
+          else raws = state.got.deck.cards;
+          // a card of a type the pasted deck file defined is brought in as text the built-in card can show
+          const n = uCardsAppend(into.id, raws.map((c) => (c.type && !cardTypePreset(c.type) && !uTypeGet(into.id, c.type)
+            ? { question: Object.values(c.fields || {})[0] || "", answer: Object.values(c.fields || {}).slice(1).filter(Boolean).join("<br>") } : c)));
+          close();
+          if (!n) { toast("Nothing was added — the deck is full."); return; }
+          studioState.card = into.cardIds[into.cardIds.length - n]; studioState.tab = "cards"; studioState.q = "";
+          studioRepaint();
+          toast(plural(n, "card", "cards") + " added" + (n < raws.length ? " — the deck is full, " + (raws.length - n) + " left out" : ""));
+          return;
+        }
+        let r;
+        if (state.deck) {
+          r = uDeckImportText(text.replace(/^﻿/, ""), false);
+          if (r && !r.error && title) uDeckSetMeta(r.deck.id, "title", title);
+        } else r = uDeckImportPlainText(text, o.fileName, Object.assign(listOpts(), { title: title || "Pasted cards", quiet: true }));
+        if (r && r.error) { toast(r.error); return; }
+        close();
+        studioImportLanded(r, { open: true });
+      });
+      compute();
+      setTimeout(() => { if (!o.text) ta.focus(); }, 60);
+    });
+  }
+  /* THE PROMPTS, WHERE THE CARDS ARE WRITTEN. The Studio's link used to leave for the About page, three
+     screens down it; this is the same list in a sheet over the deck, each with Copy, and a button that opens
+     the paste sheet for what comes back. The two at the top ask for a plain list — a question and an answer
+     to a line — which is what most decks are; the three after them are the About page's own (AI_PROMPTS),
+     for cards in Folio's long form. */
+  const AI_LIST_PROMPTS = [
+    {
+      id: "list",
+      title: "Simple question-and-answer cards",
+      note: "One card a line. Paste the reply straight into “Paste a list of cards”.",
+      text:
+'Write me 20 flashcards about [YOUR SUBJECT].\n' +
+'\n' +
+'Each card is a short question and its answer. The question must have one\n' +
+'clear answer, and the answer must be a few words, not a sentence. Do not\n' +
+'repeat a fact. Do not invent anything: if you are unsure of a date, a name\n' +
+'or a figure, leave that card out.\n' +
+'\n' +
+'Reply with one card per line and nothing else, in exactly this form:\n' +
+'\n' +
+'question | answer',
+    },
+    {
+      id: "vocab",
+      title: "A vocabulary list",
+      note: "A word and its meaning to a line. In the paste sheet choose “Two-way” to be asked both directions.",
+      text:
+'Write me a vocabulary list of 30 [LANGUAGE] words about [TOPIC, OR "everyday\n' +
+'life"] for a learner at [LEVEL, e.g. beginner].\n' +
+'\n' +
+'Give each word in its dictionary form with the most common English meaning.\n' +
+'Nouns carry their article where the language has one. No duplicates, no\n' +
+'phrases, no explanations.\n' +
+'\n' +
+'Reply with one word per line and nothing else, in exactly this form:\n' +
+'\n' +
+'word | meaning',
+    },
+  ];
+  function openAiPromptSheet(d) {
+    const all = AI_LIST_PROMPTS.concat(AI_PROMPTS);
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Write cards with an AI</span>' +
+        '<span class="dm-where">Copy a prompt, fill in the [square brackets], paste it into any AI chat — then paste what comes back here. Check the facts: an AI states a wrong date as confidently as a right one.</span></div></div>' +
+      all.map((p, i) =>
+        '<div class="ai-row"><div class="ai-rowmain"><b>' + esc(p.title) + "</b><small>" + esc(p.note) + "</small></div>" +
+        '<button type="button" class="btn tiny" data-aicopy="' + i + '">Copy</button>' +
+        '<details class="ai-text"><summary>Read the prompt</summary><pre>' + esc(p.text) + "</pre></details></div>").join("") +
+      '<button type="button" class="dm-item" id="aiPaste"><b>Paste the reply</b><small>' + (d ? "Its cards are added to “" + esc(d.title) + "”" : "It becomes a new deck") + "</small></button>";
+    return deckSheet("Write cards with an AI", html, (ov, close) => {
+      ov.classList.add("pc-sheet");
+      ov.querySelectorAll("[data-aicopy]").forEach((b) => b.addEventListener("click", () => {
+        copySelText(all[+b.dataset.aicopy].text, "Prompt copied");
+        b.textContent = "Copied";
+      }));
+      ov.querySelector("#aiPaste").addEventListener("click", () => { close(); openPasteCards(d ? { deckId: d.id } : {}); });
+    });
+  }
+
+  /* ---------- sharing a deck from the Studio (Nov 2026, the authoring audit) ----------
+     SHARING IS REVIEWED ONCE, THEN ONE PRESS. "Publish" used to upload on the press, whatever the deck was
+     called and whatever was on its cards, and answer with a toast; the only way to hand the result to
+     somebody was to open its page and copy the address bar. The first share of a deck now opens a sheet —
+     its name, its description, who can open it, what is about to go up — and the answer carries the link.
+     Edits to a deck that is already shared still go up on one press (`studioShareNow`). */
+  async function studioShareNow(d, btn, opts) {
+    const label = btn ? btn.textContent : "";
+    if (btn) { btn.disabled = true; btn.textContent = "Sending…"; } else toast("Sharing “" + d.title + "”…", 20000);
+    const first = !uDeckIsShared(d);
+    const r = await uDeckPublish(d.id, opts);
+    if (r.error) { toast(r.error); if (btn && btn.isConnected) { btn.disabled = false; btn.textContent = label; } return false; }
+    studioRepaint();
+    if (r.warn) { toast(r.warn); return true; }
+    if (first || (opts && opts.announce)) {
+      toastAction(uDeckIsLinkOnly(d) ? "Shared by link — send it to whoever should have it" : "Shared — anyone can find this deck now",
+        navigator.share ? "Send the link" : "Copy link", () => shareDeck(d.title, d.slug), 9000);
+    } else toast("Changes sent — people who added it are offered the update");
+    return true;
+  }
+  function openShareSheet(d) {
+    /* SIGNED OUT IS A QUESTION WITH A BUTTON, not a two-second toast naming a page: sharing needs an owner on
+       the server, and the way to become one is one press from here. The deck stays open in the Studio's own
+       state, so coming back to Collections lands on it. */
+    if (!supaLoggedIn()) {
+      inlineConfirm("Sharing a deck needs a free Folio account, so the deck has an owner who can update it or take it down. Sign in or create one, then come back — this deck stays open.",
+        () => route("account"), "Sign in");
+      return;
+    }
+    if (uDeckPruneEmpty(d.id)) studioRepaint();
+    const cards = uDeckCards(d);
+    if (!cards.length) { toast("Write at least one card before sharing."); return; }
+    const noAns = cards.filter((c) => !cardTypeOf(c) && !sanitizePlain(c.answer).trim()).length;
+    const shared = uDeckIsShared(d);
+    let who = uDeckIsLinkOnly(d) ? "unlisted" : "published";
+    const untitled = !sanitizePlain(d.title).trim() || d.title === "Untitled deck";
+    const author = d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "";
+    const opt = (v, title, note) => '<button type="button" class="dm-item sh-opt' + (who === v ? " on" : "") + '" role="radio" aria-checked="' + (who === v ? "true" : "false") + '" data-who="' + v + '">' +
+      "<b>" + title + "</b><small>" + note + "</small></button>";
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + (shared ? "Sharing options" : "Share this deck") + '</span>' +
+        '<span class="dm-where">' + plural(uDeckStudyIds(d.cardIds || []).length, "card", "cards") + (author ? " · shared as " + esc(author) : "") + '</span></div></div>' +
+      '<label class="dm-field dm-fieldcol"><span>Name</span><input class="af-input" id="shTitle" type="text" maxlength="200" placeholder="What is this deck about?" value="' + esc(untitled ? "" : d.title) + '" /></label>' +
+      '<label class="dm-field dm-fieldcol"><span>Description <small>optional &mdash; what a learner gets from it</small></span>' +
+        '<textarea class="af-input" id="shDesc" rows="3" maxlength="2000">' + esc(d.desc || "") + "</textarea></label>" +
+      '<div class="sh-who" role="radiogroup" aria-label="Who can open it">' +
+        opt("published", "Anyone", "It is listed under Shared decks, where people can find it and add it") +
+        opt("unlisted", "Only people with the link", "It is in no list; you send the link to whoever should have it") +
+      "</div>" +
+      (noAns ? '<p class="pc-warn sh-note">' + plural(noAns, "card has", "cards have") + " no answer yet.</p>" : "") +
+      '<p class="pc-note sh-note">Folio does not fact-check shared decks. You can change this or stop sharing at any time; people who have added the deck keep their copy.</p>' +
+      '<button type="button" class="dm-item pc-go" id="shGo"><b>' + (shared ? "Save and send" : "Share it") + "</b><small>You get the link to send as soon as it is up</small></button>";
+    return deckSheet(shared ? "Sharing options" : "Share this deck", html, (ov, close) => {
+      ov.classList.add("pc-sheet");
+      ov.querySelectorAll("[data-who]").forEach((b) => b.addEventListener("click", () => {
+        who = b.dataset.who;
+        ov.querySelectorAll("[data-who]").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b ? "true" : "false"); });
+      }));
+      ov.querySelector("#shGo").addEventListener("click", () => {
+        const ttl = ov.querySelector("#shTitle"), name = ttl.value.replace(/\s+/g, " ").trim();
+        if (!name || name === "Untitled deck") { toast("Give the deck a name first."); ttl.focus(); return; }
+        uDeckSetMeta(d.id, "title", name);
+        uDeckSetMeta(d.id, "desc", ov.querySelector("#shDesc").value);
+        close();
+        studioShareNow(d, null, { status: who, announce: true });
+      });
+    });
+  }
+  /* A DECK YOU WROTE LIVES IN THIS BROWSER AND NOWHERE ELSE. The Studio said so in one clause of its
+     introduction; nothing said it again once there was something to lose. Past twenty cards an unshared
+     deck gets one quiet line with the two ways to keep a copy, and the line goes when either is taken or
+     it is dismissed — coming back once twenty more cards have been written since. The register is per
+     device, like the deck: `folio_deck_backup_v1`, deck id → the card count the last time a copy was kept. */
+  const DECK_BACKUP_KEY = "folio_deck_backup_v1", DECK_BACKUP_EVERY = 20;
+  function deckBackupRead() { try { return JSON.parse(localStorage.getItem(DECK_BACKUP_KEY) || "{}") || {}; } catch (e) { return {}; } }
+  function deckBackupMark(deckId, n) {
+    const m = deckBackupRead(); m[deckId] = n | 0;
+    try { localStorage.setItem(DECK_BACKUP_KEY, JSON.stringify(m)); } catch (e) {}
+  }
+  function backupNoteHTML(d, n) {
+    if (!d || !uDeckIsMine(d) || uDeckIsShared(d) || n < DECK_BACKUP_EVERY) return "";
+    const at = deckBackupRead()[d.id];
+    if (at != null && n < (at | 0) + DECK_BACKUP_EVERY) return "";
+    return '<div class="st-backup"><span><b>This deck is stored only in this browser.</b> Clearing its data, or changing phone, loses it. ' +
+      "Export a copy now and then — or share it, which keeps one on your account.</span>" +
+      '<span class="st-backup-acts"><button class="btn tiny" type="button" id="stBackup">Export a copy</button>' +
+      '<button class="btn tiny ghost" type="button" id="stBackupNo">Not now</button></span></div>';
   }
 
   /* ---------- the Studio's card-types tab ----------
@@ -34140,7 +35933,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ov.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
         const p = cardTypePreset(b.dataset.preset);
         close();
-        if (!p) { const blank = uTypeCreate(deckId, "New type"); if (blank) after(blank); return; }
+        if (!p) { const blank = uTypeCreate(deckId, "New type"); if (blank) { studioState.design = true; after(blank); } return; }
         // the vocabulary shape reads its answer aloud, and which language that is in is the one thing about
         // it Folio cannot guess — so it is asked once, here, instead of left wrong until somebody notices
         if (p.askLang) { openSpeechLangSheet(p, (lang) => { const t = uTypeCreate(deckId, p.name, cardTypePresetSpec(p, lang)); if (t) after(t); }); return; }
@@ -34194,11 +35987,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function studioBasicTypeHTML() {
     return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">Basic</h2>' +
       '<div class="admin-ed-key">Folio&rsquo;s own format</div></div></div>' +
-      '<div class="ut-about"><p>A Basic card is the one the rest of Folio is written in: a question with a blank in it, ' +
-      'an answer with its date line, a background, an illustration and the works behind it. Its layout is Folio&rsquo;s, ' +
-      'and it is edited on the Cards tab.</p>' +
-      '<p>A type of your own replaces all of that with templates you write yourself — the HTML of the front, the HTML of ' +
-      'the back, and one stylesheet for the card. Pick one of these to start from, or add a blank one on the left.</p></div>' +
+      '<div class="ut-about"><p>Basic is the built-in question-and-answer card: a question, an answer, and room for notes ' +
+      'and a picture. It is also the card the rest of Folio is written in, so its longer form — a date line, sources, ' +
+      'glossary links — is there under &ldquo;More options&rdquo; on the Cards tab.</p>' +
+      '<p>A type is a card with boxes of your own. Pick a ready-made one below — &ldquo;Add a card&rdquo; on the Cards tab ' +
+      'offers the same list — or add a blank one. Any of them can be restyled afterwards under &ldquo;Customise the design&rdquo;.</p></div>' +
       /* The presets again, as a gallery — the "Add a type" button opens the same list in a sheet, but this
          pane is what a first-time author is already looking at, and a feature reached only through a button
          labelled with what it does rather than with what it offers is one nobody goes looking for. */
@@ -34249,8 +36042,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="ut-form">' +
         '<label class="admin-field"><span class="af-label">Name</span>' +
           '<input class="af-input" data-utype="name" type="text" value="' + esc(t.name) + '" /></label>' +
-        '<label class="admin-field"><span class="af-label">Fields <small>&mdash; comma separated, in the order you want to fill them in</small></span>' +
-          '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
+        /* THE FIELDS AS CHIPS (Nov 2026): each of the type's boxes is a chip with its own ×, and a new one is
+           typed into the box beside them. The comma-separated line is kept under "Customise the design" —
+           it is still the way to REORDER or rename them in one edit — and both write through uTypeSetFields. */
+        '<div class="admin-field"><span class="af-label">Fields <small>&mdash; the boxes a card of this type is filled in with</small></span>' +
+          '<div class="ut-chips" id="utChips">' +
+            t.fields.map((f) => '<span class="ut-chip">' + esc(f) + '<button type="button" data-fdel="' + esc(f) + '" aria-label="Remove the field ' + esc(f) + '" title="Remove this field">&times;</button></span>').join("") +
+            (t.fields.length < UTYPE_MAX_FIELDS ? '<input class="af-input ut-chipadd" id="utFieldAdd" type="text" spellcheck="false" maxlength="40" placeholder="Add a field…" aria-label="Add a field" />' : "") +
+          "</div></div>" +
         '<label class="admin-field"><span class="af-label">Spoken language ' +
           '<small>&mdash; what a read-aloud button on this type says its words in</small></span>' +
           '<select class="af-input" data-utype="speechLang">' +
@@ -34268,6 +36067,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             : "Every blank on a note is hidden and revealed together, on one card") + "</small></div>" +
           '<div class="switch' + (t.cloze ? " on" : "") + '" id="utCloze" role="switch" tabindex="0" aria-label="One card per blank" aria-checked="' + (t.cloze ? "true" : "false") + '"></div>' +
         "</div>" +
+        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
+        /* THE TEMPLATES, FOLDED (Nov 2026). A ready-made type works as it stands, and the three code boxes and
+           their page of syntax were the first thing under its name. They open on request, stay open for the
+           session once opened (studioState.design), and start open on a type made from scratch — where
+           writing them is the whole job. */
+        '<details class="ut-design" id="utDesign"' + (studioState.design ? " open" : "") + '><summary>Customise the design <small>&mdash; the HTML and CSS behind this type</small></summary><div class="ut-design-body">' +
+        '<label class="admin-field"><span class="af-label">Fields, as one line <small>&mdash; comma separated; edit it to reorder or rename them</small></span>' +
+          '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
         '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
           "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
           "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
@@ -34290,7 +36097,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         box("front", "Front template", "the HTML shown before the answer", tpl.front, 7) +
         box("back", "Back template", "the HTML shown once the card is turned over", tpl.back, 7) +
         box("css", "CSS", "styles every card of this type; <code>.card</code> is the card itself", t.css, 10) +
-        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
+        "</div></details>" +
       "</div>";
   }
   // The preview renders a REAL card — the one being edited if it uses this type, else a stand-in whose fields
@@ -34316,11 +36123,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function studioWireTypes(root, d) {
     root.querySelectorAll("[data-topensel]").forEach((b) => b.addEventListener("click", () => {
       studioState.type = b.dataset.topensel === CARD_TYPE_BASIC ? "" : b.dataset.topensel;
-      render();
+      studioRepaint();
     }));
     // both ways in — the button at the head of the list opens the presets in a sheet, the pane behind it
     // shows the same three as a gallery — and both land in the same place: the new type, open for editing
-    const open = (t) => { studioState.type = t.id; render(); };
+    const open = (t) => { studioState.type = t.id; studioRepaint(); };
     const add = root.querySelector("#stAddType");
     if (add) add.addEventListener("click", () => openTypePresetSheet(d.id, open));
     root.querySelectorAll(".ut-preset[data-preset]").forEach((b) => b.addEventListener("click", () => {
@@ -34352,7 +36159,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* The card-template controls. Switching, adding and removing all re-render — each changes which template
        the two big boxes are showing, which is not something to patch in place — and each blurs first, for the
        reason the field list does: removing a focused control mid-innerHTML is what Chrome refuses. */
-    const rerender = (el) => { if (el) el.blur(); setTimeout(render, 0); };
+    const rerender = (el) => { if (el) el.blur(); setTimeout(studioRepaint, 0); };
     /* THE CLOZE SWITCH RE-RENDERS, unlike every other field on this form. It changes how many cards each
        note of the type makes — so the card list, the preview and the note counts under it are all describing
        something else the moment it is thrown — and the switch's own note has to be rewritten with it. */
@@ -34408,6 +36215,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Remove the card"
       );
     });
+    const design = root.querySelector("#utDesign");
+    if (design) design.addEventListener("toggle", () => { studioState.design = design.open; });
+    // the chips: a × drops that field, the box adds one; both rewrite the list the comma line holds
+    const setFields = (list, el) => { uTypeSetFields(d.id, t.id, list.join(",")); adminFlashSaved(); rerender(el); };
+    root.querySelectorAll("[data-fdel]").forEach((b) => b.addEventListener("click", () => {
+      const live = uTypeGet(d.id, t.id);
+      if (!live || live.fields.length <= 1) { toast("A type needs at least one field."); return; }
+      setFields(live.fields.filter((f) => f !== b.dataset.fdel), b);
+    }));
+    const fadd = root.querySelector("#utFieldAdd");
+    if (fadd) {
+      const add = () => {
+        const v = fadd.value.trim(), live = uTypeGet(d.id, t.id);
+        if (!v || !live) return;
+        if (!UTYPE_FIELD_RX.test(v)) { toast("A field name is letters, digits and spaces, starting with a letter or digit."); return; }
+        if (live.fields.indexOf(v) >= 0) { fadd.value = ""; return; }
+        setFields(live.fields.concat([v]), fadd);
+      };
+      fadd.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); add(); } });
+      fadd.addEventListener("change", add);
+    }
     const ff = root.querySelector("#stTypeFields");
     // the field LIST does re-render: it changes which boxes a card of this type offers, and the help line above
     // …and it does so OUT of the event. render() replaces #view, and removing a still-focused input fires
@@ -34417,14 +36245,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       uTypeSetFields(d.id, t.id, ff.value);
       adminFlashSaved();
       ff.blur();
-      setTimeout(render, 0);
+      setTimeout(studioRepaint, 0);
     });
     const del = root.querySelector("#stDelType");
     if (del) del.addEventListener("click", () => {
       const n = uDeckCards(d).filter((c) => c.type === t.id).length;
       inlineConfirm("Delete the “" + t.name + "” card type?" +
         (n ? " " + n + " " + (n === 1 ? "card goes" : "cards go") + " back to Basic, and the text written into its fields goes with it." : ""),
-        () => { uTypeDelete(d.id, t.id); studioState.type = ""; toast("Card type deleted"); render(); }, "Delete");
+        () => { uTypeDelete(d.id, t.id); studioState.type = ""; toast("Card type deleted"); studioRepaint(); }, "Delete");
     });
   }
 
@@ -34504,9 +36332,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const add = root.querySelector("#stAddTerm");
     if (add) add.addEventListener("click", () => inlinePrompt("What is the term called?", "", (name) => {
       const slug = uGlossCreate(d.id, name);
-      if (slug) { studioState.term = slug; render(); }
+      if (slug) { studioState.term = slug; studioRepaint(); }
     }));
-    root.querySelectorAll("[data-topen]").forEach((b) => b.addEventListener("click", () => { studioState.term = b.dataset.topen; render(); }));
+    root.querySelectorAll("[data-topen]").forEach((b) => b.addEventListener("click", () => { studioState.term = b.dataset.topen; studioRepaint(); }));
     const slug = studioState.term;
     if (!slug) return;
     const descEl = root.querySelector('[data-gf="desc"]');
@@ -34568,7 +36396,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     const del = root.querySelector("#stDelTerm");
     if (del) del.addEventListener("click", () => inlineConfirm("Delete the term “" + glossTitle(uGlossKey(d.id, slug)) + "”?", () => {
-      uGlossDelete(d.id, slug); studioState.term = null; toast("Term deleted"); render();
+      uGlossDelete(d.id, slug); studioState.term = null; toast("Term deleted"); studioRepaint();
     }, "Delete"));
   }
 
@@ -34601,7 +36429,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="studio-cardrow"><span class="scr-open"><span class="scr-n">' + (i + 1) + '</span>' +
           '<span class="scr-title">' + esc(uCardTitle(c)) + '</span></span></div>').join("") + '</div>' +
       '</div>';
-    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
+    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; studioRepaint(); });
     const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
     const up = root.querySelector("#stUpdate");
@@ -34614,19 +36442,90 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       r.deck.forkedFrom = { slug: d.slug || "", title: d.title || "", author: d.ownerName || d.author || "" };   // credit the original
       uDeckSave(r.deck.id);
       studioState.deck = r.deck.id; studioState.card = null;
-      render();
+      studioRepaint();
       await r.saved;   // the copy's own notes — say it is duplicated once it really is (see uImportDone)
       toast("Duplicated — this copy is yours to edit");
     });
     root.querySelector("#stRemove").addEventListener("click", () => inlineConfirm(
       "Remove “" + d.title + "” from this device? Your progress on its cards goes too.",
-      async () => { const r = await uDeckUninstall(d.id); studioState.deck = null; toast(uninstallSaid(r)); render(); }, "Remove"));
+      async () => { const r = await uDeckUninstall(d.id); studioState.deck = null; toast(uninstallSaid(r)); studioRepaint(); }, "Remove"));
   }
 
+  /* THE CARD'S OWN CHROME, shared by the built-in card's editor and a typed card's (Nov 2026): its title, what
+     can be done to it, and — under the card — the button for the next one. Three changes from the row of one
+     red button it replaces. DELETE NO LONGER ASKS: it deletes and offers Undo, which is one press instead of
+     two and loses nothing, where a confirmation is a question an author answers by reflex. DUPLICATE starts
+     the next card from this one. MOVE takes a place number, since the list's arrows move one row a press. */
+  function studioCardHeadHTML(c, d, keyLine) {
+    const many = d && (d.cardIds || []).length > 2;
+    return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + '</h2>' +
+        '<div class="admin-ed-key">' + keyLine + '</div></div>' +
+        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+        '<button class="btn tiny ghost" id="stDupCard" type="button" title="A copy of this card, placed under it">Duplicate</button>' +
+        (many ? '<button class="btn tiny ghost" id="stMoveCard" type="button" title="Move this card to another place in the deck">Move</button>' : "") +
+        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>';
+  }
+  function studioCardFootHTML() {
+    return '<div class="st-cardfoot"><button class="btn" type="button" id="stAddNext">Add another card</button>' +
+      '<span class="st-cardfoot-note">Saved as you type. The next card starts as the same kind.</span></div>';
+  }
+  function studioWireCardChrome(host, c, d) {
+    const dup = host.querySelector("#stDupCard");
+    if (dup) dup.addEventListener("click", () => {
+      const n = uCardDuplicate(c.id);
+      if (n) { studioState.card = n.id; studioState.focus = "card"; toast("Card duplicated"); studioRepaint(); }
+    });
+    const mv = host.querySelector("#stMoveCard");
+    if (mv && d) mv.addEventListener("click", () => {
+      const n = d.cardIds.length, at = d.cardIds.indexOf(c.id) + 1;
+      inlinePrompt("Move this card to which place? It is number " + at + " of " + n + ".", String(at), (v) => {
+        const to = parseInt(v, 10);
+        if (!to || to < 1) return;
+        uCardMoveTo(c.id, to); studioRepaint();
+      }, { inputLabel: "Place in the deck, 1 to " + n });
+    });
+    const del = host.querySelector("#stDelCard");
+    if (del) del.addEventListener("click", () => {
+      const snap = uCardSnapshot(c.id), wasEmpty = uCardIsEmpty(c);
+      const ids = d ? d.cardIds.slice() : [], i = ids.indexOf(c.id);
+      uCardDelete(c.id);
+      studioState.card = ids[i + 1] || ids[i - 1] || null;
+      studioRepaint();
+      if (wasEmpty || !snap) { toast("Card deleted"); return; }
+      toastAction("Card deleted", "Undo", () => {
+        const back = uCardRestore(snap);
+        if (back) { studioState.card = back.id; studioRepaint(); toast("Card restored"); }
+      });
+    });
+    const next = host.querySelector("#stAddNext");
+    if (next && d) next.addEventListener("click", () => studioAddCard(d));
+  }
+  // whether the built-in card's long form opens: the author's last choice, or a card that already uses it
+  const STUDIO_MORE_KEY = "folio.studio.more";
+  function studioMoreOpen(c) {
+    try { if (localStorage.getItem(STUDIO_MORE_KEY) === "1") return true; } catch (e) {}
+    return !!(c && (sanitizePlain(c.answerDate) || (Array.isArray(c.questions) && c.questions.length) || (Array.isArray(c.sources) && c.sources.length)));
+  }
   function studioRenderCardEditor(host) {
     if (!host) return;
     const c = UCARDS[studioState.card];
-    if (!c) { host.innerHTML = '<div class="admin-editor-empty">Add a card to start writing, then double-click any part of it to edit.</div>'; return; }
+    if (!c) {
+      /* AN EMPTY DECK ASKS WHAT IT IS FOR (Nov 2026). The ready-made shapes used to sit on a second tab,
+         behind a paragraph about HTML and stylesheets; this pane said only "Add a card to start writing".
+         The same list the split button opens, drawn where a first-time author is already looking. */
+      const d0 = UDECKS[studioState.deck];
+      if (!d0) { host.innerHTML = ""; return; }
+      host.innerHTML = '<div class="st-kinds"><h2 class="st-kinds-h">What kind of card first?</h2>' +
+        '<p class="st-kinds-p">One deck can mix kinds, and a card&rsquo;s kind can be changed later.</p>' +
+        '<div class="ut-presets">' + studioKinds(d0).map((k) =>
+          '<button type="button" class="ut-preset st-kind" data-addkind="' + esc(k.id) + '">' +
+          '<span class="ut-preset-name">' + esc(k.name) + "</span>" +
+          '<span class="ut-preset-blurb">' + esc(k.blurb) + "</span></button>").join("") +
+        "</div></div>";
+      host.querySelectorAll("[data-addkind]").forEach((b) => b.addEventListener("click", () =>
+        studioPickKind(d0, b.dataset.addkind, (typeId) => studioAddCard(d0, typeId))));
+      return;
+    }
     const d = UDECKS[c.deckId];
     const typePicker = studioTypePickerHTML(d, c);
     // A card of one of the deck's own types has no question / answer / background — it has that type's fields —
@@ -34637,20 +36536,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<label class="ces-m ces-m-wide"><span>answer text — plain, used when the card is read back</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
       '</div>';
     host.innerHTML =
-      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + '</h2>' +
-        '<div class="admin-ed-key">' + esc(d ? d.title : "") + '</div></div>' +
-        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
-        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      studioCardHeadHTML(c, d, esc(d ? d.title : "")) +
       typePicker +
-      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true });
+      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true,
+        compact: true, more: studioMoreOpen(c), blank: true }) +
+      studioCardFootHTML();
 
     studioWireTypePicker(host, c);
-    wireLiveCardEditor(host, {
+    const ed = wireLiveCardEditor(host, {
       card: c,
       isEn: true,
       dirAttr: "",
       imagePanel: true,
       videoPanel: true,
+      // the Studio's surface: one tap edits a field, Tab and Enter walk them, and the long form is folded
+      tapEdit: true,
+      compact: true,
+      onMore: (open) => { try { localStorage.setItem(STUDIO_MORE_KEY, open ? "1" : "0"); } catch (e) {} },
       glossOff: [],
       // Phase 1 links a user's cards against the curated site glossary. Per-deck glossaries (deck.glossMode
       // 'own'/'both') are stored but not yet editable — the scope plumbing from phase 0 is what they'll use.
@@ -34678,81 +36580,118 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       afterImage: () => adminFlashSaved(),
       afterVideo: () => adminFlashSaved(),
     });
-
-    host.querySelector("#stDelCard").addEventListener("click", () => {
-      inlineConfirm("Delete this card from “" + (d ? d.title : "the deck") + "”?", () => {
-        uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
-      }, "Delete");
-    });
+    studioWireCardChrome(host, c, d);
+    if (studioState.focus === "card") {
+      studioState.focus = "";
+      studioReveal(host);
+      if (ed && ed.focusField) ed.focusField("question");
+    }
   }
   /* ---------- choosing a card's type ----------
      One row above the card, on both surfaces, so the answer to "what kind of card is this?" is in the same
-     place whichever kind it currently is. A deck with no types of its own still shows it, with a line saying
-     where to make one — a picker of one option explains the feature better than no picker at all does. */
+     place whichever kind it currently is. It lists the deck's own types AND the ready-made shapes the deck
+     has not got yet (Nov 2026): picking one of those makes the type and turns the card into it, so the
+     picker is never a list of one with a note saying where to go to lengthen it. */
+  const SUB_NEW = "__new";
   function studioTypePickerHTML(d, c) {
     const types = uTypeList(d ? d.id : "");
     const cur = c.type && uTypeGet(c.deckId, c.type) ? c.type : CARD_TYPE_BASIC;
+    const presets = CARD_TYPE_PRESETS.filter((p) => !types.some((t) => t.id === p.id));
+    const subs = uSubNodes(d ? d.id : "");
+    const sub = (c && c.sub) || "";
     return '<div class="ces-typebar">' +
-      '<label class="ces-typepick"><span>Card type</span>' +
+      '<label class="ces-typepick"><span>Kind</span>' +
         '<select class="af-input" id="cesCardType">' +
-          '<option value="' + CARD_TYPE_BASIC + '"' + (cur === CARD_TYPE_BASIC ? " selected" : "") + ">Basic — Folio&rsquo;s own format</option>" +
+          '<option value="' + CARD_TYPE_BASIC + '"' + (cur === CARD_TYPE_BASIC ? " selected" : "") + ">Question and answer (Basic)</option>" +
           types.map((t) => '<option value="' + esc(t.id) + '"' + (cur === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") +
+          (presets.length ? '<optgroup label="Ready-made">' + presets.map((p) => '<option value="' + esc(p.id) + '">' + esc(p.name) + "</option>").join("") + "</optgroup>" : "") +
         "</select></label>" +
-      (types.length ? "" : '<span class="ces-typenote">Write your own on the <b>Card types</b> tab.</span>') +
-      /* Which subdeck this card is in. A datalist rather than a <select> because the deck's subdecks ARE
-         the titles its cards name — there is no list to pick from until a card names one, so the first
-         has to be typed, and every one after it is offered. Leaving it empty puts the card in the deck
-         itself. */
+      /* Which subdeck this card is in. A PICKER (Nov 2026) of the subdecks the deck already has, with "New
+         subdeck…" opening the box to name one — the `A::B` path syntax is still read there, but nobody has
+         to know it to file a card. Leaving it at None puts the card in the deck itself. `#cesCardSub` is
+         the same input it always was, shown only while a new name is being typed. */
       '<label class="ces-typepick"><span>Subdeck</span>' +
-        '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="none" ' +
+        '<select class="af-input" id="cesSubPick">' +
+          '<option value=""' + (sub ? "" : " selected") + ">None</option>" +
+          // every NODE, not only the paths cards name, so a parent can be picked as readily as a leaf
+          subs.map((x) => '<option value="' + esc(x) + '"' + (x === sub ? " selected" : "") + ">" + esc(x.split(SUB_SEP).join(" › ")) + "</option>").join("") +
+          '<option value="' + SUB_NEW + '">New subdeck…</option>' +
+        "</select>" +
+        '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="Name the new subdeck" hidden ' +
           'title="Type ' + SUB_SEP + ' between names to put a subdeck inside another, as in ' +
             'A1' + SUB_SEP + 'Spanish to English" ' +
-          'value="' + esc((c && c.sub) || "") + '" />' +
+          'value="' + esc(sub) + '" />' +
         '<datalist id="cesSubList">' +
-          // every NODE, not only the paths cards name, so a parent can be picked as readily as a leaf
-          uSubNodes(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
+          subs.map((x) => '<option value="' + esc(x) + '"></option>').join("") +
         "</datalist></label>" +
     "</div>";
   }
   function studioWireTypePicker(host, c) {
-    const sub = host.querySelector("#cesCardSub");
+    const sub = host.querySelector("#cesCardSub"), pick = host.querySelector("#cesSubPick");
+    const setSub = (v) => {
+      v = String(v || "").trim();
+      if (v === (c.sub || "")) return;
+      uCardSetSub(c.id, v);
+      studioRepaint();
+    };
     /* On `change` rather than every keystroke: the deck's subdeck list is derived from the cards, so each
        keystroke would otherwise create a subdeck per prefix — "E", "En", "Eng" — and the row list under the
        deck would grow a row for each. It re-renders because the Collections page and the card list group by
        this, and the datalist behind the box is built from it. */
-    if (sub) sub.addEventListener("change", () => {
-      const v = sub.value.trim();
-      if (v === ((c.sub || ""))) return;
-      uCardSetSub(c.id, v);
-      render();
+    if (sub) sub.addEventListener("change", () => setSub(sub.value));
+    if (pick) pick.addEventListener("change", () => {
+      if (pick.value === SUB_NEW) { if (sub) { sub.hidden = false; sub.value = ""; sub.focus(); } return; }
+      setSub(pick.value);
     });
     const sel = host.querySelector("#cesCardType");
     if (!sel) return;
     sel.addEventListener("change", () => {
-      const to = sel.value;
       const from = c.type || CARD_TYPE_BASIC;
-      if (to === from) return;
+      if (sel.value === from) return;
       // Changing type does not throw anything away: a Basic card keeps its question and background, and a
       // typed card keeps its field values, so switching back and forth is free and reversible.
-      uCardSetType(c.id, to);
-      render();
+      // A ready-made shape the deck has not got is made first (studioPickKind), then the card turned into it.
+      studioPickKind(UDECKS[c.deckId], sel.value, (typeId) => {
+        uCardSetType(c.id, typeId || CARD_TYPE_BASIC);
+        studioState.focus = "card";
+        studioRepaint();
+      });
     });
+  }
+  /* WHICH OF A TYPE'S FIELDS HOLD A PICTURE'S ADDRESS: the ones a template puts inside `src="…"`. They get a
+     one-line box and a note saying what to paste, since a paragraph box labelled "Image" invites a
+     description of the picture rather than its link. */
+  function typeImageFields(t) {
+    const out = {};
+    const all = typeCards(t).map((x) => String(x.front || "") + String(x.back || "")).join(" ");
+    (t.fields || []).forEach((f) => { if (all.indexOf('src="{{' + f + '}}"') >= 0) out[f] = true; });
+    return out;
   }
   function studioRenderTypedCardEditor(host, c, d, typePicker) {
     const t = cardTypeOf(c);
     const vals = c.fields || {};
+    const imgF = typeImageFields(t);
     host.innerHTML =
-      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + "</h2>" +
-        '<div class="admin-ed-key">' + esc(t.name) + (d ? " · " + esc(d.title) : "") + "</div></div>" +
-        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
-        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      studioCardHeadHTML(c, d, esc(t.name) + (d ? " · " + esc(d.title) : "")) +
       typePicker +
-      '<div class="ut-form">' +
+      '<div class="ut-form ut-cardform">' +
+        /* A SMALL RIBBON for boxes that hold HTML as text: bold and italic wrap the selection in the tags a
+           template renders, and on a fill-in-the-blank type "Blank" wraps it in the next {{cN::…}} — the
+           marker nobody should have to type by hand. It acts on whichever box was last in use. */
+        '<div class="ut-fieldbar" role="toolbar" aria-label="Formatting">' +
+          '<button type="button" class="rt-btn" data-wrap="b" title="Bold the selected words"><b>B</b></button>' +
+          '<button type="button" class="rt-btn" data-wrap="i" title="Italicise the selected words"><i>I</i></button>' +
+          (t.cloze ? '<button type="button" class="rt-btn rt-wide ut-blankbtn" data-wrap="cloze" title="Hide the selected words: they become the blank this card asks for">Blank</button>' +
+            '<span class="ut-fieldbar-note">Select the words to recall, then press Blank.</span>' : "") +
+        "</div>" +
         t.fields.map((f) =>
-          '<label class="admin-field"><span class="af-label">' + esc(f) + "</span>" +
-          '<textarea class="af-input ut-code" data-ufield="' + esc(f) + '" rows="3" spellcheck="false">' + esc(vals[f] || "") + "</textarea></label>").join("") +
+          '<label class="admin-field"><span class="af-label">' + esc(f) +
+            (imgF[f] ? ' <small>&mdash; the picture&rsquo;s link (https://…)</small>' : "") + "</span>" +
+          '<textarea class="af-input ut-field' + (imgF[f] ? " ut-field-url" : "") + '" data-ufield="' + esc(f) + '" rows="' + (imgF[f] ? 1 : 2) + '"' +
+            (imgF[f] ? ' spellcheck="false" inputmode="url"' : "") + ">" + esc(vals[f] || "") + "</textarea></label>").join("") +
         '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stCardPv"></div></div>' +
-      "</div>";
+      "</div>" +
+      studioCardFootHTML();
     studioWireTypePicker(host, c);
     function paint() {
       const box = host.querySelector("#stCardPv");
@@ -34766,28 +36705,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wireSpeakControls(box);
     }
     paint();
-    host.querySelectorAll("[data-ufield]").forEach((el) => el.addEventListener("input", () => {
-      uCardSetFieldValue(c.id, el.dataset.ufield, el.value);
-      adminFlashSaved();
-      paint();   // in place, so the caret stays where the author is typing
-      const title = uCardTitle(c);
-      const h = host.querySelector(".admin-ed-title"); if (h) h.textContent = title;
-      const row = document.querySelector('.studio-cardrow[data-card="' + cssEsc(c.id) + '"] .scr-title');
-      if (row) row.textContent = title;
-    }));
-    host.querySelector("#stDelCard").addEventListener("click", () => {
-      inlineConfirm("Delete this card from “" + (d ? d.title : "the deck") + "”?", () => {
-        uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
-      }, "Delete");
+    // a box grows with what is typed into it, so a long answer is not read through a two-line slot
+    const grow = (el) => { el.style.height = "auto"; el.style.height = Math.min(420, el.scrollHeight + 2) + "px"; };
+    let lastBox = null;
+    const boxes = [...host.querySelectorAll("[data-ufield]")];
+    boxes.forEach((el) => {
+      grow(el);
+      el.addEventListener("focus", () => { lastBox = el; });
+      el.addEventListener("input", () => {
+        uCardSetFieldValue(c.id, el.dataset.ufield, el.value);
+        adminFlashSaved();
+        grow(el);
+        paint();   // in place, so the caret stays where the author is typing
+        const title = uCardTitle(c);
+        const h = host.querySelector(".admin-ed-title"); if (h) h.textContent = title;
+        const row = document.querySelector('.studio-cardrow[data-card="' + cssEsc(c.id) + '"] .scr-title');
+        if (row) row.textContent = title;
+      });
     });
+    host.querySelectorAll("[data-wrap]").forEach((b) => {
+      b.addEventListener("mousedown", (e) => e.preventDefault());   // the box keeps its selection
+      b.addEventListener("click", () => {
+        const el = lastBox || boxes[0];
+        if (!el) return;
+        const a = el.selectionStart || 0, z = el.selectionEnd || 0, v = el.value, pickd = v.slice(a, z);
+        let open, shut;
+        if (b.dataset.wrap === "cloze") {
+          if (!pickd.trim()) { toast("Select the words to hide first."); el.focus(); return; }
+          // the next number after the highest already on this note, so each blank is a card of its own
+          let n = 0;
+          boxes.forEach((x) => { String(x.value).replace(/\{\{c(\d+)::/g, (m, d1) => { n = Math.max(n, +d1); return m; }); });
+          open = "{{c" + (n + 1) + "::"; shut = "}}";
+        } else { open = "<" + b.dataset.wrap + ">"; shut = "</" + b.dataset.wrap + ">"; }
+        el.value = v.slice(0, a) + open + pickd + shut + v.slice(z);
+        el.focus();
+        el.selectionStart = a + open.length; el.selectionEnd = a + open.length + pickd.length;
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    });
+    studioWireCardChrome(host, c, d);
+    if (studioState.focus === "card") {
+      studioState.focus = "";
+      studioReveal(host);
+      if (boxes[0]) boxes[0].focus();
+    }
   }
   // What a card is called in the deck's own list. A Basic card is its answer; a typed card has no answer, so
   // it is the first field with anything in it — which is the one an author fills in first.
   function uCardTitle(c) {
     if (!c) return "(untitled)";
     if (cardTypeOf(c)) {
-      const t = cardTypeOf(c), vals = c.fields || {};
+      const t = cardTypeOf(c), vals = c.fields || {}, img = typeImageFields(t);
       for (let i = 0; i < t.fields.length; i++) {
+        if (img[t.fields[i]]) continue;   // a picture's address is not what a card is called
         // cloze markers are OPENED for the list: a row reading "fought in {{c1::1066}}" makes the author
         // read past the apparatus to find out which card it is, which is the one thing a list is for
         const v = sanitizePlain(clozeMark(vals[t.fields[i]], true)).trim();
@@ -34965,13 +36935,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(o.title) + '</span>' +
         '</div>' +
-        /* The count on a line of its own under the title, exactly as the curated shelf sets it — see
-           `nodeMetaHTML` in buildNode. No file size (Oct 2026, on request): Daily study's Download button
-           still says what a deck will fetch. */
-        '<div class="node-meta">' +
-          '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
-          langFactsHTML(o) +
-        '</div>' +
+        /* NO COUNT AND NO FACTS LINE (2026-11-16, on request: "when unfolding a language collection, its decks should not
+           say the number of cards and % of examples. The one line description is sufficient."). The row is its title and,
+           on a top-level deck, its subtitle below; Daily study's Download row still says what a deck holds and fetches.
+           `langFactsHTML` (the "N% with examples" / "no audio" chips) went with it. */
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
            where a learner should start, how big each is against the others, or where a deck outside the
            ladder fits — a shelf rather than a course. It is drawn only on a TOP-LEVEL row and only where
@@ -35001,28 +36968,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
       "</div></div></div>" +
     "</div>";
-  }
-  /* WHAT A DECK TEACHES, ON THE SHELF (`langFactsHTML`; Sep 2026, on request). A row said how many
-     cards a deck holds and how many megabytes it costs, and nothing about whether it carries EXAMPLE
-     SENTENCES or whether its words can be HEARD — which are the two things that most decide whether a
-     vocabulary deck is worth twenty megabytes, and the two that actually vary across this shelf.
-     THE FIGURES ARE THE CATALOGUE'S, measured off each deck file by `.claude/build-lang-decks.js`, so
-     nothing here can drift from the deck it describes.
-     ONLY WHAT VARIES IS DRAWN. Every deck on the shelf is asked both ways, so saying so on all of them
-     tells a reader choosing between two of them nothing; audio is the norm and its ABSENCE is the fact,
-     so "no audio" is drawn on the eight decks that lack it and nothing at all on the rest. Example
-     coverage runs from 16% to 100% and is always drawn — with `100% examples` said as `with examples`,
-     since a percentage a reader has to notice is 100 is a percentage that should have been a word. */
-  function langFactsHTML(o) {
-    let out = "";
-    if (typeof o.ex === "number") {
-      out += '<span class="node-fact" title="How many of this deck\u2019s words come with an example sentence.">' +
-        (o.ex >= 100 ? "with examples" : esc(o.ex + "% with examples")) + "</span>";
-    }
-    if (o.say === false) {
-      out += '<span class="node-fact node-fact-no" title="This deck has no read-aloud control on its cards.">no audio</span>';
-    }
-    return out;
   }
   /* A catalogue tree node turned into a row spec, all the way down. The entry id is the same one app.js
      uses everywhere else for a subdeck of one of the reader's own decks, so a row added here is the row
@@ -35141,12 +37086,69 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const cat = d ? langCatalogById(d) : null;
     return cat ? langCtxId(cat.lang) : "";
   }
+  /* THE ALPHABET COMES FIRST (Nov 2026, on request: "in every language collection with an alphabet deck, words
+     and phrases should not appear in default card order until the alphabet deck has been fully studied").
+     An alphabet deck is a catalogue deck whose file is the language's script — `*-Alphabet*`, and Japanese's
+     two kana decks. While any card of an alphabet deck the reader has ADDED is still new, a language's word and
+     phrase decks (every deck but the alphabet and a "Sounds and spelling" deck) introduce nothing new through the language's row or the pooled review; their reviews are untouched,
+     and a word deck studied on its own row still deals its words, since the reader asked for that deck by
+     name. "Random" is a deliberate choice against the default order, so a language set to it is not held.
+     Suspended alphabet cards do not hold it (they will never be studied). */
+  const ALPHABET_DECK_RX = /Alphabet|Hiragana|Katakana/;
+  function isAlphabetDeckId(deckId) {
+    const cat = langCatalogById(deckId);
+    return !!(cat && ALPHABET_DECK_RX.test(cat.file || ""));
+  }
+  function isAlphabetEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isAlphabetDeckId(d); }
+  // …and what is never held back: the alphabet itself, and a "Sounds and spelling" deck, which teaches how
+  // the letters are read and is neither words nor phrases
+  const SCRIPT_DECK_RX = /Alphabet|Hiragana|Katakana|Sounds-and-Spelling/;
+  function isScriptDeckId(deckId) {
+    const cat = langCatalogById(deckId);
+    return !!(cat && SCRIPT_DECK_RX.test(cat.file || ""));
+  }
+  function isScriptEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isScriptDeckId(d); }
+  function isScriptCard(id) { const c = UCARDS[uCardBaseId(id)]; return !!(c && c.deckId && isScriptDeckId(c.deckId)); }
+  /* …AND THE PHRASES WAIT FOR A1 (2026-11-26, on request: "In the default study order of Portuguese, sentences/idioms
+     should not appear until A1 has been fully learned. This should be true for every language collection").
+     A phrase deck is a catalogue file of phrases, expressions, idioms, proverbs or mottos; the A1 deck is the
+     language's first word level (A1, HSK Level 1, JLPT N5, Korean Stage A, UKBI 1, Old English Level 1). While any
+     card of an A1 deck the reader has ADDED is still new, the language's row and the pooled review introduce no new
+     phrase card — exactly the alphabet's hold, one stage on, and with the same exceptions: reviews are untouched,
+     a phrase deck studied on its own row still deals, Random is not held, suspended A1 cards do not count.
+     "Fully learned" is read as every A1 card INTRODUCED, as the alphabet's is: a hold on the learned pips would
+     re-close every time one A1 word was missed, since a miss now empties them. */
+  const PHRASE_DECK_RX = /Phrase|Expression|Idiom|Proverb|Motto/;
+  const A1_DECK_RX = /(?:^|-)A1(?:-|\.)|HSK-3\.0-Level-1\.|JLPT-N5|Stage-A|UKBI-1-|English-Level-1\./;
+  function isPhraseDeckId(deckId) { const cat = langCatalogById(deckId); return !!(cat && PHRASE_DECK_RX.test(cat.file || "")); }
+  function isPhraseEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isPhraseDeckId(d); }
+  function isPhraseCard(id) { const c = UCARDS[uCardBaseId(id)]; return !!(c && c.deckId && isPhraseDeckId(c.deckId)); }
+  function isA1Entry(entryId) { const d = uDeckIdOf(entryId), cat = d ? langCatalogById(d) : null; return !!(cat && A1_DECK_RX.test(cat.file || "")); }
+  function langA1Pending(langId) {
+    if (!isLangCtxId(langId) || deckOrderMode(langId) === "random") return false;
+    return langCtxEntries(langId).some((e) => isA1Entry(e) &&
+      entryCardIds(e).some((id) => !isSeen(id) && !isSuspended(id)));
+  }
+  // may this card be introduced as new through its language's row or the pooled review today?
+  function langMayIntroduce(langId, id, alphaHeld, a1Held) {
+    if (alphaHeld && !isScriptCard(id)) return false;
+    if (a1Held && isPhraseCard(id)) return false;
+    return true;
+  }
+  // true while the language `langId` holds back its words: an added alphabet deck has a card still new
+  function langAlphabetPending(langId) {
+    if (!isLangCtxId(langId) || deckOrderMode(langId) === "random") return false;
+    return langCtxEntries(langId).some((e) => isAlphabetEntry(e) &&
+      entryCardIds(e).some((id) => !isSeen(id) && !isSuspended(id)));
+  }
+  // in the catalogue's order, not the order they were added — so the language's own row deals its start-here
+  // deck's new cards first (studyOrder's groups follow first appearance) — see langCatalogRank
   function langCtxEntries(id) {
-    return activeEntryIds().filter((e) => {
+    return inCatalogOrder(activeEntryIds().filter((e) => {
       const d = uDeckIdOf(e);
       const cat = d ? langCatalogById(d) : null;
       return !!cat && langCtxId(cat.lang) === id;
-    });
+    }));
   }
   /* WHICH CATALOGUE DECKS AN ENTRY'S FILES ARE, and this device actually holds — what the options sheet's
      Redownload row acts on (Sep 2026, on request: "in the active decks long press menu, there should be
@@ -35260,14 +37262,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const wantOn = !ids.every(isActive);
         ids.forEach((id) => { if (wantOn) addActive(id); else removeActive(id); });
         refreshAddButtons();
-        toast(wantOn ? "Added to daily review" : "Removed from review");
+        toast(wantOn ? "Added to daily review" : "Removed from review"); sfx(wantOn ? "add" : "remove");
       });
     });
   }
   function sharedDecksHTML(nSpecial) {
     return '<div class="collection-group community-group" id="sharedDecks">' +
       '<div class="group-head"><span class="group-label">Shared decks</span><span class="group-line"></span>' +
-        '<span class="group-count" id="sdCount">' + ((communityState.decks || []).length || "") + "</span></div>" +
+        '<span class="group-count" id="sdCount" data-special="' + (nSpecial || 0) + '">' + (((communityState.decks || []).length + (nSpecial || 0)) || "") + "</span></div>" +
       // Folio's own three courses, above the intro that says the decks below are not fact-checked by Folio
       (nSpecial ? '<div class="collection-list" id="collection-list-special"></div>' : "") +
       '<p class="udeck-intro">Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p>' +
@@ -35288,7 +37290,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (communityState.error) { results.innerHTML = '<div class="lib-empty">' + esc(communityState.error) + "</div>"; return; }
       results.innerHTML = sharedRowsHTML();
       const cnt = root.querySelector("#sdCount");
-      if (cnt) cnt.textContent = (communityState.decks || []).length || "";
+      // the courses drawn at the head of this group are part of what it holds, so they are counted with it
+      if (cnt) cnt.textContent = ((communityState.decks || []).length + (parseInt(cnt.dataset.special, 10) || 0)) || "";
       const go = (el) => route("deck", { slug: el.dataset.slug });
       results.querySelectorAll("[data-slug]").forEach((r) => {
         r.addEventListener("click", () => go(r));
@@ -35345,7 +37348,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="creport-main"><b>' + esc(d ? d.title : "(deleted deck)") + '</b> — ' + esc(rep.reason) +
             (rep.note ? '<span class="creport-note">' + esc(rep.note) + '</span>' : "") + '</div>' +
           '<div class="creport-acts">' +
-            (d && d.status === "published" ? '<button class="btn tiny danger" type="button" data-hide="' + esc(rep.deck_id) + '">Hide deck</button>' : "") +
+            (d && (d.status === "published" || d.status === "unlisted") ? '<button class="btn tiny danger" type="button" data-hide="' + esc(rep.deck_id) + '">Hide deck</button>' : "") +
             (d && d.status === "hidden" ? '<button class="btn tiny ghost" type="button" data-unhide="' + esc(rep.deck_id) + '">Restore</button>' : "") +
             '<button class="btn tiny ghost" type="button" data-close="' + esc(rep.id) + '">Dismiss</button>' +
           '</div></div>';
@@ -35383,7 +37386,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.innerHTML =
       '<div class="ddetail-head">' +
         '<button class="btn tiny ghost" type="button" id="ddBack">&larr; Shared decks</button>' +
-        (row.status !== "published" ? '<span class="pill soon">' + esc(row.status) + '</span>' : "") +
+        (row.status !== "published" ? '<span class="pill soon">' + esc(row.status === "unlisted" ? "shared by link" : row.status) + '</span>' : "") +
       '</div>' +
       '<div class="page-head ddetail-title">' +
         '<span class="eyebrow">Community deck</span>' +
@@ -35401,15 +37404,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (row.tags && row.tags.length ? '<div class="ddetail-tags">' + row.tags.map((t) => '<span class="pill">' + esc(t) + '</span>').join("") + '</div>' : "") +
       (row.forked_from && row.forked_from.title
         ? '<p class="ddetail-fork">Based on <b>' + esc(row.forked_from.title) + '</b>' + (row.forked_from.author ? " by " + esc(row.forked_from.author) : "") + '</p>' : "") +
-      /* THE AUTHOR'S OWN DESCRIPTION (the Studio's "Description" field, published as `description`). It is
-         a paragraph the author wrote about their deck, so it is set as prose rather than as another line of
-         metadata — and where there is none the page says so plainly, since a reader deciding whether to
-         install a stranger's deck is owed the difference between "the author said nothing" and a gap where
-         something might have failed to load. */
-      (row.description
-        ? '<div class="ddetail-desc"><h2>About this deck</h2><p>' + esc(row.description).replace(/\n+/g, "</p><p>") + '</p></div>'
-        : '<div class="ddetail-desc ddetail-nodesc"><h2>About this deck</h2><p>The author hasn&rsquo;t written a description.</p></div>') +
-      '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
+      /* THE BUTTONS COME BEFORE THE PROSE (Nov 2026). A description runs to a screen on a phone, and "Add to
+         my decks" used to sit under it — below the fold of the page whose whole purpose is that button. */
       '<div class="ddetail-actions">' +
         (local
           ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>')
@@ -35424,35 +37420,56 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
            copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
            and no account — the deck's cards are already in hand, this page having fetched them. */
+        /* …and the way to hand the deck to somebody (Nov 2026): the phone's own share sheet, or the link on
+           the clipboard. The address bar was the only way before, and an installed app has none. */
+        '<button class="btn ghost" type="button" id="ddShare">Share</button>' +
         '<button class="btn ghost" type="button" id="ddDownload">Download the deck file</button>' +
         (mine ? "" : '<button class="btn ghost" type="button" id="ddReport">Report</button>') +
-        (isAdmin() && row.status === "published" ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
+        (isAdmin() && (row.status === "published" || row.status === "unlisted") ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
         (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
+      /* THE AUTHOR'S OWN DESCRIPTION (the Studio's "Description" field, published as `description`). It is
+         a paragraph the author wrote about their deck, so it is set as prose rather than as another line of
+         metadata — and where there is none the page says so plainly, since a reader deciding whether to
+         install a stranger's deck is owed the difference between "the author said nothing" and a gap where
+         something might have failed to load. */
+      (row.description
+        ? '<div class="ddetail-desc"><h2>About this deck</h2><p>' + esc(row.description).replace(/\n+/g, "</p><p>") + '</p></div>'
+        : '<div class="ddetail-desc ddetail-nodesc"><h2>About this deck</h2><p>The author hasn&rsquo;t written a description.</p></div>') +
+      '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       // …and why that button is there over a deck the reader can already see: shared decks live on the
       // device and are shared by every account signing in on it, so this one is here without being yours
       (onAccount || !local ? "" :
         '<p class="ddetail-adopt">This deck is already on this device, but it isn&rsquo;t on your account &mdash; ' +
         'so it won&rsquo;t appear on your other devices. Adding it to your account fixes that and downloads nothing.</p>') +
-      '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
+      '<div class="ddetail-sample"><div class="dds-head"><h2>Cards from this deck</h2><span class="dds-nav" id="ddSampleNav"></span></div><div id="ddSample"></div></div>' +
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
 
     root.querySelector("#ddBack").addEventListener("click", () => route("decks"));
 
-    // a real, flippable card so a reader can judge the deck before installing
-    const sampleBox = root.querySelector("#ddSample");
-    const first = cards[0];
-    if (first && first.data) {
-      const norm = uCardSanitize(first.data, "preview0", 0);   // never trust the server copy
+    // real cards, so a reader can judge the deck before installing — the first TEN, stepped through (Nov
+    // 2026): one card says what a deck looks like, and nothing about whether the rest are like it
+    const sampleBox = root.querySelector("#ddSample"), sampleNav = root.querySelector("#ddSampleNav");
+    const samples = cards.filter((x) => x && x.data).slice(0, 10);
+    let sampleAt = 0;
+    const paintSample = () => {
+      const norm = uCardSanitize(samples[sampleAt].data, "preview0", 0);   // never trust the server copy
       // The sample belongs to no local deck, so a card of one of the author's own types has nowhere to look
       // its template up. Hand it the type directly — sanitized here, since row.types is the server's word.
       if (norm.type) { const pt = uTypesSanitize(row.types)[norm.type]; if (pt) norm._type = pt; }
       renderCardPreviewInto(sampleBox, norm);
-    } else {
-      sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
-    }
+      if (sampleNav && samples.length > 1) {
+        sampleNav.innerHTML = '<button type="button" class="btn tiny ghost" id="ddPrev" aria-label="Previous card"' + (sampleAt ? "" : " disabled") + '>&larr;</button>' +
+          '<span class="dds-n">' + (sampleAt + 1) + " of " + samples.length + "</span>" +
+          '<button type="button" class="btn tiny ghost" id="ddNext" aria-label="Next card"' + (sampleAt < samples.length - 1 ? "" : " disabled") + '>&rarr;</button>';
+        sampleNav.querySelector("#ddPrev").addEventListener("click", () => { if (sampleAt > 0) { sampleAt--; paintSample(); } });
+        sampleNav.querySelector("#ddNext").addEventListener("click", () => { if (sampleAt < samples.length - 1) { sampleAt++; paintSample(); } });
+      }
+    };
+    if (samples.length) paintSample();
+    else sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
 
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
@@ -35498,6 +37515,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }, "Remove"));
     const dl = root.querySelector("#ddDownload");
     if (dl) dl.addEventListener("click", () => deckFileDownload(row, cards, gloss));
+    const shr = root.querySelector("#ddShare");
+    if (shr) shr.addEventListener("click", () => shareDeck(row.title, row.slug));
     const rep = root.querySelector("#ddReport");
     if (rep) rep.addEventListener("click", () => deckReportPrompt(row));
     const hide = root.querySelector("#ddHide");
@@ -35918,6 +37937,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        never in `S` or the synced blob; carried on the params for the cram queue's reason, so a repaint
        mid-session does not zero them. A reload starts a fresh tally (its params are new). */
     const tally = params._tally || (params._tally = { n: 0, again: 0, ms: 0, cards: {}, misses: {} });
+    /* …AND WHERE THE STUDIED DECK STOOD WHEN THE SESSION OPENED (2026-11-26, on request: "On the study session completion
+       screen, it should also show the progress bar of the collection or deck that was studied, with the newly added
+       progress highlighted"). Two counts — cards met, cards learned — read off the same records the home row's bar is
+       drawn from (adProg), carried on the params for the tally's reason. A cram has no bar: it schedules nothing. */
+    const prog0 = cram ? null : (params._prog0 || (params._prog0 = (() => {
+      const e = scopeEntryId(params.scope), ids = entryCardIds(e);
+      return { e: e, total: ids.length, studied: ids.filter(isSeen).length, learned: ids.filter(atCriterion).length };
+    })()));
     /* EVERY SESSION GOES BACK TO THE HOME PAGE (Aug 2026, on request: "once completing daily studies for a
        deck, the button should lead back to the home page, not the collections page"). It used to depend on
        the scope — the review, the Card of the day and a group returned home while a DECK returned to the
@@ -36521,10 +38548,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (Number.isInteger(wantQi) && wantQi > 0 && wantQi < pool.length && !revealed) stepQ(wantQi - qIdx);
       };
       if (poolPending) ensureCardExtra(id).then(growPool);
-      setupWhiteboard();
+      cardInkMount();   // the vector backend first, as the book does (see CARD INK)
+      setupWhiteboard({ fixed: true });
       showWBTools();
       mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
       showAdminEditBtn(id);
+      showOwnEditBtn(id);   // …and an author's way from a card of their own to its editor
       // read-aloud: mute toggle (persisted — stays muted for future cards/decks until unmuted) + the Question play control
       const muteBtn = cardRoot.querySelector("#ttsMute");
       if (muteBtn) muteBtn.addEventListener("click", () => {
@@ -36691,6 +38720,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            than a slip. Saying "I don't know" counts as a miss: it is the reader telling us so. */
         const attempted = saidDunno || typedVals.some((v) => String(v || "").trim());
         const missed = attempted && !typedVals.some((v) => answerNear(v, c));
+        if (fromReader) sfx(attempted && !missed && !saidDunno ? "reveal-right" : "reveal");
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
@@ -36739,17 +38769,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            strip above it already follows. */
         inner.querySelectorAll("[data-kin]").forEach((b) =>
           b.addEventListener("click", (e) => { e.stopPropagation(); openCardPeek(b.dataset.kin); }));
-        /* ELABORATED FEEDBACK ON A MISS. The term alone is knowledge-of-correct-response (d = 0.32); the
-           term with a sentence saying what it IS is the beginning of an explanation (d = 0.49), and the
-           reader gets it without having to open a fold they may have collapsed months ago. Drawn only
-           when the card was actually attempted and actually missed — a reader who got it right does not
-           need to be told what they just recalled. */
-        if (missed) {
-          const lead = cardFirstSentence(c);
-          const ansBox = inner.querySelector(".answer");
-          if (lead && ansBox) ansBox.insertAdjacentHTML("afterend",
-            '<div class="miss-lead"><span class="miss-kind">Not quite — what it is</span><p>' + lead + "</p></div>");
-        }
+        /* (2026-11-22, on request: the "Not quite — what it is" box drawn under the answer on a miss is gone.) */
         /* ONE ELABORATION PROMPT PER SESSION (see elabPromptHTML). Injected here rather than built into
            `buildBack`, because the budget belongs to the session and `buildBack` is also what the editor's
            preview and the card browser draw. It goes directly above the Background head — after the answer,
@@ -37021,12 +39041,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "</div>";
     }
 
+    function sessionProgHTML() {
+      if (!prog0 || !prog0.total) return "";
+      const ids = entryCardIds(prog0.e), total = ids.length;
+      if (!total) return "";
+      const studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
+      const pct = (n) => Math.max(0, Math.min(100, (100 * n) / total)).toFixed(2);
+      const s0 = Math.min(prog0.studied, studied), l0 = Math.min(prog0.learned, learned);
+      const ds = studied - s0, dl = learned - l0;
+      const info = entryInfo(prog0.e), title = (info && info.title) || "";
+      const gain = [ds ? "+" + ds + " studied" : "", dl ? "+" + dl + " learned" : ""].filter(Boolean).join(" · ");
+      return '<div class="sc-prog" aria-label="' + esc(title + ": " + studied + " of " + total + " studied, " + learned + " learned") + '">' +
+        '<div class="sc-prog-h"><span class="sc-prog-t">' + esc(title) + '</span><span class="sc-prog-n">' + studied + " / " + total +
+          (gain ? ' <b class="sc-prog-gain">' + esc(gain) + "</b>" : "") + "</span></div>" +
+        '<div class="sc-prog-track">' +
+          '<div class="sc-seg sc-seen" style="width:' + pct(s0) + '%"></div>' +
+          '<div class="sc-seg sc-seen-new" style="left:' + pct(s0) + "%;width:" + pct(ds) + '%"></div>' +
+          '<div class="sc-seg sc-learn" style="width:' + pct(l0) + '%"></div>' +
+          '<div class="sc-seg sc-learn-new" style="left:' + pct(l0) + "%;width:" + pct(dl) + '%"></div>' +
+        "</div></div>";
+    }
+
     function renderComplete(how) {
       detachKeys();
       // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue,
       // and no other device should be offered one either
       // …except a cram, which wrote neither record and must not clear another device's handoff (see startCram)
       if (!cram) { clearStudySession(); clearHandoff(); save(); }
+      if (studiedThisSession > 0 || (how && how.timeUp)) sfx(how && how.timeUp ? "timeup" : "complete");
       hideGradeBar();
       hideWBTools();
       root.innerHTML = "";
@@ -37037,6 +39079,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <h2>${how && how.timeUp ? "Time's up" : cram ? "Cram complete" : "Session complete"}</h2>
         <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}.${cram ? " Nothing was scheduled — your reviews are where they were." : " Your progress is saved."}</p>
         ${sessionSummaryHTML()}
+        ${sessionProgHTML()}
         ${/* THREE EQUAL BUTTONS ON ONE LINE (Oct 2026, on request: "these three should be formatted more
               neatly"). They were a wrapping flex row, which on most widths put two on one line and the
               third alone under them. `.sc-actions` is a grid of equal columns, however many of the three
@@ -37082,7 +39125,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         boxMs = 0; boxFrom = 0;
         if (cram) { startCram(cram.entry); return; }
         const next = Object.assign({}, params, { box: 0 });
-        delete next._tally;
+        delete next._tally; delete next._prog0;
         route("study", next);
       });
       // the summary's hardest cards open at their own address, which is read-only (see PAGES.card)
@@ -38154,6 +40197,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const TINT_LATE = { rgb: "64,128,214", fillA: 0.3, line: "rgba(96,156,236,1)", glow: "rgba(80,140,226,0.7)" };
   // a third group (2026-10-29, the Three Kingdoms: three states, three colours): a plum, apart from the gold, the blue and the war's green and red
   const TINT_THIRD = { rgb: "160,72,170", fillA: 0.3, line: "rgba(176,92,190,1)", glow: "rgba(168,84,180,0.7)" };
+  /* a members window's set of areas (`members.areas`, 2026-11-20): the first part in the card's gold, filled more strongly than a state (a reservation is a few
+     pixels across at the whole country's zoom, and at 0.24 it vanished), the second in a LIGHTER gold — the same hue, so the two read as one kind of thing */
+  const TINT_AREA1 = { rgb: "236,150,20", fillA: 0.78, line: "rgba(168,98,0,0.95)", glow: "rgba(255,184,60,0.75)" };
+  const TINT_AREA2 = { rgb: "255,200,110", fillA: 0.4, line: "rgba(214,150,40,0.9)", glow: "rgba(255,184,60,0.5)" };
   const CARD_MAP_LAYERS = {
     /* A layer names the words a card window and its question use (`what`, `plural`, `dotWhat`) and — where the layer has one — says that a card may put a dot on a city (`points`, `pointsAlt`: the names of the old point tables). Since
        Phase 5 the SHAPES and the DOTS are the engine's (atlas/data/card-faces.js: layer → key → entity, layer → dot → point; the old bundles us-states.js, china-provinces.js, russia-subjects.js, world.js and the capitals tables are gone) and
@@ -38168,6 +40215,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* "india-states" (2026-11-14): India's 28 states and 8 union territories, which the core does not carry — their faces are the lazy atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md),
        loaded by the hub the first time a window names one; `what` is the deck's whole question shape ("the state or union territory shaded on the map", docs/india-geography-card-plan.md). */
     "india-states": { what: "state or union territory", plural: "states and union territories", points: "INDIA_CAPITALS", dotWhat: "city" },
+    /* "past-states" (2026-11-19, the Historical States collection; docs/historical-states-card-plan.md): a state of the PAST as the question. Its shapes are the polities of the Atlas's
+       history (atlas/data/history.bin), each drawn in the year of its greatest extent — the year, the view and the zoom are the layer's own row in card-faces.js (build-card-faces.js), and the
+       card's question names that year. `past` is what the window reads (atlas-windows.js `pastLayer`): the whole history at that year, the state in gold, every other state plain, nothing named
+       before the answer. No dot table: the collection has no capitals deck. */
+    "past-states": { what: "state", plural: "states", past: true },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -38314,7 +40366,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        clue and the dot is the question, so the label must not tell a reader to name the state. It still
        gives the answer away to nobody — see the accessibility note in the block header, which is why the
        label describes the task rather than the shape. */
-    const said = spec.dot
+    const said = spec.def.past
+      ? "An interactive globe on the borders of a year of the past, with one state shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which state was it?"
+      : spec.dot
       ? "An interactive globe with one " + what + " shaded and a dot marking a " + dotWhat + " in it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + dotWhat + " is it?"
       : "An interactive globe with one " + what + " shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?";
     return '<div class="map-card" data-map-layer="' + esc(spec.layer) + '" data-map-key="' + esc(spec.key) + '"' +
@@ -38487,8 +40541,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
-    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
-      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
+    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, TINT_AREA1, TINT_AREA2, GAME_MAX_DIFFICULTY,
+      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, locatorSiblingsAll, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
       todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
@@ -38793,7 +40847,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     cap.className = "art-cap";
     let h = "";
     if (spec.title) h += '<span class="art-cap-t">' + esc(spec.title) + "</span>";
-    if (spec.desc) h += '<span class="art-cap-d">' + esc(spec.desc) + "</span>";
+    if (spec.desc) h += '<span class="art-cap-d">' + escInline(spec.desc) + "</span>";
     if (spec.credit) h += '<span class="art-cap-c">' + mediaCreditHTML(spec.credit) + "</span>";
     cap.innerHTML = h;
     fig.appendChild(cap);
@@ -38851,7 +40905,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // `hanzi`, the Revised Romanization in `pinyin`, written by `.claude/set-ko-names.js`; set in the reader's system font, as Japanese is
   // `ru-` (Nov 2026, on request: "add Russian translations to all the cards in the Russia History collection"): Cyrillic in
   // `hanzi`, a Latin transliteration in `pinyin`, written by `.claude/set-ru-names.js`; set in the site's sans, as Korean is
-  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }], ["ru-", { tag: "ru-RU", label: "Russian", cls: "ru" }]];
+  // `gr-` (2026-11-26, on request: "add (ancient) Greek translations to the main answer term" where it is an ancient Greek
+  // term, not a modern academic one): polytonic Greek in `hanzi`, a plain romanisation in `pinyin`, written by
+  // `.claude/set-grc-names.js`. Spoken by a MODERN Greek voice (`el-GR`) — no device ships an ancient one.
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }], ["ru-", { tag: "ru-RU", label: "Russian", cls: "ru" }], ["gr-", { tag: "el-GR", label: "Ancient Greek", cls: "grc" }]];
   const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
   /* …AND A PREFIX THAT HOLDS MORE THAN ONE COUNTRY SAYS IT BY TAG (Oct 2026, on request: Politics: East Asia's
      Japan terms showed a Chinese translation). `pea-` is a course on China, Japan and the Koreas, so the
@@ -39765,7 +41822,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Doggerland the floor of the North Sea, and a `region` clips its wash to the present-day coast — so
      each of those cards drew the coasts either side of its subject and left the subject itself blank. A
      shelf is drawn in the region's own gold, because it WAS land, and with no clip at all. */
-  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall"];   // "wall" (2026-11-13): a thick line along a `spine`, Hadrian's Wall
+  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall", "route"];   // "route" (2026-11-20): dashed lines along `routes`, the Silk Road's stopping places joined in order   // "wall" (2026-11-13): a thick line along a `spine`, Hadrian's Wall
   // a list of [lon, lat] pairs, validated rather than trusted: `locator` is hand-authored in data.js and a
   // transposed pair draws a region in the wrong ocean without anything throwing
   function locPts(v) {
@@ -39825,6 +41882,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        to its dot exactly as a missing area always has. */
     const area = kind === "region" || kind === "sea" || kind === "shelf" ? locRings(l.area) : null;
     const spine = kind === "range" || kind === "wall" ? locPts(l.spine) : null;
+    /* `routes` (2026-11-20, on request: the Silk Road's window should "draw lines showing the common routes"): a ROUTE locator is one or more
+       polylines, each an ordered list of [lon, lat] stopping places a source names (their coordinates the gazetteer's), drawn as dashed lines with
+       no dot — schematic, the stops joined in order, never a traced road. A route that does not validate is dropped. */
+    const routes = kind === "route" && Array.isArray(l.routes) ? l.routes.map((r) => locPts(r)).filter(Boolean) : null;
     /* `within` names the CITY a place stands inside — "Rome" on the Forum, the hills and the Cloaca — and
        is what lets a map fold the collection's places in one city into one mark (see the sibling pass in
        startCardGlobe). `label` is where a REGION's name is written when its bbox centre is out at sea. */
@@ -39838,11 +41899,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        drawn as a named dot beside the card's own — for a card that is about two sites at once. The coordinates are fetched like `at`, never typed. */
     const also = Array.isArray(l.also) ? l.also.map((a) => {
       const p = a && Array.isArray(a.at) ? [Number(a.at[0]), Number(a.at[1])] : null;
-      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p } : null;
+      /* `role` (2026-11-18, on request: "all cards about specific individuals should have at least two locations highlighted: their birth location and death location … the state they
+         ruled … including its capital with a square icon"): "birth" | "death" | "capital" draws the place in the card's own gold — a capital as the square; an entry with no role keeps the
+         red sibling dot it always had. `label: true` (eg-004's Two Lands) is a region's NAME alone, italic, with no mark. */
+      const role = /^(birth|death|capital)$/.test(String(a && a.role || "")) ? a.role : "";
+      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p, role: role, label: a.label === true } : null;
     }).filter(Boolean) : [];
     /* `ask` (Oct 2026, on request: the rivers-and-mountains decks "should work the same way as the state or country cards"): the window IS the card's question —
        drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true };
+    /* `alone` (2026-11-18, on request: "the atlas tag 'Italian peninsula' should not be displayed in the atlas windows of other cards"): this card's
+       place is drawn on its OWN window only — never as a sibling on another card's (locatorSiblings). `hide` is the viewing card's choice; this is the place's. */
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, routes: routes && routes.length ? routes : null, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, land: l.land === true && !!area, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `land` (2026-11-26): see LAND REGIONS in atlas-windows.js; `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -39903,7 +41970,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the Achaemenid Empire correctly filling the middle of it and the Greek allies a green speck — a
        true map, and not a map of the war. A card may frame the THEATRE instead; the reader zooms out for
        the rest, and nothing about what is shaded changes. */
-    return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0, group: w.group === true };
+    /* `year` pins the window to ONE year of the war, with no timeline (2026-11-20, gr-521: "a single map showing the two sides at the start of the war"; docs/war-cards.md) */
+    return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0, group: w.group === true, year: Number.isInteger(w.year) ? w.year : null };
   }
   /* ---------- THE MEMBERS OF AN ORGANISATION OF STATES (`card.members`; Oct 2026, on request) ----------
      `members: { name, note, keys: [...], at: [lon, lat], atName }` — the League of Nations' window shades
@@ -39918,7 +41986,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!m || typeof m !== "object" || !Array.isArray(m.keys)) return null;
     const keys = m.keys.map((k) => String(k || "").trim()).filter(Boolean);
     const name = String(m.name || "").trim();
-    if (!keys.length || !name) return null;
+    if (!name) return null;
     const at = Array.isArray(m.at) && m.at.length === 2 && isFinite(Number(m.at[0])) && isFinite(Number(m.at[1])) ? [Number(m.at[0]), Number(m.at[1])] : null;
     /* `label` (optional) names the window where "Members" would be wrong — a single state's own territory (the People's Republic
        of China's card, Oct 2026, on request) is shaded the same way, but it has no members. */
@@ -39926,14 +41994,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        window draws that year's states (history.bin entities, `ids`) and tints the first group gold and the second blue (TINT_LATE); `keys` stay as the present-day
        fallback for a browser that cannot draw a past year, and frame the window. Each group is a row of the key with its own swatch. */
     const year = Number.isInteger(m.year) ? m.year : null;
-    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 3);   // three since 2026-10-29 (TINT_THIRD)
+    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [], minus: Array.isArray(g && g.minus) ? g.minus.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 3);   // `minus` (2026-11-26, rm-343): ids whose ground the group's shade leaves out — Caesar's additions are the Republic of 44 BCE minus that of 59   // three since 2026-10-29 (TINT_THIRD)
     /* `span: [y0, y1]` (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): a members window on a past
        year carries the war windows' timeline over those years, stepping where its states change (`entsTimeline` in atlas.js); `year` is where the pin opens. */
     const span = groups.length && Array.isArray(m.span) && m.span.length === 2 && Number.isInteger(m.span[0]) && Number.isInteger(m.span[1]) && m.span[0] < m.span[1] ? [m.span[0], m.span[1]] : null;
     /* `layer` (optional, 2026-10-30, on request: Manchuria's card shaded as China's three north-eastern provinces): the keys are names of that
        map-card layer (`china-provinces`, `us-states`, `russia-subjects`) instead of the `world` layer's countries. */
     const layer = m.layer && CARD_MAP_LAYERS[m.layer] ? String(m.layer) : "world";
-    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer };
+    /* `areas: { set, shades: [{ name, note }, { name, note }] }` (2026-11-20, on request for us-084: "the areas of all current Indian reservations and a
+       second shade for former Indian reservations"): a generated set of rings (atlas/data/<set>.js, bundle `area:<set>`, build-area-sets.js) painted by the
+       window in two tints — its first part in the card's gold (TINT_AREA1), its second in a lighter gold (TINT_AREA2) — with one row of the key per shade.
+       Such a window has no member countries: `keys` may be empty, and the set frames it. */
+    const areaSet = m.areas && typeof m.areas === "object" && DATA_BUNDLES["area:" + m.areas.set] ? String(m.areas.set) : "";
+    const shades = areaSet && Array.isArray(m.areas.shades) ? m.areas.shades.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim() })).filter((g) => g.name).slice(0, 2) : [];
+    if (!keys.length && !shades.length) return null;
+    return { name: name, note: membersNote(m.note), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer, areas: shades.length ? { set: areaSet, shades: shades } : null };
+  }
+  /* NO SOURCE LINE ABOVE A WINDOW (2026-11-19, on request: "remove the source attribution line above atlas windows"): a members note that only says whose
+     borders these are ("borders as the Cliopatria dataset maps them") is dropped at render, and a note that starts with that clause keeps only what follows it;
+     the dataset is credited on #credits, which is generated from the data files' headers. */
+  function membersNote(n) {
+    let s = String(n || "").trim();
+    const SRC = /^borders(?: and years)? as the [^;]*? maps them\s*(?:;\s*|$)/i;   // a function-local regex: no TDZ for a caller during boot
+    if (SRC.test(s)) { s = s.replace(SRC, "").trim(); if (s) s = s.charAt(0).toUpperCase() + s.slice(1); }
+    return s;
   }
   /* WHAT YEAR'S BORDERS (2026-11-13, on request: "ensure that atlas windows displaying states or polities always mention below the
      window what year's borders are depicted"): a members window on a past year says that year; one on today's countries says so; a
@@ -39944,6 +42028,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
+    if (m.areas) return '<div class="war-key members-key">' + m.areas.shades.map((g, i) => '<span class="wk-side ' + (i ? "wk-area2" : "wk-sel") + '">' + cardWarSwatch(i ? TINT_AREA2 : TINT_AREA1) +
+      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + "</div>";
     if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i === 2 ? "wk-third" : i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i === 2 ? TINT_THIRD : i ? TINT_LATE : TINT_SEL) +
       '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + cardBordersLine(m) + "</div>";
     return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
@@ -40027,8 +42113,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      held session below: it is a fact about this sitting. */
   const _atlasHeard = new Set();
   const LOC_SIB_POLITY = new Set(["state", "empire", "dynasty", "civilisation", "culture", "people", "ruler"]);
-  function locatorSiblings(id) {
-    const root = cardCollectionRoot(id);
+  /* EVERY UNLOCKED PLACE, NOT ONLY THE COLLECTION'S (2026-11-18, on request: "in the top left of every atlas window should be a switch to depict
+     either all the locations within the collection (current system) or all unlocked locations in all history/science/philosophy collections").
+     The union of every History, Science and Philosophy collection's sibling list (`COLLECTION_SECTION` / `sectionOf`), the viewing card left out;
+     the window keeps only the ones the reader has studied, exactly as it does for its own collection. Built on locatorSiblings' per-root cache. */
+  const LOC_ALL_SECTIONS = new Set(["History", "Science", "Philosophy"]);
+  function locatorSiblingsAll(id) {
+    const own = locatorSiblings(id), dots = [];
+    ((window.COLLECTION_TREE || {}).collections || []).forEach((r) => {
+      if (!LOC_ALL_SECTIONS.has(sectionOf(r.id)) || NODE_BY_ID[r.id] == null) return;
+      locatorSiblings(id, NODE_BY_ID[r.id]).dots.forEach((d) => dots.push(d));
+    });
+    return { dots: dots, termName: own.termName, own: own.own };
+  }
+  function locatorSiblings(id, rootOver) {
+    const root = rootOver || cardCollectionRoot(id);
     if (!root) return { dots: [], termName: new Map(), own: new Set() };
     if (!_locSibCache) _locSibCache = new Map();
     const hit = _locSibCache.get(root.id);
@@ -40073,7 +42172,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          windows within this collection. Same goes for the Faiyum (which shouldn't have a dot)"). The objection of Aug 2026 was the dot, which made an
          area a point; a name alone, written at the region's label point, says where the Delta is and claims no point. A `face` sibling is drawn
          exactly so (atlas-windows.js: centred on its point, no mark). */
-      if (l && l.kind === "region" && l.name) dots.push({ id: cid, n: l.name, c: l.label || l.at, kind: "regionname", within: "" });
+      if (l && l.alone) { /* drawn on its own card only (cardLocator `alone`) */ }
+      else if (l && l.kind === "region" && l.name) dots.push({ id: cid, n: l.name, c: l.label || l.at, kind: "regionname", within: "" });
       else if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river" && l.kind !== "wall") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind, within: l.within });
       /* A GEOGRAPHY MAP CARD IS A SIBLING TOO (2026-11-07, on request: "once a card has been studied once, its location should be displayed within all other
          cards within that collection", as the history collections' places are). A capital card (`map.dot`) is a red dot with its name; a shaded state or country
@@ -40115,7 +42215,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<b class="wk-name">' + esc(s.name) + '</b> <span class="wk-role">' + role + '</span></span>';
     return '<div class="war-key">' +
       row(TINT_WIN, w.victors, "victors", "wk-win") +
-      row(TINT_LOSE, w.losers, "defeated", "wk-lose") + "</div>";
+      row(TINT_LOSE, w.losers, "defeated", "wk-lose") +
+      (w.year != null ? '<span class="wk-side wk-note wk-borders wk-year"><span class="wk-role">The two sides in ' + esc(yearLabel(w.year)) + "</span></span>" : "") + "</div>";   // a war drawn at one year (`war.year`) says which
   }
   // "lon,lat lon,lat …", rings separated by ";" — `readRings` in startCardGlobe is the other half of this
   function warRingsAttr(rings) { return rings.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";"); }
@@ -40136,7 +42237,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return cardLocatorWindowHTML(c, lf, null, null, "map-front",
         "An interactive globe with one " + what + " marked on it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?", false);
     }
-    const l = cardLocator(c), w = cardWar(c), m = w ? null : cardMembers(c);
+    /* `members.overWar` (2026-11-26, on request, gr-521: "Remove the atlas map, I dislike the way it looks. Then rebuild it in our
+       usual style, showing the states of Athens and Sparta in 431"): the card keeps its `war` block — wars.js, the war sides'
+       pinned hash and history.bin's extents are built from it — but its window is the members window on a past year's borders */
+    const mOver = c && c.members && c.members.overWar ? cardMembers(c) : null;
+    const l = cardLocator(c), w = mOver ? null : cardWar(c), m = w ? null : cardMembers(c);
     /* A WAR CARD GETS THIS WINDOW WITHOUT A LOCATOR, and that is the point of asking the war block for
        one: the two sides ARE the place, so the frame is read off their own extent (see `fitTarget`) and
        no separate coordinate has to be researched for a card whose subject is a hundred thousand square
@@ -40149,31 +42254,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
         w.losers.name + ", defeated, shaded red. "
       : m && m.groups.length ? m.name + " on an interactive globe of the borders of " + m.year + ": " + m.groups.map((g, i) => g.name + (i === 2 ? " in plum" : i ? " in blue" : " in gold")).join(", ") + (atName ? "; " + atName + " marked" : "") + "." + (m.span ? " A timeline under it steps through the years " + m.span[0] + " to " + m.span[1] + "." : "") + " "
+      : m && m.areas ? m.name + " on an interactive globe: " + m.areas.shades.map((g, i) => g.name + (i ? " in light gold" : " in gold")).join(", ") + ". "
       : m ? m.name + " shaded in gold on an interactive globe of today's " + (m.layer === "world" ? "countries" : "borders") + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
-    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
+    /* THE LEGEND STANDS ABOVE THE WINDOW, under the section's heading (2026-11-18, on request: "in atlas windows depicting states with
+       timelines and/or a legend, the legend should be above the atlas window (below the section header)"). It is inside `.card-loc` now;
+       the Atlas popup's `noLocator` lifts it out before it removes the window (mountCardBack), so it still survives there. */
+    /* "DISCOVERED!" STANDS AFTER THE HEADING (2026-11-19, on request: the chip at the window's top left covered the Collection / All switch), inline, not over the map. */
+    return '<div class="card-loc"><div class="loc-head"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" + mcNewHTML() + "</div>" +
+      cardWarKeyHTML(w) + cardMembersKeyHTML(m) +
       cardLocatorWindowHTML(c, l, w, m, "map-loc" + (w ? " map-war" : m ? " map-members" : ""), said, true) +
-      "</div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
+      "</div>";
   }
+  function mcNewHTML() { return '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>"; }
   // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
   function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
     const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
     return '<div class="map-card ' + cls + '" data-map-layer="' + esc((m && m.layer) || "world") + '"' + (named ? " data-map-named" : "") + ' data-map-card="' + esc(c.id || "") + '"' +
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
-      (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
+      (m && m.keys.length ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
+      (m && m.areas ? ' data-map-areas="' + esc(m.areas.set) + '" data-map-areas-n="' + ((m.areas.shades || []).length || 2) + '"' : "") +
       // a present-day members window with no seat names its group, never its first key (Manchuria, not "Heilongjiang"; 2026-10-30)
-      (m && !at && !m.groups.length ? ' data-map-name="' + esc(m.name) + '"' : "") +
-      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
+      (m && !at && !m.groups.length && !m.areas ? ' data-map-name="' + esc(m.name) + '"' : "") +
+      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.concat((g.minus || []).map((x) => "-" + x)).join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
       (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +
       // "lon,lat lon,lat …" — a compact attribute rather than JSON, which would have to be escaped into
       // the markup and parsed back out again for a list of numbers
       // rings separated by ";", points by a space — `readRings` is the other half of this (see startCardGlobe)
-      (l && l.area ? ' data-map-area="' + warRingsAttr(l.area) + '"' : "") +
+      (l && l.area ? ' data-map-area="' + warRingsAttr(l.area) + '"' + (l.land ? ' data-map-land="1"' : "") : "") +
       (l && l.spine ? ' data-map-spine="' + l.spine.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
+      (l && l.routes ? ' data-map-routes="' + l.routes.map((r) => r.map((q) => q[0] + "," + q[1]).join(" ")).join(";") + '"' : "") +
       /* THE TWO SIDES, one pair of attributes each: the names the map may carry, `|`-joined exactly as
          `data-map-key` joins a card's several polygons, and the authored extent in the rings encoding
          above. A side has one or the other and never both (see `cardWar`), so only one of each pair is
@@ -40181,7 +42295,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (w ? (w.victors.keys.length ? ' data-war-v="' + esc(w.victors.keys.join("|")) + '"' : "") +
            (w.victors.area ? ' data-war-varea="' + warRingsAttr(w.victors.area) + '"' : "") +
            (w.losers.keys.length ? ' data-war-l="' + esc(w.losers.keys.join("|")) + '"' : "") +
-           (w.losers.area ? ' data-war-larea="' + warRingsAttr(w.losers.area) + '"' : "") : "") +
+           (w.losers.area ? ' data-war-larea="' + warRingsAttr(w.losers.area) + '"' : "") +
+           (w.year != null ? ' data-war-year="' + w.year + '"' : "") : "") +
       /* ONE zoom attribute for both, and ON A WAR WINDOW THE LOCATOR'S OWN ZOOM IS IGNORED OUTRIGHT
          rather than used as a fallback. It was a fallback for an hour and `rm-153` showed what that
          costs: the Second Samnite War carries a `zoom: 8` chosen to frame the town of Neapolis, which
@@ -40210,7 +42325,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* THE CHIP SHIPS IN THE MARKUP, HIDDEN, rather than being created when the answer is revealed —
          `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
          screen reader has not been watching, and the announcement is lost. */
-      '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
+      (named ? "" : mcNewHTML()) +   // on the back the chip stands after the section's heading (cardLocatorHTML); a front window has no heading, so it keeps it
       "</div>";
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
@@ -40369,6 +42484,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
     /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
+    /* A WORKED EXAMPLE (2026-11-20, on request: phi-049's truth table "between the background section and
+       sources section") — directly under the Background fold, above the Atlas box. See cardExampleHTML. */
+    html += cardExampleHTML(c);
     html += cardLocatorHTML(c);
     /* …then WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML):
        below the Atlas box, on request, with the Nearby rail after it. */
@@ -40657,7 +42775,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       .sort((a, b) => a.s.start - b.s.start || (a.c.id < b.c.id ? -1 : a.c.id > b.c.id ? 1 : 0));
     const i = pool.findIndex((x) => x.c.id === c.id);
     if (i < 0) return null;
-    const list = pool.slice(Math.max(0, i - 2), i + 3);
+    /* THREE BEFORE AND THREE AFTER (2026-11-19, on request: "on desktop and tablet the nearest 3 dates before and 3 after;
+       on a phone keep 2 and 2"). Seven go into the markup; the third on each side is `outer`, which the phone's ledger
+       hides (`.tl-it.outer` in styles.css) and `tlLayout` leaves out of its window and lanes, so one card back serves
+       every width and a resize across 640 px re-lays it with no re-render. */
+    const list = pool.slice(Math.max(0, i - 3), i + 4);
+    list.forEach((x) => { x.outer = Math.abs(pool.indexOf(x) - i) > 2; });
     return list.length > 1 ? list : null;
   }
   function cardTimelineHTML(c) {
@@ -40668,7 +42791,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       list.map((x) => {
         const self = x.c.id === c.id, lo = cardLocalized(x.c);
         const title = lo.answerText || String(lo.answer || "").replace(/<[^>]*>/g, "");
-        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-card="' + esc(x.c.id) + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
+        return '<li class="tl-it' + (self ? " self" : "") + (x.outer ? " outer" : "") + (x.s.period ? " period" : " event") + '" data-card="' + esc(x.c.id) + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
           '<i class="tl-mark" aria-hidden="true"></i>' +
           (self ? '<span class="tl-lab" aria-current="true">' : (() => { const k = cardTimelineTermKey(x.c); return k ? '<button type="button" class="tl-lab" data-tlterm="' + esc(k) + '" title="' + esc(title) + ' in the glossary">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">'; })()) +
           '<span class="tl-t">' + esc(title) + '</span><span class="tl-w">' + esc(x.s.label) + "</span>" +
@@ -40710,13 +42833,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!ol) return;
     ol.classList.add("laid");
     ol.querySelectorAll(".tl-deco").forEach((d) => d.remove());
-    const items = Array.from(ol.querySelectorAll(".tl-it")).map((li) => ({
+    const phone = matchMedia("(max-width:640px)").matches, tablet = !phone && matchMedia("(max-width:1024px)").matches;
+    // a phone shows two each side: the third (`.outer`, hidden there by CSS) takes no part in the window or the lanes
+    const items = Array.from(ol.querySelectorAll(".tl-it")).filter((li) => !(phone && li.classList.contains("outer"))).map((li) => ({
       li, s: +li.dataset.s, e: li.dataset.e === "" ? null : +li.dataset.e, self: li.classList.contains("self"),
       mark: li.querySelector(".tl-mark"), lab: li.querySelector(".tl-lab") }));
     items.forEach((i) => { i.li.style.cssText = ""; i.lab.style.cssText = ""; i.mark.className = "tl-mark"; });
     const W = ol.clientWidth;
     if (!W || !items.length) return;
-    const phone = matchMedia("(max-width:640px)").matches, tablet = !phone && matchMedia("(max-width:1024px)").matches;
     const win = tlWindow(items), clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     ol.classList.toggle("two", tablet);   // on a tablet a name's date goes on the line below it (on request); a desktop keeps it behind
     if (!phone) {
@@ -40794,6 +42918,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openGlossWin(b.dataset.tlterm, b); }); });
       tlLayout(el);
     });
+  }
+  /* THE EXAMPLE SECTION (2026-11-20, on request). An optional HEAVY field (CARD_EXTRA_FIELDS) for a card whose
+     subject is best shown worked through — a truth table for "truth table". It is DATA, not markup:
+       example: { intro?: "<sentence, b/i/sup allowed>", table: { head: ["p", "q", …], rows: [["T", "F", …], …] }, note?: "…" }
+     so the cells are escaped here and the card file carries no table HTML for an editor to break. A card
+     without the field renders exactly as before. Guarded by .claude/test-card-example.js. */
+  function cardExampleHTML(c) {
+    const ex = c && c.example;
+    if (!ex || typeof ex !== "object") return "";
+    const t = ex.table && Array.isArray(ex.table.rows) ? ex.table : null;
+    if (!t && !ex.intro) return "";
+    const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const prose = (s) => '<p class="ex-text">' + String(s).replace(/<(?!\/?(?:b|i|sup)\b)[^>]*>/g, "") + "</p>";
+    let h = '<div class="card-example"><span class="label">Example</span>';
+    if (ex.intro) h += prose(ex.intro);
+    if (t) {
+      h += '<div class="ex-scroll"><table class="ex-table">';
+      if (Array.isArray(t.head) && t.head.length) h += "<thead><tr>" + t.head.map((x) => '<th scope="col">' + esc(x) + "</th>").join("") + "</tr></thead>";
+      /* a truth value's cell is coloured (2026-11-26, on request, phi-049: "T cells should have a green filling, F cells red") */
+      const tv = (x) => { const v = String(x == null ? "" : x).trim(); return v === "T" ? ' class="ex-t"' : v === "F" ? ' class="ex-f"' : ""; };
+      h += "<tbody>" + t.rows.map((r) => "<tr>" + (Array.isArray(r) ? r : []).map((x) => "<td" + tv(x) + ">" + esc(x) + "</td>").join("") + "</tr>").join("") + "</tbody></table></div>";
+    }
+    if (ex.note) h += prose(ex.note);
+    return h + "</div>";
   }
   function cardLeadsToHTML(c) {
     const edges = cardLeadsTo(c);
@@ -40925,14 +43073,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return '<div class="elab" data-elab="why"><span class="elab-kind">Think it through</span>' +
         ws.map((w) => (w.a
           ? '<details class="elab-item">' +
-              '<summary class="elab-qrow"><span class="elab-q">' + esc(w.q) + "</span>" + ELAB_CHEV + "</summary>" +
+              '<summary class="elab-qrow"><span class="elab-q">' + escInline(w.q) + "</span>" + ELAB_CHEV + "</summary>" +
               '<div class="elab-wrap"><p class="elab-a">' + sanitizeHTML(w.a) + "</p></div>" +
             "</details>"
           /* A LEGACY ITEM IS NOT A FOLD AND KEEPS ITS BUTTON. Its answer is a block of the card's own
              background rather than a paragraph of its own, so there is nothing under the summary to
              uncover — see `cardWhy`, and the overlay note above it. */
           : '<div class="elab-item elab-legacy">' +
-              '<div class="elab-qrow"><p class="elab-q">' + esc(w.q) + "</p>" +
+              '<div class="elab-qrow"><p class="elab-q">' + escInline(w.q) + "</p>" +
               '<button type="button" class="btn ghost elab-show" data-at="' + w.at +
               '">Show me what the card says</button></div></div>')).join("") + "</div>";
     }
@@ -41258,8 +43406,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            at DRAW time, as every other label on the site is, so it covers a community deck's picture and
            anything added later without a pass over the data; `gameCapFirst` passes a numeral or a Han
            character through untouched. */
-        (img.title ? '<div class="iv-title">' + esc(gameCapFirst(img.title)) + "</div>" : "") +
-        (img.desc ? '<p class="iv-desc">' + esc(img.desc) + "</p>" : "") +
+        (img.title ? '<div class="iv-title">' + escInline(gameCapFirst(img.title)) + "</div>" : "") +
+        (img.desc ? '<p class="iv-desc">' + escInline(img.desc) + "</p>" : "") +
         (creditHTML ? '<div class="iv-credit">' + creditHTML + "</div>" : "") +
         "</div>"
       : "";
@@ -41411,7 +43559,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        IT IS REMOVED RATHER THAN HIDDEN, and that is the point of doing it here rather than in the
        stylesheet: `display:none` would still have built the canvas and started the globe. It runs BEFORE
        `mountCardMaps`, which is what would start it. */
-    if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => el.remove());
+    if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => { el.querySelectorAll(".war-key").forEach((k) => el.parentNode.insertBefore(k, el)); el.remove(); });   // the legend (above the window since 2026-11-18) is kept
     // a locator's globe, already naming its place: the answer is on screen, so there is nothing to hold back
     mountCardMaps(inner); cardMapReveal(inner); mountCardTimelines(inner);
   }
@@ -41559,8 +43707,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
     crossword: ["Crossword", ICON.crossword], picture: ["Picture round", ICON.picture], whatyear: ["What year?", ICON.whatyear],
     howfar: ["How far?", ICON.howfar], pie: ["What share?", ICON.pie], whatlang: ["What language?", ICON.whatlang],
+    whoisthis: ["Who is this?", ICON.whoisthis],
   };
-  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "five years", howfar: "five distances", pie: "five questions", whatlang: "five passages" };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "five years", howfar: "five distances", pie: "five questions", whatlang: "five passages", whoisthis: "five portraits" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
      stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
      is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
@@ -41957,6 +44106,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function choose(i) {
       const item = Q[qi], correctIdx = item.options.indexOf(item.correct), right = i === correctIdx;
       results[qi] = right; if (right) score++;
+      sfx(right ? "good" : "bad");
       root.querySelectorAll("#opts .opt").forEach((b, idx) => {
         b.disabled = true;
         if (idx === correctIdx) b.classList.add("correct");
@@ -42244,6 +44394,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function answer(guess, btn) {
       const it = picks[r], correct = guess === it.a; results[r] = correct; if (correct) score++;
+      sfx(correct ? "good" : "bad");
       root.querySelectorAll("#tfopts .opt").forEach((b) => { b.disabled = true; const v = b.dataset.v === "1"; if (v === it.a) b.classList.add("correct"); else if (b === btn) b.classList.add("wrong"); });
       const rev = root.querySelector("#tfreveal"); rev.hidden = false;
       rev.innerHTML = `
@@ -42405,6 +44556,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const { it, options } = rounds[r];
       const correctIdx = options.indexOf(it.who), right = opt === it.who;
       results[r] = right; if (right) score++;
+      sfx(right ? "good" : "bad");
       root.querySelectorAll("#opts .opt").forEach((b, idx) => {
         b.disabled = true;
         if (idx === correctIdx) b.classList.add("correct");
@@ -42485,7 +44637,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      heading for a term that IS a work, and a card's answer where the answer IS a work. Built by the same rules as the prose
      sweep (books, poems, plays, dialogues, treatises, histories; never a scripture's whole canon, a law, a treaty, an
      inscription or a king list) — declared, never a tag test, for the reason CHRONO_WORKS gives below. */
-  const GLOSS_WORK_KEYS = new Set(["Aegyptiaca", "Aeneid", "Aetia_(Callimachus)", "Against_Apion", "Ajax_(play)", "An_Essay_Concerning_Human_Understanding", "Anabasis", "Analects", "Andromache_(play)", "Antigone", "Apology_(Plato)", "Argonautica", "Arthashastra", "Atharvaveda", "Bacchae", "Bamboo_Annals", "Baopuzi", "Bencao_Gangmu", "Birds_(play)", "Book_of_Documents", "Book_of_Han", "Book_of_Rites", "Book_of_the_Dead", "Caesars_Commentaries", "Chuci", "Classic_of_Mountains_and_Seas", "Classic_of_Poetry", "Clouds_(play)", "Commentariolum_Petitionis", "Common_Sense_(pamphlet)", "Complaints_of_Khakheperraseneb", "Constitution_of_the_Athenians", "Cypria", "De_Ceremoniis", "De_Officiis", "De_agri_cultura", "De_rerum_natura", "Diamond_Sutra", "Diary_of_a_Madman_(Lu_Xun)", "Discourses_on_Salt_and_Iron", "Dispute_Between_a_Man_and_His_Ba", "Doctrine_of_the_Mean", "Dongjing_Meng_Hua_Lu", "Dream_Pool_Essays", "Dream_of_the_Red_Chamber", "Encyclopédie", "Enuma_Elish", "Epic_Cycle", "Epic_of_Gilgamesh", "Epistulae_Morales_ad_Lucilium", "Epistulae_ad_Atticum", "Essays_in_Positive_Economics", "Euclid's_Elements", "Fan_Shengzhi_shu", "Frogs_(play)", "Garakguk-gi", "Georgics", "Gongyang_Zhuan", "Great_Cloud_Sutra", "Great_Hymn_to_the_Aten", "Great_Learning", "Guilty_Men", "Guliang_Zhuan", "Hellenica", "Hippocratic_Corpus", "Hippolytus", "Historia_Augusta", "Histories_(Herodotus)", "History_of_Animals", "Homeric_Hymn_to_Demeter", "Hou_Han_shu", "How_the_Other_Half_Lives", "Huainanzi", "Huangdi_Neijing", "I_quattro_libri_dell'architettura", "Iliad", "Illustrated_Chronicle_of_Ivan_the_Terrible", "Incidents_in_the_Life_of_a_Slave_Girl", "Institutio_Oratoria", "Instruction_of_Vladimir_Monomakh", "Instructions_of_Amenemhat", "Jewang_ungi", "Jin_Ping_Mei", "Journey_to_the_West", "Kagerō_Nikki", "Kangxi_Dictionary", "Kaogongji", "Kojiki", "Kokin_Wakashū", "Konjaku_Monogatarishū", "Lantingji_Xu", "Letter_of_Aristeas", "Letters_on_the_Equality_of_the_Sexes", "Li_Sao", "Liber_Spectaculorum", "Lienü_zhuan", "Liezi", "Life_of_Constantine", "Loyalist_Teaching", "Lysistrata", "Lüshi_Chunqiu", "Man'yōshū", "Medea_(play)", "Meditations", "Mein_Kampf", "Melian_Dialogue", "Memorabilia", "Mencius_(book)", "Mengliang_lu", "Metamorphoses", "Micrographia", "Milinda_Panha", "Mustard_Seed_Garden_Manual_of_Painting", "Narrative_of_the_Life_of_Frederick_Douglass", "Nicomachean_Ethics", "Nihon_Shoki", "Nineteen_Old_Poems", "Nostoi", "Notes_on_Muscovite_Affairs", "Odyssey", "Oedipus_Tyrannus", "Oedipus_at_Colonus", "Ogura_Hyakunin_Isshu", "On_the_Origin_of_Species", "Oresteia", "Persians_(play)", "Pharsalia", "Philippicae", "Philippics", "Philoctetes", "Pinakes", "Platform_Sutra", "Politics_(Aristotle)", "Primary_Chronicle", "Prometheus_Bound", "Prophecy_of_Neferti", "Qieyun", "Qimin_Yaoshu", "Quanxue_pian", "Quotations_from_Chairman_Mao_Tse-tung", "Recipes_from_the_Garden_of_Contentment", "Republic_(Plato)", "Res_Gestae_Divi_Augusti", "Rhetorica_ad_Herennium", "Rigveda", "Romance_of_the_Three_Kingdoms", "Romance_of_the_Western_Chamber", "Sakuteiki", "Samguk_sagi", "Samguk_yusa", "Sanguozhi", "Satyricon", "Sermon_on_Law_and_Grace", "Sevastopol_Sketches", "Seven_Against_Thebes", "Shiji", "Shitong", "Shuowen_Jiezi", "Siku_Quanshu", "Silent_Spring", "Songs_of_the_Five_Sons", "Soushen_ji", "Spring_and_Autumn_Annals", "Story_of_Sinuhe", "Story_of_Wenamun", "Strange_Defeat", "Strange_Tales_from_a_Chinese_Studio", "Strategemata", "Suda", "Taijitu_shuo", "Tale_of_Two_Brothers", "Tale_of_the_Shipwrecked_Sailor", "Teaching_for_King_Merykara", "Ten_Wings", "The_1619_Project", "The_American_Crisis", "The_Anarchical_Society", "The_Art_of_War", "The_City_of_God", "The_Classic_of_Tea", "The_Communist_Manifesto", "The_Eloquent_Peasant", "The_Federalist_Papers", "The_Golden_Ass", "The_Impending_Crisis_of_the_South", "The_Nine_Chapters_on_the_Mathematical_Art", "The_Peach_Blossom_Spring", "The_Peony_Pavilion", "The_Pillow_Book", "The_Principles_of_Psychology", "The_Quarrel_of_Apophis_and_Seqenenre", "The_Satire_of_the_Trades", "The_State_and_Revolution", "The_Tale_of_Genji", "The_Tale_of_Igor's_Campaign", "The_Tale_of_the_Heike", "The_Travels_of_Marco_Polo", "The_Twelve_Caesars", "The_World_at_War", "Theogony", "Three_Character_Classic", "Three_Hundred_Tang_Poems", "Tianzhu_shiyi", "Tosa_Nikki", "Tribute_of_Yu", "Tristia", "Trojan_Women", "Uncle_Tom's_Cabin", "Verbal_Behavior", "Water_Margin", "Wen_Xuan", "Wenxin_Diaolong", "What_Is_to_Be_Done?", "Women_of_Aetna", "Works_and_Days", "Wujing_Zongyao", "Yajurveda", "Yiwenzhi", "Yongle_Encyclopedia", "Yuanye", "Zhanguo_Ce", "Zhongyuan_Yinyun", "Zhoubi_Suanjing", "Zizhi_Tongjian", "Zuo_Zhuan", "Ōjōyōshū"]);
+  const GLOSS_WORK_KEYS = new Set(["A_Defence_of_Common_Sense", "On_Computable_Numbers,_with_an_Application_to_the_Entscheidungsproblem", "Aegyptiaca", "Aeneid", "Aetia_(Callimachus)", "Against_Apion", "Ajax_(play)", "An_Essay_Concerning_Human_Understanding", "Anabasis", "Analects", "Andromache_(play)", "Antigone", "Apology_(Plato)", "Argonautica", "Arthashastra", "Atharvaveda", "Bacchae", "Bamboo_Annals", "Baopuzi", "Bencao_Gangmu", "Birds_(play)", "Book_of_Documents", "Book_of_Han", "Book_of_Rites", "Book_of_the_Dead", "Caesars_Commentaries", "Chuci", "Classic_of_Mountains_and_Seas", "Classic_of_Poetry", "Clouds_(play)", "Commentariolum_Petitionis", "Common_Sense_(pamphlet)", "Complaints_of_Khakheperraseneb", "Constitution_of_the_Athenians", "Cypria", "De_Ceremoniis", "De_Officiis", "De_agri_cultura", "De_rerum_natura", "Diamond_Sutra", "Diary_of_a_Madman_(Lu_Xun)", "Discourses_on_Salt_and_Iron", "Dispute_Between_a_Man_and_His_Ba", "Doctrine_of_the_Mean", "Dongjing_Meng_Hua_Lu", "Dream_Pool_Essays", "Dream_of_the_Red_Chamber", "Encyclopédie", "Enuma_Elish", "Epic_Cycle", "Epic_of_Gilgamesh", "Epistulae_Morales_ad_Lucilium", "Epistulae_ad_Atticum", "Essays_in_Positive_Economics", "Euclid's_Elements", "Fan_Shengzhi_shu", "Frogs_(play)", "Garakguk-gi", "Georgics", "Gongyang_Zhuan", "Great_Cloud_Sutra", "Great_Hymn_to_the_Aten", "Great_Learning", "Guilty_Men", "Guliang_Zhuan", "Hellenica", "Hippocratic_Corpus", "Hippolytus", "Historia_Augusta", "Histories_(Herodotus)", "History_of_Animals", "Homeric_Hymn_to_Demeter", "Hou_Han_shu", "How_the_Other_Half_Lives", "Huainanzi", "Huangdi_Neijing", "I_quattro_libri_dell'architettura", "Iliad", "Illustrated_Chronicle_of_Ivan_the_Terrible", "Incidents_in_the_Life_of_a_Slave_Girl", "Institutio_Oratoria", "Instruction_of_Vladimir_Monomakh", "Instructions_of_Amenemhat", "Jewang_ungi", "Jin_Ping_Mei", "Journey_to_the_West", "Kagerō_Nikki", "Kangxi_Dictionary", "Kaogongji", "Kojiki", "Kokin_Wakashū", "Konjaku_Monogatarishū", "Lantingji_Xu", "Letter_of_Aristeas", "Letters_on_the_Equality_of_the_Sexes", "Li_Sao", "Liber_Spectaculorum", "Lienü_zhuan", "Liezi", "Life_of_Constantine", "Loyalist_Teaching", "Lysistrata", "Lüshi_Chunqiu", "Man'yōshū", "Medea_(play)", "Meditations", "Mein_Kampf", "Melian_Dialogue", "Memorabilia", "Mencius_(book)", "Mengliang_lu", "Metamorphoses", "Micrographia", "Milinda_Panha", "Mustard_Seed_Garden_Manual_of_Painting", "Narrative_of_the_Life_of_Frederick_Douglass", "Nicomachean_Ethics", "Nihon_Shoki", "Nineteen_Old_Poems", "Nostoi", "Notes_on_Muscovite_Affairs", "Odyssey", "Oedipus_Tyrannus", "Oedipus_at_Colonus", "Ogura_Hyakunin_Isshu", "On_the_Origin_of_Species", "Oresteia", "Persians_(play)", "Pharsalia", "Philippicae", "Philippics", "Philoctetes", "Pinakes", "Platform_Sutra", "Politics_(Aristotle)", "Primary_Chronicle", "Prometheus_Bound", "Prophecy_of_Neferti", "Qieyun", "Qimin_Yaoshu", "Quanxue_pian", "Quotations_from_Chairman_Mao_Tse-tung", "Recipes_from_the_Garden_of_Contentment", "Republic_(Plato)", "Res_Gestae_Divi_Augusti", "Rhetorica_ad_Herennium", "Rigveda", "Romance_of_the_Three_Kingdoms", "Romance_of_the_Western_Chamber", "Sakuteiki", "Samguk_sagi", "Samguk_yusa", "Sanguozhi", "Satyricon", "Sermon_on_Law_and_Grace", "Sevastopol_Sketches", "Seven_Against_Thebes", "Shiji", "Shitong", "Shuowen_Jiezi", "Siku_Quanshu", "Silent_Spring", "Songs_of_the_Five_Sons", "Soushen_ji", "Spring_and_Autumn_Annals", "Story_of_Sinuhe", "Story_of_Wenamun", "Strange_Defeat", "Strange_Tales_from_a_Chinese_Studio", "Strategemata", "Suda", "Taijitu_shuo", "Tale_of_Two_Brothers", "Tale_of_the_Shipwrecked_Sailor", "Teaching_for_King_Merykara", "Ten_Wings", "The_1619_Project", "The_American_Crisis", "The_Anarchical_Society", "The_Art_of_War", "The_City_of_God", "The_Classic_of_Tea", "The_Communist_Manifesto", "The_Eloquent_Peasant", "The_Federalist_Papers", "The_Golden_Ass", "The_Impending_Crisis_of_the_South", "The_Nine_Chapters_on_the_Mathematical_Art", "The_Peach_Blossom_Spring", "The_Peony_Pavilion", "The_Pillow_Book", "The_Principles_of_Psychology", "The_Quarrel_of_Apophis_and_Seqenenre", "The_Satire_of_the_Trades", "The_State_and_Revolution", "The_Tale_of_Genji", "The_Tale_of_Igor's_Campaign", "The_Tale_of_the_Heike", "The_Travels_of_Marco_Polo", "The_Twelve_Caesars", "The_World_at_War", "Theogony", "Three_Character_Classic", "Three_Hundred_Tang_Poems", "Tianzhu_shiyi", "Tosa_Nikki", "Tribute_of_Yu", "Tristia", "Trojan_Women", "Uncle_Tom's_Cabin", "Verbal_Behavior", "Water_Margin", "Wen_Xuan", "Wenxin_Diaolong", "What_Is_to_Be_Done?", "Women_of_Aetna", "Works_and_Days", "Wujing_Zongyao", "Yajurveda", "Yiwenzhi", "Yongle_Encyclopedia", "Yuanye", "Zhanguo_Ce", "Zhongyuan_Yinyun", "Zhoubi_Suanjing", "Zizhi_Tongjian", "Zuo_Zhuan", "Ōjōyōshū"]);
   const WORK_CARD_IDS = new Set(["gr-130", "gr-131", "gr-141", "gr-142", "wh-183", "wh-193", "cnh-028", "cnh-029", "wh-215", "wh-241", "cnh-056", "cnh-059", "cnh-060", "cnh-067", "wh-385", "wh-403", "gr-439", "gr-441", "bio-093", "ww2-047", "ko-049", "ko-087", "ko-089", "jp-042", "jp-098", "jp-099", "cnh-126", "cnh-127", "cnh-143", "cnh-144", "cnh-185", "cnh-187", "gr-550", "gr-592", "gr-593", "gr-594", "gr-596", "gr-597", "gr-598", "gr-599", "gr-601", "gr-602", "gr-603", "gr-604", "gr-608", "gr-609", "gr-610", "gr-611", "gr-620", "gr-621", "gr-630", "gr-631", "gr-633", "gr-679", "gr-684", "gr-685", "gr-686", "gr-693", "cnh-235", "cnh-241", "rm-351", "wh-543", "ww2-120", "cnh-260", "gr-786", "rm-396", "wh-751", "wh-794", "rm-476", "ru-038", "ru-047", "ru-062", "ru-073", "ru-086", "gr-808", "gr-810", "gr-814", "gr-818", "gr-907", "gr-953", "gr-954", "cnh-290", "cnh-291", "rm-520", "rm-616", "rm-693", "wh-823", "rm-703", "cnh-342", "eg-055", "cnh-433", "cnh-435", "cnh-458", "cnh-495", "cnh-499", "eg-159", "eg-160", "eg-161", "eg-162", "eg-171", "eg-178", "eg-179", "eg-181", "rm-860", "rm-890", "rm-941", "rm-942", "rm-944", "rm-945", "rm-950", "rm-951", "rm-954", "rm-955", "rm-961", "rm-962", "rm-965", "rm-967", "rm-968", "cnh-513", "cnh-552", "cnh-672", "cnh-736", "cnh-754", "cnh-763", "gga-134", "cnh-802", "cnh-827", "cnh-831", "cnh-841", "cnh-851", "cnh-853", "cnh-859", "cnh-866", "cnh-878", "cnh-890", "cnh-896", "cnh-898", "cnh-911", "cnh-912", "cnh-913", "cnh-914", "cnh-918", "cnh-919", "cnh-920", "cnh-925", "cnh-926", "cnh-927", "cnh-929", "cnh-930", "cnh-931", "cnh-932", "cnh-933", "cnh-934", "cnh-935", "cnh-939", "cnh-944", "cnh-947", "cnh-965", "cnh-976", "cnh-978", "cnh-980", "cnh-986", "cnh-987", "cnh-995", "cnh-998", "cnh-999", "ko-047", "ww2-200", "us-171", "ps-054", "ps-085", "us-229", "us-248", "us-300", "ru-225", "ko-197", "eg-227", "eg-201", "eg-202", "eg-237", "eg-300", "us-475", "us-432", "us-516", "us-523", "ec-045", "jp-101", "jp-139", "jp-146", "jp-150", "jp-152", "jp-153", "jp-155", "jp-171", "jp-174", "jp-175", "jp-199", "in-043", "in-071", "in-072", "eg-377", "eg-380", "ru-440", "us-725", "us-964", "ru-506"]);
   function workAnswerHTML(c) { const a = String((c && c.answer) || ""); return c && WORK_CARD_IDS.has(c.id) && !/<i[ >]/.test(a) ? "<i>" + a + "</i>" : a; }
   const CHRONO_WORKS = {
@@ -42849,6 +45001,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          they no longer do is move. */
       if (!GAME_DAY) S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
       markGamePlayed("chrono", solved, score, N);
+      if (!solved) sfx(score * 2 >= N ? "good" : "bad");   // a perfect order gets markGamePlayed's fanfare
       save();
       checkAchievements();
       const res = root.querySelector("#chrono-result");
@@ -44182,6 +46335,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const { it, options } = rounds[r];
       const right = opt === it.label;
       results[r] = right; if (right) score++;
+      sfx(right ? "good" : "bad");
       root.querySelectorAll("#picOpts .opt").forEach((b, i) => {
         b.disabled = true;
         if (options[i] === it.label) b.classList.add("correct");
@@ -44839,9 +46993,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <circle class="pie-knob" id="pieKnob" r="7"/>
               </svg>
               <div class="pie-readrow">
-                <button class="wy-step" id="piePrev" type="button" aria-label="One per cent less">${chev("15 18 9 12 15 6")}</button>
+                <button class="wy-step" id="piePrev" type="button" aria-label="1% less">${chev("15 18 9 12 15 6")}</button>
                 <div class="pie-readout" id="pieRead" aria-hidden="true"></div>
-                <button class="wy-step" id="pieNext" type="button" aria-label="One per cent more">${chev("9 6 15 12 9 18")}</button>
+                <button class="wy-step" id="pieNext" type="button" aria-label="1% more">${chev("9 6 15 12 9 18")}</button>
               </div>
               <p class="pie-hint" id="pieHint">Drag around the pie to cut your slice.</p>
             </div>
@@ -45087,6 +47241,196 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#wl-home").addEventListener("click", () => route("home"));
+    }
+  };
+
+  /* WHO IS THIS? (2026-11-19, on request: "the player is shown a picture of a historical figure and must pick, from four options,
+     who it is"). docs/minigames.md "Who is this?" has the rules. It is NOT the dormant Picture round come back: that game names an
+     object or a work of art; this one names a PERSON, from a picture that depicts that person.
+     THE POOL is the cards, through `gameCardIdSet()` (available, well known, no map, flag or artwork card), narrowed to the ids in
+     `whoisthis.js` (lazy, bundle `whoisthis`, GENERATED by .claude/build-whoisthis.js): the cards tagged `person`, not a figure of
+     myth, whose picture's title or caption says it is a portrait, bust, photograph, statue or likeness and names the person. The
+     list is generated because a card's picture is a HEAVY field — the page cannot see which cards carry a portrait without fetching
+     every collection — so the page fetches the heavy half of the five cards it deals and nothing else. One card per name: Julius
+     Caesar has two portraits and is still one person.
+     THE DECOYS are other people, never invented: every `person` card the games may deal (picture or not; only the name is shown),
+     scored — same collection 3, same era 2, the answer's `women` tag shared or both without it 3 (four men's names under a portrait
+     of Livia answer themselves), plus the cards' tag kinship — the best three taken, ties broken by a shuffle seeded on the day and
+     the card. Pure: `.claude/test-whoisthis.js` calls it over the whole pool.
+     NOTHING NAMES THE ANSWER BEFORE THE GUESS: the picture's alt is neutral, its title, caption and credit are held back, and it is
+     not enlargeable until the reveal (the viewer's caption bar carries the title), exactly as the Picture round did. Five a day
+     (dayPick), the same for everyone; a round answered stays answered; one play a day. */
+  const WIT_ROUNDS = 5;
+  const WIT_NOT_HISTORICAL = ["mythology", "hero", "deity", "god", "legend"];
+  function witEra(c) { const y = cardStartYear(c); return !y ? "" : y < -500 ? "ancient" : y < 500 ? "classical" : y < 1500 ? "medieval" : y < 1800 ? "early-modern" : y < 1900 ? "modern" : "20c"; }
+  function witName(c) { return String((c && c.answerText) || "").trim(); }
+  function witIsPerson(c) { const t = (c && Array.isArray(c.tags)) ? c.tags : []; return t.indexOf("person") >= 0 && !t.some((x) => WIT_NOT_HISTORICAL.indexOf(x) >= 0); }
+  // the answers: the generated list, through the games' own door, one card per name
+  function whoIsThisPool() {
+    const W = window.WHOISTHIS, ids = (W && Array.isArray(W.ids)) ? W.ids : [];
+    const avail = gameCardIdSet(), seen = new Set(), out = [];
+    ids.forEach((id) => {
+      if (!avail.has(id)) return;
+      const c = cardById(id), nm = witName(c).toLowerCase();
+      if (!c || !nm || seen.has(nm) || !witIsPerson(c)) return;
+      seen.add(nm); out.push(id);
+    });
+    return out;
+  }
+  // the names a decoy may be: every person the games may deal, one per name
+  function whoIsThisPeople() {
+    const avail = gameCardIdSet(), seen = new Set(), out = [];
+    ALL_CARD_IDS.forEach((id) => {
+      if (!avail.has(id)) return;
+      const c = cardById(id), nm = witName(c).toLowerCase();
+      if (!c || !nm || seen.has(nm) || !witIsPerson(c)) return;
+      seen.add(nm); out.push(c);
+    });
+    return out;
+  }
+  function whoIsThisDecoys(ans, people, seed) {
+    const nm = witName(ans).toLowerCase(), root = cardCollectionRoot(ans.id), era = witEra(ans);
+    const women = (c) => (c.tags || []).indexOf("women") >= 0, aw = women(ans);
+    const cands = dayPick(seed, people.filter((c) => witName(c).toLowerCase() !== nm));
+    const score = (c) => (cardCollectionRoot(c.id) === root ? 3 : 0) + (era && witEra(c) === era ? 2 : 0) + (women(c) === aw ? 3 : 0) + tagKinship(ans.tags, c.tags);
+    return cands.map((c, i) => ({ c, s: score(c), i })).sort((a, b) => b.s - a.s || a.i - b.i).slice(0, 3).map((x) => x.c);
+  }
+  function whoIsThisRounds() {
+    const pool = whoIsThisPool(), people = whoIsThisPeople();
+    return dayPick("whoisthis", pool, Math.min(WIT_ROUNDS, pool.length)).map((id) => {
+      const c = cardById(id), seed = "whoisthis-" + id;
+      return { c, options: dayPick(seed + "-o", [c].concat(whoIsThisDecoys(c, people, seed + "-d"))) };
+    });
+  }
+  // the picture's caption without the credit repeated on its end (the Picture round's picCaption, for a card's image)
+  function witCaption(img) {
+    const norm = (x) => String(x || "").replace(/\s+/g, " ").trim();
+    const d = norm(img && img.desc);
+    const cred = norm(String((img && img.credit) || "").split(/\s[—–-]\s|https?:\/\//)[0]).replace(/[.\s]+$/, "");
+    if (!d || !cred) return d;
+    const dt = d.replace(/[.\s]+$/, "");
+    return dt.endsWith(cred) ? norm(dt.slice(0, dt.length - cred.length)).replace(/[.,;:\s]+$/, "") : d;
+  }
+  PAGES.whoisthis = function (root) {
+    detachKeys();
+    if (gameLockedToday(root, "whoisthis")) return;
+    const loading = (msg) => { root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>' + msg + "</strong></div>"; };
+    const failed = () => {
+      root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>Who is this? could not be set up</strong><span class="dl-note">Its portraits did not load. Check your connection and try again.</span><button class="btn" type="button" id="witReload">Reload</button></div>';
+      const b = root.querySelector("#witReload"); if (b) b.addEventListener("click", () => location.reload());
+    };
+    if (!dataReady("whoisthis")) {
+      loading("Setting up today’s five portraits");
+      ensureData("whoisthis").then((ok) => { if (!root.isConnected || !gameRouteIs("whoisthis")) return; if (ok) PAGES.whoisthis(root); else failed(); });
+      return;
+    }
+    if (whoIsThisPool().length < 4) { root.innerHTML = emptyPlacard("Coming soon", ICON.whoisthis, "Not enough portraits to play yet.", () => route("home"), "Back home"); return; }
+    const rounds = whoIsThisRounds(), ROUNDS = rounds.length;
+    // the pictures are the cards' HEAVY half: fetch the five dealt cards' collections, and nothing else
+    const ids = rounds.map((rd) => rd.c.id);
+    if (!ids.every(cardExtraLoaded)) {
+      loading("Setting up today’s five portraits");
+      ensureCardExtra(ids).then((ok) => { if (!root.isConnected || !gameRouteIs("whoisthis")) return; if (ok) PAGES.whoisthis(root); else failed(); });
+      return;
+    }
+    rounds.forEach((rd) => { cardFillExtra(rd.c); });
+    const results = (gameProgress("whoisthis") || []).slice(0, ROUNDS);   // a round answered stays answered
+    const picked = [];
+    let r = results.length;
+    root._witApi = {   // for .claude/test-whoisthis.js: the day's answers and options, and every answer's decoys as the dealer would choose them
+      answers: () => rounds.map((rd) => rd.c.id), options: () => rounds.map((rd) => rd.options.map((c) => c.id)),
+      pool: () => whoIsThisPool(),
+      decoysAll: () => { const P = whoIsThisPeople(), o = {}; whoIsThisPool().forEach((id) => { o[id] = whoIsThisDecoys(cardById(id), P, "whoisthis-" + id + "-d").map((c) => c.id); }); return o; },
+    };
+    if (r >= ROUNDS) return finish();
+    renderRound();
+
+    function pips() { return `<div class="tf-pips">${rounds.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
+    function renderRound() {
+      const { c, options } = rounds[r];
+      const img = c.image || {};
+      root.innerHTML = `
+        <div class="dc-shell wit-game">
+          <div class="page-head" style="margin-bottom:14px">
+            <span class="eyebrow">Who is this?</span>
+            <h1 style="font-size:28px">Portrait ${r + 1} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1>
+          </div>
+          ${pips()}
+          <div class="dc-q">
+            <div class="dc-meta"><span>One portrait</span><span>Who is it?</span></div>
+            <figure class="pic-frame${img.src ? "" : " pic-dead"}"><img class="pic-img" src="${esc(img.src || "")}" alt="A portrait of a historical figure — the round is to name them"></figure>
+            <div class="opts" id="witOpts"></div>
+            <div class="tf-reveal" id="witReveal" hidden></div>
+          </div>
+        </div>`;
+      const im = root.querySelector(".pic-img");
+      const dead = () => { const f = im.closest(".pic-frame"); if (f) f.classList.add("pic-dead"); };
+      im.addEventListener("error", dead, { once: true });
+      if (im.complete && !im.naturalWidth) dead();
+      const opts = root.querySelector("#witOpts");
+      options.forEach((o, i) => {
+        const b = document.createElement("button");
+        b.className = "opt"; b.type = "button"; b.dataset.card = o.id;
+        b.innerHTML = '<span class="key">' + "ABCD"[i] + "</span><span>" + esc(gameCapFirst(witName(o))) + "</span>";
+        b.addEventListener("click", () => choose(i));
+        opts.appendChild(b);
+      });
+    }
+    function choose(i) {
+      const { c, options } = rounds[r];
+      if (results.length > r) return;
+      const right = options[i].id === c.id;
+      results[r] = right; picked[r] = options[i];
+      sfx(right ? "good" : "bad");
+      setGameProgress("whoisthis", results.slice(0, r + 1));   // written before the reader can leave the round
+      root.querySelectorAll("#witOpts .opt").forEach((b, idx) => {
+        b.disabled = true;
+        if (options[idx].id === c.id) b.classList.add("correct");
+        else if (idx === i) b.classList.add("wrong");
+      });
+      const img = c.image || {};
+      // enlargeable from here, and not before — the viewer's caption bar names the sitter (see the Picture round's choose)
+      const fig = root.querySelector(".pic-frame");
+      if (fig && !fig.classList.contains("pic-open") && img.src) {
+        fig.classList.add("pic-open");
+        fig.setAttribute("role", "button"); fig.setAttribute("tabindex", "0"); fig.setAttribute("title", "Click to enlarge");
+        fig.insertAdjacentHTML("beforeend", '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>');
+        const open = () => openImageViewer({ src: img.src, title: img.title || witName(c), desc: img.desc || "", credit: img.credit || "", alt: img.alt || "" });
+        fig.addEventListener("click", open);
+        fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      }
+      const note = sanitizeHTML(String(c.abstract || "")), src = cardSources(c), cap = witCaption(img);
+      const rev = root.querySelector("#witReveal"); rev.hidden = false;
+      rev.innerHTML =
+        '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(witName(c))) + "</b></div>" +
+        (img.title ? '<p class="pic-cap">' + esc(img.title) + "</p>" : "") +
+        (cap ? '<p class="pic-shows">' + esc(cap) + "</p>" : "") +
+        (note ? '<div class="tf-why pic-note">' + note + "</div>" : "") +
+        (src.length ? sourcesHTML(src, { shut: true }) : "") +
+        '<button class="btn" id="wit-next" type="button">' + (r + 1 < ROUNDS ? "Next portrait" : "See results") + "</button>";
+      tfWireWhy(rev);
+      rev.querySelector("#wit-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : finish(); });
+    }
+    function finish() {
+      const score = results.filter(Boolean).length;
+      markGamePlayed("whoisthis", score === ROUNDS, score, ROUNDS);
+      setGameProgress("whoisthis", null);
+      save(); checkAchievements();
+      const msg = score === ROUNDS ? "Five out of five — you know your faces." : score >= ROUNDS - 1 ? "Excellent — nearly every one." : score >= Math.ceil(ROUNDS / 2) ? "Solid — contemporaries can look much alike." : "Faces from the past are hard to place.";
+      root.innerHTML = `
+        <div class="dc-shell wit-game">
+          <div class="page-head"><span class="eyebrow">Who is this?</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1></div>
+          <p style="color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif)">${msg}</p>
+          <div class="tf-summary">${rounds.map((rd, k) => `
+            <div class="tf-sum-row">
+              <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
+              <div><p class="tf-sum-q"><b>${esc(gameCapFirst(witName(rd.c)))}</b>${picked[k] && !results[k] ? ` (you said ${esc(gameCapFirst(witName(picked[k])))})` : ""}</p>${rd.c.image && rd.c.image.title ? `<p class="tf-sum-a">${esc(rd.c.image.title)}</p>` : ""}</div>
+            </div>`).join("")}</div>
+          ${gameShareHTML("whoisthis", score, ROUNDS, results.slice(0, ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh portraits arrive tomorrow.")}</p>
+          <div class="tf-actions"><button class="btn ghost" id="wit-home" type="button">Home</button></div>
+        </div>`;
+      root.querySelector("#wit-home").addEventListener("click", () => route("home"));
     }
   };
 
@@ -47492,7 +49836,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <ol class="msn-steps ai-steps">
             ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
             ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
-            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
+            ${step(3, "Bring it into Folio", "For the first prompt, copy the whole reply and open <b>Collections &rarr; Your decks &rarr; Paste cards…</b> — or save it as <b>something.folio-deck.json</b> and use <b>Import a deck…</b>. For the other two, open your deck in the Studio and paste the parts into a new card. The Studio&rsquo;s own <b>Write them with an AI</b> has two shorter prompts for plain question-and-answer lists.")}
           </ol>
           <div class="ai-prompts">
             ${AI_PROMPTS.map((p) => `
@@ -47714,7 +50058,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const homeName = atlasCountryV2((S.settings.home && S.settings.home.name) || "Netherlands");   // a home stored under v1's spelling is selected under the new one
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "large" : S.settings.fontSize;
     const unitsNow = unitSystem();
-    const spellNow = spellSystem();
+    const spellNow = spellSystem(), eraNow = eraSystem();
     // atlas/data/country-names.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
     // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
@@ -48061,6 +50405,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
             }</div></div>
           </div>
+          <div class="set-row set-row-block">
+            ${/* Era labels (2026-11-18, on request): BCE / CE as authored, or BC / AD — a rendering pass like the two above (eraTree). */""}
+            ${info("Dates", "How years before and after year 1 are labelled, across the cards, the glossary, the Atlas and the site.", "Quoted sources and citations keep the labels their author used.")}
+            <div class="ctl"><div class="fs-pick units-pick" id="eraPick" role="group" aria-label="Date labels">${
+              [["ce", "BCE / CE", "500 BCE"], ["ad", "BC / AD", "500 BC"]].map((u) => `<button type="button" data-era="${u[0]}" class="${eraNow === u[0] ? "on" : ""}" aria-pressed="${eraNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span><span class="notranslate">${u[1]}</span></button>`).join("")
+            }</div></div>
+          </div>
         </div>
         <div class="set-card">
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
@@ -48167,6 +50518,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (spellPick) spellPick.addEventListener("click", (e) => {
       const b = e.target.closest("[data-spelling]");
       if (b) setSpelling(b.dataset.spelling);
+    });
+    // date labels — likewise
+    const eraPick = root.querySelector("#eraPick");
+    if (eraPick) eraPick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-era]");
+      if (b) setEra(b.dataset.era);
     });
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
@@ -48461,6 +50818,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      does to the card in front of you. "Admin" on a study card would be a button that says where it goes
      rather than what it is for, which on the one control an editor presses a hundred times a day is the
      wrong half to state. */
+  /* AN AUTHOR'S WAY BACK TO THEIR OWN CARD (Nov 2026). The button above is the admin's and opens the admin
+     editor, which reads curated cards only; someone studying a deck they wrote had no route from a typo to
+     the card it was on. Same place, same look, for a card of a deck that is the reader's own — it opens
+     that deck in the Studio with that card selected. Never over a curated card, never over an installed
+     deck (those are read-only: "Duplicate to edit" is the way in). It reuses the admin button's id, so
+     hideAdminEditBtn — already in render()'s close list — removes it with the page. */
+  function showOwnEditBtn(cardId) {
+    const noteId = uCardBaseId(cardId), c = UCARDS[noteId], d = c && UDECKS[c.deckId];
+    if (!d || !uDeckIsMine(d)) return;
+    hideAdminEditBtn();   // an admin's own button would open the admin editor, which cannot edit this card
+    const b = document.createElement("button");
+    b.id = "admin-edit-fab"; b.className = "admin-edit-fab own-edit-fab"; b.type = "button";
+    b.setAttribute("aria-label", "Edit this card in your deck");
+    b.title = "Edit this card";
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>Edit';
+    b.addEventListener("click", () => {
+      studioState.deck = d.id; studioState.card = noteId; studioState.tab = "cards"; studioState.q = ""; studioState.focus = "card";
+      route("studio");
+      // a navigation scrolls to the top of the page it lands on; the card is further down it
+      setTimeout(() => { if (current && current.name === "studio") studioReveal(document.querySelector("#stEditor")); }, 480);
+    });
+    document.body.appendChild(b);
+  }
   function showAdminEditBtn(cardId) {
     hideAdminEditBtn();
     if (!isAdmin()) return;
@@ -48778,6 +51158,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="rt-sep"></span>' +
       '<button type="button" class="rt-btn rt-color-btn" data-act="color" title="Text colour"><span class="rt-colA">A</span><span class="rt-colBar"></span></button>' +
       btn("removeFormat", "Clear formatting", "&#11199;") +
+      (o.blank ? '<span class="rt-sep"></span><button type="button" class="rt-btn rt-wide rt-blank" id="rtBlank" title="Turn the selected words of the question into the blank — they become the answer">Blank</button>' : "") +
       '<span class="rt-sep rt-link-sep"></span>' +
       '<button type="button" class="rt-btn rt-link rt-wide" data-act="link" title="Link the selected word(s) to a glossary term">Link term</button>' +
       '<button type="button" class="rt-btn rt-link rt-wide" data-act="unlink" title="Remove the glossary link around the cursor">Unlink</button>' +
@@ -48958,6 +51339,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.addEventListener("paste", (e) => { e.preventDefault(); const t = ((e.clipboardData || window.clipboardData) || { getData: () => "" }).getData("text/plain"); document.execCommand("insertText", false, t); });   // paste as plain text — keep the shipped markup clean
       el.addEventListener("click", (e) => { const t = e.target.closest(".ttip"); if (t && el.contains(t) && isGlossField(el)) showGlossBubble(t, el); });   // click a gloss word → its editing bubble (gloss-aware fields only)
       el.addEventListener("keydown", (e) => {
+        // the Studio's tap-to-edit fields take Enter themselves (it walks to the next field) and say so by
+        // preventing the default; a break inserted here would land in the field the caret has just moved to
+        if (e.defaultPrevented) return;
         if (e.key === "Enter") {   // a plain Enter injects <div>/<br>/&nbsp;; insert a single <br> instead — but keep native behaviour inside a list
           let n = window.getSelection().anchorNode, inList = false;
           while (n && n !== el) { if (n.nodeName === "LI") { inList = true; break; } n = n.parentNode; }
@@ -49002,7 +51386,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardMembers(c)) o.members = c.members; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardMembers(c)) o.members = c.members; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.example && typeof c.example === "object") o.example = c.example; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -49708,9 +52092,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     answerDate: "Double-click to add the date line",
     abstract: "Double-click to write the background…",
   };
+  /* …and what the same four say in the Studio (Nov 2026), where one tap edits a field (`tapEdit`) and the
+     card opens in its short form (`compact`): a question, an answer, a picture, notes. "Double-click" was an
+     instruction a phone cannot follow, and "blank the answer as _____" one nobody had explained. */
+  const LIVE_CARD_PH_TAP = {
+    question: "Write the question…",
+    answer: "Write the answer",
+    answerDate: "A date line, if the answer has dates",
+    abstract: "Notes shown with the answer — optional",
+  };
   const LIVE_CARD_FIELDS = ["question", "answer", "answerDate", "abstract"];
   function liveCardEditorHTML(o) {
-    const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(LIVE_CARD_PH[f] || "") + '" title="Double-click to edit" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + o.dirAttr + '></div>';
+    const PH = o.compact ? LIVE_CARD_PH_TAP : LIVE_CARD_PH;
+    const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(PH[f] || "") + '" title="' + (o.compact ? "Tap to edit" : "Double-click to edit") + '" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + o.dirAttr + '></div>';
     /* ONE frame, ONE panel. A card shows a picture or a clip and never both, so asking the author to pick
        the right box before pasting was asking them to classify a URL Folio can classify itself: videoSource()
        already recognises every link the player can take, and anything it does not recognise is a picture.
@@ -49741,8 +52135,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<button type="button" class="ces-srcadd" id="cesSrcAdd">+ Add a source</button>' +
         "</div>"
       : "";
-    return '<div class="card-edit-single">' +
-        rtRibbonHtml({ footnote: !!o.sourcesPanel }) +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
+    return '<div class="card-edit-single' + (o.compact ? " ces-compact" + (o.more ? " ces-more" : "") : "") + '">' +
+        rtRibbonHtml({ footnote: !!o.sourcesPanel, blank: !!o.blank }) +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
         '<div class="ces-top">' + (o.metaHtml || "") + '</div>' +
         '<div class="study-card admin-pv-card admin-live-card">' +
           // a card can carry up to CARD_MAX_QUESTIONS phrasings of its question; the chevrons cycle through
@@ -49765,6 +52159,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             srcPanelHtml +
           '</div></div>' +
         '</div>' +
+        /* THE LONG FORM, FOLDED (Nov 2026). The date line, further phrasings of the question, the plain answer
+           text, glossary links, the sources apparatus and the HTML source are what Folio's own cards are
+           written with, and they were the first thing a newcomer met on the way to "capital of France".
+           One switch shows them; nothing is lost while they are hidden, and a card that already uses one of
+           them opens with the switch on (the caller's `more`). */
+        (o.compact ? '<button type="button" class="ces-morebtn" id="cesMore" aria-expanded="' + (o.more ? "true" : "false") + '">' +
+          '<span class="ces-more-off">More options</span><span class="ces-more-on">Fewer options</span>' +
+          '<small> &mdash; a date line, other ways to ask, sources, glossary links, the HTML</small></button>' : "") +
         '<div class="ces-src"><button class="af-src-toggle" id="cesSrcToggle" type="button"><span class="afs-chev">&#9656;</span> HTML source — whole card</button><textarea class="af-src ces-src-ta" id="cesSrcTa" spellcheck="false" hidden></textarea></div>' +
       '</div>';
   }
@@ -49783,13 +52185,81 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       syncEmpty(el);
     });
     // double-click enters editing; blur leaves it (each keystroke saves either way)
+    const enterEdit = (el) => {
+      if (el.isContentEditable) return false;
+      el.contentEditable = "true"; el.classList.add("editing"); el.focus();
+      return true;
+    };
     host.querySelectorAll(".ces-field").forEach((el) => {
-      el.addEventListener("dblclick", () => {
-        if (el.isContentEditable) return;
-        el.contentEditable = "true"; el.classList.add("editing"); el.focus();
-      });
+      el.addEventListener("dblclick", () => { enterEdit(el); });
       el.addEventListener("blur", () => { el.contentEditable = "false"; el.classList.remove("editing"); });
     });
+    /* ONE TAP EDITS (the Studio's `tapEdit`, Nov 2026). Double-click was the only way in: a phone does not
+       reliably fire one (see the pointer-event note on the study card's double-tap), and with no tabindex
+       a keyboard could not reach the fields at all. So here a click enters editing with the caret where
+       the click was, the fields are tab stops that open when focus lands on them, and Enter walks
+       question → answer → the next field instead of adding blank lines to a one-line answer. The admin's
+       editor keeps double-click: its fields hold glossary links that a single click must still open. */
+    if (o.tapEdit) {
+      const fields = () => [...host.querySelectorAll(".ces-field")].filter((x) => x.offsetParent !== null);
+      host.querySelectorAll(".ces-field").forEach((el) => {
+        el.tabIndex = 0;
+        // a press focuses the field BEFORE its click arrives, so `fresh` carries "this press opened it" across
+        let fresh = false;
+        el.addEventListener("click", (e) => {
+          const entered = enterEdit(el) || fresh;
+          fresh = false;
+          if (!entered) return;
+          const cur = window.getSelection();
+          if (cur && !cur.isCollapsed && el.contains(cur.anchorNode)) return;   // a swept selection stands
+          let rg = null;
+          try {
+            if (document.caretRangeFromPoint) rg = document.caretRangeFromPoint(e.clientX, e.clientY);
+            else if (document.caretPositionFromPoint) {
+              const cp = document.caretPositionFromPoint(e.clientX, e.clientY);
+              if (cp) { rg = document.createRange(); rg.setStart(cp.offsetNode, cp.offset); rg.collapse(true); }
+            }
+          } catch (err) { rg = null; }
+          if (rg && el.contains(rg.startContainer)) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg); }
+          else caretToEnd(el);
+        });
+        el.addEventListener("focus", () => { if (enterEdit(el)) { fresh = true; caretToEnd(el); } });
+        el.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter" || e.shiftKey || e.isComposing) return;
+          if (el.dataset.field === "abstract") return;   // the notes are prose: Enter is a new line there
+          e.preventDefault();
+          const f = fields(), nx = f[f.indexOf(el) + 1];
+          if (nx) nx.focus(); else el.blur();
+        });
+      });
+    }
+    const moreBtn = host.querySelector("#cesMore");
+    if (moreBtn) moreBtn.addEventListener("click", () => {
+      const box = host.querySelector(".card-edit-single");
+      const open = !box.classList.contains("ces-more");
+      box.classList.toggle("ces-more", open);
+      moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (o.onMore) o.onMore(open);
+    });
+    /* THE BLANK, MADE BY A BUTTON. Folio's own cards ask with a gap in a sentence, written as
+       <span class="blank">_____</span> — which the placeholder used to describe and nothing helped with.
+       Select the words in the question and press Blank: they are replaced by the gap, and they become the
+       answer when there is none yet. With nothing selected it drops a gap at the caret. */
+    const blankBtn = host.querySelector("#rtBlank");
+    if (blankBtn) {
+      blankBtn.addEventListener("mousedown", (e) => e.preventDefault());   // the field keeps its selection
+      blankBtn.addEventListener("click", () => {
+        const qf = host.querySelector('[data-field="question"]'), af = host.querySelector('[data-field="answer"]');
+        const sel = window.getSelection();
+        if (!qf || !sel || !sel.rangeCount || !qf.contains(sel.anchorNode)) { toast("Select the answer’s words in the question first."); return; }
+        const rg = sel.getRangeAt(0), picked = String(sel).replace(/\s+/g, " ").trim();
+        const gap = document.createElement("span"); gap.className = "blank"; gap.textContent = "_____";
+        rg.deleteContents(); rg.insertNode(gap);
+        rg.setStartAfter(gap); rg.collapse(true); sel.removeAllRanges(); sel.addRange(rg);
+        qf.dispatchEvent(new Event("input", { bubbles: true }));
+        if (picked && af && !af.textContent.trim()) { af.textContent = picked; af.dispatchEvent(new Event("input", { bubbles: true })); }
+      });
+    }
 
     // ---- question phrasings: ONE live field over a pool of up to CARD_MAX_QUESTIONS, cycled by the
     // chevrons. qList is the working pool (index 0 = the card's `question`, the rest its `questions`
@@ -49925,7 +52395,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       } else if (!mediaOn) {
         mediaSlotEl.innerHTML = "";
       } else {
-        mediaSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image or a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image or a video <small>— paste any link; editor only, nothing shows on the study page until one is set</small></span></div>';
+        mediaSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image or a video" aria-label="Add a picture or a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image or a video <small>— paste any link; editor only, nothing shows on the study page until one is set</small></span></div>';
       }
       const t = mediaSlotEl.firstElementChild;
       if (t) {
@@ -50124,7 +52594,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
     wireRichEditor(host);
-    return { syncSrc: syncSrc, renderMediaSlot: renderMediaSlot };
+    // `focusField` puts the caret in one of the four fields — what the Studio calls after "Add a card"
+    const focusField = (f) => { const el = host.querySelector('[data-field="' + f + '"]'); if (el) { enterEdit(el); caretToEnd(el); } };
+    return { syncSrc: syncSrc, renderMediaSlot: renderMediaSlot, focusField: focusField };
   }
 
   function adminRenderEditor() {
@@ -52078,7 +54550,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     findit: [{ h: "The globe, once selected", rows: [["Enter", "Drop a pin at the centre, then confirm it"]].concat(KS_MAPWIN) }],
     crossword: [{ rows: [["← ↑ → ↓", "Move between squares"], ["Backspace", "On an empty square: step back"],
                          ["Enter", "The next clue"]] }],
-    pie: [{ h: "The pie, once selected", rows: [["← →", "One per cent less or more"], ["Page Up / Down", "Ten per cent"],
+    pie: [{ h: "The pie, once selected", rows: [["← →", "1% less or more"], ["Page Up / Down", "Ten per cent"],
                    ["Home / End", "0 or 100 per cent"], ["Enter", "Lock in your answer"]] }],
     admin: [{ rows: [["↑ ↓", "The previous or next entry in the list"], ["Ctrl + Z", "Undo the last edit"],
                      ["Ctrl + B / I", "Bold or italic, in a text field (U: underline, in the rich editor)"]] }],
@@ -52151,7 +54623,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u", "timeline", "weak", "year"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whoisthis", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u", "timeline", "weak", "year"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
@@ -52220,6 +54692,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   render();
   applyLang();   // localize the freshly rendered page + static chrome, set dir/lang, install the i18n observer
   applyUnits();  // …and put every measurement into the one system this reader has chosen, popups included
+  applyEra();   // BC / AD for a reader who chose it; nothing at all for BCE / CE
   applySpelling();   // …and every spelling likewise; a British reader pays neither a pass nor an observer
   // A non-English reader paints in English for the moment it takes the lazy translation tables to
   // arrive, then repaints translated. English readers never fetch them, and never pay a second render.
@@ -52427,6 +54900,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     bookHold = { book: p2.id, card: b.dataset.cqcard || "", rec: current.name === "study" ? readStudySession() : null };
     route("book", p2);
   });
+  /* A CARD'S "WHOLE TIMELINE" LINK, WITH A WAY BACK (2026-11-19, on request). Delegated like the quotation's button, so
+     every surface that draws a card back (the study page, `#card`, the card of the day, Card info) is covered. The study
+     record is captured BEFORE routing, which clears it (`tlHold`; PAGES.timeline draws the pill). A modified click
+     (new tab, new window) is left to the browser. */
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a.tl-all");
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const m = /#timeline\/(.+)$/.exec(a.getAttribute("href") || "");
+    if (!m) return;
+    e.preventDefault();
+    let q = m[1]; try { q = decodeURIComponent(q); } catch (er) {}
+    const tl = a.closest(".tl");
+    tlHold = { card: (tl && tl.dataset.tl) || "", rec: current.name === "study" ? readStudySession() : null };
+    route("timeline", { q });
+    window.scrollTo(0, 0);
+  });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
@@ -52452,7 +54941,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!el || el.disabled) return;
     const g = el.closest(".grade");
     if (g) { sfx(g.classList.contains("again") ? "bad" : (g.classList.contains("good") || g.classList.contains("easy")) ? "good" : "click"); return; }
-    if (el.id === "reveal-btn" || el.closest(".card-img")) { sfx("pop"); return; }
+    if (el.id === "reveal-btn") return;   // the reveal sounds from showAnswer itself (button, Enter and Space alike)
+    if (el.closest(".card-img")) { sfx("pop"); return; }
     if (el.classList.contains("switch") || el.getAttribute("role") === "switch") { sfx("toggle"); return; }
     sfx("click");
   }, true);
@@ -52540,8 +55030,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession() || atlasHold || (bookHold && bookHold.rec);   // …or the session a card window's globe button (Phase 4b) or a quotation's book button left behind
-      atlasHold = null; bookHold = null;
+      const rec = readStudySession() || atlasHold || (bookHold && bookHold.rec) || (tlHold && tlHold.rec);   // …or the session a card window's globe button (Phase 4b), a quotation's book button or a "whole timeline" link left behind
+      atlasHold = null; bookHold = null; tlHold = null;
       if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
     }

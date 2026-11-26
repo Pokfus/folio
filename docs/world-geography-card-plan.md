@@ -11,6 +11,10 @@ for the second and third seats of the ten countries that have more than one). It
 `gw-801`–`gw-850`) and **Mountains, deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-950`) — map
 questions on a locator, as the US and China physical decks; see "The physical decks" below.
 
+**An ISLANDS deck was added on 2026-11-19** — **The largest islands** (`geo-world-islands`,
+`gw-301`–`gw-330`), the thirty largest islands on Earth by area, map questions on a locator like the two
+physical decks; see "The islands deck" below.
+
 **THE COLLECTION HAS A THIRD DECK AND A SECOND PLAN, AND THIS FILE IS NOT IT.** `flags-world` asks the
 same 233 entities a second way — the card shows a flag and the reader names whose it is — and its whole
 answer side is the `gw-NNN` twin's, copied verbatim. It shipped as a collection of its own and was moved
@@ -9411,6 +9415,7 @@ knowledge, and the Tiber (`rm-003`), whose importance is Rome's.
   triangles would draw mountains where the feature is a trough. It is named in the backgrounds of the
   lakes and peaks it holds (Tanganyika, Kilimanjaro, Kenya, the Dead Sea).
 - **Islands, peninsulas and continents**: landforms of another kind, and a deck of their own if wanted.
+  (The islands got one on 2026-11-19: "The islands deck" below.)
 - **Glaciers, ice sheets and Antarctica's features**; springs and aquifers; reservoirs; national parks as
   parks; man-made caves — as in the US and China plans.
 - **The long tail that fifty cannot hold**, named so that leaving it out is a choice, not an oversight:
@@ -9483,6 +9488,88 @@ and continents. A plan line is a subject to research, not a fact: re-order, re-b
 the same commit as its card when the research says so, and record it here.
 
 ---
+
+## The islands deck — the thirty largest islands (2026-11-19, planned before any card)
+
+Added 2026-11-19, on request ("add a deck with the world's largest islands"): **The largest islands**
+(`geo-world-islands`, `gw-301`–`gw-330`), thirty cards. The band 301–330 lies in the unused gap between
+the countries (`gw-001`–`233`) and the capitals (`gw-501`+), so it can never be read as a country's +500
+pair or as a continuation of the mountains.
+
+**It is the physical decks again** ("The physical decks" above is the rulebook, and everything it says
+holds unless this section says otherwise): every card is a MAP QUESTION, `locator.ask: true`, a point
+fetched from the island's own article with a `zoom` that frames the whole island, and the question is
+the short prompt only — "The island marked on the map is ___." — with no `questions` phrasings. The
+ten-sentence background is the island's HISTORY (its settlement, its naming, how it was reached, mapped,
+divided and governed) and never repeats the facts grid; three `why`; `undatable: true` and an empty date
+line; `difficulty` by how well the NAME is known; the source bar by difficulty; tag 1 `place`, then
+`geography`, `world`, the continent or ocean region, `island`, and the countries. Category `Geography`.
+
+**What "largest" means, and whose ranking.** The running order is the list of islands of 1,000 km² or
+more ranked by area from the USGS / Esri / UNEP-WCMC *Global Islands* data set (2026 figures), which
+counts the island alone (Greenland's main island, not the territory; the Isla Grande, not the whole
+Tierra del Fuego archipelago). **Australia is not in the deck**: it is counted as a continent, and the
+card for Greenland may say that Greenland is the largest island only because of that convention. Other
+authorities give other areas, and near neighbours swap places between lists (Cuba, Luzon and
+Newfoundland; Hokkaido, Hispaniola and Sakhalin), so **the facts grid's Area names whose figure it is in
+`notes`, and a background never claims a rank its own source does not give.**
+
+**The order is by area, not by how well the name is known** — the one departure from the physical
+decks' axis, because the ranking IS the subject of the deck; `difficulty` still follows the name.
+
+**Antarctica's ice-covered islands are in where the ranking puts them** (Alexander Island at 28; Berkner
+Island, 31st, falls outside): the physical decks' exclusion of "Antarctica's features" was about
+glaciers and ice sheets, and an island in the list is an island. Its Countries cell says that no state
+owns it and names the claims, sourced, without adjudicating.
+
+**Six islands are also countries or territories carded in the countries deck** — Greenland (`gw-204`),
+Madagascar (`gw-049`), Cuba (`gw-087`), Iceland (`gw-178`), Ireland (`gw-121`) and Sri Lanka
+(`gw-061`). Each island card answers the same term and pairs with the SAME glossary entry, as the
+physical decks' repeats do, and **it is written from the island's angle so the two never repeat each
+other**: its formation and first settlement, how it was reached and named, its natural history, and its
+division where it is divided — the country card's political history is read first and not retold. The
+glossary entry `Ireland` describes the state; the island card reuses it rather than writing a second
+term for one name. New Guinea, Borneo, Great Britain and Hispaniola are divided islands whose countries
+have their own cards; the island card is about the island.
+
+### The facts grid
+
+    Island:   Area              | Highest point
+              Countries         | Lies in (the ocean or sea)
+
+Write `"?"` where no opened source gives the cell, never a figure from memory.
+
+### Sourcing
+
+`srcTargetFor`'s bar, from the bodies whose job the island is: national statistical offices and
+geological surveys (Statistics Canada, Natural Resources Canada, the Geospatial Information Authority of
+Japan, Statistics New Zealand, Ordnance Survey, Geological Survey of Ireland, the Philippine Statistics
+Authority, Geoscience Australia), Parks Canada and the national park agencies, UNESCO World Heritage
+pages, NASA Earth Observatory, explorers' narratives in published translation, and journal articles with
+DOIs. Never Wikipedia; never a source not opened; every URL curled before the card is committed.
+
+### As written (2026-11-19): COMPLETE at 30 of 30
+
+Drafted by six research helpers from sources they opened, reviewed here, imported through
+`import-batch.js`: 19 new glossary terms, the other eleven answers reusing existing terms. Every cited URL
+was re-curled; the Canadian Encyclopedia's six pages answer 403 to scripted fetches (its bot wall, read in a
+browser, as in the physical decks), and every Europe PMC full-text API link was moved to the same paper's
+`pmc.ncbi.nlm.nih.gov/articles/PMC…/` page, because the API answered 503 to a batch check. What the
+writing decided:
+- **The Area cell is rarely the *Global Islands* figure** the running order follows: no helper could open
+  that data set, so each card gives the figure its own sources print (Statistics Canada via the Canadian
+  Encyclopedia, LINZ, the Japan Statistical Yearbook, the ABS, FAO AQUASTAT, journal papers) and several
+  are the whole territory's or a district's figure rather than the main island's (Greenland, Madagascar,
+  Iceland, Java). Eight Area cells are `?` where no opened source gave the island alone (Sumatra, Great
+  Britain, Hokkaido, Hispaniola, Sakhalin, Alexander Island, Isla Grande de Tierra del Fuego, Severny
+  Island); the highest point is `?` on ten.
+- **`Sakhalin` is a new term for the island**; `Sakhalin_Oblast` keeps its alias "Sakhalin", which its
+  Atlas pin depends on (the registry row is named "Sakhalin"), and the bare name links to the island
+  because a term's own name wins over another's alias (`buildGlossIndex`).
+- Atlas places on 4 of the 30 (what `migrate-places.js` derives today); the rest want registry rows.
+- Not in the text for want of an opened source: the Soviet taking of southern Sakhalin in 1945, the
+  1930 Canada–Norway settlement over the Sverdrup Islands, the name "Tsar Bomba", and the removal of the
+  Nenets from Novaya Zemlya.
 
 ## The day UNdata stopped existing — 864 citations, migrated rather than replaced (2026-09-14)
 
@@ -10143,3 +10230,39 @@ The major features first left to another collection's card:
   gw-948  Appalachian Mountains (repeats `geo-903`)
   gw-949  Mount St. Helens (repeats `geo-905`)
   gw-950  Mammoth Cave (repeats `geo-908`)
+
+## The largest islands — `geo-world-islands`
+
+Thirty cards: the thirty largest islands by area, in the order of the *Global Islands* figures (see "The
+islands deck" above), map questions on a locator.
+
+  gw-301  Greenland (the island; the territory is `gw-204`)
+  gw-302  New Guinea
+  gw-303  Borneo
+  gw-304  Madagascar (the island; the country is `gw-049`)
+  gw-305  Baffin Island
+  gw-306  Sumatra
+  gw-307  Honshu
+  gw-308  Victoria Island
+  gw-309  Great Britain
+  gw-310  Ellesmere Island
+  gw-311  Sulawesi
+  gw-312  South Island
+  gw-313  Java
+  gw-314  North Island
+  gw-315  Newfoundland
+  gw-316  Cuba (the island; the country is `gw-087`)
+  gw-317  Luzon
+  gw-318  Iceland (the island; the country is `gw-178`)
+  gw-319  Mindanao
+  gw-320  Ireland (the island; the state is `gw-121`)
+  gw-321  Hokkaido
+  gw-322  Hispaniola
+  gw-323  Sakhalin
+  gw-324  Banks Island
+  gw-325  Sri Lanka (the island; the country is `gw-061`)
+  gw-326  Tasmania
+  gw-327  Devon Island
+  gw-328  Alexander Island
+  gw-329  Isla Grande de Tierra del Fuego
+  gw-330  Severny Island

@@ -2791,3 +2791,115 @@ chapter's first prose paragraph is set in ordinary case after the lift, each one
 Re-run after touching: `node .claude/fetch-book.js hobbes-leviathan --force` (49 pages; Wikisource throttles
 hard — expect a page a minute), check "878 marginal note(s) fenced, 878 lifted" and the eight opening-word
 warnings, then `node .claude/book-audit.js`.
+
+## `cut` — one page per Book, cut at its printed chapter heads (Nov 2026, The Social Contract)
+
+`cut: (n) => k` → `cutAtChapterHeads(h, k, warn)`, applied to the fetched page before anything else reads it, like
+`between`. Cole's transcription gives each of Rousseau's four Books one wiki page and marks a chapter only by its
+centred head ("CHAPTER II", "Chapter I.", "Book IV Chapter I. That …"), sometimes with the title in a second centred
+block. The heads are counted and their numerals checked in order — a missing or misread head THROWS; part k runs
+from head k (and a title-only block after it) to head k+1. A string `k` cuts a named piece instead (the Foreword:
+from the head reading `FOREWORD` to the next centred block or transclusion). A Book's preamble before Chapter I is
+kept at the head of the first chapter under a fenced "Chapter I" line, which `liftChapterFence` turns into a
+`bk-head` after `cleanBody` (it also drops spacer paragraphs). A page is fetched once per run (`CUT_PAGES`), and only
+the notes a part's own markers open are kept, as for `between`.
+
+- **`api` falls back to index.php on the API's rate-limit notice**: api.php answered every request of the session
+  with "You are making too many requests"; `action=render&useparsoid=0` returns the same legacy markup.
+- **`original.prep: "contrat"`** (`contratPrep`): French Wikisource's `header=1` pages carry the header INSIDE the
+  transclusion as `ws-noexport` divs (removed balanced), each Book's first chapter carries the volume's half-title
+  and the Book's `<h2>`/`<h3>`, and a Book's last chapter a centred "Fin du Livre …"; the chapter's `<h3>` and italic
+  title go. **`original.page(n)` may return null** for a chapter the original does not carry.
+- **Check against a second witness.** Book IV's scan pages are unproofread; a token diff of the whole import
+  against Gutenberg #46333 found every `reFixes` row. That printing differs (-ise, double quotes), so only
+  non-readings are fixed.
+
+Re-run after touching: `node .claude/fetch-book.js rousseau-social-contract --force` (five English and 48 French
+fetches), then check 49 sections, 47 notes, the two preambles' "Chapter I" heads, and `node .claude/book-audit.js`.
+
+## `prep: "kant"` — centred headings, table diagrams and notes on notes (Nov 2026, the Critique of Pure Reason)
+
+`kantPrep(h, warn)` runs on EVERY raw page of a section (the first page and each extra one of a `page(n)` array), before
+`notesOf` and `cleanBody`; `kantFinish` and `kantNestedNotes` run once on the assembled section. Three things Meiklejohn's
+1855 transcription does that the generic passes get silently wrong: **every heading is a `wst-center` div** (189 over 24
+pages, none over 240 characters), which the generic pass turns into a blockquote — each block is fenced with `@@KNH@@` and
+becomes ONE `bk-head` paragraph, its lines kept as `<br>` (splitting per line would cut through spans that wrap two lines,
+and the stripper drops the half it never saw open); a block over 300 characters or holding a table is kept as text and
+warned. `wst-block-center` (the centred lists and verse) is left a blockquote. **Its tables are diagrams** — each non-empty
+cell becomes one paragraph of a blockquote, row by row; unwrapped, the cell heads landed outside every paragraph between
+`<br>`s. **A row of asterisks is a display:block span**, sometimes mid-paragraph — it becomes `<p>* * * * *</p>`, splitting
+its paragraph. And **a note cited from inside a note** (Meiklejohn on Kant's note, twice) reaches the list uncited with a
+bare `&#91;N&#93;` in its parent — spliced into the parent in square brackets, dropped from the list, markers renumbered;
+any note still uncited is warned. The run prints "N heading block(s) fenced, N lifted, …" and MISMATCH if the two differ.
+Gated on `prep === "kant"`, so inert on every other book.
+
+Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason --force` (24 pages), check "181 heading
+block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
+`node .claude/book-audit.js`.
+
+## The `monumentum` layout — three columns per chapter on LacusCurtius (Nov 2026, the Res Gestae)
+
+`extractMonumentum` / `monumentumGroups` / `monumentumEnglish` / `monumentumLatin` / `monumentumPages`; the six pages
+cached as `.claude/book-cache/augustus-res-gestae/en-<n>.html`, accepted only when `</HTML>` has arrived. What is worth
+carrying to the next LacusCurtius book set as a table:
+
+- **One row per chapter, a cell per language** (`<TD CLASS="Latin|Greek|English">`). The English cells are joined into a
+  page of their own with the page's EXPLANATORY notes only (after `<A ID="endnotes_explanatory">`) and handed to
+  `extractThayer`, so Thayer's notes, `º` marks and line numbers go by the Diodorus rules. The critical notes (`#cnoteN`)
+  are on the Latin and go with their markers.
+- **Strip `on…=` attributes with `on[A-Za-z]+=`** — `on[A-Z][a-z]+=` does not match `onMouseOver`, and the pop-up markup
+  then leaks (`º` in the Latin was the symptom). Thayer's `conversion` / `glossary` bullets (`•`) go too.
+- **Number a chapter by its visible figure, not its anchor**: the Latin of chapter 34 is anchored `NAME="34G"`.
+- **The Loeb prints supplied words in italics**; Thayer's `<SPAN CLASS="emend">` becomes `<i>` on the Latin side only.
+- **A note on a heading outside the table** (the Summary's 145) is moved after the first chapter number of its group.
+- Re-run after touching: `node .claude/fetch-book.js augustus-res-gestae` (reads the cache), compare the two columns'
+  `data-n` lists per Part, and grep the output for `Thayer`, `º`, `•`, `onMouse`.
+## `original.prep: "cousin"` — a header inside the transclusion, and a note off the work page (Nov 2026, the Discourse on the Method)
+
+`cousinPrep(h, warn)` runs in `originalChapter` on Victor Cousin's *Discours de la méthode* (1824) on French
+Wikisource. As with the Contrat, each page carries the wiki header INSIDE `prp-pages-output` as `ws-noexport` divs
+(removed balanced); each Part opens on an `<h2>` "PREMIÈRE PARTIE." (removed; a page without one is warned); Part VI
+ends on Cousin's centred "FIN DU DISCOURS DE LA MÉTHODE." and a spacer (removed). Section 1 is Descartes's prefatory
+note, which stands on the WORK page between Cousin's bibliographical note, the title and the contents list: only the
+`alinea` div holding "Si ce discours semble trop long…" is kept, as one paragraph. Gated on `prep === "cousin"`.
+
+On the English side, Veitch's Part VI head is typed "РАRТ VI." with Cyrillic Р, А, Т — a `dropHeads` pattern in
+Latin letters alone leaves it as a blockquote at the top of the section, and nothing throws.
+
+Re-run after touching: `node .claude/fetch-book.js descartes-discourse-on-method --force` (7 English and 7 French
+fetches), check 7 notes, the three `reFixes` applied once each, no `<blockquote>` in either file, and
+`node .claude/book-audit.js`.
+
+## `head: "letter"` — a letter titled from its own printed heading (Nov 2026, Jerome's Letters)
+
+Fremantle's edition (NPNF II/6) heads every letter with one plain paragraph — "Letter XIV. To Heliodorus, Monk." —
+and Wikisource's contents page lists only "Letter 1" … "Letter 150", so the heading is the one place the
+addressee is named. `letterHead` reads it off the RAW page before cleanBody (reference `<sup>`s stripped first,
+numeric entities decoded so "Æmona" is stored as the character), **checks the numeral against the page asked for**
+and warns on a mismatch, and returns the rest as the title; the paragraph itself is then peeled by the book's
+`dropLeadParas` (capped at 100 characters after the numeral, so prose cannot match), with `dropHeadMarkers`
+carrying any footnote marker down. A page with NO heading is not guessed at: only `headSupplied[n]` is used, each
+with its source in a comment (Letter 148, from CCEL's copy of the same edition), and the run prints how many
+titles were read and how many supplied. One trap met on the way: the rule under the volume's half-title arrives as
+twelve `&#8212;` entities, and `dropLeadParas` flattens entities to spaces, so `/^[—–-]{3,}$/` cannot see it — the
+entry declares `/^$/` for a block of nothing but entities.
+
+Re-run after touching: `node .claude/fetch-book.js jerome-letters --force` (150 pages), check "149 letters titled
+from their own printed heading, 1 from a heading the entry supplies" and "648 section numbers across 150 chapters
+— 71 chapter(s) with NONE" (the summaries), then `node .claude/book-audit.js`.
+## `prep: "euclid"` — two markups of a centred head, figures and marginal references (Nov 2026, the Elements)
+
+`euclidPrep(h, warn)` runs on the raw page and hands its result to `kantPrep` (so the heads are fenced and lifted to
+`bk-head` exactly as the Critique's are); `kantFinish`, then `euclidFinish`, run on the assembled book. Todhunter's 1872
+transcription centres its heads in TWO markups — a `wst-center` div on some pages, a `<p style="text-align:center">` on
+others — and the second is rewrapped as the first. **A centred line is not always a head**: a proof's conclusion is centred
+too ("Wherefore the triangle ABC is equilateral,"), and every head is in capitals, so a centred block with a lower-case
+letter is unwrapped as text. **Figures** (`<figure>`, often mid-sentence) are dropped and counted. **The marginal
+references** ("[Postulate 3.", right-floated spans) are kept inline after a space. `euclidFinish` wraps any top-level run
+outside every paragraph — a figure often leaves one, opening on a tag (`<i>Note</i>.`), which `wrapLooseText` (text-only)
+cannot see — its newlines made spaces. The run prints "N figure(s) dropped, … loose run(s) wrapped". Gated on
+`prep === "euclid"`; the Critique's path is unchanged.
+
+Re-run after touching: `node .claude/fetch-book.js euclid-elements --force` (8 pages), check "277 figure(s) dropped", "216
+heading block(s) fenced, 216 lifted", the six `fix applied 1x` lines and "refix applied 49x", then `node .claude/book-audit.js`
+(one finding, IV. 13–14's shared construction, is genuine).

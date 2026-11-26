@@ -49,7 +49,7 @@ entity ids — measured). So the key is retired and the windows read the places 
   back). A locator's `name` and `at` are the card's own label and point — the registry's point is Wikidata's and
   differs on most cards (452 of 1,899 resolved locators within a metre, median 0.56 km, 90th percentile 8.8 km; the
   name differs on 334) — and 1,412 cards with an old field have no place at all; its `kind`, `area`, `spine`,
-  `within`, `label`, `hide`, `also`, `rivers`, `ask` and `zoom` are the drawing and the question. The sibling dots
+  `within`, `label`, `hide`, `alone` (2026-11-18: the place is drawn on its own card's window only, never as a sibling), `also`, `rivers`, `ask` and `zoom` are the drawing and the question. The sibling dots
   read every locator of a collection on the eager path, where `places` and the registry are lazy and the windows'
   hub deliberately loads no gazetteer. A war block's sides, outcome, names (the legend), authored extents, years and
   `group` are the question; its places are derived from it (`wars.js`, `test-war-sides.js`'s pinned hash) and say
@@ -778,6 +778,9 @@ Cliopatria folds into an empire or an occupation that year (Canada, South Africa
 Republic) are drawn with their own later row through `rowsAt: [[1920, 1920, rowYear]]`, their borders being the same, and
 the entity's note says so; the Spanish empire's composite stands aside in 1920 (`exceptYears`) for Spain alone.
 `cnh-656` uses the same block with `label: "Territory"` for one state's own present-day ground.
+A group may also name history.bin **extents** (`pol:ext_…`, 2026-11-19, `gr-231`: Lacedaemon as `pol:ext_sparta` + `pol:ext_messenia` in 600 BCE): the window paints them itself — the group's tint and one outline round their union — at a year they are alive in, and on the still renderer leaves the present-day `keys` untinted (docs/atlas-v2-card-windows.md "An extent as a members group").
+
+**A state `history.bin` does not carry** (2026-11-20): a group's id may be a BORDER PACK's state (`pol:russian_empire`, ru-276 and ru-341; `pol:goguryeo`, ko-106; `pol:silla`, ko-161) — the card is written the same way, `members.year` one of the pack's years. Add one with `node .claude/atlas-build/add-border.js <key> --cliopatria "<Name>" --years A,B --card <id>`, never by rebuilding `history.bin` (📖 `docs/atlas-v2-border-packs.md`).
 
 ### Three groups, a zoom and a timeline (`members.span`, 2026-10-29, on request)
 
@@ -790,10 +793,23 @@ steps are the years inside the span at which any of the groups' entities begins,
 `year` where that is a step, else at the halfway point. With no seat (`at`) a members window on a past year names nothing
 of its own — its present-day `keys` are only the fallback and the frame.
 
+**A group may name a people or a culture** (2026-11-20, on request: "in the atlas window I do not see the Hunnic empire highlighted",
+`rm-630`, `pol:huns`). Such an entity is a presence, not a state face, and the window used to switch the peoples off, so it drew
+nothing. A members window on a past year now sets `peoples: "all"` with `peopleOnly` = its groups' ids (`|`-joined; `presShown` in
+`atlas.js` accepts one id or several), so only its own peoples are drawn and no other people's, and a people whose id the window
+tints (`setTints`, not Find it's flat area round) takes the tint's colour for its stipple at 0.9 with a soft wash (`PRES_TINT_WASH`)
+instead of the neutral ink (`presenceDraw`). The presence has no outline (the mask pass outlines states only).
+
 ## A locator's extra places and hidden siblings (`locator.also`, `locator.hide`, 2026-10-29, on request)
 
 - `also: [{ name, at: [lon, lat] }]` — further places of the card's OWN subject, drawn as named dots beside its own
   (`jp-018`: Ōyu and Isedotai). The coordinates are fetched (Wikidata P625 or the article), never typed.
+- `also[].role` (2026-11-18, on request: "all cards about specific individuals should have at least two locations highlighted: their birth
+  location and death location … the state they ruled … including its capital with a square icon"): `"birth"`, `"death"` or `"capital"` draws the
+  place in the card's own gold — a capital as the square — and names it before any sibling; the window then opens framed on the locator's dot and
+  every role'd place together (`fit`, at most zoom 10). An entry with no role keeps its red sibling dot. `also[].label: true` is a region's name
+  alone, italic, with no mark (`eg-004`'s Upper and Lower Egypt). A members window on a past year's borders draws its seat (`at`) as the square — only when the card has no locator: with one, the dot is the locator's place and is the square only by `locator.role` (2026-11-19: `rm-371`'s Nola, Augustus's death place, was drawn as a capital; `ownSquare` in `atlas-windows.js`). `locator.role: "capital"` marks the card's own dot as a ruler's capital and draws it as the square (61 ruler cards whose capital is
+  their own dot, written by the person-places pass of 2026-11-18).
 - `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
   studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within
   0.03°) is never drawn a second time.
@@ -806,3 +822,91 @@ of its own — its present-day `keys` are only the fallback and the frame.
 `russia-subjects` — instead of `world`; `ko-006` shades Heilongjiang, Jilin and Liaoning as Manchuria. A present-day
 members window with no seat (`at`) now names its group (`data-map-name`, written by `cardLocatorWindowHTML`) rather
 than its first key. `test-map-cards.js` §1 checks the keys against the named layer.
+
+## A state of the past as the question (the `past-states` layer, 2026-11-19, on request)
+
+> "The cards should show an atlas window showing a highlighted state's borders and ask something along the lines of
+> 'What was the highlighted state in the year [year when greatest extent of borders was reached]'."
+
+The Historical States collection (`geo-states`, prefix `hs-`; 📖 `docs/historical-states-card-plan.md` has the rules of
+its cards, what is in and what is left out) is a map card on a sixth layer whose shapes are not a shape file but the
+polities of `atlas/data/history.bin`, each drawn in ONE year.
+
+- **The layer** is generated: `build-card-faces.js` (`PAST_LAYERS`) writes `layers["past-states"]` into
+  `atlas/data/card-faces.js` — key (the Atlas's name for the state in that year) → `[entity id, label lon, lat, west,
+  south, east, north, year, view lon, view lat, zoom]` — for every `polity` of the history that is not a 1920
+  `snapshot` series of `.claude/polity-spec.json`. The year, the zoom and the box are `entityExtent`
+  (`build-glossary-places.js`, the glossary windows' rule: the first year in which the area of the state's faces is
+  largest); the view's centre is the middle of the box (a box half the globe wide keeps the area-weighted centre); the
+  label point is the anchor of the largest face alive that year, a point inside the state. `card-neighbours.js` gets
+  the layer's neighbours, exact: the polities whose faces of that year share an arc with the state's.
+- **The card**: `map: { layer: "past-states", key }`, the key dropped once `places` carries the registry id (`pol:…`,
+  a registry row), exactly as every other map card. The YEAR is not stored on the card: the window reads it from the
+  layer's row, and the card's question says it in words — `add-card.js` refuses a card whose question does not name
+  the row's year, and `build-card-faces.js --check` (CI) fails when a rebuild of the history moves it.
+- **The window** (`pastLayer` in `atlas/atlas-windows.js`; `past: true` in `CARD_MAP_LAYERS`): `needHistory: "full"`
+  on the hub, then it WAITS for the history before it mounts (a glossary window draws today's map meanwhile; a
+  question must not), and draws `year` with `neutral`, the entity as the one `exact` highlight, rivers and lakes on,
+  today's provinces off. Before the answer nothing is named; after it the state is named by the card's `answerText`
+  at the label point and the other states of the year by `otherStateNames`. No studied siblings, no scope switch.
+- **Where the year cannot be drawn** — the still Canvas 2D renderer (no WebGL2), a refused or failed fetch of
+  `history.bin` (`hub.historyFailed()`, new on the hub and on the engine's controller), a hub another window holds on
+  a war slice, the file copy of the site (no twin of the whole history) — the window is the plain sentence
+  (`.mc-plain-note`) and the rest of the card is intact.
+- **Cost**: a card's window fetches the whole history (9.1 MB, cached by the browser after the first card) and the
+  water file; `card-faces.js` grew by 16 KB for the layer's 157 rows.
+- **Guarded by** `.claude/test-past-states.js` (the layer against `history.bin`, every `hs-` card's year in its
+  question and date line, the window's spec and pixels before and after the answer, both fallbacks) — re-run after
+  touching `pastLayer`, `PAST_LAYERS`, `entityExtent` or the layer's rows in `CARD_MAP_LAYERS` / `MAP_LAYERS`.
+
+### A set of areas in two shades (`members.areas`, 2026-11-20, on request)
+
+> "Add an atlas window depicting the areas of all current Indian reservations and a second shade for former Indian reservations." (`us-084`)
+
+`members.areas: { set, shades: [{ name, note }, { name, note }] }` names a GENERATED set of rings, `atlas/data/<set>.js`
+(lazy bundle `area:<set>` in `DATA_BUNDLES`), and the window paints its first part in a strong gold (`TINT_AREA1`) and its
+second in a lighter gold (`TINT_AREA2`) on its own canvas, cut by the land mask exactly as a locator's authored `area` is
+(`paintMasked` in `atlas-windows.js`) — no engine primitive, so WebGL2 and the Canvas 2D path draw it alike. `keys` may be
+empty: the set's `frame` opens the window. The key above the window has one row per shade, then the card's `note`.
+**The window draws only as many parts as the card names shades** (`data-map-areas-n`, 2026-11-26, on request: "Remove the
+former Oklahoma territories from the atlas"): us-084 now names one shade, so the set's second part — the former Oklahoma
+reservations — is in the file and is not drawn. Name the second shade again to bring it back.
+- **The one set, `us-reservations`** (`.claude/atlas-build/build-area-sets.js`, 117 KB): the Census Bureau's 2023 AIANNH
+  cartographic boundary file (public domain, pinned as `census-cb-2023-aiannh`), simplified at 500 m. "current" =
+  reservations with their off-reservation trust land (MTFCC G2100) and legal joint-use areas; "former" = the Oklahoma tribal
+  statistical areas (G2140, and their joint-use areas), which the Census Bureau defines as the boundaries of the former
+  reservations in Oklahoma. **No open dataset classifies former reservations elsewhere** (the USFS digitisation of Royce 1899
+  draws cessions and reservations without saying which is which), so the legend says "in Oklahoma", and the card's note
+  says that courts since *McGirt v. Oklahoma* (2020) have held several of them never disestablished.
+- Guarded by `build-area-sets.js --check` (CI, offline), `test-map-cards.js` §1 and `test-atlas-windows.js` §11.
+
+## A route as the locator (`kind: "route"`, `routes`, 2026-11-20, on request)
+
+> "In the atlas window, remove Dunhuang and instead draw lines showing the common routes of the Silk Road." (`cnh-230`)
+
+`locator: { name, at, kind: "route", routes: [[[lon, lat], …], …] }` — each route an ordered list of stopping places that a
+source names, their coordinates the gazetteer's (or Wikidata's), never typed. `cardLocator` keeps the routes that validate
+(`locPts`), `cardLocatorWindowHTML` writes them as `data-map-routes` (points by a space, routes by `;`), and
+`atlas/atlas-windows.js` draws each as a DASHED gold line on a dark casing — schematic, the stops joined in order, which the
+dashes say — with no dot (a route is drawn as a wall is: `isWall`), frames the window on them, keeps names off them, and
+writes the card's own name at `at` (or `label`). The `at` point only places the name.
+
+### A group's `minus`, `overWar`, and a pack state's `rowYears` (2026-11-26, on request)
+
+> "In the atlas window, highlight the Roman Republic borders at the time of his death, with a secondary shade for the areas that he added to it." (`rm-343`)
+> "Remove the atlas map, I dislike the way it looks. Then rebuild it in our usual style, showing the states of Athens and Sparta in 431." (`gr-521`)
+
+- **`members.groups[].minus: ["pol:…"]`** — ids whose ground the group's shade and outline leave out (`app.js` passes them as `-pol:…` in
+  `data-map-groups`; `atlas-windows.js` `memMinus`, clipped even-odd in `paintExtents`). The ids must be painted ones (a border pack's state or an
+  extent). rm-343: gold = the Republic as in 59 BCE (`pol:roman_republic_pre_caesar`), blue = the Republic of 44 BCE minus it, i.e. Caesar's gains.
+- **`members.overWar: true`** — the card keeps its `war` block (wars.js, the war sides' pinned hash and history.bin's extents are built from it) but
+  its window is the members window (`cardLocatorHTML`). gr-521 shows `pol:ext_athens_and_its_empire` and `pol:ext_sparta_and_its_allies` in 431 BCE.
+- **A pack state's `rowYears: { "<year>": <rowYear> }`** (`lib/border-packs.js`, build-history.js `rowsAt`'s third element) draws the state in a
+  year by another year's row — the Republic of 59 BCE in the window's year 44 BCE. Keep such a state in its OWN pack: in one pack two overlapping
+  rows of similar size are a contested face, which the checker refuses.
+- **A locator region's `land: true`** (2026-11-26, on request, wh-436: "when you select a broad region on the backend, all islands and land within
+  that region is highlighted with its own borders"): draw the rings out into the sea as generously as you like — the fill is cut by the land mask, so
+  the coast and every island inside the rings come from the land itself — and the dashed outline is the union's outer edge only (`LAND REGIONS` in
+  `atlas-windows.js`), so a sea ring laid over a coast draws no seam across land. Only a border that crosses LAND needs authoring. Give every ring
+  the same winding (the fill is non-zero). wh-436 keeps its land rings and adds four sea rings (the Aegean and Crete, the eastern Mediterranean and
+  Cyprus, the central Mediterranean with Sicily, Sardinia and Corsica, the Balearics).

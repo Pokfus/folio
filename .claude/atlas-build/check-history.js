@@ -160,6 +160,7 @@ const KNOWN_FAULTS = {
   // Phase 2b, the cards' extents against every series (checked against the raw rows as above)
   "Megara -413 out pol:peloponnesian_league": "Cliopatria's peloponnesian_league row of -413 includes Megara where the card's extent leaves it out (gr-561)",
   "Zhengzhou -1046 in pol:shang": "Cliopatria's shang row of -1046 leaves Zhengzhou outside where the card's extent has it in (cnh-103)",
+  "Zhengzhou -1122 in pol:shang": "Cliopatria's shang row of -1240..-1101 leaves Zhengzhou outside where the card's extent has it in (cnh-103; the year is the card's traditional date, on its date line since 2026-11-12)",
   "Philadelphia 1779 in pol:usa": "Cliopatria's usa row of 1779 leaves Philadelphia outside where the card's extent has it in (us-071)",
   "Newtown 1779 out pol:usa": "Cliopatria's usa row of 1779 includes Newtown where the card's extent leaves it out (us-071)",
 

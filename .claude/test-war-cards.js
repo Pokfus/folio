@@ -344,8 +344,8 @@ localStorage.setItem("folio_tour_v1", "1");`;
   const key = await page.$$eval(".war-key .wk-side", (els) => els.map((e) => e.textContent.replace(/\s+/g, " ").trim()));
   check("a legend names both sides", key.length === 2 && /Rome/.test(key[0]) && /Carthage/.test(key[1]), key.join(" | "));
   check("...saying which won and which lost", /victors/.test(key[0] || "") && /defeated/.test(key[1] || ""), key.join(" | "));
-  check("...and it sits OUTSIDE the locator block, so the Atlas popup keeps it",
-    await page.evaluate(() => !document.querySelector(".card-loc .war-key") && !!document.querySelector(".war-key")));
+  check("...and it stands ABOVE the window, under the heading (2026-11-18)",
+    await page.evaluate(() => { const k = document.querySelector(".card-loc > .war-key"), h = document.querySelector(".card-loc .map-card"); return !!k && !!h && k.getBoundingClientRect().bottom <= h.getBoundingClientRect().top + 1; }));
   const alt = await page.$eval(".map-loc .mc-canvas", (e) => e.getAttribute("aria-label"));
   check("...and the canvas says it in words for a reader who cannot see it", /Rome.*victors.*green[\s\S]*Carthage.*red/.test(alt), (alt || "").slice(0, 110));
 

@@ -74,9 +74,18 @@
         startHistory: (kind) => E.startHistory(kind),
         historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice), "ww2" (the Second World War window's) or "full"
         historyOK: () => E.historyOK(),
+        historyFailed: () => !!(E.historyFailed && E.historyFailed()),   // the history file did not arrive: a window whose question is a state of the past prints the plain sentence (atlas-windows.js `pastLayer`)
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id, year) => E.warSides(id, year),
         statesAt: (year) => (E.statesAt ? E.statesAt(year) : []),   // the polities alive in a year, their faces and their names in it (Find it's reveal, Nov 2026)
+        /* the rings of the faces some entities have in a year, as unit vectors (2026-11-19: an extent named by a members group, which the engine draws only for a war): Promise of
+           { faces, rings: [Float32Array xyz …] }, or null while the history is not in */
+        entityRings: (ids, year, level) => new Promise((res) => { if (!E.entityRings) { res(null); return; } E.entityRings(ids, year, level, res); }),
+        /* BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): a state history.bin does not carry, in atlas/data/borders/<pack>.bin (which pack: atlas/data/border-packs.js).
+           `startPack` fetches it once into the worker's slot; `packState` is null | "loading" | "ready" | "failed"; `packRings` answers as `entityRings` does */
+        startPack: (name) => { if (E.startPack) E.startPack(name); },
+        packState: (name) => (E.packState ? E.packState(name) : "failed"),
+        packRings: (name, ids, year, level) => new Promise((res) => { if (!E.packRings) { res(null); return; } E.packRings(name, ids, year, level, res); }),
         warTimeline: (id) => E.warTimeline(id),
         entsTimeline: (ids, span) => (E.entsTimeline ? E.entsTimeline(ids, span) : null),   // a members window's steps: the years its states change inside its span (2026-10-29)   // the war's dated steps (years of change; the front's plate dates when the file has them): a war window's timeline
         /* a point inside each of the faces, on the visible part of the view the hub is in now (the worker's label anchor; `near`, [{ face, lon, lat }], searches a face in the piece nearest that point — a war window passes each side's principal's capital): Promise of [{ face, v: unit vector | null (the best point), pts: [{ v, clear }] (up to twelve, best first), clear (px of the view it was asked in), vis, km2 }] — a point on the sphere, not a screen
@@ -142,6 +151,9 @@
     fit(h, spec);
     const lay = spec.layers || {};
     L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
+    /* `admin1Box` (2026-11-18, on request: "all atlas windows within the World War II collection should also show US state borders"): [lon0, lat0, lon1, lat1] — the core admin-1
+       lines are drawn only inside it (the core carries the USA's, China's, Russia's and Britain's), and in a past year too, since a box's lines are the caller's claim for its years */
+    L.admin1Box = Array.isArray(lay.admin1Box) && lay.admin1Box.length === 4 && lay.admin1Box.every((x) => isFinite(Number(x))) ? lay.admin1Box.map(Number) : null;
     { const pw = lay.peoples || "off", po = lay.peopleOnly || ""; if (L.peoples !== pw || (L.peopleOnly || "") !== po) { L.peoples = pw; L.peopleOnly = po; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too; a glossary window (2026-10-23) ONE people's presence and no other (`peopleOnly`: the entity id; atlas.js presShown)
     if (!h.canvas2d && h.E.setFlat) h.E.setFlat(!!lay.flat);   // Find-it's area round: every state of the year in the land colour, borders as a modern country's
     L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
@@ -350,7 +362,9 @@
     /* A WINDOW'S OWN SWITCH (Oct 2026, on request: an icon button in each window): a device-local preference that OVERRIDES the Atlas's Legend switch for the windows only, strength still the Legend's.
        Absent = follow the Atlas, which is what every window did before the button existed. */
     let pref = null; try { pref = localStorage.getItem(RELIEF_PREF_KEY); } catch (e) { pref = null; }
-    reliefCache = { on: pref === "1" ? true : pref === "0" ? false : !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
+    /* A NEW READER (2026-11-22, on request): no window switch and no saved Atlas layers at all → relief ON in the windows; once either is saved, it decides as before. */
+    let saved = null; try { saved = localStorage.getItem("folio_atlas2_layers_v2"); } catch (e) { saved = null; }
+    reliefCache = { on: pref === "1" ? true : pref === "0" ? false : saved == null ? true : !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
     return reliefCache;
   }
   const RELIEF_PREF_KEY = "folio_window_relief_v1";

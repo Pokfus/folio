@@ -68,6 +68,12 @@ def gender_of(e):
     return ''
 
 
+def decl_of(e):
+    return [{'f': nfc(f['form']), 'r': f.get('roman', ''), 't': f.get('tags') or []}
+            for f in e.get('forms') or []
+            if f.get('source') == 'declension' and is_hindi(f.get('form', ''))]
+
+
 def is_formof(s):
     return 'form_of' in s or 'alt_of' in s or 'form-of' in (s.get('tags') or []) \
         or 'alt-of' in (s.get('tags') or [])
@@ -124,14 +130,20 @@ def main():
             # either; `select.py` resolves an inventory word through them.
             alts = [nfc(t.get('word', '')) for s in senses for t in s.get('alt_of') or []]
             if alts and all('alt_of' in s for s in senses) and is_hindi(alts[0]):
-                formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(alts[0])})
+                # `roman` (Nov 2026): the alternative spelling's OWN romanisation -- वसंत is
+                # vasant, and its card had been printing बसंत's basant.
+                formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(alts[0]), 'roman': roman_of(e)})
             elif pos in ('pron', 'det', 'postp'):
                 gl = [{'g': clean_gloss((s.get('glosses') or [''])[-1]), 'weak': False, 'tags': []}
                       for s in senses if s.get('glosses')]
                 L = formonly.setdefault(fold(w), {'word': w, 'entries': []})
                 if 'entries' in L:
+                    # `decl` (Nov 2026, the beginner pass): मेरा's own declension (मेरे, मेरी), for the
+                    # card's Forms row ONLY.  Never `table`: examples.py matches sentences on `table`,
+                    # and nothing about which sentences a card carries may move.
                     L['entries'].append({'pos': pos, 'roman': roman_of(e), 'gender': '',
-                                         'glosses': gl, 'table': [], 'urdu': '', 'formal_alt': []})
+                                         'glosses': gl, 'table': [], 'urdu': '', 'formal_alt': [],
+                                         'w': w, 'decl': decl_of(e)})
             continue
         gl = []
         for s in real:
@@ -146,7 +158,12 @@ def main():
         for f in e.get('forms') or []:
             if f.get('source') in ('declension', 'conjugation', 'inflection') and is_hindi(f.get('form', '')):
                 table.append({'f': nfc(f['form']), 'r': f.get('roman', ''), 't': f.get('tags') or []})
+        # `w` is THIS entry's own spelling (the lemma's `word` is whichever entry the dump listed
+        # first, and for सफ़ेद that is the nuqtaless pointer सफेद); `indecl` is Wiktionary's own
+        # "indeclinable" on an adjective; `aux` its auxiliary senses.  All three are read by
+        # build_deck.py alone: nothing here may change a frequency or a selection.
         ent = {'pos': pos, 'etym': e.get('etymology_number', ''), 'roman': roman_of(e), 'gender': gender_of(e), 'glosses': gl,
+               'w': w, 'indecl': pos == 'adj' and bool(real) and all('indeclinable' in (s.get('tags') or []) for s in real),
                'table': table,
                'urdu': next((f['form'] for f in e.get('forms') or [] if 'Urdu' in (f.get('tags') or [])), ''),
                'formal_alt': [nfc(f['form']) for f in e.get('forms') or []

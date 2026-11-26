@@ -358,6 +358,8 @@ The as-built note is `docs/atlas-v2-design.md` §7 "Phone fixes". Two owner deci
 
 **Which wars get one** (`node .claude/war-timeline-inventory.js`; 56 wars, 37 with a timeline, 19 without): a war whose picture has two or more DATED STEPS. For every war but one the steps are its CHANGE YEARS (the years of the war in which the faces of its two sides — each member inside its own window, the authored extent in the war's years — differ from the year before; Cliopatria dates a state to the year, so there is no month); for the one war that owns the front line (the front entities' `cards`: the Second World War, `ww2-001`) they are the front's PLATE DATES (93 distinct dates, 31 Aug 1939 – 15 Aug 1945, each YYYYMMDD, so each carries a month). The 19 without: a war whose sides never change a face in its years (the Third Punic War, the Social War, the Norman Conquest…) or whose only side is one static authored extent (the three Messenian wars, the Sicilian Expedition): nothing would move.
 
+**A card may opt out (2026-11-20): `war.year`** pins its window to that one year and mounts no timeline (`gr-521`, the Peloponnesian War at its start, 431 BCE; docs/war-cards.md "One map: `year`").
+
 **UPDATE (Oct 2026, on request): the pin ALWAYS opens at the halfway point of the rail** — the step nearest the midpoint of the war's first year and the year after its last (`startStep`, which now ignores the card's own date); the "opens at the last step / at the card's one year" wording below is history.
 
 **What the reader gets** (`mountTimeline`, `atlas-windows.js`, `.war-tl` in `styles.css`): a slim rail directly under the window, inside `.card-loc`; step-back, play/pause and step-on buttons; a pin that snaps to the steps; the war's first and last year at the rail's two ends; under the pin the step's month and year ("Jun 1944") where it has a month, else its year ("202 BCE"; a CE year bare from 1000). The pin opens at the step nearest the card's own date when the card's date line names ONE year inside the war, else at the war's last step (no war card names one: every window opens at the last). Moving the pin changes the SAME window's spec (`year`, `front`, `frontDate`) and calls `win.schedule()`; the hub is not recreated, nothing is reloaded; `data-map-year` follows, so the globe button opens the Atlas at the pin's year. It is a slider (`role=slider`, 1 to N, the value text carries the date and the step), the arrows, Home, End and the page keys move it, a press on the rail snaps to the nearest step, play steps on (800 ms, 380 ms from 60 steps) and pause holds, it follows Text size (`--fs`) and wraps to 360 px. A window that is the plain sentence (no WebGL2, the bundle refused) has none.
@@ -377,4 +379,65 @@ The owner's four requests, all in `atlas/atlas-windows.js` (`marks`, `scaleBar`,
 - **Area names are italic**: every own name that stands on its ground rather than beside a mark (a region, range, sea, shelf, water place, a glossary area or state) and a collection region's name among the siblings; a point's name beside its dot, and a wall's, stay upright.
 - **A water place draws no dot** — its name is blue (`waterInk`, the Atlas page's water-name ink from `atlas.js` `readPalette`) and italic, on its point; a river's own name on its line is the same. Which cards: `ATLAS_CARD_FACES.marks.water` (`build-card-faces.js`: the registry kind of the locator's place is river, lake, sea, ocean, strait or gulf; of the name fallback only a name that begins or ends with the water word), plus every `sea` and `river` locator; a glossary window by its registry kind (`data-map-placekind`; a lake is no longer drawn as the gold square). Where the outline is known — the locator's own `area`, or Find it's Natural Earth marine outline of the same name (`findit-waters.js`, bundle `atlas2waters`, fetched only for the cards in `marks.rings` and glossary seas, gulfs and straits) — the water is shaded (an outline borrowed from Find it is filled only: Natural Earth splits a sea into polygons whose shared edges would show as seams). **A water card asked as a question whose outline is not known keeps its gold dot until the reveal**: without it the window would mark nothing.
 - **A mountain or a hill is the peak triangle** (study.js `markClass` "peak"), in the own mark's gold: `marks.peak` for a card, the registry kind for a glossary window.
+- **A present-day capital is the square** (2026-11-20, the owner: "Ensure Rome and Athens always have square icons instead of dots in atlas windows"): the glossary windows' rule (registry kind `capital`) applied to the cards. `ATLAS_CARD_FACES.marks.capital` (`build-card-faces.js`) lists the 354 locators whose name or alias IS a registry capital's (Rome 89, Athens 47; not the Forum or the pomerium, whose first place is Rome); the window draws such a card's own mark as the gold square even beside siblings (`capitalCard`), a studied sibling at one as a red square (its card in the list, or its group named as one of those cards' places), and an `also` entry so named as the square (`capitalName`). Two duplicates went with it: the collection's home square where an `also` place stands (`gr-328`'s Athens), and a studied sibling of the same name as a role'd `also` place (`wh-327`'s Athens), are each drawn once, as the card's own.
 - **The scale bar**, bottom-left (the zoom column is top-right): a thin line with end ticks, a round 1, 2 or 5 × 10ⁿ in the reader's units (km or mi; m or ft below one), at most 110 px or 30 % of the width, measured at the window's centre at every frame; not drawn while the globe's rim is in the window. It is ground no name may cover; `boxes().scale` is `{ text, px, box }`. Find it's board draws none.
+
+## The legend above, every state named, and the scope switch (2026-11-18)
+
+The owner's requests: "in atlas windows depicting states with timelines and/or a legend, the legend should be above the atlas window (below
+the section header) and on the atlas, states (both highlighted and other states on the map) should have name labels", and "in the top left of
+every atlas window should be a switch to depict either all the locations within the collection (current system) or all unlocked locations in
+all history/science/philosophy collections".
+
+- **The key is inside `.card-loc`, between the heading and the window** (`cardLocatorHTML`; `.card-loc > .war-key` in `styles.css`). The Atlas
+  popup's `noLocator` lifts it out before removing the window (`mountCardBack`), so it still survives there. The still renderer's sentence
+  now says "The key above". `test-war-cards.js`, `test-window-fallbacks.js` and `test-atlas-windows.js` assert the new place.
+- **Every state is named on a war window and a members window on a past year** (`otherStateNames` in `atlas-windows.js`): the hub's
+  `statesAt(year)` at the window's year (the timeline pin's), each name on a point inside its own face (`faceAnchors`, asked at rest), biggest
+  faces first, drawn LAST so it yields to every mark, every own name, a war side's label, the zoom column, the scale bar and the scope switch;
+  a war side's principal keeps its own label. `host._folioMap.stateNames()` lists them.
+- **The scope switch** (`mountScope`, `.mc-scope`): every card window that draws siblings (not a war window, not a glossary window, not Find it).
+  "Collection" is `locatorSiblings` as before; "All" is `locatorSiblingsAll` in `app.js` — the union of the sibling lists of every collection
+  whose `sectionOf` is History, Science or Philosophy — and the window still keeps only the studied ones. Remembered per viewer in localStorage
+  (`folio.atlasWinScope`); a change repaints every window on the page (`folio:winscope`). Its box is ground no name may cover.
+  `test-atlas-scope.js` guards it, and a person's role'd `also` places (`docs/map-cards.md`).
+
+## The chip after the heading, areas never a dot, the areas' serif (2026-11-19)
+
+- **"Discovered!" stands after the section's heading** (`.card-loc .loc-head`, `mcNewHTML` in `app.js`): over the window's top left it covered the
+  scope switch. A front window (a locator that asks) has no heading and keeps the chip in the window, under the switch.
+- **At night the chosen half of the scope switch** wears the relief button's pressed look (card ground, indigo ink and edge), not near-white ink.
+- **No source line above a window**: a members note that only credits the dataset ("borders as the Cliopatria dataset maps them") is dropped at
+  render (`membersNote`); a note that begins with it keeps what follows. The dataset stays on `#credits`.
+- **A sibling's mark by its kind**: a studied sibling whose place is water (`marks.water`, locator kind `sea` / `shelf`) or a desert
+  (`study.js areaOf`) is its NAME alone — a water name blue — laid before the siblings' point names; one whose place is a mountain or a hill
+  (`marks.peak`) is the red peak triangle (Mount Olympus on every Greek card). A card's own desert draws no dot once named, as a water.
+  `study.js markClass` returns null for every area kind, desert and shelf included. `test-study.js` and `test-atlas-scope.js` guard it.
+- **Areas in the serif, points in the sans** (`study.js areaSerif`: the theme's `--serif` when it is a serif, else `--display`, else Lora):
+  on the Atlas page every territory, region, range, island, people and water style is face `area`; in a window a state's, a war side's, a
+  sibling area's and the own area's name. A city's, a site's, a battle's, a building's and a peak's name keeps the sans.
+
+## An extent as a members group (2026-11-19, on request)
+
+> "gr-231's Atlas window must show the borders of the whole Spartan state." The owner approved changing how card windows draw areas for it.
+
+- **No Spartan polity exists in `history.bin`.** The only Spartan ground is the two derived war extents `pol:ext_sparta` and `pol:ext_messenia`
+  (OpenHistoricalMap's Lacedaemon, relation 2849727, CC0, split at a Taygetos line Folio drew; `build-war-extents.js`), alive 743–600 and
+  464–455 BCE only, and the engine draws an extent only where a war gives it a role (`presShown` / `presAliveShown` in `atlas.js`), so a members
+  group naming them used to draw nothing. `pol:peloponnesian_league` is another entity and is not used.
+- **A members group may now name extents** (`pol:ext_…`). They are NOT engine highlights: the window asks the hub for their rings at the window's
+  year (`hub.entityRings(ids, year, level)` → atlas.js `entityRings`, the worker's existing `face-rings` message, the page selection's walk; no worker
+  change) and paints them itself in `paintExtents` (`atlas-windows.js`): the group's tint over the land (cut by the land mask), and ONE outline round
+  the union of the group's faces — a band outside the union, so the line two extents share is not drawn — with the glow on a settled frame.
+  `extraSettled` waits for the rings. Ids that are not extents in the same group stay engine highlights as before. On the still renderer (no WebGL2,
+  no history) a window whose group names an extent does NOT tint its present-day `keys` (Greece would claim far more); it shows its dot alone.
+- **gr-231**: `members.year` −464 (the owner's choice, 2026-11-19: the extents' second span, 464–455 BCE; first drawn at −600), `locator.role` "capital" (Sparta's square), one group "Sparta" (Laconia and Messenia) = both extents, `label: "Territory"`, `keys: ["Greece"]` (the fallback's
+  frame only), `locator.zoom` 26. 600 BCE is the extents' last alive year before the Third Messenian War, after the Second Messenian War (668 BCE by
+  tradition, gr-237) and before Messenia was freed (370–369 BCE, gr-235), so the union is the whole state; the card's own "peak c. 500 BCE" falls
+  between the two alive spans, and no geometry was extended to reach it. The key's note gives Sparta's hold on Messenia only — no source line above a
+  window, on request; OpenHistoricalMap is credited on `#credits` through the extent's `sources` header. Every other window is unchanged (no other members group names an extent; the Peloponnesian War window `gr-521` and the Lydia members
+  window `gr-226` were screenshotted before and after: identical, and pixel-equal within the renderer's own run-to-run noise).
+
+## A border pack's state as a members group (2026-11-20, on request)
+
+A members group may name a state of a lazy BORDER PACK (`atlas/data/borders/<pack>.bin`, which pack: `atlas/data/border-packs.js`) instead of `history.bin`. The window paints it exactly as an extent above (`packOf` / `painted`, `paintExtents` → `groupRings` → `hub.packRings`), the hub fetching the pack once (`hub.startPack`; the worker's slot `pack:<name>`, rings only). The still renderer tints the present-day `keys`; a pack that cannot be read is the plain sentence. `test-atlas-windows.js` §12. 📖 `docs/atlas-v2-border-packs.md`.

@@ -1,0 +1,295 @@
+#!/usr/bin/env python3
+"""The level's words: its inventory, then the commonest remaining lemmas.
+
+    python3 select.py      (from the cache directory, by run.py)
+
+Reads `lex.json` and `inventory.py`, writes `selected-<level>.json`: one row per
+note, dealt by lemma frequency (the commonest first), each marked with where it
+came from (`inventory` or `frequency`).
+
+A WORD THE LEVELS BELOW TEACH IS NOT TAUGHT AGAIN (`serbian_level.words_below`).
+
+THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
+  · a lemma whose every sense is weak (rare, dialectal, Croatian or Bosnian
+    only, Ijekavian ...);
+  · a form of a personal pronoun (`me`, `ga`, `njega`, `tobom`): Wiktionary
+    gives many their own entries, and the pronoun's card already shows them;
+  · a one-letter lemma that is not a word (`u`, `s`, `i`, `a`, `o` are);
+  · the hand list `EXCLUDE`, each line with its reason.
+"""
+import json, os, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from sr import fold, pronoun_forms, PRONOUN_CASES
+from serbian_level import LEVEL, TARGET, f, words_below
+from inventory import INVENTORY
+
+# Read off the A1 ranking (2026-11-16).  Each with its reason.
+EXCLUDE = {
+    'je': "the third-person present of biti ('is'), on biti's card",
+    'si': "the second-person present of biti, on biti's card",
+    'jeste': "the emphatic third-person present of biti, on biti's card",
+    'bilo': "the neuter past participle of biti ('was'), on biti's card",
+    'sam': "counted mostly as biti's 'I am'; the adjective 'alone' is a minor share",
+    'deca': "the plural of dete, on dete's card",
+    'ljudi': "the plural of čovek, on čovek's card",
+    'svi': "the plural of sav, on sav's card",
+    'one': "the feminine plural of on, on the pronoun cards",
+    'puta': "the genitive of put ('times'), on put's card",
+    'god': "the particle of kad god, ko god ('-ever'), counted from those phrases",
+    'nem': "'mute', whose count is nema 'there is no'",
+    'tko': "the Croatian 'who'; Serbian says ko, on A1",
+    'kući': "'home(wards)', the dative of kuća, on kuća's card",
+    'mnom': "the instrumental of ja, on ja's card",
+    'te': "counted as the clitic of ti ('you'), on ti's card; the conjunction is a minor share",
+    'red': "'order, row', counted from u redu 'all right'",
+    's': "the short form of sa 'with', on A1",
+    'sad': "the short form of sada 'now', on A1",
+    'koga': "the genitive and accusative of ko, on ko's card",
+    'čemu': "the dative of šta, on šta's card",
+    'nikada': "the long form of nikad, on A1",
+    'treba': "'girl, chick', whose count is treba 'it is needed', the third person of trebati (on A1)",
+    'kada': "'bathtub', whose count is kada 'when', the long form of kad (on A1)",
+    'drago': "the neuter of drag, counted from drago mi je 'I'm glad', on drag's card",
+    # Read off the A2 ranking (2026-11-16).
+    'sama': "the feminine of sam, counted from sama 'alone'",
+    'čega': "the genitive of šta, on šta's card",
+    'kome': "the dative of ko, on ko's card",
+    'nitko': "the Croatian 'nobody'; Serbian says niko, on A1",
+    'ured': "the Croatian 'office'; Serbian says kancelarija, which the fill takes",
+    'bok': "'side', whose count is the Croatian greeting bok 'hi'",
+    'no': "a dated 'than', whose count is no 'but' (Croatian) and English 'no'",
+    'ran': "'early', whose count is rana 'wound' (A2) and rano 'early' (A2)",
+    'vod': "'conduit', whose own forms count little: the rest are voda's (A1)",
+    'kos': "'slanting', whose count is kosa 'hair' (A2)",
+    'kim': "'caraway', whose count is the name Kim",
+    'vesti': "'to embroider', whose count is vesti 'news', the plural of vest",
+    'bit': "'essence', whose count is bit, the short infinitive of biti in bit će",
+    'ded': "a variant of deda 'grandfather', on A1",
+    'prav': "'straight', whose count is pravo (A1) and prava 'rights'",
+    'cura': "a Croatian and Bosnian colloquial 'girl'; Serbian says devojka, on A1",
+    # Read off the B1 ranking (2026-11-16).
+    'toj': "a Torlakian dialect 'he', whose count is toj, the dative of ta (taj, on A1)",
+    'kog': "the genitive of ko, on ko's card",
+    'čime': "the instrumental of šta, on šta's card",
+    'kuca': "'doggy', whose count is kuca 'knocks', the third person of kucati",
+    'bob': "'broad bean', whose count is the name Bob",
+    'pol': "'pole', whose count is the name Paul and pola 'half' (A1)",
+    'celiti': "'to heal', whose count is cela, celo, the forms of ceo 'whole' (A1)",
+    'videlo': "'daylight', whose count is videlo, the neuter past of videti (A1)",
+    'go': "'naked', whose count is English 'go' in the subtitles",
+    'kom': "'skin', whose count is kom, the short form of kome 'to whom'",
+    'los': "'moose', whose count is the Los of Los Angeles",
+    'skot': "'litter', whose count is the name Scott",
+    'goriv': "'combustible', whose count is gori 'burns', a form of goreti",
+    'zena': "'pupil of the eye', whose count is žena 'woman' (A1) typed without its caron",
+    'bas': "'bass', whose count is baš (A1) typed without its caron",
+    'top': "'cannon', whose count is English 'top' in the subtitles",
+    'gđa': "an abbreviation of gospođa, on A1",
+    'zrak': "the Croatian 'air'; Serbian says vazduh",
+    'kava': "the Croatian 'coffee'; Serbian says kafa, on A1",
+    'doma': "the Croatian 'at home'; Serbian says kod kuće",
+    'vani': "the Croatian 'outside'; Serbian says napolju, which the fill takes",
+    'kamo': "the Croatian 'where to'; Serbian says kuda, on A1",
+    'ponovno': "the Croatian form of ponovo, on A1",
+    'shvaćati': "the Croatian form of shvatati, on A2",
+    'viti': "'to twist', whose own spelling counts 107 of its 9,456: the rest are forms it shares",
+    'crnac': "a word for a Black person that is now widely felt as offensive",
+    # Read off the B2 ranking (2026-11-16).
+    'odel': "'department', whose own spelling counts 131 of its 9,044: the rest is odelo 'suit' (A2)",
+    'hiljadu': 'the accusative of hiljada, on A1',
+    'gđica': 'an abbreviation of gospođica, on B1',
+    'buk': "'rapids', whose own spelling counts 104 of its 8,968: the rest is buka 'noise'",
+    'liz': "'a lick', whose count is the name Liz",
+    'kris': "'kris (a dagger)', whose count is the name Chris",
+    'han': "'inn', whose count is the name Han",
+    'rosa': "'dew', whose count is the name Rosa",
+    'lisa': "'blaze (on a horse)', whose count is the name Lisa",
+    'indij': "'indium', whose count is Indija 'India'",
+    'vijesti': "the Ijekavian 'news'; Serbian says vesti (novost on this level)",
+    'cesta': "the Croatian 'road'; Serbian says put, on A1",
+    'mobitel': "the Croatian 'mobile phone'",
+    'lečnik': "a rare 'physician'; Serbian says lekar, on A1",
+    'tat': "'thief', whose own spelling counts 237 of its 6,390: the rest is tata 'dad' (A1)",
+    'klas': "'ear (of grain)', whose count is English 'class' and klasa",
+    'mudo': "a crude word for 'testicle'",
+    'veriti': "'to betroth', whose count is veri, the dative of vera 'faith' (B1)",
+    'tkati': "'to weave', whose own spelling counts 28 of its 7,731",
+    'kinuti': "'to sneeze', whose own spelling counts 27 of its 6,177",
+    'meden': "'honeyed', whose own spelling counts 109 of its 6,337",
+    'dina': "'dune', whose count is the name Dina",
+    'rika': "'roar', whose count is the name Rika",
+    'nevjerojatno': "the Croatian (and Ijekavian) 'incredibly'",
+    'pozornik': 'a Croatian military rank',
+    'itko': "the Croatian 'anybody'; Serbian says iko, on B1",
+    'brus': "'whetstone', whose count is the name Bruce",
+    'ar': "'are (a unit of area)', counted from other words",
+    'alfa': 'the Greek letter alpha',
+    'beta': 'the Greek letter beta',
+    'norman': 'a Norman, whose count is the name Norman',
+    'ren': "'horseradish', whose count is the name Ren",
+    'but': "'thigh', whose count is English 'but' in the subtitles",
+    'kila': "'hernia', whose count is kila, colloquial for kilo",
+    'dušica': "'wick', whose count is dušo 'darling', the vocative of duša (A1)",
+    'tur': "'aurochs', whose count is tura 'round'",
+    'ada': "'river island', whose count is the name Ada",
+    'santa': "'iceberg', whose count is Santa (Claus)",
+    'tara': "'tare', whose count is the name Tara",
+    'kal': "'mud', whose count is the name Cal",
+    'stroj': "the Croatian 'machine'; Serbian says mašina, on B1",
+    'ovisiti': "the Croatian 'to depend'; Serbian says zavisiti, on B1",
+    'riskirati': 'the Croatian form; Serbian says rizikovati',
+    'pogreška': "the Croatian 'mistake'; Serbian says greška, on A2",
+    'kolovoz': "'carriageway', whose count is the Croatian kolovoz 'August'",
+    'juli': "a variant of jul 'July', on A1",
+    'uzet': "'paralytic', whose count is uzet, the passive participle of uzeti (A1)",
+    'sena': "a variant of senka 'shadow', which this level's fill takes",
+    'minuti': "'to pass by', whose count is minuti 'minutes', the plural of minut (A1)",
+    # Read off the C1 ranking (2026-11-16).
+    'kan': "'khan', whose count is English 'can' and the name Khan",
+    'em': "a dialectal 'not only … but also', whose count is English 'em'",
+    'kime': "the instrumental of ko, on ko's card",
+    'obiteljski': "the Croatian 'family' (adjective); Serbian says porodični, on B1",
+    'scenarij': 'the Croatian form of scenario',
+    'final': "'final', whose count is English 'final' in the subtitles",
+    'beliti': "'to whiten', whose count is beli, the forms of beo 'white' (A1)",
+    'beleti': "'to become white', whose count is beli, the forms of beo 'white' (A1)",
+    'pat': "'stalemate', whose count is the name Pat",
+    'leniti': "'to grow lazy', whose count is the forms of lenj 'lazy' (A2)",
+    'mora': "a mythical creature, whose count is mora 'must', a form of morati (A1)",
+    'prima': "'unison', whose count is prima 'receives', a form of primati (B1)",
+    'rud': "'curly', whose count is ruda and other words",
+    'siriti': "'to curdle', whose count is the forms of sir 'cheese' (A1)",
+    'ala': 'an exclamation, whose count is Allah and other words',
+    'as': "'ace', whose count is English 'as' in the subtitles",
+    'krivnja': "the Croatian 'guilt'; Serbian says krivica, on B1",
+    'navečer': "the Croatian 'in the evening'; Serbian says uveče, on B1",
+    'postaja': "the Croatian 'station'; Serbian says stanica, on A1",
+    'isprika': "the Croatian 'apology'; Serbian says izvinjenje, on B2",
+    'utrka': "the Croatian 'race'; Serbian says trka, on B1",
+    'dućan': "the Croatian 'shop'; Serbian says prodavnica, on A1",
+    'zločest': "the Croatian 'naughty'",
+    'miti': "a regional 'to wash', whose own spelling counts 103 of its 3,045",
+    'poznati': "'to recognise', whose count is poznati, the definite forms of poznat 'well-known' (A2)",
+    'orman': "a variant of ormar 'wardrobe', on A2",
+    'got': "'throat; Goth', whose count is English 'got' in the subtitles",
+    'titl': "'subtitle', counted from the subtitle files' own credit lines",
+    'pozornost': "the Croatian 'attention'; Serbian says pažnja, on A2",
+    'bijeg': "the Ijekavian and Croatian 'escape'; Serbian says beg or bekstvo, on B2",
+    'lane': "'fawn', whose count is lane 'last year' and English 'lane'",
+    'kej': "'quay', whose count is English 'K' and 'OK'",
+    'trak': "'ray', whose count is traka 'strip' (B1)",
+    'amber': "'amber', whose count is the English word and name Amber",
+    'kaniti': "the Croatian 'to intend'; Serbian says nameravati, on B1",
+    'izvešće': "the Croatian 'report'; Serbian says izveštaj, on B1",
+    'les': "'coffin', whose count is French and English 'les'",
+    'div': "the Croatian 'giant'; Serbian says džin, on B2",
+    'jen': "'yen', whose count is English 'Jen' and other words",
+    'tor': "'pen (for sheep)', whose count is the name Thor",
+    'bulja': "a crude word for 'backside'",
+    'tel': "'thin wire', whose count is tel., the abbreviation of telefon",
+    'stupanj': "the Croatian 'degree'; Serbian says stepen, on A2",
+    'natecanje': "the Croatian natjecanje 'competition' typed without its caron",
+    'hot': "'erotic', whose count is English 'hot' in the subtitles",
+    'židov': "the Croatian 'Jew'; Serbian says Jevrejin, on B2",
+    'skupina': "the Croatian 'group'; Serbian says grupa, on A2",
+    'at': "'steed', whose count is English 'at' in the subtitles",
+    'platac': "'payer', whose count is the forms of plata 'pay' (A2)",
+    'sindi': "'Sindhi', whose count is the name Cindy",
+    'teksas': "'denim', whose count is Texas",
+    'kut': "the Croatian 'corner'; Serbian says ugao, on A2",
+    'umak': "the Croatian 'sauce'; Serbian says sos, on A2",
+    'tulum': "the Croatian 'party'; Serbian says žurka, on A2",
+    'komu': "the Croatian form of kome 'to whom'",
+    'kabel': "the Croatian 'cable'; Serbian says kabl",
+    'hladnjak': "the Croatian 'refrigerator'; Serbian says frižider, on A2",
+    'fon': "'phone (unit)', whose count is English 'phone' and other words",
+    'tak': "'billiard cue', whose count is tako (A1) cut short",
+    'zahod': "'sunset', whose count is the Croatian zahod 'toilet'",
+    'užitak': "the Croatian 'pleasure'; Serbian says užitak rarely and zadovoljstvo (B1) commonly",
+    'proračun': "the Croatian 'budget'; Serbian says budžet, on B2",
+    'paša': "'pasture', whose count is the name Pasha",
+    'golem': "the Croatian 'huge'; Serbian says ogroman, on B2",
+    'svesti': "'to reduce', whose count is svesti, the genitive of svest 'consciousness' (B2)",
+}
+
+SWEARS = {'sranje', 'jebati', 'kurac', 'pička', 'govno', 'kurva', 'pizda', 'drkati', 'jebeni',
+          'kučka', 'peder', 'seronja', 'debil', 'idiot', 'kreten', 'budala', 'glupan', 'dupe',
+          'guzica', 'šupak', 'sisa', 'kurvin'}
+
+ONE_LETTER = {'u', 's', 'i', 'a', 'o', 'k'}
+
+
+def usable(L):
+    return any(not g['weak'] for e in L['entries'] for g in e['glosses'])
+
+
+def main():
+    lex = json.load(open('lex.json', encoding='utf-8'))
+    below = words_below()
+    pron = set()
+    for p in PRONOUN_CASES:
+        pron |= {fold(x) for x in pronoun_forms(p)} - {p}
+    rows, seen, missing = [], set(), []
+    for topic, words in INVENTORY.get(LEVEL, []):
+        for item in words.split():
+            w, _, pos = item.partition(':')
+            w = w.replace('_', ' ')
+            k = fold(w)
+            if k in seen or k in below:
+                continue
+            L = lex.get(k)
+            via = ''
+            if L and 'alt_of' in L:
+                via = L['alt_of']
+                for _ in range(3):         # `ćerka` -> `kćerka` -> `kći`
+                    if 'alt_of' not in lex.get(via, {}):
+                        break
+                    via = lex[via]['alt_of']
+                tgt = lex.get(via)
+                L = dict(tgt, word=L['word'], freq=max(L['freq'], tgt['freq'])) \
+                    if tgt and 'entries' in tgt else None
+            if L and L.get('aspect_of') and LEVEL == 'a1':
+                L = None              # (A1 was built before the aspect partners: see extract.py)
+            if not L or (pos and not any(e['pos'] == pos for e in L['entries'])) \
+                    or not usable(L):
+                missing.append(item)
+                continue
+            seen.add(k)
+            rows.append({'key': k, 'via': via, 'word': L['word'], 'freq': L['freq'], 'pos': pos or '',
+                         'source': 'inventory', 'topic': topic})
+    n_inv = len(rows)
+    swears = {fold(s) for s in SWEARS}
+    excl = {fold(s) for s in EXCLUDE}
+    fill = []
+    for k, L in sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0])):
+        if len(rows) + len(fill) >= TARGET[LEVEL]:
+            break
+        if 'entries' not in L or L.get('formonly'):
+            continue
+        # THE ASPECT PARTNERS (`bacati`, `vraćati`) joined at A2, so A1 rebuilds as it shipped
+        if L.get('aspect_of') and LEVEL == 'a1':
+            continue
+        if k in seen or k in below or k in swears or k in excl or k in pron:
+            continue
+        if len(k) < 2 and k not in ONE_LETTER:
+            continue
+        if ' ' in k or '-' in k:
+            continue
+        if not usable(L) or L['freq'] < 1:
+            continue
+        if all(e['pos'] in ('phrase', 'proverb') for e in L['entries']):
+            continue
+        seen.add(k)
+        fill.append({'key': k, 'via': '', 'word': L['word'], 'freq': L['freq'], 'pos': '',
+                     'source': 'frequency', 'topic': ''})
+    rows += fill
+    rows.sort(key=lambda r: (-r['freq'], r['key']))
+    json.dump(rows, open(f('selected.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    print(f'  {len(rows)} words: {n_inv} from the inventory, {len(fill)} by frequency')
+    if missing:
+        print('  NOT IN WIKTIONARY, OR NOT SERBIAN THERE (dropped):', ' '.join(missing))
+
+
+if __name__ == '__main__':
+    main()

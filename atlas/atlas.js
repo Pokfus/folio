@@ -137,29 +137,31 @@
   const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape", polity: "Polity", people: "People", culture: "Culture", extent: "Authored extent" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
+     AN AREA'S NAME IS IN THE SERIF (2026-11-19, on request): every territory, region, range, island, people and water style is face "area" — study.js areaSerif (the
+     theme's serif, else its display face when that is a serif, else Lora; no webfont added) — and a point's (capital, city, town) keeps the sans.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
      letterSpacing); `caps` draws lower-case letters as capitals at `smallScale` of the size. */
   const STYLES = [
-    { id: "country-l", face: "display", size: 17, weight: 700, caps: true, track: 2.4 },
-    { id: "country-m", face: "display", size: 13.5, weight: 700, caps: true, track: 1.8 },
-    { id: "country-s", face: "display", size: 11, weight: 700, caps: true, track: 1.1 },
-    { id: "admin1", face: "display", size: 10.5, weight: 600, caps: true, track: 1.0 },
+    { id: "country-l", face: "area", size: 17, weight: 700, caps: true, track: 2.4 },
+    { id: "country-m", face: "area", size: 13.5, weight: 700, caps: true, track: 1.8 },
+    { id: "country-s", face: "area", size: 11, weight: 700, caps: true, track: 1.1 },
+    { id: "admin1", face: "area", size: 10.5, weight: 600, caps: true, track: 1.0 },
     { id: "capital", face: "sans", size: 12.5, weight: 700, caps: false, track: 0 },
     { id: "city", face: "sans", size: 11.5, weight: 600, caps: false, track: 0 },
     { id: "town", face: "sans", size: 10, weight: 500, caps: false, track: 0 },
-    { id: "water-l", face: "serif", size: 15, weight: 400, italic: true, caps: false, track: 1.6 },
-    { id: "water-m", face: "serif", size: 12.5, weight: 400, italic: true, caps: false, track: 0.8 },
-    { id: "water-s", face: "serif", size: 11, weight: 400, italic: true, caps: false, track: 0.3 },
-    { id: "river", face: "serif", size: 11, weight: 400, italic: true, caps: false, track: 0.2 },
-    { id: "region-l", face: "display", size: 13, weight: 600, caps: true, track: 3.0 },
-    { id: "region", face: "display", size: 10.5, weight: 600, caps: true, track: 1.8 },
-    { id: "range", face: "display", size: 10.5, weight: 600, caps: true, track: 1.6 },
-    { id: "island", face: "sans", size: 10, weight: 500, caps: false, track: 0.8 },
+    { id: "water-l", face: "area", size: 15, weight: 400, italic: true, caps: false, track: 1.6 },
+    { id: "water-m", face: "area", size: 12.5, weight: 400, italic: true, caps: false, track: 0.8 },
+    { id: "water-s", face: "area", size: 11, weight: 400, italic: true, caps: false, track: 0.3 },
+    { id: "river", face: "area", size: 11, weight: 400, italic: true, caps: false, track: 0.2 },
+    { id: "region-l", face: "area", size: 13, weight: 600, caps: true, track: 3.0 },
+    { id: "region", face: "area", size: 10.5, weight: 600, caps: true, track: 1.8 },
+    { id: "range", face: "area", size: 10.5, weight: 600, caps: true, track: 1.6 },
+    { id: "island", face: "area", size: 10, weight: 500, caps: false, track: 0.8 },
     // a people's or a culture's name (2c, design §2.5): SPACED ITALIC, mixed case — the territory's small capitals' opposite; the same face as water's italic
     // but tracked wide and in ink, so an italic name is told from a sea's by its spacing and its colour as well as by where it lies
-    { id: "people-l", face: "serif", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
-    { id: "people-m", face: "serif", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
-    { id: "people-s", face: "serif", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
+    { id: "people-l", face: "area", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
+    { id: "people-m", face: "area", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
+    { id: "people-s", face: "area", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
   ];
   const SMALL_SCALE = 0.78;
   /* TEXT SIZE REACHES THE NAMES (Oct 2026, owner decision; v1's canvas labels followed it, v2's did not until now). Settings → Text size sets `--fs` on <body> (styles.css `body[data-fs]`: .8 … 1.32, one stop lower on a
@@ -273,7 +275,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "466ba5b20b:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "a98b9c7413:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -814,9 +816,10 @@
       // a level the bias chose is the gesture's, not the labels': nothing is added or dropped while the globe moves (§2.9),
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
-      view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
+      view.admin1Box = EMBED && layers.admin1Box ? layers.admin1Box : null;   // a window's admin-1 box (atlas-embed.js): its lines only, in any year
+      view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && (time.present || !!view.admin1Box);   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
       if (!EMBED && view.admin1 && !adm1.started && overAdmin1File()) ensureAdmin1();   // step 3: the page's Provinces lines over a country of admin1.bin fetch it (once)
-      view.admin1Layer = adm1Draw(k);   // the lazy admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): null until a window, the Provinces lines or the Personal Atlas ask for it
+      view.admin1Layer = view.admin1Box ? null : adm1Draw(k);   // the lazy admin-1 slot (none under a window's admin-1 box: its lines are the box's alone) (docs/atlas-v2-admin1-layer.md §3.2): null until a window, the Provinces lines or the Personal Atlas ask for it
       view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
@@ -1107,7 +1110,8 @@
         if (/^tile /.test(m.message)) { stats.tileErrors++; landTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water-tile /.test(m.message)) { waterTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water/.test(m.message)) { layersNote.hidden = false; layersNote.textContent = "The rivers and lakes could not be read: " + m.message; return; }
-        if (/^admin1/.test(m.message)) { adm1.failed = true; adm1.why = m.message; adm1Changed(); return; }   // the admin-1 slot is an extra: its failure is a window's plain sentence, never the Atlas's
+        if (/^admin1/.test(m.message)) { adm1.failed = true; adm1.why = m.message; adm1Changed(); return; }
+        if (/^pack:/.test(m.message)) { const P = packs.get(m.message.slice(5).split(":")[0]); if (P) { P.failed = true; P.why = m.message; invalidate(); } return; }   // a border pack is a window's extra, never the Atlas's   // the admin-1 slot is an extra: its failure is a window's plain sentence, never the Atlas's
         fail("The Atlas data could not be read: " + m.message); return;
       }
       if (m.type === "meta") {
@@ -1172,8 +1176,9 @@
         invalidate(); return;
       }
       if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
-      if (m.type === "face-rings") { if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
+      if (m.type === "face-rings") { const er = entRingWait.get(m.seq); if (er) { entRingWait.delete(m.seq); er({ faces: m.faces, rings: m.rings }); return; } if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
       if (m.slot === "adm1") { onAdmin1Message(m); return; }
+      if (m.type === "pack-meta") { onPackMeta(m); return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
@@ -1363,7 +1368,7 @@
        (4.7 MB of the 9.1; it was the whole file). Like "wars" it is a SLICE: a hub that began on one cannot answer a window of the other, nor an area round (any year). */
     function ensureHistory(kind) { if (!histWanted && !histStarted) histKind = kind === "wars" || kind === "ww2" ? kind : "full"; histWanted = true; if (!histStarted && coreIn) startHistory(); }
     const reducedNow = () => reduced();
-    const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
+    const fmtYear = (y) => { const ad = typeof window !== "undefined" && window.FolioEra && window.FolioEra() === "ad"; return y <= 0 ? (y < 0 ? -y : 1) + (ad ? " BC" : " BCE") : ad ? "AD " + y : y + " CE"; };   // the reader's era labels (Settings → Dates, 2026-11-18)   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
     // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
     function parseYear(text) {
       const t = String(text || "").trim().replace(/[,\.]/g, "").toUpperCase();
@@ -1431,6 +1436,38 @@
         adm1.bytes = buffer.byteLength;
         postToWorker({ type: "history", slot: "adm1", buffer });
       }).catch((e) => { adm1.failed = true; adm1.why = String(e && e.message || e); adm1Changed(); });
+    }
+    /* BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): atlas/data/borders/<name>.bin, a state a card window names (`members.groups[].ids`) that history.bin does
+       not carry, in history.bin's format, conflated onto the same core. A card window starts one (`startPack`) when its group names an id of atlas/data/border-packs.js;
+       the worker keeps it in a slot of its own (`pack:<name>`) and the window asks for the rings of its faces in the window's year (`packRings`) and paints them itself,
+       as it paints a war extent — nothing of a pack reaches the renderer, the alive set, the page, the Personal Atlas, the search or the names. Over http only: the
+       file copy of the site and the still renderer (no WebGL2) mark it failed at once, and the window says so in a sentence. */
+    const packs = new Map();
+    function ensurePack(name) {
+      let P = packs.get(name); if (P) return P;
+      packs.set(name, P = { started: true, ready: false, failed: false, why: "", header: null, ids: new Map(), stepsOf: new Map() });
+      if (STATIC2D || FILE || !/^[a-z0-9][a-z0-9-]*$/.test(String(name))) { P.failed = true; P.why = STATIC2D ? "no WebGL2" : FILE ? "not on the file copy" : "bad name"; return P; }
+      fetch("atlas/data/borders/" + name + ".bin").then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); }).then((buffer) => {
+        if (disposed) return;
+        postToWorker({ type: "history", slot: "pack:" + name, buffer });
+      }).catch((e) => { P.failed = true; P.why = String(e && e.message || e); invalidate(); });
+      return P;
+    }
+    function onPackMeta(m) {
+      const P = packs.get(String(m.slot).slice(5)); if (!P) return;
+      P.header = m.header; P.ids = new Map(m.header.entities.map((e, i) => [e.id, i])); P.stepsOf = new Map();
+      for (const st of m.header.steps) { let l = P.stepsOf.get(st[0]); if (!l) P.stepsOf.set(st[0], l = []); l.push([st[1], st[2], st[3]]); }
+      P.ready = true; invalidate();
+    }
+    // the rings of a pack's states alive in `y`, at `level`: { faces, rings } as `entityRings` answers; null while a pack they need is not in
+    function packRings(name, ids, y, level, cb) {
+      const P = packs.get(name);
+      if (!P || !P.ready || disposed) { cb(null); return; }
+      const faces = [];
+      for (const id of ids || []) { const i = P.ids.get(id); const l = i == null ? null : P.stepsOf.get(i); if (l) for (const st of l) if (st[0] <= y && st[1] >= y && faces.indexOf(st[2]) < 0) faces.push(st[2]); }
+      if (!faces.length) { cb({ faces: [], rings: [] }); return; }
+      const seq = "ent-rings:" + (++entRingSeq); entRingWait.set(seq, cb);
+      postToWorker({ type: "face-rings", seq, slot: "pack:" + name, faces, level: Math.max(0, Math.min(2, level | 0)) });
     }
     function onAdmin1Message(m) {
       if (m.type === "history-meta") {
@@ -1602,7 +1639,7 @@
     }
     /* ---- Phase 2c: the PEOPLES AND CULTURES (design §2.5; study.js decides what a presence IS and what the switch lets through) ---- */
     function AS2() { return root.AtlasStudy || null; }
-    const presShown = (ent) => { if (time.isExt[ent]) return time.warRoles.has(time.ents[ent].id) || extInAnyShownWar(ent); if (EMBED && layers.peopleOnly) return time.ents[ent].id === layers.peopleOnly; const a = AS2(); const id = time.ents[ent].id; return a ? a.peoplesShown(layers.peoples, PI.mode, id, PI.flags, time.linkedIds) : layers.peoples === "all" || (layers.peoples === "linked" && time.linkedIds.has(id)); };
+    const presShown = (ent) => { if (time.isExt[ent]) return time.warRoles.has(time.ents[ent].id) || extInAnyShownWar(ent); if (EMBED && layers.peopleOnly) return String(layers.peopleOnly).split("|").indexOf(time.ents[ent].id) >= 0;   /* one id (a glossary window) or several, `|`-joined (a members window's groups, 2026-11-20) */ const a = AS2(); const id = time.ents[ent].id; return a ? a.peoplesShown(layers.peoples, PI.mode, id, PI.flags, time.linkedIds) : layers.peoples === "all" || (layers.peoples === "linked" && time.linkedIds.has(id)); };
     /* the presences alive in a year, in entity order (so the stipple angles never swap as a year changes) */
     function presAliveAt(y) {
       const out = [];
@@ -1613,6 +1650,7 @@
     /* a presence's stipple ink (2026-10-18: one neutral for all, the states' border ink — dark on a light theme, where the pass multiplies, light on a dark one, where it
        screens; until then each people had a hue of its own on a golden-angle wheel). Its stipple angle and pitch are still its own, so two overlapping peoples interleave their dots */
     const PRES_ANGLES = [45, 15, 75, 30, 60, 0, 22.5, 67.5];
+    const PRES_TINT_WASH = 0.4;   // a card window's highlighted people (a members window's group, 2026-11-20: rm-630's Huns): its stipple and a soft wash in the highlight's colour, as a state's tint
     const WAR_WASH = 0.5;   // an authored extent: a flat soft wash in its side's tint (alpha at the solid centre; the mesh fades it to nothing at the edge)
     function presHue(ent) {
       if (EMBED && layers.flat) return palette.border;   // Find-it's area round: peoples and cultures are one neutral stipple in the modern border colour (no state, and no people, is told from another by its colour)
@@ -1623,7 +1661,7 @@
     function frontFrameNow() { const A = AS2(), d = curFrontDate(); if (!A || d == null) return false; const ps = A.platesAt(time.frontPlates, d); return ps.length > 0 && ps.every((p) => A.dateInt(p.date) <= FRAME_LAST); }
     function presenceDraw(fadeFrom, tNow) {
       const out = [], frontFrame = frontFrameNow();
-      const one = (a, fade) => { if (time.isFront[a.ent]) { const set = (time.ents[a.ent].front && time.ents[a.ent].front.set) || ""; out.push({ face: a.face, rgb: /^axis/.test(set) ? warRGB.loser : warRGB.victor, front: true, frame: frontFrame, wash: /occupied/.test(set) ? FRONT_WASH.occupied : /^allied/.test(set) ? FRONT_WASH.alliedHeld : FRONT_WASH.held, dotA: 0, fade }); return; } if (time.isExt[a.ent]) { const c = warColourOf(a.ent) || warRGB.loser; out.push({ face: a.face, rgb: c, ext: true, wash: WAR_WASH, dotA: 0, fade }); return; } const k = time.presEnts.indexOf(a.ent); out.push({ face: a.face, rgb: !EMBED && time.selected === a.ent ? SEL_GOLD.rgb : presHue(a.ent), angle: PRES_ANGLES[k % PRES_ANGLES.length], pitch: 1 + 0.07 * (k % 3), phase: [k * 2.7, k * 1.9], dotA: time.selected === a.ent ? 0.9 : null, fade }); };   // the selected people: its stipple in the selection's gold (2026-10-18)
+      const one = (a, fade) => { if (time.isFront[a.ent]) { const set = (time.ents[a.ent].front && time.ents[a.ent].front.set) || ""; out.push({ face: a.face, rgb: /^axis/.test(set) ? warRGB.loser : warRGB.victor, front: true, frame: frontFrame, wash: /occupied/.test(set) ? FRONT_WASH.occupied : /^allied/.test(set) ? FRONT_WASH.alliedHeld : FRONT_WASH.held, dotA: 0, fade }); return; } if (time.isExt[a.ent]) { const c = warColourOf(a.ent) || warRGB.loser; out.push({ face: a.face, rgb: c, ext: true, wash: WAR_WASH, dotA: 0, fade }); return; } const k = time.presEnts.indexOf(a.ent); const tint = EMBED && !layers.flat && time.gameTints ? time.gameTints.get(time.ents[a.ent].id) : null; out.push({ face: a.face, rgb: tint ? [tint[0], tint[1], tint[2]] : !EMBED && time.selected === a.ent ? SEL_GOLD.rgb : presHue(a.ent), angle: PRES_ANGLES[k % PRES_ANGLES.length], pitch: 1 + 0.07 * (k % 3), phase: [k * 2.7, k * 1.9], dotA: tint || time.selected === a.ent ? 0.9 : null, wash: tint ? PRES_TINT_WASH : undefined, fade }); };   // the selected people: its stipple in the selection's gold (2026-10-18)
       const fromSet = fadeFrom ? new Set(fadeFrom.map((a) => a.face)) : null;
       for (const a of time.pOnScreen || []) one(a, fromSet && !fromSet.has(a.face) ? tNow : 1);
       if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) { one(a, 1 - tNow); out[out.length - 1].fading = true; }   // fading: last year's presence — not a cover for the darkening
@@ -1951,7 +1989,8 @@
     function themeFaces() {
       const cs = getComputedStyle(document.body);
       const g = (n, d) => cs.getPropertyValue(n).trim() || d;
-      return { display: g("--display", "system-ui, sans-serif"), sans: g("--sans", "system-ui, sans-serif"), serif: g("--serif", "Georgia, serif") };
+      const serif = g("--serif", "Georgia, serif"), display = g("--display", "system-ui, sans-serif");
+      return { display: display, sans: g("--sans", "system-ui, sans-serif"), serif: serif, area: root.AtlasStudy && root.AtlasStudy.areaSerif ? root.AtlasStudy.areaSerif(serif, display) : serif };
     }
     const fontOf = (st, px) => `${st.italic ? "italic " : ""}${st.weight} ${px}px ${faces[st.face]}`;   // ctx.font must carry a pixel size
     function measureMetrics() {
@@ -2797,6 +2836,19 @@
     /* PHASE 4 PHONE FIXES: a point inside each of the given history faces, on the visible part of the CURRENT view, from the worker (`face-anchors`; the label path's own anchor). The reply is `cb(rows, view)` with the view the
        question was asked in (rot, radius, cx, cy, W, H), because the anchors are screen points of THAT view and the window turns them into points on the sphere to carry them through the next gesture. */
     let faceAnchorSeq = 0; const faceAnchorWait = new Map();
+    /* AN EXTENT AS A CARD WINDOW'S AREA (2026-11-19, gr-231's whole Spartan state; docs/atlas-v2-card-windows.md "An extent as a members group"): the rings of the faces the
+       given entities have in year `y`, as unit vectors (the worker's `face-rings`, the selection outline's walk), for a window to fill and outline on its own canvas. The
+       engine draws an extent only where a war gives it a role (`presShown`); this hands the window the geometry instead and changes nothing the engine draws. cb(null) until
+       the history is in; cb({ faces: [], rings: [] }) when none of the entities is alive in `y`. */
+    let entRingSeq = 0; const entRingWait = new Map();
+    function entityRings(ids, y, level, cb) {
+      if (!time.hist || !time.hist.ready || !time.stepsOf || disposed) { cb(null); return; }
+      const faces = [];
+      for (const id of ids || []) { const i = entityIndexOfId(id); const l = i >= 0 ? time.stepsOf.get(i) : null; if (l) for (const st of l) if (st[0] <= y && st[1] >= y && faces.indexOf(st[2]) < 0) faces.push(st[2]); }
+      if (!faces.length) { cb({ faces: [], rings: [] }); return; }
+      const seq = "ent-rings:" + (++entRingSeq); entRingWait.set(seq, cb);
+      postToWorker({ type: "face-rings", seq, faces, level: Math.max(0, Math.min(2, level | 0)) });
+    }
     /* THE STATES OF A YEAR, NAMED (Nov 2026, on request: Find it's area round names "all the other states on the map of that year" once the answer is revealed). Every polity alive in `y` (never a people, a
        culture, an authored extent or the front: `aliveAt` already leaves those out) with the face it has then and the name the Atlas shows for it in that year (`nameIn`: the dated display-name overrides). [] before the history is in. */
     function statesAt(y) {
@@ -3313,7 +3365,7 @@
       const L0 = TOUR.list; if (!L0 || !L0.length) return;
       TOUR.i = Math.max(0, Math.min(L0.length - 1, i));
       const c = L0[TOUR.i];
-      tourYear.textContent = c.year < 0 ? (-c.year).toLocaleString("en-GB") + " BCE" : c.year + " CE"; tourTitle.textContent = c.title; tourN.textContent = (TOUR.i + 1) + " of " + L0.length;
+      tourYear.textContent = c.year < 0 ? (-c.year).toLocaleString("en-GB") + " BCE" : c.year + " CE";   // the page-wide era pass (app.js eraTree) relabels it for a BC / AD reader tourTitle.textContent = c.title; tourN.textContent = (TOUR.i + 1) + " of " + L0.length;
       applyYear(clampYear(c.year), { why: "tour", noStore: true });
       if (c.row) { const row = c.row; flyTo(row.at[0], row.at[1], Math.max(2.5, kmppFor(row)), () => { if (TOUR.list && TOUR.list[TOUR.i] === c) selectRow(row, { push: false }); }); }
       tourArm();
@@ -3427,7 +3479,7 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
         && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), startPack: (name) => { ensurePack(name); }, packState: (name) => { const P = packs.get(name); return !P ? null : P.failed ? "failed" : P.ready ? "ready" : "loading"; }, packRings: (name, ids, y, level, cb) => packRings(name, ids, y, level, cb), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), historyFailed: () => !!time.failed /* the history file did not arrive (a refused fetch; the file copy of the site has no twin of the whole history): a window that cannot be drawn without it says so (atlas-windows.js `pastLayer`, 2026-11-19) */, warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), entityRings: (ids, y, level, cb) => entityRings(ids, y, level, cb), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.view && !time.fade && time.presEnts && time.presEnts.length) time.view.pfaces = presenceDraw(null, 1); if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {

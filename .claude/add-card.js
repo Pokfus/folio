@@ -192,6 +192,10 @@ const MAP_LAYERS = {
      .claude/atlas-build/admin1-capitals.json; a seat that lies in ANOTHER unit by fact (Chandigarh, the capital of Punjab and of Haryana and a union
      territory of its own — gin-516 and gin-518) is accepted for the units it is the seat of, with a warning that the dot is outside the shape. */
   "india-states": { what: "state or union territory", points: "INDIA_CAPITALS", dotWhat: "capital", fromCardFaces: true, seats: "IND" },
+  /* The states of the past (2026-11-19, the Historical States collection; docs/historical-states-card-plan.md): the polities of atlas/data/history.bin, each at the year of its greatest
+     extent, read from the generated atlas/data/card-faces.js (`fromCardFaces`). The key is the name the Atlas gives the state IN THAT YEAR ("Roman Empire", "Eastern Roman Empire"); the row's
+     8th number is the year, and `past` holds the card to it: one key only, no dot, and the question must name that year, since the window is drawn in it. */
+  "past-states": { what: "state of the past", fromCardFaces: true, past: true },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
@@ -259,6 +263,19 @@ if (isMap) {
     try { require(path.join(__dirname, "..", "atlas", "data", "card-faces.js")); } finally { var CF = global.window.ATLAS_CARD_FACES; global.window = w0; }
     const L = CF && CF.layers && CF.layers[m.layer];
     if (L) frozen = { keys: Object.keys(L).map((n) => ({ n })), dots: (CF.dots && CF.dots[m.layer]) || {} };
+    if (L && layer.past) {
+      if (mapKeys.length !== 1) { console.error("ERROR: a card on the " + m.layer + " layer shades ONE state — its window is drawn in that state's own year."); process.exit(1); }
+      const row = L[mapKeys[0]];
+      if (row) {
+        const y = row[7], want = y < 0 ? -y + " BCE" : y < 1000 ? y + " CE" : String(y);
+        const q = String(card.question || "").replace(/<[^>]+>/g, " ");
+        if (!new RegExp("(^|[^0-9,])" + want.replace(/ /g, "\\s") + "([^0-9]|$)").test(q)) {
+          console.error("ERROR: the question does not name " + want + " — the year " + JSON.stringify(mapKeys[0]) + " is drawn in (the year of its greatest extent on the Atlas, atlas/data/card-faces.js).");
+          console.error("       The window shows that year's borders, so the question must say it: e.g. \"In " + want + ", the state highlighted on the map was <span class=\\\"blank\\\">_____</span>.\"");
+          process.exit(1);
+        }
+      }
+    }
   }
   if (!frozen) { console.error("ERROR: .claude/atlas-build/frozen/layers.json has no layer " + m.layer + (layer.fromCardFaces ? ", and atlas/data/card-faces.js has none either (run .claude/atlas-build/build-card-faces.js --install)" : "") + "."); process.exit(1); }
   const shapes = frozen.keys;
@@ -1033,6 +1050,20 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
      shades nothing, a name on both sides asks one shape for two colours, and a war with no derivable
      years is simply absent from the personal atlas. */
   { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
+  /* ---------- AN ANSWER IS UNIQUE WITHIN ITS COLLECTION, NOT ACROSS THE SITE (2026-11-26, on request) ----------
+     "Card terms should be unique within the collection, but needn't be across the website." A Russia card may
+     answer the Cuban Missile Crisis although World History and the United States already do — each collection
+     cards it from its own side, and steering away from the famous term to dodge another collection is wrong. Two
+     cards of ONE collection asking for the same answer are a duplicate the reader meets twice, so that is refused.
+     A card of a different TYPE (a draw card against its flag card, a map card against a locator card) is not a
+     twin; two different things that share a name (Portland, Oregon and Portland, Maine) pass with --allow-twin. */
+  if (!process.argv.includes("--allow-twin")) {
+    const norm = (s) => String(s || "").replace(/<[^>]*>/g, "").toLowerCase().replace(/^(the|a|an) /, "").replace(/[’']/g, "'").replace(/\s+/g, " ").trim();
+    const typeOf = (c) => (c.drawCard === true ? "draw" : c.map ? "map" : "card");
+    const mine = norm(card.answerText || card.answer), myColl = REPLACE ? collIdx[card.id] : deckColl;
+    const twin = mine && cards.find((c) => c.id !== card.id && (collIdx[c.id] || null) === myColl && typeOf(c) === typeOf(card) && norm(c.answerText || c.answer) === mine);
+    if (twin) { console.error("ERROR: " + card.id + "'s answer \"" + (card.answerText || card.answer) + "\" is already " + twin.id + "'s in the same collection — an answer is unique within its collection (it may repeat across collections). Choose another term, or pass --allow-twin if the two are different things that share a name."); process.exit(1); }
+  }
 }
 
 /* --dry-run (Oct 2026, the World History audit): every guard above, and no write. Research agents

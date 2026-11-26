@@ -1,0 +1,194 @@
+{
+  "_about": "THE BORDER PACKS (docs/atlas-v2-border-packs.md): states the card windows draw from a small lazy file of their own, atlas/data/borders/<pack>.bin, instead of history.bin. One row per state: its label, the Cliopatria v0.2.0 name(s) of its rows, the YEARS the cards need (each drawn by the one row alive in it), the cards that name it (members.groups[].ids: [\"pol:<key>\"]) and why. A key must not be a series of polity-spec.json or war-series.json. Add a state with `node .claude/atlas-build/add-border.js <key> --cliopatria \"<Name>\" --years A,B --card <id>`; rebuild one pack with `build-history.js --pack <name> --extract --install`; CI runs check-border-packs.js.",
+  "packs": {
+    "british-africa-1945": {
+      "states": {
+        "british_africa_1945": {
+          "label": "British Africa",
+          "cliopatria": [
+            "British Africa"
+          ],
+          "years": [
+            1945
+          ],
+          "cards": [
+            "ww2-168"
+          ],
+          "why": "ww2-168: the United Kingdom and its colonies in 1945, at the end of Churchill's wartime premiership"
+        }
+      }
+    },
+    "british-empire-1945": {
+      "states": {
+        "british_colonies_1945": {
+          "label": "British Colonial Empire",
+          "cliopatria": [
+            "British Colonial Empire"
+          ],
+          "years": [
+            1945
+          ],
+          "cards": [
+            "ww2-168"
+          ],
+          "why": "ww2-168: the United Kingdom and its colonies in 1945, at the end of Churchill's wartime premiership"
+        },
+        "uk_1945": {
+          "label": "Kingdom of Great Britain",
+          "cliopatria": [
+            "Kingdom of Great Britain"
+          ],
+          "years": [
+            1945
+          ],
+          "cards": [
+            "ww2-168"
+          ],
+          "why": "ww2-168: the United Kingdom and its colonies in 1945, at the end of Churchill's wartime premiership"
+        }
+      }
+    },
+    "france-fifth": {
+      "states": {
+        "france_fifth": {
+          "label": "French Fifth Republic",
+          "cliopatria": [
+            "French Fifth Republic"
+          ],
+          "years": [
+            1959
+          ],
+          "cards": [
+            "ww2-197"
+          ],
+          "why": "ww2-197: France and its territories at the height of de Gaulle's presidency"
+        }
+      }
+    },
+    "goguryeo": {
+      "states": {
+        "goguryeo": {
+          "label": "Goguryeo",
+          "cliopatria": [
+            "Goguryeo"
+          ],
+          "years": [
+            480
+          ],
+          "cards": [
+            "ko-106"
+          ],
+          "why": "ko-106: the kingdom at its greatest extent; Cliopatria's rows of 480–489 and 523–554 are its largest (408,926 km²), and 480 is the first year of them."
+        }
+      }
+    },
+    "republic-before-caesar": {
+      "states": {
+        "roman_republic_pre_caesar": {
+          "label": "Roman Republic before Caesar's conquests",
+          "cliopatria": [
+            "Roman Republic"
+          ],
+          "years": [
+            -44
+          ],
+          "rowYears": {
+            "-44": -59
+          },
+          "cards": [
+            "rm-343"
+          ],
+          "why": "rm-343: the Republic as it stood in 59 BCE, before the Gallic War, drawn in the window's year 44 BCE; the card's second group is the Republic of 44 BCE minus this (members.groups[].minus)"
+        }
+      }
+    },
+    "roman-republic": {
+      "states": {
+        "roman_republic": {
+          "label": "Roman Republic",
+          "cliopatria": [
+            "Roman Republic"
+          ],
+          "years": [
+            -44
+          ],
+          "cards": [
+            "rm-343"
+          ],
+          "why": "rm-343: the Republic at Caesar's death"
+        }
+      }
+    },
+    "russian-empire": {
+      "states": {
+        "russian_empire": {
+          "label": "Russian Empire",
+          "cliopatria": [
+            "Russian Empire"
+          ],
+          "years": [
+            1724,
+            1796
+          ],
+          "cards": [
+            "ru-276",
+            "ru-341"
+          ],
+          "why": "ru-276: Peter the Great near the end of his reign (1724); ru-341: Catherine the Great's empire in the year of her death (1796)."
+        }
+      }
+    },
+    "silla": {
+      "states": {
+        "silla": {
+          "label": "Silla",
+          "cliopatria": [
+            "Silla",
+            "Unified Silla"
+          ],
+          "years": [
+            682
+          ],
+          "cards": [
+            "ko-161"
+          ],
+          "why": "ko-161: Silla at its peak. Cliopatria's Silla rows end at 681 (86,616 km² from 567); its \"Unified Silla\" rows from 682 are the same kingdom after the unification and its largest (149,880 km² in 682–891), and 682 is the first year of them."
+        }
+      }
+    },
+    "usa-1809": {
+      "states": {
+        "usa_1809": {
+          "label": "United States of America",
+          "cliopatria": [
+            "United States of America"
+          ],
+          "years": [
+            1809
+          ],
+          "cards": [
+            "us-244"
+          ],
+          "why": "us-244: the United States at the end of Jefferson's presidency"
+        }
+      }
+    },
+    "ussr-pack": {
+      "states": {
+        "ussr_pack": {
+          "label": "Union of Soviet Socialist Republics",
+          "cliopatria": [
+            "Union of Soviet Socialist Republics"
+          ],
+          "years": [
+            1960
+          ],
+          "cards": [
+            "ru-697"
+          ],
+          "why": "ru-697: the state Khrushchev governed"
+        }
+      }
+    }
+  }
+}

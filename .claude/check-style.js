@@ -8,16 +8,27 @@
      4. Eras are BCE and CE, never BC or AD — everywhere a reader can see one (rule 4 alone also runs over
         artefacts.js, countries.js and crossword.js, which are prose a reader reads and were the files still
         saying "1500 BC"; the other three rules stay scoped to cards + glossary, as CLAUDE.md scopes them).
+     6. A count of CENTURIES is written in words ("two centuries", "twelve to fifteen centuries"), never
+        "2 centuries" (2026-11-16, on request) — the one exception to the numerals-for-time-spans rule. A
+        single century stays a numeral ordinal ("21st century", rule 2). The Roman voting and army units
+        called centuries ("the 80 centuries of the first class") are counts of units, not of time, and are
+        masked (`CENT_UNIT_EXCLUDE`).
+     7. A percentage is written with the sign: "35%", never "35 per cent", "35 percent" or "five per cent"
+        (2026-11-20, on request: "'per cent' should always be written as '%'"). Report-only; a quotation in
+        curly quotes keeps its own words, and "a few per cent" or "percent agreement" (a method's name) are not
+        figures. Citations are masked like every rule's.
      5. A changelog DAY TITLE is at most 72 characters (report-only, changelog.js) — see the rule's own
         note at the foot of this file for the measurement behind the number.
    Usage:
      node .claude/check-style.js          report violations
      node .claude/check-style.js --fix    apply the safe fixes in place (string-level, format-preserving)
+     node .claude/check-style.js --fix --only=6   apply one rule's fix alone (6 is the only rule that takes it)
    Ambiguous single-name titles (Zhuangzi, Mencius… — person OR book) are always REPORT-ONLY: fix by hand. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const FIX = process.argv.includes("--fix");
+const ONLY = ((process.argv.find((a) => a.startsWith("--only=")) || "").split("=")[1]) || null;
 /* Rules 1–3 run over the first two; rule 4 runs over all four (see `ERA_ONLY` below). */
 /* glossary-extra.js is in this list for ONE rule and it matters: rule 4 (BCE/CE) sweeps the text a
    PICTURE carries -- image.title / desc / alt -- and that is where most of the site's remaining
@@ -71,7 +82,26 @@ const ORD_PAIR_RE = new RegExp("\\b(" + Object.keys(ORD).join("|") + ")(?=\\s+(?
 /* --- rule 1: non-round compound number words > 20 --- */
 const TENS = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
 const UNITS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9 };
-const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")\\b", "gi");
+// …except in front of "centuries", where rule 6 wants the words ("twenty-five centuries")
+const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")\\b(?!\\s+centuries\\b)", "gi");
+
+/* --- rule 6: a count of centuries in words (2026-11-16, on request: "time measurements are always numbers,
+   but before the word centuries it should be words — two centuries; before the singular century it is still
+   numbers, 21st century"). "N centuries", "N or M centuries", "N to M centuries", "N–M centuries". --- */
+const CENT_RE = /\b(\d{1,2})(?:(\s+(?:or|to|and)\s+|\s*[–-]\s*)(\d{1,2}))?(\s+centuries)\b/g;
+/* A Roman century was also a voting and army UNIT, and a count of those is a count, not a span of time: these
+   phrases are masked, as ORD_EXCLUDE masks a period's name. Context words could not decide it — "legion",
+   "cohort" and "Servius" stand beside real spans too ("the Urban Cohort stayed there for 2 centuries"). */
+const CENT_UNIT_EXCLUDE = [/\b\d+ centuries of (?:cavalry|the first class|leading men)\b/g, /\bled \d+ centuries, \d+ men\b/g,
+  /\bfirst class (?:of|to|from) \d+ centuries\b/g, /\binto \d+ centuries\b/g];
+const NUMW_UNITS = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+  "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+const NUMW_TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+function numWord(n) {
+  if (n < 20) return NUMW_UNITS[n];
+  return NUMW_TENS[Math.floor(n / 10)] + (n % 10 ? "-" + NUMW_UNITS[n % 10] : "");
+}
+
 // "one hundred and forty-eight" / "two hundred and six" → 148 / 206 (whole phrase, or the tens part alone would corrupt it)
 const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hundred\\s+and\\s+(?:(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")|(" + Object.keys(TENS).join("|") + ")|(eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|ten)|(" + Object.keys(UNITS).join("|") + "))\\b", "gi");
 /* …AND A COMPOUND STANDING IN FRONT OF `thousand` IS A DIFFERENT NUMBER FROM THE PAIR ITSELF (Sep 2026).
@@ -177,6 +207,8 @@ function eraFix(text) {
   return { text, n };
 }
 
+/* --- rule 7: a percentage takes the sign --- */
+const PCT_RE = /(?:\d|\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)(?:-[a-z]+)?|½)\s+(?:per\s?cent|percent)\b/gi;
 function findAll(text, re, kind, out, file) {
   let m;
   re.lastIndex = 0;
@@ -236,7 +268,7 @@ for (const file of FILES) {
   });
 
   // rule 4 — BCE / CE. The only rule that runs over all four files (see ERA_ONLY).
-  if (FIX) {
+  if (FIX && !ONLY) {
     const era = eraFix(text);
     text = era.text; totalFixed += era.n;
   } else {
@@ -267,7 +299,7 @@ for (const file of FILES) {
   const ordMasks = [];
   ORD_EXCLUDE.forEach((re) => { text = text.replace(re, (m0) => { ordMasks.push(m0); return "ORDMASK" + (ordMasks.length - 1) + "ORDMASK"; }); });
   for (const re of [ORD_PAIR_RE, ORD_RE]) {
-    if (FIX) {
+    if (FIX && !ONLY) {
       text = text.replace(re, (m0, ord, tail) => {
         totalFixed++;
         const repl = ORD[ord.toLowerCase()] || ord;
@@ -277,10 +309,26 @@ for (const file of FILES) {
   }
   text = text.replace(/ORDMASK(\d+)ORDMASK/g, (m0, i) => ordMasks[Number(i)]);
 
+  // rule 6 — a count of centuries in words (the Roman units masked first, never converted)
+  const centMasks = [];
+  CENT_UNIT_EXCLUDE.forEach((re) => { text = text.replace(re, (m0) => { centMasks.push(m0); return "CENTMASK" + (centMasks.length - 1) + "CENTMASK"; }); });
+  if (FIX && (!ONLY || ONLY === "6")) {
+    text = text.replace(CENT_RE, (m0, a, sep, b, tail) => {
+      if (Number(a) === 0 || (b && Number(b) === 0)) return m0;
+      totalFixed++;
+      const join = sep ? (/[–-]/.test(sep) ? " to " : sep) : "";
+      return numWord(Number(a)) + (b ? join + numWord(Number(b)) : "") + tail;
+    });
+  } else if (!FIX) findAll(text, CENT_RE, "centuries-numeral (should be words)", report, name);
+  text = text.replace(/CENTMASK(\d+)CENTMASK/g, (m0, i) => centMasks[Number(i)]);
+
+  // rule 7 — a percentage is "35%", never "35 per cent" / "five per cent" (report-only; a quoted passage is skipped)
+  if (!FIX) findAll(text.replace(/“[^”]*”/g, (q) => q.replace(/per\s?cent|percent/gi, "PCTQ")), PCT_RE, "per cent (write the % sign)", report, name);
+
   // rule 1 — compound numbers (proper names masked first so they're never converted)
   const masks = [];
   NUM_EXCLUDE.forEach((re, i) => { text = text.replace(re, (m0) => { masks.push(m0); return "MASK" + (masks.length - 1) + ""; }); });
-  if (FIX) {
+  if (FIX && !ONLY) {
     text = text.replace(HUNDRED_RE, (m0, h, t, u, tensOnly, teen, unitOnly) => {
       totalFixed++;
       let n = UNITS[h.toLowerCase()] * 100;
@@ -313,7 +361,7 @@ for (const file of FILES) {
       const before = text[m.index - 1] || "";
       if (/[="_/\\-]/.test(before)) continue;
       if (name === "data.js" && PLAIN_FIELDS.has(fieldAt(text, m.index))) continue;   // plain-text fields stay plain
-      if (FIX) {
+      if (FIX && !ONLY) {
         text = text.slice(0, m.index) + "<i>" + m[0] + "</i>" + text.slice(m.index + m[0].length);
         re.lastIndex = m.index + m[0].length + 7;
         totalFixed++;

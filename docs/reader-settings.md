@@ -735,3 +735,17 @@ nothing was broken by converting it: the keys are Wikipedia slugs and were not t
   and left 13 of them still carrying a second copy of the word. The remedy is to repeat the pair once per
   occurrence; the `includes` guard is re-asked each time, so a pair too many is a refusal rather than a
   silent no-op. Now in the tool's own header.
+
+## Date labels: BCE / CE or BC / AD (2026-11-18)
+
+On request ("add the option to switch between BC/AD and BCE/CE. This should automatically apply across the entire
+website"). Settings → Reading → **Dates** (`#eraPick`, `S.settings.era`: `"ce"` as authored, or `"ad"`). Content stays
+authored BCE / CE; the switch is a text-node pass like spelling's (`eraText`, `eraTree`, `applyEra`, `setEra` in
+`app.js`), run by `render()` after the spelling pass and by a standing observer (child lists AND character data, so a
+`textContent` update is caught) for a BC / AD reader only — a BCE / CE reader pays nothing. Rules: `BCE` → `BC`
+everywhere; a CE year becomes `AD` placed BEFORE it, with any range or list it ends (`c. 200 – 900 CE` → `c. AD 200 –
+900`, `800 BCE – 50 CE` → `800 BC – AD 50`); `century CE` / `millennium CE` → `… AD`; a bare `CE` with no number before
+it is left alone. It skips what spelling skips (`spellSkip`: citations, `.verbatim` quotations, the Library, a foreign
+card). The Atlas's year box (`fmtYear`, atlas.js) and the card windows' timeline labels (`yearText`, `fi2Year`,
+atlas-windows.js) ask `window.FolioEra()` because an `<input>` value and a canvas are out of the pass's reach.
+**Not covered**: attributes (`aria-label`, `title`) and text drawn on a canvas. `node .claude/test-era.js` guards it.

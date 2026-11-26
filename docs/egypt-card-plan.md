@@ -201,6 +201,139 @@ Three answer terms collided between batches before import and were moved: Tefnak
 so `eg-475` took Nimlot of Hermopolis; Kawa stays at `eg-486`, so `eg-495` took the Shrine of Taharqa;
 Rehoboam stays at `eg-454`, so `eg-467` took Hoshea.
 
+**`eg-501`–`eg-600` (written together, in ten parallel batches) retitled 72 lines** (some only an article,
+a year or a dynasty's "of Egypt"), and the list below shows the term each card answers. The same kinds:
+
+- **Already taken**: Meroë (`wh-417`) → Arakamani, the first king buried there; Naucratis (`gr-221`) → the
+  Hellenion; Abu Simbel (`eg-349`) → Potasimto, the general its graffiti name; Cambyses II (`gr-385`) → Psamtik
+  III; Darius I (`gr-386`) → the Statue of Darius; Herodotus (`gr-440`) → Sesostris at `eg-540` and Rhampsinit at
+  `eg-541`; archaism (`eg-474`) → the Tomb of Ibi (TT36); Apis, Mnevis, Bubastis and the Serapeum → Buchis and Tuna
+  el-Gebel; Ptolemaic Egypt (`gr-767`) → Ptolemais Hermiou; Alexander, the Oracle of Ammon and the founding of
+  Alexandria (`gr-701`, `gr-721`, `gr-720`) → Cleomenes of Naucratis, Siwa Oasis and Rhakotis; Ptolemy I Soter
+  (`gr-766`) → Alexander IV, the boy pharaoh he governed for; Hellenistic kingship (`gr-773`) → the Ptolemaic cult of
+  Alexander; Alexandria, its Library and its Lighthouse (`rm-766`, `gr-802`, `gr-804`) → Lake Mareotis, Aristophanes
+  of Byzantium and Sostratus of Cnidus; Cleruchy (`gr-482`) → Kerkeosiris; Arsinoe II (`gr-776`) → the Great Mendes
+  Stela; the Syrian Wars (`gr-793`) → the Battle of Panium; Raphia (`gr-794`) → Ptolemy IV Philopator; the Rosetta
+  Stone (`wh-207`) → Ptolemy V Epiphanes at `eg-590` and the Raphia Decree at `eg-591`; Dendera (`eg-154`) → the
+  Dendera zodiac.
+- **The line named an area**: `eg-504`, `eg-509`, `eg-511`, `eg-513`, `eg-516`, `eg-517`, `eg-523`, `eg-525`,
+  `eg-526`, `eg-531`, `eg-534`, `eg-536`, `eg-539`, `eg-543`, `eg-548`, `eg-550`–`eg-560`, `eg-562`, `eg-566`,
+  `eg-568`, `eg-574`–`eg-577`, `eg-579`, `eg-588`, `eg-592`, `eg-597`, `eg-599`, `eg-600`. The codification of the
+  law under Darius has no term of its own, so `eg-536` teaches it through the Demotic Chronicle, on whose back it is
+  copied.
+- **Two subjects on one line**: Tantamani and the withdrawal → Tantamani; the 28th and 29th Dynasties → the 29th
+  (the 28th is Amyrtaeus, `eg-545`).
+- **Wikipedia's head word differs**: the Canal of the Pharaohs, Horwennefer (Hugronaphor), the Temple of Kom Ombo;
+  the Canopus Decree keys as `Decree_of_Canopus`, the Temple of Onias as `Land_of_Onias`, the Statue of Darius as
+  `Egyptian_statue_of_Darius_the_Great`, the Zenon Archive as `Zenon_of_Kaunos`; Pefnefdineit and the Petition of
+  Peteese have no article of their own and show no Learn-more tile.
+
+Two answer terms collided between batches before import and were moved: the Demotic Chronicle stays at `eg-536`,
+so `eg-557` took Khabash; Rhakotis stays at `eg-564`, so `eg-574` took Agathocles of Egypt.
+`eg-597` took the House of Life, which was also the unwritten line `eg-924`; that line now reads the House of
+Books at Edfu, the temple library room whose wall lists its books, a subject to research when it is written.
+
+**`eg-601`–`eg-700` (written together, in ten parallel batches) retitled 68 lines** (a few only an article,
+a spelling or Wikipedia's full head word), and the list below shows the term each card answers. The same kinds:
+
+- **Already taken**: Cleopatra VII (`gr-876`, `rm-384`) → Ptolemy XIII Theos Philopator and Papyrus Bingen 45, her
+  ordinance for a Roman; Actium and Caesarion (`rm-387`, `gr-874`, `gr-875`) → the death of Cleopatra; Roman Egypt
+  (`rm-765`) → the epistrategos; the annexation (`rm-388`) → the Battle of Alexandria of 30 BCE; the prefect (`rm-811`) →
+  Aelius Gallus; the grain supply (`rm-767`) → the embole; the Roman census (`rm-073`) → the house-by-house census;
+  Alexandria (`gr-801`, `rm-766`) → the Letter of Claudius to the Alexandrians; Zenobia (`rm-562`) → the Palmyrene
+  invasion of Egypt; Diocletian (`rm-566`) → Pompey's Pillar; the Antonine Plague (`rm-518`) → the Plague of Cyprian;
+  the Diocletianic persecution (`rm-573`) → the Era of the Martyrs; Christian monasticism and the Desert Fathers
+  (`wh-492`, `rm-613`) → Kellia and the Apophthegmata Patrum; Philae (`eg-595`) → the Blemmyes; Roman Egypt again →
+  the Apion family for Byzantine Egypt; Ancient Egyptian religion (`wh-216`) → interpretatio graeca; Amun-Ra (an alias
+  of `Amun`) → the Theban Triad; the cult image (`gr-969`) → the naos; the Opet, Valley and Sed festivals (`eg-399`,
+  `eg-434`, `eg-076`) → the Festival of Bubastis; the Chapelle Rouge and White Chapel → the barque shrine; the oracle
+  (`gr-977`) and the Banishment and Bentresh stelae → the Dakhla Stela; the votive offering (`gr-976`) → the ear stela;
+  the animal mummy, Apis, Mnevis, Buchis and the Serapeum → the sacred ibis and the sacred bull.
+- **The line named an area**: `eg-601`, `eg-608`, `eg-611`, `eg-613`–`eg-615`, `eg-618`, `eg-620`, `eg-622`–`eg-625`,
+  `eg-627`, `eg-630`, `eg-631`, `eg-634`–`eg-636`, `eg-638`, `eg-641`, `eg-642`, `eg-645`, `eg-647`, `eg-655`,
+  `eg-656`, `eg-660`, `eg-683`, `eg-686`, `eg-687`, `eg-689`, `eg-697`, `eg-699`. Two are loose fits and say so in
+  their notes: interpretatio graeca for Egyptian religion, and the Theban Triad for Amun-Ra.
+- **Two subjects on one line**: Nut and Geb → Nut; Shu and Tefnut → Tefnut (a bare `Shu` surface would link Shu Han and
+  Shu brocade); Bes and Taweret → Taweret, with Bes carrying household religion at `eg-683`.
+- **Wikipedia's head word differs**: Set keys as `Set_(deity)`, case-sensitive, answered as Seth; Nut as
+  `Nut_(goddess)`; Heka as `Heka_(god)`; Pachomius as `Pachomius_the_Great`; Theophilus as `Theophilus_I_of_Alexandria`;
+  the apotropaic wand as `Birth_tusk`; Kom el-Shoqafa as `Catacombs_of_Kom_El_Shoqafa`. The laographia, the
+  house-by-house census, the Gnomon of the Idios Logos, the Letter of Claudius, the embole, the hem-netjer, the wab priest,
+  the Festival of Bubastis, the Dakhla Stela, the offering formula and the ear stela have no article of their own and show
+  no Learn-more tile.
+
+Two answer terms collided between batches before import and were moved: the Gnomon of the Idios Logos stays at
+`eg-613`, so `eg-625` took Soknopaiou Nesos; Isis stays at `eg-668`, so `eg-636` took the Navigium Isidis.
+
+**`eg-701`–`eg-800` (written together, in ten parallel batches) retitled 80 lines** (a few only an article, a
+spelling or a plural), and the list below shows the term each card answers. The same kinds:
+
+- **Already taken**: the Metternich Stela (`eg-556`) → the cippus of Horus; the Dream Stele (`eg-274`) → the Dream
+  Book; the Great Hypostyle Hall (`eg-394`) → the hypostyle hall; Ra (`eg-663`) → Khepri; Amun-Ra (an alias of
+  `Amun`) → Ra-Horakhty; Atenism (`eg-299`) → the democratisation of the afterlife; Seth (`eg-670`) → Byblos; Nut
+  (`eg-679`) → the Book of Nut; the royal titulary (`eg-072`) → Son of Ra; Herodotus (`wh-331`, `gr-440`) → Diodorus
+  Siculus; mummification (`wh-214`) → the per-nefer; the Book of the Dead (`wh-215`) → the Papyrus of Ani; the
+  Amduat and its companions (`eg-407`–`eg-409`) → the Books of the Netherworld; the false door and the mastaba
+  (`eg-137`, `eg-065`) → the Tomb of Perneb; the Tomb of Kha and Merit and Yuya (`eg-423`, `eg-286`) → Senebtisi;
+  the ushabti (`eg-206`) → the overseer shabti; Meketre (`eg-172`) → the servant statue; the South Tombs Cemetery
+  (`eg-316`) → the soul house; the Giza West Field (`eg-138`) and the Theban Necropolis → the Memphite Necropolis;
+  the Abbott and Mayer papyri (`eg-373`, `eg-374`) → the Leopold-Amherst Papyrus; the Royal Cache and Bab el-Gasus →
+  coffin reuse; the Fayum portraits (`eg-626`) → the Books of Breathing; pharaoh (`wh-209`) → the prenomen; the
+  pschent (`eg-075`) → the Deshret; Maat (`eg-681`) → the presentation of Maat; the God's Wife of Amun (`eg-291`) →
+  the Great Royal Wife.
+- **The line named an area**: most of the rest — `eg-702`–`eg-711`, `eg-713`, `eg-715`, `eg-721`, `eg-725`,
+  `eg-730`–`eg-740`, `eg-742`, `eg-747`, `eg-750`, `eg-754`, `eg-756`, `eg-759`, `eg-760`, `eg-765`, `eg-767`,
+  `eg-768`, `eg-771`–`eg-775`, `eg-778`, `eg-783`–`eg-785`, `eg-787`–`eg-789`, `eg-792`, `eg-793`, `eg-795`,
+  `eg-800`. The Destruction of Mankind is the first part of the Book of the Heavenly Cow (`eg-726`), so `eg-725`
+  took the Festival of Drunkenness that re-enacted its end; the democratisation of the afterlife is a modern model
+  and its card says that many now reject it.
+- **Two subjects on one line**: the name and the shadow → the ren; the king as Horus and son of Ra → Son of Ra.
+- **Wikipedia's head word differs**: Nun keys as `Nu_(mythology)`, the Ka and Ba as `Ka_(Egyptian_soul)` and
+  `Ba_(Egyptian_soul)`, the Leopold-Amherst Papyrus as `Papyrus_Leopold_II`, Pott's disease as `Pott_disease`, Reshep
+  as `Resheph`. The serpent is keyed `Apep`, not `Apophis`, because Apophis is already an alias of the king Apepi
+  (`eg-229`). Thirty-nine of the hundred have no article of their own and show no Learn-more tile.
+
+Two answer terms collided between batches before import and were moved: the Bremner-Rhind Papyrus stays at
+`eg-711`, so `eg-740` took the historiola; the Tomb of Perneb stays at `eg-770`, so `eg-773` took the offering list.
+`eg-705` took the hypostyle hall, which was also the unwritten line `eg-956`; that line now carries `eg-705`'s old
+subject, the temple as a model of the cosmos, to research when it is written.
+
+**`eg-801`–`eg-900` (written together, in ten parallel batches) retitled 90 lines** to the term each card
+answers; ten kept their line (`eg-805`, `eg-810`, `eg-851`, `eg-868`, `eg-870`, `eg-876`, `eg-891`, `eg-895`,
+`eg-897`, `eg-899`). Almost all of them named an area — kingship's administration, law and army, the whole of
+everyday life, the economy — and took a concrete term inside it. The ones that had to move for another reason:
+
+- **Already taken**: the female kings Hatshepsut, Sobekneferu, Twosret and Merneith → Nitocris; the Amarna letters
+  (`wh-270`) and the Egyptian–Hittite treaty (`eg-346`) → Gilukhipa; pharaoh (`wh-209`) → netjer nefer; the Land
+  of Punt (`wh-208`) → Mersa Gawasis; Egyptian hieroglyphs (`wh-206`) → Ptolemaic hieroglyphs; Demotic (`eg-527`)
+  → Old Coptic; Middle Egyptian (`eg-203`) → Late Egyptian; papyrus and the ostracon (`eg-901`, `eg-902`) → the
+  scribal palette; Nome, Nomarch, Buhen, Semna, the chariot, the khopesh and the Medjay → Metjen, Uronarti, the
+  mace and the Sherden; the Satire of the Trades (`eg-179`) → the Turin Satirical-Erotic Papyrus.
+- **Collided between batches before import** and moved: the kenbet stays at `eg-812`, so `eg-862` took the
+  oracle of Amenhotep I; *niwt* stays at `eg-839`, so `eg-864` took *whyt*; Metjen stays at `eg-814`, so `eg-871`
+  took the *basilike ge*; the pefsu stays at `eg-842`, so `eg-874` took the hekat; the Heqanakht papyri stay at
+  `eg-861` and the Tomb of Nebamun and Ipuky at `eg-879`, so `eg-828` took the harvest scene and `eg-829` the
+  overseer of craftsmen.
+
+**`eg-901`–`eg-1000` (written together, in ten parallel batches) retitled most lines** to the term each card
+answers; the lines in the list now read as the answers. Area lines (poetry, tools, timekeeping, the column)
+took a concrete term inside them, and the ones that had to move for another reason were:
+
+- **Already taken**: papyrus (`wh-208`) and *Cyperus papyrus* (`eg-881`) → the Prisse Papyrus; Kemit, the Late
+  Egyptian Miscellanies' neighbours, Letters to the Dead, the Heqanakht papyri, Demotic, the Demotic Chronicle and
+  Ankhsheshonq → the model letter, the Calendar of Lucky and Unlucky Days, the Inaros–Petubastis cycle and the
+  Oracle of the Potter; Sinuhe, Wenamun, Two Brothers, the Shipwrecked Sailor and Papyrus Harris 500 → the Taking
+  of Joppa, the Punt reliefs and the Cairo Vase; the Great Sphinx, Khafre Enthroned, the Seated Scribe, the serdab
+  and the Tomb of Nebamun → Rahotep and Nofret, Kaaper and the copper statues of Pepi I; the mastaba, the hypostyle
+  hall, the benben, the sacred lake, Abu Simbel and Malkata → the cavetto cornice, the primeval mound, the dromos,
+  the Temple of Derr and the Palace of Apries; the hekat, deben and seked → the aroura; the Khufu ship and the
+  Abydos boats → the Dahshur boats; Heka, Thoth and the House of Life → Papyrus Berlin 3027 and the Book of Thoth.
+- **`eg-917` answers the Cairo Vase**, the name the published translation uses, rather than "the Cairo Love
+  Songs", which none of the card's sources uses.
+- **Collided between batches before import** and moved: Kaaper stays at `eg-940`, Bek at `eg-967` and Hesy-Ra at
+  `eg-991`, so `eg-944` took the Tomb of Two Brothers, `eg-949` the sculptor Iuty and `eg-950` the ka statue of
+  Awibre Hor.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -1035,10 +1168,10 @@ safe.
     eg-498  Sphinx of Taharqo
     eg-499  Eltekeh
     eg-500  Esarhaddon
-    eg-501  The sack of Thebes in 663 BCE
-    eg-502  Tantamani and the Kushite withdrawal
-    eg-503  Meroë
-    eg-504  The Meroitic kingdom after Egypt
+    eg-501  Sack of Thebes
+    eg-502  Tantamani
+    eg-503  Arakamani
+    eg-504  Amanirenas
     eg-505  Meroitic script
 
 ### The Late Period — `eg-late-period`
@@ -1046,184 +1179,184 @@ safe.
     eg-506  Late Period of ancient Egypt
     eg-507  Twenty-sixth Dynasty of Egypt
     eg-508  Psamtik I
-    eg-509  The reunification of Egypt under Sais
+    eg-509  Necho I
     eg-510  Sais
-    eg-511  Greek and Carian mercenaries in Egypt
-    eg-512  Naucratis
-    eg-513  Greek trade with Saite Egypt
+    eg-511  Tahpanhes
+    eg-512  Hellenion
+    eg-513  Rhodopis
     eg-514  Necho II
-    eg-515  The canal from the Nile to the Red Sea
-    eg-516  The circumnavigation of Africa
-    eg-517  Egypt and the fall of Assyria
+    eg-515  Canal of the Pharaohs
+    eg-516  Erythraean Sea
+    eg-517  Ashur-uballit II
     eg-518  Battle of Carchemish
     eg-519  Psamtik II
-    eg-520  The Abu Simbel graffiti
+    eg-520  Potasimto
     eg-521  Apries
     eg-522  Amasis II
-    eg-523  The Saite renaissance
-    eg-524  Saite art and archaism
-    eg-525  Saite administration
-    eg-526  The Saite temple economy
+    eg-523  Neith
+    eg-524  Tomb of Ibi
+    eg-525  Pefnefdineit
+    eg-526  Petition of Peteese
     eg-527  Demotic
-    eg-528  Late Period animal cults
-    eg-529  The animal necropolises
+    eg-528  Buchis
+    eg-529  Tuna el-Gebel
     eg-530  Animal mummy
-    eg-531  The Achaemenid conquest of Egypt
-    eg-532  Cambyses II in Egypt
-    eg-533  Twenty-seventh Dynasty of Egypt
-    eg-534  Egypt as a Persian satrapy
-    eg-535  Darius I and Egypt
-    eg-536  The codification of Egyptian law under Darius
+    eg-531  Battle of Pelusium
+    eg-532  Psamtik III
+    eg-533  27th Dynasty of Egypt
+    eg-534  Aryandes
+    eg-535  Statue of Darius
+    eg-536  Demotic Chronicle
     eg-537  Temple of Hibis
     eg-538  Udjahorresnet
-    eg-539  Egyptian revolts against Persia
-    eg-540  Herodotus in Egypt
-    eg-541  Herodotus as a source for Egypt
+    eg-539  Inaros II
+    eg-540  Sesostris
+    eg-541  Rhampsinit
     eg-542  Elephantine papyri
-    eg-543  The Jewish garrison at Elephantine
-    eg-544  The Twenty-eighth and Twenty-ninth Dynasties
+    eg-543  Mibtahiah
+    eg-544  Twenty-ninth Dynasty
     eg-545  Amyrtaeus
-    eg-546  Thirtieth Dynasty of Egypt
+    eg-546  Thirtieth Dynasty
     eg-547  Nectanebo I
-    eg-548  The temple building of the Thirtieth Dynasty
+    eg-548  Behbeit el-Hagar
     eg-549  Nectanebo II
-    eg-550  The last native pharaoh
-    eg-551  The second Persian conquest of Egypt
-    eg-552  Greek soldiers in Late Period Egypt
-    eg-553  Late Period votive bronzes
-    eg-554  Late Period statuary
-    eg-555  Late Period wisdom literature
-    eg-556  Egyptian healing statues
-    eg-557  Egyptian identity under foreign rule
-    eg-558  The Late Period priesthood
-    eg-559  Egypt's reputation in the Greek world
-    eg-560  The arrival of Alexander
+    eg-550  Alexander Romance
+    eg-551  Thirty-first Dynasty of Egypt
+    eg-552  Mentor of Rhodes
+    eg-553  Harpocrates
+    eg-554  Boston Green Head
+    eg-555  Instruction of Ankhsheshonq
+    eg-556  Metternich Stela
+    eg-557  Khabash
+    eg-558  Petosiris
+    eg-559  Sonchis of Sais
+    eg-560  Mazaces
 
 ## Greco-Roman Egypt
 
 ### Ptolemaic Egypt — `eg-ptolemaic`
 
-    eg-561  Ptolemaic Kingdom
-    eg-562  Alexander in Egypt
-    eg-563  The oracle of Ammon at Siwa
-    eg-564  The founding of Alexandria
-    eg-565  Ptolemy I Soter
-    eg-566  The seizure of Alexander's body
-    eg-567  Ptolemaic kingship
-    eg-568  The Ptolemies as pharaohs
+    eg-561  Ptolemais Hermiou
+    eg-562  Cleomenes of Naucratis
+    eg-563  Siwa Oasis
+    eg-564  Rhakotis
+    eg-565  Alexander IV
+    eg-566  Tomb of Alexander the Great
+    eg-567  Ptolemaic cult of Alexander the Great
+    eg-568  High Priest of Ptah
     eg-569  Serapis
     eg-570  Serapeum of Alexandria
-    eg-571  Alexandria
-    eg-572  Library of Alexandria
-    eg-573  Lighthouse of Alexandria
-    eg-574  The population of Ptolemaic Alexandria
-    eg-575  Greeks and Egyptians in Ptolemaic Egypt
-    eg-576  Ptolemaic administration
-    eg-577  The Ptolemaic tax system
+    eg-571  Lake Mareotis
+    eg-572  Aristophanes of Byzantium
+    eg-573  Sostratus of Cnidus
+    eg-574  Agathocles of Egypt
+    eg-575  Machimoi
+    eg-576  Menches
+    eg-577  Papyrus Revenue Laws
     eg-578  Ptolemaic coinage
-    eg-579  The Faiyum under the Ptolemies
+    eg-579  Arsinoite nome
     eg-580  Zenon Archive
-    eg-581  Ptolemaic land tenure
+    eg-581  Kerkeosiris
     eg-582  Ptolemy II Philadelphus
-    eg-583  Arsinoe II
-    eg-584  The Syrian Wars and Egypt
+    eg-583  Great Mendes Stela
+    eg-584  Battle of Panium
     eg-585  Ptolemy III Euergetes
     eg-586  Canopus Decree
-    eg-587  Ptolemy IV and the Battle of Raphia
-    eg-588  The revolts of Upper Egypt
-    eg-589  Hugronaphor and the rebel pharaohs
-    eg-590  Rosetta Stone
-    eg-591  The Memphis decrees and the priestly synods
-    eg-592  Ptolemaic temple building
+    eg-587  Ptolemy IV Philopator
+    eg-588  Great Theban Revolt
+    eg-589  Horwennefer
+    eg-590  Ptolemy V Epiphanes
+    eg-591  Raphia Decree
+    eg-592  Mammisi
     eg-593  Temple of Edfu
-    eg-594  Dendera Temple complex
+    eg-594  Dendera zodiac
     eg-595  Philae
-    eg-596  Kom Ombo
-    eg-597  The temple as a repository of Egyptian learning
+    eg-596  Temple of Kom Ombo
+    eg-597  House of Life
     eg-598  Manetho
-    eg-599  The Jews of Ptolemaic Egypt
-    eg-600  Ptolemaic decline
-    eg-601  Rome and the Ptolemies
-    eg-602  Ptolemy XII
-    eg-603  Cleopatra
-    eg-604  Cleopatra and Rome
-    eg-605  The end of the Ptolemaic Kingdom
+    eg-599  Temple of Onias
+    eg-600  Ptolemy VIII Physcon
+    eg-601  Ptolemy XI Alexander II
+    eg-602  Ptolemy XII Auletes
+    eg-603  Ptolemy XIII Theos Philopator
+    eg-604  Papyrus Bingen 45
+    eg-605  Death of Cleopatra
 
 ### Roman Egypt — `eg-roman`
 
-    eg-606  Egypt (Roman province)
-    eg-607  The Roman annexation of Egypt
-    eg-608  Egypt as the emperor's private province
-    eg-609  Prefect of Egypt
-    eg-610  The Egyptian grain supply of Rome
-    eg-611  Roman taxation in Egypt
-    eg-612  The Roman census in Egypt
-    eg-613  Status and privilege in Roman Egypt
-    eg-614  The Greek cities of Roman Egypt
-    eg-615  Alexandria under Rome
-    eg-616  The Jews of Roman Alexandria
-    eg-617  The Jewish revolt of 115–117 in Egypt
-    eg-618  Roman Egypt and the Red Sea trade
+    eg-606  Epistrategos
+    eg-607  Battle of Alexandria
+    eg-608  Tiberius Julius Alexander
+    eg-609  Aelius Gallus
+    eg-610  Embole
+    eg-611  Laographia
+    eg-612  House-by-house census
+    eg-613  Gnomon of the Idios Logos
+    eg-614  Antinoopolis
+    eg-615  Letter of Claudius to the Alexandrians
+    eg-616  Alexandrian riots of 38 CE
+    eg-617  Kitos War
+    eg-618  Periplus of the Erythraean Sea
     eg-619  Berenice Troglodytica
-    eg-620  The Eastern Desert quarries
+    eg-620  Mons Porphyrites
     eg-621  Mons Claudianus
-    eg-622  The Roman army in Egypt
-    eg-623  Egyptian temples under Roman rule
-    eg-624  Roman emperors as pharaohs
-    eg-625  The decline of the Egyptian priesthood
+    eg-622  Legio XXII Deiotariana
+    eg-623  Temple of Esna
+    eg-624  Temple of Dendur
+    eg-625  Soknopaiou Nesos
     eg-626  Fayum mummy portraits
-    eg-627  Roman-period burial in Egypt
+    eg-627  Kom el-Shoqafa
     eg-628  Oxyrhynchus
     eg-629  Oxyrhynchus Papyri
-    eg-630  Everyday life in the papyri
-    eg-631  Egyptian magic in the Roman period
+    eg-630  Papyrus Oxyrhynchus 119
+    eg-631  Arnouphis
     eg-632  Greek Magical Papyri
     eg-633  Hermeticism
-    eg-634  Greco-Egyptian alchemy
-    eg-635  Egyptian cults in the Roman Empire
-    eg-636  Isis outside Egypt
-    eg-637  The Antonine Plague in Egypt
-    eg-638  The third-century crisis in Egypt
-    eg-639  Zenobia and Egypt
-    eg-640  Diocletian in Egypt
+    eg-634  Zosimos of Panopolis
+    eg-635  Temple of Isis at Pompeii
+    eg-636  Navigium Isidis
+    eg-637  Plague of Cyprian
+    eg-638  Mussius Aemilianus
+    eg-639  Palmyrene invasion of Egypt
+    eg-640  Pompey's Pillar
 
 ### Christian Egypt and the end — `eg-late-antique`
 
-    eg-641  Christianity in Roman Egypt
-    eg-642  Church of Alexandria
-    eg-643  The Diocletianic persecution in Egypt
+    eg-641  Rylands Library Papyrus P52
+    eg-642  Patriarch of Alexandria
+    eg-643  Era of the Martyrs
     eg-644  Coptic language
-    eg-645  Coptic literature
+    eg-645  Shenoute
     eg-646  Nag Hammadi library
-    eg-647  Gnosticism in Egypt
-    eg-648  Egyptian monasticism
+    eg-647  Basilides
+    eg-648  Kellia
     eg-649  Anthony the Great
     eg-650  Pachomius
-    eg-651  Desert Fathers
+    eg-651  Apophthegmata Patrum
     eg-652  Athanasius of Alexandria
     eg-653  Cyril of Alexandria
     eg-654  Coptic Orthodox Church
-    eg-655  The end of the Egyptian temples
-    eg-656  The last hieroglyphic inscription
-    eg-657  The closing of Philae
-    eg-658  Byzantine Egypt
-    eg-659  The Muslim conquest of Egypt
-    eg-660  What survived of ancient Egypt
+    eg-655  Theophilus of Alexandria
+    eg-656  Graffito of Esmet-Akhom
+    eg-657  Blemmyes
+    eg-658  Apion family
+    eg-659  Muslim conquest of Egypt
+    eg-660  Hieroglyphica
 
 ## Gods and the Dead
 
 ### Gods and religion — `eg-religion`
 
-    eg-661  Ancient Egyptian religion
-    eg-662  The Egyptian pantheon
+    eg-661  Interpretatio graeca
+    eg-662  Ancient Egyptian deities
     eg-663  Ra
     eg-664  Amun
-    eg-665  Amun-Ra
+    eg-665  Theban Triad
     eg-666  Ptah
     eg-667  Osiris
     eg-668  Isis
     eg-669  Horus
-    eg-670  Set (deity)
+    eg-670  Seth
     eg-671  Nephthys
     eg-672  Anubis
     eg-673  Thoth
@@ -1232,353 +1365,353 @@ safe.
     eg-676  Bastet
     eg-677  Sobek
     eg-678  Khnum
-    eg-679  Nut and Geb
-    eg-680  Shu and Tefnut
+    eg-679  Nut
+    eg-680  Tefnut
     eg-681  Maat
-    eg-682  Bes and Taweret
-    eg-683  Egyptian household religion
+    eg-682  Taweret
+    eg-683  Bes
     eg-684  Egyptian temple
-    eg-685  The sanctuary and the cult image
-    eg-686  The daily temple ritual
-    eg-687  Ancient Egyptian priesthood
-    eg-688  The lector priest
-    eg-689  Purity and the priestly life
-    eg-690  Ancient Egyptian festivals
-    eg-691  The portable barque and the divine procession
-    eg-692  Egyptian oracles
-    eg-693  The Egyptian offering formula
-    eg-694  Votive offerings in Egypt
-    eg-695  Sacred animals of ancient Egypt
-    eg-696  The sacred bulls of Egypt
-    eg-697  Egyptian amulets
+    eg-685  Naos
+    eg-686  Kyphi
+    eg-687  Hem-netjer
+    eg-688  Lector priest
+    eg-689  Wab priest
+    eg-690  Festival of Bubastis
+    eg-691  Barque shrine
+    eg-692  Dakhla Stela
+    eg-693  Offering formula
+    eg-694  Ear stela
+    eg-695  Sacred ibis
+    eg-696  Sacred bull
+    eg-697  Djed
     eg-698  Scarab
-    eg-699  Ancient Egyptian magic
+    eg-699  Apotropaic wand
     eg-700  Heka
-    eg-701  Egyptian magical spells and their uses
-    eg-702  Egyptian dream interpretation
-    eg-703  Egyptian personal piety
-    eg-704  Egyptian ethics and the ideal life
-    eg-705  The temple as a model of the cosmos
-    eg-706  Egyptian solar theology
-    eg-707  Egyptian syncretism
-    eg-708  Egyptian religion and the state
-    eg-709  Foreign gods in Egypt
-    eg-710  How Egyptian religion changed over three thousand years
+    eg-701  Cippus of Horus
+    eg-702  Dream Book
+    eg-703  Personal piety
+    eg-704  Instruction of Kagemni
+    eg-705  Hypostyle hall
+    eg-706  Khepri
+    eg-707  Ra-Horakhty
+    eg-708  Daily temple ritual
+    eg-709  Reshep
+    eg-710  Democratisation of the afterlife
 
 ### Myth and cosmology — `eg-myth`
 
-    eg-711  Ancient Egyptian creation myths
-    eg-712  Nu
-    eg-713  The primeval mound
+    eg-711  Bremner-Rhind Papyrus
+    eg-712  Nun
+    eg-713  Benben
     eg-714  Ennead
-    eg-715  The Heliopolitan cosmogony
+    eg-715  Shu
     eg-716  Memphite theology
     eg-717  Ogdoad
     eg-718  Atum
     eg-719  Osiris myth
-    eg-720  The murder of Osiris
-    eg-721  The conception of Horus
-    eg-722  The Contendings of Horus and Set
+    eg-720  Byblos
+    eg-721  Great Hymn to Osiris
+    eg-722  Contendings of Horus and Seth
     eg-723  Eye of Horus
     eg-724  Eye of Ra
-    eg-725  The Destruction of Mankind
+    eg-725  Festival of Drunkenness
     eg-726  Book of the Heavenly Cow
-    eg-727  The solar barque
+    eg-727  Solar barque
     eg-728  Apep
     eg-729  Duat
-    eg-730  Egyptian conceptions of the sky
-    eg-731  The Egyptian cosmos
-    eg-732  Egyptian sacred geography
-    eg-733  Egyptian myths of kingship
-    eg-734  The king as Horus and son of Ra
-    eg-735  Egyptian tales of the gods
-    eg-736  The myth of the Distant Goddess
-    eg-737  Myth and the temple wall
-    eg-738  Egyptian myth in Greek and Roman writers
-    eg-739  Plutarch on Isis and Osiris
-    eg-740  The problem of writing Egyptian mythology
+    eg-730  Book of Nut
+    eg-731  Akhet
+    eg-732  Bigeh
+    eg-733  Divine birth
+    eg-734  Son of Ra
+    eg-735  Isis and the Secret Name of Ra
+    eg-736  Distant Goddess
+    eg-737  Horus of Behdet
+    eg-738  Diodorus Siculus
+    eg-739  On Isis and Osiris
+    eg-740  Historiola
 
 ### Death, burial and the afterlife — `eg-death`
 
     eg-741  Ancient Egyptian funerary practices
-    eg-742  Egyptian conceptions of the person
+    eg-742  Ib
     eg-743  Ka
     eg-744  Ba
     eg-745  Akh
-    eg-746  The name and the shadow
-    eg-747  Egyptian ideas of the afterlife
-    eg-748  Field of Reeds
-    eg-749  The weighing of the heart
-    eg-750  The judgement of the dead
-    eg-751  The negative confession
+    eg-746  Ren
+    eg-747  Imperishable stars
+    eg-748  Aaru
+    eg-749  Weighing of the heart
+    eg-750  Hall of the Two Truths
+    eg-751  Negative Confession
     eg-752  Ammit
-    eg-753  Mummification
-    eg-754  The stages of embalming
+    eg-753  Per-nefer
+    eg-754  Ritual of Embalming
     eg-755  Natron
-    eg-756  The Egyptian embalmers
+    eg-756  Paraschistes
     eg-757  Canopic jar
-    eg-758  Opening of the Mouth ceremony
-    eg-759  The Egyptian funeral procession
-    eg-760  Egyptian coffins
-    eg-761  Anthropoid coffins
-    eg-762  Egyptian sarcophagi
-    eg-763  Egyptian funerary masks
-    eg-764  Book of the Dead
-    eg-765  The spells of the Book of the Dead
-    eg-766  The Egyptian netherworld books
-    eg-767  Egyptian tomb architecture
-    eg-768  The pyramid as a tomb form
-    eg-769  The Egyptian rock-cut tomb
-    eg-770  The tomb chapel and the false door
-    eg-771  Egyptian funerary stelae
-    eg-772  The funerary offering cult
-    eg-773  The purpose of Egyptian tomb decoration
-    eg-774  Scenes of daily life in Egyptian tombs
-    eg-775  Egyptian grave goods
-    eg-776  The duties of the shabti
-    eg-777  Egyptian tomb models
-    eg-778  Egyptian animal burials
-    eg-779  The burial of the Egyptian poor
-    eg-780  Egyptian cemeteries and their organisation
-    eg-781  Tomb robbery in ancient Egypt
-    eg-782  The reuse of tombs and coffins
-    eg-783  What mummies show about Egyptian health
-    eg-784  Disease and life expectancy in ancient Egypt
-    eg-785  Egyptian mourning
+    eg-758  Opening of the Mouth
+    eg-759  Tekenu
+    eg-760  Mummy board
+    eg-761  Anthropoid coffin
+    eg-762  Sarcophagus
+    eg-763  Mummy mask
+    eg-764  Papyrus of Ani
+    eg-765  Heart scarab
+    eg-766  Books of the Netherworld
+    eg-767  Funerary cone
+    eg-768  Pyramid complex
+    eg-769  Rock-cut tomb
+    eg-770  Tomb of Perneb
+    eg-771  Slab stela
+    eg-772  Djefaihapi
+    eg-773  Offering list
+    eg-774  Raemkai
+    eg-775  Senebtisi
+    eg-776  Overseer shabti
+    eg-777  Servant statue
+    eg-778  Abutiu
+    eg-779  Soul house
+    eg-780  Memphite Necropolis
+    eg-781  Leopold-Amherst Papyrus
+    eg-782  Coffin reuse
+    eg-783  Schistosomiasis
+    eg-784  Pott's disease
+    eg-785  Djeret
     eg-786  Letters to the dead
-    eg-787  Egyptian ancestor cults
-    eg-788  The dead in Egyptian daily life
-    eg-789  Why the Egyptian record is a record of the dead
-    eg-790  Egyptian funerary religion after the pharaohs
+    eg-787  Akh iqer en Ra
+    eg-788  Ancestor bust
+    eg-789  House of eternity
+    eg-790  Books of Breathing
 
 ## Kingship, State and Society
 
 ### Kingship and the state — `eg-kingship`
 
-    eg-791  Pharaoh
-    eg-792  Egyptian royal ideology
-    eg-793  The five names of the Egyptian king
+    eg-791  Prenomen
+    eg-792  Window of Appearance
+    eg-793  Nebty name
     eg-794  Cartouche
-    eg-795  Egyptian royal regalia
-    eg-796  Crowns of Egypt
+    eg-795  Crook and flail
+    eg-796  Deshret
     eg-797  Uraeus
-    eg-798  The king as guarantor of maat
-    eg-799  The smiting scene
-    eg-800  Egyptian royal women
-    eg-801  Female pharaohs
-    eg-802  Royal succession in ancient Egypt
-    eg-803  Egyptian coregency
-    eg-804  The Egyptian royal court
+    eg-798  Presentation of Maat
+    eg-799  Smiting scene
+    eg-800  Great Royal Wife
+    eg-801  Nitocris
+    eg-802  Iry-pat
+    eg-803  Coregency
+    eg-804  Royal harem
     eg-805  Vizier (Ancient Egypt)
-    eg-806  Ancient Egyptian administration
-    eg-807  The Egyptian scribal bureaucracy
-    eg-808  The Egyptian treasury and granaries
-    eg-809  Taxation in ancient Egypt
+    eg-806  Overseer of the Treasury
+    eg-807  Papyrus Lansing
+    eg-808  Overseer of the Granaries
+    eg-809  Tomb of Menna
     eg-810  The Wilbour Papyrus
-    eg-811  Ancient Egyptian law
-    eg-812  Egyptian courts and legal documents
-    eg-813  Punishment in ancient Egypt
-    eg-814  The nome and provincial government
-    eg-815  Egyptian towns and their governance
-    eg-816  Egyptian frontier control
-    eg-817  Egyptian fortresses
-    eg-818  The Egyptian army through time
-    eg-819  Egyptian weapons and warfare
-    eg-820  Egyptian naval activity
-    eg-821  Egyptian diplomacy and treaties
-    eg-822  Egyptian tribute and foreign policy
-    eg-823  The royal monument as propaganda
-    eg-824  Reading royal claims critically
-    eg-825  Continuity and change in Egyptian kingship
+    eg-811  Legal Code of Hermopolis
+    eg-812  Kenbet
+    eg-813  Rhinocolura
+    eg-814  Metjen
+    eg-815  Haty-a
+    eg-816  Walls of the Ruler
+    eg-817  Uronarti
+    eg-818  Sherden
+    eg-819  Mace
+    eg-820  Battle of the Delta
+    eg-821  Gilukhipa
+    eg-822  TT40
+    eg-823  Usurpation of monuments
+    eg-824  Topographical list
+    eg-825  Netjer nefer
 
 ### Society and everyday life — `eg-society`
 
-    eg-826  Ancient Egyptian society
-    eg-827  The Egyptian social order
-    eg-828  Egyptian peasants and agricultural labour
-    eg-829  Egyptian craftsmen
-    eg-830  Dependent labour in ancient Egypt
-    eg-831  Slavery in ancient Egypt
-    eg-832  Women in ancient Egypt
-    eg-833  Marriage in ancient Egypt
-    eg-834  Egyptian divorce and property
-    eg-835  Childhood in ancient Egypt
-    eg-836  Egyptian education
-    eg-837  Egyptian names and naming
-    eg-838  Egyptian houses
-    eg-839  Egyptian towns and villages
-    eg-840  Egyptian furniture
-    eg-841  Ancient Egyptian cuisine
-    eg-842  Bread and beer in Egypt
-    eg-843  Egyptian brewing and baking
-    eg-844  Ancient Egyptian clothing
-    eg-845  Egyptian wigs and hairstyles
-    eg-846  Egyptian cosmetics
-    eg-847  Egyptian jewellery
-    eg-848  Music in ancient Egypt
-    eg-849  Dance in ancient Egypt
-    eg-850  Egyptian games and toys
+    eg-826  Egyptian kinship system
+    eg-827  Gold of honour
+    eg-828  Harvest scene
+    eg-829  Overseer of craftsmen
+    eg-830  Meret
+    eg-831  Adoption Papyrus
+    eg-832  Nebet per
+    eg-833  Brother–sister marriage
+    eg-834  Papyrus Turin 2021
+    eg-835  Sidelock of youth
+    eg-836  Kemit
+    eg-837  Beautiful name
+    eg-838  Lit clos
+    eg-839  Niwt
+    eg-840  Headrest
+    eg-841  Onion
+    eg-842  Pefsu
+    eg-843  Zythos
+    eg-844  Shendyt
+    eg-845  Wig
+    eg-846  Kohl
+    eg-847  Broad collar
+    eg-848  Sistrum
+    eg-849  Muu dancers
+    eg-850  Hounds and jackals
     eg-851  Senet
-    eg-852  Hunting and fishing in ancient Egypt
-    eg-853  Animals in ancient Egypt
-    eg-854  Cats in ancient Egypt
-    eg-855  Egyptian gardens
-    eg-856  Egyptian boats and river travel
-    eg-857  Desert travel and the Egyptian roads
-    eg-858  Festivals in Egyptian daily life
-    eg-859  Egyptian feasting
-    eg-860  Egyptian humour and satire
-    eg-861  Egyptian personal letters
-    eg-862  Village disputes and local justice
-    eg-863  Resident foreigners in Egypt
-    eg-864  Egyptian population and settlement
-    eg-865  What a lifetime looked like in ancient Egypt
+    eg-852  Throwstick
+    eg-853  Hippopotamus
+    eg-854  Cat
+    eg-855  Sycamore fig
+    eg-856  Baris
+    eg-857  Abu Ballas Trail
+    eg-858  Wag festival
+    eg-859  Head cone
+    eg-860  Turin Satirical-Erotic Papyrus
+    eg-861  Heqanakht papyri
+    eg-862  Oracle of Amenhotep I
+    eg-863  Caromemphites
+    eg-864  Whyt
+    eg-865  Life expectancy
 
 ### Land, trade and the economy — `eg-economy`
 
-    eg-866  The economy of ancient Egypt
-    eg-867  Ancient Egyptian agriculture
+    eg-866  Redistribution
+    eg-867  Ard
     eg-868  Basin irrigation
-    eg-869  The Egyptian agricultural year
+    eg-869  Peret
     eg-870  Shaduf
-    eg-871  Land tenure in ancient Egypt
-    eg-872  Egyptian temple estates
-    eg-873  Egyptian grain and its storage
-    eg-874  Rations and payment in kind
-    eg-875  Egyptian weights and values
+    eg-871  Basilike ge
+    eg-872  Satrap Stela
+    eg-873  Emmer
+    eg-874  Hekat
+    eg-875  Kite
     eg-876  Deben
-    eg-877  Egypt before coinage
-    eg-878  Egyptian markets and exchange
-    eg-879  Egyptian craft workshops
-    eg-880  Egyptian linen production
-    eg-881  Papyrus as a product
-    eg-882  Egyptian pottery production
-    eg-883  Egyptian quarries
-    eg-884  Egyptian mining expeditions
-    eg-885  Egyptian gold mining
-    eg-886  Egyptian copper and metalworking
-    eg-887  Egyptian trade with the Levant
-    eg-888  Land of Punt
-    eg-889  Egyptian trade with Nubia
-    eg-890  Egypt in the Bronze Age world economy
+    eg-877  Hacksilver
+    eg-878  Shuty
+    eg-879  Tomb of Nebamun and Ipuky
+    eg-880  Flax
+    eg-881  Cyperus papyrus
+    eg-882  Potter’s wheel
+    eg-883  Tura
+    eg-884  Wadi el-Hudi
+    eg-885  Wadi Allaqi
+    eg-886  Timna Valley
+    eg-887  Cedar of Lebanon
+    eg-888  Mersa Gawasis
+    eg-889  Elephantine
+    eg-890  Oxhide ingot
 
 ## Writing, Art and Knowledge
 
 ### Writing and literature — `eg-writing`
 
     eg-891  Egyptian language
-    eg-892  Egyptian hieroglyphs
-    eg-893  How hieroglyphs work
-    eg-894  Determinatives and phonograms
+    eg-892  Ptolemaic hieroglyphs
+    eg-893  Phonetic complement
+    eg-894  Determinative
     eg-895  Hieratic
-    eg-896  Demotic script
+    eg-896  Old Coptic
     eg-897  Coptic alphabet
-    eg-898  The stages of the Egyptian language
+    eg-898  Late Egyptian
     eg-899  The decipherment of Egyptian hieroglyphs
-    eg-900  Egyptian writing materials
-    eg-901  Papyrus
+    eg-900  Scribal palette
+    eg-901  Prisse Papyrus
     eg-902  Ostracon
-    eg-903  The Egyptian scribe
-    eg-904  Scribal training in ancient Egypt
-    eg-905  Literacy in ancient Egypt
-    eg-906  Ancient Egyptian literature
-    eg-907  Egyptian wisdom literature
+    eg-903  scribe
+    eg-904  sebayt
+    eg-905  literacy
+    eg-906  Immortality of Writers
+    eg-907  wisdom literature
     eg-908  Maxims of Ptahhotep
     eg-909  Instruction of Any
     eg-910  Instruction of Amenemope
-    eg-911  Egyptian narrative fiction
+    eg-911  Taking of Joppa
     eg-912  Tale of the Doomed Prince
-    eg-913  Egyptian travel narrative
-    eg-914  Egyptian poetry
-    eg-915  Egyptian hymns
+    eg-913  Punt reliefs
+    eg-914  Harper's Songs
+    eg-915  Hymns to Senusret III
     eg-916  Hymn to the Nile
-    eg-917  Egyptian love songs
-    eg-918  Egyptian laments
-    eg-919  Egyptian autobiography
-    eg-920  The Egyptian royal inscription as a genre
-    eg-921  Egyptian letters as a form
-    eg-922  Egyptian technical texts
-    eg-923  Egyptian onomastica
-    eg-924  House of Life
-    eg-925  The copying and transmission of Egyptian texts
-    eg-926  The Egyptian book
-    eg-927  Demotic literature
-    eg-928  The Setne stories
-    eg-929  Egyptian literature in the Greco-Roman period
-    eg-930  What survives of Egyptian literature, and why
+    eg-917  Cairo Vase
+    eg-918  Lamentations of Isis and Nephthys
+    eg-919  Bakenkhonsu
+    eg-920  Königsnovelle
+    eg-921  model letter
+    eg-922  Calendar of Lucky and Unlucky Days
+    eg-923  Onomasticon of Amenope
+    eg-924  House of Books
+    eg-925  colophon
+    eg-926  papyrus roll
+    eg-927  Inaros–Petubastis cycle
+    eg-928  Setne Khamwas and Si-Osire
+    eg-929  Oracle of the Potter
+    eg-930  Ramesseum Papyri
 
 ### Art and architecture — `eg-art`
 
     eg-931  Ancient Egyptian art
-    eg-932  The conventions of Egyptian art
-    eg-933  The Egyptian canon of proportions
-    eg-934  Egyptian relief carving
-    eg-935  Sunk and raised relief
-    eg-936  Egyptian painting
-    eg-937  Egyptian pigments
-    eg-938  Egyptian statuary
-    eg-939  Egyptian royal statuary
-    eg-940  Egyptian private statues
-    eg-941  Egyptian colossal sculpture
-    eg-942  Sphinx
-    eg-943  Figured ostraca and artists' sketches
-    eg-944  Egyptian woodwork
-    eg-945  Egyptian metalwork
-    eg-946  Egyptian glass
-    eg-947  Egyptian glazed ware
-    eg-948  Egyptian furniture as art
-    eg-949  The Egyptian artist and the workshop
-    eg-950  Style and change in Egyptian art
-    eg-951  Ancient Egyptian architecture
-    eg-952  Egyptian mudbrick building
-    eg-953  Egyptian stone architecture
-    eg-954  The Egyptian column
+    eg-932  hierarchical proportion
+    eg-933  canon of proportions
+    eg-934  Mastaba of Ti
+    eg-935  sunk relief
+    eg-936  Meidum Geese
+    eg-937  Egyptian blue
+    eg-938  Rahotep and Nofret
+    eg-939  copper statues of Pepi I
+    eg-940  Kaaper
+    eg-941  Colossi of Biahmu
+    eg-942  androsphinx
+    eg-943  Ostracon of Senenmut
+    eg-944  Tomb of Two Brothers
+    eg-945  Treasure of El Lahun
+    eg-946  core-formed glass
+    eg-947  William the Hippo
+    eg-948  Throne of Princess Sitamun
+    eg-949  Iuty
+    eg-950  ka statue of Awibre Hor
+    eg-951  cavetto cornice
+    eg-952  mudbrick
+    eg-953  sandstone
+    eg-954  Hathor column
     eg-955  Pylon
-    eg-956  Hypostyle hall
-    eg-957  Egyptian obelisks
-    eg-958  Egyptian temple plans and their meaning
-    eg-959  Egyptian rock-cut architecture
-    eg-960  Egyptian palaces
-    eg-961  Egyptian fortress architecture
-    eg-962  Egyptian building techniques
-    eg-963  Egyptian surveying and orientation
-    eg-964  The astronomical alignment of Egyptian monuments
-    eg-965  Ornament and meaning in Egyptian decoration
-    eg-966  Egyptian colour symbolism
-    eg-967  Amarna art reconsidered
-    eg-968  Egyptian art under foreign rule
-    eg-969  Egyptian influence on later art
+    eg-956  primeval mound
+    eg-957  obelisk
+    eg-958  dromos
+    eg-959  Temple of Derr
+    eg-960  Palace of Apries
+    eg-961  Kumma
+    eg-962  foundation deposit
+    eg-963  Seshat
+    eg-964  merkhet
+    eg-965  winged sun
+    eg-966  lapis lazuli
+    eg-967  Bek
+    eg-968  Trajan’s Kiosk
+    eg-969  Pyramid of Cestius
     eg-970  Egyptomania
 
 ### Science, medicine and technology — `eg-science`
 
-    eg-971  Ancient Egyptian mathematics
+    eg-971  Egyptian mathematics
     eg-972  Egyptian numerals
     eg-973  Egyptian fraction
     eg-974  Rhind Mathematical Papyrus
     eg-975  Moscow Mathematical Papyrus
-    eg-976  Egyptian geometry and land measurement
+    eg-976  aroura
     eg-977  Ancient Egyptian units of measurement
     eg-978  Cubit
     eg-979  Egyptian astronomy
-    eg-980  The Egyptian civil calendar
+    eg-980  Egyptian civil calendar
     eg-981  Sothic cycle
     eg-982  Decan
-    eg-983  Egyptian star clocks and water clocks
-    eg-984  Timekeeping in ancient Egypt
+    eg-983  water clock
+    eg-984  unequal hours
     eg-985  Ancient Egyptian medicine
-    eg-986  Egyptian physicians
+    eg-986  swnw
     eg-987  Edwin Smith Papyrus
     eg-988  Ebers Papyrus
-    eg-989  Egyptian surgery
-    eg-990  Egyptian pharmacology
-    eg-991  Dentistry in ancient Egypt
-    eg-992  Magic and medicine in Egypt
-    eg-993  Egyptian technology
-    eg-994  Egyptian tools
-    eg-995  Egyptian woodworking and joinery
-    eg-996  Egyptian shipbuilding
-    eg-997  Egyptian glassmaking
-    eg-998  Egyptian materials and their working
-    eg-999  Egyptian knowledge and its transmission
-    eg-1000 What the Egyptians knew
+    eg-989  splint
+    eg-990  castor oil
+    eg-991  Hesy-Ra
+    eg-992  Papyrus Berlin 3027
+    eg-993  bow drill
+    eg-994  adze
+    eg-995  mortise and tenon
+    eg-996  Dahshur boats
+    eg-997  cobalt glass
+    eg-998  electrum
+    eg-999  Chaeremon of Alexandria
+    eg-1000 Book of Thoth

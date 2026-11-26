@@ -1,6 +1,6 @@
 /* Read a TORFL Russian deck the way a reader would, over the FILE: every card, every field.
 
-     node .claude/torfl/check-torfl.js [a1|a2|b1|b2|c1|c2|alphabet]
+     node .claude/torfl/check-torfl.js [a1|a2|b1|b2|c1|c2|phrases|alphabet]
 
    Zero dependencies; no browser.  `check-decks.js` skips the card-level checks for a deck that is
    not Mandarin, so everything Russian this deck is FOR is unchecked by anything until here.  Every
@@ -38,7 +38,13 @@ console.log(FILE + ": " + cards.length + " notes");
 
 ok(deck.folioDeck === 1 && type.cards.length === 2, "one note type with two card templates");
 ok(type.speechLang === "ru-RU", "speech language is ru-RU");
-ok(cards.every((c, i) => c.id === "u_" + deck.meta.id + "_" + (i + 1)), "card ids are sequential");
+// THE IDS ARE PINNED, NOT POSITIONAL (Nov 2026, the beginner pass): a note's number is the one its headword
+// (the alphabet's letter) holds in `.claude/decks/russian-ids.json`, whatever place the note is dealt in.
+const PINNED = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "decks", "russian-ids.json"), "utf8"))[deck.meta.id] || {};
+const pinKey = (c) => c.key || (LEVEL === "alphabet" ? c.fields.Letter : c.fields.Word);
+const unpinned = cards.filter((c) => c.id !== "u_" + deck.meta.id + "_" + PINNED[pinKey(c)]);
+ok(!unpinned.length && new Set(cards.map((c) => c.id)).size === cards.length, "every note carries the id its headword is pinned to",
+   unpinned.slice(0, 5).map(pinKey).join(", "));
 ok(cards.every((c) => type.fields.every((f) => f in c.fields)), "every note has every field");
 
 const RU_FIELDS = LEVEL === "alphabet" ? ["Letter", "Name", "Word"] : ["Russian", "Word"];

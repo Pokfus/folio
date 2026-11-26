@@ -134,6 +134,8 @@ function staticChecks() {
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
     "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
     "india-states": { shapes: inNames, points: INCAP, what: "state or union territory", seatOf: seatOfIN },
+    /* the sixth layer (2026-11-19): the states of the past, read off history.bin into card-faces.js — no dot table; its own suite is test-past-states.js (docs/map-cards.md, last section) */
+    "past-states": { shapes: new Set(Object.keys(cfWin.ATLAS_CARD_FACES.layers["past-states"] || {})), points: {}, what: "state" },
   };
 
   const dwin = {};
@@ -239,7 +241,19 @@ function staticChecks() {
   ok(withMem.length >= 1, "a card carries members (the League of Nations)", withMem.length);
   withMem.forEach((c) => {
     const m = c.members, keys = Array.isArray(m.keys) ? m.keys : [];
-    ok(String(m.name || "").trim().length > 0 && keys.length > 0, c.id + ": the members block names its group and lists countries");
+    /* `members.areas` (2026-11-20, us-084): a generated set of areas in two shades instead of member countries — the set's file exists, carries both parts,
+       and the card names one shade per part (build-area-sets.js --check holds the file itself) */
+    const ar = m.areas;
+    if (ar) {
+      const file = path.join(ROOT, "atlas", "data", String(ar.set || "") + ".js"), W = {};
+      ok(/^[a-z0-9-]+$/.test(String(ar.set || "")) && fs.existsSync(file), c.id + ": its `areas.set` is a generated file under atlas/data/", ar.set);
+      if (fs.existsSync(file)) new Function("window", fs.readFileSync(file, "utf8"))(W);
+      const A = W.ATLAS_AREA_SETS && W.ATLAS_AREA_SETS[ar.set];
+      ok(!!A && A.parts.length === 2 && A.parts.every((p) => p.rings.length > 0), c.id + ": …which defines its two parts", A ? A.parts.map((p) => p.id + " " + p.rings.length).join(", ") : "none");
+      ok(Array.isArray(ar.shades) && ar.shades.length === 2 && ar.shades.every((s) => String((s && s.name) || "").trim()), c.id + ": …and the card names a shade for each part");
+      ok(fs.readFileSync(path.join(ROOT, "app.js"), "utf8").indexOf('"area:' + ar.set + '": { files: ["atlas/data/' + ar.set + '.js"] }') >= 0, c.id + ": …and app.js has its lazy bundle `area:" + ar.set + "`");
+    }
+    ok(String(m.name || "").trim().length > 0 && (keys.length > 0 || !!ar), c.id + ": the members block names its group and lists countries (or a set of areas)");
     const lay = m.layer && FZ[m.layer] ? new Set(names(m.layer)) : world;   // `members.layer` (2026-10-30): another map-card layer's names
     ok(!m.layer || !!FZ[m.layer], c.id + ": its `layer` is a map-card layer", m.layer);
     const missing = keys.filter((k) => !lay.has(k));

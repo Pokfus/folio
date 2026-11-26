@@ -82,7 +82,9 @@ const ok = (c, m, extra) => {
                ex: b.querySelectorAll(".uc-exz").length, speaker: !!b.querySelector(".uc-tts"),
                ask: !!b.querySelector(".uc-ask"), shapes: b.querySelectorAll(".uc-shf").length };
     });
-    if (ABC ? (back.shapes >= 4 && !back.ask) : ((back.table || PHR) && back.ex && !back.ask)) break;
+    // the alphabet deck opens with a rule and four signs, which have no shapes row, and since Nov 2026 a
+    // letter's own front carries its kind in `.uc-ask`: any card that draws the four shapes will do
+    if (ABC ? back.shapes >= 4 : ((back.table || PHR) && back.ex && !back.ask)) break;
     await pg.evaluate(() => document.querySelector(".grade[data-g='easy']").click());
     await pg.waitForTimeout(300);
   }

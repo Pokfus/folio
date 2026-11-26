@@ -6,7 +6,7 @@ Portuguese CAPLE, Italian CILS, Indonesian UKBI …); `docs/lang-decks.md` is th
 were built, and every rule there applies here unless this file says otherwise. Asked for on 2026-10-30: "In the same style, we made other language vocabulary collections for
 several foreign languages. Start planning a collection for learning Russian."
 
-**STATUS (2026-10-30): the alphabet deck, all six levels (A1 to C2) and the phrases deck are built** (`.claude/torfl/`, §10). The owner's
+**STATUS (2026-11-19): the beginner pass has been through the set — §16; the decks now carry a record, an order and pinned ids, and a level is never rebuilt to refresh it.** **STATUS (2026-10-30): the alphabet deck, all six levels (A1 to C2) and the phrases deck are built** (`.claude/torfl/`, §10). The owner's
 answers to §9: sizes as below; **an alphabet deck, yes**; **titles in English**; word source as
 recommended (assembled). The owner is supplying TORFL's own level descriptions; until they are written
 into `SCOPE` in `torfl_level.py`, every level is scoped to the CEFR global descriptors for their bands
@@ -371,3 +371,24 @@ Tatoeba sentences often have no English translation, or run past ten words.
 
 **Open:** write TORFL's own level descriptions into `SCOPE` and the inventories against them when the
 owner's text arrives; a full one-by-one read of B2–C2 and the phrases deck of the kind DELE's decks had.
+
+## 16. The beginner pass (2026-11-19)
+
+The audit, what it built and what it left are in `docs/lang-decks.md`, "The Russian beginner pass"; the files
+are in `.claude/decks/README.md`, "The Russian decks". What changes in THIS plan:
+
+- **§7's discipline does not hold and is replaced.** A re-run does not reproduce a shipped deck byte for byte
+  (§10's claim was true on the day's cache): on a fresh fetch A1 keeps its 500 words, moves four notes and
+  changes three notes' sentences; the phrases move 92 notes. The decks are edited through
+  `.claude/decks/russian-fixes.json` and numbered from `russian-ids.json`. `run.py` is for building a NEW level.
+- **§10's rule on function words was over-broad**: "a function-word entry that is an inflected form is taught
+  on its lemma's card" kept так, весь, такой, себя, чем, просто, конечно and ладно off every deck. The rule
+  stands in `select.py` (changing it re-selects every level); the words are cards of A1 in the record, built
+  by `extra.py`. A further level's inventory should name such words outright.
+- **§10's alphabet deck is no longer hand-written**: `build-russian-sounds.js` writes it from the Letters
+  table of Wikipedia's "Russian alphabet", and a ninth deck, Russian — Sounds and spelling, follows it.
+- **§4's verbs of motion now point at each other**, as that section promised; **§4's "prepositions name the
+  case"** now holds for 21 of A1's 22.
+- **TORFL A1 is 549 notes, A2 737, the phrases 474**; A1 is dealt in a teaching order, not by frequency.
+- **Still open**: TORFL's own level descriptions (the owner's); the one-by-one read of B2 to C2; the words the
+  fill refuses as film vocabulary (умереть, смерть, война) are on no deck and no inventory names them.

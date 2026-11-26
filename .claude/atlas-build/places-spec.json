@@ -245,35 +245,6 @@
    },
    "cards": 1
   },
-  "pl:q10285": {
-   "name": "Colosseum",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q10285",
-   "at": [
-    12.4922,
-    41.8903
-   ],
-   "within": "city:1159151593",
-   "aliases": [],
-   "wiki": "Colosseum",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q133444874",
-     "Q124830411",
-     "Q112132548",
-     "Q112132522",
-     "Q7362268",
-     "Q3867560",
-     "Q839954",
-     "Q483110"
-    ],
-    "via": "title",
-    "km": 0
-   },
-   "cards": 1
-  },
   "pl:q10288": {
    "name": "Parthenon",
    "kind": "site",
@@ -1202,31 +1173,6 @@
    "forced": true,
    "reason": "Izborsk is a settlement (Wikidata: hamlet) with its fortress, not a building (decision e, 2026-10-17)"
   },
-  "pl:q1136637": {
-   "name": "Sounion",
-   "kind": "cape",
-   "sub": "",
-   "qid": "Q1136637",
-   "at": [
-    24.0301,
-    37.649
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Sounion",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q839954",
-     "Q191992",
-     "Q185113"
-    ],
-    "via": "title",
-    "km": 0.5
-   },
-   "cards": 1,
-   "kindWas": "site/site"
-  },
   "pl:q1136681": {
    "name": "Seleucia",
    "kind": "site",
@@ -1853,28 +1799,6 @@
     ],
     "via": "add-place"
    }
-  },
-  "pl:q11907359": {
-   "name": "Auximum",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q11907359",
-   "at": [
-    13.4833,
-    43.4833
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340"
-    ],
-    "via": "label",
-    "km": 0.3
-   },
-   "cards": 1
   },
   "pl:q11909916": {
    "name": "Bovianum",
@@ -4676,6 +4600,30 @@
    "evidence": {
     "classes": [
      "Q46831"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q155921": {
+   "name": "Bletchley Park",
+   "kind": "site",
+   "sub": "building",
+   "qid": "Q155921",
+   "at": [
+    -0.7411,
+    51.9981
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Bletchley Park",
+   "manual": true,
+   "reason": "Bletchley Park: ww2-899's map window (Turing at the codebreaking station)",
+   "evidence": {
+    "classes": [
+     "Q1343246",
+     "Q2087181",
+     "Q2772772",
+     "Q115154402"
     ],
     "via": "add-place"
    }

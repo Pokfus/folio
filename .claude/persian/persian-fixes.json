@@ -1,0 +1,510 @@
+{
+ "_readme": "The Persian record. Applied by persian-fix.js, whose header is the documentation. Never edit a deck file: edit the generator (.claude/persian/*.py) for a fault of the generator, or this file for a move, an addition, or a description.",
+ "insert": {
+  "persiana1": [
+   {
+    "word": "صفر",
+    "id": 501,
+    "from": "persianb1/صفر",
+    "why": "zero stood in B1 (note 688, day 396 of the shelf): a number a beginner counts from",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">صفر</span>",
+     "Roman": "sefr",
+     "Word": "صفر",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">zero</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">noun</div><div class=\"uc-gl\">nought, naught, cipher, zero</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"صفر، یک، دو، سه، چهار، پنج، شش، هفت، هشت، نه،‌ ده.\"></span><b>صفر</b>، یک، دو، سه، چهار، پنج، شش، هفت، هشت، نه،‌ ده.</div><div class=\"uc-exe\">Zero, one, two, three, four, five, six, seven, eight, nine, ten.</div></div>"
+    }
+   },
+   {
+    "word": "سیزده",
+    "id": 502,
+    "from": "persiana2/سیزده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">سیزده</span>",
+     "Roman": "sizdah",
+     "Word": "سیزده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">thirteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "چهارده",
+    "id": 503,
+    "from": "persiana2/چهارده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">چهارده</span>",
+     "Roman": "čahârdah",
+     "Word": "چهارده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fourteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "پانزده",
+    "id": 504,
+    "from": "persiana2/پانزده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">پانزده</span>",
+     "Roman": "pânzdah",
+     "Word": "پانزده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fifteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"تام و ماری پانزده سال با شادمانی در عقد یکدیگر بوده اند.\"></span>تام و ماری <b>پانزده</b> سال با شادمانی در عقد یکدیگر بوده اند.</div><div class=\"uc-exe\">Tom and Mary have been happily married for thirteen years.</div></div>"
+    }
+   },
+   {
+    "word": "شانزده",
+    "id": 505,
+    "from": "persiana2/شانزده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">شانزده</span>",
+     "Roman": "šânzdah",
+     "Word": "شانزده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "هفده",
+    "id": 506,
+    "from": "persiana2/هفده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">هفده</span>",
+     "Roman": "hafdah",
+     "Word": "هفده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventeen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"هفده ساله ای؟\"></span><b>هفده</b> ساله ای؟</div><div class=\"uc-exe\">Are you 17?</div></div>"
+    }
+   },
+   {
+    "word": "هجده",
+    "id": 507,
+    "from": "persiana2/هجده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">هجده</span>",
+     "Roman": "hejdah",
+     "Word": "هجده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "نوزده",
+    "id": 508,
+    "from": "persiana2/نوزده",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">نوزده</span>",
+     "Roman": "nuzdah",
+     "Word": "نوزده",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">nineteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "چهل",
+    "id": 509,
+    "from": "persiana2/چهل",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">چهل</span>",
+     "Roman": "čehel",
+     "Word": "چهل",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">forty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"این کتاب حاوی چهل عکس است.\"></span>این کتاب حاوی <b>چهل</b> عکس است.</div><div class=\"uc-exe\">This book contains forty photographs.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"چهل یورو برای یک روسری؟ ازرانتر از آن ندارید؟\"></span><b>چهل</b> یورو برای یک روسری؟ ازرانتر از آن ندارید؟</div><div class=\"uc-exe\">Forty euros for a scarf? You don&#x27;t have anything cheaper?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"چهل سال دارم.\"></span><b>چهل</b> سال دارم.</div><div class=\"uc-exe\">I&#x27;m forty years old.</div></div>"
+    }
+   },
+   {
+    "word": "پنجاه",
+    "id": 510,
+    "from": "persiana2/پنجاه",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">پنجاه</span>",
+     "Roman": "panjâh",
+     "Word": "پنجاه",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fifty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "شصت",
+    "id": 511,
+    "from": "persiana2/شصت",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">شصت</span>",
+     "Roman": "šast",
+     "Word": "شصت",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"قطعا عمرش بالای شصت سال است.\"></span>قطعا عمرش بالای <b>شصت</b> سال است.</div><div class=\"uc-exe\">He must be over sixty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"یک سال کبیسه سیصد و شصت و شش روز دارد.\"></span>یک سال کبیسه سیصد و <b>شصت</b> و شش روز دارد.</div><div class=\"uc-exe\">A leap year has three hundred and sixty-six days.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"آمریکاییانی که بیش از شصت و پنج سال سن دارند، 12.5٪ کل جمعیت را تشکیل می‌دهند.\"></span>آمریکاییانی که بیش از <b>شصت</b> و پنج سال سن دارند، 12.5٪ کل جمعیت را تشکیل می‌دهند.</div><div class=\"uc-exe\">Americans who are over sixty-five make up 12.5% of the total population.</div></div>"
+    }
+   },
+   {
+    "word": "هفتاد",
+    "id": 512,
+    "from": "persiana2/هفتاد",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">هفتاد</span>",
+     "Roman": "haftâd",
+     "Word": "هفتاد",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventy</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "هشتاد",
+    "id": 513,
+    "from": "persiana2/هشتاد",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">هشتاد</span>",
+     "Roman": "haštâd",
+     "Word": "هشتاد",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "نود",
+    "id": 514,
+    "from": "persiana2/نود",
+    "why": "A1 had one to twelve, twenty, thirty, a hundred and a thousand; thirteen to nineteen and forty to ninety stood in A2 (days 230 to 252)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">نود</span>",
+     "Roman": "navad",
+     "Word": "نود",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">ninety</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "متشکرم",
+    "id": 515,
+    "from": "persiana2/متشکرم",
+    "why": "the formal \"thank you\", in A2 (note 117) while A1 taught only its adjective متشکر",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">متشکرم</span>",
+     "Roman": "motašakkeram",
+     "Word": "متشکرم",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><ol class=\"uc-gls\"><li>thank you</li><li>I am thankful</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"از اینکه مرا دعوت کردی، متشکرم.\"></span>از اینکه مرا دعوت کردی، <b>متشکرم</b>.</div><div class=\"uc-exe\">Thank you for inviting me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"متشکرم که مرا به سینما دعوت کردی.\"></span><b>متشکرم</b> که مرا به سینما دعوت کردی.</div><div class=\"uc-exe\">Thanks for inviting me to the movies.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"متشکرم\"></span><b>متشکرم</b></div><div class=\"uc-exe\">Thank you!</div></div>"
+    }
+   },
+   {
+    "word": "خانم",
+    "id": 516,
+    "from": "persiana2/خانم",
+    "why": "\"Mrs, Ms; lady\", in A2 (note 225) while آقا \"Mr, sir\" was A1's: a form of address learnt as a pair",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">خانم</span>",
+     "Roman": "xânom",
+     "Word": "خانم",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">noun</div><ol class=\"uc-gls\"><li>Mrs, Ms</li><li>lady</li><li>madam (used in Iran especially in the 19th century)</li></ol></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span><span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">خانم‌ها</span><span class=\"uc-fr\">xânom-hâ</span></span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"دختر (آن) خانم بیمار است\"></span>دختر (آن) <b>خانم</b> بیمار است</div><div class=\"uc-exe\">Her daughter is sick.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"صبح بخیر، خانم ها و آقایان!\"></span>صبح بخیر، <b>خانم</b> ها و آقایان!</div><div class=\"uc-exe\">Good morning, ladies and gentlemen!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"نگذار او آدرس آن خانم را بفهمد.\"></span>نگذار او آدرس آن <b>خانم</b> را بفهمد.</div><div class=\"uc-exe\">Don&#x27;t let him know her address.</div></div>"
+    }
+   },
+   {
+    "word": "اسم شما چیست",
+    "id": 517,
+    "from": "faphrase/اسم شما چیست",
+    "why": "\"what's your name?\" was the tenth card of the phrases deck, the last deck on the shelf (day 1,060)",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">اسم شما چیست</span>",
+     "Roman": "esm-e šomâ čist?",
+     "Word": "اسم شما چیست",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what&#x27;s your name? (formal)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"اسم شما چیست؟\"></span><b>اسم</b> <b>شما</b> <b>چیست</b>؟</div><div class=\"uc-exe\">What is your name?</div></div>"
+    }
+   },
+   {
+    "word": "بفرمایید",
+    "id": 518,
+    "from": "x1/بفرمایید",
+    "why": "the word of every Persian offer (here you are; after you; please, go ahead): Wiktionary has it and no deck carded it",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">بفرمایید</span>",
+     "Roman": "befarmâyid",
+     "Word": "بفرمایید",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>what can I do (for you)?</li><li>here you are</li><li>after you</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"بفرمایید از کِیک مِیل کنید.\"></span><b>بفرمایید</b> از کِیک مِیل کنید.</div><div class=\"uc-exe\">Please help yourself to the cake.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"بفرمایید این مجله برای شماست تا در هواپیما مطالعه کنید.\"></span><b>بفرمایید</b> این مجله برای شماست تا در هواپیما مطالعه کنید.</div><div class=\"uc-exe\">Here&#x27;s a magazine for you to read in the plane.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"بفرمایید بنشینید.\"></span><b>بفرمایید</b> بنشینید.</div><div class=\"uc-exe\">Please, have a seat.</div></div>"
+    },
+    "src": [
+     "Tatoeba #10710497",
+     "Tatoeba #1486328",
+     "Tatoeba #1616893"
+    ]
+   },
+   {
+    "word": "نمی‌دانم",
+    "id": 519,
+    "from": "x1/نمی‌دانم",
+    "why": "\"I don't know\": Wiktionary's own phrase entry, in no deck",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">نمی‌دانم</span>",
+     "Roman": "nemi-dânam",
+     "Word": "نمی‌دانم",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">I don&#x27;t know (informal)</div></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">spoken</span><span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">نمیدونم</span><span class=\"uc-fr\">nemi-dunam</span></span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"نمیدانم از کجا آمد.\"></span><b>نمیدانم</b> از کجا آمد.</div><div class=\"uc-exe\">I didn&#x27;t know where it came from.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"من آنرا کافی نمی دانم.\"></span>من آنرا کافی <b>نمی دانم</b>.</div><div class=\"uc-exe\">I don&#x27;t consider that adequate.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"من فقط نمی دانم چه بگویم.\"></span>من فقط <b>نمی دانم</b> چه بگویم.</div><div class=\"uc-exe\">I just don&#x27;t know what to say.</div></div>"
+    },
+    "src": [
+     "Tatoeba #3840521",
+     "Tatoeba #12925924",
+     "Tatoeba #513737"
+    ]
+   },
+   {
+    "word": "چیست",
+    "id": 520,
+    "from": "x1/چیست",
+    "why": "\"what is\": the last word of اسم شما چیست, in no deck",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">چیست</span>",
+     "Roman": "čist",
+     "Word": "چیست",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what&#x27;s (what is)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"اصل خط منصف چیست؟\"></span>اصل خط منصف <b>چیست</b>؟</div><div class=\"uc-exe\">What is principle of equidistance?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"در دفترِ شما چیست؟\"></span>در دفترِ شما <b>چیست</b>؟</div><div class=\"uc-exe\">What&#x27;s in your office?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"خدا کیست؟ خدا چیست؟\"></span>خدا کیست؟ خدا <b>چیست</b>؟</div><div class=\"uc-exe\">Who is God? What is God?</div></div>"
+    },
+    "src": [
+     "Tatoeba #1874378",
+     "Tatoeba #10920113",
+     "Tatoeba #13865230"
+    ]
+   },
+   {
+    "word": "هست",
+    "id": 521,
+    "from": "x1/هست",
+    "why": "\"there is; is, are\": the form a beginner meets before any table of بودن, in no deck",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">هست</span>",
+     "Roman": "hast",
+     "Word": "هست",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><ol class=\"uc-gls\"><li>there is, there are</li><li>is, are (informal)</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"شیر یا شکری هست؟\"></span>شیر یا شکری <b>هست</b>؟</div><div class=\"uc-exe\">Any milk or sugar?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"همینی است که هست.\"></span>همینی است که <b>هست</b>.</div><div class=\"uc-exe\">It is what it is.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"fa\"><span class=\"uc-tts uc-exsay\" data-say=\"شیطان همه جا هست.\"></span>شیطان همه جا <b>هست</b>.</div><div class=\"uc-exe\">Evil is everywhere.</div></div>"
+    },
+    "src": [
+     "Tatoeba #1044688",
+     "Tatoeba #3839825",
+     "Tatoeba #12820314"
+    ]
+   },
+   {
+    "word": "قهوه‌ای",
+    "id": 522,
+    "from": "x1/قهوه‌ای",
+    "why": "brown: the one everyday colour beside A1's six that no deck carded",
+    "fields": {
+     "Persian": "<span class=\"uc-fa\" dir=\"rtl\" lang=\"fa\">قهوه‌ای</span>",
+     "Roman": "ġahve-yi",
+     "Word": "قهوه‌ای",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">brown</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "src": []
+   }
+  ]
+ },
+ "notes": {
+  "persiana1/ممنون": {
+   "leadSense": [
+    "interjection",
+    [
+     "thank you, thanks"
+    ]
+   ],
+   "why": "the commonest word of thanks was glossed only \"grateful, thankful; a grateful person\": the English Wiktionary's entry has the adjective and the noun and no interjection. The meaning added is the one all three of the card's own Tatoeba sentences give it (\"Thank you so much for attending!\", \"Thanks for the detailed explanation.\", \"Thank you for helping me.\")."
+  }
+ },
+ "decks": {
+  "persiana2": {
+   "dropDup": {
+    "سیزده": "persiana1/سیزده",
+    "چهارده": "persiana1/چهارده",
+    "پانزده": "persiana1/پانزده",
+    "شانزده": "persiana1/شانزده",
+    "هفده": "persiana1/هفده",
+    "هجده": "persiana1/هجده",
+    "نوزده": "persiana1/نوزده",
+    "چهل": "persiana1/چهل",
+    "پنجاه": "persiana1/پنجاه",
+    "شصت": "persiana1/شصت",
+    "هفتاد": "persiana1/هفتاد",
+    "هشتاد": "persiana1/هشتاد",
+    "نود": "persiana1/نود",
+    "متشکرم": "persiana1/متشکرم",
+    "خانم": "persiana1/خانم"
+   },
+   "subtitle": "{N} words · both directions, as two cards per word",
+   "descSub": [
+    [
+     "\\d[\\d,]* words for an elementary learner",
+     "{N} words for an elementary learner"
+    ],
+    [
+     "It is assembled from two things that can be stated\\. 255 of the 750 come from",
+     "It is assembled from two things that can be stated. 255 of the 750 words first chosen come from"
+    ],
+    [
+     "added together\\. The cards are dealt by that frequency, so the words you meet most often come first\\.",
+     "added together; 15 of the 750 (thirteen to nineteen, forty to ninety, متشکرم and خانم) have since moved down to A1, which leaves {N}. The cards are dealt by that frequency, so the words you meet most often come first, except that the four seasons (from word {SET1}) and the twelve months of the Iranian solar calendar (from word {SET2}) are each dealt together, in the calendar's order. AT THE DEFAULT PACE of ten new cards a day, which is five words since each word is two cards, the {N} words take {DAYS} days."
+    ],
+    [
+     "Real example sentences come with \\d[\\d,]* of the \\d[\\d,]* words, three apiece for \\d[\\d,]* of them",
+     "Real example sentences come with {EX} of the {N} words, three apiece for {EX3} of them"
+    ],
+    [
+     "The \\d+ nouns show their plural; the \\d+ verbs show their present stem",
+     "Nouns show their plural; verbs show their present stem"
+    ]
+   ]
+  },
+  "persianb1": {
+   "dropDup": {
+    "صفر": "persiana1/صفر"
+   },
+   "subtitle": "{N} words · both directions, as two cards per word",
+   "descSub": [
+    [
+     "\\d[\\d,]* words for an intermediate learner",
+     "{N} words for an intermediate learner"
+    ],
+    [
+     "It is assembled from two things that can be stated\\. 177 of the 1000 come from",
+     "It is assembled from two things that can be stated. 177 of the 1000 words first chosen come from"
+    ],
+    [
+     "added together\\. The cards are dealt by that frequency",
+     "added together; one of the 1000 (صفر, zero) has since moved down to A1, which leaves {N}. The cards are dealt by that frequency"
+    ],
+    [
+     "Real example sentences come with \\d[\\d,]* of the \\d[\\d,]* words, three apiece for \\d[\\d,]* of them",
+     "Real example sentences come with {EX} of the {N} words, three apiece for {EX3} of them"
+    ],
+    [
+     "The \\d+ nouns show their plural; the \\d+ verbs show their present stem",
+     "Nouns show their plural; verbs show their present stem"
+    ]
+   ]
+  },
+  "faphrase": {
+   "dropDup": {
+    "اسم شما چیست": "persiana1/اسم شما چیست"
+   },
+   "subtitle": "{N} expressions · {SUB1} everyday, {SUB2} idioms, {SUB3} proverbs · both directions",
+   "descSub": [
+    [
+     "^\\d+ Persian set phrases, idioms and proverbs, in three subdecks: \\d+ everyday phrases, \\d+ idioms and \\d+ proverbs\\.",
+     "{N} Persian set phrases, idioms and proverbs, in three subdecks: {SUB1} everyday phrases, {SUB2} idioms and {SUB3} proverbs."
+    ],
+    [
+     "Nothing here is taught by any of the five, so the two can be studied together without repeating an entry\\. ",
+     "Nothing here is taught by any of the five, so the two can be studied together without repeating an entry. WHEN TO START. The app deals the three subdecks side by side, and inside each the expressions now come by READING LEVEL: first those whose every word is a headword of Persian A1 or a form one of its cards shows ({A1PHRASES} phrases, {A1IDIOMS} idioms, {A1PROVERBS} proverbs), then those that need A2, B1, B2 and C1, then the ones with a word no level teaches. So the Phrases can be begun beside A1; the Idioms and the Proverbs are better left until B1. At the default pace of ten new cards a day the {N} expressions take {DAYS} days. TA'ÂROF. Persian politeness has a name, ta'ârof (تعارف): \"an Iranian system of honour norms, a form of civility, or an art of etiquette, that emphasizes both deference and social rank\" (Wikipedia, \"Taarof\", revision 1385845637): \"In the rules of hospitality, taarof requires a host to offer anything a guest might want, and a guest is equally obliged to refuse it. This ritual may repeat itself several times (usually three times)\" (the same article). Wiktionary marks one card here as its formula — قابل ندارد, \"a kind of taarof commonly used by sellers\" — and others are said in the same exchanges (وظیفه‌ام بود, it was my duty; زحمت نکشید; قدمت روی چشم); تعارف itself is a card of Persian B2, and بفرمایید, the word of every offer, is a card of Persian A1. "
+    ],
+    [
+     "Within each subdeck the expressions come in the order of how many of Tatoeba's Persian sentences contain them, an expression ending in a verb being counted in any form of that verb; Tatoeba's Persian is small, so only 20 of the 106 are found there at all, and the rest follow in the order of how common their words are in film and television subtitles\\.",
+     "Within a reading level the expressions come in the order of how many of Tatoeba's Persian sentences contain them, an expression ending in a verb being counted in any form of that verb; Tatoeba's Persian is small, so few are found there at all, and the rest follow in the order of how common their words are in film and television subtitles."
+    ],
+    [
+     "Real example sentences come with \\d+ of the \\d+ expressions, three apiece for \\d+,",
+     "Real example sentences come with {EX} of the {N} expressions, three apiece for {EX3},"
+    ],
+    [
+     "Order: Tatoeba \\(tatoeba\\.org\\), CC BY 2\\.0 FR, then a word list",
+     "Order: the reading level, from the six Persian decks; then Tatoeba (tatoeba.org), CC BY 2.0 FR, then a word list"
+    ]
+   ]
+  },
+  "persiana1": {
+   "subtitle": "{N} words · both directions, as two cards per word",
+   "descSub": [
+    [
+     "\\d[\\d,]* words for a beginner",
+     "{N} words for a beginner"
+    ],
+    [
+     "The Persian taught is the standard written language of Iran \\(Farsi\\), with the everyday spoken form shown beside a word where Tehran speech says it differently\\. ",
+     "WRITTEN AND SPOKEN PERSIAN ARE NOT THE SAME, and a beginner should know it from the first day. The cards teach the standard written language of Iran (Farsi); what is said in Tehran differs in regular ways — \"When spoken formally, Iranian Persian is pronounced as written. But colloquial pronunciation as used by all classes makes a number of very common substitutions\" (Wikipedia, \"Persian phonology\", revision 1386489168): ân is usually said un (نان nân, bread, is nun), است \"is\" is said -e, را is said ro or -o, the verb endings -id and -and are said -in and -an, and the commonest verbs are shortened (می‌خواهم mi-xâham, I want, is mixâm). A card shows the spoken form beside the written one, labelled \"spoken\", where the English Wiktionary gives it: on a word's own line (خانه, spoken خونه) and on a verb's, the forms for \"I\" and \"he, she\". The example sentences are mostly written Persian; a few are written the spoken way, as Tatoeba's contributors wrote them. "
+    ],
+    [
+     "It is assembled from two things that can be stated\\. \\d+ of the \\d+ come from",
+     "It is assembled from things that can be stated. 283 of its words come from"
+    ],
+    [
+     "— and the other 217 are the commonest remaining words",
+     "— 217 are the commonest remaining words"
+    ],
+    [
+     "added together\\. The cards are dealt by that frequency, so the words you meet most often come first\\.",
+     "added together; and {ADDED} were added in November 2026, {MOVED} moved down from the decks above (zero, thirteen to nineteen, forty to ninety, متشکرم, خانم and the question اسم شما چیست) and {NEW} that no deck carded (بفرمایید, نمی‌دانم, چیست, هست, قهوه‌ای), their meanings and sentences from the same sources. THE ORDER. The first {HEAD} words are put by hand — the greetings and courtesies (سلام is the first card), a first exchange, the pronouns, twelve verbs, the words a sentence is built out of, the question words, zero to ten — and the rest follow by frequency, the words you meet most often first, with three sets each dealt whole and in order: the days of the week from Saturday, the first day of the Iranian week (from word {SET1}), the numbers above ten (from {SET2}) and the colours (from {SET3}). AT THE DEFAULT PACE of ten new cards a day, which is five words since each word is two cards, the {N} words take {DAYS} days."
+    ],
+    [
+     "and behind the All forms fold their present, past, present perfect, future, subjunctive and imperative by person and their negative\\. ",
+     "and behind the All forms fold their present, past, present perfect, future, subjunctive and imperative by person and their negative. A meaning that is said only to a friend, or only politely, says so in brackets (مرسی, thanks, informal; ببخشید, excuse me, formal). "
+    ],
+    [
+     "Real example sentences come with \\d[\\d,]* of the \\d[\\d,]* words, three apiece for \\d[\\d,]* of them",
+     "Real example sentences come with {EX} of the {N} words, three apiece for {EX3} of them"
+    ],
+    [
+     ", with the word picked out in colour and a speaker beside the sentence and the headword\\. Sources\\.",
+     ", with the word picked out in colour and a speaker beside the sentence and the headword. The sentences are real ones and are not graded, and they are printed without a romanisation: the speaker beside each reads it. Sources."
+    ],
+    [
+     "The \\d+ nouns show their plural; the \\d+ verbs show their present stem",
+     "Nouns show their plural; verbs show their present stem"
+    ]
+   ]
+  }
+ }
+}

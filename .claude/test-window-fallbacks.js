@@ -149,10 +149,10 @@ const zoomTrail = async (page, btn, n) => { const z = []; for (let i = 0; i < n;
     await openCard(page, "rm-209", "none");
     const h = await hostState(page);
     check("the window is a sentence: data-map-engine=none, class mc-plain, no canvas, no zoom buttons", h.eng === "none" && h.plain && h.canvasHidden && !h.zoomShown, JSON.stringify(h));
-    check("...and the sentence is the honest one about WebGL2 and points at the key", h.note === "This browser cannot draw a war’s sides on the map (it needs WebGL2). The key below says who fought whom.", h.note);
+    check("...and the sentence is the honest one about WebGL2 and points at the key", h.note === "This browser cannot draw a war’s sides on the map (it needs WebGL2). The key above says who fought whom.", h.note);
     const key = await page.$$eval(".war-key .wk-side", (els) => els.map((e) => e.textContent.replace(/\s+/g, " ").trim()));
-    check("the key under the window (cardWarKeyHTML) still names both sides and says which won", key.length === 2 && /Rome/.test(key[0]) && /victors/.test(key[0]) && /Carthage/.test(key[1]) && /defeated/.test(key[1]), key.join(" | "));
-    check("...and it sits outside the window block", await page.evaluate(() => !document.querySelector(".card-loc .war-key") && !!document.querySelector(".war-key")));
+    check("the key above the window (cardWarKeyHTML) still names both sides and says which won", key.length === 2 && /Rome/.test(key[0]) && /victors/.test(key[0]) && /Carthage/.test(key[1]) && /defeated/.test(key[1]), key.join(" | "));
+    check("...and it stands above the window, under the heading (2026-11-18)", await page.evaluate(() => !!document.querySelector(".card-loc > .war-key")));
     await ctx.close();
   }
 

@@ -11,6 +11,59 @@
    unreachable, against 437 ms without it). Do not reintroduce one — see the reasoning in
    index.html's head and in .claude/build-fonts.js. */
 
+/* NON-LATIN SCRIPTS ARE SET IN A SANS-SERIF (Nov 2026, on request). A learner meeting a new script cannot
+   tell a serif or a calligraphic flourish from the letter itself, and may learn the decoration as part of
+   the character. Two parts:
+   · "Folio Script Sans" is a family of LOCAL faces only (nothing is downloaded; fonts.css and the CSP's
+     `font-src 'self'` are untouched), one @font-face per script with that script's unicode-range, so each
+     script finds its own sans face and Latin text never matches any of them. It heads every --serif and
+     --display stack, so a Greek or Cyrillic word inside English prose is set in a sans too.
+   · Inside an element marked with a non-Latin language (a language deck's card, the Library's original
+     column), the element and its --serif and --display become --script-sans (the family must be set on the
+     element too: an inherited font-family is already resolved, so a var redefined below it changes
+     nothing), so where no listed face is installed the fallback is the system's sans-serif, not its serif. The Arabic and Urdu decks name serif faces
+     of their own (Naskh, Nastaliq) on their right-to-left runs, and are overridden below.
+   No weight is declared, so bold is synthesised from the regular face rather than lost. Han characters
+   have no face here: Chinese already uses --han (sans), and one face cannot choose Chinese or Japanese
+   glyph forms; inside a ja / zh card the generic sans-serif picks them by language. */
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans"), local("NotoSans-Regular"), local("Segoe UI"), local("Helvetica Neue"), local("Arial"), local("ArialMT"), local("Roboto"), local("DejaVu Sans");
+  unicode-range:U+0370-03FF, U+1F00-1FFF, U+0400-052F, U+1C80-1C8F, U+2DE0-2DFF, U+A640-A69F;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Hebrew"), local("NotoSansHebrew-Regular"), local("Arial Hebrew"), local("Segoe UI"), local("Arial"), local("DejaVu Sans");
+  unicode-range:U+0590-05FF, U+FB1D-FB4F;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Arabic"), local("NotoSansArabic-Regular"), local("Noto Sans Arabic UI"), local("Geeza Pro"), local("Segoe UI"), local("Tahoma"), local("Arial");
+  unicode-range:U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Devanagari"), local("NotoSansDevanagari-Regular"), local("Kohinoor Devanagari"), local("Nirmala UI"), local("Mangal");
+  unicode-range:U+0900-097F, U+A8E0-A8FF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Bengali"), local("NotoSansBengali-Regular"), local("Kohinoor Bangla"), local("Nirmala UI"), local("Vrinda");
+  unicode-range:U+0980-09FF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Tamil"), local("NotoSansTamil-Regular"), local("Tamil Sangam MN"), local("Nirmala UI"), local("Latha");
+  unicode-range:U+0B80-0BFF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Telugu"), local("NotoSansTelugu-Regular"), local("Kohinoor Telugu"), local("Nirmala UI"), local("Gautami");
+  unicode-range:U+0C00-0C7F;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Thai"), local("NotoSansThai-Regular"), local("Thonburi"), local("Leelawadee UI"), local("Tahoma");
+  unicode-range:U+0E00-0E7F;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Lao"), local("NotoSansLao-Regular"), local("Lao Sangam MN"), local("Leelawadee UI"), local("Lao UI");
+  unicode-range:U+0E80-0EFF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Khmer"), local("NotoSansKhmer-Regular"), local("Khmer Sangam MN"), local("Leelawadee UI"), local("Khmer UI");
+  unicode-range:U+1780-17FF, U+19E0-19FF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Ethiopic"), local("NotoSansEthiopic-Regular"), local("Kefa"), local("Ebrima"), local("Nyala");
+  unicode-range:U+1200-139F, U+2D80-2DDF, U+AB00-AB2F;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans Mongolian"), local("NotoSansMongolian-Regular"), local("Mongolian Baiti");
+  unicode-range:U+1800-18AF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans KR"), local("Noto Sans CJK KR"), local("Apple SD Gothic Neo"), local("Malgun Gothic");
+  unicode-range:U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF;}
+@font-face{font-family:"Folio Script Sans"; src:local("Noto Sans JP"), local("Noto Sans CJK JP"), local("Hiragino Sans"), local("Hiragino Kaku Gothic ProN"), local("Yu Gothic"), local("Meiryo");
+  unicode-range:U+3040-30FF, U+31F0-31FF;}
+:root{--script-sans:"Folio Script Sans", "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;}
+[lang]:is(:lang(am),:lang(ar),:lang(be),:lang(bg),:lang(bn),:lang(el),:lang(fa),:lang(grc),:lang(gu),:lang(he),:lang(hi),:lang(hy),:lang(ja),:lang(ka),:lang(kk),:lang(km),:lang(ko),:lang(ky),:lang(lo),:lang(mk),:lang(mn),:lang(mr),:lang(my),:lang(ne),:lang(pa),:lang(ps),:lang(ru),:lang(sa),:lang(si),:lang(sr),:lang(ta),:lang(te),:lang(th),:lang(ti),:lang(uk),:lang(ur),:lang(yi),:lang(zh),:lang(yue),:lang(lzh)){
+  --serif:var(--script-sans); --display:var(--script-sans); font-family:var(--script-sans);}
+/* EVERY LANGUAGE CARD IS SANS (2026-11-26, on request: "Ensure all vocabulary words in all language collections use a sans
+   serif font"). The rule above reaches only the non-Latin scripts; a Spanish, Portuguese or French card fell back to the
+   site's serif. A card type with a spoken language carries `lang` on its `.uc-card` wrapper (cardTypeHTML), so that is
+   the hook — and --serif / --display are redefined with it, so a deck stylesheet's var(--serif) follows. */
+.uc-card[lang]{--serif:var(--script-sans); --display:var(--script-sans); font-family:var(--script-sans);}
+.uc-card [dir="rtl"]:is(:lang(ar),:lang(fa),:lang(ur),:lang(ps),:lang(he),:lang(yi)){font-family:var(--script-sans) !important;}
+
 /* ---------- tokens ---------- */
 :root{
   --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF;
@@ -63,8 +116,8 @@
      fall SHORT, and this one does not). */
   --admin:#8E2F86;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --serif:"Lora", Georgia, "Times New Roman", serif;
-  --display:"Nunito Sans", system-ui, sans-serif;
+  --serif:"Folio Script Sans","Lora", Georgia, "Times New Roman", serif;
+  --display:"Folio Script Sans","Nunito Sans", system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --sans:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
   --shadow-sm:0 1px 2px rgba(29,27,41,.05);
@@ -1977,6 +2030,7 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 .ans-cn.ja .ac-s{font-family:var(--sans);}
 .ans-cn.ko .ac-s{font-family:var(--sans);}   /* Hangul in the reader's system font, as Japanese (Oct 2026) */
 .ans-cn.ru .ac-s{font-family:var(--sans);}   /* Cyrillic in the site's sans, never the --han Chinese face (Nov 2026) */
+.ans-cn.grc .ac-s{font-family:var(--sans);}   /* polytonic Greek in the site's sans (2026-11-26) */
 .ans-cn .ac-row{display:flex; align-items:center; gap:8px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 /* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
@@ -2004,6 +2058,15 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .mc-canvas:active{cursor:grabbing;}
 .mc-canvas:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 .mc-zoom{position:absolute; right:9px; top:9px; display:flex; flex-direction:column; gap:5px;}
+/* the scope switch, top-left (2026-11-18): this collection's studied places, or every studied place in History, Science and Philosophy (atlas-windows.js mountScope) */
+.mc-scope{position:absolute; left:9px; top:9px; display:flex; border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:color-mix(in srgb, var(--card) 88%, transparent);}
+.mc-scope button{border:0; background:transparent; color:var(--ink-soft); font:600 calc(11px * var(--fs, 1))/1 var(--sans); padding:7px 9px; min-height:29px; cursor:pointer;}
+.mc-scope button + button{border-left:1px solid var(--rule);}
+.mc-scope button.on{background:var(--ink); color:var(--card);}
+/* at night the chosen half is the relief button's pressed look (.mc-relief[aria-pressed="true"]), not a slab of near-white ink (2026-11-19, on request) */
+.night .mc-scope button.on{background:var(--card); color:var(--indigo); box-shadow:inset 0 0 0 1px var(--indigo);}
+.mc-scope button:focus-visible{outline:2px solid var(--accent, #b8862b); outline-offset:-2px;}
+.map-card.mc-loading .mc-scope, .map-card.mc-failed .mc-scope, .map-card.mc-plain .mc-scope{display:none;}
 .mc-btn{
   width:29px; height:29px; border-radius:8px; border:1px solid var(--rule); cursor:pointer;
   background:color-mix(in srgb, var(--card) 88%, transparent); color:var(--ink-soft);
@@ -2026,6 +2089,7 @@ body.no-tts .ans-cn .ac-say{display:none;}
   border:1px solid color-mix(in srgb, var(--newterm) 38%, transparent);
   animation:mcNewIn .34s var(--ease) both;
 }
+.map-card:has(> .mc-scope) > .mc-new{top:44px;}   /* a window that keeps its chip (a front window: no heading to stand after) puts it under the Collection / All switch */
 .mc-new[hidden]{display:none;}   /* the author `display` would beat the UA rule and pin it open */
 @keyframes mcNewIn{from{opacity:0; transform:translateY(-4px) scale(.96);} to{opacity:1; transform:none;}}
 /* The "Drag to turn · zoom to look closer" chip that sat bottom-left is gone (Sep 2026, on request); the
@@ -2309,6 +2373,10 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 .gloss-atlas .map-card.mc-failed::after{content:"";}
 .card-loc{margin-top:20px;}
 .card-loc .label{display:block; margin-bottom:7px;}
+/* the heading's row: the section's label, then "Discovered!" inline after it (2026-11-19: over the map it covered the Collection / All switch) */
+.card-loc .loc-head{display:flex; align-items:center; flex-wrap:wrap; gap:4px 9px; margin-bottom:7px;}
+.card-loc .loc-head .label{margin:0;}
+.card-loc .loc-head .mc-new{position:static;}
 .map-card.map-loc{margin-bottom:0;}
 .map-loc .mc-canvas{height:clamp(180px, 30vh, 260px);}
 /* a fifth taller on a tablet and a desktop (2026-11-13, on request); the phone keeps its height */
@@ -2326,6 +2394,8 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 /* …tucked up under the map when the map is there, and standing on its own when the Atlas popup has
    taken the globe away (see mountCardBack's `noLocator`). */
 .card-loc + .war-key{margin-top:8px;}
+/* above the window, under the section's heading (2026-11-18): a little air below it, none above */
+.card-loc > .war-key{margin:4px 0 10px;}
 .war-key .wk-side{display:inline-flex; align-items:baseline; gap:6px; font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft);}
 .war-key .wk-sw{
   flex:none; width:calc(11px * var(--fs)); height:calc(11px * var(--fs)); border-radius:3px;
@@ -3930,6 +4000,9 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
    the page head and the day's work, so it needs no ordering rule and no phone override of its own. */
 .daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;
   display:flex; flex-direction:column; justify-content:center;}
+/* 30% NARROWER ON A TABLET AND A DESKTOP (2026-11-19, on request: "so longer quotes become taller rather than wider"); a phone's
+   column is narrow enough already */
+@media (min-width:641px){ .daily-quote{max-width:70%; margin-left:auto; margin-right:auto;} }
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:calc(18px * var(--fs)); font-style:italic; line-height:1.5; color:var(--ink);}
 .daily-quote blockquote::before{content:"\201C"; display:block; font-family:var(--display); font-style:normal; font-size:calc(34px * var(--fs)); line-height:.4; color:var(--zh); opacity:.75; margin-bottom:8px;}
 .daily-quote figcaption{margin-top:9px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
@@ -4847,6 +4920,14 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
 }
 @media (max-width:640px){
   .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
+  /* ONE SCROLLER ON A PHONE (2026-11-16, on request: a drag on the plate's PICTURE scrolled the darkened page behind it,
+     a drag on its text scrolled the plate). The plate was a scroll box inside the overlay's scroll box; on an iPhone a
+     drag that starts on the framed picture (its own layer: overflow hidden, a radius, a transform transition) can miss the
+     inner box and chain past the overlay to the page. So the plate stops scrolling and grows to its full height, and the
+     whole-screen overlay is the one box that scrolls under a finger anywhere on it — contained, so it never hands the
+     drag on to the page. `margin:auto` centres a short plate and lets a tall one start at the top, unclipped. */
+  .artefact-pop:not(.collection-pop){align-items:flex-start; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;}
+  .artefact-pop:not(.collection-pop) > .ar-win{max-height:none; overflow:visible; margin:auto;}
   .ar-winart{width:100%; max-width:260px; align-self:center;}
   .showcase{grid-template-columns:repeat(2,1fr);}
   .ar-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));}
@@ -7311,8 +7392,8 @@ body[data-theme="synth"]{
   --ink:#1A1230; --ink-soft:#3E3060; --ink-faint:#8576B0; --rule:#DFD3F2;
   --indigo:#7C2DFF; --indigo-bright:#9A5BFF; --indigo-wash:#EAE0FF; --ochre:#FF3DAE;
   --zh:#FF2D7A; --zh-wash:#FFE0EE; --geo:#00C8DC; --good:#14C8A0;
-  --serif:"Sora", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --display:"Sora", ui-sans-serif, sans-serif;
+  --serif:"Folio Script Sans","Sora", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --display:"Folio Script Sans","Sora", ui-sans-serif, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   --sans:"Sora", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -7423,7 +7504,7 @@ body[data-theme="arcade"]{
   --indigo:#0968C4; --indigo-bright:#2B93EA; --indigo-wash:#D7EAFB; --ochre:#C98E06;
   --zh:#D8342C; --zh-wash:#F9DFDB; --geo:#1E9478; --good:#27A24A;
   --hard:#A9BCCA; /* hard-offset shadow tone */
-  --serif:"Nunito Sans","Inter",sans-serif; --display:"Space Grotesk","Nunito Sans",sans-serif;
+  --serif:"Folio Script Sans","Nunito Sans","Inter",sans-serif; --display:"Folio Script Sans","Space Grotesk","Nunito Sans",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Nunito Sans","Inter",sans-serif;
   --px:"Press Start 2P","IBM Plex Mono",monospace;
 }
@@ -7502,7 +7583,7 @@ body[data-theme="academy"]{
   --ink:#262218; --ink-soft:#564E3B; --ink-faint:#99906F; --rule:#DFD6BC;
   --indigo:#16305B; --indigo-bright:#24457E; --indigo-wash:#DEE4F0; --ochre:#A9822F;
   --zh:#8E2233; --zh-wash:#F2DEDA; --geo:#557C5B; --good:#3E7A46;
-  --serif:"EB Garamond", Georgia, serif; --display:"EB Garamond", Georgia, serif;
+  --serif:"Folio Script Sans","EB Garamond", Georgia, serif; --display:"Folio Script Sans","EB Garamond", Georgia, serif;
   --mono:"IBM Plex Mono", ui-monospace, monospace; --sans:"Inter", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
 }
 /* night: past-midnight library — blue-black paper, lamp-lit warm text, brass */
@@ -7602,7 +7683,7 @@ body[data-theme="marble"]{
   --ink:#262420; --ink-soft:#5B5449; --ink-faint:#97907E; --rule:#D8D3C5;
   --indigo:#8C6A3F; --indigo-bright:#A9834E; --indigo-wash:#EEE7D7; --ochre:#A98235;
   --zh:#7E2F27; --zh-wash:#F1DFDA; --geo:#6D7C4E; --good:#537A44;
-  --serif:"Cormorant Garamond",Georgia,serif; --display:"Cinzel","Trajan Pro",Georgia,serif;
+  --serif:"Folio Script Sans","Cormorant Garamond",Georgia,serif; --display:"Folio Script Sans","Cinzel","Trajan Pro",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 /* tokens (night: black basalt + gold leaf) */
@@ -7733,7 +7814,7 @@ body[data-theme="gazette"]{
   --ink:#191917; --ink-soft:#45443E; --ink-faint:#807E75; --rule:#B7B5AA;
   --indigo:#1D1C1A; --indigo-bright:#B5271D; --indigo-wash:#CFCDC2; --ochre:#8E2B1F;
   --zh:#B5271D; --zh-wash:#E6D0CA; --geo:#5E6B4F; --good:#3E6B41;
-  --serif:"PT Serif", Georgia, serif; --display:"Oswald", "Arial Narrow", Arial, sans-serif;
+  --serif:"Folio Script Sans","PT Serif", Georgia, serif; --display:"Folio Script Sans","Oswald", "Arial Narrow", Arial, sans-serif;
   --mono:"Special Elite", "IBM Plex Mono", ui-monospace, monospace; --sans:"Inter", Arial, sans-serif;
 }
 body[data-theme="gazette"].night{ /* late edition */
@@ -8986,7 +9067,7 @@ body[data-theme="diamond"]{
   --ink:#14181D; --ink-soft:#4A545F; --ink-faint:#8B959F; --rule:#DCE2E9;
   --indigo:#2C6E9B; --indigo-bright:#3E8ABF; --indigo-wash:#E7F0F7; --ochre:#8A7B4E;
   --zh:#A83A34; --zh-wash:#F6E7E6; --geo:#4E7C8A; --good:#2F7A5E;
-  --serif:"Spectral",Georgia,serif; --display:"Sora",system-ui,sans-serif;
+  --serif:"Folio Script Sans","Spectral",Georgia,serif; --display:"Folio Script Sans","Sora",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="diamond"].night{
@@ -9021,7 +9102,7 @@ body[data-theme="ruby"]{
   --ink:#241417; --ink-soft:#5E4046; --ink-faint:#9C7A7E; --rule:#E6D0CC;
   --indigo:#9B1B30; --indigo-bright:#BC2841; --indigo-wash:#F7E3E5; --ochre:#A8722C;
   --zh:#8E2033; --zh-wash:#F5E0E2; --geo:#7A5C6A; --good:#4F7A4A;
-  --serif:"EB Garamond",Georgia,serif; --display:"Cormorant Garamond",Georgia,serif;
+  --serif:"Folio Script Sans","EB Garamond",Georgia,serif; --display:"Folio Script Sans","Cormorant Garamond",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="ruby"].night{
@@ -9061,7 +9142,7 @@ body[data-theme="jade"]{
   --ink:#17231C; --ink-soft:#42574A; --ink-faint:#7E9184; --rule:#D0DED0;
   --indigo:#2E7A63; --indigo-bright:#3D977B; --indigo-wash:#E1F0EA; --ochre:#A8823C;
   --zh:#9C4A3C; --zh-wash:#F2E2DE; --geo:#4F7F6B; --good:#3E8055;
-  --serif:"Spectral",Georgia,serif; --display:"Spectral",Georgia,serif;
+  --serif:"Folio Script Sans","Spectral",Georgia,serif; --display:"Folio Script Sans","Spectral",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="jade"].night{
@@ -9099,7 +9180,7 @@ body[data-theme="emerald"]{
   --ink:#0F1A14; --ink-soft:#3A5245; --ink-faint:#788D80; --rule:#CBDCD1;
   --indigo:#0F6B4B; --indigo-bright:#158A61; --indigo-wash:#DDEFE5; --ochre:#B08A2E;
   --zh:#9C3B33; --zh-wash:#F1DFDC; --geo:#3F7D69; --good:#2F7B52;
-  --serif:"EB Garamond",Georgia,serif; --display:"Cinzel",Georgia,serif;
+  --serif:"Folio Script Sans","EB Garamond",Georgia,serif; --display:"Folio Script Sans","Cinzel",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="emerald"].night{
@@ -9135,7 +9216,7 @@ body[data-theme="amber"]{
   --ink:#241A0C; --ink-soft:#5A4525; --ink-faint:#9C8560; --rule:#E6D5B6;
   --indigo:#A9691A; --indigo-bright:#C8822B; --indigo-wash:#F7E9D3; --ochre:#9A7220;
   --zh:#9E3F22; --zh-wash:#F5E0D6; --geo:#7C6A2E; --good:#6B7A2C;
-  --serif:"Lora",Georgia,serif; --display:"Fraunces",Georgia,serif;
+  --serif:"Folio Script Sans","Lora",Georgia,serif; --display:"Folio Script Sans","Fraunces",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="amber"].night{
@@ -9167,7 +9248,7 @@ body[data-theme="amethyst"]{
   --ink:#1C1526; --ink-soft:#4C3F63; --ink-faint:#8E82A4; --rule:#E0D6EE;
   --indigo:#6B44A0; --indigo-bright:#8459C0; --indigo-wash:#EEE6F9; --ochre:#93743E;
   --zh:#A63C6B; --zh-wash:#F5E1EA; --geo:#5B6FA8; --good:#4B8368;
-  --serif:"Cormorant Garamond",Georgia,serif; --display:"Sora",system-ui,sans-serif;
+  --serif:"Folio Script Sans","Cormorant Garamond",Georgia,serif; --display:"Folio Script Sans","Sora",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="amethyst"].night{
@@ -9201,7 +9282,7 @@ body[data-theme="aquamarine"]{
   --ink:#0E1D21; --ink-soft:#3B565C; --ink-faint:#7A9299; --rule:#CBE2E7;
   --indigo:#0E7490; --indigo-bright:#1793B3; --indigo-wash:#DEF0F5; --ochre:#8A7A46;
   --zh:#A2444A; --zh-wash:#F3E1E2; --geo:#3E9E9E; --good:#328672;
-  --serif:"Newsreader",Georgia,serif; --display:"Space Grotesk",system-ui,sans-serif;
+  --serif:"Folio Script Sans","Newsreader",Georgia,serif; --display:"Folio Script Sans","Space Grotesk",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Nunito Sans",system-ui,sans-serif;
 }
 body[data-theme="aquamarine"].night{
@@ -9234,7 +9315,7 @@ body[data-theme="bloodstone"]{
   --ink:#121A14; --ink-soft:#3D4C41; --ink-faint:#7A8A7D; --rule:#C9D5C7;
   --indigo:#2A5741; --indigo-bright:#376F53; --indigo-wash:#DEE9E1; --ochre:#8E6B2A;
   --zh:#A62B22; --zh-wash:#F3DEDB; --geo:#4A6B55; --good:#3D7A4E;
-  --serif:"PT Serif",Georgia,serif; --display:"Oswald",system-ui,sans-serif;
+  --serif:"Folio Script Sans","PT Serif",Georgia,serif; --display:"Folio Script Sans","Oswald",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="bloodstone"].night{
@@ -9268,7 +9349,7 @@ body[data-theme="carnelian"]{
   --ink:#26160E; --ink-soft:#5C3F2C; --ink-faint:#A08165; --rule:#EAD4C2;
   --indigo:#B4471F; --indigo-bright:#D25A2B; --indigo-wash:#FAE5D9; --ochre:#8A5A2B;
   --zh:#9B3520; --zh-wash:#F6DED4; --geo:#7A6440; --good:#6F7A34;
-  --serif:"Newsreader",Georgia,serif; --display:"Oswald",system-ui,sans-serif;
+  --serif:"Folio Script Sans","Newsreader",Georgia,serif; --display:"Folio Script Sans","Oswald",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
 }
 body[data-theme="carnelian"].night{
@@ -9515,6 +9596,18 @@ body[data-theme="carnelian"].night .collection-deco{
 /* CAUSAL CHAINS — "what came of this" (see cardLeadsToHTML in app.js). A list of links at the foot of
    the answer, outside the Background fold. Set as rows rather than as a sentence: each edge is a
    separate claim about the past and reads as one. */
+/* THE EXAMPLE SECTION (see cardExampleHTML in app.js): a worked example under the Background fold —
+   a small ruled table that scrolls sideways on its own rather than widening a phone's page. */
+/* THE EXAMPLE IS A PANEL (2026-11-26, on request, phi-049: "ensure the table is centered, the text is smaller, the entire
+   section has a colored background, and in the table: T cells should have a green filling, F cells red") */
+.card-example{margin-top:18px; padding:14px 16px 6px; border-radius:10px; background:var(--indigo-wash); font-size:calc(15px * var(--fs));}
+.card-example .ex-text{margin:0 0 10px; line-height:1.55;}
+.card-example .ex-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px; display:flex; justify-content:center;}
+.card-example .ex-table{border-collapse:collapse; font-family:var(--mono); font-size:calc(12.5px * var(--fs)); margin:0 auto; background:var(--card);}
+.card-example .ex-table td.ex-t{background:#2e9e4f33; color:inherit; font-weight:600;}
+.card-example .ex-table td.ex-f{background:#d6453d33; color:inherit; font-weight:600;}
+.card-example .ex-table th,.card-example .ex-table td{border:1px solid var(--rule); padding:6px 14px; text-align:center;}
+.card-example .ex-table th{font-weight:600; color:var(--indigo); background:var(--indigo-wash);}
 .leadsto{margin-top:18px;}
 .lt-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:2px;}
 .lt-row{margin:0;}
@@ -9529,15 +9622,6 @@ body[data-theme="carnelian"].night .collection-deco{
 .cp-dates{margin:2px 0 10px;}
 .cp-lead{margin:0 0 4px; font-size:calc(14.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}
 
-/* ELABORATED FEEDBACK ON A MISSED CARD (see the gradeCloze block in app.js). The defining sentence,
-   directly under the answer and outside the Background fold, so a reader whose fold is collapsed still
-   gets an explanation rather than a bare term. Set in the answer's own red so it reads as part of the
-   correction rather than as the start of the prose below it. */
-.miss-lead{margin:12px 0 0; padding:11px 13px; border-radius:10px;
-  background:var(--zh-wash); border:1px solid var(--rule);}
-.miss-kind{display:block; font-size:calc(10px * var(--fs)); letter-spacing:.06em;
-  text-transform:uppercase; color:var(--zh); margin-bottom:5px;}
-.miss-lead p{margin:0; font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink);}
 /* the wrong option a reader actually chose, explained (see PAGES.challenge). Set apart from the answer's
    own note above it by a rule rather than a colour, so it reads as a second paragraph and not a warning. */
 .mc-chose{border-top:1px solid var(--rule); padding-top:10px; margin-top:10px;}
@@ -9732,6 +9816,7 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
   .tl-list.laid .tl-lab{line-height:1.25;}
   .tl-list.laid .tl-t{display:block; overflow:hidden; text-overflow:ellipsis;}
   .tl-list.laid .tl-w{display:block; margin:1px 0 0;}
+  .tl-it.outer{display:none;}   /* a phone keeps two each side; a desktop and a tablet show three (cardTimelineItems) */
 }
 .kin-row:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 
@@ -9811,7 +9896,7 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
    page does not draw. The parts, in page order:
      · the study banner (`.rv-banner`): deep indigo in both themes, "N cards" in rose, the three piles in
        their own colours plus the estimate, and the top three cards of the list's pile fanned beside it
-       (`.rv-preview`, desktop only since Oct 2026). The Start button and the click went in Oct 2026, on request:
+       (`.rv-preview`, desktop only from Oct 2026, removed 2026-11-26). The Start button and the click went in Oct 2026, on request:
        the banner states the day and the rows under it start the sessions;
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
      · the collections header (`.rv-sec-h`) with the legend (the "+ Add decks" link stood at its right
@@ -9956,15 +10041,6 @@ button.rv-week:hover .rvw-day:not(.rvw-heavy):not(.rvw-zero) b{background:color-
    squared its foot dates from when the deck list was joined to it, and the rows are separate cards now */
 .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:20px; border-bottom-right-radius:20px;}
 /* the fanned preview of the pile's top three */
-.rv-preview{position:relative; width:300px; height:200px; flex:none;}
-.pv-card{position:absolute; inset:0; background:var(--card); color:var(--ink); border:1px solid var(--rule); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow-lg); transform-origin:50% 100%; display:flex; flex-direction:column; text-align:left;}
-.pv-card.pv3{transform:rotate(-6deg) translate(-12px, 4px); opacity:.85;}
-.pv-card.pv2{transform:rotate(3deg) translate(10px, 2px); opacity:.93;}
-.pv-eb{display:flex; justify-content:space-between; gap:8px; font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--indigo); font-weight:600;}
-.pv-eb em{font-style:normal; color:var(--zh);}
-.pv-card p{font-family:var(--serif); font-size:14.5px; line-height:1.4; margin:10px 0 0; overflow:hidden; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical;}
-.pv-blank{display:inline-block; width:38px; border-bottom:2px solid var(--ochre);}
-.pv-ft{margin-top:auto; padding-top:8px; font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
 /* the streak ribbon */
 .streak-ribbon{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:12px; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:12px 18px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);}
 .sr-n{font-family:var(--sans); font-size:calc(24px * var(--fs)); font-weight:800; color:var(--good); letter-spacing:-.03em; line-height:1;}
@@ -10138,12 +10214,9 @@ body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-til
 .ht-rows b{color:var(--ink); font-size:calc(16px * var(--fs)); font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap;}
 .home-two > .home-week{display:none;}
 .home-box.home-term{display:flex; flex-direction:column;}
-.ht-term{display:flex; gap:14px; align-items:center;}
-.ht-img{width:62px; height:62px; flex:none; object-fit:cover; border-radius:8px; background:var(--paper-2); box-shadow:var(--shadow-md);}
-.ht-body{min-width:0;}
-.ht-body b{display:block; font-family:var(--serif); font-weight:600; font-size:calc(16px * var(--fs)); line-height:1.3; overflow-wrap:anywhere;}
-.ht-body span{display:block; font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet);}
-.ht-text{display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:7; overflow:hidden; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule); font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.6; color:var(--ink-soft);}
+/* the term box wears the Suggested reading box's template (2026-11-19, on request): `.hb-book` / `.hb-body` / `.hb-next`,
+   the picture standing where the book's spine does, at the spine's height */
+.ht-img{width:62px; height:62px; flex:none; object-fit:cover; border-radius:4px 7px 7px 4px; background:var(--paper-2); box-shadow:var(--shadow-md);}
 /* a tablet: the same three cells, the middle one a little narrower and the type a step smaller, so 641–1024px holds them */
 @media (min-width:641px) and (max-width:1024px){
   .home-trio{grid-template-columns:1fr 1.2fr 1fr; gap:12px;}
@@ -10246,20 +10319,6 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .streak-ribbon > .sr-best{grid-column:4; grid-row:1; justify-self:end; align-self:end; margin:0;}
 .streak-ribbon > .sr-note{grid-column:4; grid-row:2; justify-self:end; align-self:start; text-align:right;}
 .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-row:1 / 3; align-self:center;}
-/* THE PREVIEW SITS IN THE MIDDLE OF ITS ROOM (Oct 2026, on request: "as much empty space to the left as to the
-   right of it"). The text column took every spare pixel and pushed the fan to the banner's right edge; now the
-   column keeps its natural width and the fan splits what is left with auto margins. The banner's 24px gap is
-   given up for this pair (it would count on the left only) and the fan carries 12px of its own each side
-   instead, so the two can never touch; the cards are drawn inside that padding. */
-@media (min-width:641px){
-  .page .rv-banner:has(> .rv-preview){column-gap:0;}
-  .page .rv-banner:has(> .rv-preview) > .body{flex:0 1 auto;}
-  /* the fan's cards swing out past the box: the back-left one ~33px (rotate -6deg, 12px shift), the back-right
-     one ~20px (rotate 3deg, 10px shift). The padding covers that overhang on each side, so the auto margins
-     split the room between the cards' VISIBLE edges (Oct 2026, on request: the fan sat too close to the text). */
-  .rv-preview{margin:0 auto; padding:0 24px 0 36px; box-sizing:content-box;}
-  .pv-card{left:36px; right:24px;}
-}
 /* THE WEEK FILLS THE ROW on a tablet and desktop (Oct 2026, on request: "there is currently still a lot of
    empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
    week's column is the flexible one and Longest-over-the-note takes only what it needs at the right; each day
@@ -10337,9 +10396,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    desktop's alone now, and the rules that squeezed the title, the piles and the estimate in beside it went
    with it. What is left is laid out for the whole width: the text column takes the banner, and the level bar
    and the four figures spread across it rather than huddling at the left of an empty row. */
-@media (min-width:641px) and (max-width:1024px){
-  .rv-preview{display:none;}
-  .page .rv-banner > .body, .page .rv-banner:has(> .rv-preview) > .body{flex:1 1 auto;}
+/* …AND NEITHER DOES A DESKTOP since 2026-11-26 (on request: "On desktop, the daily study banner shows a few card
+   previews stacked onto each other. Remove these previews and reorganise the desktop banner to be organised cleanly"):
+   the fan is not drawn at all, and from 641px up the banner is this one full-width layout. */
+@media (min-width:641px){
+  .page .rv-banner > .body{flex:1 1 auto;}
   .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
   .page .rv-banner .meta{width:100%; justify-content:space-between;}
 }
@@ -10347,7 +10408,6 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}
   .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:16px; border-bottom-right-radius:16px;}
   .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
-  .rv-preview{display:none;}
   /* …and the stack's one track fills the banner, or the level bar would stop where the three piles do now that
      nothing full-width sits under them (the Start button did) */
   .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
@@ -10381,11 +10441,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
   /* THE DOWNLOAD BUTTONS ON A PHONE (Oct 2026, on request, with a screenshot: "the collection download button
-     is so big I can no longer see the collection name"). A language header's "Download all" takes a line of
+     is so big I can no longer see the collection name"). A collection row's "Download all" / "Update all" takes a line of
      its own under the title and the counts, the full width of the row, so the name has its line back; a deck's
      own Download slides right into the chevron's empty column, which a row that cannot be studied never uses. */
-  .review-group .active-deck.dk-langhead:has(> [data-langdlall]){flex-wrap:wrap;}
-  .review-group .active-deck.dk-langhead > .dk-dl[data-langdlall]{flex:1 1 100%; order:6; margin:8px 0 6px; justify-content:center; white-space:nowrap;}
+  .review-group .active-deck:has(> [data-dlall]){flex-wrap:wrap;}
+  .review-group .active-deck > .dk-dl[data-dlall]{flex:1 1 100%; order:6; margin:8px 0 6px; justify-content:center; white-space:nowrap;}
   .review-group .active-deck.dk-pending > .dk-chev-gap{width:0;}
   /* the progress is the same full-row tint as on a tablet or desktop (Oct 2026, on request) — the phone's own
      5px bar along the row's foot is gone */
@@ -10423,7 +10483,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      of its own so its two children join `.banners`' flex column and `order` can place them — the week box first (order 1, after everything
      at the default 0), then the games, then Continue reading and the foot, which keep their old place at the end. */
   .home-two{display:contents;}
-  .home-trio, .home-two > .home-term{display:none;}
+  .home-trio{display:none;}   /* the Term of the day stays on a phone too, directly ABOVE Suggested reading since 2026-11-18 (source order in .home-two; below it 2026-11-16) */
   .home-two > .home-week{display:flex;}
   .home-two > .home-week{order:1;}
   .games-sec{order:2;}
@@ -10435,6 +10495,24 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .home-foot .home-about{text-align:center;}
   .home-foot .site-ver{margin:0; width:100%; text-align:center;}
 }
+/* THE PHONE'S CHEST RAIL AT EVERY WIDTH (2026-11-19, on request: "make the desktop and tablet version look like the mobile
+   version"): the desktop's 3x3 miniature and the tablet's glyph-disc card give way to the phone's design P4 — a bare row under
+   the heading, the count at the left, the ten games as plain segments, the chest capping the right end. After the two
+   breakpoint blocks above, at their specificity, so these win everywhere. */
+.games-sec .games-top{gap:10px 12px;}
+.games-sec .sweep-meter{display:none;}
+.games-sec .sweep-row{flex:1 1 100%; justify-content:flex-start; padding:0; border:0; border-radius:0; background:none; box-shadow:none; gap:10px;}
+.games-sec .sweep-rail{display:flex; align-items:center; flex:1 1 auto; min-width:0; gap:10px;}
+.games-sec .sr-count{font-size:calc(11.5px * var(--fs)); white-space:nowrap;}
+.games-sec .sr-steps{flex:1 1 auto; display:flex; align-items:center; min-width:0; gap:3px;}
+.games-sec .sr-step{display:block; flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule); transition:background .25s var(--ease);}
+.games-sec .sr-step svg{display:none;}
+.games-sec .sr-step.on{background:var(--good, #4F9D67);}
+.games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;}
+.games-sec .sr-link{display:none;}
+.games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
+.games-sec .sweep-chest .chest-svg{transform:translateY(-5.2%);}
+.games-sec .sweep-chest .lock-svg{background:var(--paper);}
 
 /* ============================================================
    COLLECTIONS PAGE — the Oct 2026 redesign (see docs/mockups/collections-redesigns/final/)
@@ -10545,6 +10623,133 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
   .page .collection.udeck .collection-actions{flex:0 0 100%; max-width:none; flex-wrap:wrap; justify-content:flex-end; gap:6px;}
   .page .collection.udeck .collection-actions .studio-deck-open{flex:0 0 auto;}   /* the pencil keeps the Studio list's `flex:1` elsewhere; here it would spread the controls out */
   .studio-inline{padding:14px 12px 18px;}
+}
+/* ---------- THE STUDIO, SIMPLIFIED (Nov 2026, the authoring audit) ----------
+   What the audit of card creation changed in the editor: the deck's name is edited in its own heading, one
+   "more" button replaces the second Export, "Add a card" is a split button over the kinds of card, the
+   built-in card opens in a short form with its long form folded, and a list can be pasted with a preview. */
+.studio-title[contenteditable]{cursor:text; border-radius:8px; padding:2px 6px; margin-left:-6px; outline:none; overflow-wrap:anywhere;
+  border:1px dashed transparent; transition:border-color .14s var(--ease), background .14s var(--ease);}
+.studio-title[contenteditable]:hover{border-color:var(--rule);}
+.studio-title[contenteditable]:focus{border-color:var(--indigo-bright); background:var(--card); box-shadow:0 0 0 3px var(--indigo-wash);}
+.st-more{font-size:calc(17px * var(--fs)); line-height:1; padding:5px 11px; letter-spacing:0;}
+/* the row's own Export and Delete are in the open editor's "more" menu, so the row above it does not say them twice */
+.page .collection.udeck-editing .udeck-act{display:none;}
+.st-addgrp{display:inline-flex;}
+.st-addgrp .btn{margin:0;}
+.st-addgrp #stAddCard{border-top-right-radius:0; border-bottom-right-radius:0;}
+.st-addgrp .st-addkind{border-top-left-radius:0; border-bottom-left-radius:0; padding-left:9px; padding-right:10px; border-left:1px solid color-mix(in srgb, var(--paper) 40%, transparent);}
+.st-cardq{margin:0 8px 8px; width:calc(100% - 16px); padding:7px 10px; font-size:calc(13px * var(--fs));}
+.studio-cardrow[hidden]{display:none;}
+.studio-aihint{padding:8px 12px 8px;}
+.st-kinds{padding:6px 4px 10px;}
+.st-kinds-h{margin:0 0 4px; font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); color:var(--ink);}
+.st-kinds-p{margin:0; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
+.st-cardfoot{display:flex; align-items:center; flex-wrap:wrap; gap:8px 14px; margin-top:16px; padding-top:14px; border-top:1px solid var(--rule);}
+.st-cardfoot-note{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-faint);}
+.studio-editor .admin-ed-actions{flex-wrap:wrap; justify-content:flex-end; gap:7px;}
+.studio-editor .admin-ed-head{margin-bottom:14px; padding-bottom:12px;}
+.ces-typepick .af-input[hidden]{display:none;}
+.ces-typepick select.af-input{appearance:auto;}
+/* the built-in card's short form: what `ces-compact` folds until "More options" is pressed */
+.ces-compact:not(.ces-more) .ces-top,
+.ces-compact:not(.ces-more) .ces-qchev,
+.ces-compact:not(.ces-more) .ces-qtools,
+.ces-compact:not(.ces-more) .av-row,
+.ces-compact:not(.ces-more) .ces-srcpanel,
+.ces-compact:not(.ces-more) .ces-src,
+.ces-compact:not(.ces-more) .rt-link,
+.ces-compact:not(.ces-more) .rt-link-sep,
+.ces-compact:not(.ces-more) .rt-fn,
+.ces-compact:not(.ces-more) .rt-fn-sep{display:none;}
+.ces-compact .ces-field{cursor:text;}
+.ces-compact .ces-field:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:6px;}
+.ces-morebtn{appearance:none; display:block; width:100%; margin:12px 0 0; padding:10px 12px; text-align:left; cursor:pointer;
+  background:none; border:1px dashed var(--rule); border-radius:10px; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink-soft);}
+.ces-morebtn small{font-weight:400; color:var(--ink-faint); font-size:calc(12px * var(--fs));}
+.ces-morebtn:hover{border-color:var(--indigo); color:var(--indigo);}
+.ces-morebtn .ces-more-on, .ces-more .ces-morebtn .ces-more-off, .ces-more .ces-morebtn small{display:none;}
+.ces-more .ces-morebtn .ces-more-on{display:inline;}
+.rt-blank{color:var(--indigo); font-family:var(--sans); font-weight:600;}
+/* the picture slot is a line, not a 16:9 box, until it holds something */
+.ces-compact .ces-img-ph{aspect-ratio:auto; flex-direction:row; justify-content:flex-start; gap:10px; padding:11px 14px;}
+.ces-compact .ces-img-ph svg{width:20px; height:20px; flex:none;}
+/* a typed card's fields: prose boxes, not code boxes */
+.ut-field{font-family:var(--sans); font-size:calc(14.5px * var(--fs)); line-height:1.5; resize:vertical; min-height:44px;}
+.ut-field-url{font-family:var(--mono); font-size:calc(12px * var(--fs)); white-space:nowrap; overflow-x:auto;}
+.ut-fieldbar{display:flex; align-items:center; flex-wrap:wrap; gap:4px 6px; padding:4px 6px; border:1px solid var(--rule); border-radius:9px; background:var(--card);}
+.ut-fieldbar-note{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin-left:4px;}
+.ut-blankbtn{color:var(--indigo); font-family:var(--sans); font-weight:600;}
+/* the type form's templates and stylesheet, folded under "Customise the design" */
+.ut-design{border:1px solid var(--rule); border-radius:11px; background:var(--card);}
+.ut-design > summary{cursor:pointer; padding:11px 14px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+.ut-design > summary small{font-family:var(--sans); letter-spacing:0; text-transform:none; color:var(--ink-faint); margin-left:6px;}
+.ut-design[open] > summary{border-bottom:1px solid var(--rule);}
+.ut-design-body{display:flex; flex-direction:column; gap:12px; padding:12px 14px 14px;}
+.ut-chips{display:flex; flex-wrap:wrap; align-items:center; gap:6px;}
+.ut-chip{display:inline-flex; align-items:center; gap:4px; padding:4px 4px 4px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card); font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink);}
+.ut-chip button{appearance:none; border:0; background:none; cursor:pointer; width:20px; height:20px; border-radius:50%; color:var(--ink-faint); font-size:calc(13px * var(--fs)); line-height:1;}
+.ut-chip button:hover{background:var(--paper-2); color:var(--zh);}
+.ut-chipadd{width:150px; padding:5px 10px; font-size:calc(13px * var(--fs)); border-radius:999px;}
+/* the paste sheet and the prompts sheet: wider than a menu, since one holds a table and the other prose */
+.pc-sheet .dm-box{width:min(560px,96vw);}
+.pc-text{margin:4px 8px 0; width:calc(100% - 16px); font-family:var(--mono); font-size:calc(12.5px * var(--fs)); line-height:1.5; resize:vertical; min-height:96px;}
+.pc-opts{display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; padding:10px 10px 4px;}
+.pc-opts[hidden]{display:none;}
+.pc-opt{display:flex; flex-direction:column; gap:4px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.pc-opt select.af-input{appearance:auto; padding:6px 8px; font-size:calc(13px * var(--fs)); text-transform:none; letter-spacing:0;}
+.pc-check{display:flex; align-items:center; gap:7px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); cursor:pointer;}
+.pc-check input{width:16px; height:16px; accent-color:var(--indigo);}
+.pc-titlerow input{flex:1 1 auto; max-width:68%;}
+.pc-preview{padding:6px 10px 2px;}
+.pc-table{width:100%; border-collapse:collapse; table-layout:fixed; font-family:var(--sans); font-size:calc(12.5px * var(--fs));}
+.pc-table th{text-align:left; padding:5px 8px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); border-bottom:1px solid var(--rule);}
+.pc-table td{padding:6px 8px; border-bottom:1px solid var(--rule); color:var(--ink); vertical-align:top; overflow:hidden; text-overflow:ellipsis; overflow-wrap:anywhere;}
+.pc-none{color:var(--zh);}
+.pc-note, .pc-warn{margin:8px 0 0; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.pc-warn{color:var(--zh);}
+.pc-go{margin-top:8px; border-color:var(--indigo); background:var(--indigo-wash);}
+.pc-go[disabled]{opacity:.55; cursor:default; border-color:var(--rule); background:none;}
+.ai-row{display:grid; grid-template-columns:1fr auto; gap:6px 12px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--rule);}
+.ai-rowmain{display:flex; flex-direction:column; gap:2px; font-family:var(--sans);}
+.ai-rowmain b{font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink);}
+.ai-rowmain small{font-size:calc(12px * var(--fs)); line-height:1.4; color:var(--ink-faint);}
+.ai-text{grid-column:1 / -1; font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft);}
+.ai-text summary{cursor:pointer;}
+.ai-text pre{margin:8px 0 0; padding:10px 12px; max-height:220px; overflow:auto; white-space:pre-wrap; border-radius:9px; background:var(--paper-2); font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink);}
+/* sharing: the sheet's two choices, the line that says a deck lives in this browser, the deck page's sampler */
+.sh-who{display:flex; flex-direction:column; gap:6px; padding:4px 8px;}
+.sh-opt{border-color:var(--rule);}
+.sh-opt.on{border-color:var(--indigo); background:var(--indigo-wash);}
+.sh-opt b::before{content:""; display:inline-block; width:11px; height:11px; margin-right:9px; border-radius:50%; border:2px solid var(--ink-faint); vertical-align:-1px;}
+.sh-opt.on b::before{border-color:var(--indigo); background:var(--indigo);}
+.sh-note{padding:0 14px;}
+.pc-sheet .dm-fieldcol textarea.af-input{resize:vertical;}
+.st-backup{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 14px; padding:11px 14px; margin-bottom:14px; border:1px dashed color-mix(in srgb, var(--zh) 45%, var(--rule)); border-radius:12px;
+  font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.st-backup > span:first-child{flex:1 1 260px;}
+.st-backup-acts{display:flex; gap:7px; flex:none;}
+.sp-acts{display:flex; flex-wrap:wrap; gap:7px;}
+.dds-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.dds-nav{display:inline-flex; align-items:center; gap:8px;}
+.dds-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint);}
+/* a toast with one thing to press (toastAction) */
+.toast.toast-act{pointer-events:auto; display:flex; align-items:center; gap:14px;}
+.toast-btn{appearance:none; flex:none; cursor:pointer; border:1px solid color-mix(in srgb, var(--paper) 45%, transparent); background:none; color:var(--paper);
+  font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; font-weight:700; padding:6px 10px; border-radius:7px;}
+.toast-btn:hover{background:color-mix(in srgb, var(--paper) 16%, transparent);}
+.coll-own{font-size:inherit;}
+@media (max-width:640px){
+  /* the editor's head on a phone: back arrow, name and the two buttons on ONE line (it was three) */
+  .studio-inline .studio-head{flex-wrap:nowrap; gap:8px;}
+  .studio-inline .studio-title{min-width:0; font-size:calc(19px * var(--fs));}
+  .studio-head .st-all-t{display:none;}
+  .studio-inline .studio-publish{padding:9px 12px; margin-bottom:10px; gap:8px;}
+  .studio-inline .studio-settings{margin-bottom:12px;}
+  .studio-inline .studio-settings > summary{padding:10px 13px;}
+  .pc-opts{grid-template-columns:1fr;}
+  .ces-typebar{gap:8px;}
+  .ces-typepick .af-input{min-width:0; max-width:56vw;}
 }
 .page .coll-reach .cr-short{display:none;}
 .page .coll-reach.is-done .cr-long{display:inline;}
@@ -11285,3 +11490,17 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .acct-panel label{display:flex; flex-direction:column; gap:6px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 /* eight tiles fit one row of the page's width rather than seven and one */
 .ex-tiles{grid-template-columns:repeat(auto-fit, minmax(88px, 1fr));}
+
+/* THE STUDIED DECK'S BAR ON THE COMPLETION SCREEN (2026-11-26, on request) — the home row's two progresses (met: the
+   light teal, learned: the indigo over it) with today's share of each picked out in gold. */
+.sc-prog{margin:20px auto 22px; max-width:520px; text-align:left;}
+.sc-prog-h{display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom:6px;}
+.sc-prog-t{font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.sc-prog-n{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
+.sc-prog-gain{color:var(--ochre); font-weight:600;}
+.sc-prog-track{position:relative; height:10px; border-radius:6px; background:var(--rule); overflow:hidden;}
+.sc-seg{position:absolute; top:0; bottom:0; left:0;}
+.sc-seen{background:var(--newterm);}
+.sc-learn{background:var(--indigo);}
+.sc-seen-new{background:var(--ochre);}
+.sc-learn-new{background:var(--ochre); filter:brightness(.72);}

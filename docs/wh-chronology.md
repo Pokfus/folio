@@ -375,7 +375,7 @@ Filled batch by batch, from the source each row names.
 | fall of the Western Roman Empire | 476 CE (a convention; Nepos lived to 480) | Mathisen and Nathan; O'Donnell (`wh-375`) |
 | mahajanapadas (one estimate) | c. 550 – 322 BCE (the source's 2500 – 2272 BP) | Kathayat et al. (`wh-376`) |
 | Upanishads: older group / later group | c. 700 – 500 BCE / c. 300 – 100 BCE (Olivelle; Macdonell 1900: earliest by c. 600) | Black; Macdonell (`wh-377`) |
-| Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 405 BCE (Gombrich c. 404) | Rapson; Siderits (`wh-380`) |
+| Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 400 BCE (Gombrich c. 404; `in-097` also c. 400) | Rapson; Siderits (`wh-380`) |
 | Buddhism emerges / Mahayana doctrines | c. 600 – 400 BCE / roughly the 1st century BCE | Velez; Siderits; Ronkin (`wh-381`) |
 | Mahavira: traditional dates / scholars' death | 599 – 527 BCE / c. 468 BCE (`wh-382` is `undatable`) | Gorisse; Charpentier (`wh-382`) |
 | Maurya Empire | c. 321 – 184 BCE (both ends reconstructed) | Hopkins; Rapson (`wh-383`) |
@@ -523,7 +523,7 @@ Filled batch by batch, from the source each row names.
 | Goryeo: kingdom / Gaegyeong / peninsula united | 918 – 1392 / 919 / 936 CE | Heo; Shin; Song (`wh-540`) |
 | metal movable type: earliest record / oldest surviving / Joseon foundry / Gabin fount | 1234 / 1377 / 1403 / 1434 | Lee Jae-jeong; BnF; Chon (`wh-541`) |
 | Heian period: capital moved / period / Genpei War | 794 / 794 – 1185 / 1180 – 1185 CE | Princeton University Art Museum; Asia for Educators (`wh-542`) |
-| Genji Monogatari: diary covers / copy received | 1008 / 1020 CE | Tyler; McCormick (`wh-543`) |
+| the Tale of Genji: diary covers / complete by / first English version / Waley's English | 1008 / 1020 CE / 1882 / 1925 – 1933 | Tyler; McCormick; Henitiuk (`wh-543`) |
 | samurai: levies ended / Gempei War / swords banned | 792 / 1180 – 1185 / 1876 CE | Friday; Culeddu; Yamada (`wh-544`) |
 | Kamakura shogunate: founded (by whose count) / Jōkyū / Jōei Code / ended | 1180 – 1192 / 1221 / 1232 / 1333 CE | Kamakura Citizen Net; Brinkley (`wh-545`) |
 | Harsha: reigned / Kanauj assembly | 606 – 647 / 643 CE | Lee (`wh-546`) |
@@ -558,7 +558,7 @@ Filled batch by batch, from the source each row names.
 | Zagwe dynasty: ruled (Piovanelli) | c. 1137 – 1270 CE (Derat: from the 11th century; Muehlbauer: 12th) | Piovanelli; Derat; Muehlbauer (`wh-581`) |
 | Lalibela: occupied from / UNESCO listing | c. 900 – 1000 CE / 1978 | Bosc-Tiessé et al.; UNESCO (`wh-582`; `wh-583`, `wh-584` are `undatable`) |
 | Makuria: royal tombs / baqt / throne hall a mosque | c. 450 – 550 / 651 – 652 / 29 May 1317 CE | Then-Obłuska; Khan (`wh-585`; `wh-586` and `wh-587` are `undatable`) |
-| Yuezhi: first defeat / king killed / Zhang Qian left / returned | c. 176 / c. 165 / c. 138 / 126 BCE | Hirth (`wh-588`; `wh-409` also gives 126) |
+| the Xiongnu: empire founded / split / the northern Xiongnu defeated | 209 BCE / 48 CE / 89 – 91 CE | de Crespigny (`wh-588`) |
 | Huns: reached Europe / Nedao | c. 370 – 376 / 454 CE | Gnecchi-Ruscone et al.; Maenchen-Helfen (`wh-589`) |
 | Attila: joint rule began / Bleda killed / Gaul / died | c. 434 – 439 / 445 / 451 / 453 CE | Maenchen-Helfen (`wh-590`) |
 | Göktürks: founded / divided / second khaganate / Orkhon stones | 552 / 583 / c. 682 – 745 / 732 and 735 CE | Erkoç; Chen; Ross (`wh-591`) |
@@ -1250,7 +1250,7 @@ wh-374: 325
 wh-375: 476
 wh-376: 550; 322
 wh-377: 700; 500; 300; 100
-wh-380: 563; 483; 405
+wh-380: 563; 483; 400
 wh-381: 600; 400
 wh-383: 321; 184
 wh-384: 321; 297; 305; 303
@@ -1393,7 +1393,7 @@ wh-538: 1338; 1573; 1392; 1467; 1477
 wh-540: 918; 1392; 919; 936
 wh-541: 1234; 1377; 1403; 1434
 wh-542: 794; 1185; 1180
-wh-543: 1008; 1020
+wh-543: 1008; 1020; 1882; 1925; 1933
 wh-544: 792; 1180; 1185; 1876
 wh-545: 1180; 1192; 1221; 1232; 1333
 wh-546: 606; 647; 643
@@ -1428,7 +1428,7 @@ wh-580: 1350; 1482; 1483; 1491; 1506; 1543
 wh-581: 1137; 1270
 wh-582: 900; 1000; 1978
 wh-585: 450; 550; 651; 652; 1317
-wh-588: 176; 165; 138; 126
+wh-588: 209; 48; 89; 91
 wh-589: 370; 376; 454
 wh-590: 434; 451; 453
 wh-591: 552; 583; 682; 745; 732; 735

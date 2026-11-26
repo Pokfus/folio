@@ -5,7 +5,10 @@
    What is asserted is what a reader would notice going wrong, and what nothing else checks:
    · ELIGIBILITY is the `timeline` field and nothing else — a place card beside the Treaty of Versailles
      (the Polish Corridor, dated the same day) gets no section and is nobody's neighbour.
-   · THE NEIGHBOURS are the two before and the two after by start date, among the cards that carry the field.
+   · THE NEIGHBOURS are the three before and the three after by start date, among the cards that carry the field,
+     on a desktop and a tablet; a phone hides the outer pair (`.tl-it.outer`) and lays out two and two (2026-11-19).
+   · THE WHOLE TIMELINE: a card's "whole timeline" link opens `#timeline/<collection>` with a "Back to card" pill
+     (`tlHold`, `#tlpToCard`) that returns to the card; the page reached any other way has none.
    · A PERIOD is a bar wider than a dash; an EVENT is a dash; the card's own item is marked `self` and is
      not a button, while every neighbour is a `data-kin` button like the "Nearby" rail's.
    · TWO DESIGNS: the rail (one axis, lanes) wide — the date behind the name on a desktop, under it on a
@@ -31,7 +34,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
       const tl = document.querySelector(".tl");
       if (!tl) return null;
       const ol = tl.querySelector(".tl-list");
-      const items = [...ol.querySelectorAll(".tl-it")].map((li) => {
+      const items = [...ol.querySelectorAll(".tl-it")].filter((li) => getComputedStyle(li).display !== "none").map((li) => {   // what the reader sees: a phone hides the outer pair
         const m = li.querySelector(".tl-mark").getBoundingClientRect(), l = li.querySelector(".tl-lab").getBoundingClientRect();
         return { id: li.classList.contains("self") ? "self" : li.dataset.card, self: li.classList.contains("self"),
           period: li.classList.contains("period"), button: !!li.querySelector("button.tl-lab"),
@@ -60,25 +63,24 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("the card has a Timeline section", !!v);
   if (v) {
     check("...laid out as the rail, with an axis and no spine", v.laid && v.axis && !v.spine);
-    check("...five items: two before, the card, two after", v.items.length === 5 && v.items[2].self, v.items.map((i) => i.id).join(" "));
+    check("...seven items: three before, the card, three after (2026-11-19: 3 + 3 wider than a phone)", v.items.length === 7 && v.items[3].self, v.items.map((i) => i.id).join(" "));
     /* by START date: the two before Versailles are the Paris Peace Conference (18 January 1919) and the racial
-       equality proposal (11 April 1919) — the Armistice, the German Revolution and the Biennio Rosso start earlier
-       and are further back; the Kapp Putsch (March 1920) and Trianon (June 1920) are the two after — Lausanne
-       (1923) is sixth and so not drawn */
-    check("...in date order: Paris Peace Conference, racial equality proposal, Versailles, Kapp Putsch, Trianon",
-      v.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009", v.items.map((i) => i.title).join(" | "));
+       equality proposal (11 April 1919), and the Shandong question third; the Kapp Putsch (March 1920) and Trianon
+       (June 1920) are the two after, the German hyperinflation third */
+    check("...in date order: Shandong, Paris Peace Conference, racial equality proposal, Versailles, Kapp Putsch, Trianon, hyperinflation",
+      v.items.map((i) => i.id).join(" ") === "ww2-030 ww2-003 ww2-031 self ww2-017 ww2-009 ww2-019", v.items.map((i) => i.title).join(" | "));
     check("...the Polish Corridor (a place, the same day) is NOT among them", !v.items.some((i) => i.id === "ww2-007"));
-    check("...the card's own item is marked and is not a button", v.items[2].self && !v.items[2].button);
+    check("...the card's own item is marked and is not a button", v.items[3].self && !v.items[3].button);
     check("...every neighbour is a data-kin button", v.items.filter((i) => !i.self).every((i) => i.button));
     const rev = v.items.find((i) => i.id === "ww2-003"), arm = v.items.find((i) => i.id === "ww2-031");
     check("...the Paris Peace Conference is a period: a bar wider than it is tall", rev && rev.period && rev.mark.w > 20 && rev.mark.h <= 8, rev && JSON.stringify(rev.mark));
     check("...the racial equality proposal is an event: a dash taller than it is wide", arm && !arm.period && arm.mark.w <= 3 && arm.mark.h >= 12, arm && JSON.stringify(arm.mark));
-    check("...the date stands behind the name on one line", v.items.every((i) => i.box.h < 24) && /28 June 1919/.test(v.items[2].when), v.items[2].when);
+    check("...the date stands behind the name on one line", v.items.every((i) => i.box.h < 24) && /28 June 1919/.test(v.items[3].when), v.items[3].when);
     check("...no two names overlap", v.overlaps === 0, String(v.overlaps));
-    check("...the axis is in months", v.ticks.some((t) => /^[A-Z][a-z]{2} \d{4}$/.test(t)), v.ticks.join(", "));
+    check("...the axis has year ticks across the seven", v.ticks.some((t) => /^\d{4}$/.test(t)), v.ticks.join(", "));
     check("...and nothing runs past the box", v.wider);
     check("...the section sits below the Atlas box, above the causal strip and the Nearby rail", v.order.belowLoc && v.order.aboveLeads && v.order.aboveKin, JSON.stringify(v.order));
-    check("...every neighbour's name is its glossary term", v.terms.length === 4 && v.terms.some((k) => /^Paris_Peace_Conference/.test(k)), v.terms.join(" "));
+    check("...every neighbour's name is its glossary term", v.terms.length === 6 && v.terms.some((k) => /^Paris_Peace_Conference/.test(k)), v.terms.join(" "));
     const gw = await page.evaluate(async () => {
       const b = document.querySelector('.tl [data-tlterm^="Paris_Peace_Conference"]'); if (!b) return null;
       b.click(); await new Promise((r) => setTimeout(r, 500));
@@ -139,7 +141,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   const tv = await open(tb, "ww2-004");
   check("the same card is still the rail", !!tv && tv.laid && tv.axis && !tv.spine);
   if (tv) {
-    check("...the same five items in the same order", tv.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009");
+    check("...the same seven items in the same order", tv.items.map((i) => i.id).join(" ") === "ww2-030 ww2-003 ww2-031 self ww2-017 ww2-009 ww2-019", tv.items.map((i) => i.id).join(" "));
     check("...each name is two lines tall: the date sits under it", tv.items.every((i) => i.box.h >= 26 && i.box.h < 44), tv.items.map((i) => Math.round(i.box.h)).join(" "));
     check("...no two names overlap", tv.overlaps === 0, String(tv.overlaps));
     check("...nothing runs past the box", tv.wider);
@@ -151,12 +153,56 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   const p = await open(ph, "ww2-004");
   check("the same card lays out as the ledger: a spine, no axis", !!p && p.laid && p.spine && !p.axis);
   if (p) {
-    check("...the same five items in the same order", p.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009");
+    check("...only five items: two before, the card, two after (the outer pair hidden)", p.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009", p.items.map((i) => i.id).join(" "));
+    check("...and the ledger's axis is in months again (the hidden pair is out of its window)", p.ticks.some((t) => /^[A-Z][a-z]{2} \d{4}$/.test(t)), p.ticks.join(", "));
     const rev = p.items.find((i) => i.id === "ww2-003");
     check("...a period is a column, taller than it is wide", rev && rev.mark.h > rev.mark.w, rev && JSON.stringify(rev.mark));
     check("...no two names overlap", p.overlaps === 0, String(p.overlaps));
     check("...nothing runs past the box", p.wider);
   }
+
+  console.log("\n6) the whole timeline, and the way back to the card (2026-11-19)");
+  await open(page, "eg-221");
+  const back = await page.evaluate(async () => {
+    const a = document.querySelector(".tl a.tl-all"); if (!a) return { err: "no whole-timeline link" };
+    a.click(); await new Promise((r) => setTimeout(r, 600));
+    const pill = document.querySelector("#tlpToCard"), hash = location.hash;
+    const head = (document.querySelector(".page-head h1") || {}).textContent || "";
+    const sel = document.querySelector("#tlpCol");
+    if (sel && sel.options.length > 1) { sel.value = sel.options[1].value; sel.dispatchEvent(new Event("change", { bubbles: true })); await new Promise((r) => setTimeout(r, 400)); }
+    const keptOnPick = !!document.querySelector("#tlpToCard");
+    const p2 = document.querySelector("#tlpToCard"); if (p2) p2.click(); await new Promise((r) => setTimeout(r, 600));
+    return { hash, head, pill: pill ? pill.textContent.trim() : null, keptOnPick, after: location.hash, gone: !document.querySelector("#tlpToCard") };
+  });
+  check("a card's whole-timeline link opens its collection's timeline page", !!back && !back.err && back.hash === "#timeline/egypt", JSON.stringify(back));
+  if (back && !back.err) {
+    check("...with a Back to card button", back.pill === "Back to card", back.pill);
+    check("...which stays while the reader changes collection on the page", back.keptOnPick);
+    check("...and returns to the card, the button gone", back.after === "#card/eg-221" && back.gone, back.after);
+  }
+  await page.goto(base + "#timeline/egypt", { waitUntil: "load" }); await page.reload({ waitUntil: "load" }); await page.waitForTimeout(400);
+  check("the timeline page reached any other way has no such button", !(await page.$("#tlpToCard")));
+  // …and from a study session: the Card-of-the-day row studies exactly one named card (as test-card-quote.js does)
+  const st = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+  st.on("pageerror", (e) => errs.push(String(e)));
+  await st.addInitScript(() => { if (!sessionStorage.getItem("tl-seeded")) { sessionStorage.setItem("tl-seeded", "1");
+    localStorage.setItem("folio_v1", JSON.stringify({ active: ["cotd:added"], cotd: ["eg-221"], cards: {}, settings: { newPerDay: 5 } })); } });
+  await st.goto(base + "#home", { waitUntil: "load" }); await st.reload({ waitUntil: "load" }); await st.waitForTimeout(1500);
+  const sv = await st.evaluate(async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const r = document.querySelector('[data-review="cotd:added"]'); if (!r) return { err: "no card-of-the-day row" };
+    r.click(); await wait(1200);
+    const rv = document.querySelector("#reveal-btn"); if (rv) rv.click(); await wait(800);
+    const answer = (document.querySelector(".answer .val") || {}).textContent || "";
+    const a = document.querySelector(".tl a.tl-all"); if (!a) return { err: "no whole-timeline link in the study reveal", answer };
+    a.click(); await wait(600);
+    const at = location.hash, pill = document.querySelector("#tlpToCard");
+    if (!pill) return { err: "no pill", at };
+    pill.click(); await wait(1200);
+    return { answer, at, back: location.hash, answer2: (document.querySelector(".answer .val") || {}).textContent || "" };
+  });
+  check("from a study session, the link opens the timeline and Back to card resumes the session on the same card, answer showing",
+    !!sv && !sv.err && sv.at === "#timeline/egypt" && sv.back === "#study" && sv.answer2 === sv.answer && /Second Intermediate/.test(sv.answer), JSON.stringify(sv));
   check("no console or page errors", errs.length === 0, errs.join(" | ").slice(0, 300));
   await browser.close();
   console.log("\n" + pass + " passed, " + fail + " failed");

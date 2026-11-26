@@ -43,7 +43,7 @@ never *Sind Sie ruhig.  Every other form on every card is read.
 import json, re
 from collections import Counter
 
-from goethe_level import f as lvlf
+from goethe_level import f as lvlf, LEVEL
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -1191,7 +1191,7 @@ for i, e in enumerate(entries, 1):
 
     plain = '; '.join(meaning_lines(glosses, cap=3))
     cards.append({
-        'id': f'u_{{DECK}}_{i}', 'num': str(i), 'category': 'Goethe A1',
+        'id': f'u_{{DECK}}_{i}', 'num': str(i), 'category': 'Goethe ' + LEVEL.upper(),
         'sub': '', 'question': e['display'], 'answer': plain,
         'answerDate': '', 'traditional': '', 'hanzi': '', 'pinyin': '',
         'translations': '', 'abstract': '', 'citation': '', 'answerText': plain,

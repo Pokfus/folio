@@ -16,6 +16,8 @@
      7  THE FINE FRAMES (Task 7): the Italian and the Russian locator frames open on a level finer than the resident coarsest, and settle (their tiles in) — the engine's counterpart of V1's hi-res coast bundles.
      8  SIBLING REDS (Task 7): with studied cards, a locator window shows the collection's other studied places in red and names them; with none it shows none; the collection's home square is always there.
      8b A GEOGRAPHY MAP CARD'S SIBLINGS (2026-11-07): a state or country card's window names the collection's studied states (names alone) and capitals (a dot and a name), never the capital card of its own shape.
+     11 A SET OF AREAS (2026-11-20, us-084): today's reservations in the strong gold and Oklahoma's former reservations in the lighter one, from the lazy atlas/data/us-reservations.js
+        (build-area-sets.js), fetched once; the key names both shades.
      9  No console or page errors. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -186,13 +188,13 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
         const hub = AtlasEmbed.hub(), c2 = document.createElement("canvas"); c2.width = cv.width; c2.height = cv.height; hub.draw(P.spec, c2.getContext("2d"), { dpr: P.dpr, fast: false });
         const a = cv.getContext("2d").getImageData(0, Math.round(cv.height - 34 * P.dpr), cv.width, Math.round(34 * P.dpr)).data, b = c2.getContext("2d").getImageData(0, Math.round(cv.height - 34 * P.dpr), cv.width, Math.round(34 * P.dpr)).data;
         // the scale bar (2026-11-14, on request) stands in the bottom-left corner: its box is left out, as the names' columns are
-        const sc = h._folioMap.boxes().scale, named = h._folioMap.labels().map((l) => [l.x - l.w / 2 - 6, l.x + l.w / 2 + 6]).concat(sc ? [[sc.box[0] - 2, sc.box[2] + 2]] : []), sw = Math.round(cv.width), sh = Math.round(34 * P.dpr); let diff = 0, n = 0;
+        const sc = h._folioMap.boxes().scale, named = h._folioMap.labels().map((l) => [l.x - l.w / 2 - 6, l.x + l.w / 2 + 6]).concat(sc ? [[sc.box[0] - 2, sc.box[2] + 2]] : [], (h._folioMap.stateNames ? h._folioMap.stateNames() : []).map((o) => [o.x - 6 * o.n.length - 8, o.x + 6 * o.n.length + 8])), sw = Math.round(cv.width), sh = Math.round(34 * P.dpr); let diff = 0, n = 0;   // every state is named since 2026-11-18 (otherStateNames): their columns too
         for (let y = 0; y < sh; y++) for (let x = 0; x < sw; x++) { const cx = x / P.dpr; if (named.some((r) => cx > r[0] && cx < r[1])) continue; n++; const o = 4 * (y * sw + x); if (Math.abs(a[o] - b[o]) + Math.abs(a[o + 1] - b[o + 1]) + Math.abs(a[o + 2] - b[o + 2]) > 24) diff++; }
-        return { names: h._folioMap.names(), hasLegendApi: typeof h._folioMap.legend, sides: [W.v.n, W.l.n], extent: [!W.v.m.length && !!W.v.x, !W.l.m.length && !!W.l.x], key: key ? [...key.querySelectorAll(".wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()) : [], keyOutside: !!key && !key.closest(".card-loc"), keyBelow: !!key && key.getBoundingClientRect().top >= cv.getBoundingClientRect().bottom - 1, strip: { diff, n } };
+        return { names: h._folioMap.names(), hasLegendApi: typeof h._folioMap.legend, sides: [W.v.n, W.l.n], extent: [!W.v.m.length && !!W.v.x, !W.l.m.length && !!W.l.x], key: key ? [...key.querySelectorAll(".wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()) : [], keyOutside: !!key, keyBelow: !!key && key.getBoundingClientRect().bottom <= cv.getBoundingClientRect().top + 1, strip: { diff, n } };
       }, id);
       const tag = id + " " + label;
       check(tag + ": the window names the war's two principal sides on the map (the card's own names)", info.names.length === 2 && info.names[0] === info.sides[0] && info.names[1] === info.sides[1], JSON.stringify(info.names));
-      check(tag + ": the one legend is the plain-text key UNDER the window, victors then defeated, in the card's own words", info.keyOutside && info.keyBelow && info.key.length === 2 && info.key[0].indexOf(info.sides[0]) >= 0 && /victors$/.test(info.key[0]) && info.key[1].indexOf(info.sides[1]) >= 0 && /defeated$/.test(info.key[1]), JSON.stringify(info.key));
+      check(tag + ": the one legend is the plain-text key ABOVE the window (2026-11-18), victors then defeated, in the card's own words", info.keyOutside && info.keyBelow && info.key.length === 2 && info.key[0].indexOf(info.sides[0]) >= 0 && /victors$/.test(info.key[0]) && info.key[1].indexOf(info.sides[1]) >= 0 && /defeated$/.test(info.key[1]), JSON.stringify(info.key));
       check(tag + ": no second legend is drawn over the map (the window has no legend of its own, and the strip along its foot is the map's own frame)", info.hasLegendApi === "undefined" && info.strip.n > 1000 && info.strip.diff < 0.03 * info.strip.n /* the globe's own limb line may cross the strip; a pill would be a tenth of it */, JSON.stringify(info.strip) + " " + info.hasLegendApi);
       check(tag + ": the key never says or implies allies", info.key.every((t) => !/allies|allied/i.test(t)), JSON.stringify(info.key));
       if (!info.extent.some(Boolean) && id !== "gr-552") {   // two states: the faces' tints are crisp; an authored extent is a soft wash with no crisp pixel to count
@@ -574,6 +576,87 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     });
     check("a capital window (Punjab, its seat Chandigarh) mounts and draws its dot", !dotted.failed && dotted.marks >= 1, JSON.stringify(dotted));
     await ctx.close();
+  }
+
+  /* ---------------- 11) a set of areas in two shades (members.areas, 2026-11-20: us-084, the reservations) ---------------- */
+  if (want(11)) {
+    sect("11) us-084: today's reservations in gold, from the lazy area set — and NOT Oklahoma's former ones (2026-11-26, on request: the card names one shade, data-map-areas-n)");
+    const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
+    await page.goto(url("#card/us-084"), { waitUntil: "load" });
+    const reqs0 = requests.length;   // counted from the reload: one page load, one fetch
+    await page.reload({ waitUntil: "load" });
+    await windowReady(page); await windowSettled(page).catch(() => {});
+    await page.waitForTimeout(600);
+    const info = await page.evaluate(() => {
+      const h = document.querySelector(".map-card"), cv = h.querySelector(".mc-canvas"), P = h._folioMap.probe();
+      // the window against the engine's own frame of the same view: what differs is what the window painted over it
+      const hub = AtlasEmbed.hub(), c2 = document.createElement("canvas"); c2.width = cv.width; c2.height = cv.height; hub.draw(P.spec, c2.getContext("2d"), { dpr: P.dpr, fast: false });
+      const a = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data, b = c2.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+      let strong = 0, light = 0;
+      for (let i = 0; i < a.length; i += 4) {
+        if (Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]) < 30) continue;
+        const r = a[i], g = a[i + 1], bl = a[i + 2];
+        if (r > 200 && g > 130 && g < 195 && bl < 120) strong++;            // TINT_AREA1 over the day's land
+        else if (r > 225 && g > 195 && g < 235 && bl > 140 && bl < 215 && r - bl > 25) light++;   // TINT_AREA2 over it
+      }
+      return { engine: h.getAttribute("data-map-engine"), plain: h.classList.contains("mc-plain"), areas: h.getAttribute("data-map-areas"), key: [...document.querySelectorAll(".members-key .wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()), strong, light, view: h._folioMap.view() };
+    });
+    check("the window is drawn on the engine (not the plain sentence) and names its area set", info.engine === "v2" && !info.plain && info.areas === "us-reservations", JSON.stringify({ engine: info.engine, plain: info.plain, areas: info.areas }));
+    check("…its key names the one shade and the source note", info.key.length === 2 && /^Reservations today/.test(info.key[0]) && /Census Bureau/.test(info.key[1]), JSON.stringify(info.key));
+    check("…today's reservations are painted in the strong gold", info.strong > 600, String(info.strong));
+    check("…and Oklahoma's former reservations are not drawn", info.light < 60, String(info.light));
+    check("…opening on the contiguous United States", Math.abs(info.view.lon + 95.95) < 1 && Math.abs(info.view.lat - 36.95) < 1, JSON.stringify(info.view));
+    const got = requests.slice(reqs0);
+    check("…fetching atlas/data/us-reservations.js once (lazy: not on the eager path)", got.filter((u) => /atlas\/data\/us-reservations\.js$/.test(u)).length === 1, got.filter((u) => /reservations/.test(u)).join(", "));
+    const shot = process.env.FOLIO_SHOTS ? path.join(process.env.FOLIO_SHOTS, "us-084-reservations.png") : null;
+    if (shot) { await page.locator(".card-loc").screenshot({ path: shot }); console.log("  (screenshot: " + shot + ")"); }
+    await ctx.close();
+  }
+
+  /* ---------------- 12) a border pack's state as a members group (2026-11-20; docs/atlas-v2-border-packs.md) ---------------- */
+  if (want(12)) {
+    sect("12) border packs: a state history.bin does not carry, drawn from its lazy pack — ru-341, ru-276, ko-106, ko-161");
+    const CASES = [
+      { id: "ru-341", pack: "russian-empire", year: 1796, name: "Russian Empire", min: 4000 },
+      { id: "ru-276", pack: "russian-empire", year: 1724, name: "Russian Empire", min: 4000 },
+      { id: "ko-106", pack: "goguryeo", year: 480, name: "Goguryeo", min: 1500 },
+      { id: "ko-161", pack: "silla", year: 682, name: "Silla", min: 800 },
+    ];
+    for (const C of CASES) {
+      const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
+      await page.goto(url("#card/" + C.id), { waitUntil: "load" });
+      const reqs0 = requests.length;
+      await page.reload({ waitUntil: "load" });
+      await page.evaluate(() => { const b = [...document.querySelectorAll("button")].find((x) => /show answer|reveal/i.test(x.textContent || "")); if (b) b.click(); });
+      await windowReady(page); await windowSettled(page).catch(() => {});
+      await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.settled && h._folioMap.settled(); }, null, { timeout: 180000 }).catch(() => {});
+      await page.waitForTimeout(800);
+      const info = await page.evaluate(() => {
+        const h = document.querySelector(".map-card"), cv = h.querySelector(".mc-canvas"), P = h._folioMap.probe();
+        const hub = AtlasEmbed.hub(), c2 = document.createElement("canvas"); c2.width = cv.width; c2.height = cv.height; hub.draw(P.spec, c2.getContext("2d"), { dpr: P.dpr, fast: false });
+        const a = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data, b = c2.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+        let gold = 0;
+        for (let i = 0; i < a.length; i += 4) { if (Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]) < 24) continue; if (a[i] > a[i + 2] + 30 && a[i + 1] > a[i + 2] + 10) gold++; }   // the selection gold painted over the year's land
+        return { engine: h.getAttribute("data-map-engine"), plain: h.classList.contains("mc-plain"), year: h.getAttribute("data-map-year"), groups: h.getAttribute("data-map-groups"), key: [...document.querySelectorAll(".members-key .wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()), gold, spec: { year: P.spec.year } };
+      });
+      check(`${C.id}: the window is drawn on the engine at ${C.year}, its group the pack's state`, info.engine === "v2" && !info.plain && Number(info.year) === C.year && /pol:/.test(info.groups || ""), JSON.stringify({ engine: info.engine, plain: info.plain, year: info.year, groups: info.groups }));
+      check(`${C.id}: …the state painted in the gold over the year's land (window against the engine's own frame)`, info.gold > C.min, String(info.gold));
+      check(`${C.id}: …its key names the state`, info.key.some((k) => k.indexOf(C.name) === 0), JSON.stringify(info.key));
+      const got = requests.slice(reqs0);
+      check(`${C.id}: …fetching atlas/data/borders/${C.pack}.bin once, and history.bin once`, got.filter((u) => new RegExp("atlas/data/borders/" + C.pack + "\\.bin$").test(u)).length === 1 && got.filter((u) => /atlas\/data\/history\.bin$/.test(u)).length === 1, got.filter((u) => /borders|history/.test(u)).join(", "));
+      const shot = process.env.FOLIO_SHOTS ? path.join(process.env.FOLIO_SHOTS, C.id + "-border-pack.png") : null;
+      if (shot) { await page.locator(".card-loc").screenshot({ path: shot }); console.log("  (screenshot: " + shot + ")"); }
+      await ctx.close();
+    }
+    {   // a pack that cannot be read: the plain sentence, never the year's map without the state
+      const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
+      await page.route(/atlas\/data\/borders\//, (r) => r.abort());
+      await page.goto(url("#card/ko-106"), { waitUntil: "load" });
+      await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.classList.contains("mc-plain"); }, null, { timeout: 120000 }).catch(() => {});
+      const plain = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { plain: !!h && h.classList.contains("mc-plain"), text: h ? h.textContent.replace(/\s+/g, " ").trim() : "" }; });
+      check("ko-106 with its pack refused: the window is the plain sentence", plain.plain && /could not be loaded/.test(plain.text), JSON.stringify(plain));
+      await ctx.close();
+    }
   }
 
   sect("errors");

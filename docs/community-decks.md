@@ -1085,8 +1085,124 @@ The nine sections below are the bullets as they stood in CLAUDE.md, verbatim.
 `#guid/notetype/deck/tags column:` headers, CSV-style quoting) and Quizlet's export (term and definition split by a
 tab, comma or semicolon), builds a deck FILE and hands it to `uDeckImportText` — so `uDeckNormalize` stays the one
 ingest choke point and no sanitizer changed (`SANITIZE_REV` untouched). Non-HTML text is escaped with its line breaks
-kept; an Anki deck column becomes the subdeck path (both use "::"); a cloze note becomes a Basic card ([...] on the
-front, in full on the back); the tags column is dropped. An `.apkg` is not read.
+kept; an Anki deck column becomes the subdeck path (both use "::"); the tags column is dropped. An `.apkg` is not
+read. **Since 2026-11-16** ("The authoring audit", below) a list is PREVIEWED before it is stored, a cloze note
+becomes a Fill-in-the-blank note and a reversed one a Two-way note (no longer Basic cards), and an `.apkg` is
+answered with the export to use instead.
 **Export**: the deck menu's "Export for Anki" (`ankiExportEntry`) writes any entry — a Folio deck, a collection, a
 language or one of your own — as Anki's tab-separated notes file with its header lines (Basic note type, deck and
 tags columns). Map, locator, artwork, flag and draw cards cannot travel as text and are left out, with a count.
+
+## The authoring audit (2026-11-16, on request)
+
+An audit of writing and sharing a deck "from the perspective of a user completely unfamiliar with Anki or
+Folio", walked in a real browser at 390 px, then its 53 findings built. What follows is the as-built
+record; the rules a later change must keep are in bold. `node .claude/test-deck-authoring.js` guards all
+of it and drives nothing but the page (a phone viewport, taps, keys, the real file picker).
+
+**The Studio repaints in place.** Every control inside the editor used to call `render()`, which is a
+navigation and scrolls to the top — on a phone the editor is a screen and a half below that, so "Add a
+card" looked as if it had done nothing. They call `studioRepaint()` (= `renderInPlace()`); `studioReveal(el)`
+brings a part of the editor into view only when it is not already there. **A new control in the Studio
+calls `studioRepaint`, never `render`.** `studioState.focus` ("card" | "title") asks the next paint to put
+the caret somewhere.
+
+**One tap edits (`tapEdit`).** `wireLiveCardEditor` opened a field on `dblclick` only: unreliable on a
+phone (the app's own note on the study card's double-tap says so) and unreachable by keyboard, the fields
+having no tabindex. With `o.tapEdit` (the Studio passes it; the admin editor does not, because a single
+click there must still open a glossary link) a click enters editing with the caret where the click was,
+the fields are tab stops that open on focus, and Enter walks question → answer → the next field. The
+rich-text Enter handler (`doCmd("insertLineBreak")`) returns early on `e.defaultPrevented` — without that
+the break lands in the field the caret has just moved to, which was the "blank line above the answer".
+
+**The built-in card opens in its short form (`compact`).** Question, answer, a picture slot, notes. The
+date line, further phrasings, the plain answer text, Link term / Unlink / + Source, the sources panel and
+the HTML source are folded behind `#cesMore` (`.ces-compact:not(.ces-more)` in styles.css hides them;
+nothing is removed from the DOM, so every hook is still there). It opens unfolded when the author last
+left it so (`folio.studio.more`) or when the card already uses one of those parts (`studioMoreOpen`). The
+ribbon's **Blank** button (`#rtBlank`) replaces the selected words of the question with
+`<span class="blank">_____</span>` and makes them the answer when there is none.
+
+**Adding a card.** `studioAddCard(d, typeId)`: with no `typeId` the new card is the kind and subdeck of the
+open one (`uCardCreate(deckId, { type, sub })`); **a card nothing was written on is reused, never stacked**.
+`#stAddCard` is the left half of a split button; `#stAddKind` opens `openAddKindSheet`, and an empty deck's
+editor pane draws the same list (`studioKinds`): Question and answer, the deck's own types, and every
+ready-made shape it has not got — choosing one of those creates the type on the spot (`studioPickKind`).
+The card's Kind picker lists the same. Nine presets since this change (`CARD_TYPE_PRESETS`: Definition,
+Date and event, Person, Formula and Multiple choice joined the four); `PRESET_PRELINE` gives every preset's
+text blocks `white-space: pre-line`, on the leaf classes only — **never on `.card`**, where a newline
+between two of a template's own tags would become a blank line. A "type the answer" preset was NOT built:
+it needs an input and a comparison, and a template is sanitized HTML and CSS with no script.
+
+**Empty cards.** `uCardIsEmpty` / `uDeckPruneEmpty(deckId, keepId)`: swept, with a toast, where a deck
+leaves the editor (All decks, the row's pencil, Study, export, share). `uDeckPublish` filters them out of
+the upload as well.
+
+**The card's own chrome** (`studioCardHeadHTML` / `studioWireCardChrome`): Duplicate (`uCardDuplicate`),
+Move to a place number (`uCardMoveTo`), Delete with Undo and no confirmation (`uCardSnapshot` /
+`uCardRestore`, through `toastAction`), and "Add another card" under the card. A typed card's boxes are
+prose boxes (`.ut-field`, not `.ut-code`) that grow, with a small bar — B, I, and on a cloze type **Blank**,
+which wraps the selection in the next `{{cN::…}}`. A field a template puts inside `src="…"` is a one-line
+link box (`typeImageFields`) and is skipped when a card is named for the list.
+
+**The deck's head.** The name is the heading (`#stTitleH`, contenteditable, plain text; a new deck opens
+with it selected) and the box in Deck details writes through the same setter. One menu (`#stMore`,
+`openDeckMoreSheet`: paste, deck details, the two exports, delete) replaces the second Export; the row's own
+Export and Delete are hidden while its editor is open (`.udeck-editing .udeck-act`). A deck opens on its
+Cards tab with the list unfiltered. Past seven cards the list has a search box (`#stCardQ`) that hides rows
+in place. Card types: the templates, the stylesheet and the syntax help sit under "Customise the design"
+(`#utDesign`, open for the session once opened, and from the start on a type made from scratch); the fields
+are chips, with the comma line kept inside the fold for reordering.
+
+**Lists are previewed (`openPasteCards`).** One sheet, three ways in: paste into a deck (`#stPaste`, the
+menu), paste a new deck (`#stPasteNew`), and any text file the import picker is handed. It shows the first
+five rows as front and back, the divider found (`CARD_SEPS` / `cardSepDetect`: the candidate the most lines
+contain, and none under half), whether the first line was taken as a heading (`CARD_HEADER_RX`), and how many
+lines have no back. `ankiTextToDeck(text, fileName, opts)` grew `sep`, `header`, `swap`, `kind` and returns
+`info`; outside an Anki export a row is cut at its FIRST comma or semicolon unless every row has the same
+number of cells. **Anki's note types are kept**: a cloze note becomes a note of the Fill-in-the-blank type
+and a "Basic (and reversed card)" note a Two-way one, their types travelling in the deck's `meta.types`.
+A pasted Folio deck file (the first AI prompt's reply) is recognised and imported as a deck.
+`uCardsAppend(deckId, raws)` adds many cards in one write, through `uCardSanitize` — still the one ingest
+choke point; no sanitizer changed and `SANITIZE_REV` is untouched.
+
+**A file is read by its content** (`deckTextKind`): an `.apkg` / `.colpkg` (or anything starting `PK` or
+`SQLite format 3`) answers `APKG_MSG`, which names the export Anki offers instead; JSON is a deck; anything
+else is a list, whatever its extension. A FILE import is shown in the list rather than opened — opening the
+editor warms every note — and its toast carries "Add to daily study" (`studioImportLanded`, `toastAction`).
+
+**The AI prompts open in a sheet over the deck** (`openAiPromptSheet`): two list prompts first
+(`AI_LIST_PROMPTS`, "question | answer" a line), then the About page's three, each with Copy, and a button
+to the paste sheet.
+
+**Sharing.** One vocabulary: Not shared / Shared / Shared by link / Sharing stopped, and Share… / Send
+changes / Stop sharing. The first share opens `openShareSheet` (name, description, who can open it, a count
+of cards with no answer); signed out it is an `inlineConfirm` with a Sign in button, not a toast. Edits to
+a deck already shared still go up on one press (`studioShareNow`). The answer is a toast with the link
+(`shareDeck`: the platform's share sheet, else the clipboard), and the bar keeps a Copy link button.
+**Link-only sharing is status `unlisted`** and needs section 19 of `.claude/supabase-schema.sql`, which is
+the owner's to run: until then the status column's check constraint refuses it and `linkOnlyMsg()` says so.
+It keeps a deck out of every list (they all ask for `status=eq.published`); it is not a secret, and the
+schema block says so. An admin's Restore of a hidden deck sets `published`, so a link-only deck that was
+hidden comes back listed. The deck's page has its buttons above the description, a Share button, and the
+first ten cards stepped through instead of one.
+
+**"Stored only in this browser."** `backupNoteHTML`: past twenty cards an unshared deck of your own shows
+one dismissible line with Export a copy; `folio_deck_backup_v1` (localStorage, per device) holds the card
+count the last time a copy was kept, and the line returns twenty cards later. Backing a deck up to the
+account was NOT built.
+
+**An author's way back from study**: `showOwnEditBtn` puts the Edit button (the admin's, same id, so
+`hideAdminEditBtn` removes it) over a card of a deck that is the reader's own; it opens the Studio on
+that card.
+
+**Not built, and why.** Picture upload: the editors are link-only on purpose (`docs/reference.md`, "there is
+deliberately no upload path" — an uploaded file can only live inline as a data-URI, which rides into every
+published deck's rows), and allowing it means teaching the sanitizer `data:` image sources; that is the
+owner's decision to reverse, not an audit's. The Picture and Person shapes take a link.
+
+Other small things: a toast lasts as long as it takes to read (`toast`), the Shared decks count includes
+the three courses drawn in its group, and the Collections page says "Or write a deck of your own".
+
+Re-run after touching any of the above: `test-deck-authoring.js`; and `test-community.js`,
+`test-card-types.js`, `test-publish.js`, which drive the same surface.

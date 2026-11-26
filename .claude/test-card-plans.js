@@ -80,7 +80,7 @@ const PLANS = {
   vikingage: ["vikingage", "vk-", 1000],
   japan: ["japan", "jp-", 1000],
   psychology: ["psych", "ps-", 1000],
-  philosophy: ["phil", "ph-", 1000],
+  philosophy: ["phil", "phi-", 1000],
   biology: ["bio", "bio-", 1000],
   /* Dinosaurs (`dino`) went DORMANT on 2026-11-12 and its 100 cards were renumbered into Palaeontology;
      its plan stays in docs/ but declares no collection, so it is not read here. */
@@ -139,11 +139,15 @@ const PLANS = {
   /* 801-840 and 901-940 are Russia's two PHYSICAL decks (Oct 2026), the US and China pattern. */
   /* India (2026-10-30, planned with no cards): 36 states and union territories, 34 capitals (519 Delhi and 531 Chandigarh are
      territories that are their cities, so the shape would be the answer), 701-740 the other great cities, and the two physical decks. */
+  /* Historical States (2026-11-19): seven period decks of states of the past, each numbered from its own hundred — a map card on the `past-states` layer
+     (docs/historical-states-card-plan.md). The ranges are the plan's lines: every polity of the Atlas's history that is a state with a credible year. */
+  "historical-states": ["geo-states", "hs-", [[1, 16], [101, 125], [201, 219], [301, 319], [401, 433], [501, 514], [601, 611]]],
   "india-geography": ["geo-india", "gin-", [[1, 36], [501, 518], [520, 530], [532, 536], [701, 740], [801, 840], [901, 940]]],
   "russia-geography": ["geo-russia", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583], [801, 840], [901, 940]]],
   /* 801-850 and 901-950 are the world's two PHYSICAL decks (2026-10-29), the US and China pattern: rivers,
-     lakes and seas, then mountains, deserts and caves — map questions on a locator. */
-  "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762], [801, 850], [901, 950]]],
+     lakes and seas, then mountains, deserts and caves — map questions on a locator. 301-330 is the largest
+     islands deck (2026-11-19), in the free band between the countries and the capitals. */
+  "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762], [301, 330], [801, 850], [901, 950]]],
   /* China: 31 provincial-level divisions and 27 capitals rather than 31. The four missing numbers are
      not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,
      cities that are themselves divisions, so a capital card there would shade its own answer. Written

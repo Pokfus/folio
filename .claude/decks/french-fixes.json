@@ -150,7 +150,7 @@
    ]
   },
   "frphrases": {
-   "why": "THE BEGINNER PASS (Nov 2026). The phrases deck is the last on the shelf, yet 153 of its expressions are spelled entirely with DELF A1's words; it is now dealt by reading level (french-order.json) and its description says it can begin beside A1. Seven greetings it carried (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1, the first deck; dropDup takes them out. The counts follow.",
+   "why": "THE BEGINNER PASS (Nov 2026). The phrases deck is the last on the shelf, yet 153 of its expressions are spelled entirely with DELF A1's words; it is now dealt by reading level (french-order.json) and its description says it can begin beside A1. Seven greetings it carried (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1, the first deck; dropDup takes them out. The counts follow. (2026-11-26) The app now holds phrase decks in a language's review until every A1 card is introduced, so the sentence saying the deck can begin beside A1 says that instead.",
    "subtitle": "395 expressions, the 153 that A1's words spell first · both directions, as two cards each",
    "dropDup": {
     "ça va": "delfa1",
@@ -176,7 +176,11 @@
     ],
     [
      "The cards are ordered roughly by how common the expression is, so the ones you will hear first come first.",
-     "THE ORDER is by reading level: first the 153 expressions spelled entirely with words the DELF A1 deck teaches (in the forms its cards show, or with the -s or -e a regular plural or feminine adds), then the 116 that need A2's words as well, B1's (68), B2's (14), C1's and C2's (8), and last the 36 that use a word no level deck cards; inside each group the expression a corpus of everyday sentences has most often comes first. So the deck can be begun beside DELF A1 rather than after DALF C2, where the shelf lists it. Seven greetings it used to carry (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1. At Folio's default of ten new cards a day, which is five expressions, the first group takes 31 days and the deck 79."
+     "THE ORDER is by reading level: first the 153 expressions spelled entirely with words the DELF A1 deck teaches (in the forms its cards show, or with the -s or -e a regular plural or feminine adds), then the 116 that need A2's words as well, B1's (68), B2's (14), C1's and C2's (8), and last the 36 that use a word no level deck cards; inside each group the expression a corpus of everyday sentences has most often comes first. So it need not wait for DALF C2, where the shelf lists it: in French's own review it waits only until every DELF A1 card has been introduced, and on its own row it can be studied at any time. Seven greetings it used to carry (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1. At Folio's default of ten new cards a day, which is five expressions, the first group takes 31 days and the deck 79."
+    ],
+    [
+     "So the deck can be begun beside DELF A1 rather than after DALF C2, where the shelf lists it.",
+     "So it need not wait for DALF C2, where the shelf lists it: in French's own review it waits only until every DELF A1 card has been introduced, and on its own row it can be studied at any time."
     ]
    ]
   }
