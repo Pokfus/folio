@@ -13266,7 +13266,17 @@ window.GLOSSARY = {
 "Stalinist_architecture": "",
 "Mayakovskaya_(Moscow_Metro)": "",
 "Music_of_Russia": "",
-"Mikhail_Glinka": ""
+"Mikhail_Glinka": "",
+"The_Five_(composers)": "",
+"Modest_Mussorgsky": "",
+"Nikolai_Rimsky-Korsakov": "",
+"Pyotr_Ilyich_Tchaikovsky": "",
+"Mariinsky_Ballet": "",
+"Ballets_Russes": "",
+"Igor_Stravinsky": "",
+"Sergei_Rachmaninoff": "",
+"Dmitri_Shostakovich": "",
+"Soviet_montage_theory": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19728,7 +19738,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Palekh_miniature": "1920s–present",
 "Kazimir_Malevich": "1879–1935",
 "Wassily_Kandinsky": "1866–1944",
-"Mikhail_Glinka": "1804–1857"
+"Mikhail_Glinka": "1804–1857",
+"The_Five_(composers)": "c. 1856–1875",
+"Modest_Mussorgsky": "1839–1881",
+"Nikolai_Rimsky-Korsakov": "1844–1908",
+"Pyotr_Ilyich_Tchaikovsky": "1840–1893",
+"Mariinsky_Ballet": "1738–present",
+"Ballets_Russes": "1909–1929",
+"Igor_Stravinsky": "1882–1971",
+"Sergei_Rachmaninoff": "1873–1943",
+"Dmitri_Shostakovich": "1906–1975",
+"Soviet_montage_theory": "c. 1918–1930s"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28521,7 +28541,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Stalinist_architecture": ["Stalinist Empire style","Stalinist Empire"],
 "Mayakovskaya_(Moscow_Metro)": ["Mayakovskaya"],
 "Music_of_Russia": ["Russian music"],
-"Mikhail_Glinka": ["Glinka"]
+"Mikhail_Glinka": ["Glinka"],
+"The_Five_(composers)": ["Mighty Handful","moguchaya kuchka","Balakirev circle"],
+"Modest_Mussorgsky": ["Mussorgsky","Musorgsky"],
+"Nikolai_Rimsky-Korsakov": ["Rimsky-Korsakov"],
+"Pyotr_Ilyich_Tchaikovsky": ["Tchaikovsky","Peter Ilich Tchaikovsky"],
+"Mariinsky_Ballet": ["Imperial Russian Ballet"],
+"Ballets_Russes": ["Russian Seasons","Diaghilev's Ballets Russes"],
+"Igor_Stravinsky": ["Stravinsky"],
+"Sergei_Rachmaninoff": ["Rachmaninoff","Rachmaninov","Sergei Rachmaninov"],
+"Dmitri_Shostakovich": ["Shostakovich"],
+"Soviet_montage_theory": ["Soviet montage","montage of attractions"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -42058,7 +42088,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Stalinist_architecture": ["concept","architecture","history","russia","soviet union"],
 "Mayakovskaya_(Moscow_Metro)": ["building","architecture","art","moscow","russia"],
 "Music_of_Russia": ["culture","music","history","russia"],
-"Mikhail_Glinka": ["person","music","history","russia"]
+"Mikhail_Glinka": ["person","music","history","russia"],
+"The_Five_(composers)": ["culture","music","art","history","russia"],
+"Modest_Mussorgsky": ["person","music","art","history","russia"],
+"Nikolai_Rimsky-Korsakov": ["person","music","art","history","russia"],
+"Pyotr_Ilyich_Tchaikovsky": ["person","music","art","history","russia"],
+"Mariinsky_Ballet": ["institution","art","dance","history","russia"],
+"Ballets_Russes": ["institution","art","dance","history","russia","france"],
+"Igor_Stravinsky": ["person","music","art","history","russia"],
+"Sergei_Rachmaninoff": ["person","music","art","history","russia"],
+"Dmitri_Shostakovich": ["person","music","art","history","russia","soviet union"],
+"Soviet_montage_theory": ["theory","film","art","history","soviet union"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

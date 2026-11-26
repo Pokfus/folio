@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-26T23:51Z",
+ "generated": "2026-11-26T23:53Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 9172,
-  "redirect-broader": 873,
-  "redirect-variant": 522,
+  "ok": 9180,
+  "redirect-broader": 874,
+  "redirect-variant": 523,
   "section-redirect": 206,
   "disambiguation": 166,
   "none": 1296,
@@ -98321,6 +98321,78 @@
    "url": "https://en.wikipedia.org/wiki/Mikhail_Glinka",
    "via": "glossary",
    "status": "ok"
+  },
+  "ru-991": {
+   "answer": "Mighty Handful",
+   "title": "The Five (composers)",
+   "url": "https://en.wikipedia.org/wiki/The_Five_(composers)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mighty Handful"
+  },
+  "ru-992": {
+   "answer": "Modest Mussorgsky",
+   "title": "Modest Mussorgsky",
+   "url": "https://en.wikipedia.org/wiki/Modest_Mussorgsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-993": {
+   "answer": "Nikolai Rimsky-Korsakov",
+   "title": "Nikolai Rimsky-Korsakov",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Rimsky-Korsakov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-994": {
+   "answer": "Pyotr Ilyich Tchaikovsky",
+   "title": "Pyotr Ilyich Tchaikovsky",
+   "url": "https://en.wikipedia.org/wiki/Pyotr_Ilyich_Tchaikovsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-995": {
+   "answer": "Mariinsky Ballet",
+   "title": "Mariinsky Ballet",
+   "url": "https://en.wikipedia.org/wiki/Mariinsky_Ballet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-996": {
+   "answer": "Ballets Russes",
+   "title": "Ballets Russes",
+   "url": "https://en.wikipedia.org/wiki/Ballets_Russes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-997": {
+   "answer": "Igor Stravinsky",
+   "title": "Igor Stravinsky",
+   "url": "https://en.wikipedia.org/wiki/Igor_Stravinsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-998": {
+   "answer": "Sergei Rachmaninoff",
+   "title": "Sergei Rachmaninoff",
+   "url": "https://en.wikipedia.org/wiki/Sergei_Rachmaninoff",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-999": {
+   "answer": "Dmitri Shostakovich",
+   "title": "Dmitri Shostakovich",
+   "url": "https://en.wikipedia.org/wiki/Dmitri_Shostakovich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-1000": {
+   "answer": "Soviet montage",
+   "title": "Soviet montage theory",
+   "url": "https://en.wikipedia.org/wiki/Soviet_montage_theory",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Soviet montage"
   }
  }
 }

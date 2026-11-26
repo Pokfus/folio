@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 9172 | the title is the article |
-| `redirect-variant` | 522 | spelling / plural / qualifier differed; same subject |
+| `ok` | 9180 | the title is the article |
+| `redirect-variant` | 523 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 873 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 874 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 206 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 166 | only a disambiguation page; no link could be chosen |
 | `none` | 1296 | nothing matched; no link |
 
-**10702 of 12390 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10712 of 12400 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (873)
+## Redirected to a differently named article — check each (874)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -717,6 +717,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-956` **Silver Age** → [Ages of Man](https://en.wikipedia.org/wiki/Ages_of_Man) (from `Silver Age`)
 - `ru-967` **Russian architecture** → [Architecture of Russia](https://en.wikipedia.org/wiki/Architecture_of_Russia) (from `Russian architecture`)
 - `ru-989` **Russian music** → [Music of Russia](https://en.wikipedia.org/wiki/Music_of_Russia) (from `Russian music`)
+- `ru-991` **Mighty Handful** → [The Five (composers)](https://en.wikipedia.org/wiki/The_Five_(composers)) (from `Mighty Handful`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
