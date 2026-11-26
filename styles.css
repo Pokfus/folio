@@ -57,6 +57,11 @@
 :root{--script-sans:"Folio Script Sans", "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;}
 [lang]:is(:lang(am),:lang(ar),:lang(be),:lang(bg),:lang(bn),:lang(el),:lang(fa),:lang(grc),:lang(gu),:lang(he),:lang(hi),:lang(hy),:lang(ja),:lang(ka),:lang(kk),:lang(km),:lang(ko),:lang(ky),:lang(lo),:lang(mk),:lang(mn),:lang(mr),:lang(my),:lang(ne),:lang(pa),:lang(ps),:lang(ru),:lang(sa),:lang(si),:lang(sr),:lang(ta),:lang(te),:lang(th),:lang(ti),:lang(uk),:lang(ur),:lang(yi),:lang(zh),:lang(yue),:lang(lzh)){
   --serif:var(--script-sans); --display:var(--script-sans); font-family:var(--script-sans);}
+/* EVERY LANGUAGE CARD IS SANS (2026-11-26, on request: "Ensure all vocabulary words in all language collections use a sans
+   serif font"). The rule above reaches only the non-Latin scripts; a Spanish, Portuguese or French card fell back to the
+   site's serif. A card type with a spoken language carries `lang` on its `.uc-card` wrapper (cardTypeHTML), so that is
+   the hook — and --serif / --display are redefined with it, so a deck stylesheet's var(--serif) follows. */
+.uc-card[lang]{--serif:var(--script-sans); --display:var(--script-sans); font-family:var(--script-sans);}
 .uc-card [dir="rtl"]:is(:lang(ar),:lang(fa),:lang(ur),:lang(ps),:lang(he),:lang(yi)){font-family:var(--script-sans) !important;}
 
 /* ---------- tokens ---------- */

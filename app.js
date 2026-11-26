@@ -4180,6 +4180,8 @@
     /* ASTRONOMY'S OWN SENSES (2026-11-20, on request: "vacuum (collection-specific gloss)", "Sun (collection-specific)", "eccentricity
        (collection-specific gloss)"): "the Sun god" in an Egyptian card, "a vacuum of power", "his eccentricity" are not these terms.
        Jupiter and Saturn carry their bare names as aliases of the PLANETS here only — in a Roman card they are the gods. */
+    /* "recite its Vedic hymns from memory" in a history card is not the cognitive faculty (2026-11-22, on request: "memory should be a collection-specific gloss for psychology") */
+    Memory: { roots: ["psych"], tags: ["psychology", "neuroscience"] },
     Sun: { roots: ["astro"], tags: ["astronomy"] },
     Vacuum: { roots: ["astro"], tags: ["astronomy", "physics"] },
     Orbital_eccentricity: { roots: ["astro"], tags: ["astronomy"] },
@@ -7866,9 +7868,10 @@
     const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
     const lrIds = [], rvIds = [], nwIds = [];
     const held = isLangCtxId(id) && langAlphabetPending(id);   // the language's row deals only its alphabet as new
+    const heldA1 = isLangCtxId(id) && langA1Pending(id);       // …and no phrase before A1 is introduced
     ids.forEach((cid) => {
       const c = S.cards[cid];
-      if (!c) { if (!held || isScriptCard(cid)) nwIds.push(cid); return; }
+      if (!c) { if (langMayIntroduce(id, cid, held, heldA1)) nwIds.push(cid); return; }
       if (schedIsLearning(c.status)) lrIds.push(cid);
       else if (isDueNow(cid)) rvIds.push(cid);
     });
@@ -7945,7 +7948,7 @@
        `seen` stays GLOBAL across the buckets, so a card claimed by one deck cannot be dealt twice — a card
        a language's cap then drops is out of this session, which it would be anyway, the only decks it can
        sit in also being that language's. */
-    const buckets = new Map(), alphaHeld = new Map();
+    const buckets = new Map(), alphaHeld = new Map(), a1Held = new Map();
     const bucketFor = (k) => { let b = buckets.get(k); if (!b) buckets.set(k, b = { due: [], fresh: [] }); return b; };
     activeEntryIds().forEach((e) => {
       // "Skip today" sits the deck out without removing it — its LANGUAGE can sit it out too
@@ -7967,6 +7970,10 @@
       if (lk && !isScriptEntry(e)) {
         if (!alphaHeld.has(lk)) alphaHeld.set(lk, langAlphabetPending(lk));
         if (alphaHeld.get(lk)) nw = 0;
+      }
+      if (lk && isPhraseEntry(e)) {   // …and a phrase deck waits for A1 — see langA1Pending
+        if (!a1Held.has(lk)) a1Held.set(lk, langA1Pending(lk));
+        if (a1Held.get(lk)) nw = 0;
       }
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
@@ -32973,7 +32980,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
       // a language still learning its alphabet deals only alphabet cards as new — see langAlphabetPending
       const gHeld = gLang && langAlphabetPending(scope.id);
-      const gUnseen = gIds.filter((id) => !isSeen(id) && (!gHeld || isScriptCard(id)));
+      const gA1 = gLang && langA1Pending(scope.id);
+      const gUnseen = gIds.filter((id) => !isSeen(id) && langMayIntroduce(scope.id, id, gHeld, gA1));
       // by difficulty the day's new cards are the group's EASIEST unseen ones, not its first ones sorted — see the deck branch
       const gNew = (deckByDifficulty(scope.id) ? sortByDifficulty(gUnseen) : gUnseen).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
@@ -36996,6 +37004,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function isScriptEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isScriptDeckId(d); }
   function isScriptCard(id) { const c = UCARDS[uCardBaseId(id)]; return !!(c && c.deckId && isScriptDeckId(c.deckId)); }
+  /* …AND THE PHRASES WAIT FOR A1 (2026-11-26, on request: "In the default study order of Portuguese, sentences/idioms
+     should not appear until A1 has been fully learned. This should be true for every language collection").
+     A phrase deck is a catalogue file of phrases, expressions, idioms, proverbs or mottos; the A1 deck is the
+     language's first word level (A1, HSK Level 1, JLPT N5, Korean Stage A, UKBI 1, Old English Level 1). While any
+     card of an A1 deck the reader has ADDED is still new, the language's row and the pooled review introduce no new
+     phrase card — exactly the alphabet's hold, one stage on, and with the same exceptions: reviews are untouched,
+     a phrase deck studied on its own row still deals, Random is not held, suspended A1 cards do not count.
+     "Fully learned" is read as every A1 card INTRODUCED, as the alphabet's is: a hold on the learned pips would
+     re-close every time one A1 word was missed, since a miss now empties them. */
+  const PHRASE_DECK_RX = /Phrase|Expression|Idiom|Proverb|Motto/;
+  const A1_DECK_RX = /(?:^|-)A1(?:-|\.)|HSK-3\.0-Level-1\.|JLPT-N5|Stage-A|UKBI-1-|English-Level-1\./;
+  function isPhraseDeckId(deckId) { const cat = langCatalogById(deckId); return !!(cat && PHRASE_DECK_RX.test(cat.file || "")); }
+  function isPhraseEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isPhraseDeckId(d); }
+  function isPhraseCard(id) { const c = UCARDS[uCardBaseId(id)]; return !!(c && c.deckId && isPhraseDeckId(c.deckId)); }
+  function isA1Entry(entryId) { const d = uDeckIdOf(entryId), cat = d ? langCatalogById(d) : null; return !!(cat && A1_DECK_RX.test(cat.file || "")); }
+  function langA1Pending(langId) {
+    if (!isLangCtxId(langId) || deckOrderMode(langId) === "random") return false;
+    return langCtxEntries(langId).some((e) => isA1Entry(e) &&
+      entryCardIds(e).some((id) => !isSeen(id) && !isSuspended(id)));
+  }
+  // may this card be introduced as new through its language's row or the pooled review today?
+  function langMayIntroduce(langId, id, alphaHeld, a1Held) {
+    if (alphaHeld && !isScriptCard(id)) return false;
+    if (a1Held && isPhraseCard(id)) return false;
+    return true;
+  }
   // true while the language `langId` holds back its words: an added alphabet deck has a card still new
   function langAlphabetPending(langId) {
     if (!isLangCtxId(langId) || deckOrderMode(langId) === "random") return false;
