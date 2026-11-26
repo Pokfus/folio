@@ -4257,8 +4257,20 @@
       idx.re.lastIndex = 0;
       let m, last = 0, frag = null;
       while ((m = idx.re.exec(text))) {
-        const surface = m[0];
+        let surface = m[0];
         let key = resolveGlossKey(idx, surface);
+        /* …AND NOT THE SHORTER NAME AT THE SAME PLACE EITHER (2026-11-26, found on ww2-911: "Los Alamos laboratory" matched
+           the proper surface "Los Alamos Laboratory" in the wrong case, so "Los Alamos", starting at the SAME character,
+           was never tried and the term linked at its second mention). Before stepping one character on, the match's own
+           word-boundary prefixes are tried, longest first. */
+        if (!key) {
+          for (let i = surface.length - 1; i > 0 && !key; i--) {
+            if (!/[\s\-]/.test(surface[i])) continue;
+            const pre = surface.slice(0, i).replace(/[\s\-]+$/, "");
+            const k2 = pre.length >= 3 ? resolveGlossKey(idx, pre) : null;
+            if (k2) { key = k2; surface = pre; idx.re.lastIndex = m.index + pre.length; }
+          }
+        }
         if (key && redir && redir[key] && (redir[key] in (window.GLOSSARY || {}))) key = redir[key];
         /* A MATCH THAT RESOLVES TO NOTHING MUST NOT SWALLOW THE NAME INSIDE IT (2026-11-22, on a report: jp-202 linked
            Go-Shirakawa at its SECOND mention). The pattern is case-insensitive, so "emperor Go-Shirakawa" matched the
