@@ -56,7 +56,7 @@ window.CHANGELOG = [
       "182 new glossary terms across Greece, Rome, Egypt, World History, the United States, Russia, WW2 and Philosophy.",
       "Date lines or backgrounds updated on 31 cards in Ancient Egypt, Greece, Rome, World History, the United States and WW2.",
       "New atlas windows on 5 cards in Rome, Greece, Egypt, the United States and WW2; one reservations map simplified.",
-      "2 pictures added or changed in World History and Ancient Egypt.",
+      "14 pictures added or changed across World History, Ancient Egypt, Greece, Rome, the United States, Russia and WW2.",
     ],
   },
   {
