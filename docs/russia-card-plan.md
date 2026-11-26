@@ -1646,6 +1646,11 @@ fact-finding mission's findings and flagged as disputed. **`check-cards.js` (rep
 standing**: three "scholar" hits that are historical actors (Suslov, Yeltsin, the Venice Commission) and `ru-739`
 citing Human Rights Watch in 3 of 7 sources.
 
+**`migrate-places.js --fetch` WAS STOPPED BY WIKIDATA RATE LIMITING** after an hour; the offline run it fed drifted
+every collection's places, so all of it was reverted per the standing order. The new cards' locators (Chernobyl,
+Almaty, Stepanakert, the White House, Viskuli, Minsk, the rivers and others) carry no derived `places` yet — a later
+`--fetch` run will add them.
+
 ---
 
 # The list
