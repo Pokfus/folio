@@ -3592,7 +3592,12 @@
   }
   function esc(s) {
     return (s || "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
-  }
+  }  /* …and the same, keeping the italic and bold a title or caption is written with (2026-11-26, on request: "In the
+     Think It Through section, italics are not displayed correctly; for example, it says '<i>Daodejing</i>'. I've
+     noticed the same thing happen in the descriptions of images"). Everything is escaped first, then only a bare
+     <i>, </i>, <b>, </b>, <em>, </em> is given back — no attribute can ride through. */
+  function escInline(s) { return esc(s).replace(/&lt;(\/?)(i|b|em)&gt;/g, "<$1$2>"); }
+
   function stripHtml(s) { return (s || "").replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim(); }
 
   /* ---------- HTML sanitizer, for content Folio did NOT author ----------
@@ -18421,7 +18426,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*" + U_DENOM + "(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
-  function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
+  /* A BARE "in" AFTER A FIGURE IS INCHES (2026-11-26, on request: wh-214's "10 centimetres (4 in)" showed both figures
+     whatever the setting). `in` is in U_FILL as the preposition, so "(4 in)" carried no imperial unit as far as
+     U_HAS_IMP_RX could see and the bracket was left alone; "(3 ft 5 in)" worked only because of its `ft`. */
+  const U_IN_RX = /\d\s*in\.?\s*$/i;
+  function isImperialParen(s) { return U_ONLY_RX.test(s) && (U_HAS_IMP_RX.test(s) || U_IN_RX.test(s)) && U_HAS_NUM_RX.test(s); }
   // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
   function unitizeText(text, imperial) {
     if (!text || text.indexOf("(") < 0) return text;
@@ -40712,7 +40721,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     cap.className = "art-cap";
     let h = "";
     if (spec.title) h += '<span class="art-cap-t">' + esc(spec.title) + "</span>";
-    if (spec.desc) h += '<span class="art-cap-d">' + esc(spec.desc) + "</span>";
+    if (spec.desc) h += '<span class="art-cap-d">' + escInline(spec.desc) + "</span>";
     if (spec.credit) h += '<span class="art-cap-c">' + mediaCreditHTML(spec.credit) + "</span>";
     cap.innerHTML = h;
     fig.appendChild(cap);
@@ -42794,7 +42803,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (t) {
       h += '<div class="ex-scroll"><table class="ex-table">';
       if (Array.isArray(t.head) && t.head.length) h += "<thead><tr>" + t.head.map((x) => '<th scope="col">' + esc(x) + "</th>").join("") + "</tr></thead>";
-      h += "<tbody>" + t.rows.map((r) => "<tr>" + (Array.isArray(r) ? r : []).map((x) => "<td>" + esc(x) + "</td>").join("") + "</tr>").join("") + "</tbody></table></div>";
+      /* a truth value's cell is coloured (2026-11-26, on request, ph-049: "T cells should have a green filling, F cells red") */
+      const tv = (x) => { const v = String(x == null ? "" : x).trim(); return v === "T" ? ' class="ex-t"' : v === "F" ? ' class="ex-f"' : ""; };
+      h += "<tbody>" + t.rows.map((r) => "<tr>" + (Array.isArray(r) ? r : []).map((x) => "<td" + tv(x) + ">" + esc(x) + "</td>").join("") + "</tr>").join("") + "</tbody></table></div>";
     }
     if (ex.note) h += prose(ex.note);
     return h + "</div>";
@@ -42929,14 +42940,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return '<div class="elab" data-elab="why"><span class="elab-kind">Think it through</span>' +
         ws.map((w) => (w.a
           ? '<details class="elab-item">' +
-              '<summary class="elab-qrow"><span class="elab-q">' + esc(w.q) + "</span>" + ELAB_CHEV + "</summary>" +
+              '<summary class="elab-qrow"><span class="elab-q">' + escInline(w.q) + "</span>" + ELAB_CHEV + "</summary>" +
               '<div class="elab-wrap"><p class="elab-a">' + sanitizeHTML(w.a) + "</p></div>" +
             "</details>"
           /* A LEGACY ITEM IS NOT A FOLD AND KEEPS ITS BUTTON. Its answer is a block of the card's own
              background rather than a paragraph of its own, so there is nothing under the summary to
              uncover — see `cardWhy`, and the overlay note above it. */
           : '<div class="elab-item elab-legacy">' +
-              '<div class="elab-qrow"><p class="elab-q">' + esc(w.q) + "</p>" +
+              '<div class="elab-qrow"><p class="elab-q">' + escInline(w.q) + "</p>" +
               '<button type="button" class="btn ghost elab-show" data-at="' + w.at +
               '">Show me what the card says</button></div></div>')).join("") + "</div>";
     }
@@ -43262,8 +43273,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            at DRAW time, as every other label on the site is, so it covers a community deck's picture and
            anything added later without a pass over the data; `gameCapFirst` passes a numeral or a Han
            character through untouched. */
-        (img.title ? '<div class="iv-title">' + esc(gameCapFirst(img.title)) + "</div>" : "") +
-        (img.desc ? '<p class="iv-desc">' + esc(img.desc) + "</p>" : "") +
+        (img.title ? '<div class="iv-title">' + escInline(gameCapFirst(img.title)) + "</div>" : "") +
+        (img.desc ? '<p class="iv-desc">' + escInline(img.desc) + "</p>" : "") +
         (creditHTML ? '<div class="iv-credit">' + creditHTML + "</div>" : "") +
         "</div>"
       : "";

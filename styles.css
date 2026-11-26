@@ -9597,10 +9597,14 @@ body[data-theme="carnelian"].night .collection-deco{
    separate claim about the past and reads as one. */
 /* THE EXAMPLE SECTION (see cardExampleHTML in app.js): a worked example under the Background fold —
    a small ruled table that scrolls sideways on its own rather than widening a phone's page. */
-.card-example{margin-top:18px;}
-.card-example .ex-text{margin:0 0 10px; line-height:1.6;}
-.card-example .ex-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px;}
-.card-example .ex-table{border-collapse:collapse; font-family:var(--mono); font-size:calc(14px * var(--fs)); min-width:60%;}
+/* THE EXAMPLE IS A PANEL (2026-11-26, on request, ph-049: "ensure the table is centered, the text is smaller, the entire
+   section has a colored background, and in the table: T cells should have a green filling, F cells red") */
+.card-example{margin-top:18px; padding:14px 16px 6px; border-radius:10px; background:var(--indigo-wash); font-size:calc(15px * var(--fs));}
+.card-example .ex-text{margin:0 0 10px; line-height:1.55;}
+.card-example .ex-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px; display:flex; justify-content:center;}
+.card-example .ex-table{border-collapse:collapse; font-family:var(--mono); font-size:calc(12.5px * var(--fs)); margin:0 auto; background:var(--card);}
+.card-example .ex-table td.ex-t{background:#2e9e4f33; color:inherit; font-weight:600;}
+.card-example .ex-table td.ex-f{background:#d6453d33; color:inherit; font-weight:600;}
 .card-example .ex-table th,.card-example .ex-table td{border:1px solid var(--rule); padding:6px 14px; text-align:center;}
 .card-example .ex-table th{font-weight:600; color:var(--indigo); background:var(--indigo-wash);}
 .leadsto{margin-top:18px;}
