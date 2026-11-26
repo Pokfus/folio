@@ -1,0 +1,602 @@
+{
+ "_about": "Ancient Greek forms for gr-501–1000 that could NOT be confirmed against an online dictionary (2026-11-26: Perseus and Logeion refused requests; Wiktionary has no page for these forms, mostly plurals, titles, place names and genitives). Most are probably right; each needs a check against LSJ before it goes into greece-names.json. Not shipped.",
+ "gr-501": {
+  "greek": "Προπύλαια",
+  "latin": "Propylaia",
+  "unconfirmed": [
+   "Προπύλαια"
+  ]
+ },
+ "gr-503": {
+  "greek": "καρυᾶτις",
+  "latin": "karyatis",
+  "unconfirmed": [
+   "καρυᾶτις"
+  ]
+ },
+ "gr-507": {
+  "greek": "Τελεστήριον",
+  "latin": "Telesterion",
+  "unconfirmed": [
+   "Τελεστήριον"
+  ]
+ },
+ "gr-512": {
+  "greek": "πωληταί",
+  "latin": "poletai",
+  "unconfirmed": [
+   "πωληταί"
+  ]
+ },
+ "gr-517": {
+  "greek": "Θουκυδίδης ὁ Μελησίου",
+  "latin": "Thoukydides ho Melesiou",
+  "unconfirmed": [
+   "Μελησίου"
+  ]
+ },
+ "gr-521": {
+  "greek": "Πελοποννησιακὸς πόλεμος",
+  "latin": "Peloponnesiakos polemos",
+  "unconfirmed": [
+   "Πελοποννησιακός"
+  ]
+ },
+ "gr-529": {
+  "greek": "Ἀρχιδάμειος πόλεμος",
+  "latin": "Arkhidameios polemos",
+  "unconfirmed": [
+   "Ἀρχιδάμειος"
+  ]
+ },
+ "gr-538": {
+  "greek": "Πλάταιαι",
+  "latin": "Plataiai",
+  "unconfirmed": [
+   "Πλάταιαι"
+  ]
+ },
+ "gr-544": {
+  "greek": "Ἠιών",
+  "latin": "Eion",
+  "unconfirmed": [
+   "Ἠιών"
+  ]
+ },
+ "gr-545": {
+  "greek": "Νικίειος εἰρήνη",
+  "latin": "Nikieios eirene",
+  "unconfirmed": [
+   "Νικίειος"
+  ]
+ },
+ "gr-554": {
+  "greek": "περικοπὴ τῶν Ἑρμῶν",
+  "latin": "perikope ton Hermon",
+  "unconfirmed": [
+   "Ἑρμῶν"
+  ]
+ },
+ "gr-561": {
+  "greek": "Δεκελεικὸς πόλεμος",
+  "latin": "Dekeleikos polemos",
+  "unconfirmed": [
+   "Δεκελεικός"
+  ]
+ },
+ "gr-562": {
+  "greek": "ἐπιτειχισμός",
+  "latin": "epiteikhismos",
+  "unconfirmed": [
+   "ἐπιτειχισμός"
+  ]
+ },
+ "gr-573": {
+  "greek": "ψήφισμα Δημοφάντου",
+  "latin": "psephisma Demophantou",
+  "unconfirmed": [
+   "Δημοφάντου"
+  ]
+ },
+ "gr-575": {
+  "greek": "Καννωνοῦ ψήφισμα",
+  "latin": "Kannonou psephisma",
+  "unconfirmed": [
+   "Καννωνοῦ"
+  ]
+ },
+ "gr-584": {
+  "greek": "Μουνιχία",
+  "latin": "Mounikhia",
+  "unconfirmed": [
+   "Μουνιχία"
+  ]
+ },
+ "gr-585": {
+  "greek": "μὴ μνησικακεῖν",
+  "latin": "me mnesikakein",
+  "unconfirmed": [
+   "μνησικακεῖν"
+  ]
+ },
+ "gr-593": {
+  "greek": "Προμηθεὺς Δεσμώτης",
+  "latin": "Prometheus Desmotes",
+  "unconfirmed": [
+   "Δεσμώτης"
+  ]
+ },
+ "gr-594": {
+  "greek": "Ἑπτὰ ἐπὶ Θήβας",
+  "latin": "Hepta epi Thebas",
+  "unconfirmed": [
+   "Θήβας"
+  ]
+ },
+ "gr-602": {
+  "greek": "Βάκχαι",
+  "latin": "Bakkhai",
+  "unconfirmed": [
+   "Βάκχαι"
+  ]
+ },
+ "gr-605": {
+  "greek": "σατυρικὸν δρᾶμα",
+  "latin": "satyrikon drama",
+  "unconfirmed": [
+   "σατυρικόν"
+  ]
+ },
+ "gr-608": {
+  "greek": "Νεφέλαι",
+  "latin": "Nephelai",
+  "unconfirmed": [
+   "Νεφέλαι"
+  ]
+ },
+ "gr-617": {
+  "greek": "ἱστορίη",
+  "latin": "historie",
+  "unconfirmed": [
+   "ἱστορίη"
+  ]
+ },
+ "gr-631": {
+  "greek": "Ἀπομνημονεύματα",
+  "latin": "Apomnemoneumata",
+  "unconfirmed": [
+   "Ἀπομνημονεύματα"
+  ]
+ },
+ "gr-648": {
+  "greek": "δισκοβόλος",
+  "latin": "diskobolos",
+  "unconfirmed": [
+   "δισκοβόλος"
+  ]
+ },
+ "gr-653": {
+  "greek": "Εὐθυμίδης",
+  "latin": "Euthymides",
+  "unconfirmed": [
+   "Εὐθυμίδης"
+  ]
+ },
+ "gr-654": {
+  "greek": "Εὐφρόνιος",
+  "latin": "Euphronios",
+  "unconfirmed": [
+   "Εὐφρόνιος"
+  ]
+ },
+ "gr-657": {
+  "greek": "Κορινθιακὸς πόλεμος",
+  "latin": "Korinthiakos polemos",
+  "unconfirmed": [
+   "Κορινθιακός"
+  ]
+ },
+ "gr-662": {
+  "greek": "ἡ ἐπ’ Ἀνταλκίδου εἰρήνη",
+  "latin": "he ep' Antalkidou eirene",
+  "unconfirmed": [
+   "ἐπ",
+   "Ἀνταλκίδου"
+  ]
+ },
+ "gr-685": {
+  "greek": "Ἠθικὰ Νικομάχεια",
+  "latin": "Ethika Nikomakheia",
+  "unconfirmed": [
+   "Ἠθικά",
+   "Νικομάχεια"
+  ]
+ },
+ "gr-693": {
+  "greek": "Φιλιππικοί",
+  "latin": "Philippikoi",
+  "unconfirmed": [
+   "Φιλιππικοί"
+  ]
+ },
+ "gr-708": {
+  "greek": "πεζέταιροι",
+  "latin": "pezetairoi",
+  "unconfirmed": [
+   "πεζέταιροι"
+  ]
+ },
+ "gr-711": {
+  "greek": "Γράνικος",
+  "latin": "Granikos",
+  "unconfirmed": [
+   "Γράνικος"
+  ]
+ },
+ "gr-715": {
+  "greek": "Ἰσσός",
+  "latin": "Issos",
+  "unconfirmed": [
+   "Ἰσσός"
+  ]
+ },
+ "gr-728": {
+  "greek": "Βῆσσος",
+  "latin": "Bessos",
+  "unconfirmed": [
+   "Βῆσσος"
+  ]
+ },
+ "gr-731": {
+  "greek": "Φιλώτας",
+  "latin": "Philotas",
+  "unconfirmed": [
+   "Φιλώτας"
+  ]
+ },
+ "gr-736": {
+  "greek": "Σογδιανή",
+  "latin": "Sogdiane",
+  "unconfirmed": [
+   "Σογδιανή"
+  ]
+ },
+ "gr-742": {
+  "greek": "Γεδρωσία",
+  "latin": "Gedrosia",
+  "unconfirmed": [
+   "Γεδρωσία"
+  ]
+ },
+ "gr-745": {
+  "greek": "Ὦπις",
+  "latin": "Opis",
+  "unconfirmed": [
+   "Ὦπις"
+  ]
+ },
+ "gr-751": {
+  "greek": "Διάδοχοι",
+  "latin": "Diadokhoi",
+  "unconfirmed": [
+   "Διάδοχοι"
+  ]
+ },
+ "gr-755": {
+  "greek": "Λαμιακὸς πόλεμος",
+  "latin": "Lamiakos polemos",
+  "unconfirmed": [
+   "Λαμιακός"
+  ]
+ },
+ "gr-756": {
+  "greek": "Κραννών",
+  "latin": "Krannon",
+  "unconfirmed": [
+   "Κραννών"
+  ]
+ },
+ "gr-757": {
+  "greek": "Καλαυρία",
+  "latin": "Kalauria",
+  "unconfirmed": [
+   "Καλαυρία"
+  ]
+ },
+ "gr-758": {
+  "greek": "Εὐμένης ὁ Καρδιανός",
+  "latin": "Eumenes ho Kardianos",
+  "unconfirmed": [
+   "Καρδιανός"
+  ]
+ },
+ "gr-759": {
+  "greek": "Τριπαράδεισος",
+  "latin": "Triparadeisos",
+  "unconfirmed": [
+   "Τριπαράδεισος"
+  ]
+ },
+ "gr-761": {
+  "greek": "Ἀντίγονος ὁ Μονόφθαλμος",
+  "latin": "Antigonos ho Monophthalmos",
+  "unconfirmed": [
+   "Μονόφθαλμος"
+  ]
+ },
+ "gr-762": {
+  "greek": "Δημήτριος ὁ Πολιορκητής",
+  "latin": "Demetrios ho Poliorketes",
+  "unconfirmed": [
+   "Πολιορκητής"
+  ]
+ },
+ "gr-765": {
+  "greek": "Ἰψός",
+  "latin": "Ipsos",
+  "unconfirmed": [
+   "Ἰψός"
+  ]
+ },
+ "gr-768": {
+  "greek": "Σέλευκος Νικάτωρ",
+  "latin": "Seleukos Nikator",
+  "unconfirmed": [
+   "Νικάτωρ"
+  ]
+ },
+ "gr-772": {
+  "greek": "Κόρου πεδίον",
+  "latin": "Korou pedion",
+  "unconfirmed": [
+   "Κόρου"
+  ]
+ },
+ "gr-781": {
+  "greek": "Σελεύκεια ἡ ἐπὶ τῷ Τίγριδι",
+  "latin": "Seleukeia he epi toi Tigridi",
+  "unconfirmed": [
+   "Τίγριδι"
+  ]
+ },
+ "gr-788": {
+  "greek": "Γαλάται",
+  "latin": "Galatai",
+  "unconfirmed": [
+   "Γαλάται"
+  ]
+ },
+ "gr-794": {
+  "greek": "Ῥαφία",
+  "latin": "Rhaphia",
+  "unconfirmed": [
+   "Ῥαφία"
+  ]
+ },
+ "gr-806": {
+  "greek": "Ζηνόδοτος",
+  "latin": "Zenodotos",
+  "unconfirmed": [
+   "Ζηνόδοτος"
+  ]
+ },
+ "gr-810": {
+  "greek": "Ἀργοναυτικά",
+  "latin": "Argonautika",
+  "unconfirmed": [
+   "Ἀργοναυτικά"
+  ]
+ },
+ "gr-812": {
+  "greek": "βουκολικά",
+  "latin": "boukolika",
+  "unconfirmed": [
+   "βουκολικά"
+  ]
+ },
+ "gr-822": {
+  "greek": "Ἀπολλώνιος ὁ Περγαῖος",
+  "latin": "Apollonios ho Pergaios",
+  "unconfirmed": [
+   "Περγαῖος"
+  ]
+ },
+ "gr-823": {
+  "greek": "κωνικὴ τομή",
+  "latin": "konike tome",
+  "unconfirmed": [
+   "κωνική"
+  ]
+ },
+ "gr-837": {
+  "greek": "Πυθέας",
+  "latin": "Pytheas",
+  "unconfirmed": [
+   "Πυθέας"
+  ]
+ },
+ "gr-839": {
+  "greek": "Ζήνων ὁ Κιτιεύς",
+  "latin": "Zenon ho Kitieus",
+  "unconfirmed": [
+   "Κιτιεύς"
+  ]
+ },
+ "gr-848": {
+  "greek": "συμπλοκή",
+  "latin": "symploke",
+  "unconfirmed": [
+   "συμπλοκή"
+  ]
+ },
+ "gr-849": {
+  "greek": "Τεύτα",
+  "latin": "Teuta",
+  "unconfirmed": [
+   "Τεύτα"
+  ]
+ },
+ "gr-858": {
+  "greek": "Ἀπάμεια",
+  "latin": "Apameia",
+  "unconfirmed": [
+   "Ἀπάμεια"
+  ]
+ },
+ "gr-863": {
+  "greek": "Δίαιος",
+  "latin": "Diaios",
+  "unconfirmed": [
+   "Δίαιος"
+  ]
+ },
+ "gr-866": {
+  "greek": "μικτὴ πολιτεία",
+  "latin": "mikte politeia",
+  "unconfirmed": [
+   "μικτή"
+  ]
+ },
+ "gr-879": {
+  "greek": "δευτέρα σοφιστική",
+  "latin": "deutera sophistike",
+  "unconfirmed": [
+   "σοφιστική"
+  ]
+ },
+ "gr-907": {
+  "greek": "Εἰς Δημήτραν",
+  "latin": "Eis Demetran",
+  "unconfirmed": [
+   "Δημήτραν"
+  ]
+ },
+ "gr-913": {
+  "greek": "Γιγαντομαχία",
+  "latin": "Gigantomakhia",
+  "unconfirmed": [
+   "Γιγαντομαχία"
+  ]
+ },
+ "gr-924": {
+  "greek": "Νεμεαῖος λέων",
+  "latin": "Nemeaios leon",
+  "unconfirmed": [
+   "Νεμεαῖος"
+  ]
+ },
+ "gr-925": {
+  "greek": "Λερναία ὕδρα",
+  "latin": "Lernaia hydra",
+  "unconfirmed": [
+   "Λερναία"
+  ]
+ },
+ "gr-933": {
+  "greek": "Ἀργοναῦται",
+  "latin": "Argonautai",
+  "unconfirmed": [
+   "Ἀργοναῦται"
+  ]
+ },
+ "gr-934": {
+  "greek": "χρυσόμαλλον δέρας",
+  "latin": "khrysomallon deras",
+  "unconfirmed": [
+   "χρυσόμαλλον",
+   "δέρας"
+  ]
+ },
+ "gr-940": {
+  "greek": "Ἀμφιάραος",
+  "latin": "Amphiaraos",
+  "unconfirmed": [
+   "Ἀμφιάραος"
+  ]
+ },
+ "gr-944": {
+  "greek": "Τρωικὸς πόλεμος",
+  "latin": "Troikos polemos",
+  "unconfirmed": [
+   "Τρωικός"
+  ]
+ },
+ "gr-952": {
+  "greek": "δούρειος ἵππος",
+  "latin": "doureios hippos",
+  "unconfirmed": [
+   "δούρειος"
+  ]
+ },
+ "gr-954": {
+  "greek": "Νόστοι",
+  "latin": "Nostoi",
+  "unconfirmed": [
+   "Νόστοι"
+  ]
+ },
+ "gr-957": {
+  "greek": "Ἀπόλογοι",
+  "latin": "Apologoi",
+  "unconfirmed": [
+   "Ἀπόλογοι"
+  ]
+ },
+ "gr-974": {
+  "greek": "ἱερωσύνη",
+  "latin": "hierosyne",
+  "unconfirmed": [
+   "ἱερωσύνη"
+  ]
+ },
+ "gr-976": {
+  "greek": "ἀνάθημα",
+  "latin": "anathema",
+  "unconfirmed": [
+   "ἀνάθημα"
+  ]
+ },
+ "gr-983": {
+  "greek": "Ἀμφικτυονία",
+  "latin": "Amphiktyonia",
+  "unconfirmed": [
+   "Ἀμφικτυονία"
+  ]
+ },
+ "gr-985": {
+  "greek": "ἀγῶνες στεφανῖται",
+  "latin": "agones stephanitai",
+  "unconfirmed": [
+   "στεφανῖται"
+  ]
+ },
+ "gr-990": {
+  "greek": "Ἐλευσίνια μυστήρια",
+  "latin": "Eleusinia mysteria",
+  "unconfirmed": [
+   "Ἐλευσίνια",
+   "μυστήρια"
+  ]
+ },
+ "gr-992": {
+  "greek": "μυστήρια",
+  "latin": "mysteria",
+  "unconfirmed": [
+   "μυστήρια"
+  ]
+ },
+ "gr-997": {
+  "greek": "ἐγκοίμησις",
+  "latin": "enkoimesis",
+  "unconfirmed": [
+   "ἐγκοίμησις"
+  ]
+ },
+ "gr-1000": {
+  "greek": "κατάδεσμος",
+  "latin": "katadesmos",
+  "unconfirmed": [
+   "κατάδεσμος"
+  ]
+ }
+}
