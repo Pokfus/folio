@@ -868,6 +868,9 @@ polities of `atlas/data/history.bin`, each drawn in ONE year.
 second in a lighter gold (`TINT_AREA2`) on its own canvas, cut by the land mask exactly as a locator's authored `area` is
 (`paintMasked` in `atlas-windows.js`) — no engine primitive, so WebGL2 and the Canvas 2D path draw it alike. `keys` may be
 empty: the set's `frame` opens the window. The key above the window has one row per shade, then the card's `note`.
+**The window draws only as many parts as the card names shades** (`data-map-areas-n`, 2026-11-26, on request: "Remove the
+former Oklahoma territories from the atlas"): us-084 now names one shade, so the set's second part — the former Oklahoma
+reservations — is in the file and is not drawn. Name the second shade again to bring it back.
 - **The one set, `us-reservations`** (`.claude/atlas-build/build-area-sets.js`, 117 KB): the Census Bureau's 2023 AIANNH
   cartographic boundary file (public domain, pinned as `census-cb-2023-aiannh`), simplified at 500 m. "current" =
   reservations with their off-reservation trust land (MTFCC G2100) and legal joint-use areas; "former" = the Oklahoma tribal
@@ -887,3 +890,23 @@ source names, their coordinates the gazetteer's (or Wikidata's), never typed. `c
 `atlas/atlas-windows.js` draws each as a DASHED gold line on a dark casing — schematic, the stops joined in order, which the
 dashes say — with no dot (a route is drawn as a wall is: `isWall`), frames the window on them, keeps names off them, and
 writes the card's own name at `at` (or `label`). The `at` point only places the name.
+
+### A group's `minus`, `overWar`, and a pack state's `rowYears` (2026-11-26, on request)
+
+> "In the atlas window, highlight the Roman Republic borders at the time of his death, with a secondary shade for the areas that he added to it." (`rm-343`)
+> "Remove the atlas map, I dislike the way it looks. Then rebuild it in our usual style, showing the states of Athens and Sparta in 431." (`gr-521`)
+
+- **`members.groups[].minus: ["pol:…"]`** — ids whose ground the group's shade and outline leave out (`app.js` passes them as `-pol:…` in
+  `data-map-groups`; `atlas-windows.js` `memMinus`, clipped even-odd in `paintExtents`). The ids must be painted ones (a border pack's state or an
+  extent). rm-343: gold = the Republic as in 59 BCE (`pol:roman_republic_pre_caesar`), blue = the Republic of 44 BCE minus it, i.e. Caesar's gains.
+- **`members.overWar: true`** — the card keeps its `war` block (wars.js, the war sides' pinned hash and history.bin's extents are built from it) but
+  its window is the members window (`cardLocatorHTML`). gr-521 shows `pol:ext_athens_and_its_empire` and `pol:ext_sparta_and_its_allies` in 431 BCE.
+- **A pack state's `rowYears: { "<year>": <rowYear> }`** (`lib/border-packs.js`, build-history.js `rowsAt`'s third element) draws the state in a
+  year by another year's row — the Republic of 59 BCE in the window's year 44 BCE. Keep such a state in its OWN pack: in one pack two overlapping
+  rows of similar size are a contested face, which the checker refuses.
+- **A locator region's `land: true`** (2026-11-26, on request, wh-436: "when you select a broad region on the backend, all islands and land within
+  that region is highlighted with its own borders"): draw the rings out into the sea as generously as you like — the fill is cut by the land mask, so
+  the coast and every island inside the rings come from the land itself — and the dashed outline is the union's outer edge only (`LAND REGIONS` in
+  `atlas-windows.js`), so a sea ring laid over a coast draws no seam across land. Only a border that crosses LAND needs authoring. Give every ring
+  the same winding (the fill is non-zero). wh-436 keeps its land rings and adds four sea rings (the Aegean and Crete, the eastern Mediterranean and
+  Cyprus, the central Mediterranean with Sicily, Sardinia and Corsica, the Balearics).

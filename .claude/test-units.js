@@ -182,7 +182,7 @@ async function shown(page, html) {
         (txt.match(/\([^()]{1,90}\)/g) || []).forEach((p) => {
           const inner = p.slice(1, -1);
           // `yd` is in U_IMP and in STRONG below, and was missing here alone, so "(500 yd)" read as a bracket eaten
-          if (U.isImperialParen(inner) && !/mile|feet|foot|ft|inch|yard|\byd\b|pound|lb|ounce|oz|acre|ton|gallon|°F|sq/i.test(inner)) eaten.push(where + " " + p);
+          if (U.isImperialParen(inner) && !/mile|feet|foot|ft|inch|yard|\byd\b|pound|lb|ounce|oz|acre|ton|gallon|°F|sq|\d\s*in\.?\s*$/i.test(inner)) eaten.push(where + " " + p);
         });
         if (imp === txt && met !== txt) missed.push(where + " (imperial pass did nothing)");
       };

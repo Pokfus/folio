@@ -57,6 +57,11 @@
 :root{--script-sans:"Folio Script Sans", "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;}
 [lang]:is(:lang(am),:lang(ar),:lang(be),:lang(bg),:lang(bn),:lang(el),:lang(fa),:lang(grc),:lang(gu),:lang(he),:lang(hi),:lang(hy),:lang(ja),:lang(ka),:lang(kk),:lang(km),:lang(ko),:lang(ky),:lang(lo),:lang(mk),:lang(mn),:lang(mr),:lang(my),:lang(ne),:lang(pa),:lang(ps),:lang(ru),:lang(sa),:lang(si),:lang(sr),:lang(ta),:lang(te),:lang(th),:lang(ti),:lang(uk),:lang(ur),:lang(yi),:lang(zh),:lang(yue),:lang(lzh)){
   --serif:var(--script-sans); --display:var(--script-sans); font-family:var(--script-sans);}
+/* EVERY LANGUAGE CARD IS SANS (2026-11-26, on request: "Ensure all vocabulary words in all language collections use a sans
+   serif font"). The rule above reaches only the non-Latin scripts; a Spanish, Portuguese or French card fell back to the
+   site's serif. A card type with a spoken language carries `lang` on its `.uc-card` wrapper (cardTypeHTML), so that is
+   the hook — and --serif / --display are redefined with it, so a deck stylesheet's var(--serif) follows. */
+.uc-card[lang]{--serif:var(--script-sans); --display:var(--script-sans); font-family:var(--script-sans);}
 .uc-card [dir="rtl"]:is(:lang(ar),:lang(fa),:lang(ur),:lang(ps),:lang(he),:lang(yi)){font-family:var(--script-sans) !important;}
 
 /* ---------- tokens ---------- */
@@ -2025,6 +2030,7 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 .ans-cn.ja .ac-s{font-family:var(--sans);}
 .ans-cn.ko .ac-s{font-family:var(--sans);}   /* Hangul in the reader's system font, as Japanese (Oct 2026) */
 .ans-cn.ru .ac-s{font-family:var(--sans);}   /* Cyrillic in the site's sans, never the --han Chinese face (Nov 2026) */
+.ans-cn.grc .ac-s{font-family:var(--sans);}   /* polytonic Greek in the site's sans (2026-11-26) */
 .ans-cn .ac-row{display:flex; align-items:center; gap:8px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 /* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
@@ -9592,10 +9598,14 @@ body[data-theme="carnelian"].night .collection-deco{
    separate claim about the past and reads as one. */
 /* THE EXAMPLE SECTION (see cardExampleHTML in app.js): a worked example under the Background fold —
    a small ruled table that scrolls sideways on its own rather than widening a phone's page. */
-.card-example{margin-top:18px;}
-.card-example .ex-text{margin:0 0 10px; line-height:1.6;}
-.card-example .ex-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px;}
-.card-example .ex-table{border-collapse:collapse; font-family:var(--mono); font-size:calc(14px * var(--fs)); min-width:60%;}
+/* THE EXAMPLE IS A PANEL (2026-11-26, on request, phi-049: "ensure the table is centered, the text is smaller, the entire
+   section has a colored background, and in the table: T cells should have a green filling, F cells red") */
+.card-example{margin-top:18px; padding:14px 16px 6px; border-radius:10px; background:var(--indigo-wash); font-size:calc(15px * var(--fs));}
+.card-example .ex-text{margin:0 0 10px; line-height:1.55;}
+.card-example .ex-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px; display:flex; justify-content:center;}
+.card-example .ex-table{border-collapse:collapse; font-family:var(--mono); font-size:calc(12.5px * var(--fs)); margin:0 auto; background:var(--card);}
+.card-example .ex-table td.ex-t{background:#2e9e4f33; color:inherit; font-weight:600;}
+.card-example .ex-table td.ex-f{background:#d6453d33; color:inherit; font-weight:600;}
 .card-example .ex-table th,.card-example .ex-table td{border:1px solid var(--rule); padding:6px 14px; text-align:center;}
 .card-example .ex-table th{font-weight:600; color:var(--indigo); background:var(--indigo-wash);}
 .leadsto{margin-top:18px;}
@@ -9886,7 +9896,7 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
    page does not draw. The parts, in page order:
      · the study banner (`.rv-banner`): deep indigo in both themes, "N cards" in rose, the three piles in
        their own colours plus the estimate, and the top three cards of the list's pile fanned beside it
-       (`.rv-preview`, desktop only since Oct 2026). The Start button and the click went in Oct 2026, on request:
+       (`.rv-preview`, desktop only from Oct 2026, removed 2026-11-26). The Start button and the click went in Oct 2026, on request:
        the banner states the day and the rows under it start the sessions;
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
      · the collections header (`.rv-sec-h`) with the legend (the "+ Add decks" link stood at its right
@@ -10031,15 +10041,6 @@ button.rv-week:hover .rvw-day:not(.rvw-heavy):not(.rvw-zero) b{background:color-
    squared its foot dates from when the deck list was joined to it, and the rows are separate cards now */
 .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:20px; border-bottom-right-radius:20px;}
 /* the fanned preview of the pile's top three */
-.rv-preview{position:relative; width:300px; height:200px; flex:none;}
-.pv-card{position:absolute; inset:0; background:var(--card); color:var(--ink); border:1px solid var(--rule); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow-lg); transform-origin:50% 100%; display:flex; flex-direction:column; text-align:left;}
-.pv-card.pv3{transform:rotate(-6deg) translate(-12px, 4px); opacity:.85;}
-.pv-card.pv2{transform:rotate(3deg) translate(10px, 2px); opacity:.93;}
-.pv-eb{display:flex; justify-content:space-between; gap:8px; font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--indigo); font-weight:600;}
-.pv-eb em{font-style:normal; color:var(--zh);}
-.pv-card p{font-family:var(--serif); font-size:14.5px; line-height:1.4; margin:10px 0 0; overflow:hidden; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical;}
-.pv-blank{display:inline-block; width:38px; border-bottom:2px solid var(--ochre);}
-.pv-ft{margin-top:auto; padding-top:8px; font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
 /* the streak ribbon */
 .streak-ribbon{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:12px; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:12px 18px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);}
 .sr-n{font-family:var(--sans); font-size:calc(24px * var(--fs)); font-weight:800; color:var(--good); letter-spacing:-.03em; line-height:1;}
@@ -10318,20 +10319,6 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .streak-ribbon > .sr-best{grid-column:4; grid-row:1; justify-self:end; align-self:end; margin:0;}
 .streak-ribbon > .sr-note{grid-column:4; grid-row:2; justify-self:end; align-self:start; text-align:right;}
 .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-row:1 / 3; align-self:center;}
-/* THE PREVIEW SITS IN THE MIDDLE OF ITS ROOM (Oct 2026, on request: "as much empty space to the left as to the
-   right of it"). The text column took every spare pixel and pushed the fan to the banner's right edge; now the
-   column keeps its natural width and the fan splits what is left with auto margins. The banner's 24px gap is
-   given up for this pair (it would count on the left only) and the fan carries 12px of its own each side
-   instead, so the two can never touch; the cards are drawn inside that padding. */
-@media (min-width:641px){
-  .page .rv-banner:has(> .rv-preview){column-gap:0;}
-  .page .rv-banner:has(> .rv-preview) > .body{flex:0 1 auto;}
-  /* the fan's cards swing out past the box: the back-left one ~33px (rotate -6deg, 12px shift), the back-right
-     one ~20px (rotate 3deg, 10px shift). The padding covers that overhang on each side, so the auto margins
-     split the room between the cards' VISIBLE edges (Oct 2026, on request: the fan sat too close to the text). */
-  .rv-preview{margin:0 auto; padding:0 24px 0 36px; box-sizing:content-box;}
-  .pv-card{left:36px; right:24px;}
-}
 /* THE WEEK FILLS THE ROW on a tablet and desktop (Oct 2026, on request: "there is currently still a lot of
    empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
    week's column is the flexible one and Longest-over-the-note takes only what it needs at the right; each day
@@ -10409,9 +10396,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    desktop's alone now, and the rules that squeezed the title, the piles and the estimate in beside it went
    with it. What is left is laid out for the whole width: the text column takes the banner, and the level bar
    and the four figures spread across it rather than huddling at the left of an empty row. */
-@media (min-width:641px) and (max-width:1024px){
-  .rv-preview{display:none;}
-  .page .rv-banner > .body, .page .rv-banner:has(> .rv-preview) > .body{flex:1 1 auto;}
+/* …AND NEITHER DOES A DESKTOP since 2026-11-26 (on request: "On desktop, the daily study banner shows a few card
+   previews stacked onto each other. Remove these previews and reorganise the desktop banner to be organised cleanly"):
+   the fan is not drawn at all, and from 641px up the banner is this one full-width layout. */
+@media (min-width:641px){
+  .page .rv-banner > .body{flex:1 1 auto;}
   .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
   .page .rv-banner .meta{width:100%; justify-content:space-between;}
 }
@@ -10419,7 +10408,6 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}
   .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:16px; border-bottom-right-radius:16px;}
   .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
-  .rv-preview{display:none;}
   /* …and the stack's one track fills the banner, or the level bar would stop where the three piles do now that
      nothing full-width sits under them (the Start button did) */
   .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
@@ -11502,3 +11490,17 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .acct-panel label{display:flex; flex-direction:column; gap:6px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 /* eight tiles fit one row of the page's width rather than seven and one */
 .ex-tiles{grid-template-columns:repeat(auto-fit, minmax(88px, 1fr));}
+
+/* THE STUDIED DECK'S BAR ON THE COMPLETION SCREEN (2026-11-26, on request) — the home row's two progresses (met: the
+   light teal, learned: the indigo over it) with today's share of each picked out in gold. */
+.sc-prog{margin:20px auto 22px; max-width:520px; text-align:left;}
+.sc-prog-h{display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom:6px;}
+.sc-prog-t{font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.sc-prog-n{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
+.sc-prog-gain{color:var(--ochre); font-weight:600;}
+.sc-prog-track{position:relative; height:10px; border-radius:6px; background:var(--rule); overflow:hidden;}
+.sc-seg{position:absolute; top:0; bottom:0; left:0;}
+.sc-seen{background:var(--newterm);}
+.sc-learn{background:var(--indigo);}
+.sc-seen-new{background:var(--ochre);}
+.sc-learn-new{background:var(--ochre); filter:brightness(.72);}

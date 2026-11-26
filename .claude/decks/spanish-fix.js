@@ -282,6 +282,57 @@ const missing = [], badEx = [], badFold = [], badSub = [], badConj = [], badOrde
 const removed = new Set();   // <deck id>/<headword> this record deletes: its pin row is retired, never reused
 let ordered = 0, pinned = 0;
 
+/* THE ANSWER IS NOT PRINTED ON ITS OWN QUESTION (2026-11-22, on a report that "many cards in the spanish collection
+   now reveal the answer on their question side"). The English side is the FRONT of the English → Spanish card, and
+   about 600 notes printed their own Spanish in it: a phrase row ("tener que + infinitive — to have to"), or an
+   example in brackets ("very, quite (bien fácil)", "them (after a preposition: para ellos)"). As russian-fix.js
+   does for TORFL: the Spanish half of a phrase row that holds one of the card's own forms (headword, Forms row,
+   conjugation) is wrapped with its dash, and so is every bracket holding one, in `<span class="uc-eg">`; the
+   type's CSS (`EG_CSS`) hides it wherever the English side stands under "Say it in Spanish". The Spanish →
+   English card, where those rows are the lesson, is untouched. Done on every run, to every `dele` deck, and
+   never twice (a gloss already carrying a span is left alone). */
+const EG_CSS = "\n/* a phrase or bracket that prints the card's own Spanish is not shown on the English → Spanish card */\n.uc-ask + .uc-field .uc-eg {\n  display: none;\n}\n";
+const unescH = (x) => String(x).replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+const esToks = (x) => unescH(x).toLowerCase().match(/[a-záéíóúñü]+/g) || [];
+function esOwnForms(c) {
+  const F = c.fields, own = new Set();
+  [F.Word, F.Spanish].forEach((x) => esToks(String(x || "").replace(/<[^>]*>/g, " ")).forEach((t) => own.add(t)));
+  esToks(String(F.Forms || "").replace(/<span class="uc-fl">[\s\S]*?<\/span>/g, " ").replace(/<[^>]*>/g, " ")).forEach((t) => own.add(t));
+  conjForms(F.Conjugation).forEach((x) => esToks(x).forEach((t) => own.add(t)));
+  return own;
+}
+// a Spanish form spelled like a common English word says nothing about which language a bracket is in
+const EN_WORD = new Set(["a", "as", "i", "he", "me", "no", "son", "come", "red", "once", "pan", "dime", "do", "so", "ha", "has", "of", "the", "to", "in", "on", "is", "it", "an", "at", "be", "by"]);
+function esWrapSeg(t, own) {
+  if (t.indexOf("<") >= 0) return t;   // markup inside (or a span already): not this pass's shape, or already done
+  const has = (x) => esToks(x).some((k) => own.has(k) && !EN_WORD.has(k));
+  let left = "", rest = t;
+  // the phrase row's dash is the first one OUTSIDE a bracket: "to be called (me llamo Ana — my name is Ana)" has none
+  let depth = 0, at = -1;
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (ch === "(") depth++;
+    else if (ch === ")") depth = Math.max(0, depth - 1);
+    else if (depth === 0 && t.startsWith(" — ", i) && i > 0) { at = i; break; }
+  }
+  if (at > 0 && has(t.slice(0, at))) { left = '<span class="uc-eg">' + t.slice(0, at) + " — </span>"; rest = t.slice(at + 3); }
+  rest = rest.replace(/\(([^()]*)\)/g, (all, inner) => (has(inner) ? '<span class="uc-eg">' + all + "</span>" : all));
+  return left + rest;
+}
+let egNotes = 0, egFiles = 0;
+function egApply(d) {
+  for (const c of d.cards) {
+    if (!c.fields || typeof c.fields.English !== "string") continue;
+    const own = esOwnForms(c), was = c.fields.English;
+    c.fields.English = was
+      .replace(/<li>([\s\S]*?)<\/li>/g, (all, inner) => "<li>" + esWrapSeg(inner, own) + "</li>")
+      .replace(/<div class="uc-gl">([^<]*)<\/div>/g, (all, inner) => '<div class="uc-gl">' + esWrapSeg(inner, own) + "</div>");
+    if (c.fields.English !== was) egNotes++;
+  }
+  const ty = d.meta.types.dele;
+  if (String(ty.css || "").indexOf(".uc-eg") < 0) ty.css = String(ty.css || "") + EG_CSS;
+}
+
 for (const f of DELE_FILES) {
   const p = path.join(DIR, f);
   const before = fs.readFileSync(p, "utf8");
@@ -289,7 +340,12 @@ for (const f of DELE_FILES) {
   const id = d.meta && d.meta.id;
   const dm = deckMeta[id];
   const want = byDeck.get(id), wantHint = hintsByDeck.get(id);
-  if (!want && !wantHint && !dm && !ORD[id] && !(PIN && PIN[id])) continue;
+  if (!want && !wantHint && !dm && !ORD[id] && !(PIN && PIN[id])) {
+    egApply(d);   // no record for this deck, but its English side is still kept off its own question
+    const egAfter = JSON.stringify(d);
+    if (egAfter !== before) { egFiles++; if (!CHECK) fs.writeFileSync(p, egAfter); if (VERBOSE || CHECK) console.log((CHECK ? "  WOULD CHANGE " : "  updated ") + f); }
+    continue;
+  }
   let hits = 0;
 
   if (dm) {
@@ -623,6 +679,7 @@ for (const f of DELE_FILES) {
     pinned++;
   }
 
+  egApply(d);   // last, so a gloss the record has just rebuilt is wrapped too — see EG_CSS
   const after = JSON.stringify(d);
   if (refused) { /* nothing written: the order has to be mended first */ }
   else if (after !== before) {
@@ -631,6 +688,8 @@ for (const f of DELE_FILES) {
     if (VERBOSE || CHECK) console.log((CHECK ? "  WOULD CHANGE " : "  updated ") + f + "  (" + hits + " edits)");
   } else if (VERBOSE) console.log("  unchanged " + f + "  (already at the fix)");
 }
+
+if (egFiles) console.log((CHECK ? "  would hide" : "  hid") + " the card's own Spanish on the English side of " + egNotes + " note(s) in " + egFiles + " deck(s)");
 
 /* `reviewed` names cards this pass READ and left alone. Checked exactly as a fix is, so a mistyped
    headword cannot quietly stand for a card nobody looked at. */
@@ -733,6 +792,6 @@ if (pinned) console.log("  " + pinned + " deck(s) numbered from spanish-ids.json
 if (pinChanged && !CHECK) fs.writeFileSync(IDS_FILE, "{\n" + Object.keys(PIN).map((k) => JSON.stringify(k) + ":" + JSON.stringify(PIN[k])).join(",\n") + "\n}\n");
 if (CHECK) {
   if (pinChanged) { console.log("\n  FAIL  a note has no pinned id, or a removed note's row is not retired — run without --check"); process.exit(1); }
-  if (files) { console.log("\n  FAIL  the decks do not carry their fixes — run without --check"); process.exit(1); }
+  if (files || egFiles) { console.log("\n  FAIL  the decks do not carry their fixes — run without --check"); process.exit(1); }
   console.log("  ok    every deck already carries its fixes");
 } else console.log(files ? "  " + changed + " edits written across " + files + " file(s)" : "  nothing to do");

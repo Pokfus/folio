@@ -116,9 +116,12 @@ const abcCards = T.letters.map((l) => {
     Letter: l.key, Name: esc(l.name),
     Sound: '<span class="uc-ipa">' + esc(l.ipa) + '</span><span class="uc-like">' + l.like + "</span>",
     Example: '<span class="uc-ex">' + esc(head) + '</span><span class="uc-ri">' + esc(l.wipa) + '</span><span class="uc-exe">' + esc(glossOf(c)) + "</span>",
-    Word: esc(l.word) }, id: idFor(ABC_ID, l.key), type: "ru-abc", key: l.key };
+    Word: esc(l.word), Say: esc(l.say || "") }, id: idFor(ABC_ID, l.key), type: "ru-abc", key: l.key };
 });
-const SAY_NAME = '<span class="uc-tts uc-say" data-say="{{Name}}"></span>', SAY_WORD = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>';
+/* A LETTER'S SPEAKER SAYS ITS NAME, unless the row gives a `say` (2026-11-26, on a report that u_ruabc_4's speaker
+   sounded like D, not G): "гэ" handed to a Russian voice is read as a word, and one voice at least made it дэ. A lone
+   capital letter is read the way an abbreviation is spelt out (СССР → эс-эс-эс-эр), which is the letter's name. */
+const SAY_NAME = '<span class="uc-tts uc-say" data-say="{{#Say}}{{Say}}{{/Say}}{{^Say}}{{Name}}{{/Say}}"></span>', SAY_WORD = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>';
 const LETTER = '<div class="uc-letter">{{Letter}}' + SAY_NAME + "</div>";
 const DETAIL = '<div class="uc-field"><div class="uc-pos">name</div><div class="uc-gl">{{Name}}</div>'
   + '<div class="uc-pos uc-gap">sound</div><div class="uc-gl">{{Sound}}</div>'
@@ -189,7 +192,7 @@ const abcDesc = "The 33 letters of the Russian alphabet, in alphabetical order �
 const abcDeck = { folioDeck: 1, exportedAt: "2026-10-30T00:00:00.000Z", meta: { id: ABC_ID, title: "Russian Alphabet",
   subtitle: "33 letters · both directions, as two cards per letter", desc: abcDesc, author: "", language: "en", color: "#2E5C9A",
   tags: ["russian", "alphabet", "cyrillic"], glossMode: "site",
-  types: { "ru-abc": { id: "ru-abc", name: "Russian letter", speechLang: "ru-RU", fields: ["Letter", "Name", "Sound", "Example", "Word"],
+  types: { "ru-abc": { id: "ru-abc", name: "Russian letter", speechLang: "ru-RU", fields: ["Letter", "Name", "Sound", "Example", "Word", "Say"],
     cards: [{ name: "Letter → sound", front: LETTER, back: "{{FrontSide}}<hr>" + DETAIL },
       { name: "Sound → letter", front: '<div class="uc-ask">Which letter is this?</div><div class="uc-field"><div class="uc-gl">{{Sound}}</div></div>', back: "{{FrontSide}}<hr>" + LETTER + DETAIL }],
     css: ABC_CSS } },

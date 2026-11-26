@@ -476,13 +476,13 @@ the birth of Gothic as an architectural and political event; `art-243` is its ty
 running order before writing any card whose subject is a single object, and if the object is there,
 write the institution instead.**
 
-**PHILOSOPHY HOLDS THE ARGUMENTS**: `ph-462` Descartes and two more on him, `ph-619` Sartre, `ph-624`
-Beauvoir, `ph-627` Camus, `ph-644` Foucault, `ph-648` Derrida, `ph-953` Rousseau, and Voltaire,
+**PHILOSOPHY HOLDS THE ARGUMENTS**: `phi-462` Descartes and two more on him, `phi-619` Sartre, `phi-624`
+Beauvoir, `phi-627` Camus, `phi-644` Foucault, `phi-648` Derrida, `phi-953` Rousseau, and Voltaire,
 Montesquieu and Diderot in the Enlightenment deck. **This collection cards the philosophes as a public
 force** — the salons, the Encyclopédie as an enterprise, censorship, the republic of letters, the
 intellectuals of the Dreyfus affair, Sartre and *engagement* — **and never their arguments.** `fr-385`
 is *Rousseau and the general will* because the general will is a political fact in 1793; what the
-general will means is `ph-953`'s.
+general will means is `phi-953`'s.
 
 **GLOSSARY: `France` AND `Paris` ALREADY EXIST AND MUST NOT BE OVERWRITTEN.** Both were written for the
 World Geography collection (`gw-023` and `gw-523`), so **the pairing rule is already satisfied for

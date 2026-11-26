@@ -68,7 +68,7 @@ const EXEMPT = {
    somewhere a reader of this output can find it. It is simply not a finding to be fixed. */
 const RULE1_EXCLUDED = {
   "ps-": "Psychology — the literature is the subject matter",
-  "ph-": "Philosophy — the thinkers are the subject matter",
+  "phi-": "Philosophy — the thinkers are the subject matter",
 };
 const rule1Excluded = (id) => { const k = Object.keys(RULE1_EXCLUDED).find((p) => id.startsWith(p)); return k ? RULE1_EXCLUDED[k] : null; };
 

@@ -35,9 +35,33 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1389", released: "2026-11-22T16:50Z" };
+window.FOLIO_VERSION = { v: "1.1392", released: "2026-11-26T10:53Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-11-26",
+    t: "Learned means three days in a row, phrases after A1, cleaner banners",
+    items: [
+      "A card's three <b>learned dots</b> now empty on a wrong answer: learned means right on three separate days in a row.",
+      "In every language, <b>phrases and idioms</b> wait in the default order until every A1 word has been introduced.",
+      "A language's decks are listed in the <b>Collections page's order</b>, and its start-here deck is dealt first.",
+      "Spanish cards no longer show their own <b>Spanish word on the English side</b>, and every language card is set in a sans-serif font.",
+      "The Mandarin speaker no longer adds a syllable on cards like <b>还</b>, and the Russian letter Г is read as G.",
+      "The desktop <b>daily study banner</b> drops its stack of card previews for a cleaner layout.",
+      "The <b>session complete</b> screen shows the deck's progress bar, with what you just added picked out in gold.",
+      "Philosophy card codes now begin <b>phi-</b>; your progress on them carries over.",
+      "Italics show properly in <b>Think it through</b> and picture captions, and inch measurements follow your units setting.",
+      "Example tables are a coloured panel, with true and false cells in green and red.",
+      "Egyptian dynasties are written as numbers (3rd Dynasty), and “New York” now links to the city instead of “York”.",
+      "182 new glossary terms across Greece, Rome, Egypt, World History, the United States, Russia, WW2 and Philosophy.",
+      "Date lines or backgrounds updated on 606 cards: battles now give each side's <b>troop strength</b> instead of casualties, and buildings their date and size.",
+      "New or redrawn atlas windows on 14 cards, several showing a <b>past year's borders</b> with a key; one reservations map simplified.",
+      "A map window's region now takes its coastline and <b>islands</b> from the land itself instead of a hand-drawn edge.",
+      "Ancient Greece answers show their <b>ancient Greek name</b> in the translation bubble on 595 cards.",
+      "Euclid's <i>Elements</i> joins the Library: Books I–VI, XI and XII in Todhunter's 1872 edition, quoted on one Greece card.",
+      "14 pictures added or changed across World History, Ancient Egypt, Greece, Rome, the United States, Russia and WW2.",
+    ],
+  },
   {
     d: "2026-11-22",
     t: "Sounds, synced study settings and relief in card maps",

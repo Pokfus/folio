@@ -496,14 +496,14 @@ nudging* are this collection's own, because the replication and effect-size argu
 now a policy argument rather than a psychological one. **Read the Psychology card before writing the
 economics one.**
 
-**PHILOSOPHY HOLDS THE MORAL ARGUMENTS — about twenty cards.** `ph-519` Adam Smith's moral philosophy,
-`ph-576` Karl Marx, `ph-582` Marx's critique of political economy, `ph-499` Locke on property, `ph-893`
-Utilitarianism, `ph-896` John Stuart Mill, `ph-962` John Rawls, `ph-963` *A Theory of Justice*, `ph-976`
-Distributive justice, `ph-970` Socialism and Marxist political theory. **The rule: `phil` cards the
+**PHILOSOPHY HOLDS THE MORAL ARGUMENTS — about twenty cards.** `phi-519` Adam Smith's moral philosophy,
+`phi-576` Karl Marx, `phi-582` Marx's critique of political economy, `phi-499` Locke on property, `phi-893`
+Utilitarianism, `phi-896` John Stuart Mill, `phi-962` John Rawls, `phi-963` *A Theory of Justice*, `phi-976`
+Distributive justice, `phi-970` Socialism and Marxist political theory. **The rule: `phil` cards the
 argument, `econ` cards the economics.** `ec-792`–`ec-797` are Smith on the division of labour, the
 invisible hand and what he actually argued; the *Theory of Moral Sentiments* is Philosophy's.
 `ec-810`–`ec-813` are Marx on surplus value, crisis and the transformation problem — the economic
-model — where the critique of alienation and freedom is `ph-585`'s. **`ec-070`, `ec-081` and `ec-971`
+model — where the critique of alienation and freedom is `phi-585`'s. **`ec-070`, `ec-081` and `ec-971`
 are the deliberate seams**, and each should name the philosophical question rather than answer it.
 
 **WORLD HISTORY HOLDS THE ECONOMIC HISTORY — about twenty-four cards**, from `wh-168` prehistoric trade

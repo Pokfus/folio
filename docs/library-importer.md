@@ -2887,3 +2887,19 @@ entry declares `/^$/` for a block of nothing but entities.
 Re-run after touching: `node .claude/fetch-book.js jerome-letters --force` (150 pages), check "149 letters titled
 from their own printed heading, 1 from a heading the entry supplies" and "648 section numbers across 150 chapters
 — 71 chapter(s) with NONE" (the summaries), then `node .claude/book-audit.js`.
+## `prep: "euclid"` — two markups of a centred head, figures and marginal references (Nov 2026, the Elements)
+
+`euclidPrep(h, warn)` runs on the raw page and hands its result to `kantPrep` (so the heads are fenced and lifted to
+`bk-head` exactly as the Critique's are); `kantFinish`, then `euclidFinish`, run on the assembled book. Todhunter's 1872
+transcription centres its heads in TWO markups — a `wst-center` div on some pages, a `<p style="text-align:center">` on
+others — and the second is rewrapped as the first. **A centred line is not always a head**: a proof's conclusion is centred
+too ("Wherefore the triangle ABC is equilateral,"), and every head is in capitals, so a centred block with a lower-case
+letter is unwrapped as text. **Figures** (`<figure>`, often mid-sentence) are dropped and counted. **The marginal
+references** ("[Postulate 3.", right-floated spans) are kept inline after a space. `euclidFinish` wraps any top-level run
+outside every paragraph — a figure often leaves one, opening on a tag (`<i>Note</i>.`), which `wrapLooseText` (text-only)
+cannot see — its newlines made spaces. The run prints "N figure(s) dropped, … loose run(s) wrapped". Gated on
+`prep === "euclid"`; the Critique's path is unchanged.
+
+Re-run after touching: `node .claude/fetch-book.js euclid-elements --force` (8 pages), check "277 figure(s) dropped", "216
+heading block(s) fenced, 216 lifted", the six `fix applied 1x` lines and "refix applied 49x", then `node .claude/book-audit.js`
+(one finding, IV. 13–14's shared construction, is genuine).

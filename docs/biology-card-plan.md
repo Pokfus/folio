@@ -390,10 +390,10 @@ already `caseSensitive`** — CLAUDE.md records why, and `bio-883` (boreal fores
 that would have broken it.
 
 **Philosophy shares no card title with this collection and meets it at four places all the same** —
-`ph-867` philosophy of biology, `ph-922` bioethics, `ph-928` animal ethics and `ph-930` environmental
+`phi-867` philosophy of biology, `phi-922` bioethics, `phi-928` animal ethics and `phi-930` environmental
 ethics. The division is the one that plan already states: **biology says what is the case and philosophy
 asks what follows.** `bio-993` (animals in research) is what is done, what it is regulated by and what
-the evidence says about alternatives; `ph-928` is the argument about whether it is permissible.
+the evidence says about alternatives; `phi-928` is the argument about whether it is permissible.
 
 **World History and the history collections carry the science at survey altitude** and never wait for
 this one. `bio-evohistory` and a World History card on Darwin are different cards: one is about how a

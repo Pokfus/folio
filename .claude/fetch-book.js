@@ -20816,6 +20816,107 @@ const BOOKS = {
       { n: 5, label: "Of uncertain date", from: 145, to: 150 },
     ],
   },
+  "euclid-elements": {
+    title: "The Elements",
+    subtitle: "Books I–VI, XI and XII",
+    author: "Euclid",
+    translator: "Robert Simson, revised by Isaac Todhunter",
+    edition: "The Elements of Euclid for the Use of Schools and Colleges, Macmillan and Co., London, 1872 (first published 1862)",
+    written: "c. 300 BCE",
+    year: -300,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Euclid wrote about 300 BCE. Simson's English was published in 1756 and Todhunter's revision of it in
+       1862; Todhunter died in 1884, so the English has been out of copyright everywhere for well over a
+       century, and Wikisource tags the page {{PD-old}}. The transcription is Wikisource's, of a scan of the
+       1872 reprint (`The Elements of Euclid for the Use of Schools and Colleges - 1872.djvu`), proofread or
+       validated page by page (`data-page-quality` 3 or 4 on every page fetched). NO ORIGINAL: no Greek
+       column is paired with Simson's numbering, so the book is English only. */
+    rights:
+      "Public domain worldwide. Euclid wrote the Elements about 300 BCE. Robert Simson's English " +
+      "translation was published in 1756, and Isaac Todhunter's revision of it in 1862; Todhunter died in " +
+      "1884. The text is the proofread Wikisource transcription of the 1872 reprint.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Elements_of_Euclid_for_the_Use_of_Schools_and_Colleges",
+
+    /* THE FRONT MATTER — chapter 0. What is uncertain about Euclid himself (almost everything) is said to be
+       uncertain. What the edition holds and leaves out is measured off the transcription, not taken from its
+       preface. */
+    about: [
+      "<b>The Elements</b> is the oldest mathematics book still read as a textbook. In thirteen books it " +
+        "builds up the geometry and arithmetic known to the Greeks from a handful of starting points: " +
+        "definitions of the things it talks about, postulates of what may be drawn, and axioms that need " +
+        "no proof. Everything else is a <i>proposition</i>, proved from those and from the propositions " +
+        "before it — either a problem, something to be constructed, which ends <i>Q.E.F.</i> (<i>quod erat " +
+        "faciendum</i>, which was to be done), or a theorem, something to be shown true, which ends " +
+        "<i>Q.E.D.</i> (<i>quod erat demonstrandum</i>, which was to be shown).",
+      "Almost nothing is known of Euclid himself. He is thought to have taught at Alexandria in the time of " +
+        "the first Ptolemy, around 300 BCE, and the little that is said of him comes from writers centuries " +
+        "later, above all the commentary on Book I by Proclus in the fifth century CE. The Elements gathered " +
+        "and ordered the work of earlier geometers, and it displaced the collections before it so completely " +
+        "that none of them survives.",
+      "Books I–IV are plane geometry: triangles, parallels and parallelograms, ending in Pythagoras' theorem " +
+        "and its converse (I. 47–48); areas treated as rectangles (II); the circle (III); and figures drawn in " +
+        "and about circles (IV). Book V is the theory of proportion between magnitudes, and Book VI applies it " +
+        "to similar figures. Books VII–X, on numbers and on incommensurable lines, are not in this edition, " +
+        "and nor is Book XIII. Book XI begins the geometry of solids — lines and planes in space, and solid " +
+        "angles — and Book XII measures figures by the method later called exhaustion.",
+      "For two thousand years the Elements was how geometry was taught, first in Greek, then in Arabic and " +
+        "Latin translations, and in print from 1482. In Britain the standard English text was the edition of " +
+        "Robert Simson, professor of mathematics at Glasgow, first published in 1756. The text here is Isaac " +
+        "Todhunter's school edition of 1862, which, in his own words, substantially reproduces Simson's: he " +
+        "compared the translation with the original and changed some wording, mostly to use the same words " +
+        "wherever the same meaning is meant.",
+      "This is the 1872 reprint, and it gives what Todhunter calls the propositions usually read in the " +
+        "Universities: Books I to V whole; Book VI without propositions 27 to 29; the first twenty-one " +
+        "propositions of Book XI; and the lemma and first two propositions of Book XII. Simson's own added " +
+        "propositions, lettered A to E in Book V and A to D in Book VI, are kept where he put them. " +
+        "Todhunter set the proofs so that each step of an " +
+        "argument begins a new line, with the definition, postulate, axiom or proposition it rests on named " +
+        "at the end of the line in square brackets, as in <i>[Postulate 3.</i>; those references are kept, " +
+        "and so are the short notes in square brackets within the books. His preface, introductory remarks, " +
+        "the notes after the text, the appendix and the exercises are not included. <b>Nor are the " +
+        "diagrams</b>: the Library is text only, and the edition's figures are pictures. Every proposition " +
+        "names its points by letters, so it can still be followed with a pencil and paper.",
+    ],
+
+    /* One tab per book of the Elements, as the edition heads it ("BOOK I."); "Book" so that each tab is the
+       book it names. The edition has only these eight. */
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8],
+    page: (n) => "The Elements of Euclid for the Use of Schools and Colleges/Book " +
+      ["", "I", "II", "III", "IV", "V", "VI", "XI", "XII"][n],
+    titleOf: (n) => "Book " + ["", "I", "II", "III", "IV", "V", "VI", "XI", "XII"][n],
+    parts: [
+      { n: 1, label: "Plane geometry", from: 1, to: 4 },
+      { n: 2, label: "Proportion", from: 5, to: 6 },
+      { n: 3, label: "Solid geometry", from: 7, to: 8 },
+    ],
+    /* The centred heads, the figures and the marginal references — see euclidPrep. No `sections`: the
+       propositions are headed, not marked by a citation numeral in the text. */
+    prep: "euclid",
+    /* OCR slips the proofreading left, each read against the scan (djvu pages 156 and 206 for the two letter
+       pairs) or plainly the ordinary word; and two `<br>` tags the transcription typed as text. */
+    fixes: [
+      ["For, ^ is to ^ as", "For, <i>A</i> is to <i>B</i> as", "V. 14: the scan (p. 156) reads \"For, A is to B as C\""],
+      ["she^vn", "shewn", "V. 20: an OCR slip for the edition's own spelling"],
+      ["equian^ilar", "equiangular", "VI. 5: an OCR slip for the ordinary word"],
+      ["but BC is to CG as ^is to Z;", "but <i>BC</i> is to <i>CG</i> as <i>K</i> is to <i>L</i>;", "VI. 23: the scan (p. 206) reads \"but BC is to CG as K is to L\""],
+      ["[<i>Construction</i>.&lt;/br.&gt;", "[<i>Construction</i>.<br>", "I. 44: a line break typed as text"],
+      ["[V. 11.&lt;/br Again,", "[V. 11.<br>\nAgain,", "VI. 23: a line break typed as text"],
+    ],
+    /* A reference to Book I printed "[I. 9." and read by the OCR as "[1.9." (49 times over Books II–VI and
+       XI); no other reference opens on a bare figure, since the axioms and postulates are named in words. */
+    reFixes: [
+      [/\[1\.\s?(?=\d)/g, "[I. ", "a Book I reference whose numeral the OCR read as the figure 1"],
+      /* A word broken at a line end, its hyphen kept by the transcription: each joined form is the edition's
+         own, standing 7 to 709 times elsewhere in the book. (`semi-circumference` is left: it is never joined.) */
+      ...["an-gles", "ante-cedents", "con-tained", "de-scribed", "equi-multiples", "parallelo-gram", "pass-ing",
+        "propor-tionals", "re-maining", "recti-lineal", "semi-circle", "tri-angle"].map((w) =>
+        [new RegExp("(?<![A-Za-z-])" + w + "(?![A-Za-z-])", "g"), w.replace("-", ""),
+          "a line-end hyphen kept in `" + w + "`"]),
+    ],
+    minChars: 3000,
+  },
 };
 
 /* ---------- args ---------- */
@@ -23920,6 +24021,72 @@ function kantNestedNotes(html, notes, warn) {
   return { html, notes };
 }
 const KANT = { heads: 0, tables: 0, lifted: 0, stars: 0, nested: 0 };
+
+/* ---------- EUCLID'S ELEMENTS, Todhunter's 1872 school edition (Nov 2026) ----------
+   `prep: "euclid"`, run on the RAW page before kantPrep (whose heading pass it then shares, with
+   kantFinish on the assembled book). Three things this transcription does:
+   · ITS HEADS ARE CENTRED, IN TWO MARKUPS. "DEFINITIONS.", "PROPOSITION 1. PROBLEM." and the like are
+     `wst-center` divs on some pages and on others a paragraph styled `text-align:center` (a different
+     proofreader's habit). The second kind is rewrapped as the first, so kantPrep fences both as one
+     `bk-head` paragraph — left alone, the divs become blockquotes and the paragraphs run on as prose.
+     BUT NOT EVERY CENTRED LINE IS A HEAD: the conclusion of a proof is centred too ("Wherefore the
+     triangle ABC is equilateral,"). The heads are set in capitals throughout, so a centred block with a
+     lower-case letter in it is unwrapped as ordinary text (EUCLID.lines) and only the rest are heads.
+   · ITS FIGURES ARE PICTURES, set as `<figure>` blocks, often in the middle of a sentence. The reader has
+     no <img>, so each is dropped and counted (EUCLID.figs); the sentence it interrupted closes up.
+   · ITS REFERENCES STAND IN THE MARGIN: the "[Postulate 3." at the end of each line of a proof is a
+     right-floated span. It is kept as text, after a space, so it does not run into the step it justifies.
+   And `euclidFinish`, on the assembled book: a passage a figure interrupted often sits OUTSIDE every
+   paragraph and opens on a tag (`<i>Note</i>. When several angles…`), which `wrapLooseText` (text only)
+   cannot see and `bookSections` would drop. Every top-level run is wrapped in a paragraph, its newlines
+   spaces — they are the seams the figure left, not line breaks (the edition's own breaks are `<br>`). */
+const EUCLID = { figs: 0, centred: 0, lines: 0, refs: 0, wrapped: 0 };
+function euclidPrep(h, warn) {
+  let b = h;
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "")
+    .replace(/&#32;|&#160;|&nbsp;|&#8203;|​/g, " ").replace(/\s+/g, " ").trim();
+  b = b.replace(/<figure\b[\s\S]*?<\/figure>/g, () => { EUCLID.figs++; return " "; });
+  b = b.replace(/<img\b[^>]*>/g, () => { EUCLID.figs++; return " "; });
+  b = b.replace(/<p\b([^>]*)\bstyle="[^"]*text-align:\s*center[^"]*"([^>]*)>([\s\S]*?)<\/p>/g, (m, a, z, inner) => {
+    EUCLID.centred++;
+    return '<div class="wst-center"><p>' + inner + "</p></div>";
+  });
+  for (let guard = 0, at = 0; guard < 2000; guard++) {
+    const rx = /<div class="wst-center\b[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = b.slice(m.index + m[0].length, end - "</div>".length);
+    if (/\p{Ll}/u.test(textOf(inner))) {
+      EUCLID.lines++;
+      b = b.slice(0, m.index) + inner + b.slice(end);
+      at = m.index + inner.length;
+    } else at = end;
+  }
+  b = b.replace(/<span class="wst-floatright\b[^"]*"[^>]*>/g, () => { EUCLID.refs++; return " <span>"; });
+  if (/<table\b/.test(b)) warn("a table on the page — kantPrep reads it as a block of cells");
+  return kantPrep(b, warn);
+}
+function euclidFinish(html) {
+  let out = "", last = 0, depth = 0, m;
+  const rx = /<(\/?)(p|div|blockquote)\b[^>]*>/g;
+  const flush = (s) => {
+    if (!/[\p{L}\p{N}]/u.test(s.replace(/<[^>]*>/g, ""))) return s;
+    EUCLID.wrapped++;
+    return "\n<p>" + s.trim().replace(/\s*\n\s*/g, " ") + "</p>\n";
+  };
+  while ((m = rx.exec(html))) {
+    const seg = html.slice(last, m.index);
+    out += depth === 0 ? flush(seg) : seg;
+    out += m[0];
+    depth = Math.max(0, depth + (m[1] ? -1 : 1));
+    last = rx.lastIndex;
+  }
+  const tail = html.slice(last);
+  return out + (depth === 0 ? flush(tail) : tail);
+}
 
 /* ---------- THE 1651 LEVIATHAN: a printer's page read off its own markup (Nov 2026) ----------
    `prep: "leviathan"`, run on the RAW page before the notes are gathered and before cleanBody, then
@@ -34813,6 +34980,7 @@ async function fetchEnglish() {
     }
     /* Meiklejohn's headings and tables — see kantPrep. Every page of a section, so the extras below too. */
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
+    if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -34909,6 +35077,7 @@ async function fetchEnglish() {
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
         let eh = await api(extra);
         if (BOOK.prep === "kant") eh = kantPrep(eh, warn);
+        if (BOOK.prep === "euclid") eh = euclidPrep(eh, warn);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -34923,8 +35092,9 @@ async function fetchEnglish() {
         html += "\n" + ehtml;
         notes = notes.concat(eg.notes);
       }
-      if (BOOK.prep === "kant") {
+      if (BOOK.prep === "kant" || BOOK.prep === "euclid") {
         html = kantFinish(html, warn);
+        if (BOOK.prep === "euclid") html = euclidFinish(html);
         const got = kantNestedNotes(html, notes, warn);
         html = got.html; notes = got.notes;
       }
@@ -35468,6 +35638,10 @@ function writeEnglish(chapters, warnings) {
       " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
       MALORY.books + " book half-title(s) lifted out, " +
       MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (EUCLID.figs || EUCLID.centred || EUCLID.refs)
+    console.log("  " + EUCLID.figs + " figure(s) dropped, " + EUCLID.centred + " centred paragraph(s) rewrapped, " +
+      EUCLID.lines + " centred line(s) kept as text, " + EUCLID.refs + " marginal reference(s) kept inline, " +
+      EUCLID.wrapped + " loose run(s) wrapped");
   if (KANT.heads || KANT.lifted)
     console.log("  " + KANT.heads + " heading block(s) fenced, " + KANT.lifted + " lifted, " + KANT.tables + " table(s) read as blocks, " + KANT.stars + " asterisk row(s), " + KANT.nested + " note(s) inside a note spliced" +
       (KANT.heads === KANT.lifted ? "" : " — MISMATCH, a heading was lost or merged"));

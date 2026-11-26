@@ -580,7 +580,7 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
 
   /* ---------------- 11) a set of areas in two shades (members.areas, 2026-11-20: us-084, the reservations) ---------------- */
   if (want(11)) {
-    sect("11) us-084: today's reservations in gold and Oklahoma's former reservations in a lighter gold, from the lazy area set");
+    sect("11) us-084: today's reservations in gold, from the lazy area set — and NOT Oklahoma's former ones (2026-11-26, on request: the card names one shade, data-map-areas-n)");
     const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
     await page.goto(url("#card/us-084"), { waitUntil: "load" });
     const reqs0 = requests.length;   // counted from the reload: one page load, one fetch
@@ -602,9 +602,9 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       return { engine: h.getAttribute("data-map-engine"), plain: h.classList.contains("mc-plain"), areas: h.getAttribute("data-map-areas"), key: [...document.querySelectorAll(".members-key .wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()), strong, light, view: h._folioMap.view() };
     });
     check("the window is drawn on the engine (not the plain sentence) and names its area set", info.engine === "v2" && !info.plain && info.areas === "us-reservations", JSON.stringify({ engine: info.engine, plain: info.plain, areas: info.areas }));
-    check("…its key names both shades and the source note", info.key.length === 3 && /^Reservations today/.test(info.key[0]) && /^Former reservations in Oklahoma/.test(info.key[1]) && /Census Bureau/.test(info.key[2]), JSON.stringify(info.key));
+    check("…its key names the one shade and the source note", info.key.length === 2 && /^Reservations today/.test(info.key[0]) && /Census Bureau/.test(info.key[1]), JSON.stringify(info.key));
     check("…today's reservations are painted in the strong gold", info.strong > 600, String(info.strong));
-    check("…and Oklahoma's former reservations in the lighter gold", info.light > 250, String(info.light));
+    check("…and Oklahoma's former reservations are not drawn", info.light < 60, String(info.light));
     check("…opening on the contiguous United States", Math.abs(info.view.lon + 95.95) < 1 && Math.abs(info.view.lat - 36.95) < 1, JSON.stringify(info.view));
     const got = requests.slice(reqs0);
     check("…fetching atlas/data/us-reservations.js once (lazy: not on the eager path)", got.filter((u) => /atlas\/data\/us-reservations\.js$/.test(u)).length === 1, got.filter((u) => /reservations/.test(u)).join(", "));
