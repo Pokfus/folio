@@ -69,7 +69,7 @@ exists).
 | `category` | the collection's name, e.g. `"Ancient Rome"` |
 | `question` | the clue — see **Questions** |
 | `questions` | an array of EXACTLY 2 more phrasings of the clue, same rules |
-| `answer` | the answer term, plain, **no leading "the", "a" or "an"** |
+| `answer` | the answer term, plain, **no leading "the", "a" or "an"** — the plan line's plain, most famous term; unique within the collection, but it MAY repeat a card of another collection (never steer away from the famous term for that) |
 | `answerText` | the same term again as plain text |
 | `answerDate` | the date line — see **Date line** — or `""` if the term has no date |
 | `abstract` | the background — see **Background** |
@@ -374,7 +374,7 @@ with no single country attached. Same style rules as cards.
 - [ ] Valid JSON, nothing outside it; every `"` inside an HTML string escaped as `\"`.
 - [ ] Each question: one sentence, 20–34 words, blank mid-sentence, no modern scholar named.
 - [ ] Exactly 2 extra `questions`, each from a different angle.
-- [ ] `answer` has no leading article; bold in the background is the term only, article outside.
+- [ ] `answer` has no leading article and no other card of the SAME collection answers it (other collections may); bold in the background is the term only, article outside.
 - [ ] Background: 10 sentences, 5 + ` <br><br> ` + 5, 270–330 words, a marker on every sentence.
 - [ ] 5–8 sources, each ending in a URL you have actually opened; every source pointed at; no
       Wikipedia; nothing invented.
