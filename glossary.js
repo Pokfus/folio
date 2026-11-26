@@ -13077,7 +13077,8 @@ window.GLOSSARY = {
 "Red_Guards_(Russia)": "",
 "White_Terror_(Russia)": "",
 "Yam_(route)": "",
-"Mithridatic_Wars": ""
+"Mithridatic_Wars": "",
+"Saturn_(mythology)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -41439,7 +41440,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Red_Guards_(Russia)": ["institution","history","politics","warfare","russia"],
 "White_Terror_(Russia)": ["event","history","warfare","politics","russia"],
 "Yam_(route)": ["institution","history","mongols","asia","russia"],
-"Mithridatic_Wars": ["war","warfare","history","rome","greece","anatolia","hellenistic"]
+"Mithridatic_Wars": ["war","warfare","history","rome","greece","anatolia","hellenistic"],
+"Saturn_(mythology)": ["deity","religion","history","rome"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

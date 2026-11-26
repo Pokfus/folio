@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T19:54Z",
+ "generated": "2026-11-26T20:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8995,
-  "redirect-broader": 864,
+  "ok": 8996,
+  "redirect-broader": 865,
   "redirect-variant": 520,
   "section-redirect": 202,
   "disambiguation": 164,
-  "none": 1301,
+  "none": 1299,
   "disambig-resolved": 116,
   "list-page": 6,
   "search-match": 11,
@@ -25877,12 +25877,11 @@
    "status": "ok"
   },
   "wh-543": {
-   "answer": "Genji Monogatari",
+   "answer": "Tale of Genji",
    "title": "The Tale of Genji",
    "url": "https://en.wikipedia.org/wiki/The_Tale_of_Genji",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Genji Monogatari"
+   "via": "glossary",
+   "status": "ok"
   },
   "wh-544": {
    "answer": "samurai",
@@ -27336,18 +27335,19 @@
    "status": "ok"
   },
   "wh-586": {
-   "answer": "composite bow",
-   "title": "Composite bow",
-   "url": "https://en.wikipedia.org/wiki/Composite_bow",
+   "answer": "Eurasian Steppe",
+   "title": "Eurasian Steppe",
+   "url": "https://en.wikipedia.org/wiki/Eurasian_Steppe",
    "via": "glossary",
    "status": "ok"
   },
   "wh-587": {
-   "answer": "yurt",
-   "title": "Yurt",
-   "url": "https://en.wikipedia.org/wiki/Yurt",
+   "answer": "pastoral nomadism",
+   "title": "Nomadic pastoralism",
+   "url": "https://en.wikipedia.org/wiki/Nomadic_pastoralism",
    "via": "glossary",
-   "status": "ok"
+   "status": "redirect-broader",
+   "from": "Pastoral nomadism"
   },
   "wh-589": {
    "answer": "Huns",
@@ -27364,9 +27364,9 @@
    "status": "ok"
   },
   "wh-588": {
-   "answer": "Yuezhi",
-   "title": "Yuezhi",
-   "url": "https://en.wikipedia.org/wiki/Yuezhi",
+   "answer": "Xiongnu",
+   "title": "Xiongnu",
+   "url": "https://en.wikipedia.org/wiki/Xiongnu",
    "via": "glossary",
    "status": "ok"
   },
@@ -31723,9 +31723,9 @@
    "status": "ok"
   },
   "rm-439": {
-   "answer": "Britannicus",
-   "title": "Britannicus",
-   "url": "https://en.wikipedia.org/wiki/Britannicus",
+   "answer": "Nero",
+   "title": "Nero",
+   "url": "https://en.wikipedia.org/wiki/Nero",
    "via": "glossary",
    "status": "ok"
   },
@@ -32160,18 +32160,11 @@
    "from": "Plotina"
   },
   "rm-494": {
-   "answer": "optimus princeps",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Trajan",
-    "Rome",
-    "Ancient Rome",
-    "History of Rome",
-    "Roman Kingdom"
-   ]
+   "answer": "Trajan",
+   "title": "Trajan",
+   "url": "https://en.wikipedia.org/wiki/Trajan",
+   "via": "glossary",
+   "status": "ok"
   },
   "rm-496": {
    "answer": "Decebalus",
@@ -38119,9 +38112,9 @@
    "status": "ok"
   },
   "rm-515": {
-   "answer": "Avidius Cassius",
-   "title": "Avidius Cassius",
-   "url": "https://en.wikipedia.org/wiki/Avidius_Cassius",
+   "answer": "Marcus Aurelius",
+   "title": "Marcus Aurelius",
+   "url": "https://en.wikipedia.org/wiki/Marcus_Aurelius",
    "via": "glossary",
    "status": "ok"
   },
@@ -39260,12 +39253,12 @@
    "status": "ok"
   },
   "rm-619": {
-   "answer": "Damasus I",
-   "title": "Pope Damasus I",
-   "url": "https://en.wikipedia.org/wiki/Pope_Damasus_I",
-   "via": "answer",
-   "status": "redirect-variant",
-   "from": "Damasus I"
+   "answer": "papacy",
+   "title": "Pope",
+   "url": "https://en.wikipedia.org/wiki/Pope",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Papacy"
   },
   "rm-620": {
    "answer": "Pope Leo I",
@@ -45712,11 +45705,12 @@
    "status": "ok"
   },
   "rm-912": {
-   "answer": "Temple of Saturn",
-   "title": "Temple of Saturn",
-   "url": "https://en.wikipedia.org/wiki/Temple_of_Saturn",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "Saturn",
+   "title": "Saturn (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Saturn_(mythology)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "rm-913": {
    "answer": "Lares",
@@ -46269,9 +46263,9 @@
    "status": "ok"
   },
   "rm-988": {
-   "answer": "Aqua Marcia",
-   "title": "Aqua Marcia",
-   "url": "https://en.wikipedia.org/wiki/Aqua_Marcia",
+   "answer": "Roman aqueduct",
+   "title": "Roman aqueduct",
+   "url": "https://en.wikipedia.org/wiki/Roman_aqueduct",
    "via": "glossary",
    "status": "ok"
   },
@@ -77119,9 +77113,9 @@
    "manual": true
   },
   "ko-124": {
-   "answer": "Yeongyang",
-   "title": "Yeongyang of Goguryeo",
-   "url": "https://en.wikipedia.org/wiki/Yeongyang_of_Goguryeo",
+   "answer": "Goguryeo–Sui War",
+   "title": "Goguryeo–Sui War",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo%E2%80%93Sui_War",
    "via": "manual",
    "status": "ok",
    "manual": true
