@@ -1050,6 +1050,20 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
      shades nothing, a name on both sides asks one shape for two colours, and a war with no derivable
      years is simply absent from the personal atlas. */
   { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
+  /* ---------- AN ANSWER IS UNIQUE WITHIN ITS COLLECTION, NOT ACROSS THE SITE (2026-11-26, on request) ----------
+     "Card terms should be unique within the collection, but needn't be across the website." A Russia card may
+     answer the Cuban Missile Crisis although World History and the United States already do — each collection
+     cards it from its own side, and steering away from the famous term to dodge another collection is wrong. Two
+     cards of ONE collection asking for the same answer are a duplicate the reader meets twice, so that is refused.
+     A card of a different TYPE (a draw card against its flag card, a map card against a locator card) is not a
+     twin; two different things that share a name (Portland, Oregon and Portland, Maine) pass with --allow-twin. */
+  if (!process.argv.includes("--allow-twin")) {
+    const norm = (s) => String(s || "").replace(/<[^>]*>/g, "").toLowerCase().replace(/^(the|a|an) /, "").replace(/[’']/g, "'").replace(/\s+/g, " ").trim();
+    const typeOf = (c) => (c.drawCard === true ? "draw" : c.map ? "map" : "card");
+    const mine = norm(card.answerText || card.answer), myColl = REPLACE ? collIdx[card.id] : deckColl;
+    const twin = mine && cards.find((c) => c.id !== card.id && (collIdx[c.id] || null) === myColl && typeOf(c) === typeOf(card) && norm(c.answerText || c.answer) === mine);
+    if (twin) { console.error("ERROR: " + card.id + "'s answer \"" + (card.answerText || card.answer) + "\" is already " + twin.id + "'s in the same collection — an answer is unique within its collection (it may repeat across collections). Choose another term, or pass --allow-twin if the two are different things that share a name."); process.exit(1); }
+  }
 }
 
 /* --dry-run (Oct 2026, the World History audit): every guard above, and no write. Research agents
