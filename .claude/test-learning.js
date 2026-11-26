@@ -73,7 +73,9 @@ head("1) the relearning criterion is a set of DAYS, not a count");
   check("the criterion is three, which is where the evidence flattens", M.CRIT_DAYS === 3, String(M.CRIT_DAYS));
   check("a record with no crit array reads as zero, not as a crash", M.critDays({}).length === 0);
   check("grade() marks it only on a correct FIRST attempt of the day",
-    /if \(g !== "again" && firstToday\) critMark\(c\);/.test(src));
+    /else if \(firstToday\) critMark\(c\);/.test(src));
+  check("grade() empties the record on any miss — the three days must be consecutive successes",
+    /if \(g === "again"\) c\.crit = \[\];\s*else if \(firstToday\) critMark\(c\);/.test(src));
   check("schedAnswer is not involved — the scheduler stays pure",
     src.indexOf("critMark") > src.indexOf("function schedAnswer") &&
     !/function schedAnswer[\s\S]{0,4000}critMark/.test(src));

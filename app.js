@@ -5819,7 +5819,13 @@
        it reads no global and no clock beyond its `t`, which is what lets `test-scheduler.js` walk every
        path as arithmetic. This needs the reader's own day boundary and the pre-grade `firstToday`, both
        of which are already in hand at this point and neither of which the scheduler is allowed to see. */
-    if (g !== "again" && firstToday) critMark(c);
+    /* A MISS RESETS THE PIPS (2026-11-22, on request: "When a card is answered incorrectly, these three dots should
+       reset. Only cards that are answered correctly three consecutive times on three different days should be
+       considered as 'learned'"). The three days must be an unbroken run: any "again", even on a card already
+       learned, empties the record, and only the next day's first correct recall starts it again. Undo restores
+       the whole card, `crit` included (undoSnapshot). */
+    if (g === "again") c.crit = [];
+    else if (firstToday) critMark(c);
     bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
     logReview(preStatus === "review", g !== "again", activeMs != null ? activeMs : ms, activeMs != null);
     logReviewDay(firstToday, g !== "again");
@@ -5934,7 +5940,7 @@
     const done = n >= CRIT_DAYS;
     const words = done
       ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
-      : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.";
+      : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not. A wrong answer starts the count again.";
     const lbl = done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days";
     return '<div class="crit-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-info="crit" data-cid="' + esc(id) + '" title="' + esc(words) +
       '" aria-label="' + esc(words) + '">' +
@@ -5978,8 +5984,8 @@
     if (kind === "crit") {
       const n = critCount(id), done = n >= CRIT_DAYS;
       return '<span class="ib-title">' + (done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days") + "</span>" +
-        '<span class="ib-row">Each dot is a <b>separate day</b> on which you answered this card correctly. Two right answers on the same day fill one dot, not two.</span>' +
-        '<span class="ib-row">After ' + CRIT_DAYS + " separate days the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
+        '<span class="ib-row">Each dot is a <b>separate day</b> on which you answered this card correctly. Two right answers on the same day fill one dot, not two, and a wrong answer empties all three.</span>' +
+        '<span class="ib-row">After ' + CRIT_DAYS + " separate days in a row without a miss the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
         '<span class="ib-row ib-quiet">The dots do not change when the card is next due — the schedule decides that on its own.</span>';
     }
     /* ONE DAY OF THE HOME PAGE'S WEEK (Oct 2026, on request) — the bar carries its own three figures (homeWeekHTML),
@@ -8366,6 +8372,32 @@
       (window.LANG_DECKS || []).forEach((r) => { if (r && r.id) _langById.set(r.id, r); });
     }
     return _langById.get(deckId) || null;
+  }
+  /* WHERE A CATALOGUE DECK STANDS IN ITS LANGUAGE (2026-11-22, on request: "the active collections/deck lists should
+     be ordered the same way as on the collections page … the new Sounds and Spellings deck … moved to the bottom of
+     the active collection instead of the top, and its cards aren't prioritised when studying the collection").
+     LANG_DECKS is written in each language's teaching order — the start-here deck (alphabet, sounds, pinyin) first —
+     and the Collections page draws it in that order, so the index IS the page's order. -1 for anything else. */
+  let _langRank = null;
+  function langCatalogRank(entryId) {
+    const d = uDeckIdOf(entryId);
+    if (!d) return -1;
+    if (!_langRank) {
+      _langRank = new Map();
+      (window.LANG_DECKS || []).forEach((r, i) => { if (r && r.id && !_langRank.has(r.id)) _langRank.set(r.id, i); });
+    }
+    const i = _langRank.get(d);
+    return i == null ? -1 : i;
+  }
+  /* …and a list re-dealt so its catalogue decks stand in that order. Only their SLOTS are refilled, exactly as the
+     curated collections' are at the top level: a group or another deck the reader dragged in keeps its place, and
+     the entries of one deck (its subdecks, its two directions) keep their own order among themselves. */
+  function inCatalogOrder(ids) {
+    const cat = ids.filter((e) => langCatalogRank(e) >= 0)
+      .map((e, i) => ({ e, i, r: langCatalogRank(e) }))
+      .sort((x, y) => x.r - y.r || x.i - y.i).map((x) => x.e);
+    let k = 0;
+    return ids.map((e) => (langCatalogRank(e) >= 0 ? cat[k++] : e));
   }
   /* The entry names a deck this device has not downloaded — one of the LANGUAGE catalogue's, or one the
      signed-in account installed on another device (`sharedPendingMap`). Both draw the same row and neither
@@ -28597,7 +28629,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const h = groupColor(id) || langCtxHue(id) || hue;
           // its "Download all" / "Update all" button is gathered once the list is built (see dlUnder below)
           rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
-          orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
+          // the catalogue decks always in the Collections page's order, whatever was dragged (langCatalogRank)
+          inCatalogOrder(orderedIds(id, kids)).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
         const n = NODE_BY_ID[id];
@@ -36969,12 +37002,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return langCtxEntries(langId).some((e) => isAlphabetEntry(e) &&
       entryCardIds(e).some((id) => !isSeen(id) && !isSuspended(id)));
   }
+  // in the catalogue's order, not the order they were added — so the language's own row deals its start-here
+  // deck's new cards first (studyOrder's groups follow first appearance) — see langCatalogRank
   function langCtxEntries(id) {
-    return activeEntryIds().filter((e) => {
+    return inCatalogOrder(activeEntryIds().filter((e) => {
       const d = uDeckIdOf(e);
       const cat = d ? langCatalogById(d) : null;
       return !!cat && langCtxId(cat.lang) === id;
-    });
+    }));
   }
   /* WHICH CATALOGUE DECKS AN ENTRY'S FILES ARE, and this device actually holds — what the options sheet's
      Redownload row acts on (Sep 2026, on request: "in the active decks long press menu, there should be
