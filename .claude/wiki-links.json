@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-26T20:57Z",
+ "generated": "2026-11-26T21:45Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8996,
-  "redirect-broader": 865,
-  "redirect-variant": 520,
-  "section-redirect": 202,
-  "disambiguation": 164,
+  "ok": 9014,
+  "redirect-broader": 866,
+  "redirect-variant": 519,
+  "section-redirect": 203,
+  "disambiguation": 165,
   "none": 1299,
   "disambig-resolved": 116,
   "list-page": 6,
@@ -96969,6 +96969,156 @@
    "answer": "Baikal–Amur Mainline",
    "title": "Baikal–Amur Mainline",
    "url": "https://en.wikipedia.org/wiki/Baikal%E2%80%93Amur_Mainline",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-851": {
+   "answer": "Tented roof",
+   "title": "Tented roof",
+   "url": "https://en.wikipedia.org/wiki/Tented_roof",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-852": {
+   "answer": "Znamenny chant",
+   "title": "Znamenny chant",
+   "url": "https://en.wikipedia.org/wiki/Znamenny_chant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-853": {
+   "answer": "Russian Orthodox bell ringing",
+   "title": "Russian Orthodox bell ringing",
+   "url": "https://en.wikipedia.org/wiki/Russian_Orthodox_bell_ringing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-854": {
+   "answer": "White clergy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "White clergy",
+   "target": "Secular clergy#Eastern Orthodox Church"
+  },
+  "ru-855": {
+   "answer": "Josephites",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Josephites",
+   "suggestions": [
+    "Josephite marriage",
+    "Josephite movement",
+    "Josephites of Belgium",
+    "Josephite (Latter Day Saints)"
+   ]
+  },
+  "ru-856": {
+   "answer": "Ober-Procurator",
+   "title": "Procurator (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Procurator_(Russia)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ober-Procurator"
+  },
+  "ru-857": {
+   "answer": "Bespopovtsy",
+   "title": "Bespopovtsy",
+   "url": "https://en.wikipedia.org/wiki/Bespopovtsy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-858": {
+   "answer": "Doukhobors",
+   "title": "Doukhobors",
+   "url": "https://en.wikipedia.org/wiki/Doukhobors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-859": {
+   "answer": "Starets",
+   "title": "Starets",
+   "url": "https://en.wikipedia.org/wiki/Starets",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-860": {
+   "answer": "Optina Monastery",
+   "title": "Optina Monastery",
+   "url": "https://en.wikipedia.org/wiki/Optina_Monastery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-801": {
+   "answer": "Chukchi people",
+   "title": "Chukchi people",
+   "url": "https://en.wikipedia.org/wiki/Chukchi_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-802": {
+   "answer": "Nenets",
+   "title": "Nenets",
+   "url": "https://en.wikipedia.org/wiki/Nenets",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-803": {
+   "answer": "Indigenous peoples of Siberia",
+   "title": "Indigenous peoples of Siberia",
+   "url": "https://en.wikipedia.org/wiki/Indigenous_peoples_of_Siberia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-804": {
+   "answer": "Russian conquest of Siberia",
+   "title": "Russian conquest of Siberia",
+   "url": "https://en.wikipedia.org/wiki/Russian_conquest_of_Siberia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-805": {
+   "answer": "Yasak",
+   "title": "Yasak",
+   "url": "https://en.wikipedia.org/wiki/Yasak",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-806": {
+   "answer": "North Caucasus",
+   "title": "North Caucasus",
+   "url": "https://en.wikipedia.org/wiki/North_Caucasus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-807": {
+   "answer": "Chechens",
+   "title": "Chechens",
+   "url": "https://en.wikipedia.org/wiki/Chechens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-808": {
+   "answer": "Circassians",
+   "title": "Circassians",
+   "url": "https://en.wikipedia.org/wiki/Circassians",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-809": {
+   "answer": "Dagestan",
+   "title": "Dagestan",
+   "url": "https://en.wikipedia.org/wiki/Dagestan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-810": {
+   "answer": "Georgia within the Russian Empire",
+   "title": "Georgia within the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Georgia_within_the_Russian_Empire",
    "via": "glossary",
    "status": "ok"
   }

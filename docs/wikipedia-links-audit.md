@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8996 | the title is the article |
-| `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
+| `ok` | 9014 | the title is the article |
+| `redirect-variant` | 519 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 116 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 865 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 866 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 202 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 164 | only a disambiguation page; no link could be chosen |
+| `section-redirect` | 203 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 165 | only a disambiguation page; no link could be chosen |
 | `none` | 1299 | nothing matched; no link |
 
-**10515 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10533 of 12220 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (865)
+## Redirected to a differently named article — check each (866)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -709,6 +709,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-764` **Don River** → [Don (river)](https://en.wikipedia.org/wiki/Don_(river)) (from `Don River`)
 - `ru-784` **Great Abatis Line** → [Great Zasechnaya cherta](https://en.wikipedia.org/wiki/Great_Zasechnaya_cherta) (from `Great Abatis Line`)
 - `ru-800` **Evenks** → [Evenki people](https://en.wikipedia.org/wiki/Evenki_people) (from `Evenks`)
+- `ru-856` **Ober-Procurator** → [Procurator (Russia)](https://en.wikipedia.org/wiki/Procurator_(Russia)) (from `Ober-Procurator`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -1047,7 +1048,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (164)
+## Disambiguation pages that could not be settled (165)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1198,6 +1199,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ru-043` **Rus'–Byzantine Treaty** — `Rus'–Byzantine Treaty` is a disambiguation page; its links: `Rus'–Byzantine Treaty (907)`, `Rus'–Byzantine Treaty (911)`, `Rus'–Byzantine Treaty (945)`
 - `ru-132` **Metropolitan Peter** — `Metropolitan Peter` is a disambiguation page
 - `ru-794` **Chuvash** — `Chuvash` is a disambiguation page; its links: `Chuvash language`, `Chuvash people`, `Chuvash Autonomous Soviet Socialist Republic`, `Chuvash Autonomous Oblast`
+- `ru-855` **Josephites** — `Josephites` is a disambiguation page; its links: `Josephite marriage`, `Josephite movement`, `Josephites of Belgium`, `Josephite (Latter Day Saints)`
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
@@ -1227,7 +1229,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (202)
+## Section redirects — no dedicated page (203)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1402,6 +1404,7 @@ Wikipedia treats these as part of another article. No link.
 - `ru-514` **Potemkin mutiny** — `Potemkin mutiny` only redirects into `Russian battleship Potemkin#Mutiny`
 - `ru-588` **military specialists** — `Military specialist` only redirects into `Military history of the Soviet Union#Tsarist and revolutionary background`
 - `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
+- `ru-854` **White clergy** — `White clergy` only redirects into `Secular clergy#Eastern Orthodox Church`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`

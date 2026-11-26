@@ -13078,7 +13078,24 @@ window.GLOSSARY = {
 "White_Terror_(Russia)": "",
 "Yam_(route)": "",
 "Mithridatic_Wars": "",
-"Saturn_(mythology)": ""
+"Saturn_(mythology)": "",
+"Tented_roof": "",
+"Znamenny_chant": "",
+"Russian_Orthodox_bell_ringing": "",
+"Secular_clergy": "",
+"Josephites": "",
+"Procurator_(Russia)": "",
+"Bespopovtsy": "",
+"Doukhobors": "",
+"Starets": "",
+"Optina_Monastery": "",
+"Chukchi_people": "",
+"Nenets": "",
+"Indigenous_peoples_of_Siberia": "",
+"Yasak": "",
+"North_Caucasus": "",
+"Circassians": "",
+"Georgia_within_the_Russian_Empire": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -28098,7 +28115,21 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Baikal–Amur_Mainline": ["Baikal-Amur Mainline","BAM","Baikal–Amur Railway"],
 "Revolutions_of_1989": ["Autumn of Nations"],
 "International_sanctions_during_the_Russo-Ukrainian_war": ["Sanctions against Russia","sanctions on Russia"],
-"Red_Guards_(Russia)": ["Red Guard (Russia)"]
+"Red_Guards_(Russia)": ["Red Guard (Russia)"],
+"Tented_roof": ["tent roof","tent-roofed church"],
+"Znamenny_chant": ["znamenny raspev"],
+"Russian_Orthodox_bell_ringing": ["zvon"],
+"Secular_clergy": ["White clergy","white clergy"],
+"Josephites": ["Josephite","Possessors"],
+"Procurator_(Russia)": ["Ober-Procurator","Chief Procurator","Over-Procurator"],
+"Bespopovtsy": ["Bezpopovtsy","priestless Old Believers"],
+"Doukhobors": ["Dukhobors","spirit wrestlers"],
+"Starets": ["startsy","elder"],
+"Optina_Monastery": ["Optina Pustyn"],
+"Chukchi_people": ["Chukchi","Chukchis"],
+"Nenets": ["Nenets people","Samoyeds"],
+"Yasak": ["yasak","iasak"],
+"Circassians": ["Adyghe","Circassian"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -41441,7 +41472,24 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "White_Terror_(Russia)": ["event","history","warfare","politics","russia"],
 "Yam_(route)": ["institution","history","mongols","asia","russia"],
 "Mithridatic_Wars": ["war","warfare","history","rome","greece","anatolia","hellenistic"],
-"Saturn_(mythology)": ["deity","religion","history","rome"]
+"Saturn_(mythology)": ["deity","religion","history","rome"],
+"Tented_roof": ["building","architecture","religion","russia"],
+"Znamenny_chant": ["practice","music","religion","russia"],
+"Russian_Orthodox_bell_ringing": ["practice","music","religion","russia"],
+"Secular_clergy": ["institution","religion","church","history"],
+"Josephites": ["concept","religion","history","russia"],
+"Procurator_(Russia)": ["title","religion","politics","history","russia"],
+"Bespopovtsy": ["religion","people","history","russia"],
+"Doukhobors": ["religion","people","history","russia","canada"],
+"Starets": ["title","religion","church","russia"],
+"Optina_Monastery": ["building","religion","monasticism","russia"],
+"Chukchi_people": ["people","history","russia","siberia"],
+"Nenets": ["people","history","russia","arctic"],
+"Indigenous_peoples_of_Siberia": ["people","history","russia","siberia"],
+"Yasak": ["institution","history","economics","russia"],
+"North_Caucasus": ["place","geography","history","russia","caucasus"],
+"Circassians": ["people","history","russia","caucasus"],
+"Georgia_within_the_Russian_Empire": ["era","history","russia","georgia","caucasus"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
