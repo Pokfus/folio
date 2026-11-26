@@ -469,6 +469,15 @@ jobs:
       - name: build-russian-sounds --check (the Russian alphabet and sounds decks are what their table and TORFL A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-russian-sounds.js --check
+      # The French decks (2026-11-16): french-fixes.json is their record, french-order.json their order and
+      # french-ids.json their pin. Both steps read only the repository. (paradigm-fix.js, which French shares
+      # with Italian and Portuguese, is deliberately not run here: it is not this block's file to gate.)
+      - name: french-fix --check (the French decks carry their fixes, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/french-fix.js --check
+      - name: build-french-sounds --check (the French sounds deck is what its table and DELF A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-french-sounds.js --check
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js
