@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-eight:
+  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -147,6 +147,24 @@ book added later will meet the same traps.
   in words the book otherwise prints whole (`de-scribed` in I. 47). Public domain worldwide (Todhunter
   d. 1884). Colour `#5A0009` (14.3: the band is full; Plato 41.8 off). `glossOff`: four acronyms that are figures
   named by their points (EDF, AEF, FAC, ECA). Excerpt: Book I's first definitions.
+  `voltaire-candide` (~208 KB English, ~185 KB French, **30 chapters**, `chapterWord: "Chapter"` — **2 notes**, the
+  edition's; original **French**, paired on the CHAPTER as The Prince is). Smollett's translation as revised by James
+  Thornton for Everyman's Library, in a Pantheon Books (New York) printing with Klee's 26 drawings — the only English
+  Candide on en.wikisource, validated (Index `Progress=T`, Feb 2026). **THE FIRST LICENCE ON THE SHELF NOT RESTING ON
+  PUBLICATION BEFORE 1929**: Wikisource, Commons and the Internet Archive (`candide00volt_1`) date the printing 1920, but
+  the book prints no date and Pantheon Books was founded in 1942. On the owner's decision (Nov 2026) it is shelved on
+  the US non-renewal ground, said plainly in the rights box: Stanford's Copyright Renewal Database, searched for
+  "Candide", has renewals for Aldington/Kent, Bair, Torrey, Block and Crocker and none for Thornton, Everyman or this
+  printing; Thornton's dates are unknown, so no life-plus-seventy claim. Generic extractor; `dropHeads` takes the
+  centred "CHAPTER IV" + title block, `dropTail` the printer's colophon after chapter 30, and **`dropFigures`** (new,
+  in `cleanBody`) the 26 figures, whose captions are file names ("Candide Chapter 4.2"). Titles transcribed from the
+  contents page (`titleOf`). One `fixes` row, `Friai` → `Friar` (book-scan.js; the IA scan, p. 95). The French is
+  Moland's Garnier edition (Œuvres complètes, tome 21, 1877), validated on fr.wikisource, one page per chapter, read by
+  **`prep: "contrat"`** unchanged (same page shape; `contratPrep` now also drops the centred "FIN DE CANDIDE."); the
+  half-proofread Beuchot (1829) was passed over. Colour `#12155D` (13.4: Snorri, Dante, Homer nearest; every
+  philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
+  old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
+  front matter says). Not included: the illustrations, the colophon.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on

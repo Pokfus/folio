@@ -13263,6 +13263,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.8 from Virgil, none a book read beside this one; Plato stands 41.8 off, Aristotle 68.1. It reads 8.79:1
      on the tightest light paper. */
   "Euclid": "#5A0009",
+  /* Nov 2026, adding Candide, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all
+     forty-five light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of the
+     cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: the sweep's best sit 14.0–14.5 from
+     Lucretius and Petronius, 13.8 from Rousseau or 13.5 from Cervantes, all read beside a philosophical
+     satire; held 19 or more from every philosopher and every comic novel on the shelf, the best is this deep
+     navy at 13.4 — its nearest are Snorri Sturluson 13.4, Dante 13.5 and Homer 13.6, none read beside
+     Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
+     9.80:1 on the tightest light paper. */
+  "Voltaire": "#12155D",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17567,6 +17576,46 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          European Court of Auditors. */
       glossOff: ["European_Defence_Fund", "American_Expeditionary_Forces", "Foreign_Affairs_Council",
         "European_Court_of_Auditors"],
+    },
+    {
+      id: "voltaire-candide",
+      title: "Candide",
+      subtitle: "Candide, ou l’Optimisme",
+      author: "Voltaire",
+      written: "1759",
+      year: 1759,
+      translator: "Tobias Smollett, revised by James Thornton",
+      edition: "Candide, Pantheon Books, New York, undated (not before 1942), reprinting the Everyman's Library revision",
+      /* A QUALIFIED LICENCE, the first on the shelf not resting on publication before 1929: the printing is
+         undated and post-1942 (Pantheon's founding), and is shelved on the US non-renewal ground, on the owner's
+         decision (Nov 2026). See .claude/fetch-book.js. */
+      rights:
+        "The French text is public domain everywhere: Voltaire published Candide in 1759 and died in 1778. The " +
+        "English is the translation traditionally attributed to Tobias Smollett, who died in 1771, as revised by " +
+        "James Thornton for Everyman's Library and reprinted by Pantheon Books, New York. That printing carries no " +
+        "date and cannot be earlier than 1942, when Pantheon was founded, so it is not public domain by age. No " +
+        "renewal of its copyright, or of Thornton's revision, appears in the US copyright renewal records, so " +
+        "Folio treats it as public domain in the United States. Thornton's dates are unknown, so no claim is made " +
+        "for countries where copyright runs for a life plus seventy years. The text is the validated Wikisource " +
+        "transcription; Paul Klee's illustrations are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Candide",
+      /* Paired on the CHAPTER, as The Prince is: neither column numbers anything smaller. The French is Louis
+         Moland's edition (Garnier, Paris, 1877) as validated on French Wikisource, its editors' notes left out. */
+      origLang: "fr",
+      origName: "French",
+      chapterWord: "Chapter",
+      count: 30,
+      total: 30,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 30 chapters
+         (every `.ttip`, Nov 2026). Voltaire's BULGARIANS are a fictional army, not the country; the PANTHEON of the
+         front matter is the New York publisher; RALEIGH is Sir Walter, not the city; MILO is the island of Melos,
+         not the Roman tribune; the ACADEMY is the Academy of Sciences at Bordeaux, not Plato's; PROVIDENCE is not
+         Rhode Island's capital; ISRAEL is the biblical people's land, not the modern state; the SARMATIAN kings are
+         Poland's; and the GERMANY, TURKEY and GREECE of the book (Westphalia, the Ottoman Empire, the ancient Greeks)
+         are not the modern states. */
+      glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
+        "Sarmatians", "Germany", "Turkey", "Greece"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27304,6 +27353,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
+      text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,
       text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
