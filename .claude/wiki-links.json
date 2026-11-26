@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-26T20:57Z",
+ "generated": "2026-11-26T22:03Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8996,
-  "redirect-broader": 865,
+  "ok": 9078,
+  "redirect-broader": 868,
   "redirect-variant": 520,
-  "section-redirect": 202,
-  "disambiguation": 164,
-  "none": 1299,
-  "disambig-resolved": 116,
+  "section-redirect": 205,
+  "disambiguation": 166,
+  "none": 1308,
+  "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
   "no-article": 21
@@ -96969,6 +96969,744 @@
    "answer": "Baikal–Amur Mainline",
    "title": "Baikal–Amur Mainline",
    "url": "https://en.wikipedia.org/wiki/Baikal%E2%80%93Amur_Mainline",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-851": {
+   "answer": "Tented roof",
+   "title": "Tented roof",
+   "url": "https://en.wikipedia.org/wiki/Tented_roof",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-852": {
+   "answer": "Znamenny chant",
+   "title": "Znamenny chant",
+   "url": "https://en.wikipedia.org/wiki/Znamenny_chant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-853": {
+   "answer": "Russian Orthodox bell ringing",
+   "title": "Russian Orthodox bell ringing",
+   "url": "https://en.wikipedia.org/wiki/Russian_Orthodox_bell_ringing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-854": {
+   "answer": "White clergy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "White clergy",
+   "target": "Secular clergy#Eastern Orthodox Church"
+  },
+  "ru-855": {
+   "answer": "Josephites",
+   "title": "Possessors",
+   "url": "https://en.wikipedia.org/wiki/Possessors",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-856": {
+   "answer": "Ober-Procurator",
+   "title": "Procurator (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Procurator_(Russia)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ober-Procurator"
+  },
+  "ru-857": {
+   "answer": "Bespopovtsy",
+   "title": "Bespopovtsy",
+   "url": "https://en.wikipedia.org/wiki/Bespopovtsy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-858": {
+   "answer": "Doukhobors",
+   "title": "Doukhobors",
+   "url": "https://en.wikipedia.org/wiki/Doukhobors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-859": {
+   "answer": "Starets",
+   "title": "Starets",
+   "url": "https://en.wikipedia.org/wiki/Starets",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-860": {
+   "answer": "Optina Monastery",
+   "title": "Optina Monastery",
+   "url": "https://en.wikipedia.org/wiki/Optina_Monastery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-801": {
+   "answer": "Chukchi people",
+   "title": "Chukchi people",
+   "url": "https://en.wikipedia.org/wiki/Chukchi_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-802": {
+   "answer": "Nenets",
+   "title": "Nenets",
+   "url": "https://en.wikipedia.org/wiki/Nenets",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-803": {
+   "answer": "Indigenous peoples of Siberia",
+   "title": "Indigenous peoples of Siberia",
+   "url": "https://en.wikipedia.org/wiki/Indigenous_peoples_of_Siberia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-804": {
+   "answer": "Russian conquest of Siberia",
+   "title": "Russian conquest of Siberia",
+   "url": "https://en.wikipedia.org/wiki/Russian_conquest_of_Siberia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-805": {
+   "answer": "Yasak",
+   "title": "Yasak",
+   "url": "https://en.wikipedia.org/wiki/Yasak",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-806": {
+   "answer": "North Caucasus",
+   "title": "North Caucasus",
+   "url": "https://en.wikipedia.org/wiki/North_Caucasus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-807": {
+   "answer": "Chechens",
+   "title": "Chechens",
+   "url": "https://en.wikipedia.org/wiki/Chechens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-808": {
+   "answer": "Circassians",
+   "title": "Circassians",
+   "url": "https://en.wikipedia.org/wiki/Circassians",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-809": {
+   "answer": "Dagestan",
+   "title": "Dagestan",
+   "url": "https://en.wikipedia.org/wiki/Dagestan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-810": {
+   "answer": "Georgia within the Russian Empire",
+   "title": "Georgia within the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Georgia_within_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-811": {
+   "answer": "Erivan Governorate",
+   "title": "Erivan Governorate",
+   "url": "https://en.wikipedia.org/wiki/Erivan_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-812": {
+   "answer": "Baku Governorate",
+   "title": "Baku Governorate",
+   "url": "https://en.wikipedia.org/wiki/Baku_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-813": {
+   "answer": "Kazakhs",
+   "title": "Kazakhs",
+   "url": "https://en.wikipedia.org/wiki/Kazakhs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-814": {
+   "answer": "Russian Turkestan",
+   "title": "Russian Turkestan",
+   "url": "https://en.wikipedia.org/wiki/Russian_Turkestan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-815": {
+   "answer": "Central Asian revolt of 1916",
+   "title": "Central Asian revolt of 1916",
+   "url": "https://en.wikipedia.org/wiki/Central_Asian_revolt_of_1916",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-816": {
+   "answer": "Islam in Russia",
+   "title": "Islam in Russia",
+   "url": "https://en.wikipedia.org/wiki/Islam_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-817": {
+   "answer": "Jadidism",
+   "title": "Jadid",
+   "url": "https://en.wikipedia.org/wiki/Jadid",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jadidism"
+  },
+  "ru-818": {
+   "answer": "Buddhism in Russia",
+   "title": "Buddhism in Russia",
+   "url": "https://en.wikipedia.org/wiki/Buddhism_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-819": {
+   "answer": "History of the Jews in the Russian Empire",
+   "title": "History of the Jews in Russia",
+   "url": "https://en.wikipedia.org/wiki/History_of_the_Jews_in_Russia",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-820": {
+   "answer": "Shtetl",
+   "title": "Shtetl",
+   "url": "https://en.wikipedia.org/wiki/Shtetl",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-831": {
+   "answer": "Republics of the Soviet Union",
+   "title": "Republics of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Republics_of_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-832": {
+   "answer": "Autonomous Soviet Socialist Republic",
+   "title": "Autonomous republics and oblasts of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Autonomous_republics_and_oblasts_of_the_Soviet_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Autonomous Soviet Socialist Republic"
+  },
+  "ru-833": {
+   "answer": "Population transfer in the Soviet Union",
+   "title": "Population transfer in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Population_transfer_in_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-834": {
+   "answer": "parade of sovereignties",
+   "title": "Parade of sovereignties",
+   "url": "https://en.wikipedia.org/wiki/Parade_of_sovereignties",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-835": {
+   "answer": "ethnic groups in Russia",
+   "title": "Ethnic groups in Russia",
+   "url": "https://en.wikipedia.org/wiki/Ethnic_groups_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-836": {
+   "answer": "Russian Orthodox Church",
+   "title": "Russian Orthodox Church",
+   "url": "https://en.wikipedia.org/wiki/Russian_Orthodox_Church",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-837": {
+   "answer": "Eastern Orthodoxy",
+   "title": "Eastern Orthodoxy",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Orthodoxy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-838": {
+   "answer": "Byzantine commonwealth",
+   "title": "Byzantine commonwealth",
+   "url": "https://en.wikipedia.org/wiki/Byzantine_commonwealth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-839": {
+   "answer": "Divine Liturgy",
+   "title": "Divine Liturgy",
+   "url": "https://en.wikipedia.org/wiki/Divine_Liturgy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-840": {
+   "answer": "Russian icons",
+   "title": "Russian icons",
+   "url": "https://en.wikipedia.org/wiki/Russian_icons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-891": {
+   "answer": "merchant guild",
+   "title": "Merchant guild (Russian Empire)",
+   "url": "https://en.wikipedia.org/wiki/Merchant_guild_(Russian_Empire)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-892": {
+   "answer": "meshchane",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Moscow",
+    "Tsarist Russia",
+    "The Philistines",
+    "Private Committee",
+    "Merchant guild (Russian Empire)"
+   ]
+  },
+  "ru-893": {
+   "answer": "raznochintsy",
+   "title": "Raznochintsy",
+   "url": "https://en.wikipedia.org/wiki/Raznochintsy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-894": {
+   "answer": "Nizhny Novgorod Fair",
+   "title": "Nizhny Novgorod Fair",
+   "url": "https://en.wikipedia.org/wiki/Nizhny_Novgorod_Fair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-895": {
+   "answer": "Ivanovo",
+   "title": "Ivanovo",
+   "url": "https://en.wikipedia.org/wiki/Ivanovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-896": {
+   "answer": "Ministry of National Education",
+   "title": "Ministry of National Education (Russian Empire)",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_National_Education_(Russian_Empire)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-897": {
+   "answer": "likbez",
+   "title": "Likbez",
+   "url": "https://en.wikipedia.org/wiki/Likbez",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-898": {
+   "answer": "banya",
+   "title": "Banya (sauna)",
+   "url": "https://en.wikipedia.org/wiki/Banya_(sauna)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-899": {
+   "answer": "Russian cuisine",
+   "title": "Russian cuisine",
+   "url": "https://en.wikipedia.org/wiki/Russian_cuisine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-900": {
+   "answer": "vodka",
+   "title": "Vodka",
+   "url": "https://en.wikipedia.org/wiki/Vodka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-821": {
+   "answer": "Pogrom",
+   "title": "Pogrom",
+   "url": "https://en.wikipedia.org/wiki/Pogrom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-822": {
+   "answer": "General Jewish Labour Bund",
+   "title": "General Jewish Labour Bund",
+   "url": "https://en.wikipedia.org/wiki/General_Jewish_Labour_Bund",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-823": {
+   "answer": "Jewish Colonisation Association",
+   "title": "Jewish Colonisation Association",
+   "url": "https://en.wikipedia.org/wiki/Jewish_Colonisation_Association",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-824": {
+   "answer": "Jewish Autonomous Oblast",
+   "title": "Jewish Autonomous Oblast",
+   "url": "https://en.wikipedia.org/wiki/Jewish_Autonomous_Oblast",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-825": {
+   "answer": "Western Krai",
+   "title": "Western Krai",
+   "url": "https://en.wikipedia.org/wiki/Western_Krai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-826": {
+   "answer": "Baltic Germans",
+   "title": "Baltic Germans",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Germans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-827": {
+   "answer": "Volga Germans",
+   "title": "Volga Germans",
+   "url": "https://en.wikipedia.org/wiki/Volga_Germans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-828": {
+   "answer": "Russification of Finland",
+   "title": "Russification of Finland",
+   "url": "https://en.wikipedia.org/wiki/Russification_of_Finland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-829": {
+   "answer": "Baltic Governorates",
+   "title": "Baltic Governorates",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Governorates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-830": {
+   "answer": "Soviet people",
+   "title": "Soviet people",
+   "url": "https://en.wikipedia.org/wiki/Soviet_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-841": {
+   "answer": "Iconostasis",
+   "title": "Iconostasis",
+   "url": "https://en.wikipedia.org/wiki/Iconostasis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-842": {
+   "answer": "Novgorod school",
+   "title": "Novgorod school",
+   "url": "https://en.wikipedia.org/wiki/Novgorod_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-843": {
+   "answer": "Kirillo-Belozersky Monastery",
+   "title": "Kirillo-Belozersky Monastery",
+   "url": "https://en.wikipedia.org/wiki/Kirillo-Belozersky_Monastery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-844": {
+   "answer": "Hesychasm",
+   "title": "Hesychasm",
+   "url": "https://en.wikipedia.org/wiki/Hesychasm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-845": {
+   "answer": "Solovetsky Monastery",
+   "title": "Solovetsky Monastery",
+   "url": "https://en.wikipedia.org/wiki/Solovetsky_Monastery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-846": {
+   "answer": "Valaam Monastery",
+   "title": "Valaam Monastery",
+   "url": "https://en.wikipedia.org/wiki/Valaam_Monastery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-847": {
+   "answer": "Passion bearer",
+   "title": "Passion bearer",
+   "url": "https://en.wikipedia.org/wiki/Passion_bearer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-848": {
+   "answer": "Foolishness for Christ",
+   "title": "Foolishness for Christ",
+   "url": "https://en.wikipedia.org/wiki/Foolishness_for_Christ",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-849": {
+   "answer": "Russian church architecture",
+   "title": "Russian church architecture",
+   "url": "https://en.wikipedia.org/wiki/Russian_church_architecture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-850": {
+   "answer": "Onion dome",
+   "title": "Onion dome",
+   "url": "https://en.wikipedia.org/wiki/Onion_dome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-861": {
+   "answer": "Seraphim of Sarov",
+   "title": "Seraphim of Sarov",
+   "url": "https://en.wikipedia.org/wiki/Seraphim_of_Sarov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-862": {
+   "answer": "John of Kronstadt",
+   "title": "John of Kronstadt",
+   "url": "https://en.wikipedia.org/wiki/John_of_Kronstadt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-863": {
+   "answer": "Local Council of 1917–1918",
+   "title": "1917–18 Local Council of the Russian Orthodox Church",
+   "url": "https://en.wikipedia.org/wiki/1917%E2%80%9318_Local_Council_of_the_Russian_Orthodox_Church",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-864": {
+   "answer": "Patriarch of Moscow and all Rus'",
+   "title": "Patriarch of Moscow and all Rus'",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_of_Moscow_and_all_Rus'",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-865": {
+   "answer": "Patriarch Tikhon",
+   "title": "Patriarch Tikhon of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_Tikhon_of_Moscow",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Patriarch Tikhon"
+  },
+  "ru-866": {
+   "answer": "seizure of church valuables",
+   "title": "1922 seizure of church valuables in Russia",
+   "url": "https://en.wikipedia.org/wiki/1922_seizure_of_church_valuables_in_Russia",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-867": {
+   "answer": "League of Militant Atheists",
+   "title": "League of Militant Atheists",
+   "url": "https://en.wikipedia.org/wiki/League_of_Militant_Atheists",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-868": {
+   "answer": "anti-religious campaign of 1928–1941",
+   "title": "USSR anti-religious campaign (1928–1941)",
+   "url": "https://en.wikipedia.org/wiki/USSR_anti-religious_campaign_(1928%E2%80%931941)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-869": {
+   "answer": "Cathedral of Christ the Saviour",
+   "title": "Cathedral of Christ the Saviour",
+   "url": "https://en.wikipedia.org/wiki/Cathedral_of_Christ_the_Saviour",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-870": {
+   "answer": "Bishops' Council of 1943",
+   "title": "1943 Bishops' Council of the Russian Orthodox Church",
+   "url": "https://en.wikipedia.org/wiki/1943_Bishops%27_Council_of_the_Russian_Orthodox_Church",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-871": {
+   "answer": "Khrushchev's anti-religious campaign",
+   "title": "USSR anti-religious campaign (1958–1964)",
+   "url": "https://en.wikipedia.org/wiki/USSR_anti-religious_campaign_(1958%E2%80%931964)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-872": {
+   "answer": "Council for Religious Affairs",
+   "title": "Council for Religious Affairs",
+   "url": "https://en.wikipedia.org/wiki/Council_for_Religious_Affairs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-873": {
+   "answer": "Millennium of the Christianization of Rus'",
+   "title": "1000th anniversary of the Christianization of Rus'",
+   "url": "https://en.wikipedia.org/wiki/1000th_anniversary_of_the_Christianization_of_Rus%27",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-874": {
+   "answer": "Law on Freedom of Conscience and Religious Associations",
+   "title": "Law on Freedom of Conscience and Religious Associations",
+   "url": "https://en.wikipedia.org/wiki/Law_on_Freedom_of_Conscience_and_Religious_Associations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-875": {
+   "answer": "Holy Rus'",
+   "title": "Holy Rus'",
+   "url": "https://en.wikipedia.org/wiki/Holy_Rus'",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-876": {
+   "answer": "Social estates in the Russian Empire",
+   "title": "Social estates in the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Social_estates_in_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-877": {
+   "answer": "Decree on the Abolition of Estates and Civil Ranks",
+   "title": "Decree on the Abolition of Estates and Civil Ranks",
+   "url": "https://en.wikipedia.org/wiki/Decree_on_the_Abolition_of_Estates_and_Civil_Ranks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-878": {
+   "answer": "Russian nobility",
+   "title": "Russian nobility",
+   "url": "https://en.wikipedia.org/wiki/Russian_nobility",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-879": {
+   "answer": "usadba",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Novaya Usadba",
+    "Lipovskaya Usadba",
+    "Tsentralnaya Usadba 3-go Goskonezavoda",
+    "REN TV",
+    "Putevaya Usadba 9 km zheleznoy dorogi Luostari–Nikel"
+   ]
+  },
+  "ru-880": {
+   "answer": "Serfdom in Russia",
+   "title": "Serfdom in Russia",
+   "url": "https://en.wikipedia.org/wiki/Serfdom_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-881": {
+   "answer": "Yuri's Day",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Yuri's Day",
+   "suggestions": [
+    "Yuri's Day in Autumn",
+    "Yuri's Day in Spring",
+    "Yuri's Day (film)"
+   ]
+  },
+  "ru-882": {
+   "answer": "revision list",
+   "title": "Revision list",
+   "url": "https://en.wikipedia.org/wiki/Revision_list",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-883": {
+   "answer": "Barshchina",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Barshchina",
+   "target": "Corvée#Russian Empire"
+  },
+  "ru-884": {
+   "answer": "kholop",
+   "title": "Kholop",
+   "url": "https://en.wikipedia.org/wiki/Kholop",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-885": {
+   "answer": "serf theatre",
+   "title": "Russian Serf Theatre",
+   "url": "https://en.wikipedia.org/wiki/Russian_Serf_Theatre",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-886": {
+   "answer": "obshchina",
+   "title": "Obshchina",
+   "url": "https://en.wikipedia.org/wiki/Obshchina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-887": {
+   "answer": "selo",
+   "title": "Selo, Russia",
+   "url": "https://en.wikipedia.org/wiki/Selo,_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Selo"
+  },
+  "ru-888": {
+   "answer": "izba",
+   "title": "Izba",
+   "url": "https://en.wikipedia.org/wiki/Izba",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-889": {
+   "answer": "Maslenitsa",
+   "title": "Maslenitsa",
+   "url": "https://en.wikipedia.org/wiki/Maslenitsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-890": {
+   "answer": "volost",
+   "title": "Volost",
+   "url": "https://en.wikipedia.org/wiki/Volost",
    "via": "glossary",
    "status": "ok"
   }
