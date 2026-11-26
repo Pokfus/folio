@@ -82,27 +82,50 @@ and Corcyra have no registry place yet, so those cards carry no `places` id for 
 
 | id | plan line | current answer | famous term | caused by |
 |---|---|---|---|---|
-| rm-439 | Nero | Britannicus | Nero | wh-366 and the glossary |
-| rm-494 | Trajan | optimus princeps | Trajan | wh-367 and the glossary |
-| rm-515 | Marcus Aurelius | Avidius Cassius | Marcus Aurelius | wh-369 |
-| rm-619 | The papacy in late antiquity | Damasus I | Papacy | wh-494 |
-| rm-912 | Saturn | Temple of Saturn | Saturn | astro-148 (the planet) |
-| rm-988 | Roman aqueduct | Aqua Marcia | Roman aqueduct | wh-361 |
+| rm-439 | Nero | Britannicus | Nero | wh-366 and the glossary — **rewritten 2026-11-26** |
+| rm-494 | Trajan | optimus princeps | Trajan | wh-367 and the glossary — **rewritten 2026-11-26** |
+| rm-515 | Marcus Aurelius | Avidius Cassius | Marcus Aurelius | wh-369 — **rewritten 2026-11-26** |
+| rm-619 | The papacy in late antiquity | Damasus I | Papacy | wh-494 — **rewritten 2026-11-26** |
+| rm-912 | Saturn | Temple of Saturn | Saturn | astro-148 (the planet) — **rewritten 2026-11-26** |
+| rm-988 | Roman aqueduct | Aqua Marcia | Roman aqueduct | wh-361 — **rewritten 2026-11-26** |
+
+**Done 2026-11-26**: all six rows were rewritten to the famous term, written from Rome — Tacitus, Suetonius, Dio, Pliny,
+Livy, Frontinus, Procopius, Virgil and Plutarch beside modern scholarship (`add-card.js --replace`; the old answer
+stays a sentence of every background, and the three emperors' date lines take it as their moment row). Nero, Trajan
+and Marcus Aurelius have the person template, a reign timeline, the realm (`members`) and locator of their World
+History twins; `rm-619` answers *papacy* with a late-antique date line, `rm-912` *Saturn* is `undatable` with a new
+picture, and `rm-988` *Roman aqueduct* is dated from the Aqua Appia to the Gothic siege. One glossary term was new,
+`Saturn_(mythology)`, without the bare alias *Saturn* (the planet's). `rm-912`'s Wikipedia link was set by hand to
+*Saturn (mythology)*; `rm-619` links to *Pope* as `wh-494` does. The glossary pin of *Aqua Marcia* went with the old
+answer; `rm-912` and `rm-988` keep the Temple of Saturn and the Aqua Marcia as their places, and Italica has no
+registry place, so `rm-494` carries none.
 
 ### World History
 
 | id | plan line | current answer | famous term | caused by |
 |---|---|---|---|---|
-| wh-543 | The Tale of Genji | Genji Monogatari | Tale of Genji | jp-146 |
-| wh-586 | Eurasian steppe | composite bow | Eurasian Steppe | ru-001 |
-| wh-587 | Nomadic pastoralism | yurt | pastoral nomadism | ru-003 |
-| wh-588 | Xiongnu | Yuezhi | Xiongnu | cnh-225 (also hs-102) |
+| wh-543 | The Tale of Genji | Genji Monogatari | Tale of Genji | jp-146 — **rewritten 2026-11-26** |
+| wh-586 | Eurasian steppe | composite bow | Eurasian Steppe | ru-001 — **rewritten 2026-11-26** |
+| wh-587 | Nomadic pastoralism | yurt | pastoral nomadism | ru-003 — **rewritten 2026-11-26** |
+| wh-588 | Xiongnu | Yuezhi | Xiongnu | cnh-225 (also hs-102) — **rewritten 2026-11-26** |
+
+**Done 2026-11-26**: all four rows were rewritten to the famous term in its global context (`add-card.js --replace`).
+`wh-543` keeps its Genji-scroll picture and Kyoto locator, and dates the tale's reach abroad; `wh-586` and `wh-587` are
+`undatable`, `wh-586` with `ru-001`'s drawn region; `wh-588` is dated from the empire's founding to the northern
+defeat and takes the polity `pol:xiongnu` as its place. The composite bow drops out of `wh-586` (it does not fit a
+card about a place); the yurt and the Yuezhi stay sentences of `wh-587` and `wh-588`. Pictures that showed the old
+answers were dropped. No glossary term was new; `wh-587` links to *Nomadic pastoralism*, the article *Pastoral
+nomadism* redirects to.
 
 ### Korea
 
 | id | plan line | current answer | famous term | caused by |
 |---|---|---|---|---|
-| ko-124 | King Yeongyang and the Sui invasions | Yeongyang | Goguryeo–Sui War | cnh-351 |
+| ko-124 | King Yeongyang and the Sui invasions | Yeongyang | Goguryeo–Sui War | cnh-351 — **rewritten 2026-11-26** |
+
+**Done 2026-11-26**: rewritten to the famous term from Goguryeo's side (the *Samguk sagi*, Korean scholarship), with
+the war template, a 598–614 timeline and `cnh-351`'s Liaoyang locator; its questions leave the Battle of Salsu and
+Eulji Mundeok to `ko-125` and `ko-126`. Its Korean name is now 고구려-수 전쟁, and its Wikipedia link was set by hand.
 
 ### China
 
