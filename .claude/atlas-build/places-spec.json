@@ -1800,28 +1800,6 @@
     "via": "add-place"
    }
   },
-  "pl:q11907359": {
-   "name": "Auximum",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q11907359",
-   "at": [
-    13.4833,
-    43.4833
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340"
-    ],
-    "via": "label",
-    "km": 0.3
-   },
-   "cards": 1
-  },
   "pl:q11909916": {
    "name": "Bovianum",
    "kind": "site",
