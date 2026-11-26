@@ -186,7 +186,7 @@ Each step is one session's work, and each ends with the deck's own check passing
 
 The decisions of §8 stand. What the pass added, and where it is written down:
 
-- **A deck is the generator's output with a record applied** — pinned note ids, 32 cards moved down to A1,
+- **A deck is the generator's output with a record applied** — pinned note ids, 31 cards moved down to A1,
   7 added, an order for A1 and the phrases, a recounted end to every description (`.claude/decks/turkish-*`;
   `.claude/decks/README.md`, "The Turkish decks"). `run.py` alone no longer leaves a finished deck.
 - **§4's card grew**: a noun row ends with two possessed forms (`kitabım`, `kitabı`), a verb row with the

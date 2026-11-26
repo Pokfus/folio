@@ -17,7 +17,7 @@
   364 to 433, and good evening, thank you and goodbye were on the phrases deck, last on the shelf. So:
     · HEAD, written by hand, five to a day: the greetings and courtesies, the pronouns, a first exchange
       (how are you, my name is, pleased to meet you), sorry and excuse me, this / that / what / who,
-      var / yok / değil and the two particles written apart (mi, de), ten verbs and what one eats and
+      var / yok / değil and the two particles written apart (mi, de), fourteen verbs with what one eats and
       drinks, the question words and here / there, zero to ten, five postpositions, and five formulas
       for a guest, a worker, a meal and the sick. A word is met before the phrase that uses it (ad before
       benim adım, saat before saat kaç, kadar before ne kadar).
