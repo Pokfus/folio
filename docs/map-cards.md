@@ -904,3 +904,9 @@ writes the card's own name at `at` (or `label`). The `at` point only places the 
 - **A pack state's `rowYears: { "<year>": <rowYear> }`** (`lib/border-packs.js`, build-history.js `rowsAt`'s third element) draws the state in a
   year by another year's row — the Republic of 59 BCE in the window's year 44 BCE. Keep such a state in its OWN pack: in one pack two overlapping
   rows of similar size are a contested face, which the checker refuses.
+- **A locator region's `land: true`** (2026-11-26, on request, wh-436: "when you select a broad region on the backend, all islands and land within
+  that region is highlighted with its own borders"): draw the rings out into the sea as generously as you like — the fill is cut by the land mask, so
+  the coast and every island inside the rings come from the land itself — and the dashed outline is the union's outer edge only (`LAND REGIONS` in
+  `atlas-windows.js`), so a sea ring laid over a coast draws no seam across land. Only a border that crosses LAND needs authoring. Give every ring
+  the same winding (the fill is non-zero). wh-436 keeps its land rings and adds four sea rings (the Aegean and Crete, the eastern Mediterranean and
+  Cyprus, the central Mediterranean with Sicily, Sardinia and Corsica, the Balearics).

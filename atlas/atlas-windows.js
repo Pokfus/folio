@@ -147,6 +147,13 @@
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
     const readRings = (a) => { if (!a) return null; const out = String(a).split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 3); return out.length ? out : null; };
     const locArea = readRings(host.getAttribute("data-map-area")), locSpine = readPts(host.getAttribute("data-map-spine"));
+    /* LAND REGIONS (2026-11-26, on request, wh-436: "when you select a broad region on the backend, all islands and land within that region is
+       highlighted with its own borders … easier than having to manually align state borders with coastlines every time"). A locator with
+       `land: true` draws its rings out into the sea as generously as it likes: the fill is cut by the land mask (as every area's is), so the
+       coast and every island inside the rings come from the land itself, and the dashed outline is the UNION's outer edge only — stroked
+       twice as wide, then the union's fill cut out of it — so where rings overlap (a sea ring over a coast) no seam is drawn across land.
+       What stays authored is only where a border crosses land. */
+    const locLand = host.getAttribute("data-map-land") === "1";
     // a ROUTE's lines (2026-11-20, the Silk Road): polylines separated by ";", points by a space (app.js cardLocatorWindowHTML)
     const locRoutes = (() => { const a = host.getAttribute("data-map-routes"); if (!a) return null; const out = a.split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 2); return out.length ? out : null; })();
     const locWithin = String(host.getAttribute("data-map-within") || "").trim().toLowerCase(), locLabelPt = readPts(host.getAttribute("data-map-label"));
@@ -516,7 +523,7 @@
     const extYear = () => (tlStep() ? tlStep().year : memYear);
     const extKey = (level) => extYear() + "@" + Math.min(2, level | 0);
     const extCurrent = (o) => !memHist || !memHasPaint || extR.key === extKey(o.level);
-    let extCv = null;
+    let extCv = null, landCv = null;
     function extPath(c, api, rings) {   // unit-vector rings -> a path in the window's CSS px, broken behind the horizon
       for (const ring of rings) {
         const n = ring.length / 3; let pen = false;
@@ -578,7 +585,15 @@
         const paintArea = (m) => {
           m.beginPath(); for (const ring of areaRings) addPath(m, api, ring, true);
           m.globalAlpha = sea ? 0.38 : 1; m.fillStyle = sea ? water : tintFill; m.fill(); m.globalAlpha = 1;
-          if (locArea) { m.setLineDash([7, 5]); m.strokeStyle = sea ? water : TINT_SEL.line; m.lineWidth = 2; m.stroke(); m.setLineDash([]); }   // Find it's marine outline is filled only: Natural Earth splits a sea into several polygons, whose shared edges would show as seams
+          if (locArea && locLand) {   // the union's outer edge only (see LAND REGIONS)
+            if (!landCv) landCv = document.createElement("canvas");
+            if (landCv.width !== cv.width || landCv.height !== cv.height) { landCv.width = cv.width; landCv.height = cv.height; }
+            const o = landCv.getContext("2d"); o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, landCv.width, landCv.height); o.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
+            o.beginPath(); for (const ring of areaRings) addPath(o, api, ring, true);
+            o.setLineDash([7, 5]); o.strokeStyle = TINT_SEL.line; o.lineWidth = 4; o.stroke(); o.setLineDash([]);
+            o.globalCompositeOperation = "destination-out"; o.fillStyle = "#000"; o.fill(); o.globalCompositeOperation = "source-over";
+            m.save(); m.setTransform(1, 0, 0, 1, 0, 0); m.drawImage(landCv, 0, 0); m.restore();
+          } else if (locArea) { m.setLineDash([7, 5]); m.strokeStyle = sea ? water : TINT_SEL.line; m.lineWidth = 2; m.stroke(); m.setLineDash([]); }   // Find it's marine outline is filled only: Natural Earth splits a sea into several polygons, whose shared edges would show as seams
         };
         if (shelf) paintArea(ctx); else paintMasked(ctx, api, paintArea, sea);
       }

@@ -41831,7 +41831,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
     /* `alone` (2026-11-18, on request: "the atlas tag 'Italian peninsula' should not be displayed in the atlas windows of other cards"): this card's
        place is drawn on its OWN window only — never as a sibling on another card's (locatorSiblings). `hide` is the viewing card's choice; this is the place's. */
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, routes: routes && routes.length ? routes : null, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, routes: routes && routes.length ? routes : null, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, land: l.land === true && !!area, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `land` (2026-11-26): see LAND REGIONS in atlas-windows.js; `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -42207,7 +42207,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // "lon,lat lon,lat …" — a compact attribute rather than JSON, which would have to be escaped into
       // the markup and parsed back out again for a list of numbers
       // rings separated by ";", points by a space — `readRings` is the other half of this (see startCardGlobe)
-      (l && l.area ? ' data-map-area="' + warRingsAttr(l.area) + '"' : "") +
+      (l && l.area ? ' data-map-area="' + warRingsAttr(l.area) + '"' + (l.land ? ' data-map-land="1"' : "") : "") +
       (l && l.spine ? ' data-map-spine="' + l.spine.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
       (l && l.routes ? ' data-map-routes="' + l.routes.map((r) => r.map((q) => q[0] + "," + q[1]).join(" ")).join(";") + '"' : "") +
       /* THE TWO SIDES, one pair of attributes each: the names the map may carry, `|`-joined exactly as
