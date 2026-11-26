@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5d0753902b880322","counts":{"terms":1014,"points":778,"countries":236,"windows":1779,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3ac08d34ff5eaea6","counts":{"terms":1014,"points":778,"countries":236,"windows":1781,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1168,6 +1168,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5d0753902b880322","counts":
 "Bahrain":[50.55,26.06,"country","adm0:bhr",0,40],
 "Baiae":[14.07,40.817,"city",0,0,0],
 "Baidicheng":[109.571,31.044,"coord",0,0,0],
+"Baikal–Amur_Mainline":[124.717,55.167,"coord",0,0,0],
 "Baltic_Sea":[20,58,"coord",0,0,0],
 "Baltimore":[-76.622,39.302,"city",0,0,0],
 "Ban_Gioc–Detian_Falls":[106.722,22.856,"region",0,0,0],
@@ -2100,6 +2101,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5d0753902b880322","counts":
 "Netherlands":[5.61,52.42,"country","adm0:nld",0,24.82],
 "Neva":[30.661,59.809,"river",0,0,0],
 "Nevada_(state)":[-117.02,39.43,"admin1","adm1:usa:us-nv",0,9.79],
+"Nevsky_Prospect":[30.353,59.932,"coord",0,0,0],
 "New_Caledonia":[165.08,-21.06,"country","adm0:ncl",0,16.25],
 "New_Carthage":[-0.983,37.6,"site",0,0,0],
 "New_Echota":[-84.91,34.54,"site",0,0,0],
