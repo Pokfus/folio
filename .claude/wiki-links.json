@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-26T14:31Z",
+ "generated": "2026-11-26T18:11Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 8988,
@@ -96265,9 +96265,9 @@
    ]
   },
   "ru-701": {
-   "answer": "Operation Whirlwind",
-   "title": "Operation Whirlwind",
-   "url": "https://en.wikipedia.org/wiki/Operation_Whirlwind",
+   "answer": "Hungarian Revolution of 1956",
+   "title": "Hungarian Revolution of 1956",
+   "url": "https://en.wikipedia.org/wiki/Hungarian_Revolution_of_1956",
    "via": "glossary",
    "status": "ok"
   },
@@ -96301,16 +96301,16 @@
    "from": "Soviet space programme"
   },
   "ru-706": {
-   "answer": "Operation Anadyr",
-   "title": "Operation Anadyr",
-   "url": "https://en.wikipedia.org/wiki/Operation_Anadyr",
+   "answer": "Cuban Missile Crisis",
+   "title": "Cuban Missile Crisis",
+   "url": "https://en.wikipedia.org/wiki/Cuban_Missile_Crisis",
    "via": "glossary",
    "status": "ok"
   },
   "ru-707": {
-   "answer": "Sino-Soviet border conflict",
-   "title": "Sino-Soviet border conflict",
-   "url": "https://en.wikipedia.org/wiki/Sino-Soviet_border_conflict",
+   "answer": "Sino-Soviet split",
+   "title": "Sino-Soviet split",
+   "url": "https://en.wikipedia.org/wiki/Sino-Soviet_split",
    "via": "glossary",
    "status": "ok"
   },
@@ -96343,9 +96343,9 @@
    "status": "ok"
   },
   "ru-711": {
-   "answer": "Brezhnev Doctrine",
-   "title": "Brezhnev Doctrine",
-   "url": "https://en.wikipedia.org/wiki/Brezhnev_Doctrine",
+   "answer": "Prague Spring",
+   "title": "Prague Spring",
+   "url": "https://en.wikipedia.org/wiki/Prague_Spring",
    "via": "glossary",
    "status": "ok"
   },
