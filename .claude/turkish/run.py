@@ -30,7 +30,10 @@ FETCH = {
     "eng_sentences.tsv.bz2": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2",
     "tur-eng_links.tsv.bz2": "https://downloads.tatoeba.org/exports/per_language/tur/tur-eng_links.tsv.bz2",
     # the programme itself, READ for the inventory (supplement.py) and never committed
-    "programme.pdf": "https://turkoloji.turkiyemaarif.org/uploads/2024/11/16436c12901a55.pdf",
+    # (the file moved in Nov 2026: .../uploads/2024/11/16436c12901a55.pdf answers 404; this is the same
+    # document -- 2nd edition, ISBN 978-605-80438-2-4, 320 pages -- and the phrases deck rebuilt from it
+    # counts the same 43 phrases)
+    "programme.pdf": "https://turkoloji.turkiyemaarif.org/uploads/2026/11/turkcenin-yabanci-dil-olarak-ogretimi-programi.pdf",
 }
 
 

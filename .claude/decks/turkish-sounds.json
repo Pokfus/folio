@@ -1,0 +1,808 @@
+{
+ "_": "turkish-sounds.json — the table behind decks/Turkish-Sounds-and-Spelling.folio-deck.json, read by build-turkish-sounds.js. NOTHING IN IT IS COMPOSED. A letter's `ipa` and `like` are the 'Value' and 'English approximation' cells of that letter's row in the table of Wikipedia's 'Turkish alphabet' at the revision in `sources.alphabet` (where the cell also names a French, Korean or Spanish sound, the English half of the cell is the part quoted), and ğ's `name` is the same row's 'Name' cell. A `says` is a list of quotations, each a run of consecutive words of the page named beside it in `src` (alphabet: the notes under that table and the paragraphs after it; phonology: 'Turkish phonology', its sections Consonants, Consonant assimilation, Vowel harmony, Word-accent and Pre-accenting suffixes; grammar: 'Turkish grammar'), with a cut marked […]; a bullet list is quoted with its bullets as semicolons. The static `pairs` of rule:particles are the four bullets of 'Turkish grammar' under its sentence on the interrogative particle. Every other pair is READ OFF THE FORMS ROW of the Turkish A1 card named in `pairsFrom` (the cells named in `cells`), by build-turkish-sounds.js, so a rule shows only forms a card shows. Every word is a Turkish A1 headword, and the transcription beside it is the English Wiktionary's own, the first its entry gives, written by `python3 .claude/turkish/sounds.py --fill` from the kaikki.org extraction (fetched 2026-11-26); a word with an empty transcription has none there. `python3 .claude/turkish/sounds.py --verify` fetches the four revisions and checks every cell and quotation against them. A row's `key` is what its card id is pinned to in turkish-ids.json (deck trsounds): never change one.",
+ "sources": {
+  "alphabet": {
+   "title": "Turkish alphabet",
+   "url": "https://en.wikipedia.org/wiki/Turkish_alphabet",
+   "revid": 1387730069,
+   "date": "2026-11-25"
+  },
+  "phonology": {
+   "title": "Turkish phonology",
+   "url": "https://en.wikipedia.org/wiki/Turkish_phonology",
+   "revid": 1384242891,
+   "date": "2026-11-07"
+  },
+  "grammar": {
+   "title": "Turkish grammar",
+   "url": "https://en.wikipedia.org/wiki/Turkish_grammar",
+   "revid": 1379006387,
+   "date": "2026-10-07"
+  },
+  "wiktionary": {
+   "title": "English Wiktionary, via the kaikki.org extraction",
+   "url": "https://kaikki.org/dictionary/Turkish/",
+   "fetched": "2026-11-26"
+  }
+ },
+ "vowels": [
+  {
+   "key": "vowel:a",
+   "show": "a",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/a/",
+     "like": "As a in f<b>a</b>ther",
+     "words": [
+      [
+       "baba",
+       "/baˈba/"
+      ],
+      [
+       "masa",
+       "[mɑˈsɑ]"
+      ],
+      [
+       "araba",
+       "/ɑ.ɾɑ.ˈbɑ/"
+      ]
+     ],
+     "mark": "a"
+    }
+   ]
+  },
+  {
+   "key": "vowel:e",
+   "show": "e",
+   "says": [
+    "/e/ is realised as [ɛ]~[æ] before coda /m, n, l, r/. E.g. gelmek [ɟɛlˈmec]."
+   ],
+   "src": [
+    "alphabet"
+   ],
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/e/",
+     "like": "As e in r<b>e</b>d",
+     "words": [
+      [
+       "ev",
+       "/ˈev/"
+      ],
+      [
+       "yemek",
+       "/jeˈmec/"
+      ],
+      [
+       "gelmek",
+       "/ɟelˈmec/"
+      ]
+     ],
+     "mark": "e"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ı",
+   "show": "ı",
+   "says": [
+    "Dotted and dotless I are separate letters, each with its own uppercase and lowercase forms. The lowercase form of I is ı, and the lowercase form of İ is i."
+   ],
+   "src": [
+    "alphabet"
+   ],
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ɯ/",
+     "like": "Similar to o in ball<b>o</b>t to a Turkish speaker's ears",
+     "words": [
+      [
+       "kız",
+       "/kɯz/"
+      ],
+      [
+       "ışık",
+       "[ɯˈʃɯk]"
+      ],
+      [
+       "kış",
+       "/ˈkɯʃ/"
+      ]
+     ],
+     "mark": "ı"
+    }
+   ]
+  },
+  {
+   "key": "vowel:i",
+   "show": "i",
+   "says": [
+    "Dotted and dotless I are distinct letters in Turkish such that ⟨i⟩ becomes ⟨İ⟩ when capitalised, ⟨I⟩ being the capital form of ⟨ı⟩."
+   ],
+   "src": [
+    "alphabet"
+   ],
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/i/",
+     "like": "As ee in ch<b>ee</b>se",
+     "words": [
+      [
+       "iyi",
+       "/iˈji/"
+      ],
+      [
+       "iki",
+       "/iˈci/"
+      ],
+      [
+       "bir",
+       "/bir/"
+      ]
+     ],
+     "mark": "i"
+    }
+   ]
+  },
+  {
+   "key": "vowel:o",
+   "show": "o",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/o/",
+     "like": "As o in m<b>o</b>re",
+     "words": [
+      [
+       "on",
+       "/on/"
+      ],
+      [
+       "okul",
+       "/oˈkuɫ/"
+      ],
+      [
+       "çok",
+       "[tʃɔk]"
+      ]
+     ],
+     "mark": "o"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ö",
+   "show": "ö",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/œ/",
+     "like": "Similar to u in n<b>u</b>rse, with lips rounded",
+     "words": [
+      [
+       "göz",
+       "/ˈɟøz/"
+      ],
+      [
+       "görmek",
+       "/ɟøɾˈmec/"
+      ],
+      [
+       "dört",
+       "/ˈdøɾt/"
+      ]
+     ],
+     "mark": "ö"
+    }
+   ]
+  },
+  {
+   "key": "vowel:u",
+   "show": "u",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/u/",
+     "like": "As oo in t<b>oo</b>l",
+     "words": [
+      [
+       "su",
+       "/su/"
+      ],
+      [
+       "uzun",
+       "/uˈzun/"
+      ],
+      [
+       "bulmak",
+       "/buɫ.mɑk/"
+      ]
+     ],
+     "mark": "u"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ü",
+   "show": "ü",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/y/",
+     "like": "Similar to u in c<b>u</b>te",
+     "words": [
+      [
+       "üç",
+       "/ˈyt͡ʃ/"
+      ],
+      [
+       "gün",
+       "/ˈɟyn/"
+      ],
+      [
+       "güzel",
+       "/ɟyˈzel/"
+      ]
+     ],
+     "mark": "ü"
+    }
+   ]
+  }
+ ],
+ "consonants": [
+  {
+   "key": "letter:c",
+   "show": "c",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/d͡ʒ/",
+     "like": "As j in <b>j</b>oy",
+     "words": [
+      [
+       "cuma",
+       "/d͡ʒu.mɑː/"
+      ],
+      [
+       "cadde",
+       "[d͡ʒäd̪.d̪e̞]"
+      ],
+      [
+       "gece",
+       "[ɟe̞ˈd͡ʒɛ]"
+      ]
+     ],
+     "mark": "c"
+    }
+   ]
+  },
+  {
+   "key": "letter:ç",
+   "show": "ç",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/t͡ʃ/",
+     "like": "As ch in <b>ch</b>air",
+     "words": [
+      [
+       "çok",
+       "[tʃɔk]"
+      ],
+      [
+       "çay",
+       "/ˈt͡ʃaj/"
+      ],
+      [
+       "üç",
+       "/ˈyt͡ʃ/"
+      ]
+     ],
+     "mark": "ç"
+    }
+   ]
+  },
+  {
+   "key": "letter:g",
+   "show": "g",
+   "says": [
+    "In native Turkic words, the velar consonants /k, ɡ/ are palatalised to [c, ɟ] when adjacent to the front vowels /e, i, œ, y/."
+   ],
+   "src": [
+    "alphabet"
+   ],
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ɡ/, /ɟ/",
+     "like": "As the first g in <b>g</b>arage",
+     "words": [
+      [
+       "gece",
+       "[ɟe̞ˈd͡ʒɛ]"
+      ],
+      [
+       "gitmek",
+       "/ɟitˈmec/"
+      ],
+      [
+       "gün",
+       "/ˈɟyn/"
+      ]
+     ],
+     "mark": "g"
+    }
+   ]
+  },
+  {
+   "key": "letter:ğ",
+   "show": "ğ",
+   "name": "yumuşak ge",
+   "says": [
+    "(1) Syllable initially: Silent, indicates a hiatus. That is soğan [so.ˈan] and değil [ˈde.il]. (2) Syllable finally after /e/: [j]. E.g. eğri [ej.ˈɾi]. (3) In other cases: Lengthening of the preceding vowel. E.g. bağ [ˈbaː]."
+   ],
+   "src": [
+    "alphabet"
+   ],
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ː], [.], [j]",
+     "like": "",
+     "words": [
+      [
+       "değil",
+       "/deˈ(j)il/"
+      ],
+      [
+       "soğuk",
+       "/soˈuk/"
+      ],
+      [
+       "dağ",
+       "/ˈdaː/"
+      ],
+      [
+       "öğretmen",
+       "/øːɾetˈmɛn/"
+      ],
+      [
+       "yağmur",
+       "/jɑːˈmur/"
+      ]
+     ],
+     "mark": "ğ"
+    }
+   ]
+  },
+  {
+   "key": "letter:j",
+   "show": "j",
+   "says": [
+    "The letter J represents the sound /ʒ/, which only occurs in loanwords (e.g. jilet)."
+   ],
+   "src": [
+    "alphabet"
+   ],
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ʒ/",
+     "like": "As s in mea<b>s</b>ure",
+     "words": [
+      [
+       "jet",
+       "/ʒet/"
+      ],
+      [
+       "jeton",
+       "/ʒeˈton/"
+      ]
+     ],
+     "mark": "j"
+    }
+   ]
+  },
+  {
+   "key": "letter:r",
+   "show": "r",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ɾ/",
+     "like": "Similar to tt in American English be<b>tt</b>er",
+     "words": [
+      [
+       "para",
+       "/paˈɾa/"
+      ],
+      [
+       "kar",
+       "/ˈkaɾ/"
+      ],
+      [
+       "merhaba",
+       "/ˈmæɾ.ha.baː/"
+      ]
+     ],
+     "mark": "r"
+    }
+   ]
+  },
+  {
+   "key": "letter:ş",
+   "show": "ş",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ʃ/",
+     "like": "As sh in <b>sh</b>ow",
+     "words": [
+      [
+       "şey",
+       "/ˈʃej/"
+      ],
+      [
+       "iş",
+       "/iʃ/"
+      ],
+      [
+       "beş",
+       "/beʃ/"
+      ]
+     ],
+     "mark": "ş"
+    }
+   ]
+  },
+  {
+   "key": "letter:y",
+   "show": "y",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/j/",
+     "like": "As y in <b>y</b>es",
+     "words": [
+      [
+       "çay",
+       "/ˈt͡ʃaj/"
+      ],
+      [
+       "şey",
+       "/ˈʃej/"
+      ],
+      [
+       "iyi",
+       "/iˈji/"
+      ]
+     ],
+     "mark": "y"
+    }
+   ]
+  }
+ ],
+ "rules": [
+  {
+   "key": "rule:circumflex",
+   "show": "â î û",
+   "kind": "Turkish spelling",
+   "name": "the circumflex",
+   "says": [
+    "Optional circumflex accents can be used with \"â\", \"î\" and \"û\" to disambiguate words with different meanings but otherwise the same spelling, or to indicate palatalisation of a preceding consonant (for example, while kar /kaɾ/ means 'snow', kâr /caɾ/ means 'profit'), or long vowels in loanwords, particularly from Arabic.",
+    "Native Turkish words have no vowel length distinction."
+   ],
+   "src": [
+    "alphabet",
+    "alphabet"
+   ],
+   "words": [
+    [
+     "pekâlâ",
+     "/pe.caːˈlaː/"
+    ],
+    [
+     "rüzgâr",
+     "/ɾyzˈɟaɾ/"
+    ],
+    [
+     "kar",
+     "/ˈkaɾ/"
+    ]
+   ]
+  },
+  {
+   "key": "rule:stress",
+   "show": "ˈ",
+   "kind": "Turkish stress",
+   "name": "where the stress falls",
+   "says": [
+    "In most words the accent comes on the last syllable of the word. This final accent is the default situation, but there are some words, such as place names, foreign borrowings, words containing certain suffixes, and certain adverbs, that have exceptional stress."
+   ],
+   "src": [
+    "phonology"
+   ],
+   "words": [
+    [
+     "kitap",
+     "/ciˈtap/"
+    ],
+    [
+     "çocuk",
+     "/t͡ʃoˈd͡ʒuk/"
+    ],
+    [
+     "araba",
+     "/ɑ.ɾɑ.ˈbɑ/"
+    ],
+    [
+     "görmek",
+     "/ɟøɾˈmec/"
+    ],
+    [
+     "merhaba",
+     "/ˈmæɾ.ha.baː/"
+    ]
+   ]
+  },
+  {
+   "key": "rule:twofold",
+   "show": "-ler · -lar",
+   "kind": "Turkish vowel harmony",
+   "name": "a suffix with e or a",
+   "says": [
+    "Grammatical suffixes feature vowel harmony, meaning that the vowels of suffixes change to harmonize with the vowel of the preceding syllable.",
+    "twofold (/e/~/a/): […] Backness is preserved, that is, /e/ appears following a front vowel and /a/ appears following a back vowel. For example, the locative suffix is -de after front vowels and -da after back vowels."
+   ],
+   "src": [
+    "phonology",
+    "phonology"
+   ],
+   "heads": [
+    "word",
+    "plural",
+    "locative"
+   ],
+   "pairsFrom": [
+    "ev",
+    "gün",
+    "göz",
+    "kız",
+    "oda",
+    "okul"
+   ],
+   "cells": [
+    "plural",
+    "locative"
+   ],
+   "words": [
+    [
+     "ev",
+     "/ˈev/"
+    ],
+    [
+     "kız",
+     "/kɯz/"
+    ]
+   ]
+  },
+  {
+   "key": "rule:fourfold",
+   "show": "-i · -ı · -ü · -u",
+   "kind": "Turkish vowel harmony",
+   "name": "a suffix with i, ı, ü or u",
+   "says": [
+    "fourfold (/i/~/y/~/ɯ/~/u/): Both backness and rounding are preserved. For example, the genitive suffix is -in after unrounded front vowels, -ün after rounded front vowels, -ın after unrounded back vowels, and -un after rounded back vowels."
+   ],
+   "src": [
+    "phonology"
+   ],
+   "heads": [
+    "word",
+    "genitive",
+    "accusative",
+    "my"
+   ],
+   "pairsFrom": [
+    "ev",
+    "iş",
+    "gün",
+    "göz",
+    "kız",
+    "baş",
+    "okul",
+    "yol"
+   ],
+   "cells": [
+    "genitive",
+    "accusative",
+    "my"
+   ],
+   "words": [
+    [
+     "gün",
+     "/ˈɟyn/"
+    ],
+    [
+     "okul",
+     "/oˈkuɫ/"
+    ]
+   ]
+  },
+  {
+   "key": "rule:iyor",
+   "show": "-iyor",
+   "kind": "Turkish vowel harmony",
+   "name": "the present: its o never changes",
+   "says": [
+    "In the isolated case of /o/ in the verbal progressive suffix -i⁴yor it is immutable, breaking the vowel harmony such as in yürüyor ('[he/she/it] is walking').",
+    "The first syllable of the imperfective suffix (-iyor) exhibits vowel harmony while the second is invariable. When suffixed to a stem ending in a vowel, that vowel is elided: ye- + -iyor → yiyor."
+   ],
+   "src": [
+    "phonology",
+    "grammar"
+   ],
+   "heads": [
+    "verb",
+    "present",
+    "negative"
+   ],
+   "pairsFrom": [
+    "gelmek",
+    "bilmek",
+    "almak",
+    "görmek",
+    "bulmak",
+    "yürümek",
+    "okumak",
+    "yemek",
+    "istemek"
+   ],
+   "cells": [
+    "present",
+    "negative"
+   ],
+   "words": [
+    [
+     "gelmek",
+     "/ɟelˈmec/"
+    ],
+    [
+     "almak",
+     "/aɫˈmak/"
+    ]
+   ]
+  },
+  {
+   "key": "rule:voicing",
+   "show": "p ç t k → b c d ğ",
+   "kind": "Turkish spelling",
+   "name": "a final consonant before a vowel",
+   "says": [
+    "/b, d, d͡ʒ, ɡ, ɟ/ are devoiced to [p, t, t͡ʃ, k, c] word- and morpheme-finally, as well as before a consonant: /edˈmeɟ/ ('to do, to make') is pronounced [etˈmec]. (This is reflected in the orthography, so that it is spelled ⟨etmek⟩). When a vowel is added to nouns ending with postvocalic /ɡ/, it is lenited to ⟨ğ⟩ (see below); this is also reflected in the orthography."
+   ],
+   "src": [
+    "phonology"
+   ],
+   "heads": [
+    "word",
+    "accusative",
+    "locative"
+   ],
+   "pairsFrom": [
+    "kitap",
+    "dolap",
+    "ağaç",
+    "ilaç",
+    "yoğurt",
+    "adet",
+    "çocuk",
+    "ekmek"
+   ],
+   "cells": [
+    "accusative",
+    "locative"
+   ],
+   "words": [
+    [
+     "kitap",
+     "/ciˈtap/"
+    ],
+    [
+     "çocuk",
+     "/t͡ʃoˈd͡ʒuk/"
+    ]
+   ]
+  },
+  {
+   "key": "rule:assimilation",
+   "show": "-de · -te",
+   "kind": "Turkish spelling",
+   "name": "a suffix's d after a voiceless consonant",
+   "says": [
+    "Because of assimilation, an initial voiced consonant of a suffix is devoiced when the word it is attached to ends in a voiceless consonant. For example, the locative of şev (slope) is şevde (on the slope), but şef (chef) has locative şefte"
+   ],
+   "src": [
+    "phonology"
+   ],
+   "heads": [
+    "word",
+    "locative",
+    "ablative"
+   ],
+   "pairsFrom": [
+    "ev",
+    "okul",
+    "deniz",
+    "iş",
+    "sokak",
+    "ağaç",
+    "kitap"
+   ],
+   "cells": [
+    "locative",
+    "ablative"
+   ],
+   "words": [
+    [
+     "deniz",
+     "/deˈniz/"
+    ],
+    [
+     "sokak",
+     "[soˈkɑk]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:particles",
+   "show": "mi · mı · mu · mü",
+   "kind": "Turkish spelling",
+   "name": "the question particle, written apart",
+   "says": [
+    "The interrogative particle (soru eki) is not written as a suffix, but phonetically it is enclitic; in particular, it exhibits vowel harmony",
+    "The following, though written separately, are pronounced as if pre-accenting suffixes, and the stress on the final syllable of the preceding word is more pronounced than usual: de/da ('also', 'even'): elmalar da ('even apples'); mi/mu (interrogative): elmalar mı? ('apples?')"
+   ],
+   "src": [
+    "grammar",
+    "phonology"
+   ],
+   "heads": [
+    "particle",
+    "vowel harmony"
+   ],
+   "pairs": [
+    [
+     "mi",
+     "front-unrounded vowel harmony: i, after e and i"
+    ],
+    [
+     "mı",
+     "back-unrounded vowel harmony: ı, after a and ı"
+    ],
+    [
+     "mu",
+     "back-rounded vowel harmony: u, after o and u"
+    ],
+    [
+     "mü",
+     "front-rounded vowel harmony: ü, after ö and ü"
+    ]
+   ],
+   "words": [
+    [
+     "mi",
+     ""
+    ],
+    [
+     "de",
+     "/dɛ/"
+    ]
+   ]
+  }
+ ]
+}

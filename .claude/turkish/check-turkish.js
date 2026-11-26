@@ -2,14 +2,18 @@
 /* The Turkish decks' own check: node .claude/turkish/check-turkish.js
    Reads every decks/Turkish-*.folio-deck.json and fails on the faults this pipeline has had or could have:
    a word taught on two levels, a card defined by a pointer rather than English ("possessive of ağrı",
-   "synonym of …", a letter's name), a forms label the generator does not write, unbalanced HTML, an id out
-   of sequence, two notes sharing an English side (the reverse card would have two answers). */
+   "synonym of …", a letter's name), a forms label the generator does not write, unbalanced HTML, an id that
+   is not the one pinned in .claude/decks/turkish-ids.json (since the beginner pass of Nov 2026 a deck is no
+   longer numbered by position: turkish-fix.js applies the pin), a retired number in use, two notes sharing
+   an English side (the reverse card would have two answers). The sounds deck (card type `trsound`) is
+   build-turkish-sounds.js's and is held to its pin by turkish-fix.js; it is skipped here. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const LABELS = new Set(["plural", "accusative", "dative", "locative", "ablative", "genitive",
-  "present", "aorist", "past", "future"]);
+const PIN = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "decks", "turkish-ids.json"), "utf8"));
+const LABELS = new Set(["plural", "accusative", "dative", "locative", "ablative", "genitive", "my", "his, her",
+  "present", "aorist", "past", "future", "negative", "imperative", "imperative (siz)"]);
 // a gloss that IS a pointer, anchored at its start: "sides (Arabized plural of taraf)" is English with a note
 const POINTER = /^(?:(?:first|second|third)-person|plural|accusative|dative|locative|ablative|genitive|inflection|definite|possessive)\b[^;]* of \S+$|^(?:synonym|alternative form) of \S+$|Latin(?:-script)? (?:script )?letter|^letter of the \w+ alphabet/i;
 let fail = 0;
@@ -20,10 +24,13 @@ const seen = new Map();
 for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
-  const eng = new Map();
+  if (!d.meta.types.turkish) continue;
+  const eng = new Map(), pin = PIN[id] || {}, retired = new Set(Object.values((PIN._retired || {})[id] || {}));
+  if (Object.keys(pin).length !== d.cards.length) bad(f + ": " + d.cards.length + " notes and " + Object.keys(pin).length + " pinned");
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
-    if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
+    if (c.id !== "u_" + id + "_" + pin[w]) bad(f + ": " + w + " has id " + c.id + ", pinned to " + pin[w]);
+    if (retired.has(pin[w])) bad(f + ": " + w + " carries the retired number " + pin[w]);
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
     if (!F.English) bad(f + ": " + w + " has no English");

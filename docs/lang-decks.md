@@ -3615,6 +3615,33 @@ changed was the one that had been wrong all along.
   gloss "that place" and are told apart only by the shared "not …" label; `misafir` opens on Wiktionary's
   first sense, "leucoma", before "guest"; and A2's fill carries the subtitles' crime-drama vocabulary
   (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
+  **THE BEGINNER PASS (2026-11-26) — the generator is no longer the last word on a deck.** "The Turkish
+  beginner pass" below is the reasoning; the rules it left are these. (1) **A deck is the generator's output
+  with a RECORD applied** (`.claude/decks/turkish-fixes.json`, `turkish-ids.json`, `turkish-order.json`,
+  applied by `turkish-fix.js`; `.claude/decks/README.md`, "The Turkish decks"): ids are PINNED, never
+  positions, so `run.py` alone leaves a deck numbered wrongly and unordered — always follow it with
+  `inserts.py`, `turkish-fix.js`, `turkish-order.js`, `turkish-fix.js`, `build-turkish-sounds.js`,
+  `turkish-fix.js`. (2) **"A re-run is byte-identical" is true of the code, not of the sources**: with every
+  source fetched fresh on 2026-11-26 the six decks came out with 3 sentences and 11 phrase positions other
+  than shipped, each traced to Tatoeba's export (a sentence that gained its full stop, a new sentence, counts
+  that moved). The pin and the order file make the positions harmless. (3) **`tr.words_below` reads the
+  record**, for `select.taught_below` and `phrases.taught`: a card the record moved down is still dealt to
+  the level it was generated in, and `turkish-fix.js` moves it again. (4) **The forms row is longer**: a noun
+  ends with `my` and `his, her` (the nominative, one thing owned: the cells whose tags are exactly those),
+  a verb with `negative` (the third row of the `negative`+`continuative` block), `imperative` and
+  `imperative (siz)` (the first and third rows of the `imperative` block, which has no first person); a
+  pronoun shows its plural where that is no live headword (`o`: `onlar`). Each is checked by shape, and the
+  command to `siz` against the corpus (`siz_doubtful`: the table gives `diyin` for `demek`, 391 in the
+  subtitles against `deyin` 4,004 — dropped and reported). (5) **A sentence is found by the word's forms
+  MINUS other words' spellings** (`examples.forms_of(strict=True)`): a form that is another live headword's
+  own spelling, a cell of a pronoun's table, or — for a verb whose stem is a word (`var`, `et`, `geç`) — a
+  cell of that word's table, finds no sentence. A pronoun's own card keeps every cell. What it cannot see is
+  a word whose own spelling is two words (`bin`, `hala` for `hâlâ`). (6) **A sense tagged `formal` or
+  `informal` prints the tag after its gloss** (`nasılsınız`: "how are you? (formal)"), which is what tells
+  sen from siz on the English → Turkish card. (7) **The programme's PDF moved** in Nov 2026 (the 2024 URL is
+  a 404); `run.py` names the new one, the same edition and ISBN, and the phrases deck rebuilt from it
+  counts the same 43 phrases. (8) **`mi`, `de` and the one-word formulas are cards of A1 by the record**,
+  not by `select.py`, whose exclusion of `mi` and `de` stands for the frequency fill.
 - `.claude/korean/` — the generator behind the **Korean decks** (Nov 2026, on request: "And a Korean language
   collection."). **Built, five files**: `Korean-Alphabet-Hangul` (40 letters), `Korean-Stage-A` (922 notes),
   `Korean-Stage-B` (2,063), `Korean-Stage-C` (2,806) and `Korean-Phrases-and-Expressions` (517: 41 phrases, 316

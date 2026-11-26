@@ -35,14 +35,56 @@ def read_tsv(name):
             yield line.rstrip("\n").split("\t")
 
 
-def forms_of(D, word):
-    out = {tr.fold(word)}
+OWN, PRON_CELLS = set(), {}
+
+
+def others(D):
+    """The spellings that belong to another word: every live lower-case headword's own spelling, and
+    every cell of a pronoun's table (with the pronoun it is a cell of)."""
+    if not OWN:
+        for w, entries in D.items():
+            if w != tr.fold(w) or " " in w:
+                continue
+            for e in entries:
+                if tr.live(e):
+                    OWN.add(w)
+                    if e["pos"] == "pron":
+                        for f, _ in tr.table_forms(e, w):
+                            PRON_CELLS.setdefault(tr.fold(f), set()).add(w)
+    return OWN, PRON_CELLS
+
+
+def forms_of(D, word, strict=False):
+    """The spellings a sentence may show the word in.
+
+    `strict` (a single word's own card, since the beginner pass of Nov 2026): A FORM THAT IS ANOTHER
+    WORD'S SPELLING FINDS NO SENTENCE.  Measured on A1 as shipped: `demek` "to say" carried `Ben de
+    gittim` ("I also went": `de`, "too", is demek's imperative as well), `on` "ten" three sentences of
+    `onu / onun / ondan` ("him, his, from him": cells of `o`), `varmak` "to arrive" three of `var`
+    "there is", `iç` "inside" two of `için` "for", `ay` "moon" a bear (`ayı`), `mart` a seagull.  So a
+    table form other than the word's own spelling is dropped when it is the spelling of another live
+    headword, or a cell of a pronoun's table; and a verb whose bare stem is a word of its own (`var`,
+    `et`, `geç`) loses every form that word's table also carries (`vardı` is "there was" far oftener
+    than "arrived").  A pronoun's own card keeps every cell (`benim` has an entry of its own, and is
+    `ben`'s all the same -- `select.py` says so for the count).  It costs a verb the sentences of a form that is also a noun
+    (`okur` "reader", `girdi` "input", `bak` "look!") and never a card its sentences: a verb has
+    hundreds of other cells.  What no rule here sees is a word whose OWN spelling is ambiguous: `bin`
+    "thousand" still finds `Bir otobüse bin` ("take a bus"), `hala` "aunt" a `hâlâ` written plain."""
+    me = tr.fold(word)
+    out = {me}
+    own, cells = others(D) if strict else (set(), {})
+    is_pron = any(e["pos"] == "pron" and tr.live(e) for e in D.get(word, []))
     for e in D.get(word, []):
         if tr.live(e):
             # a pronoun's table carries its plural as cells (`ben` -> `biz`, `bizim`), and those are
             # other cards' words; a noun's plural is its own word's plural and stays
             out |= {tr.fold(f) for f, t in tr.table_forms(e, word)
                     if " " not in f and not (e["pos"] == "pron" and "plural" in t)}
+    if strict and not is_pron:
+        out = {f for f in out if f == me or not (f in own or cells.get(f, set()) - {word})}
+        stem = me[:-3]
+        if me.endswith(("mak", "mek")) and stem in own and any(e["pos"] == "verb" for e in D.get(word, [])):
+            out -= {tr.fold(f) for e in D[stem] if tr.live(e) for f, _ in tr.table_forms(e, stem)} - {me}
     return out
 
 
@@ -69,7 +111,8 @@ def main():
         toks = tr.tokens(text)
         toks = [t.split("'")[0] for t in toks]
         # a set phrase is often a whole sentence of two words ("Bol şans!"), so the phrases deck admits them
-        if not ((2 if a.level == "phr" else MIN_W) <= len(toks) <= MAX_W):
+        # ...and so do the record's added cards (`inserts.py`, level `ins`): `Merhaba, nasılsın?`
+        if not ((2 if a.level in ("phr", "ins") else MIN_W) <= len(toks) <= MAX_W):
             continue
         r = len(en[0]) / max(1, len(text))
         if r > 3 or r < 1 / 3:
@@ -102,7 +145,7 @@ def main():
                         return " ".join(toks[i:i + n])
                 return None
         else:
-            fs = forms_of(D, w)
+            fs = forms_of(D, w, strict=True)
             cand = sorted({i for f in fs for i in index.get(f, [])})
             hit_of = lambda toks: next((t for t in toks if t in fs), None)
         got, seen_tr, seen_en, seen_frame = [], set(), set(), set()

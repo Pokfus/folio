@@ -181,3 +181,22 @@ Each step is one session's work, and each ends with the deck's own check passing
 - **a. The spine**: the programme's per-theme vocabulary, headwords only.
 - **b. B1+**: folded into B1.
 - **c. Names**: English — the collection "Turkish", decks "Turkish A1" … in files `Turkish-<level>`.
+
+## 9. The beginner pass (2026-11-26) — what changed after the plan was built
+
+The decisions of §8 stand. What the pass added, and where it is written down:
+
+- **A deck is the generator's output with a record applied** — pinned note ids, 32 cards moved down to A1,
+  7 added, an order for A1 and the phrases, a recounted end to every description (`.claude/decks/turkish-*`;
+  `.claude/decks/README.md`, "The Turkish decks"). `run.py` alone no longer leaves a finished deck.
+- **§4's card grew**: a noun row ends with two possessed forms (`kitabım`, `kitabı`), a verb row with the
+  negative of the present and the two commands (`gitmiyor`; `git`, `gidin`), still READ from the
+  dictionary, never derived.
+- **§5's pitfall 2 has a sequel**: the forms that invert onto the wrong lemma for the COUNT also find the
+  wrong SENTENCE (`on` "ten" by `onu` "him"). `examples.forms_of(strict=True)` is the rule.
+- **§2's source moved**: the programme's PDF is at
+  `turkoloji.turkiyemaarif.org/uploads/2026/11/turkcenin-yabanci-dil-olarak-ogretimi-programi.pdf` (the same
+  2nd edition and ISBN; the 2024 address answers 404).
+- **A seventh deck**, `Turkish — Sounds and spelling`, which no step of §7 planned.
+
+The findings, the measurements and what was decided against: `docs/lang-decks.md`, "The Turkish beginner pass".

@@ -45,7 +45,9 @@
             same cache; nothing in them is typed by hand.
     `decks` `{ <deck id>: { subtitle?, descSub?, tail? } }`. `subtitle` is a template. `descSub` is
         `[find, replace]` pairs over the generator's description, each satisfied if it matched or if its
-        replacement already stands. `tail` is a paragraph that ENDS the description, beginning with the
+        replacement already stands. `hints` is `{ word: other word }`: the label `not <other word>` on the
+        first part-of-speech line of a card's English side (the generator's own label for two notes of one
+        deck with the same English, for cards the record brought together). `tail` is a paragraph that ENDS the description, beginning with the
         words THE BEGINNER PASS: on every run whatever stands from those words on is cut and the tail is
         written again, so its figures are always recounted. Placeholders, in `subtitle` and `tail`:
         {notes} {cards} {days} (the deck, at five notes a day), {from} {to} (the days it occupies when the
@@ -232,6 +234,22 @@ for (const id of SHELF) {
     continue;
   }
   D[id].deck.cards = want.map((k) => by.get(k));
+}
+
+// ---- 4b. hints: the generator's own `not <word>` label, on two cards the record brought together ------------
+/* The generator ends by labelling the notes of a deck that share an English side (`.claude/dedupe-glosses.py`:
+   "pronoun, not orası"), but it deals each deck alone: a card moved in from another deck, or built by
+   inserts.py, was never compared with its new neighbours. `hints` names those, `{ word: other word }`, and
+   the same label is put in the same place — the FIRST part-of-speech line of the English side, which is the
+   front of the English → Turkish card. Idempotent: a line that already carries the label is left. */
+for (const id of Object.keys(REC.decks || {})) {
+  const hints = REC.decks[id].hints || {};
+  for (const w of Object.keys(hints)) {
+    const c = D[id].deck.cards.find((x) => x.fields.Word === w), o = D[id].deck.cards.find((x) => x.fields.Word === hints[w]);
+    if (!c || !o) { fail("decks." + id + ".hints: " + w + " or " + hints[w] + " is not a card of the deck"); continue; }
+    const label = ", not " + hints[w];
+    c.fields.English = c.fields.English.replace(/<div class="uc-pos">([^<]*)<\/div>/, (m, pos) => (pos.endsWith(label) ? m : '<div class="uc-pos">' + pos + label + "</div>"));
+  }
 }
 
 // ---- 5. subtitles and descriptions, recounted ------------------------------------------------------------

@@ -381,6 +381,47 @@ moved. To move a word down: add it to a list at the top of `inserts.py`, run the
 a sign to the alphabet: a row of `LETTERS` in `alphabet.py` whose comparison is a cell of the key and
 whose rule is a quoted phrase (`--verify`), and its number in `urdu-ids.json`.
 
+## The Turkish decks: the generator, the record, the pinned ids, the order and the sounds deck (Nov 2026)
+
+Seven decks: A1, A2, B1, B2, C1 and the phrases (card type `turkish`) and the sounds deck (card type
+`trsound`). As with Urdu, **the generator (`.claude/turkish/`, Python, a 770 MB cache) reproduces the six
+word decks** — proved before the pass with every source fetched fresh (`docs/lang-decks.md`, "The Turkish
+beginner pass": 3 sentences and 11 positions of 4,776 notes differed, each traced to Tatoeba's export having
+moved). So a fault the generator can fix is fixed THERE, and the record holds only what is a decision about
+one card or one order: which cards move down to A1, which are added, the order, the end of each description.
+**A word is ONE NOTE with two card templates**, so the pin is of note ids (a card id is the note id, plus
+`~2` for English → Turkish).
+
+    node turkish-fix.js --check               # the decks are what the record, the pin and the order make of them
+    node turkish-order.js --check             # the order file is what its rules give
+    node build-turkish-sounds.js --check      # the sounds deck is what its table and Turkish A1 give
+    node ../turkish/check-turkish.js          # no word on two decks, pinned ids, known forms labels, balanced markup
+    python3 ../turkish/inserts.py --check     # the record's added cards are what the generator's code builds (needs the cache; not in CI)
+    python3 ../turkish/sounds.py --verify     # every cell and quotation of the sounds table is in its pinned Wikipedia revision (not in CI)
+
+| file | what it is |
+|---|---|
+| `turkish-fixes.json` | the record. `add`: deck id → rows, each `word`, `id` and `why`, and either `from` (a MOVE: the generator deals the card to that deck; `turkish-fix.js` takes it out of there whole, so a generator fix reaches it) or `fields` and `src` (an INSERT: a card no deck had). **`add` is written by `../turkish/inserts.py`, never by hand** — its lists are at the top of that script. `decks`: each deck's `subtitle` template, `descSub` pairs, `hints` (a reverse-card label, `not <the other word>`, on two cards the record brought together) and `tail`, the paragraph that ends its description and is recounted on every run. |
+| `turkish-ids.json` | deck id → headword (for the sounds deck, the row's `key`) → the number in the note's id. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` by the move's own row. APPLIED, so a deck the generator has just numbered by position is numbered back. Seeded on 2026-11-26 from the six decks as shipped (4,776 rows, each equal to its position). |
+| `turkish-order.json` | deck id → every headword in the order the deck is dealt (A1, the phrases). Written by `turkish-order.js`; a list that is not exactly the deck's headwords is refused. A deck with no entry (A2 to C1) is dealt in the order of its pinned numbers. |
+| `turkish-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank as first shipped) and never from the file's own order: A1's hand-written head of 100, the closed sets at stated note numbers; the phrases by reading level inside each subdeck. A card the record added to A1 that is named nowhere is an error. `--report` prints where everything fell. |
+| `turkish-fix.js` | applies all three, in this order: the moves and inserts, the dup check, the ids, the order, the hints, the subtitles and descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. Holds the sounds deck to its pin and counts it on the shelf; never writes it. |
+| `turkish-sounds.json` | the sounds table: cells and sentences quoted from three Wikipedia pages at the revisions it names, and the English Wiktionary's transcription of each example word (written by `../turkish/sounds.py --fill`). A row's `key` is what its id is pinned to. A rule's table of forms is not stored: `pairsFrom` names A1 cards and `cells` the labels of their Forms rows. |
+| `build-turkish-sounds.js` | writes `Turkish-Sounds-and-Spelling` (card type `trsound`). **Reads no live source**: the table and the shipped A1 deck. |
+| `../turkish/inserts.py` | builds the `add` rows: checks every move against the pin, and builds an insert's five fields with `build_deck.py`'s own functions from kaikki, its sentences found by `examples.py` (level `ins`). |
+
+`turkish-fix.js` finds its decks by CARD TYPE. **A rebuild**, after any change to the generator:
+`python3 ../turkish/run.py --level a1` … `a2`, `b1`, `b2`, `c1`, `phr` (all six: a moved card lives in the deck it
+came from until `turkish-fix.js` moves it, and is not stored in the record), `../turkish/inserts.py`,
+`turkish-fix.js`, `turkish-order.js`, `turkish-fix.js` again, `build-turkish-sounds.js`, `turkish-fix.js` a
+third time (the sounds deck's days are in every tail), `node .claude/build-lang-decks.js`. `tr.words_below`
+reads the record, so each level — and the phrases deck — is dealt the list it was dealt before anything
+moved. To move a word down: add it to `MOVES` at the top of `inserts.py`, run the sequence from `inserts.py`
+on, and name it in the head or a set of `turkish-order.js` if it lands in A1. To add a card no deck has: a
+row of `INSERTS` (the English Wiktionary must have a live entry for it; a phrase entry of one word counts).
+To add a letter or a rule to the sounds deck: a row of `turkish-sounds.json` whose cells and sentences are
+quoted (`sounds.py --verify`), `sounds.py --fill`, `build-turkish-sounds.js`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a
