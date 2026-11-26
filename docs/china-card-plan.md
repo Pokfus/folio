@@ -336,8 +336,8 @@ second home at writing time where it genuinely earns one — the obvious cases:
 - `cnh-240 Sima Qian`, `cnh-241 Records of the Grand Historian` → also `cn-government`, where
   historiography is taught
 - `cnh-459 Zhu Xi`, `cnh-460 Neo-Confucianism` → also `cn-thought`
-- `cnh-978 Wujing Zongyao` (planned as *Gunpowder*), `cnh-976 Diamond Sutra` (planned as *Woodblock printing*) → could also
-  go in the Song and Tang decks; not cross-listed when they were written
+- `cnh-978 gunpowder`, `cnh-976 woodblock printing` (written as *Wujing Zongyao* and *Diamond Sutra* until the answer-steer
+  rewrite of 2026-11-26) → could also go in the Song and Tang decks; not cross-listed
 
 Do not cross-list wholesale. A deck that contains everything relevant is a deck nobody finishes.
 
@@ -1176,7 +1176,7 @@ already shipped before adding it.
     cnh-701  Chinese Empire
     cnh-702  Emperor of China
     cnh-703  dynastic cycle
-    cnh-704  Jiangnan Examination Hall
+    cnh-704  imperial examination
     cnh-705  eight-legged essay
     cnh-706  juren
     cnh-707  rule of avoidance
@@ -1194,13 +1194,13 @@ already shipped before adding it.
     cnh-719  ever-normal granary
     cnh-720  weisuo system
     cnh-721  Green Standard Army
-    cnh-722  Shanhai Pass
+    cnh-722  Great Wall
     cnh-723  Nine Border Garrisons
     cnh-724  Siyi Guan
     cnh-725  kowtow
     cnh-726  Yu ji tu
     cnh-727  Kaogong ji
-    cnh-728  Hall of Mental Cultivation
+    cnh-728  Hall of Supreme Harmony
     cnh-729  Temple of Agriculture
     cnh-730  Eastern Depot
     cnh-731  Imperial Household Department
@@ -1261,9 +1261,9 @@ already shipped before adding it.
     cnh-780  Shatuo
     cnh-781  Altan Khan
     cnh-782  Manchu people
-    cnh-783  Golden Urn
+    cnh-783  Tibet
     cnh-784  Tibetan people
-    cnh-785  Xinjiang Production and Construction Corps
+    cnh-785  Xinjiang
     cnh-786  Uyghurs
     cnh-787  Hui people
     cnh-788  Great Mosque of Xi'an
@@ -1312,29 +1312,29 @@ already shipped before adding it.
 
 ### Chinese philosophy — `cn-thought`
 
-    cnh-826  Huang–Lao
-    cnh-827  Lüshi Chunqiu
-    cnh-828  Yan Hui
-    cnh-829  Zilu
-    cnh-830  Shu (reciprocity)
-    cnh-831  Liji
-    cnh-832  Zhongyong
-    cnh-833  Wenmiao
-    cnh-834  Four Beginnings
-    cnh-835  Discourse on Heaven
+    cnh-826  Chinese philosophy
+    cnh-827  Hundred Schools of Thought
+    cnh-828  Confucius
+    cnh-829  Analects
+    cnh-830  ren
+    cnh-831  li
+    cnh-832  junzi
+    cnh-833  Confucianism
+    cnh-834  Mencius
+    cnh-835  Xunzi
     cnh-836  Gaozi
-    cnh-837  Hangu Pass
+    cnh-837  Laozi
     cnh-838  Guodian Chu Slips
-    cnh-839  Heshang Gong
-    cnh-840  Cook Ding
-    cnh-841  Liezi
-    cnh-842  Qiwulun
+    cnh-839  Dao
+    cnh-840  wu wei
+    cnh-841  Daoism
+    cnh-842  Zhuangzi
     cnh-843  Mozi
-    cnh-844  Gongshu Ban
-    cnh-845  Shen Buhai
-    cnh-846  Two Handles
-    cnh-847  Hui Shi
-    cnh-848  He Tu and Luo Shu
+    cnh-844  Mohism
+    cnh-845  Legalism
+    cnh-846  Han Feizi
+    cnh-847  School of Names
+    cnh-848  yin and yang
     cnh-849  Wu Xing
     cnh-850  Zou Yan
     cnh-851  Ten Wings
@@ -1353,7 +1353,7 @@ already shipped before adding it.
     cnh-864  Yan Ruoqu
     cnh-865  Huang Zongxi
     cnh-866  Quanxue pian
-    cnh-867  Science and Metaphysics debate
+    cnh-867  New Confucianism
 
 ### Religion and ritual — `cn-religion`
 
@@ -1364,14 +1364,14 @@ already shipped before adding it.
     cnh-872  Luopan
     cnh-873  Chinese almanac
     cnh-874  Fengshan
-    cnh-875  Mingtang
+    cnh-875  Temple of Heaven
     cnh-876  Lingbao
     cnh-877  Zhang Daoling
     cnh-878  Baopuzi
     cnh-879  Daozang
     cnh-880  White Cloud Temple
     cnh-881  Wang Zhe
-    cnh-882  Liu Ying
+    cnh-882  Chinese Buddhism
     cnh-883  An Shigao
     cnh-884  Dharmaraksa
     cnh-885  Kumarajiva
@@ -1379,7 +1379,7 @@ already shipped before adding it.
     cnh-887  Zhiyi
     cnh-888  Fazang
     cnh-889  Huiyuan
-    cnh-890  Platform Sutra
+    cnh-890  Chan Buddhism
     cnh-891  Baizhang Huaihai
     cnh-892  Dazu Rock Carvings
     cnh-893  Mogao Caves
@@ -1460,7 +1460,7 @@ already shipped before adding it.
     cnh-960  Chinese embroidery
     cnh-961  Huanghuali
     cnh-962  Fujian tulou
-    cnh-963  Nanchan Temple
+    cnh-963  dougong
     cnh-964  Giant Wild Goose Pagoda
     cnh-965  Yuanye
     cnh-966  Wu Liang Shrine
@@ -1476,11 +1476,11 @@ already shipped before adding it.
     cnh-973  Four Great Inventions
     cnh-974  Needham Question
     cnh-975  Fangmatan
-    cnh-976  Diamond Sutra
+    cnh-976  woodblock printing
     cnh-977  Hua Sui
-    cnh-978  Wujing Zongyao
+    cnh-978  gunpowder
     cnh-979  Heilongjiang hand cannon
-    cnh-980  Dream Pool Essays
+    cnh-980  compass
     cnh-981  Mao Kun map
     cnh-982  Dunhuang Star Chart
     cnh-983  Beijing Ancient Observatory

@@ -13168,7 +13168,16 @@ window.GLOSSARY = {
 "Izba": "",
 "Maslenitsa": "",
 "Volost": "",
-"Possessors": ""
+"Possessors": "",
+"Chinese_philosophy": "",
+"Dougong": "",
+"Han_Fei": "",
+"Hundred_Schools_of_Thought": "",
+"Junzi": "",
+"Mohism": "",
+"New_Confucianism": "",
+"School_of_Names": "",
+"Temple_of_Heaven": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19569,7 +19578,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "1000th_anniversary_of_the_Christianization_of_Rus'": "1988",
 "Law_on_Freedom_of_Conscience_and_Religious_Associations": "1997",
 "Decree_on_the_Abolition_of_Estates_and_Civil_Ranks": "1917",
-"Serfdom_in_Russia": "1649–1861"
+"Serfdom_in_Russia": "1649–1861",
+"Han_Fei": "c. 280 – 233 BCE",
+"Hundred_Schools_of_Thought": "c. 500 – 221 BCE",
+"Mohism": "479 – 221 BCE",
+"New_Confucianism": "1921 – present",
+"Temple_of_Heaven": "1420"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28284,7 +28298,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Izba": ["izba","izbas","isba"],
 "Maslenitsa": ["Maslenitsa","Butter Week","Pancake Week"],
 "Volost": ["volost","volosts","volost court"],
-"Possessors": ["Josephites","Josephite"]
+"Possessors": ["Josephites","Josephite"],
+"Chinese_philosophy": ["Zhongguo zhexue"],
+"Dougong": ["dou gong","tou-kung","bracket set"],
+"Han_Fei": ["Han Feizi"],
+"Hundred_Schools_of_Thought": ["Hundred Schools","Zhuzi baijia"],
+"Junzi": ["Chün-tzu"],
+"Mohism": ["Mohists","Mohist school","Mojia"],
+"New_Confucianism": ["Modern Confucianism","Contemporary New Confucianism"],
+"School_of_Names": ["Mingjia","Logicians","Dialecticians"],
+"Temple_of_Heaven": ["Tiantan","Altar of Heaven"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -41717,7 +41740,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Izba": ["building","architecture","history","russia","peasants"],
 "Maslenitsa": ["practice","religion","history","russia","festival"],
 "Volost": ["institution","law","history","russia","administration"],
-"Possessors": ["concept","religion","history","russia"]
+"Possessors": ["concept","religion","history","russia"],
+"Chinese_philosophy": ["concept","philosophy","history","china"],
+"Dougong": ["technology","architecture","building","china"],
+"Han_Fei": ["person","philosophy","politics","china","warring states"],
+"Hundred_Schools_of_Thought": ["era","philosophy","history","china","warring states"],
+"Junzi": ["concept","philosophy","ethics","confucianism","china"],
+"Mohism": ["school","philosophy","ethics","china","warring states"],
+"New_Confucianism": ["concept","philosophy","confucianism","china","modern"],
+"School_of_Names": ["school","philosophy","logic","china","warring states"],
+"Temple_of_Heaven": ["building","religion","ritual","china","beijing"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

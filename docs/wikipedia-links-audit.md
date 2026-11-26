@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 9078 | the title is the article |
-| `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
+| `ok` | 9097 | the title is the article |
+| `redirect-variant` | 521 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 868 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 866 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 205 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 166 | only a disambiguation page; no link could be chosen |
-| `none` | 1308 | nothing matched; no link |
+| `section-redirect` | 204 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 165 | only a disambiguation page; no link could be chosen |
+| `none` | 1292 | nothing matched; no link |
 
-**10601 of 12300 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10619 of 12300 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (868)
+## Redirected to a differently named article — check each (866)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -138,11 +138,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-784` **Tibetan people** → [Tibetans](https://en.wikipedia.org/wiki/Tibetans) (from `Tibetan people`)
 - `cnh-798` **Ming–Hồ War** → [Ming conquest of Đại Ngu](https://en.wikipedia.org/wiki/Ming_conquest_of_%C4%90%E1%BA%A1i_Ngu) (from `Ming–Hồ War`)
 - `cnh-815` **Shu brocade** → [Sichuan Textiles](https://en.wikipedia.org/wiki/Sichuan_Textiles) (from `Shu brocade`)
-- `cnh-829` **Zilu** → [Zhong You](https://en.wikipedia.org/wiki/Zhong_You) (from `Zilu`)
-- `cnh-831` **Liji** → [Book of Rites](https://en.wikipedia.org/wiki/Book_of_Rites) (from `Liji`)
-- `cnh-832` **Zhongyong** → [Doctrine of the Mean](https://en.wikipedia.org/wiki/Doctrine_of_the_Mean) (from `Zhongyong`)
-- `cnh-833` **Wenmiao** → [Temple of Confucius](https://en.wikipedia.org/wiki/Temple_of_Confucius) (from `Wenmiao`)
 - `cnh-838` **Guodian Chu Slips** → [Bamboo Texts of Guodian](https://en.wikipedia.org/wiki/Bamboo_Texts_of_Guodian) (from `Guodian Chu Slips`)
+- `cnh-839` **Dao** → [Tao](https://en.wikipedia.org/wiki/Tao) (from `Dao`)
+- `cnh-841` **Daoism** → [Taoism](https://en.wikipedia.org/wiki/Taoism) (from `Daoism`)
 - `cnh-873` **Chinese almanac** → [Tung Shing](https://en.wikipedia.org/wiki/Tung_Shing) (from `Chinese almanac`)
 - `cnh-899` **Nestorian Stele** → [Xi'an Stele](https://en.wikipedia.org/wiki/Xi'an_Stele) (from `Nestorian Stele`)
 - `cnh-926` **Lienü zhuan** → [Biographies of Exemplary Women](https://en.wikipedia.org/wiki/Biographies_of_Exemplary_Women) (from `Lienü zhuan`)
@@ -1051,7 +1049,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (166)
+## Disambiguation pages that could not be settled (165)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1233,7 +1231,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (205)
+## Section redirects — no dedicated page (204)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1443,7 +1441,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1308)
+## No article found (1292)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1626,17 +1624,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-818` **Maritime Trade Supervisorate**
 - `cnh-822` **Yangzhou salt merchants**
 - `cnh-823` **Yunnan copper**
-- `cnh-830` **Shu (reciprocity)** — search suggests `Golden Rule`, `Religion in China`, `Chinese folk religion`, `China–United States relations`, `History of religion in China`
-- `cnh-834` **Four Beginnings** — search suggests `Four Great Inventions`, `China`, `Gang of Four`, `Four Greats (China)`, `Chengyu`
-- `cnh-835` **Discourse on Heaven** — search suggests `Tale of King Mu, Son of Heaven`, `Tianxia`, `Ruguanxue`, `Seven heavens`, `Chinese theology`
-- `cnh-840` **Cook Ding** — search suggests `Dream of Ding Village`, `China`, `King Ding of Zhou`, `Margaret Hie Ding Lin`, `Kung Pao chicken`
-- `cnh-842` **Qiwulun** — search suggests `Mount Tai`, `Zhang Binglin`, `Glossary of Zhuangzi exegesis`, `Zuowang`
-- `cnh-846` **Two Handles** — search suggests `Legalism (Chinese philosophy)`, `China`, `Taiwan`, `Handle System`, `Wooden ox`
-- `cnh-848` **He Tu and Luo Shu** — search suggests `Cartography of China`, `Resurrection (2025 film)`, `Zhang He`, `List of gods in the Investiture of the Gods`, `Penghou`
 - `cnh-863` **Investigation of things** — search suggests `Federal Bureau of Investigation`, `Internet of things`, `Taiwan`, `China Initiative`, `Great Learning`
 - `cnh-866` **Quanxue pian** — search suggests `Chinese Learning as Substance, Western Learning for Application`, `Shizi (book)`
-- `cnh-867` **Science and Metaphysics debate** — search suggests `Metaphysics`, `Ontology`, `Philosophy`, `East–West cultural debate`, `History of metaphysics`
-- `cnh-875` **Mingtang** — search suggests `1911 Revolution`, `Wei-ming temple`, `CCTV-10`, `Wu Zetian`, `Old City of Luoyang`
 - `cnh-896` **Great Cloud Sutra** — search suggests `Mahāmegha Sūtra`, `Diamond Sutra`, `Mahayana sutras`, `Sukhavati`, `Prajnaparamita`
 - `cnh-898` **Tianzhu shiyi** — search suggests `Tianzhu (Chinese name of God)`, `Christianity in China`, `Alessandro Valignano`, `Catholic missions`, `Lotus Sutra`
 - `ec-014` **what, how and for whom** — search suggests `The Mother (How I Met Your Mother)`, `Enjoining good and forbidding wrong`, `Reproduction (economics)`, `Chief executive officer`, `Supply-side economics`
