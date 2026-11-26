@@ -131,6 +131,22 @@ book added later will meet the same traps.
   case → ease, seventies → severities; "a mean of the public safety" and "work so much on them" are left. Colour
   `#5A0009` (14.3: the band is full; Plato, whose Republic it is read beside, 41.8 off). `glossOff`: 6 keys — see the comment on the app.js entry. Excerpt: the sheep that
   devour men. Not included: Morley's introduction, the prefatory letters and verses.
+  `euclid-elements` (~450 KB, **8 tabs** — Books I–VI, XI and XII, `chapterWord: "Book"` — no notes, no original;
+  Isaac Todhunter's *The Elements of Euclid for the Use of Schools and Colleges*, Simson's translation revised, Macmillan,
+  London, 1872 reprint of 1862, proofread and validated on Wikisource). What the edition prints and the import keeps,
+  counted off the heads: Book I 48 propositions, II 14, III 37, IV 16, V 25 with Simson's A–E, VI 1–26 and 30–33 with A–D
+  (27–29 omitted, "the propositions usually read"), XI 1–21, XII the lemma and 1–2. Todhunter's preface, introductory
+  remarks, notes, appendix and exercises are separate subpages and are not fetched. **`prep: "euclid"`** (`euclidPrep`
+  then `kantPrep` on the raw page, `kantFinish` + `euclidFinish` on the book): the heads are centred in two markups
+  (`wst-center` divs, and `<p style="text-align:center">` on other proofreaders' pages), and a centred line with a
+  lower-case letter is a proof's conclusion, not a head, so it is unwrapped; 216 heads in all. **The 277 figures are
+  dropped** (the reader has no `<img>`; the about text says so — the propositions name their points by letters);
+  the right-floated marginal references ("[Postulate 3.") stay inline after a space; 83 runs a figure left outside
+  every paragraph are wrapped. Fixes: four `^` OCR slips (two read against the scan, pp. 156 and 206), two `</br>`
+  typed as text, a `reFixes` row for 49 Book I references read as "[1.9.", and twelve for 16 line-end hyphens kept
+  in words the book otherwise prints whole (`de-scribed` in I. 47). Public domain worldwide (Todhunter
+  d. 1884). Colour `#5A0009` (14.3: the band is full; Plato 41.8 off). `glossOff`: four acronyms that are figures
+  named by their points (EDF, AEF, FAC, ECA). Excerpt: Book I's first definitions.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on

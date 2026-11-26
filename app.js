@@ -13219,6 +13219,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Augustus 19.3, Dante 21.5, the King James Bible 27.0, Seneca 30.0, Luther 37.7, Virgil 40.6, Augustine
      52.5, Bede 63.4, Boethius 70.2, Aquinas 102.5. It reads 5.39:1 on the tightest light paper. */
   "Jerome": "#5D3B75",
+  /* Nov 2026, adding the Elements, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on
+     all forty-five light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of
+     the cube at a step of 3). The band's best is a plum 14.6 from Valmiki and 14.9 from PLATO, who is read
+     beside Euclid, so it failed THE EURIPIDES TEST; held 25 or more from Plato, Aristotle, Herodotus,
+     Thucydides, Lucretius and Kant, the best is this dark red, 14.3 from Livy, 14.7 from the Poetic Edda and
+     14.8 from Virgil, none a book read beside this one; Plato stands 41.8 off, Aristotle 68.1. It reads 8.79:1
+     on the tightest light paper. */
+  "Euclid": "#5A0009",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17491,6 +17499,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 4, label: "Bethlehem, from 401", note: "Letters 96–144 · Augustine, the sack of Rome, the Pelagians" },
         { n: 5, label: "Of uncertain date", note: "Letters 145–150 · three of them not his" },
       ],
+      id: "euclid-elements",
+      title: "The Elements",
+      subtitle: "Books I–VI, XI and XII",
+      author: "Euclid",
+      written: "c. 300 BCE",
+      year: -300,
+      translator: "Robert Simson, revised by Isaac Todhunter",
+      edition: "The Elements of Euclid for the Use of Schools and Colleges, Macmillan and Co., London, 1872 (first published 1862)",
+      /* No limit to state: Simson's English is of 1756 and Todhunter, who revised it, died in 1884. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Euclid wrote the Elements about 300 BCE. Robert Simson's English " +
+        "translation was published in 1756, and Isaac Todhunter's revision of it in 1862; Todhunter died in " +
+        "1884. The text is the proofread Wikisource transcription of the 1872 reprint.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Elements_of_Euclid_for_the_Use_of_Schools_and_Colleges",
+      /* NO `origLang`. The eight books Todhunter's school edition prints, one tab each; his notes, appendix
+         and exercises are not imported, and the figures (pictures) are dropped — the propositions name their
+         points by letters. */
+      chapterWord: "Book",
+      count: 8,
+      total: 8,
+      parts: [
+        { n: 1, label: "Plane geometry", note: "Books I–IV — triangles and parallels, areas, the circle, figures in and about circles" },
+        { n: 2, label: "Proportion", note: "Books V–VI — the theory of ratio between magnitudes, and similar figures" },
+        { n: 3, label: "Solid geometry", note: "Books XI–XII — lines and planes in space, solid angles, and the opening of Book XII" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all eight books (every `.ttip`,
+         Nov 2026). Every one is a figure named by its points: the triangle EDF is not the European Defence
+         Fund, AEF not the American Expeditionary Forces, FAC not the Foreign Affairs Council, ECA not the
+         European Court of Auditors. */
+      glossOff: ["European_Defence_Fund", "American_Expeditionary_Forces", "Foreign_Affairs_Council",
+        "European_Court_of_Auditors"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27228,6 +27268,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "euclid-elements", n: 1, t: "Book I", p: 1,
+      text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
