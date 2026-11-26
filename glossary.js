@@ -13177,7 +13177,27 @@ window.GLOSSARY = {
 "Mohism": "",
 "New_Confucianism": "",
 "School_of_Names": "",
-"Temple_of_Heaven": ""
+"Temple_of_Heaven": "",
+"Alexander_Pushkin": "",
+"Eugene_Onegin": "",
+"The_Bronze_Horseman_(poem)": "",
+"Death_of_the_Poet": "",
+"Mikhail_Lermontov": "",
+"A_Hero_of_Our_Time": "",
+"Nikolai_Gogol": "",
+"Dead_Souls": "",
+"The_Government_Inspector": "",
+"Literary_realism": "",
+"Ivan_Turgenev": "",
+"Fathers_and_Sons_(novel)": "",
+"Superfluous_man": "",
+"Ivan_Goncharov": "",
+"Nikolay_Nekrasov": "",
+"Fyodor_Dostoevsky": "",
+"Crime_and_Punishment": "",
+"The_Brothers_Karamazov": "",
+"Leo_Tolstoy": "",
+"War_and_Peace": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19583,7 +19603,25 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hundred_Schools_of_Thought": "c. 500 – 221 BCE",
 "Mohism": "479 – 221 BCE",
 "New_Confucianism": "1921 – present",
-"Temple_of_Heaven": "1420"
+"Temple_of_Heaven": "1420",
+"Alexander_Pushkin": "1799–1837",
+"Eugene_Onegin": "1823–1830",
+"The_Bronze_Horseman_(poem)": "1833",
+"Death_of_the_Poet": "1837",
+"Mikhail_Lermontov": "1814–1841",
+"A_Hero_of_Our_Time": "1840",
+"Nikolai_Gogol": "1809–1852",
+"Dead_Souls": "1842",
+"The_Government_Inspector": "1836",
+"Ivan_Turgenev": "1818–1883",
+"Fathers_and_Sons_(novel)": "1862",
+"Ivan_Goncharov": "1812–1891",
+"Nikolay_Nekrasov": "1821–1878",
+"Fyodor_Dostoevsky": "1821–1881",
+"Crime_and_Punishment": "1866",
+"The_Brothers_Karamazov": "1880",
+"Leo_Tolstoy": "1828–1910",
+"War_and_Peace": "1865–1869"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28307,7 +28345,24 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mohism": ["Mohists","Mohist school","Mojia"],
 "New_Confucianism": ["Modern Confucianism","Contemporary New Confucianism"],
 "School_of_Names": ["Mingjia","Logicians","Dialecticians"],
-"Temple_of_Heaven": ["Tiantan","Altar of Heaven"]
+"Temple_of_Heaven": ["Tiantan","Altar of Heaven"],
+"Alexander_Pushkin": ["Pushkin"],
+"Eugene_Onegin": ["Onegin"],
+"Mikhail_Lermontov": ["Lermontov"],
+"A_Hero_of_Our_Time": ["Hero of Our Time"],
+"Nikolai_Gogol": ["Gogol"],
+"The_Government_Inspector": ["Government Inspector","Revizor","Inspector General"],
+"Literary_realism": ["Russian realism"],
+"Ivan_Turgenev": ["Turgenev"],
+"Fathers_and_Sons_(novel)": ["Fathers and Sons"],
+"Superfluous_man": ["superfluous man","superfluous men"],
+"Ivan_Goncharov": ["Goncharov"],
+"Nikolay_Nekrasov": ["Nekrasov","Nikolai Nekrasov"],
+"Fyodor_Dostoevsky": ["Dostoevsky","Dostoyevsky"],
+"Crime_and_Punishment": ["Crime and Punishment"],
+"The_Brothers_Karamazov": ["Brothers Karamazov","The Brothers Karamazov"],
+"Leo_Tolstoy": ["Tolstoy","Lev Tolstoy"],
+"War_and_Peace": ["War and Peace"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28568,7 +28623,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Tao": true,
 "Colossus_computer": true,
 "Colossus_of_Rhodes": true,
-"Memorial_(society)": true
+"Memorial_(society)": true,
+"Death_of_the_Poet": true,
+"The_Government_Inspector": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -41749,7 +41806,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mohism": ["school","philosophy","ethics","china","warring states"],
 "New_Confucianism": ["concept","philosophy","confucianism","china","modern"],
 "School_of_Names": ["school","philosophy","logic","china","warring states"],
-"Temple_of_Heaven": ["building","religion","ritual","china","beijing"]
+"Temple_of_Heaven": ["building","religion","ritual","china","beijing"],
+"Alexander_Pushkin": ["person","literature","poetry","russia","19th century"],
+"Eugene_Onegin": ["text","literature","poetry","russia","19th century"],
+"The_Bronze_Horseman_(poem)": ["text","literature","poetry","russia","saint petersburg","19th century"],
+"Death_of_the_Poet": ["text","literature","poetry","russia","censorship","19th century"],
+"Mikhail_Lermontov": ["person","literature","poetry","russia","caucasus","19th century"],
+"A_Hero_of_Our_Time": ["text","literature","novel","russia","caucasus","19th century"],
+"Nikolai_Gogol": ["person","literature","russia","ukraine","19th century"],
+"Dead_Souls": ["text","literature","novel","russia","serfdom","19th century"],
+"The_Government_Inspector": ["text","literature","theatre","russia","comedy","19th century"],
+"Literary_realism": ["concept","literature","art","history","19th century"],
+"Ivan_Turgenev": ["person","literature","history","russia"],
+"Fathers_and_Sons_(novel)": ["text","literature","history","russia"],
+"Superfluous_man": ["concept","literature","history","russia"],
+"Ivan_Goncharov": ["person","literature","history","russia"],
+"Nikolay_Nekrasov": ["person","literature","history","russia"],
+"Fyodor_Dostoevsky": ["person","literature","history","russia"],
+"Crime_and_Punishment": ["text","literature","history","russia"],
+"The_Brothers_Karamazov": ["text","literature","history","russia"],
+"Leo_Tolstoy": ["person","literature","history","russia"],
+"War_and_Peace": ["text","literature","history","russia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

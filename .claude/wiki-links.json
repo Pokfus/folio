@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T22:03Z",
+ "generated": "2026-11-26T23:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 9078,
-  "redirect-broader": 868,
-  "redirect-variant": 520,
-  "section-redirect": 205,
-  "disambiguation": 166,
-  "none": 1308,
+  "ok": 9115,
+  "redirect-broader": 866,
+  "redirect-variant": 522,
+  "section-redirect": 204,
+  "disambiguation": 165,
+  "none": 1293,
   "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
@@ -97647,6 +97647,154 @@
    "answer": "volost",
    "title": "Volost",
    "url": "https://en.wikipedia.org/wiki/Volost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-931": {
+   "answer": "Alexander Pushkin",
+   "title": "Alexander Pushkin",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Pushkin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-932": {
+   "answer": "Eugene Onegin",
+   "title": "Eugene Onegin",
+   "url": "https://en.wikipedia.org/wiki/Eugene_Onegin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-934": {
+   "answer": "Death of the Poet",
+   "title": "Death of the Poet",
+   "url": "https://en.wikipedia.org/wiki/Death_of_the_Poet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-935": {
+   "answer": "Mikhail Lermontov",
+   "title": "Mikhail Lermontov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Lermontov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-936": {
+   "answer": "Hero of Our Time",
+   "title": "A Hero of Our Time",
+   "url": "https://en.wikipedia.org/wiki/A_Hero_of_Our_Time",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Hero of Our Time"
+  },
+  "ru-937": {
+   "answer": "Nikolai Gogol",
+   "title": "Nikolai Gogol",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Gogol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-938": {
+   "answer": "Dead Souls",
+   "title": "Dead Souls",
+   "url": "https://en.wikipedia.org/wiki/Dead_Souls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-939": {
+   "answer": "Government Inspector",
+   "title": "The Government Inspector",
+   "url": "https://en.wikipedia.org/wiki/The_Government_Inspector",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-940": {
+   "answer": "Russian realism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian literature",
+    "Culture of Russia",
+    "Russia",
+    "Magical realism",
+    "Russians"
+   ]
+  },
+  "ru-933": {
+   "answer": "Bronze Horseman",
+   "title": "Bronze Horseman",
+   "url": "https://en.wikipedia.org/wiki/Bronze_Horseman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-941": {
+   "answer": "Ivan Turgenev",
+   "title": "Ivan Turgenev",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Turgenev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-942": {
+   "answer": "Fathers and Sons",
+   "title": "Fathers and Sons (novel)",
+   "url": "https://en.wikipedia.org/wiki/Fathers_and_Sons_(novel)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-943": {
+   "answer": "superfluous man",
+   "title": "Superfluous man",
+   "url": "https://en.wikipedia.org/wiki/Superfluous_man",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-944": {
+   "answer": "Ivan Goncharov",
+   "title": "Ivan Goncharov",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Goncharov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-945": {
+   "answer": "Nikolay Nekrasov",
+   "title": "Nikolay Nekrasov",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Nekrasov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-946": {
+   "answer": "Fyodor Dostoevsky",
+   "title": "Fyodor Dostoevsky",
+   "url": "https://en.wikipedia.org/wiki/Fyodor_Dostoevsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-947": {
+   "answer": "Crime and Punishment",
+   "title": "Crime and Punishment",
+   "url": "https://en.wikipedia.org/wiki/Crime_and_Punishment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-948": {
+   "answer": "Brothers Karamazov",
+   "title": "The Brothers Karamazov",
+   "url": "https://en.wikipedia.org/wiki/The_Brothers_Karamazov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-949": {
+   "answer": "Leo Tolstoy",
+   "title": "Leo Tolstoy",
+   "url": "https://en.wikipedia.org/wiki/Leo_Tolstoy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-950": {
+   "answer": "War and Peace",
+   "title": "War and Peace",
+   "url": "https://en.wikipedia.org/wiki/War_and_Peace",
    "via": "glossary",
    "status": "ok"
   }

@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 9097 | the title is the article |
-| `redirect-variant` | 521 | spelling / plural / qualifier differed; same subject |
+| `ok` | 9115 | the title is the article |
+| `redirect-variant` | 522 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 866 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 204 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 165 | only a disambiguation page; no link could be chosen |
-| `none` | 1292 | nothing matched; no link |
+| `none` | 1293 | nothing matched; no link |
 
-**10619 of 12300 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10638 of 12320 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1200,7 +1200,6 @@ Pick the right article by hand, or leave the card without a link.
 - `ru-043` **Rus'–Byzantine Treaty** — `Rus'–Byzantine Treaty` is a disambiguation page; its links: `Rus'–Byzantine Treaty (907)`, `Rus'–Byzantine Treaty (911)`, `Rus'–Byzantine Treaty (945)`
 - `ru-132` **Metropolitan Peter** — `Metropolitan Peter` is a disambiguation page
 - `ru-794` **Chuvash** — `Chuvash` is a disambiguation page; its links: `Chuvash language`, `Chuvash people`, `Chuvash Autonomous Soviet Socialist Republic`, `Chuvash Autonomous Oblast`
-- `ru-855` **Josephites** — `Josephites` is a disambiguation page; its links: `Josephite marriage`, `Josephite movement`, `Josephites of Belgium`, `Josephite (Latter Day Saints)`
 - `ru-881` **Yuri's Day** — `Yuri's Day` is a disambiguation page; its links: `Yuri's Day in Autumn`, `Yuri's Day in Spring`, `Yuri's Day (film)`
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
@@ -1406,7 +1405,6 @@ Wikipedia treats these as part of another article. No link.
 - `ru-514` **Potemkin mutiny** — `Potemkin mutiny` only redirects into `Russian battleship Potemkin#Mutiny`
 - `ru-588` **military specialists** — `Military specialist` only redirects into `Military history of the Soviet Union#Tsarist and revolutionary background`
 - `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
-- `ru-819` **History of the Jews in the Russian Empire** — `History of the Jews in the Russian Empire` only redirects into `History of the Jews in Russia#Russian Empire`
 - `ru-854` **White clergy** — `White clergy` only redirects into `Secular clergy#Eastern Orthodox Church`
 - `ru-883` **Barshchina** — `Barshchina` only redirects into `Corvée#Russian Empire`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
@@ -1441,7 +1439,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1292)
+## No article found (1293)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2640,15 +2638,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-708` **October 1964 Plenum** — search suggests `October 1964`, `Vladimir Lenin`, `Albania–Russia relations`, `Communist Party of the Soviet Union`, `Copyright law of Russia`
 - `ru-731` **Gaidar reforms** — search suggests `Yeltsin–Gaidar government reforms`, `Yegor Gaidar`, `Mikhail Poltoranin`, `List of presidents of Russia`, `List of libraries in Russia`
 - `ru-791` **Ilminsky system** — search suggests `Bashkir alphabet`, `Yañalif`, `Tatar alphabets`, `Order of Saint Anna`, `Tatar language`
-- `ru-863` **Local Council of 1917–1918** — search suggests `1917–18 Local Council of the Russian Orthodox Church`, `Kingdom of Poland (1917–1918)`, `Establishment of Soviet power in Russia (1917–1918)`, `Council of People's Commissars of the Russian Soviet Federative Socialist Republic`, `Russian Revolution`
-- `ru-866` **seizure of church valuables** — search suggests `1922 seizure of church valuables in Russia`, `Opposition to the Russian Orthodox Church during the Russian Civil War`, `USSR anti-religious campaign (1921–1928)`, `Shuya Cathedral`, `Living Church`
-- `ru-868` **anti-religious campaign of 1928–1941** — search suggests `USSR anti-religious campaign (1928–1941)`, `USSR anti-religious campaign (1921–1928)`, `Atrocities and victims of the USSR anti-religious campaign (1928-1941)`, `USSR anti-religious campaign (1958–1964)`, `Opposition to the Russian Orthodox Church during the Russian Civil War`
-- `ru-870` **Bishops' Council of 1943** — search suggests `1943 Bishops' Council of the Russian Orthodox Church`, `Bishops' Council of the Russian Orthodox Church`, `Russian Orthodox Church Outside of Russia`, `1945 Local Council of the Russian Orthodox Church`, `Patriarch of Moscow and all Rus'`
-- `ru-871` **Khrushchev's anti-religious campaign** — search suggests `USSR anti-religious campaign (1958–1964)`, `USSR anti-religious campaign (1928–1941)`, `USSR anti-religious campaign (1921–1928)`, `USSR anti-religious campaign (1970s–1987)`, `Opposition to the Russian Orthodox Church during the Russian Civil War`
-- `ru-873` **Millennium of the Christianization of Rus'** — search suggests `Christianization of Kievan Rus'`, `Vladimir the Great`, `1000th anniversary of the Christianization of Rus'`, `Millennium of Russia`, `Olga of Kiev`
 - `ru-879` **usadba** — search suggests `Novaya Usadba`, `Lipovskaya Usadba`, `Tsentralnaya Usadba 3-go Goskonezavoda`, `REN TV`, `Putevaya Usadba 9 km zheleznoy dorogi Luostari–Nikel`
-- `ru-885` **serf theatre** — search suggests `Russian Serf Theatre`, `Russia`, `Catherine the Great`, `Sheremetev Fortress Theatre`, `Barbara (singer)`
 - `ru-892` **meshchane** — search suggests `Moscow`, `Tsarist Russia`, `The Philistines`, `Private Committee`, `Merchant guild (Russian Empire)`
+- `ru-940` **Russian realism** — search suggests `Russian literature`, `Culture of Russia`, `Russia`, `Magical realism`, `Russians`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`
