@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-26T19:13Z",
+ "generated": "2026-11-26T19:54Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8994,
+  "ok": 8995,
   "redirect-broader": 864,
   "redirect-variant": 520,
   "section-redirect": 202,
   "disambiguation": 164,
   "none": 1301,
-  "disambig-resolved": 117,
+  "disambig-resolved": 116,
   "list-page": 6,
   "search-match": 11,
   "no-article": 21
@@ -35886,11 +35886,12 @@
    "status": "ok"
   },
   "gr-821": {
-   "answer": "claw of Archimedes",
-   "title": "Claw of Archimedes",
-   "url": "https://en.wikipedia.org/wiki/Claw_of_Archimedes",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "siege of Syracuse (213–212 BCE)",
+   "title": "Siege of Syracuse (213–212 BC)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Syracuse_(213%E2%80%93212_BC)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-822": {
    "answer": "Apollonius of Perga",
@@ -36095,19 +36096,18 @@
    ]
   },
   "gr-849": {
-   "answer": "Teuta",
-   "title": "Teuta",
-   "url": "https://en.wikipedia.org/wiki/Teuta",
+   "answer": "Illyrian Wars",
+   "title": "Illyrian Wars",
+   "url": "https://en.wikipedia.org/wiki/Illyrian_Wars",
    "via": "glossary",
    "status": "ok"
   },
   "gr-850": {
-   "answer": "Peace of Phoenice",
-   "title": "Treaty of Phoenice",
-   "url": "https://en.wikipedia.org/wiki/Treaty_of_Phoenice",
+   "answer": "First Macedonian War",
+   "title": "First Macedonian War",
+   "url": "https://en.wikipedia.org/wiki/First_Macedonian_War",
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Peace of Phoenice"
+   "status": "ok"
   },
   "gr-851": {
    "answer": "Philip V",
@@ -36118,18 +36118,11 @@
    "from": "Philip V"
   },
   "gr-852": {
-   "answer": "siege of Abydos",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Abydos (Hellespont)",
-    "Timeline of ancient Greece",
-    "Greco-Persian Wars",
-    "Classical Greece",
-    "Second Persian invasion of Greece"
-   ]
+   "answer": "Second Macedonian War",
+   "title": "Second Macedonian War",
+   "url": "https://en.wikipedia.org/wiki/Second_Macedonian_War",
+   "via": "glossary",
+   "status": "ok"
   },
   "gr-853": {
    "answer": "Battle of Cynoscephalae",
@@ -36139,38 +36132,38 @@
    "status": "ok"
   },
   "gr-854": {
-   "answer": "Nabis",
-   "title": "Nabis of Sparta",
-   "url": "https://en.wikipedia.org/wiki/Nabis_of_Sparta",
-   "via": "disambiguation",
-   "status": "disambig-resolved",
-   "from": "Nabis"
-  },
-  "gr-855": {
-   "answer": "eleutheria",
-   "title": "Eleutheria",
-   "url": "https://en.wikipedia.org/wiki/Eleutheria",
+   "answer": "Titus Quinctius Flamininus",
+   "title": "Titus Quinctius Flamininus",
+   "url": "https://en.wikipedia.org/wiki/Titus_Quinctius_Flamininus",
    "via": "glossary",
    "status": "ok"
   },
-  "gr-856": {
-   "answer": "siege of Ambracia",
+  "gr-855": {
+   "answer": "freedom of the Greeks",
    "title": null,
    "url": null,
    "via": null,
    "status": "none",
    "suggestions": [
-    "Ambracia",
-    "Siege hook",
-    "Arta, Greece",
-    "Outline of ancient Greece",
-    "Index of ancient Greece-related articles"
+    "Greece",
+    "Ancient Greece",
+    "Demographics of Greece",
+    "Kingdom of Greece",
+    "Aromanians in Greece"
    ]
   },
+  "gr-856": {
+   "answer": "Roman–Seleucid War",
+   "title": "Roman–Seleucid war",
+   "url": "https://en.wikipedia.org/wiki/Roman%E2%80%93Seleucid_war",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Roman-Seleucid War"
+  },
   "gr-857": {
-   "answer": "Eumenes II",
-   "title": "Eumenes II",
-   "url": "https://en.wikipedia.org/wiki/Eumenes_II",
+   "answer": "Battle of Magnesia",
+   "title": "Battle of Magnesia",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Magnesia",
    "via": "glossary",
    "status": "ok"
   },
@@ -36182,14 +36175,11 @@
    "status": "ok"
   },
   "gr-859": {
-   "answer": "Callicrates of Leontium",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "List of ancient Greeks"
-   ]
+   "answer": "Third Macedonian War",
+   "title": "Third Macedonian War",
+   "url": "https://en.wikipedia.org/wiki/Third_Macedonian_War",
+   "via": "glossary",
+   "status": "ok"
   },
   "gr-860": {
    "answer": "Perseus",
@@ -36200,23 +36190,24 @@
    "from": "Perseus (mythology)"
   },
   "gr-861": {
-   "answer": "monument of Aemilius Paullus",
-   "title": "Monument of Aemilius Paullus",
-   "url": "https://en.wikipedia.org/wiki/Monument_of_Aemilius_Paullus",
+   "answer": "Battle of Pydna",
+   "title": "Battle of Pydna",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Pydna",
    "via": "glossary",
    "status": "ok"
   },
   "gr-862": {
-   "answer": "Via Egnatia",
-   "title": "Via Egnatia",
-   "url": "https://en.wikipedia.org/wiki/Via_Egnatia",
+   "answer": "province of Macedonia",
+   "title": "Macedonia (Roman province)",
+   "url": "https://en.wikipedia.org/wiki/Macedonia_(Roman_province)",
    "via": "glossary",
-   "status": "ok"
+   "status": "redirect-broader",
+   "from": "Province of Macedonia"
   },
   "gr-863": {
-   "answer": "Diaeus",
-   "title": "Diaeus",
-   "url": "https://en.wikipedia.org/wiki/Diaeus",
+   "answer": "Achaean War",
+   "title": "Achaean War",
+   "url": "https://en.wikipedia.org/wiki/Achaean_War",
    "via": "glossary",
    "status": "ok"
   },
@@ -36252,19 +36243,25 @@
    "status": "ok"
   },
   "gr-868": {
-   "answer": "Attalus III",
-   "title": "Attalus III",
-   "url": "https://en.wikipedia.org/wiki/Attalus_III",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "bequest of Attalus III",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Eumenes III",
+    "Asia (Roman province)",
+    "Classical Anatolia",
+    "Caligula",
+    "Promagistrate"
+   ]
   },
   "gr-869": {
-   "answer": "Archelaus",
-   "title": "Archelaus (Pontic army officer)",
-   "url": "https://en.wikipedia.org/wiki/Archelaus_(Pontic_army_officer)",
+   "answer": "Mithridatic Wars",
+   "title": "Mithridatic Wars",
+   "url": "https://en.wikipedia.org/wiki/Mithridatic_Wars",
    "via": "glossary",
-   "status": "redirect-variant",
-   "from": "Archelaus (general)"
+   "status": "ok"
   },
   "gr-870": {
    "answer": "siege of Athens",
@@ -36282,16 +36279,16 @@
    "from": "Thessalonica"
   },
   "gr-872": {
-   "answer": "Thessaly",
-   "title": "Thessaly",
-   "url": "https://en.wikipedia.org/wiki/Thessaly",
+   "answer": "Battle of Pharsalus",
+   "title": "Battle of Pharsalus",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Pharsalus",
    "via": "glossary",
    "status": "ok"
   },
   "gr-873": {
-   "answer": "Philippi",
-   "title": "Philippi",
-   "url": "https://en.wikipedia.org/wiki/Philippi",
+   "answer": "Battle of Philippi",
+   "title": "Battle of Philippi",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Philippi",
    "via": "glossary",
    "status": "ok"
   },

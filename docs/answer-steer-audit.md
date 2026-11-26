@@ -49,22 +49,34 @@ page). `ru-119`'s Wikipedia link was set by hand to *Yam (route)*; the resolver 
 
 | id | plan line | current answer | famous term | caused by |
 |---|---|---|---|---|
-| gr-821 | Archimedes at the siege of Syracuse | claw of Archimedes | siege of Syracuse | rm-222 — ⚠ gr-556 answers the siege of 415 BCE |
-| gr-849 | The Illyrian Wars | Teuta | Illyrian Wars | rm-237 |
-| gr-850 | The First Macedonian War | Peace of Phoenice | First Macedonian War | rm-238 |
-| gr-852 | The Second Macedonian War | siege of Abydos | Second Macedonian War | rm-240 |
-| gr-854 | Flamininus | Nabis | Titus Quinctius Flamininus | rm-242 |
-| gr-855 | The declaration at the Isthmus | eleutheria | freedom of the Greeks | rm-243 |
-| gr-856 | The Roman–Seleucid War | siege of Ambracia | Roman–Seleucid War | rm-245 |
-| gr-857 | Battle of Magnesia | Eumenes II | Battle of Magnesia | rm-247 |
-| gr-859 | The Third Macedonian War | Callicrates of Leontium | Third Macedonian War | rm-249 |
-| gr-861 | Battle of Pydna | monument of Aemilius Paullus | Battle of Pydna | rm-251 |
-| gr-862 | The province of Macedonia | Via Egnatia | province of Macedonia | rm-257 |
-| gr-863 | The Achaean War | Diaeus | Achaean War | rm-255 |
-| gr-868 | The bequest of Attalus III | Attalus III | bequest of Attalus III | rm-259 |
-| gr-869 | The Mithridatic Wars | Archelaus | Mithridatic Wars | rm-310, rm-333 |
-| gr-872 | Battle of Pharsalus | Thessaly | Battle of Pharsalus | rm-362 |
-| gr-873 | Battle of Philippi | Philippi | Battle of Philippi | rm-377 |
+| gr-821 | Archimedes at the siege of Syracuse | claw of Archimedes | siege of Syracuse | rm-222 — ⚠ gr-556 answers the siege of 415 BCE — **rewritten 2026-11-26** |
+| gr-849 | The Illyrian Wars | Teuta | Illyrian Wars | rm-237 — **rewritten 2026-11-26** |
+| gr-850 | The First Macedonian War | Peace of Phoenice | First Macedonian War | rm-238 — **rewritten 2026-11-26** |
+| gr-852 | The Second Macedonian War | siege of Abydos | Second Macedonian War | rm-240 — **rewritten 2026-11-26** |
+| gr-854 | Flamininus | Nabis | Titus Quinctius Flamininus | rm-242 — **rewritten 2026-11-26** |
+| gr-855 | The declaration at the Isthmus | eleutheria | freedom of the Greeks | rm-243 — **rewritten 2026-11-26** |
+| gr-856 | The Roman–Seleucid War | siege of Ambracia | Roman–Seleucid War | rm-245 — **rewritten 2026-11-26** |
+| gr-857 | Battle of Magnesia | Eumenes II | Battle of Magnesia | rm-247 — **rewritten 2026-11-26** |
+| gr-859 | The Third Macedonian War | Callicrates of Leontium | Third Macedonian War | rm-249 — **rewritten 2026-11-26** |
+| gr-861 | Battle of Pydna | monument of Aemilius Paullus | Battle of Pydna | rm-251 — **rewritten 2026-11-26** |
+| gr-862 | The province of Macedonia | Via Egnatia | province of Macedonia | rm-257 — **rewritten 2026-11-26** |
+| gr-863 | The Achaean War | Diaeus | Achaean War | rm-255 — **rewritten 2026-11-26** |
+| gr-868 | The bequest of Attalus III | Attalus III | bequest of Attalus III | rm-259 — **rewritten 2026-11-26** |
+| gr-869 | The Mithridatic Wars | Archelaus | Mithridatic Wars | rm-310, rm-333 — **rewritten 2026-11-26** |
+| gr-872 | Battle of Pharsalus | Thessaly | Battle of Pharsalus | rm-362 — **rewritten 2026-11-26** |
+| gr-873 | Battle of Philippi | Philippi | Battle of Philippi | rm-377 — **rewritten 2026-11-26** |
+
+**Done 2026-11-26**: all sixteen rows were rewritten to the famous term, written from the Greek side — the leagues,
+cities and kings facing Rome, mostly through Polybius, Plutarch, Appian and Pausanias (`add-card.js --replace`; the old
+answer stays a sentence of every background, the claw as Polybius’s ‘iron hand’). **`gr-821` answers *siege of Syracuse (213–212 BCE)*** with `--allow-twin`
+beside `gr-556`'s *siege of Syracuse* (the Athenian siege of 415 BCE), qualified the way `us-202` *Treaty of Paris
+(1763)* is; its Wikipedia link was set by hand to *Siege of Syracuse (213–212 BC)*. One glossary term was new,
+`Mithridatic_Wars`; the other fifteen reuse their keys (the en-dash *Roman–Seleucid War* reuses `Roman-Seleucid_War`).
+War and battle templates with `troops`, the person template for Flamininus, timelines, battle locators, places, the
+Greek names (`.claude/greece-names.json`) and the chronology rows and pins were redone; pictures and quotations that
+showed the old answer were dropped (Pydna keeps the frieze of the battle). The glossary pins of *Thessaly*,
+*Orchomenos* and *Via Egnatia* went with the old answers (no card now answers them), and Pydna, Chaeronea, Pharsalus
+and Corcyra have no registry place yet, so those cards carry no `places` id for them.
 
 ### Ancient Rome
 

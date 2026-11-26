@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1394", released: "2026-11-26T19:19Z" };
+window.FOLIO_VERSION = { v: "1.1395", released: "2026-11-26T20:04Z" };
 
 window.CHANGELOG = [
   {
@@ -54,8 +54,8 @@ window.CHANGELOG = [
       "Example tables are a coloured panel, with true and false cells in green and red.",
       "Egyptian dynasties are written as numbers (3rd Dynasty), and “New York” now links to the city instead of “York”.",
       "<b>100 new cards</b> in the Russia collection, from the Thaw and Brezhnev through 1991 and Putin to the land and its peoples.",
-      "15 cards in the Russia collection now answer their <b>best-known term</b>, rewritten from Russia's side.",
-      "271 new glossary terms across Greece, Rome, Egypt, World History, the United States, Russia, WW2 and Philosophy.",
+      "31 cards in the Russia and Ancient Greece collections now answer their <b>best-known term</b>, written from each one's own side.",
+      "272 new glossary terms across Greece, Rome, Egypt, World History, the United States, Russia, WW2 and Philosophy.",
       "Date lines or backgrounds updated on 606 cards: battles now give each side's <b>troop strength</b> instead of casualties, and buildings their date and size.",
       "New or redrawn atlas windows on 14 cards, several showing a <b>past year's borders</b> with a key; one reservations map simplified.",
       "A map window's region now takes its coastline and <b>islands</b> from the land itself instead of a hand-drawn edge.",
