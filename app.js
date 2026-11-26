@@ -8617,7 +8617,7 @@
     cur.updatedAt = Date.now();
     // the subdecks a reader already had may have been renamed under them; the cascade is the download's
     const saved = uDeckSaveAll(deckId);
-    return { ok: true, deck: cur, saved: saved, kept: kept.length, notes: (norm.index || []).length, changes: changes };
+    return { ok: true, deck: cur, saved: saved, kept: kept.length, keptIds: kept, notes: (norm.index || []).length, changes: changes };
   }
   /* WHAT AN UPDATE CHANGED, as counts (Oct 2026, on request: "when users update one of their downloaded
      collections, a popup should appear with a very summarised changelog"). A deck file carries no
@@ -8656,6 +8656,7 @@
   /* The popup itself: one short line per kind of change, per deck, and the promise that matters most to
      the reader — their progress is kept — said once at the foot. `results` is [{ deck, changes, kept }]. */
   function openDeckUpdateSheet(results) {
+    const dropped = [].concat(...results.map((r) => r.keptIds || [])).filter((id) => UCARDS[id]);
     const line = (n, one, many) => n ? "<li>" + plural(n, one, many) + "</li>" : "";
     const blocks = results.map((r) => {
       const c = r.changes || {};
@@ -8676,10 +8677,45 @@
       (results.length === 1 ? "Deck updated" : plural(results.length, "deck", "decks") + " updated") + "</span></div>" +
       blocks +
       '<p class="dm-note">Your progress on every card is kept.</p>' +
-      '<div class="dm-actions"><button type="button" class="btn" data-act="close">Done</button></div>';
+      '<div class="dm-actions">' +
+      (dropped.length ? '<button type="button" class="btn ghost" data-act="drop">Remove ' + plural(dropped.length, "dropped card", "dropped cards") + "</button>" : "") +
+      '<button type="button" class="btn" data-act="close">Done</button></div>';
     deckSheet("What\u2019s new", html, (ov, close) => {
       ov.querySelector('[data-act="close"]').addEventListener("click", close);
+      const drop = ov.querySelector('[data-act="drop"]');
+      if (drop) drop.addEventListener("click", () => {
+        close();
+        inlineConfirm("Remove the " + plural(dropped.length, "card", "cards") + " the update dropped from this device? Their progress goes with them.", () => {
+          const n = langDeckRemoveDropped(dropped);
+          renderInPlace();
+          toast(plural(n, "card", "cards") + " removed");
+        }, "Remove");
+      });
     });
+  }
+  /* THE CARDS AN UPDATE DROPPED, removed on request (Nov 2026: "on this completion screen, there should be
+     a button to remove all of those cards"). An update keeps them, with their progress, by default — that
+     stays the rule; this is the reader choosing otherwise. Only ids the deck still holds and the shipped file
+     no longer lists are passed in (`keptIds`), and each goes the way `uDeckPruneEmpty` sends an empty card:
+     its cards' records and suspensions first, then the note, one save per deck. */
+  function langDeckRemoveDropped(ids) {
+    const byDeck = {};
+    let n = 0;
+    ids.forEach((id) => {
+      const c = UCARDS[id], d = c && UDECKS[c.deckId];
+      if (!d) return;
+      uNoteCardIds(id).forEach((cid) => { delete S.cards[cid]; if (S.suspended) delete S.suspended[cid]; });
+      delete UCARDS[id];
+      (byDeck[d.id] = byDeck[d.id] || []).push(id);
+      n++;
+    });
+    Object.keys(byDeck).forEach((deckId) => {
+      const gone = new Set(byDeck[deckId]), d = UDECKS[deckId];
+      d.cardIds = (d.cardIds || []).filter((x) => !gone.has(x));
+      uDeckSave(deckId, null, byDeck[deckId]);
+    });
+    if (n) save();
+    return n;
   }
   // the immediate children of a path ("" for the top level), in card order
   function uSubChildren(deckId, prefix) {

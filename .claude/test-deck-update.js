@@ -147,13 +147,21 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
            never be able to claim a revision, so app.js reads it only from its own store — writing it
            into meta here corrupts nothing and the test then passes on the unfixed code. */
         r.langRev = "0000deadbeef";
-        ds.put(r);
         const first = (r.index || [])[0];
+        /* …AND A NOTE THE SHIPPED FILE DOES NOT HAVE (Nov 2026): a card a later file dropped, which the
+           update keeps and its popup offers to remove. A copy of the first note under an id no file uses. */
+        const dropId = "u_" + deckId + "_99999";   // the id shape a deck note has (`uCardBaseId` reads a suffix as a card)
+        r.index = (r.index || []).concat([Object.assign({}, first, { id: dropId })]);
+        ds.put(r);
         const ng = ns.get(deckId + "/" + first.id);
         ng.onsuccess = () => {
           const note = ng.result;
           if (!note || !note.c || !note.c.fields) return;
-          out = { id: first.id, was: note.c.fields.Pinyin };
+          out = { id: first.id, was: note.c.fields.Pinyin, dropId: dropId };
+          const copy = JSON.parse(JSON.stringify(note));
+          copy.k = deckId + "/" + dropId;   // the notes store's keyPath
+          copy.c.id = dropId;
+          ns.put(copy);
           note.c.fields.Pinyin = bad;
           note.c.pinyin = bad;
           ns.put(note);
@@ -170,12 +178,12 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
      assertion the whole merge design exists for: S.cards is keyed by CARD id, and a merge that
      re-imported the deck would give every card a new id and lose all of it, while producing a deck
      that looks perfectly correct. */
-  await page.evaluate((cardId) => {
+  await page.evaluate((ids) => {
     const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
     s.cards = s.cards || {};
-    s.cards[cardId] = { due: 9999999999999, ivl: 42, ease: 2.5, status: "review", reps: 7, first: "2026-01-01" };
+    ids.forEach((cardId) => { s.cards[cardId] = { due: 9999999999999, ivl: 42, ease: 2.5, status: "review", reps: 7, first: "2026-01-01" }; });
     localStorage.setItem("folio_v1", JSON.stringify(s));
-  }, target.id);
+  }, [target.id, target.dropId]);
 
   /* A RELOAD, NOT A GOTO. `page.goto` to a URL differing only in the #fragment is a SAME-DOCUMENT
      navigation: the app keeps running and its deck store survives, so the corrupted record is never
@@ -246,8 +254,8 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
   check("…and the reader's schedule for that card is untouched",
     !!(after && after.sched && after.sched.ivl === 42 && after.sched.reps === 7 && after.sched.status === "review"),
     JSON.stringify(after && after.sched));
-  check("…with the deck no bigger or smaller than the file it came from",
-    !!after && after.notes === small.notes, (after && after.notes) + " vs " + small.notes);
+  check("…with the deck the file it came from plus the one card it dropped, kept",
+    !!after && after.notes === small.notes + 1, (after && after.notes) + " vs " + (small.notes + 1));
 
   /* THE UPDATE SAYS WHAT CHANGED in a popup (Oct 2026, on request) — measured against the copy that was
      here, so the one card this suite corrupted is the one card it reports corrected. */
@@ -258,6 +266,42 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
   check("a popup summarises the update", /What\u2019s new/.test(pop), JSON.stringify(pop.slice(0, 160)));
   check("…naming the one corrected card", /(^|\D)1 card corrected(?!s)/.test(pop), JSON.stringify(pop.slice(0, 240)));
   check("…and promising the reader's progress is kept", /progress on every card is kept/.test(pop));
+
+  check("…naming the one dropped card, kept here", /(^|\D)1 card dropped from the list \(kept here/.test(pop), JSON.stringify(pop.slice(0, 320)));
+
+  /* THE DROPPED CARDS CAN BE REMOVED FROM THE POPUP (Nov 2026, on request): one button, a confirm, and
+     the note, its index entry and its schedule all go — the card the update kept and nothing else. */
+  const dropBtn = await page.evaluate(() => {
+    const b = document.querySelector('.deck-menu [data-act="drop"]');
+    if (!b) return null;
+    const t = b.textContent.trim(); b.click(); return t;
+  });
+  check("the popup offers to remove the dropped card", dropBtn === "Remove 1 dropped card", JSON.stringify(dropBtn));
+  await page.waitForTimeout(400);
+  const okd = await page.evaluate(() => { const b = document.querySelector(".inline-prompt .ip-ok"); if (b) b.click(); return !!b; });
+  check("…after a confirm", okd);
+  await page.waitForTimeout(1500);
+  const pruned = await page.evaluate((args) => new Promise((res) => {
+    const deckId = args[0], dropId = args[1], keepId = args[2];
+    const q = indexedDB.open("folio-community");
+    q.onsuccess = () => {
+      const db = q.result;
+      const tx = db.transaction(["decks", "notes"]);
+      const g = tx.objectStore("decks").get(deckId);
+      const n = tx.objectStore("notes").get(deckId + "/" + dropId);
+      tx.oncomplete = () => {
+        db.close();
+        const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        const idx = (g.result && g.result.index) || [];
+        res({ notes: idx.length, inIndex: idx.some((e) => e.id === dropId), note: !!n.result,
+          sched: !!(s.cards || {})[dropId], kept: !!(s.cards || {})[keepId] });
+      };
+    };
+    q.onerror = () => res(null);
+  }), [small.id, target.dropId, target.id]);
+  check("…and the dropped card is gone from the deck, the store and the schedule",
+    !!pruned && !pruned.inIndex && !pruned.note && !pruned.sched && pruned.notes === small.notes, JSON.stringify(pruned));
+  check("…while every other card's schedule stays", !!pruned && pruned.kept, JSON.stringify(pruned));
 
   const gone = await page.evaluate(() => document.querySelectorAll("[data-langup]").length);
   check("and the Update button goes once there is nothing to update", gone === 0, String(gone));
