@@ -208,7 +208,9 @@ have not this session.
 - **An answer is unique within its collection, never across the site** (2026-11-26, on request): a Russia card answers the
   *Cuban Missile Crisis* although World History and the United States already do — use the line's plain, most famous term,
   and never steer away from it because ANOTHER collection owns it. Only a twin inside the same collection is steered
-  (`add-card.js` refuses it; `--allow-twin` for two different things that share a name).
+  (`add-card.js` refuses it; `--allow-twin` for two different things that share a name). **This retires "`ww2-133`'s
+  rule"** ("the line has no term of its own left to teach"): a term held by another collection or by the glossary is no
+  reason to steer. 📖 `docs/answer-steer-audit.md` — READ BEFORE REWRITING A CARD TO ITS FAMOUS TERM (the cards steered that way before the rule changed).
 - **The plan is the authority**: the next card is the lowest unwritten number; don't create decks;
   a plan line is a subject to research, not a fact — retitle a line in the same commit when research
   says so.

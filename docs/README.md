@@ -31,6 +31,7 @@ before changing the thing it names.
 |---|---|
 | `reference.md` | **The full CLAUDE.md of Sep 2026, moved here verbatim** (930 KB) when CLAUDE.md was cut to its rules to save tokens. Never read whole — grep it for a name. |
 | `card-authoring.md` | The complete, self-contained spec for writing a card and its glossary term, with a worked example — also the prompt pasted into ChatGPT; its output is loaded by `.claude/import-batch.js`. |
+| `answer-steer-audit.md` | The cards that avoided their famous answer because another collection or the glossary held it ("`ww2-133`'s rule"), listed for rewriting after the 2026-11-26 rule that an answer is unique within its collection only. |
 | `atlas.md` | The Atlas as built (Atlas v2, since Phase 5 it IS `#map`): addresses and old links, the render path, the generated data, the study layer, the card-window fallback, reader data, and the "re-run after touching" table. |
 | `library-feature.md` | The reading room — the shelf, the bilingual columns, the ink, the highlights, the per-book licence reasoning. |
 | `community-decks.md` | The nine phases of community decks, every guard, and the faults that shipped silently. |
