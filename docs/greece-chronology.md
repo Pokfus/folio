@@ -942,8 +942,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Aetia: Books 3 – 4 | from 245 BCE | Callimachus, Aetia fr. 1 with the Scholia Florentina, trans. C. A. Trypanis and Frank… (`gr-808`) |
 | Archimedes: Died | 212 BCE | Thomas L. Heath, The Works of Archimedes (Cambridge: Cambridge University Press, 1897),… (`gr-819`) |
 | Archimedes: Palimpsest found | 1906 | Exploratorium, “Ancient Writings Revealed! About,” accessed 23 October 2026, (`gr-819`) |
-| claw of Archimedes: Used | 213 BCE | Chris Rorres and Harry G. Harris, “A Formidable War Machine: Construction and Operation… (`gr-821`) |
-| claw of Archimedes: City fell | 212 BCE | J. J. O’Connor and E. F. Robertson, “Archimedes of Syracuse,” MacTutor History of… (`gr-821`) |
+| siege of Syracuse (213–212 BCE): Date | 213 – 212 BCE | Polybius, The Histories 7.2–8, trans. W. R. Paton, Loeb Classical Library, vol. 3… (`gr-821`) |
 | conic section: Credited | c. 360 – 350 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-823`) |
 | Aristarchus of Samos: Ptolemy’s date | 281 – 280 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
 | Aristarchus of Samos: Recent reading | 280 – 279 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
@@ -978,32 +977,37 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Pyrrhic War: Tarentum falls | 272 BCE | Gary Forsythe, A Critical History of Early Rome: From Prehistory to the First Punic War… (`gr-847`) |
 | symploke: Dated from | 217 BCE | Colin Bailey, review of Philip V of Macedon in Polybius’ Histories: Politics, History,… (`gr-848`) |
 | symploke: Ends at | 168 BCE | Colin Bailey, review of Philip V of Macedon in Polybius’ Histories: Politics, History,… (`gr-848`) |
-| Teuta: Took power | 231 BCE | William Smith, ed., “Teuta,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-849`) |
-| Teuta: Rome crosses | 229 BCE | William Smith, ed., “Teuta,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-849`) |
-| Teuta: Treaty | 228 BCE | William Smith, ed., “Teuta,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-849`) |
-| Peace of Phoenice: Agreed | 205 BCE | Livy, History of Rome 29.12, trans. Frank Gardner Moore, Loeb Classical Library… (`gr-850`) |
-| Peace of Phoenice: Aetolian treaty | 211 BCE | Adolf Holm, The History of Greece from its Commencement to the Close of the Independence… (`gr-850`) |
+| Illyrian Wars: Start | 229 BCE | Polybius, The Histories 2.2–12, trans. W. R. Paton, Loeb Classical Library, vol. 1… (`gr-849`) |
+| Illyrian Wars: End | 219 BCE | Polybius, The Histories 2.2–12, trans. W. R. Paton, Loeb Classical Library, vol. 1… (`gr-849`) |
+| First Macedonian War: Start | 214 BCE | Polybius, The Histories 7.9, trans. W. R. Paton, Loeb Classical Library, vol. 3… (`gr-850`) |
+| First Macedonian War: End | 205 BCE | Polybius, The Histories 7.9, trans. W. R. Paton, Loeb Classical Library, vol. 3… (`gr-850`) |
 | Philip V: Reigned | 221 – 179 BCE | Jona Lendering, “Philip V,” Livius.org, last modified 8 September 2020, (`gr-851`) |
 | Philip V: Aetolian war | 220 – 217 BCE | Jona Lendering, “Philip V,” Livius.org, last modified 8 September 2020, (`gr-851`) |
 | Philip V: Defeated | 197 BCE | Jona Lendering, “Philip V,” Livius.org, last modified 8 September 2020, (`gr-851`) |
-| siege of Abydos | 200 BCE | G. E. Bean, “Abydos (Nağara Point), Turkey,” in The Princeton Encyclopedia of Classical… (`gr-852`) |
+| Second Macedonian War: Start | 200 BCE | Polybius, Histories 16.1–10 and 16.25–27, trans. W. R. Paton, Loeb Classical Library,… (`gr-852`) |
+| Second Macedonian War: End | 197 BCE | Polybius, Histories 16.1–10 and 16.25–27, trans. W. R. Paton, Loeb Classical Library,… (`gr-852`) |
 | Battle of Cynoscephalae | 197 BCE | Jona Lendering, “Cynoscephalae (197 BCE),” Livius.org, last modified 8 September 2020, (`gr-853`) |
-| Nabis: Ruled | c. 207 – 192 BCE | Polybius, Histories 13.6, trans. Evelyn S. Shuckburgh (London: Macmillan, 1889), Perseus… (`gr-854`) |
-| Nabis: War with Rome | 195 BCE | Adolf Holm, The History of Greece from Its Commencement to the Close of the Independence… (`gr-854`) |
-| siege of Ambracia | 189 BCE | Polybius, Histories 21.27–32, trans. Evelyn S. Shuckburgh (London: Macmillan, 1889),… (`gr-856`) |
-| Eumenes II: Reigned | 197 – 159 BCE | Jona Lendering, “Eumenes II Soter,” Livius.org, last modified 10 August 2020, (`gr-857`) |
-| Eumenes II: Apamea | 188 BCE | Edwyn Robert Bevan, The House of Seleucus, vol. 2 (London: Edward Arnold, 1902), 110,… (`gr-857`) |
+| Titus Quinctius Flamininus: Birth | c. 229 BCE | Plutarch, Life of Flamininus 12–13 and 16, in Parallel Lives, vol. 10, trans.… (`gr-854`) |
+| Titus Quinctius Flamininus: Consul | 198 BCE | Plutarch, Life of Flamininus 12–13 and 16, in Parallel Lives, vol. 10, trans.… (`gr-854`) |
+| Titus Quinctius Flamininus: Isthmus | 196 BCE | Plutarch, Life of Flamininus 12–13 and 16, in Parallel Lives, vol. 10, trans.… (`gr-854`) |
+| Titus Quinctius Flamininus: Death | 174 BCE | Plutarch, Life of Flamininus 12–13 and 16, in Parallel Lives, vol. 10, trans.… (`gr-854`) |
+| freedom of the Greeks: Tyre decree | 315 BCE | Diodorus Siculus, Library of History 19.61–62, trans. Russel M. Geer, Loeb Classical… (`gr-855`) |
+| freedom of the Greeks: Ptolemy, Isthmus | 308 BCE | Diodorus Siculus, Library of History 19.61–62, trans. Russel M. Geer, Loeb Classical… (`gr-855`) |
+| freedom of the Greeks: Rome proclaims | 196 BCE | Diodorus Siculus, Library of History 19.61–62, trans. Russel M. Geer, Loeb Classical… (`gr-855`) |
+| Roman–Seleucid War: Start | 192 BCE | Edwyn Robert Bevan, The House of Seleucus, vol. 2 (London: Edward Arnold, 1902), 67–114, (`gr-856`) |
+| Roman–Seleucid War: End | 188 BCE | Edwyn Robert Bevan, The House of Seleucus, vol. 2 (London: Edward Arnold, 1902), 67–114, (`gr-856`) |
+| Battle of Magnesia: Date | 190 BCE | Livy, The History of Rome 37.39–45, trans. William A. McDevitte (London: Henry G. Bohn,… (`gr-857`) |
 | Treaty of Apamea | 188 BCE | Edwyn Robert Bevan, The House of Seleucus, vol. 2 (London: Edward Arnold, 1902), 113–16, (`gr-858`) |
-| Callicrates of Leontium: Embassy | 180 BCE | Nicholas Sekunda, review of Rome, Polybius, and the East, by Peter Derow, ed. Andrew… (`gr-859`) |
-| Callicrates of Leontium: Deportations | 167 BCE | Edward A. Freeman, History of Federal Government in Greece and Italy, ed. J. B. Bury, 2nd… (`gr-859`) |
-| Callicrates of Leontium: Died | 149 BCE | Edward A. Freeman, History of Federal Government in Greece and Italy, ed. J. B. Bury, 2nd… (`gr-859`) |
+| Third Macedonian War: Start | 171 BCE | Polybius, Histories 27.1–16, trans. W. R. Paton, Loeb Classical Library, vol. 5 (1926),… (`gr-859`) |
+| Third Macedonian War: End | 168 BCE | Polybius, Histories 27.1–16, trans. W. R. Paton, Loeb Classical Library, vol. 5 (1926),… (`gr-859`) |
 | Perseus: Reigned | 179 – 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-860`) |
 | Perseus: Pydna | 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-860`) |
-| monument of Aemilius Paullus: Erected | 167 BCE | Juan P. Prieto, “Roman conquest and Late Hellenistic resilience: the epigraphical case of… (`gr-861`) |
-| monument of Aemilius Paullus: Battle shown | 168 BCE | Hellenic Ministry of Culture, “Frieze from the pillar of Lucius Aemilius Paullus… (`gr-861`) |
-| Via Egnatia | 146 – 120 BCE | Hellenic Ministry of Culture and Sports, “The Via Egnatia through the ages,” Cultural Via… (`gr-862`) |
-| Diaeus: General | 150 BCE | William Smith, ed., “Diaeus,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-863`) |
-| Diaeus: Died | 146 BCE | William Smith, ed., “Diaeus,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-863`) |
+| Battle of Pydna: Date | 22 June 168 BCE | Polybius, Histories 29.15–18, trans. W. R. Paton, Loeb Classical Library, vol. 6… (`gr-861`) |
+| province of Macedonia: Four republics | 167 BCE | Livy, The History of Rome 45.29–30, trans. William A. McDevitte (London: Henry G. Bohn,… (`gr-862`) |
+| province of Macedonia: Andriscus revolt | 149 – 148 BCE | Livy, The History of Rome 45.29–30, trans. William A. McDevitte (London: Henry G. Bohn,… (`gr-862`) |
+| province of Macedonia: Province | 148 BCE | Livy, The History of Rome 45.29–30, trans. William A. McDevitte (London: Henry G. Bohn,… (`gr-862`) |
+| Achaean War: Start | 146 BCE | Polybius, Histories 38.1–3 and 38.12–16, trans. W. R. Paton, Loeb Classical Library,… (`gr-863`) |
+| Achaean War: End | 146 BCE | Polybius, Histories 38.1–3 and 38.12–16, trans. W. R. Paton, Loeb Classical Library,… (`gr-863`) |
 | sack of Corinth: Sacked | 146 BCE | Socrates Koursoumis, “Ancient Corinth: History,” Odysseus, Ministry of Culture and… (`gr-864`) |
 | sack of Corinth: Refounded | 44 BCE | Socrates Koursoumis, “Ancient Corinth: History,” Odysseus, Ministry of Culture and… (`gr-864`) |
 | Polybius: Detained, Loeb | 167 – 151 BCE | “The Life and Works of Polybius,” introduction to Polybius, The Histories, trans. W. R.… (`gr-865`) |
@@ -1012,22 +1016,17 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Delos: Granted (EFA) | 167 BCE | École française d’Athènes, “8. Delos – a chronology,” accessed 23 October 2026, (`gr-867`) |
 | Delos: Granted (WHE) | 166 BCE | Mark Cartwright, “Delos,” World History Encyclopedia, accessed 23 October 2026, (`gr-867`) |
 | Delos: Sacked | 88 BCE | École française d’Athènes, “8. Delos – a chronology,” accessed 23 October 2026, (`gr-867`) |
-| Attalus III: Reigned | 138 – 133 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic Kingdoms of… (`gr-868`) |
-| Attalus III: Letters | 135 BCE | Carlos A. Picón and Seán Hemingway, eds., Pergamon and the Hellenistic Kingdoms of the… (`gr-868`) |
-| Attalus III: Left to Rome | 133 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic Kingdoms of… (`gr-868`) |
-| Archelaus: Sent to Greece | 88 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-869`) |
-| Archelaus: Held Piraeus | 87 – 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-869`) |
-| Archelaus: Lost Chaeronea | 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-869`) |
-| Archelaus: Peace | 85 BCE | Jona Lendering, “Mithridates VI Eupator,” Livius.org, (`gr-869`) |
+| bequest of Attalus III: Willed to Rome | 133 BCE | Strabo, Geography 13.4.2, Loeb Classical Library edition (1928), LacusCurtius, (`gr-868`) |
+| bequest of Attalus III: Revolt | 133 – 129 BCE | Strabo, Geography 13.4.2, Loeb Classical Library edition (1928), LacusCurtius, (`gr-868`) |
+| Mithridatic Wars: Start | 89 BCE | Appian, The Mithridatic Wars 21–23, trans. Horace White, Livius.org, (`gr-869`) |
+| Mithridatic Wars: End | 63 BCE | Appian, The Mithridatic Wars 21–23, trans. Horace White, Livius.org, (`gr-869`) |
 | siege of Athens: Besieged | 87 – 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-870`) |
 | siege of Athens: Taken | 1 March 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-870`) |
 | Thessalonica: Founded | c. 316 – 315 BCE | M. Vickers, “Thessalonike,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-871`) |
 | Thessalonica: Capital | 146 BCE | M. Vickers, “Thessalonike,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-871`) |
 | Thessalonica: Pompey’s senate | 49 BCE | EBSCO Research Starters, “Thessalonica,” published September 2022, accessed 23 October… (`gr-871`) |
-| Philippi: Founded | 360 – 359 BCE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
-| Philippi: Taken by Philip | 356 BCE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
-| Philippi: Battle | 42 BCE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
-| Philippi: Paul’s visit | 49 CE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
+| Battle of Pharsalus: Date | 9 August 48 BCE | Appian, The Civil Wars 2.70–71, trans. Horace White (London: Macmillan, 1899), Perseus… (`gr-872`) |
+| Battle of Philippi: Date | October – November 42 BCE | Appian, The Civil Wars 4.105–108, trans. Horace White, Loeb Classical Library… (`gr-873`) |
 | Battle of Actium | 31 BCE | Roger B. McShane and Michael Witkoski, “Battle of Actium,” EBSCO Research Starters, 2022,… (`gr-874`) |
 | Caesarion: Born | 47 BCE | Arienne King, “Caesarion,” World History Encyclopedia, published 10 July 2018, accessed… (`gr-875`) |
 | Caesarion: Co-ruler | 44 BCE | Jona Lendering, “Ptolemy XV Caesarion,” Livius.org, last modified 10 August 2020,… (`gr-875`) |
@@ -1937,28 +1936,30 @@ gr-845: 323; 30
 gr-846: 306; 302; 297; 272; 288
 gr-847: 280; 275
 gr-848: 217; 168
-gr-849: 231; 229; 228
-gr-850: 205; 211
+gr-849: 229; 219
+gr-850: 214; 205
 gr-851: 221; 179; 197
-gr-852: 200
+gr-852: 200; 197
 gr-853: 197
-gr-854: 207; 192; 195
-gr-856: 189
-gr-857: 197; 159
+gr-854: 229; 198; 196; 174
+gr-855: 315; 308; 196
+gr-856: 192; 188
+gr-857: 190
 gr-858: 188
-gr-859: 180; 149
+gr-859: 171; 168
 gr-860: 179; 168
-gr-861: 167; 168
-gr-862: 146; 120
-gr-863: 150; 146
+gr-861: 168
+gr-862: 167; 149; 148
+gr-863: 146
 gr-864: 146
 gr-865: 167; 151; 146
 gr-867: 167; 166; 88
-gr-868: 138; 133
-gr-869: 88; 86; 85
+gr-868: 133; 129
+gr-869: 89; 63
 gr-870: 87; 86
 gr-871: 316; 315
-gr-873: 360; 359
+gr-872: 48
+gr-873: 42
 gr-874: 31
 gr-875: 47; 44; 34; 30
 gr-876: 51; 31; 30
