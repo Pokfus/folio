@@ -1,0 +1,2159 @@
+{
+ "why": "THE FRENCH RECORD (Nov 2026, the beginner pass — docs/lang-decks.md \"The French beginner pass\"). Applied by .claude/decks/french-fix.js after paradigm-fix.js, which stays the record of the folded paradigms. Every meaning here is the English Wiktionary's (kaikki.org extraction, read 2026-11-16, CC BY-SA 4.0) or a moved card's own; every sentence is a Tatoeba sentence named by its French / English ids in the entry's `why` (CC BY 2.0 FR), a Wiktionary usage example, or a moved card's own.",
+ "decks": {
+  "delfa1": {
+   "why": "THE BEGINNER PASS (Nov 2026). 43 inserts take the deck from 433 to 476 notes (29 words that were cards of no French deck, 7 moved from the phrases deck, 7 moved down from A2 and B1); the deck is dealt in the order french-order.json gives; five nouns are shown with the gender the dictionary lists first. The description says all of it: which words were supplied and from where, what the order is, and what the default pace comes to, since a deck cannot set its own daily limit. Its count of cards carrying a pronunciation read 446, the number before paradigm-fix.js folded thirteen notes away; it is set to what is there.",
+   "subtitle": "476 words · both directions, as two cards per word",
+   "descSub": [
+    [
+     "433 words for the D",
+     "476 words for the D"
+    ],
+    [
+     "learnt with the word (209 of them)",
+     "learnt with the word (214 of them)"
+    ],
+    [
+     "Each of the 45 verbs carries",
+     "Each of the 49 verbs carries"
+    ],
+    [
+     "their agreement table (27 of them)",
+     "their agreement table (29 of them)"
+    ],
+    [
+     "every card that has one (446 of them)",
+     "every card that has one (476 of them)"
+    ],
+    [
+     " and any of them a lower level already teaches is dropped. The cards are ordered roughly by how common the word is in everyday French, so the words you meet most often come first: the order is taken from a frequency list built from film and television subtitles, with a phrase — which a list of single words cannot see — placed by how often it turns up in a corpus of everyday sentences.",
+     " and any of them a lower level already teaches is dropped. 43 MORE WORDS WERE SUPPLIED in November 2026, because a beginner needs them and the page prints none of them: 29 that were cards of no French deck (s'il vous plaît, s'il te plaît, excusez-moi, d'accord, enchanté, à bientôt, il y a, est-ce que, aujourd'hui, fois, the fifteen numbers from treize to mille that were missing, and nord, sud, est and ouest), 7 moved here from the phrases deck (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) and 7 moved down from A2 and B1 (pouvoir, vouloir, devoir, désolé, parce que, mettre, premier). Their meanings are Wiktionary's and their sentences Tatoeba's, as for every other card. THE ORDER is a teaching order, not a frequency list. First come 86 words chosen by hand: the courtesies (bonjour, au revoir, merci, s'il vous plaît, pardon), the words of a first exchange (je m'appelle, comment allez-vous, ça va, enchanté), the subject pronouns, être and nine more verbs (avoir, il y a, aller, faire, pouvoir, vouloir, parler, habiter, aimer), ne and pas, the question words, zero to ten and the commonest function words. After that the cards follow a frequency list built from film and television subtitles, with each closed set dealt together after the word that introduces it — the days of the week after le jour, the numbers from eleven to a thousand after l'heure, the months after le mois, the seasons after l'année, then the compass points and the colours — and words that are easily confused (l'an and l'année, me and moi) kept forty cards apart. THE PACE: Folio deals ten new cards a day in a language deck unless you change it, and a word is two cards, so this deck is five words a day: the courtesies in the first three days, the 86 chosen words in 18, the whole deck in 96 days. Raise New cards per day in the deck's options to go faster; a deck cannot set that for you. French — Sounds and spelling, the deck before this one on the shelf, says how the letters are read and is meant to be studied beside it."
+    ],
+    [
+     "le blue, la red. Where the article elides",
+     "le blue, la red. A noun the dictionary gives as masculine or feminine is shown with le, as the dictionary lists it, and where the word names a person both are given beneath (le touriste, la touriste; un élève, une élève). Where the article elides"
+    ],
+    [
+     "(4: un bel homme, un vieil ami). The pronunciation is given",
+     "(4: un bel homme, un vieil ami). An adjective with one form for both genders says so (jeune, rouge), and one that never changes at all is marked invariable (super, orange). The pronunciation is given"
+    ],
+    [
+     "Every word also carries three real example sentences, chosen where possible",
+     "Every word also carries real example sentences, three apiece for all but one (dix-neuf has two), chosen where possible"
+    ]
+   ]
+  },
+  "delfa2": {
+   "why": "THE BEGINNER PASS (Nov 2026). pouvoir, vouloir, devoir, désolé and parce que are now cards of DELF A1 (a beginner needs the three verbs in the first weeks, and parce que answers pourquoi, an A1 card); dropDup takes them out here, the counts follow, and the description says where they went. Four nouns the dictionary gives as masculine or feminine are shown with le.",
+   "subtitle": "584 words · both directions, as two cards per word",
+   "dropDup": {
+    "pouvoir": "delfa1",
+    "vouloir": "delfa1",
+    "devoir": "delfa1",
+    "désolé": "delfa1",
+    "parce que": "delfa1"
+   },
+   "descSub": [
+    [
+     "589 words for the D",
+     "584 words for the D"
+    ],
+    [
+     "Each of the 136 verbs carries",
+     "Each of the 133 verbs carries"
+    ],
+    [
+     "their agreement table (64 of them)",
+     "their agreement table (63 of them)"
+    ],
+    [
+     "every card that has one (586 of them)",
+     "every card that has one (581 of them)"
+    ],
+    [
+     "Real example sentences come with 589 of the 589 words, three apiece for 587 of them",
+     "Real example sentences come with 584 of the 584 words, three apiece for 561 of them"
+    ],
+    [
+     " and any of them a lower level already teaches is dropped. The cards are ordered",
+     " and any of them a lower level already teaches is dropped. Five words this deck used to carry (pouvoir, vouloir, devoir, désolé, parce que) are now cards of DELF A1, where a beginner needs them. The cards are ordered"
+    ],
+    [
+     "le blue, la red. Where the article elides",
+     "le blue, la red. A noun the dictionary gives as masculine or feminine is shown with le, as the dictionary lists it, and where the word names a person both are given beneath (le touriste, la touriste; un élève, une élève). Where the article elides"
+    ]
+   ]
+  },
+  "delfb1": {
+   "why": "THE BEGINNER PASS (Nov 2026). mettre (note 6) and premier (note 8) are now cards of DELF A1; dropDup takes them out here, the counts follow, and the description says where they went. Six nouns the dictionary gives as masculine or feminine are shown with le.",
+   "subtitle": "893 words · both directions, as two cards per word",
+   "dropDup": {
+    "mettre": "delfa1",
+    "premier": "delfa1"
+   },
+   "descSub": [
+    [
+     "895 words for the D",
+     "893 words for the D"
+    ],
+    [
+     "Each of the 261 verbs carries",
+     "Each of the 260 verbs carries"
+    ],
+    [
+     "their agreement table (125 of them)",
+     "their agreement table (124 of them)"
+    ],
+    [
+     "every card that has one (883 of them)",
+     "every card that has one (881 of them)"
+    ],
+    [
+     "Real example sentences come with 888 of the 895 words, three apiece for 876 of them",
+     "Real example sentences come with 886 of the 893 words, three apiece for 851 of them"
+    ],
+    [
+     " and any of them a lower level already teaches is dropped. The cards are ordered",
+     " and any of them a lower level already teaches is dropped. Two words this deck used to carry (mettre, premier) are now cards of DELF A1, where a beginner needs them. The cards are ordered"
+    ],
+    [
+     "le blue, la red. Where the article elides",
+     "le blue, la red. A noun the dictionary gives as masculine or feminine is shown with le, as the dictionary lists it, and where the word names a person both are given beneath (le touriste, la touriste; un élève, une élève). Where the article elides"
+    ]
+   ]
+  },
+  "delfb2": {
+   "why": "THE BEGINNER PASS (Nov 2026). The nouns the dictionary gives as masculine or feminine are shown with le, as it lists them, and the description says so. Nothing else in this deck moved.",
+   "descSub": [
+    [
+     "le blue, la red. Where the article elides",
+     "le blue, la red. A noun the dictionary gives as masculine or feminine is shown with le, as the dictionary lists it, and where the word names a person both are given beneath (le touriste, la touriste; un élève, une élève). Where the article elides"
+    ]
+   ]
+  },
+  "dalfc1": {
+   "why": "THE BEGINNER PASS (Nov 2026). The nouns the dictionary gives as masculine or feminine are shown with le, as it lists them, and the description says so. Nothing else in this deck moved.",
+   "descSub": [
+    [
+     "le blue, la red. Where the article elides",
+     "le blue, la red. A noun the dictionary gives as masculine or feminine is shown with le, as the dictionary lists it, and where the word names a person both are given beneath (le touriste, la touriste; un élève, une élève). Where the article elides"
+    ]
+   ]
+  },
+  "dalfc2": {
+   "why": "THE BEGINNER PASS (Nov 2026). The nouns the dictionary gives as masculine or feminine are shown with le, as it lists them, and the description says so. Nothing else in this deck moved.",
+   "descSub": [
+    [
+     "le blue, la red. Where the article elides",
+     "le blue, la red. A noun the dictionary gives as masculine or feminine is shown with le, as the dictionary lists it, and where the word names a person both are given beneath (le touriste, la touriste; un élève, une élève). Where the article elides"
+    ]
+   ]
+  },
+  "frphrases": {
+   "why": "THE BEGINNER PASS (Nov 2026). The phrases deck is the last on the shelf, yet 153 of its expressions are spelled entirely with DELF A1's words; it is now dealt by reading level (french-order.json) and its description says it can begin beside A1. Seven greetings it carried (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1, the first deck; dropDup takes them out. The counts follow. (2026-11-26) The app now holds phrase decks in a language's review until every A1 card is introduced, so the sentence saying the deck can begin beside A1 says that instead.",
+   "subtitle": "395 expressions, the 153 that A1's words spell first · both directions, as two cards each",
+   "dropDup": {
+    "ça va": "delfa1",
+    "comment ça va": "delfa1",
+    "comment allez-vous": "delfa1",
+    "je m'appelle": "delfa1",
+    "bonne nuit": "delfa1",
+    "bonne journée": "delfa1",
+    "à demain": "delfa1"
+   },
+   "descSub": [
+    [
+     "402 set expressions — the things French says",
+     "395 set expressions — the things French says"
+    ],
+    [
+     "every card that has one (401 of them)",
+     "every card that has one (394 of them)"
+    ],
+    [
+     "Real example sentences come with 401 of the 402 expressions, three apiece for 397 of them",
+     "Real example sentences come with 394 of the 395 expressions, three apiece for 354 of them"
+    ],
+    [
+     "The cards are ordered roughly by how common the expression is, so the ones you will hear first come first.",
+     "THE ORDER is by reading level: first the 153 expressions spelled entirely with words the DELF A1 deck teaches (in the forms its cards show, or with the -s or -e a regular plural or feminine adds), then the 116 that need A2's words as well, B1's (68), B2's (14), C1's and C2's (8), and last the 36 that use a word no level deck cards; inside each group the expression a corpus of everyday sentences has most often comes first. So it need not wait for DALF C2, where the shelf lists it: in French's own review it waits only until every DELF A1 card has been introduced, and on its own row it can be studied at any time. Seven greetings it used to carry (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1. At Folio's default of ten new cards a day, which is five expressions, the first group takes 31 days and the deck 79."
+    ],
+    [
+     "So the deck can be begun beside DELF A1 rather than after DALF C2, where the shelf lists it.",
+     "So it need not wait for DALF C2, where the shelf lists it: in French's own review it waits only until every DELF A1 card has been introduced, and on its own row it can be studied at any time."
+    ]
+   ]
+  }
+ },
+ "notes": {
+  "delfa1/tu": {
+   "why": "The card said \"you\" and nothing else, the same word the vous card leads with; nothing on either said which is used to whom. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry tu, pronoun: gloss \"you (singular)\", tagged informal; head line \"second person informal singular, plural vous, object te, emphatic toi\".",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "you (singular, informal)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural, or formal singular",
+     "vous"
+    ],
+    [
+     "object",
+     "te"
+    ],
+    [
+     "emphatic",
+     "toi"
+    ]
+   ]
+  },
+  "delfa1/vous": {
+   "why": "See tu. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry vous, pronoun: head line \"second-person plural and second-person formal singular, informal singular tu\"; the other glosses are the card's own.",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "you (plural, or formal singular)",
+      "to you",
+      "yourself",
+      "yourselves"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "informal singular",
+     "tu"
+    ]
+   ]
+  },
+  "delfa1/ne": {
+   "why": "ne and pas were both glossed \"not\" and nothing more: one question with two answers on the reverse card, and no word that the two stand together. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry ne, particle: \"not, no (used before a verb, with a coordinating negative element usually following)\"; the sentence is the usage example of the entry pas.",
+   "senses": [
+    [
+     "particle",
+     [
+      "not (before the verb, with pas after it: je ne sais pas — I don't know)"
+     ]
+    ]
+   ]
+  },
+  "delfa1/pas": {
+   "why": "See ne. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry pas, adverb: \"The most common adverb of negation in French, typically translating into English as not, don't, doesn't\", usage example \"Je ne sais pas. — I don't know\".",
+   "senses": [
+    [
+     "adverb",
+     [
+      "not (after the verb, with ne before it: je ne sais pas — I don't know)"
+     ]
+    ]
+   ]
+  },
+  "delfa1/bonjour": {
+   "why": "The card read \"good day; good afternoon; goodbye\": the dictionary marks goodbye as North American, and hello, its ordinary use, was missing. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry bonjour: interjection \"good day; good afternoon\"; noun \"greetings; hello (general salutation)\".",
+   "senses": [
+    [
+     "interjection",
+     [
+      "good day",
+      "good afternoon"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "hello (the general greeting)"
+     ]
+    ]
+   ]
+  },
+  "delfa1/salut": {
+   "why": "English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry salut, interjection: both senses are tagged informal, which the card did not say.",
+   "senses": [
+    [
+     "interjection, informal",
+     [
+      "hi",
+      "hello",
+      "bye",
+      "goodbye"
+     ]
+    ]
+   ]
+  },
+  "delfa1/autre": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"autre (plural autres)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "autre"
+    ],
+    [
+     "plural",
+     "autres"
+    ]
+   ]
+  },
+  "delfa1/super": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"super (invariable)\".",
+   "forms": [
+    [
+     "invariable (one form for both genders and the plural)",
+     "super"
+    ]
+   ]
+  },
+  "delfa1/jeune": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"jeune (plural jeunes)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "jeune"
+    ],
+    [
+     "plural",
+     "jeunes"
+    ]
+   ]
+  },
+  "delfa1/propre": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"propre (plural propres)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "propre"
+    ],
+    [
+     "plural",
+     "propres"
+    ]
+   ]
+  },
+  "delfa1/malade": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"malade (plural malades)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "malade"
+    ],
+    [
+     "plural",
+     "malades"
+    ]
+   ]
+  },
+  "delfa1/simple": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"simple (plural simples)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "simple"
+    ],
+    [
+     "plural",
+     "simples"
+    ]
+   ]
+  },
+  "delfa1/pauvre": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"pauvre (plural pauvres)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "pauvre"
+    ],
+    [
+     "plural",
+     "pauvres"
+    ]
+   ]
+  },
+  "delfa1/incroyable": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"incroyable (plural incroyables)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "incroyable"
+    ],
+    [
+     "plural",
+     "incroyables"
+    ]
+   ]
+  },
+  "delfa1/sale": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"sale (plural sales)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "sale"
+    ],
+    [
+     "plural",
+     "sales"
+    ]
+   ]
+  },
+  "delfa1/rouge": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"rouge (plural rouges)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "rouge"
+    ],
+    [
+     "plural",
+     "rouges"
+    ]
+   ]
+  },
+  "delfa1/triste": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"triste (plural tristes)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "triste"
+    ],
+    [
+     "plural",
+     "tristes"
+    ]
+   ]
+  },
+  "delfa1/rose": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"rose (plural roses)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "rose"
+    ],
+    [
+     "plural",
+     "roses"
+    ]
+   ]
+  },
+  "delfa1/jaune": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"jaune (plural jaunes)\".",
+   "forms": [
+    [
+     "masculine and feminine",
+     "jaune"
+    ],
+    [
+     "plural",
+     "jaunes"
+    ]
+   ]
+  },
+  "delfa1/orange": {
+   "why": "An adjective with no Forms row looked like a card with something missing; it has one form for both genders. English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), head line: \"orange (invariable)\".",
+   "forms": [
+    [
+     "invariable (one form for both genders and the plural)",
+     "orange"
+    ]
+   ]
+  }
+ },
+ "hints": {
+  "delfa1/l'an": "l'année",
+  "delfa1/l'année": "l'an",
+  "delfa1/s'il vous plaît": "s'il te plaît",
+  "delfa1/s'il te plaît": "s'il vous plaît",
+  "delfa1/comment ça va": "comment allez-vous",
+  "delfa1/comment allez-vous": "comment ça va"
+ },
+ "gender": {
+  "delfa1/l'enfant": {
+   "dict": "enfant m or f by sense (plural enfants)",
+   "as": "by sense"
+  },
+  "delfa1/la bus": {
+   "dict": "bus m or f (invariable)",
+   "as": "m or f"
+  },
+  "delfa1/l'après-midi": {
+   "dict": "après-midi m or f (plural après-midi or après-midis)",
+   "as": "m or f"
+  },
+  "delfa1/l'élève": {
+   "dict": "élève m or f by sense (plural élèves)",
+   "as": "by sense"
+  },
+  "delfa1/la légume": {
+   "dict": "légume m or (Louisiana) f (plural légumes)",
+   "as": "m"
+  },
+  "delfa2/l'amour": {
+   "dict": "amour m or f (plural amours)",
+   "as": "m or f"
+  },
+  "delfa2/la médecin": {
+   "dict": "médecin m or f by sense (plural médecins)",
+   "as": "by sense"
+  },
+  "delfa2/la dentiste": {
+   "dict": "dentiste m or f by sense (plural dentistes)",
+   "as": "by sense"
+  },
+  "delfa2/la touriste": {
+   "dict": "touriste m or f by sense (plural touristes)",
+   "as": "by sense"
+  },
+  "delfb1/l'espoir": {
+   "dict": "espoir m (plural espoirs) // espoir m or f by sense (plural espoirs)",
+   "as": "by sense"
+  },
+  "delfb1/la collègue": {
+   "dict": "collègue m or f by sense (plural collègues)",
+   "as": "by sense"
+  },
+  "delfb1/la camarade": {
+   "dict": "camarade m or f by sense (plural camarades)",
+   "as": "by sense"
+  },
+  "delfb1/l'arbitre": {
+   "dict": "arbitre m or f by sense (plural arbitres)",
+   "as": "by sense"
+  },
+  "delfb1/l'optimiste": {
+   "dict": "optimiste m or f by sense (plural optimistes)",
+   "as": "by sense"
+  },
+  "delfb1/la pessimiste": {
+   "dict": "pessimiste m or f by sense (plural pessimistes)",
+   "as": "by sense"
+  },
+  "delfb2/la réaliste": {
+   "dict": "réaliste m or f by sense (plural réalistes)",
+   "as": "by sense"
+  },
+  "delfb2/l'analyste": {
+   "dict": "analyste m or f by sense (plural analystes)",
+   "as": "by sense"
+  },
+  "delfb2/la philosophe": {
+   "dict": "philosophe m or f by sense (plural philosophes)",
+   "as": "by sense"
+  },
+  "delfb2/l'académique": {
+   "dict": "académique m or f by sense (plural académiques)",
+   "as": "by sense"
+  },
+  "delfb2/la philanthrope": {
+   "dict": "philanthrope m or f by sense (plural philanthropes)",
+   "as": "by sense"
+  },
+  "delfb2/l'archiviste": {
+   "dict": "archiviste m or f by sense (plural archivistes)",
+   "as": "by sense"
+  },
+  "delfb2/la cosmopolite": {
+   "dict": "cosmopolite m or f by sense (plural cosmopolites)",
+   "as": "by sense"
+  },
+  "delfb2/la misanthrope": {
+   "dict": "misanthrope m or f by sense (plural misanthropes)",
+   "as": "by sense"
+  },
+  "dalfc1/la détective": {
+   "dict": "détective m or f by sense (plural détectives)",
+   "as": "by sense"
+  },
+  "dalfc1/la propriétaire": {
+   "dict": "propriétaire m or f by sense (plural propriétaires)",
+   "as": "by sense"
+  },
+  "dalfc1/la secrétaire": {
+   "dict": "secrétaire m or f by sense (plural secrétaires)",
+   "as": "by sense"
+  },
+  "dalfc1/la poison": {
+   "dict": "poison m or (Louisiana) f (plural poisons)",
+   "as": "m"
+  },
+  "dalfc1/l'auteur": {
+   "dict": "auteur m or f (plural auteurs, feminine autrice or auteure or (rare) auteuse or (rare, dated) authoress or auteuresse or auteuresse)",
+   "as": "m or f"
+  },
+  "dalfc1/la terroriste": {
+   "dict": "terroriste m or f by sense (plural terroristes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'otage": {
+   "dict": "otage m or f by sense (plural otages)",
+   "as": "by sense"
+  },
+  "dalfc1/la spécialiste": {
+   "dict": "spécialiste m or f by sense (plural spécialistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la comptable": {
+   "dict": "comptable m or f by sense (plural comptables)",
+   "as": "by sense"
+  },
+  "dalfc1/la psychopathe": {
+   "dict": "psychopathe m or f by sense (plural psychopathes)",
+   "as": "by sense"
+  },
+  "dalfc1/la psychiatre": {
+   "dict": "psychiatre m or f by sense (plural psychiatres)",
+   "as": "by sense"
+  },
+  "dalfc1/la concierge": {
+   "dict": "concierge m or f by sense (plural concierges)",
+   "as": "by sense"
+  },
+  "dalfc1/la thérapeute": {
+   "dict": "thérapeute m or f by sense (plural thérapeutes)",
+   "as": "by sense"
+  },
+  "dalfc1/la psychologue": {
+   "dict": "psychologue m or f by sense (plural psychologues)",
+   "as": "by sense"
+  },
+  "dalfc1/l'élan": {
+   "dict": "élan m (Louisiana) m or f (plural élans)",
+   "as": "m"
+  },
+  "dalfc1/l'athlète": {
+   "dict": "athlète m or f by sense (plural athlètes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'interprète": {
+   "dict": "interprète m or f by sense (plural interprètes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'évêque": {
+   "dict": "évêque m or f by sense (plural évêques, feminine évêchesse)",
+   "as": "by sense"
+  },
+  "dalfc1/la fonctionnaire": {
+   "dict": "fonctionnaire m or f by sense (plural fonctionnaires)",
+   "as": "by sense"
+  },
+  "dalfc1/l'hymne": {
+   "dict": "hymne m or f (plural hymnes)",
+   "as": "m or f"
+  },
+  "dalfc1/la diplomate": {
+   "dict": "diplomate m or f by sense (plural diplomates)",
+   "as": "by sense"
+  },
+  "dalfc1/la sceptique": {
+   "dict": "sceptique m or f by sense (plural sceptiques)",
+   "as": "by sense"
+  },
+  "dalfc1/la chimiste": {
+   "dict": "chimiste m or f by sense (plural chimistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la pédiatre": {
+   "dict": "pédiatre m or f by sense (plural pédiatres)",
+   "as": "by sense"
+  },
+  "dalfc1/la graphique": {
+   "dict": "graphique m or f (plural graphiques)",
+   "as": "m or f"
+  },
+  "dalfc1/la capitaliste": {
+   "dict": "capitaliste m or f by sense (plural capitalistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la kamikaze": {
+   "dict": "kamikaze m or f by sense (plural kamikazes)",
+   "as": "by sense"
+  },
+  "dalfc1/la gynécologue": {
+   "dict": "gynécologue m or f by sense (plural gynécologues)",
+   "as": "by sense"
+  },
+  "dalfc1/la cardiologue": {
+   "dict": "cardiologue m or f by sense (plural cardiologues)",
+   "as": "by sense"
+  },
+  "dalfc1/la faussaire": {
+   "dict": "faussaire m or f by sense (plural faussaires)",
+   "as": "by sense"
+  },
+  "dalfc1/l'actionnaire": {
+   "dict": "actionnaire m or f by sense (plural actionnaires)",
+   "as": "by sense"
+  },
+  "dalfc1/la gestionnaire": {
+   "dict": "gestionnaire m or f by sense (plural gestionnaires)",
+   "as": "by sense"
+  },
+  "dalfc1/la neurologue": {
+   "dict": "neurologue m or f by sense (plural neurologues)",
+   "as": "by sense"
+  },
+  "dalfc1/la juriste": {
+   "dict": "juriste m or f by sense (plural juristes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'archéologue": {
+   "dict": "archéologue m or f by sense (plural archéologues)",
+   "as": "by sense"
+  },
+  "dalfc1/la contribuable": {
+   "dict": "contribuable m or f by sense (plural contribuables)",
+   "as": "by sense"
+  },
+  "dalfc1/la violoniste": {
+   "dict": "violoniste m or f by sense (plural violonistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la cinéaste": {
+   "dict": "cinéaste m or f by sense (plural cinéastes)",
+   "as": "by sense"
+  },
+  "dalfc1/la claustrophobe": {
+   "dict": "claustrophobe m or f by sense (plural claustrophobes)",
+   "as": "by sense"
+  },
+  "dalfc1/la pacifiste": {
+   "dict": "pacifiste m or f by sense (plural pacifistes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'activiste": {
+   "dict": "activiste m or f by sense (plural activistes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'enzyme": {
+   "dict": "enzyme m or f (plural enzymes)",
+   "as": "m or f"
+  },
+  "dalfc1/l'antiquaire": {
+   "dict": "antiquaire m or f by sense (plural antiquaires)",
+   "as": "by sense"
+  },
+  "dalfc1/la concessionnaire": {
+   "dict": "concessionnaire m or f by sense (plural concessionnaires)",
+   "as": "by sense"
+  },
+  "dalfc1/l'aubergiste": {
+   "dict": "aubergiste m or f by sense (plural aubergistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la géologue": {
+   "dict": "géologue m or f by sense (plural géologues)",
+   "as": "by sense"
+  },
+  "dalfc1/l'astronome": {
+   "dict": "astronome m or f by sense (plural astronomes)",
+   "as": "by sense"
+  },
+  "dalfc1/la destinataire": {
+   "dict": "destinataire m or f by sense (plural destinataires)",
+   "as": "by sense"
+  },
+  "dalfc1/la mécène": {
+   "dict": "mécène m or f by sense (plural mécènes)",
+   "as": "by sense"
+  },
+  "dalfc1/la perfectionniste": {
+   "dict": "perfectionniste m or f by sense (plural perfectionnistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la compatriote": {
+   "dict": "compatriote m or f by sense (plural compatriotes)",
+   "as": "by sense"
+  },
+  "dalfc1/l'urgentiste": {
+   "dict": "urgentiste m or f by sense (plural urgentistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la standardiste": {
+   "dict": "standardiste m or f by sense (plural standardistes)",
+   "as": "by sense"
+  },
+  "dalfc1/la dactylo": {
+   "dict": "dactylo m or f by sense (plural dactylos)",
+   "as": "by sense"
+  },
+  "dalfc1/la pensionnaire": {
+   "dict": "pensionnaire m or f by sense (plural pensionnaires)",
+   "as": "by sense"
+  },
+  "dalfc1/la séparatiste": {
+   "dict": "séparatiste m or f by sense (plural séparatistes)",
+   "as": "by sense"
+  },
+  "dalfc2/la légiste": {
+   "dict": "légiste m or f by sense (plural légistes)",
+   "as": "by sense"
+  },
+  "dalfc2/la poète": {
+   "dict": "poète m or f by sense (plural poètes, feminine poétesse or poètesse)",
+   "as": "by sense"
+  },
+  "dalfc2/la milliardaire": {
+   "dict": "milliardaire m or f by sense (plural milliardaires)",
+   "as": "by sense"
+  },
+  "dalfc2/la sociopathe": {
+   "dict": "sociopathe m or f by sense (plural sociopathes)",
+   "as": "by sense"
+  },
+  "dalfc2/la télépathe": {
+   "dict": "télépathe m or f by sense (plural télépathes)",
+   "as": "by sense"
+  },
+  "dalfc2/l'exorciste": {
+   "dict": "exorciste m or f by sense (plural exorcistes)",
+   "as": "by sense"
+  },
+  "dalfc2/la succube": {
+   "dict": "succube m or f (plural succubes)",
+   "as": "m or f"
+  },
+  "dalfc2/l'anesthésiste": {
+   "dict": "anesthésiste m or f by sense (plural anesthésistes)",
+   "as": "by sense"
+  },
+  "dalfc2/la proxénète": {
+   "dict": "proxénète m or f by sense (plural proxénètes)",
+   "as": "by sense"
+  },
+  "dalfc2/la marionnettiste": {
+   "dict": "marionnettiste m or f by sense (plural marionnettistes)",
+   "as": "by sense"
+  },
+  "dalfc2/la ventriloque": {
+   "dict": "ventriloque m or f by sense (plural ventriloques)",
+   "as": "by sense"
+  }
+ },
+ "insert": {
+  "delfa1": [
+   {
+    "id": "u_delfa1_447",
+    "after": "merci",
+    "word": "s'il vous plaît",
+    "ipa": "/s‿il vu plɛ/",
+    "senses": [
+     [
+      "phrase",
+      [
+       "please, if you please"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Entrez, s'il vous plaît !",
+      "Please come in!"
+     ],
+     [
+      "Souriez, s'il vous plaît.",
+      "Please smile."
+     ],
+     [
+      "Continuez, s'il vous plaît.",
+      "Please continue."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): s'il vous plaît was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry s'il vous plaît, phrase. Sentences: Tatoeba 13174745 / 4771536; Tatoeba 11697828 / 1852296; Tatoeba 10015063 / 870628."
+   },
+   {
+    "id": "u_delfa1_448",
+    "after": "s'il vous plaît",
+    "word": "s'il te plaît",
+    "ipa": "/s‿il tə plɛ/",
+    "senses": [
+     [
+      "phrase, informal",
+      [
+       "please"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Écoute, s'il te plaît.",
+      "Please listen."
+     ],
+     [
+      "Mange, s'il te plaît.",
+      "Please eat."
+     ],
+     [
+      "Continue, s'il te plaît.",
+      "Please continue."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): s'il te plaît was a card of no French deck. Sense (tagged informal) and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry s'il te plaît, phrase. Sentences: Tatoeba 7938876 / 2111572; Tatoeba 9252890 / 6358715; Tatoeba 10015064 / 870628."
+   },
+   {
+    "id": "u_delfa1_449",
+    "after": "pardon",
+    "word": "excusez-moi",
+    "ipa": "/ɛk.sky.ze.mwa/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "excuse me"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Excusez-moi !",
+      "Excuse me!"
+     ],
+     [
+      "Excusez-moi une minute.",
+      "Excuse me a minute."
+     ],
+     [
+      "Excusez-moi de vous déranger.",
+      "Excuse me for bothering you."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): excusez-moi was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry excusez-moi, interjection. Sentences: Tatoeba 6682651 / 2425828; Tatoeba 1832940 / 39993; Tatoeba 7581945 / 8826448."
+   },
+   {
+    "id": "u_delfa1_450",
+    "after": "oui",
+    "word": "d'accord",
+    "ipa": "/da.kɔʁ/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "sure!, OK!, of course!"
+      ]
+     ],
+     [
+      "adverb",
+      [
+       "in agreement"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "D'accord.",
+      "All right."
+     ],
+     [
+      "Il est d'accord.",
+      "He agrees."
+     ],
+     [
+      "D'accord, à demain !",
+      "OK, see you tomorrow."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): d'accord was a card of no French deck. Senses and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry d'accord, interjection (\"sure!, OK!, of course!, naturally!\") and adverb. Sentences: Tatoeba 395588 / 268108; Tatoeba 12575014 / 8475575; Tatoeba 11979241 / 9418428."
+   },
+   {
+    "id": "u_delfa1_451",
+    "after": "bonjour",
+    "word": "enchanté",
+    "ipa": "/ɑ̃.ʃɑ̃.te/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "pleased to meet you"
+      ]
+     ],
+     [
+      "adjective",
+      [
+       "enchanted, delighted"
+      ]
+     ]
+    ],
+    "forms": [
+     [
+      "feminine",
+      "enchantée"
+     ]
+    ],
+    "ex": [
+     [
+      "Enchanté !",
+      "Pleased to meet you."
+     ],
+     [
+      "Enchanté de vous rencontrer.",
+      "Nice to meet you."
+     ],
+     [
+      "Enchanté de te connaître.",
+      "Nice to meet you."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): enchanté was a card of no French deck. Senses, feminine and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry enchanté, interjection and adjective. Sentences: Tatoeba 949849 / 456635; Tatoeba 398770 / 499617; Tatoeba 11908299 / 499617."
+   },
+   {
+    "id": "u_delfa1_452",
+    "after": "au revoir",
+    "word": "à bientôt",
+    "ipa": "/a bjɛ̃.to/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "see you soon, see you later"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "À bientôt !",
+      "See you soon!"
+     ],
+     [
+      "Merci et à bientôt !",
+      "Thanks and see you soon!"
+     ],
+     [
+      "Bonne journée. À bientôt.",
+      "Good day. See you soon."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): à bientôt was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry à bientôt, interjection. Sentences: Tatoeba 337862 / 32672; Tatoeba 2379930 / 10250269; Tatoeba 11737 / 53177."
+   },
+   {
+    "id": "u_delfa1_453",
+    "after": "avoir",
+    "word": "il y a",
+    "ipa": "/i.l‿i.j‿a/",
+    "senses": [
+     [
+      "verb, impersonal",
+      [
+       "there is, there are"
+      ]
+     ],
+     [
+      "preposition",
+      [
+       "ago"
+      ]
+     ]
+    ],
+    "forms": [
+     [
+      "infinitive",
+      "y avoir"
+     ],
+     [
+      "negative",
+      "il n'y a pas"
+     ],
+     [
+      "question",
+      "y a-t-il"
+     ]
+    ],
+    "ex": [
+     [
+      "Il y a trois chats.",
+      "There are three cats."
+     ],
+     [
+      "Il y a un policier.",
+      "There's a police officer."
+     ],
+     [
+      "Je l'ai vu il y a longtemps.",
+      "I saw it a long time ago."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): il y a was a card of no French deck. Senses, the three forms (the entry's head line) and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry il y a, verb and preposition. Sentences: Tatoeba 13388718 / 13008370; Tatoeba 11733885 / 5642976; the third is the usage example of the entry's preposition sense."
+   },
+   {
+    "id": "u_delfa1_454",
+    "after": "que",
+    "word": "est-ce que",
+    "ipa": "/ɛs kə/",
+    "senses": [
+     [
+      "particle",
+      [
+       "used to introduce a yes-or-no question",
+       "used after a question word to introduce the rest of the question"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Est-ce que tu comprends ?",
+      "Do you understand?"
+     ],
+     [
+      "Est-ce que vous comprenez ?",
+      "Do you understand?"
+     ],
+     [
+      "Quand est-ce que les élèves retournent à l'école ?",
+      "When do the students return to school?"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): est-ce que was a card of no French deck. Senses and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry est-ce que, particle (\"Used to introduce a yes-or-no question.\"; \"Used after a preposed interrogative to introduce the remainder of the question.\"). Sentences: Tatoeba 11660674 / 403063; Tatoeba 11660675 / 403063; the third is the entry's own usage example, its typographic apostrophe written '."
+   },
+   {
+    "id": "u_delfa1_455",
+    "after": "maintenant",
+    "word": "aujourd'hui",
+    "ipa": "/o.ʒuʁ.d‿ɥi/",
+    "senses": [
+     [
+      "adverb",
+      [
+       "today",
+       "nowadays"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Il pleut aujourd'hui.",
+      "It's raining today."
+     ],
+     [
+      "Je sors aujourd'hui.",
+      "I'm going out today."
+     ],
+     [
+      "Commence aujourd'hui.",
+      "Start today."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): aujourd'hui was a card of no French deck. Senses and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry aujourd'hui, adverb. Sentences: Tatoeba 4646718 / 4646117; Tatoeba 9009599 / 4424564; Tatoeba 12476722 / 10312464."
+   },
+   {
+    "id": "u_delfa1_456",
+    "after": "ça",
+    "word": "ça va",
+    "ipa": "/sa va/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "how are you? how's it going? (as a question)",
+       "things are going fine (as a response)",
+       "OK, all right (informal)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Ça va.",
+      "I'm fine."
+     ],
+     [
+      "Bonjour, ça va?",
+      "Hello, how are you?"
+     ],
+     [
+      "Ça va ? — Oui, ça va bien.",
+      "How's it going? — It's going fine."
+     ]
+    ],
+    "moved": "frphrases/ça va (u_frphrases_26)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, the last deck on the shelf (note 26, u_frphrases_26). Its three sentences there were ça + va + a verb (Est-ce que ça va durer encore longtemps ?), not the greeting, so the card is rewritten: senses and IPA English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry ça va, interjection; sentences Tatoeba 744360 / 257272; Tatoeba 2175859 / 138868; the third is the entry's own usage example."
+   },
+   {
+    "id": "u_delfa1_457",
+    "after": "ça va",
+    "word": "comment ça va",
+    "ipa": "/kɔ.mɑ̃ sa va/",
+    "senses": [
+     [
+      "phrase, informal",
+      [
+       "how are you"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Comment ça va ?",
+      "How's it going?"
+     ],
+     [
+      "Salut, comment ça va ?",
+      "Hi, how are you?"
+     ],
+     [
+      "Bonsoir, comment ça va ?",
+      "Good evening, how are you?"
+     ]
+    ],
+    "moved": "frphrases/comment ça va (u_frphrases_349)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, the last deck on the shelf (note 349, u_frphrases_349). Sense (tagged informal) and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry comment ça va. One of its sentences there was not the greeting (Je ne sais pas comment ça va se terminer), so all three are new: Tatoeba 4189529 / 277972; Tatoeba 3260084 / 473177; Tatoeba 1567565 / 413820."
+   },
+   {
+    "id": "u_delfa1_458",
+    "after": "comment ça va",
+    "moved": "frphrases/comment allez-vous (u_frphrases_251)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, where it was note 251 (u_frphrases_251); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "comment allez-vous",
+     "answer": "how are you",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "how are you",
+     "type": "delf",
+     "fields": {
+      "French": "comment allez-vous",
+      "Word": "comment allez-vous",
+      "Ipa": "/kɔ.mɑ̃.t‿a.le.vu/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase, not comment ça va</div><div class=\"uc-gl\">how are you</div></div>",
+      "Forms": "",
+      "Conjugation": "",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Comment allez-vous ? Avez-vous fait bon voyage ?\"></span><b>Comment allez-vous</b> ? Avez-vous fait bon voyage ?</div><div class=\"uc-exe\">How are you? Did you have a good trip?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ravi de vous rencontrer. Comment allez-vous ?\"></span>Ravi de vous rencontrer. <b>Comment allez-vous</b> ?</div><div class=\"uc-exe\">Nice to meet you. How are you doing?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Comment allez-vous tous les deux ?\"></span><b>Comment allez-vous</b> tous les deux ?</div><div class=\"uc-exe\">How are you two doing?</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_459",
+    "after": "je",
+    "moved": "frphrases/je m'appelle (u_frphrases_119)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, where it was note 119 (u_frphrases_119); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "je m'appelle",
+     "answer": "my name is ...; I am ...; I'm ...",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "my name is ...; I am ...; I'm ...",
+     "type": "delf",
+     "fields": {
+      "French": "je m'appelle",
+      "Word": "je m'appelle",
+      "Ipa": "/ʒə m‿a.pɛl/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ul class=\"uc-gls\"><li>my name is ...</li><li>I am ...</li><li>I'm ...</li></ul></div>",
+      "Forms": "",
+      "Conjugation": "",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salut tout le monde ! Je m'appelle Mary.\"></span>Salut tout le monde ! <b>Je m'appelle</b> Mary.</div><div class=\"uc-exe\">Hello everyone! My name is Mary.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je m'appelle Tom. Enchanté de vous rencontrer.\"></span><b>Je m'appelle</b> Tom. Enchanté de vous rencontrer.</div><div class=\"uc-exe\">My name's Tom. Pleased to meet you.</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_460",
+    "after": "bonsoir",
+    "word": "bonne nuit",
+    "ipa": "/bɔn nɥi/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "good night (a phrase uttered upon a farewell)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Bonne nuit !",
+      "Good night!"
+     ],
+     [
+      "Bonne nuit, papa.",
+      "Good night, Dad."
+     ],
+     [
+      "Bonne nuit, mon amour. Fais de beaux rêves.",
+      "Goodnight, my love. Sweet dreams."
+     ]
+    ],
+    "moved": "frphrases/bonne nuit (u_frphrases_159)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, the last deck on the shelf (note 159, u_frphrases_159), with its sense and IPA. Two of its sentences there used the noun phrase (J'ai eu une bonne nuit de sommeil), so they are replaced: Tatoeba 427110 / 426950; Tatoeba 11790318 / 11790316; the third is the moved card's own."
+   },
+   {
+    "id": "u_delfa1_461",
+    "after": "bonne nuit",
+    "word": "bonne journée",
+    "ipa": "/bɔn ʒuʁ.ne/",
+    "senses": [
+     [
+      "interjection",
+      [
+       "have a nice day"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Bonne journée !",
+      "Have a nice day!"
+     ],
+     [
+      "Passez une bonne journée.",
+      "Have a good day."
+     ],
+     [
+      "Bonne journée à vous !",
+      "Enjoy your day."
+     ]
+    ],
+    "moved": "frphrases/bonne journée (u_frphrases_279)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, the last deck on the shelf (note 279, u_frphrases_279), with its sense and IPA. Its sentences there were none of them the farewell (J'ai passé une très bonne journée hier), so all three are new: Tatoeba 4767816 / 30095; Tatoeba 5743773 / 3326719; Tatoeba 2164059 / 2163054."
+   },
+   {
+    "id": "u_delfa1_462",
+    "after": "demain",
+    "word": "à demain",
+    "ipa": "/a d(ə).mɛ̃/",
+    "senses": [
+     [
+      "phrase",
+      [
+       "see you tomorrow"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "À demain !",
+      "See you tomorrow!"
+     ],
+     [
+      "Au revoir. À demain.",
+      "Goodbye. See you tomorrow."
+     ],
+     [
+      "D'accord, à demain !",
+      "OK, see you tomorrow."
+     ]
+    ],
+    "moved": "frphrases/à demain (u_frphrases_124)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from French — Common phrases and expressions, the last deck on the shelf (note 124, u_frphrases_124), with its sense and IPA. Its sentences there were none of them the farewell (Quant à demain, c'est une autre histoire), so all three are new: Tatoeba 1108688 / 1108683; Tatoeba 3787881 / 453072; Tatoeba 11979241 / 9418428."
+   },
+   {
+    "id": "u_delfa1_463",
+    "after": "faire",
+    "moved": "delfa2/pouvoir (u_delfa2_50)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF A2 — French, where it was note 50 (u_delfa2_50); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "pouvoir",
+     "answer": "can; to be able to; may",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "can; to be able to; may",
+     "type": "delf",
+     "fields": {
+      "French": "pouvoir",
+      "Word": "pouvoir",
+      "Ipa": "/pu.vwaʁ/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><ul class=\"uc-gls\"><li>can</li><li>to be able to</li><li>may</li><li>to have the right</li></ul></div>",
+      "Forms": "",
+      "Conjugation": "<div class=\"uc-cj-nf\"><span class=\"uc-cj-nfi\"><i>infinitive</i><b>pouvoir</b></span><span class=\"uc-cj-nfi\"><i>past participle</i><b>pu</b></span><span class=\"uc-cj-nfi\"><i>present participle</i><b>pouvant</b></span><span class=\"uc-cj-nfi\"><i>auxiliary</i><b>avoir</b></span></div><div class=\"uc-cj-grid\"><div><div class=\"uc-cj-h\">Présent</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je p<b class=\"uc-cj-e\">eux</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu p<b class=\"uc-cj-e\">eux</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle p<b class=\"uc-cj-e\">eut</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous p<b class=\"uc-cj-e\">ouvons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous p<b class=\"uc-cj-e\">ouvez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles p<b class=\"uc-cj-e\">euvent</b></span></div></div><div><div class=\"uc-cj-h\">Passé composé</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">j'<b class=\"uc-cj-e\">ai</b> pu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu <b class=\"uc-cj-e\">as</b> pu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle <b class=\"uc-cj-e\">a</b> pu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous <b class=\"uc-cj-e\">avons</b> pu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous <b class=\"uc-cj-e\">avez</b> pu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles <b class=\"uc-cj-e\">ont</b> pu</span></div></div><div><div class=\"uc-cj-h\">Imparfait</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je pouv<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu pouv<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle pouv<b class=\"uc-cj-e\">ait</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous pouv<b class=\"uc-cj-e\">ions</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous pouv<b class=\"uc-cj-e\">iez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles pouv<b class=\"uc-cj-e\">aient</b></span></div></div><div><div class=\"uc-cj-h\">Futur simple</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je pourr<b class=\"uc-cj-e\">ai</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu pourr<b class=\"uc-cj-e\">as</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle pourr<b class=\"uc-cj-e\">a</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous pourr<b class=\"uc-cj-e\">ons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous pourr<b class=\"uc-cj-e\">ez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles pourr<b class=\"uc-cj-e\">ont</b></span></div></div></div>",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je ne peux pas m'empêcher de rire.\"></span>Je ne <b>peux</b> pas m'empêcher de rire.</div><div class=\"uc-exe\">I cannot help laughing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Parfois, les enfants ne peuvent pas être patients.\"></span>Parfois, les enfants ne <b>peuvent</b> pas être patients.</div><div class=\"uc-exe\">Children sometimes lack patience.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"L'argent ne peut pas acheter le bonheur.\"></span>L'argent ne <b>peut</b> pas acheter le bonheur.</div><div class=\"uc-exe\">Money cannot buy happiness.</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_464",
+    "after": "pouvoir",
+    "moved": "delfa2/vouloir (u_delfa2_164)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF A2 — French, where it was note 164 (u_delfa2_164); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "vouloir",
+     "answer": "to want; wish; desire",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "to want; wish; desire",
+     "type": "delf",
+     "fields": {
+      "French": "vouloir",
+      "Word": "vouloir",
+      "Ipa": "/vu.lwaʁ/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><ul class=\"uc-gls\"><li>to want</li><li>wish</li><li>desire</li><li>to expect</li></ul></div>",
+      "Forms": "",
+      "Conjugation": "<div class=\"uc-cj-nf\"><span class=\"uc-cj-nfi\"><i>infinitive</i><b>vouloir</b></span><span class=\"uc-cj-nfi\"><i>past participle</i><b>voulu</b></span><span class=\"uc-cj-nfi\"><i>present participle</i><b>voulant</b></span><span class=\"uc-cj-nfi\"><i>auxiliary</i><b>avoir</b></span></div><div class=\"uc-cj-grid\"><div><div class=\"uc-cj-h\">Présent</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je v<b class=\"uc-cj-e\">eux</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu v<b class=\"uc-cj-e\">eux</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle v<b class=\"uc-cj-e\">eut</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous v<b class=\"uc-cj-e\">oulons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous v<b class=\"uc-cj-e\">oulez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles v<b class=\"uc-cj-e\">eulent</b></span></div></div><div><div class=\"uc-cj-h\">Passé composé</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">j'<b class=\"uc-cj-e\">ai</b> voulu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu <b class=\"uc-cj-e\">as</b> voulu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle <b class=\"uc-cj-e\">a</b> voulu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous <b class=\"uc-cj-e\">avons</b> voulu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous <b class=\"uc-cj-e\">avez</b> voulu</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles <b class=\"uc-cj-e\">ont</b> voulu</span></div></div><div><div class=\"uc-cj-h\">Imparfait</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je voul<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu voul<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle voul<b class=\"uc-cj-e\">ait</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous voul<b class=\"uc-cj-e\">ions</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous voul<b class=\"uc-cj-e\">iez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles voul<b class=\"uc-cj-e\">aient</b></span></div></div><div><div class=\"uc-cj-h\">Futur simple</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je voudr<b class=\"uc-cj-e\">ai</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu voudr<b class=\"uc-cj-e\">as</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle voudr<b class=\"uc-cj-e\">a</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous voudr<b class=\"uc-cj-e\">ons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous voudr<b class=\"uc-cj-e\">ez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles voudr<b class=\"uc-cj-e\">ont</b></span></div></div><div><div class=\"uc-cj-h\">Impératif</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">v<b class=\"uc-cj-e\">eux</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">v<b class=\"uc-cj-e\">oulons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">v<b class=\"uc-cj-e\">oulez</b></span></div></div></div>",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je veux quelque chose de frais à boire.\"></span>Je <b>veux</b> quelque chose de frais à boire.</div><div class=\"uc-exe\">I want something cold to drink.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il veut aller aux États-Unis d'Amérique.\"></span>Il <b>veut</b> aller aux États-Unis d'Amérique.</div><div class=\"uc-exe\">He wants to go to America.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je voudrais que tu me dises la vérité.\"></span>Je <b>voudrais</b> que tu me dises la vérité.</div><div class=\"uc-exe\">I want you to tell me the truth.</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_465",
+    "after": "vouloir",
+    "moved": "delfa2/devoir (u_delfa2_92)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF A2 — French, where it was note 92 (u_delfa2_92); its fields are that card's, verbatim, but for its sentences: two of the three there were the NOUN (faire ses devoirs, c'est mon devoir), so they are replaced by Tatoeba 7555304 / 1799601; Tatoeba 8718837 / 7538219; Tatoeba 7804110 / 1893806. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "devoir",
+     "answer": "must; to have to; should",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "must; to have to; should",
+     "type": "delf",
+     "fields": {
+      "French": "devoir",
+      "Word": "devoir",
+      "Ipa": "/də.vwaʁ/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><ul class=\"uc-gls\"><li>must</li><li>to have to</li><li>should</li></ul></div>",
+      "Forms": "",
+      "Conjugation": "<div class=\"uc-cj-nf\"><span class=\"uc-cj-nfi\"><i>infinitive</i><b>devoir</b></span><span class=\"uc-cj-nfi\"><i>past participle</i><b>dû</b></span><span class=\"uc-cj-nfi\"><i>present participle</i><b>devant</b></span><span class=\"uc-cj-nfi\"><i>auxiliary</i><b>avoir</b></span></div><div class=\"uc-cj-grid\"><div><div class=\"uc-cj-h\">Présent</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je d<b class=\"uc-cj-e\">ois</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu d<b class=\"uc-cj-e\">ois</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle d<b class=\"uc-cj-e\">oit</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous d<b class=\"uc-cj-e\">evons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous d<b class=\"uc-cj-e\">evez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles d<b class=\"uc-cj-e\">oivent</b></span></div></div><div><div class=\"uc-cj-h\">Passé composé</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">j'<b class=\"uc-cj-e\">ai</b> dû</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu <b class=\"uc-cj-e\">as</b> dû</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle <b class=\"uc-cj-e\">a</b> dû</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous <b class=\"uc-cj-e\">avons</b> dû</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous <b class=\"uc-cj-e\">avez</b> dû</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles <b class=\"uc-cj-e\">ont</b> dû</span></div></div><div><div class=\"uc-cj-h\">Imparfait</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je dev<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu dev<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle dev<b class=\"uc-cj-e\">ait</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous dev<b class=\"uc-cj-e\">ions</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous dev<b class=\"uc-cj-e\">iez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles dev<b class=\"uc-cj-e\">aient</b></span></div></div><div><div class=\"uc-cj-h\">Futur simple</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je devr<b class=\"uc-cj-e\">ai</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu devr<b class=\"uc-cj-e\">as</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle devr<b class=\"uc-cj-e\">a</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous devr<b class=\"uc-cj-e\">ons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous devr<b class=\"uc-cj-e\">ez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles devr<b class=\"uc-cj-e\">ont</b></span></div></div><div><div class=\"uc-cj-h\">Impératif</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">d<b class=\"uc-cj-e\">ois</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">d<b class=\"uc-cj-e\">evons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">d<b class=\"uc-cj-e\">evez</b></span></div></div></div>",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il est en train de faire ses devoirs.\"></span>Il est en train de faire ses <b>devoirs</b>.</div><div class=\"uc-exe\">He is doing the homework.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il est ce qu'un gentleman devrait être.\"></span>Il est ce qu'un gentleman <b>devrait</b> être.</div><div class=\"uc-exe\">He is a perfect gentleman.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"C'est mon devoir de t'aider.\"></span>C'est mon <b>devoir</b> de t'aider.</div><div class=\"uc-exe\">It's my duty to help you.</div></div>"
+     }
+    },
+    "ex": [
+     [
+      "Je dois savoir.",
+      "I must know."
+     ],
+     [
+      "Tu dois payer.",
+      "You must pay."
+     ],
+     [
+      "Nous devons parler.",
+      "We have to talk."
+     ]
+    ],
+    "bold": [
+     "dois",
+     "devons"
+    ]
+   },
+   {
+    "id": "u_delfa1_466",
+    "after": "pardon",
+    "moved": "delfa2/désolé (u_delfa2_19)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF A2 — French, where it was note 19 (u_delfa2_19); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "désolé",
+     "answer": "desolate; forsaken; sorry",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "desolate; forsaken; sorry",
+     "type": "delf",
+     "fields": {
+      "French": "désolé",
+      "Word": "désolé",
+      "Ipa": "/de.zɔ.le/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><ul class=\"uc-gls\"><li>desolate</li><li>forsaken</li><li>sorry</li><li>apologetic</li></ul></div>",
+      "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">feminine</span>désolée</span></div>",
+      "Conjugation": "<div class=\"uc-cj-grid\"><div class=\"uc-dtw\"><div class=\"uc-cj-h\">Accord</div><div class=\"uc-dt uc-dt2\"><div class=\"uc-dtr uc-dth\"><span class=\"uc-dtl\"></span><span class=\"uc-dtc\">masculin</span><span class=\"uc-dtc\">féminin</span></div><div class=\"uc-dtr\"><span class=\"uc-dtl\">singulier</span><span class=\"uc-dtc\">désolé</span><span class=\"uc-dtc\">désolée</span></div><div class=\"uc-dtr\"><span class=\"uc-dtl\">pluriel</span><span class=\"uc-dtc\">désolés</span><span class=\"uc-dtc\">désolées</span></div></div></div></div>",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je suis désolé mais je ne peux pas.\"></span>Je suis <b>désolé</b> mais je ne peux pas.</div><div class=\"uc-exe\">I'm afraid I can't.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je suis désolée de vous avoir mal compris.\"></span>Je suis <b>désolée</b> de vous avoir mal compris.</div><div class=\"uc-exe\">I'm sorry I misunderstood you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Désolés pour ce que nous avons dit plus tôt.\"></span><b>Désolés</b> pour ce que nous avons dit plus tôt.</div><div class=\"uc-exe\">Sorry about earlier.</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_467",
+    "after": "pourquoi",
+    "moved": "delfa2/parce que (u_delfa2_114)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF A2 — French, where it was note 114 (u_delfa2_114); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "parce que",
+     "answer": "because",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "because",
+     "type": "delf",
+     "fields": {
+      "French": "parce que",
+      "Word": "parce que",
+      "Ipa": "/paʁ.s(ə) kə/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">conjunction</div><div class=\"uc-gl\">because</div></div>",
+      "Forms": "",
+      "Conjugation": "",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"C'est parce que j'ai eu peur.\"></span>C'est <b>parce que</b> j'ai eu peur.</div><div class=\"uc-exe\">Because I was scared.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"C'est parce que tu es une fille.\"></span>C'est <b>parce que</b> tu es une fille.</div><div class=\"uc-exe\">That's because you're a girl.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je suis heureux, parce que vous êtes ici.\"></span>Je suis heureux, <b>parce que</b> vous êtes ici.</div><div class=\"uc-exe\">I'm happy because you're here.</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_468",
+    "after": "prendre",
+    "moved": "delfb1/mettre (u_delfb1_6)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF B1 — French, where it was note 6 (u_delfb1_6); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "mettre",
+     "answer": "to put; to place; to put on",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "to put; to place; to put on",
+     "type": "delf",
+     "fields": {
+      "French": "mettre",
+      "Word": "mettre",
+      "Ipa": "/mɛtʁ/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><ul class=\"uc-gls\"><li>to put</li><li>to place</li><li>to put on</li><li>to set</li></ul></div>",
+      "Forms": "",
+      "Conjugation": "<div class=\"uc-cj-nf\"><span class=\"uc-cj-nfi\"><i>infinitive</i><b>mettre</b></span><span class=\"uc-cj-nfi\"><i>past participle</i><b>mis</b></span><span class=\"uc-cj-nfi\"><i>present participle</i><b>mettant</b></span><span class=\"uc-cj-nfi\"><i>auxiliary</i><b>avoir</b></span></div><div class=\"uc-cj-grid\"><div><div class=\"uc-cj-h\">Présent</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je me<b class=\"uc-cj-e\">ts</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu me<b class=\"uc-cj-e\">ts</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle me<b class=\"uc-cj-e\">t</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous me<b class=\"uc-cj-e\">ttons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous me<b class=\"uc-cj-e\">ttez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles me<b class=\"uc-cj-e\">ttent</b></span></div></div><div><div class=\"uc-cj-h\">Passé composé</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">j'<b class=\"uc-cj-e\">ai</b> mis</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu <b class=\"uc-cj-e\">as</b> mis</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle <b class=\"uc-cj-e\">a</b> mis</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous <b class=\"uc-cj-e\">avons</b> mis</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous <b class=\"uc-cj-e\">avez</b> mis</span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles <b class=\"uc-cj-e\">ont</b> mis</span></div></div><div><div class=\"uc-cj-h\">Imparfait</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je mett<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu mett<b class=\"uc-cj-e\">ais</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle mett<b class=\"uc-cj-e\">ait</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous mett<b class=\"uc-cj-e\">ions</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous mett<b class=\"uc-cj-e\">iez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles mett<b class=\"uc-cj-e\">aient</b></span></div></div><div><div class=\"uc-cj-h\">Futur simple</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">je mettr<b class=\"uc-cj-e\">ai</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">tu mettr<b class=\"uc-cj-e\">as</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">he/she</span><span class=\"uc-cj-f\">il/elle mettr<b class=\"uc-cj-e\">a</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">nous mettr<b class=\"uc-cj-e\">ons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">vous mettr<b class=\"uc-cj-e\">ez</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">ils/elles mettr<b class=\"uc-cj-e\">ont</b></span></div></div><div><div class=\"uc-cj-h\">Impératif</div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">met<b class=\"uc-cj-e\">s</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">met<b class=\"uc-cj-e\">tons</b></span></div><div class=\"uc-cj-r\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">met<b class=\"uc-cj-e\">tez</b></span></div></div></div>",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ne laisse personne se mettre dans mon chemin.\"></span>Ne laisse personne se <b>mettre</b> dans mon chemin.</div><div class=\"uc-exe\">Let no one interfere with me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ne mets pas les doigts dans ton nez !\"></span>Ne <b>mets</b> pas les doigts dans ton nez !</div><div class=\"uc-exe\">Don't pick your nose.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Je me suis mis à la peinture récemment.\"></span>Je me suis <b>mis</b> à la peinture récemment.</div><div class=\"uc-exe\">I've taken up painting recently.</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_469",
+    "after": "un, une",
+    "moved": "delfb1/premier (u_delfb1_8)",
+    "why": "THE BEGINNER PASS (Nov 2026): MOVED from DELF B1 — French, where it was note 8 (u_delfb1_8); its fields are that card's, verbatim. dropDup takes it out there; a reader who already holds the old card keeps it.",
+    "note": {
+     "sub": "",
+     "question": "premier",
+     "answer": "first; prime",
+     "answerDate": "",
+     "traditional": "",
+     "hanzi": "",
+     "pinyin": "",
+     "translations": "",
+     "abstract": "",
+     "citation": "",
+     "answerText": "first; prime",
+     "type": "delf",
+     "fields": {
+      "French": "premier",
+      "Word": "premier",
+      "Ipa": "/pʁə.mje/",
+      "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><ul class=\"uc-gls\"><li>first</li><li>prime</li></ul></div>",
+      "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">feminine</span>première</span></div>",
+      "Conjugation": "<div class=\"uc-cj-grid\"><div class=\"uc-dtw\"><div class=\"uc-cj-h\">Accord</div><div class=\"uc-dt uc-dt2\"><div class=\"uc-dtr uc-dth\"><span class=\"uc-dtl\"></span><span class=\"uc-dtc\">masculin</span><span class=\"uc-dtc\">féminin</span></div><div class=\"uc-dtr\"><span class=\"uc-dtl\">singulier</span><span class=\"uc-dtc\">premier</span><span class=\"uc-dtc\">première</span></div><div class=\"uc-dtr\"><span class=\"uc-dtl\">pluriel</span><span class=\"uc-dtc\">premiers</span><span class=\"uc-dtc\">premières</span></div></div></div></div>",
+      "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il avait l'air froid au premier abord.\"></span>Il avait l'air froid au <b>premier</b> abord.</div><div class=\"uc-exe\">He looked unfriendly at first.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Laver avant de porter pour la première fois.\"></span>Laver avant de porter pour la <b>première</b> fois.</div><div class=\"uc-exe\">Wash before first wearing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Peux-tu lui donner les premiers soins ?\"></span>Peux-tu lui donner les <b>premiers</b> soins ?</div><div class=\"uc-exe\">Can you give him first aid?</div></div>"
+     }
+    }
+   },
+   {
+    "id": "u_delfa1_470",
+    "after": "douze",
+    "word": "treize",
+    "ipa": "/tʁɛz/",
+    "senses": [
+     [
+      "number",
+      [
+       "thirteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "J'ai treize ans.",
+      "I'm thirteen years old."
+     ],
+     [
+      "J'ai treize chats.",
+      "I have thirteen cats."
+     ],
+     [
+      "Treize personnes ont été blessées.",
+      "Thirteen people were injured."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): treize was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry treize, numeral (\"thirteen\"). Sentences: Tatoeba 7851099 / 7521808; Tatoeba 647202 / 1213425; Tatoeba 7138603 / 4500270."
+   },
+   {
+    "id": "u_delfa1_471",
+    "after": "treize",
+    "word": "quatorze",
+    "ipa": "/ka.tɔʁz/",
+    "senses": [
+     [
+      "number",
+      [
+       "fourteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "J'ai quatorze ans.",
+      "I'm fourteen years old."
+     ],
+     [
+      "Deux fois sept font quatorze.",
+      "Two times seven is fourteen."
+     ],
+     [
+      "J'aurai quatorze ans demain.",
+      "I will be fourteen years old tomorrow."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): quatorze was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry quatorze, numeral (\"fourteen\"). Sentences: Tatoeba 6813322 / 6813439; Tatoeba 2263344 / 945547; Tatoeba 441769 / 261913."
+   },
+   {
+    "id": "u_delfa1_472",
+    "after": "quatorze",
+    "word": "quinze",
+    "ipa": "/kɛ̃z/",
+    "senses": [
+     [
+      "number",
+      [
+       "fifteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Le livre coûte quinze dollars.",
+      "The book costs fifteen dollars."
+     ],
+     [
+      "On ferme dans quinze minutes.",
+      "We're closing in fifteen minutes."
+     ],
+     [
+      "Ma fille a à peine quinze ans.",
+      "My daughter is barely fifteen."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): quinze was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry quinze, numeral (\"fifteen\"). Sentences: Tatoeba 486745 / 462590; Tatoeba 11268047 / 11257142; Tatoeba 3660839 / 322879."
+   },
+   {
+    "id": "u_delfa1_473",
+    "after": "quinze",
+    "word": "seize",
+    "ipa": "/sɛz/",
+    "senses": [
+     [
+      "number",
+      [
+       "sixteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "J'ai seize ans.",
+      "I'm sixteen."
+     ],
+     [
+      "Il a seize ans.",
+      "He's sixteen years old."
+     ],
+     [
+      "Ces garçons ont seize ans.",
+      "Those boys are sixteen years old."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): seize was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry seize, numeral (\"sixteen\"). Sentences: Tatoeba 517016 / 9352975; Tatoeba 8030908 / 11559681; Tatoeba 8419589 / 2121674."
+   },
+   {
+    "id": "u_delfa1_474",
+    "after": "seize",
+    "word": "dix-sept",
+    "ipa": "/di.sɛt/",
+    "senses": [
+     [
+      "number",
+      [
+       "seventeen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Il a dix-sept ans.",
+      "He is seventeen years old."
+     ],
+     [
+      "Elle a dix-sept ans.",
+      "She's seventeen years old."
+     ],
+     [
+      "Mon ami a dix-sept ans.",
+      "My friend is seventeen years old."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): dix-sept was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry dix-sept, numeral (\"seventeen\"). Sentences: Tatoeba 8030917 / 10351583; Tatoeba 7555301 / 2765316; Tatoeba 333492 / 761865."
+   },
+   {
+    "id": "u_delfa1_475",
+    "after": "dix-sept",
+    "word": "dix-huit",
+    "ipa": "/di.z‿ɥit/",
+    "senses": [
+     [
+      "number",
+      [
+       "eighteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "J'ai dix-huit ans.",
+      "I am eighteen years old."
+     ],
+     [
+      "Six fois trois égale dix-huit.",
+      "Six times three is eighteen."
+     ],
+     [
+      "J'ai plus de dix-huit ans.",
+      "I'm over eighteen."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): dix-huit was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry dix-huit, numeral (\"eighteen\"). Sentences: Tatoeba 129841 / 282225; Tatoeba 4737930 / 4750416; Tatoeba 4686230 / 1891101."
+   },
+   {
+    "id": "u_delfa1_476",
+    "after": "dix-huit",
+    "word": "dix-neuf",
+    "ipa": "/diz.nœf/",
+    "senses": [
+     [
+      "number",
+      [
+       "nineteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Kylian Mbappé a seulement dix-neuf ans.",
+      "Kylian Mbappé is only 19 years old."
+     ],
+     [
+      "En cas d'urgence, composez le cent dix-neuf.",
+      "In case of emergency, call 119."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): dix-neuf was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry dix-neuf, numeral (\"nineteen\"). Sentences: Tatoeba 6996992 / 6996809; Tatoeba 572730 / 18801."
+   },
+   {
+    "id": "u_delfa1_477",
+    "after": "vingt",
+    "word": "trente",
+    "ipa": "/tʁɑ̃t/",
+    "senses": [
+     [
+      "number",
+      [
+       "thirty"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Compte jusque trente.",
+      "Count to thirty."
+     ],
+     [
+      "Ça coûtera trente euros.",
+      "This is going to cost thirty euros."
+     ],
+     [
+      "Donne-moi trente secondes.",
+      "Give me thirty seconds."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): trente was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry trente, numeral (\"thirty\"). Sentences: Tatoeba 710293 / 707526; Tatoeba 8721350 / 2900195; Tatoeba 5724187 / 3151461."
+   },
+   {
+    "id": "u_delfa1_478",
+    "after": "trente",
+    "word": "quarante",
+    "ipa": "/ka.ʁɑ̃t/",
+    "senses": [
+     [
+      "number",
+      [
+       "forty"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "J'ai quarante ans.",
+      "I'm forty years old."
+     ],
+     [
+      "Elle a quarante ans.",
+      "She is forty years old."
+     ],
+     [
+      "Quarante ans ont passé.",
+      "Forty years passed."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): quarante was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry quarante, numeral (\"forty\"). Sentences: Tatoeba 1045539 / 1045540; Tatoeba 1517149 / 4566557; Tatoeba 10079 / 72618."
+   },
+   {
+    "id": "u_delfa1_479",
+    "after": "quarante",
+    "word": "cinquante",
+    "ipa": "/sɛ̃.kɑ̃t/",
+    "senses": [
+     [
+      "number",
+      [
+       "fifty"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Mon père a cinquante ans.",
+      "My father is fifty years old."
+     ],
+     [
+      "Notre école a cinquante ans.",
+      "Our school is fifty years old."
+     ],
+     [
+      "J'ai cinquante euros dans ma poche.",
+      "I have fifty euros in my pocket."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): cinquante was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry cinquante, numeral (\"fifty\"). Sentences: Tatoeba 516997 / 251625; Tatoeba 1348207 / 247486; Tatoeba 8332805 / 9936819."
+   },
+   {
+    "id": "u_delfa1_480",
+    "after": "cinquante",
+    "word": "soixante",
+    "ipa": "/swa.sɑ̃t/",
+    "senses": [
+     [
+      "number",
+      [
+       "sixty"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Il a soixante ans.",
+      "He is sixty years old."
+     ],
+     [
+      "Une minute compte soixante secondes.",
+      "One minute has sixty seconds."
+     ],
+     [
+      "Elle a presque soixante ans.",
+      "She's almost sixty."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): soixante was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry soixante, numeral (\"sixty\"). Sentences: Tatoeba 8031033 / 8910532; Tatoeba 891591 / 1416883; Tatoeba 909817 / 9195477."
+   },
+   {
+    "id": "u_delfa1_481",
+    "after": "soixante",
+    "word": "soixante-dix",
+    "ipa": "/swa.sɑ̃t.dis/",
+    "senses": [
+     [
+      "number",
+      [
+       "seventy"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Il pèse soixante-dix kilos.",
+      "He weighs 70 kilos."
+     ],
+     [
+      "Je sais compter jusqu'à soixante-dix.",
+      "I can count up to seventy."
+     ],
+     [
+      "Avez-vous dit soixante-dix ou dix-sept ?",
+      "Did you say seventy or seventeen?"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): soixante-dix was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry soixante-dix, numeral (\"seventy\"). Sentences: Tatoeba 589115 / 435040; Tatoeba 6205491 / 11896893; Tatoeba 8923108 / 8923096."
+   },
+   {
+    "id": "u_delfa1_482",
+    "after": "soixante-dix",
+    "word": "quatre-vingts",
+    "ipa": "/ka.tʁə.vɛ̃/",
+    "senses": [
+     [
+      "number",
+      [
+       "eighty"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Il a quatre-vingts ans.",
+      "He is eighty years old."
+     ],
+     [
+      "La bibliothèque a quatre-vingts ans.",
+      "The library is eighty years old."
+     ],
+     [
+      "Vous avez dit dix-huit ou quatre-vingts ?",
+      "Did you say eighteen or eighty?"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): quatre-vingts was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry quatre-vingts, numeral (\"eighty, 80\"). Sentences: Tatoeba 8031068 / 9336022; Tatoeba 12821554 / 45990; Tatoeba 8923513 / 8923495."
+   },
+   {
+    "id": "u_delfa1_483",
+    "after": "quatre-vingts",
+    "word": "quatre-vingt-dix",
+    "ipa": "/ka.tʁə.vɛ̃.dis/",
+    "senses": [
+     [
+      "number",
+      [
+       "ninety"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Notre grand-père a quatre-vingt-dix ans.",
+      "Our grandfather is ninety years old."
+     ],
+     [
+      "Je n'ai pas encore quatre-vingt-dix ans.",
+      "I am not ninety years old yet."
+     ],
+     [
+      "La vie était meilleure dans les années quatre-vingt-dix.",
+      "Life was better in the nineties."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): quatre-vingt-dix was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry quatre-vingt-dix, numeral (\"ninety\"). Sentences: Tatoeba 12125738 / 12125724; Tatoeba 10811043 / 10811026; Tatoeba 10740793 / 10740769."
+   },
+   {
+    "id": "u_delfa1_484",
+    "after": "cent",
+    "word": "mille",
+    "ipa": "/mil/",
+    "senses": [
+     [
+      "number",
+      [
+       "thousand, one thousand, a thousand"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Il y avait à peu près mille personnes.",
+      "There were about one thousand people."
+     ],
+     [
+      "Merci mille fois !",
+      "Thank you very much!"
+     ],
+     [
+      "L'Empire romain a existé pendant mille ans.",
+      "The Roman Empire survived for a thousand years."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): mille was a card of no French deck. Sense and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry mille, numeral (\"thousand, one thousand, a thousand\"). Sentences: Tatoeba 1533485 / 949153; Tatoeba 6780343 / 1564; Tatoeba 11966960 / 682115."
+   },
+   {
+    "id": "u_delfa1_485",
+    "after": "là-bas",
+    "word": "nord",
+    "art": "m",
+    "ipa": "/nɔʁ/",
+    "senses": [
+     [
+      "noun, masculine",
+      [
+       "north"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "L'hiver est froid dans le nord.",
+      "Winter in the north is cold."
+     ],
+     [
+      "Amiens est au nord de Paris.",
+      "Amiens is north of Paris."
+     ],
+     [
+      "Les boussoles pointent vers le nord.",
+      "Compasses point north."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): nord was a card of no French deck. Sense, gender and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry nord, noun (head line \"nord m (invariable)\"). Sentences: Tatoeba 10755566 / 10753953; Tatoeba 3259544 / 3259545; Tatoeba 5792000 / 4740220."
+   },
+   {
+    "id": "u_delfa1_486",
+    "after": "le nord",
+    "word": "sud",
+    "art": "m",
+    "ipa": "/syd/",
+    "senses": [
+     [
+      "noun, masculine",
+      [
+       "south"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Nice est au sud.",
+      "Nice is to the south."
+     ],
+     [
+      "La capitale est au sud.",
+      "The capital is in the south."
+     ],
+     [
+      "Les oies volent vers le sud.",
+      "The geese are flying south."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): sud was a card of no French deck. Sense, gender and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry sud, noun (head line \"sud m (invariable)\"). Sentences: Tatoeba 3260262 / 3260263; Tatoeba 11225406 / 11225403; Tatoeba 9530313 / 9530311."
+   },
+   {
+    "id": "u_delfa1_487",
+    "after": "le sud",
+    "word": "est",
+    "art": "m",
+    "ipa": "/ɛst/",
+    "senses": [
+     [
+      "noun, masculine",
+      [
+       "east"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Où est l'est ?",
+      "Where is the east?"
+     ],
+     [
+      "Le soleil se lève à l'est.",
+      "The sun rises in the east."
+     ],
+     [
+      "La Turquie est à l'est de la Grèce.",
+      "Turkey is east of Greece."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): est was a card of no French deck. Sense, gender and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry est, noun (head line \"est m (uncountable)\"). Sentences: Tatoeba 7700755 / 11228624; Tatoeba 6320130 / 6267360; Tatoeba 11263797 / 11263792.",
+    "bold": [
+     "l'est"
+    ]
+   },
+   {
+    "id": "u_delfa1_488",
+    "after": "l'est",
+    "word": "ouest",
+    "art": "m",
+    "ipa": "/wɛst/",
+    "senses": [
+     [
+      "noun, masculine",
+      [
+       "west"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Allons à l'ouest.",
+      "Let's go west."
+     ],
+     [
+      "Le soleil se couche à l'ouest.",
+      "The sun sets in the west."
+     ],
+     [
+      "Nous allons vers l'ouest.",
+      "We're going west."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): ouest was a card of no French deck. Sense, gender and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry ouest, noun (head line \"ouest m (invariable)\"). Sentences: Tatoeba 11229788 / 11229785; Tatoeba 1949344 / 275141; Tatoeba 10996452 / 2240776."
+   },
+   {
+    "id": "u_delfa1_489",
+    "after": "le jour",
+    "word": "fois",
+    "art": "f",
+    "ipa": "/fwa/",
+    "senses": [
+     [
+      "noun, feminine",
+      [
+       "time (an instance or repetition of something happening)"
+      ]
+     ],
+     [
+      "preposition",
+      [
+       "times, multiplied by (arithmetic)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "C'est arrivé deux fois.",
+      "It happened twice."
+     ],
+     [
+      "Je mange trois fois par jour.",
+      "I eat three times a day."
+     ],
+     [
+      "Pas cette fois.",
+      "Not this time."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): fois was a card of no level deck (une fois and five other expressions built on it are in the phrases deck), though it is among the hundred and fifty commonest words of the frequency list the decks are ordered by. Senses, gender (head line \"fois f (invariable)\") and IPA: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry fois, noun and preposition. Sentences: Tatoeba 11707740 / 2248731; Tatoeba 9710613 / 5129540; Tatoeba 7864851 / 7864852."
+   }
+  ]
+ }
+}

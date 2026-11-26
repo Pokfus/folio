@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1399", released: "2026-11-26T22:19Z" };
+window.FOLIO_VERSION = { v: "1.1400", released: "2026-11-26T22:25Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-26",
     t: "Learned means three days in a row, phrases after A1, cleaner banners",
     items: [
+      "French gains a <b>Sounds and spelling</b> deck, and <b>DELF A1</b> now opens with bonjour, merci and s'il vous plaît, with 43 everyday words added.",
       "A card's three <b>learned dots</b> now empty on a wrong answer: learned means right on three separate days in a row.",
       "In every language, <b>phrases and idioms</b> wait in the default order until every A1 word has been introduced.",
       "A language's decks are listed in the <b>Collections page's order</b>, and its start-here deck is dealt first.",

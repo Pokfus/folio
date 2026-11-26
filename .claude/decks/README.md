@@ -381,6 +381,33 @@ moved. To move a word down: add it to a list at the top of `inserts.py`, run the
 a sign to the alphabet: a row of `LETTERS` in `alphabet.py` whose comparison is a cell of the key and
 whose rule is a quoted phrase (`--verify`), and its number in `urdu-ids.json`.
 
+## The French decks: the record, the order, the pinned ids and the sounds deck (Nov 2026)
+
+The DELF / DALF decks CAN be rebuilt (`.claude/delf/`, Python, ~760 MB of live corpora), so every edit is
+in a record that is re-applied after a rebuild. The beginner pass (`docs/lang-decks.md`, "The French
+beginner pass") follows the Spanish model, with one more file in the chain: **`paradigm-fix.js` runs
+first** (the folds, shared with Italian and Portuguese), `french-fix.js` second.
+
+    node paradigm-fix.js --check          # the folded paradigms (le, la; mon, ma …) — by hand, not in CI
+    node french-fix.js --check            # the seven decks carry their fixes, their order and their pinned ids
+    node build-french-sounds.js --check   # the sounds deck is what its table and DELF A1 give
+
+| file | what it is |
+|---|---|
+| `french-fixes.json` | the record: `insert` (a new card, or one MOVED from another deck with its fields verbatim), `gender` (a noun the dictionary lists "m or f", with its head line quoted), `notes` (senses and forms rebuilt), `hints`, and each deck's `subtitle`, `descSub` and `dropDup`. Every entry's `why` names its sources. |
+| `french-ids.json` | deck id → headword (a sounds row's key) → the number in the card's id. **Never delete or renumber a row.** A removed note's row moves to `_retired`; a rename renames the key. |
+| `french-order.json` | deck id → the full list of headwords in the order the deck is dealt (DELF A1, the phrases). A list that is not exactly the deck's headwords is refused. |
+| `french-order.js` | how that file is computed, from the PINNED NUMBER and never from the file's own order: A1's hand-written head, each closed set after the note that introduces it, look-alikes forty apart; the phrases by reading level. `--report` prints the measurements, `--unspelled` the phrase words no level cards. |
+| `french-sounds.json` | the sounds table: rows of Wikipedia's "French orthography" tables and passages of four articles, at the revisions it names. `rx` and `ipaRx` (not from the articles) pick the A1 example words. |
+| `build-french-sounds.js` | writes `French-Sounds-and-Spelling`. **Reads no live source**: the table and the shipped A1 deck. |
+
+`french-fix.js` finds its decks by CARD TYPE (`delf`). A `descSub` whose replacement contains what it
+replaces is refused (it would be applied again on every run). To add a word to A1: an `insert` entry (the
+next free id, its senses and IPA from Wiktionary, three sentences each named by Tatoeba id in `why`),
+`french-fix.js`, then add the headword to the head in `french-order.js` or let it fall where its `after`
+puts it, `french-order.js`, `french-fix.js` again, `build-french-sounds.js` (A1's order decides its
+example words), and `node .claude/build-lang-decks.js`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

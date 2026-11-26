@@ -1911,7 +1911,22 @@ changed was the one that had been wrong all along.
   `decks/DELF-B2-French.folio-deck.json` (**1,654 / 3,308**, 3.96 MB),
   `decks/DALF-C1-French.folio-deck.json` (**3,231 / 6,462**, 5.91 MB) and
   `decks/DALF-C2-French.folio-deck.json` (**431 / 862**, 0.53 MB), community decks rather than site
-  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2|phrases] [--no-fetch]`. Six stages, run by
+  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2|phrases] [--no-fetch]`.
+  **THE FRENCH SET IS EIGHT FILES SINCE THE BEGINNER PASS (Nov 2026; reasoning and measurements in "The
+  French beginner pass" below), and the counts above are the generator's, not the shelf's** (A1 is 476
+  notes, A2 584, B1 893, the phrases 395). The rules a later change must keep: **A CARD ID IS PINNED TO
+  ITS NOTE** in `.claude/decks/french-ids.json` (deck → headword → number; the sounds deck → row key →
+  number), and `french-fix.js` APPLIES the pin, so a deck rebuilt by `run.py` (which numbers by position)
+  is numbered back; a removed note's row moves to `_retired`, a rename renames the key. **A DECK FILE IS
+  EDITED ONLY THROUGH A RECORD**: `paradigm-fixes.json` (the folds; `paradigm-fix.js`, first) and
+  `french-fixes.json` (inserts, moves, genders, senses, hints, descriptions; `french-fix.js`, second),
+  both re-applied after a rebuild. **THE ORDER IS A FILE** (`french-order.json`, written by
+  `french-order.js`): DELF A1's teaching order and the phrases' reading-level tiers. **THE SOUNDS DECK
+  IS BUILT, NOT WRITTEN** (`build-french-sounds.js` from `french-sounds.json` and the shipped A1), reads
+  no live source, and is of card type `frsound`, so every French tool selects its decks by card type
+  (`delf`) and never by file name. `french-fix.js --check` and `build-french-sounds.js --check` run in CI
+  (`paradigm-fix.js --check` does not: run it by hand). After a rebuild:
+  `paradigm-fix.js`, `french-fix.js`, `build-french-sounds.js`, `../build-lang-decks.js`. Six stages, run by
   `run.py`,
   caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
   `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
@@ -5267,6 +5282,13 @@ On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portu
 Alphabet, A1, A2, B1, B2, C1, then the phrases? Every figure was measured on the seven decks as shipped that
 morning, at the language default of ten new cards a day with both directions together, which is five words a
 day. The rules are in `docs/arabic-decks-plan.md` §7 and the headers of the scripts in `.claude/arabic/`;
+
+## The French beginner pass (2026-11-16)
+
+On request, the same audit the Spanish decks had been given the day before: **what does a learner with no
+French meet, in the order the shelf itself recommends** — A1 to C2, then the phrases? Every figure was
+measured on the seven decks as shipped that morning, at the language default of ten new cards a day with
+both directions together, which is five words a day. The rules are in the `.claude/delf/` entry above;
 this section is the reasoning.
 
 ### What the audit found, by what it costs a beginner
@@ -6267,6 +6289,145 @@ In A1 69% of a sentence's words have been met on arrival and 15% are on no card 
 - **A reader who already holds the phrases deck, A2, B1 or B2 keeps the cards that moved** and meets them
   again where they now are.
 - **Not read card by card**: the 72 moved and 36 added cards were; the other 3,787 are as generated.
+
+1. **The words of a first conversation were late, in another deck, or nowhere.** bonjour was note 102 of
+   A1 (day 21), salut 99, pardon 150 (day 30), bonsoir 229 (day 46), de rien 307 (day 62), au revoir 349
+   (day 70). s'il vous plaît, s'il te plaît, excusez-moi, d'accord, enchanté and à bientôt were cards of
+   no deck; ça va, comment allez-vous and je m'appelle were in the phrases deck, which the shelf lists
+   after C2 (day 1,450 at the earliest). The generator's own description lists "greetings" first among
+   the syllabus themes; its word list is a frequency cut of film subtitles and prints none of these.
+2. **Twenty-nine everyday words were cards of no deck.** il y a, est-ce que, aujourd'hui and fois (four
+   of the commonest two hundred words of the list the decks are ordered by); the numbers treize to
+   dix-neuf, trente to quatre-vingt-dix and mille, so that A1 could count to twelve, then twenty, then a
+   hundred; and nord, sud, est and ouest. pouvoir, vouloir and devoir were A2 cards (days 97 to 120),
+   parce que was A2's note 114 though pourquoi is A1's, and mettre and premier were B1's notes 6 and 8
+   (day 207).
+3. **A1 was dealt by a subtitle frequency list.** Day one was de, je, pas, the articles and que. Two to
+   ten ran from note 67 to note 292, eleven and twelve were 407 and 376, the days of the week 324 to 374,
+   the months 360 to 413, and l'été was note 62 because the list counts été, the participle of être.
+4. **Nothing said how a word is read**, in the language where spelling says least. Of A1's 441 headword
+   forms, 89 end in a consonant letter that is not said, 116 hold a nasal vowel, 111 a final e that is
+   not said, 59 carry an accent, and 387 hold at least one spelling without its English value; 605 of
+   1,290 example sentences hold an elision. Every card prints IPA on its back, which says what the word
+   sounds like and not why, and nothing mentioned liaison, elision or the two kinds of h.
+5. **Ninety nouns printed the wrong article.** Where the dictionary's head line reads "m or f" the
+   generator printed la: la bus and la légume in A1, l'amour as une amour in A2, la poison, la graphique
+   and une hymne in C1, and 79 nouns for a person (la touriste, la médecin, une élève) with the masculine
+   nowhere on the card. 5 / 4 / 6 / 8 / 56 / 11 by level. Otherwise gender was sound: 209 of A1's 228
+   nouns carry their article (the other 19 are the days and months, by the generator's own rule), all 31
+   that elide carry un or une, and irregular plurals and feminines are given.
+6. **tu and vous did not say to whom.** tu read "you"; vous read "you, to you, yourself, yourselves". ne
+   and pas both read "not" and neither named the other. Reflexives and the passé composé with être were
+   sound: the five pronominal verbs carry their pronouns through every tense, and each verb names its
+   auxiliary (10 take être) and prints je suis allé(e).
+7. **Verbs were sound.** All 45 A1 verbs carry the present, passé composé, imparfait, futur simple and
+   impératif. Of the 135 verb forms their examples mark, 58 are present, 37 the infinitive, 29 the past
+   participle, 3 imperfect, 3 the present participle and 4 a tense the card does not show (ferais, meure,
+   vive, but).
+8. **The reverse card was sound.** No two notes of any deck had the same English and the same part of
+   speech unhinted — the generator already writes `not X` on such pairs. Two A1 pairs had the same
+   English under different labels (ne / pas, l'an / l'année). Notes that share only a first gloss: 15,
+   10, 24, 61, 106, 2 and 22 groups, A1 to the phrases, left alone. 46% of A1's notes ask with three or
+   more senses.
+9. **Example sentences are eight words at the median at every level**, and over A1 73% of their words
+   had been met when the card arrived (49% over the first fifty notes, 3 sentences of 149 readable
+   whole); 86% to 90% from A2 to C2, 95% in the phrases.
+10. **The phrases deck was last on the shelf and 153 of its 402 expressions are spelled with A1's
+    words.** Its description gave an order "by how common the expression is"; its subtitle claimed no
+    level. Seven of its cards were greetings whose example sentences were not the greeting (ça va
+    illustrated by Est-ce que ça va durer encore longtemps ?).
+11. **The pace was stated nowhere**: A1 was 87 days, the six levels 1,449 days (4.0 years), the phrases
+    81 more.
+12. **C2 holds 431 notes against C1's 3,231 because that is what its source prints.** The six pages of
+    the third-party list run 384, 554, 893, 1,673, 3,220 and 376 words; 72 more are authored for C2. The
+    generator's entry above says why the deck is kept and what its description tells the reader: the
+    top band of a subtitle corpus is its own character (science fiction, medicine, crime), not the
+    register a DALF C2 candidate is examined on.
+
+### What was built
+
+- **Card ids pinned** (`french-ids.json`), before anything moved. A1 (433 notes, highest 446) and B2
+  (1,653, highest 1,654) were already not positional, `paradigm-fix.js` having folded notes away. Checked
+  in a browser: a reader who had studied five cards of the old A1 took the Update and kept the same five
+  ids on the same five words with the same schedules, and all 433 old ids stood on the same word.
+- **A record of its own** (`french-fixes.json`, applied by `french-fix.js`), beside `paradigm-fixes.json`,
+  which stays the record of the folds and runs first. It was not built into `paradigm-fix.js` because
+  that file is three languages' paradigms and neither an order nor a pin is Italian's or Portuguese's.
+- **Forty-three notes for A1** (`insert`, ids 447 to 489): the 29 above, new; 7 from the phrases deck
+  (five rewritten with sentences that are the greeting, two verbatim); 7 from A2 and B1, verbatim but
+  for devoir, two of whose three sentences were the noun. `dropDup` takes the fourteen out where they
+  were; a reader who already holds the old card keeps it. Meanings and IPA are the English Wiktionary's
+  (kaikki, read 2026-11-16) or the moved card's own; every sentence is a Tatoeba sentence named by its
+  French and English ids in the entry's `why`, a Wiktionary usage example, or the moved card's.
+- **An order for A1** (`french-order.json`): 86 notes by hand — the courtesies, a first exchange, the
+  subject pronouns, être and nine verbs, ne and pas, the question words, zero to ten, the commonest
+  function words — then the frequency order with each closed set after the word that introduces it (the
+  days at notes 139–145, the numbers above ten at 173–191, the months at 202–213, the compass points,
+  the seasons, the colours) and look-alikes forty notes apart. Day one is bonjour, salut, bonsoir, au
+  revoir, merci; the courtesies take three days.
+- **The gender the dictionary gives** (`gender`, 90 notes): le first, as its head line prints it; for a
+  person both forms beneath (le touriste, la touriste; un élève, une élève); masculine alone where the
+  feminine it lists is regional (légume, poison). The headword's pin row is renamed, the number kept.
+- **Twenty notes rewritten** (`notes`): tu and vous say singular informal and plural or formal; ne and
+  pas each name the other with je ne sais pas; bonjour gains hello and loses a North American goodbye;
+  salut is marked informal; fourteen adjectives with one form for both genders say so. Six reverse-card
+  hints (l'an / l'année, s'il vous plaît / s'il te plaît, comment ça va / comment allez-vous).
+- **The phrases tiered by reading level**: 153 / 116 / 68 / 14 / 7 / 1 by the lowest level that spells
+  them (a regular -s, -x, -e or -es counted as spelled), 36 that use a word no level cards last. The
+  description says so and says the deck can begin beside A1.
+- **`French — Sounds and spelling`** (43 notes, one card each): 16 vowel spellings including the five
+  nasal vowels, 17 consonant spellings and endings (the six silent final consonants, -er, -ent), and 10
+  rules (the five accents, œ, elision, liaison, the two kinds of h, the space before ? and !). Every
+  position, IPA value and example is a row of Wikipedia's "French orthography" tables at revision
+  1385602140; the rules quote that article, "Liaison (French)" 1383148088, "Elision (French)"
+  1334000091 and "Aspirated h" 1348655490. Every example word is an A1 card whose own printed IPA agrees
+  with the row, with its speaker.
+- **The pace stated** in the A1, phrases and sounds descriptions (A1 is 96 days), and every description
+  count that moved corrected. Three "three apiece" counts were already wrong before this pass (A2 said
+  587, the file had 566) and are set to what is there.
+- **CI**: `french-fix.js --check` and `build-french-sounds.js --check`. `paradigm-fix.js --check` is
+  still run by no workflow: it is shared with Italian and Portuguese, whose own passes were under way in
+  parallel, so it was left for whoever owns all three to gate.
+
+### What was decided against, and why
+
+- **Running the generator.** `run.py` downloads the live kaikki and Tatoeba exports (about 760 MB) and
+  refreshes every gloss and sentence of the level it rebuilds; nothing in this pass needed it.
+- **Re-levelling A2.** Some eighty words a beginner's course teaches early are A2 cards (femme, temps,
+  travailler, acheter, comprendre). The boundary is the source's, A2 begins on day 97, and only the
+  five words above were moved.
+- **Re-ordering A2 to C2.** 86% to 90% of a card's example words have been met on arrival there.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A first-words deck**, for the Spanish reason: a reader who adds only A1 would go on missing them.
+- **Asking the reverse card with the first sense only.** No pair was truly ambiguous but the two fixed.
+- **Shorter sentences for the head.** The order moved the first fifty notes from 3 to 9 sentences
+  readable whole, and from 49% to 45% of words met: the head is now greetings, which sentences use less
+  than de and que. Replacing Tatoeba's sentences is a content pass of its own.
+- **English comparisons on the sounds cards** ("like the a in father"). The article gives none, so the
+  comparison is the speaker button.
+- **A grammar deck.** Nothing here could be quoted for a rule beyond what the cards already say.
+- **Cards for the other words no level has**: cas, instant, tour, sang, poche, fou, parole, origine and
+  some thirty more that only the phrases deck uses. Listed by `french-order.js --unspelled`.
+
+### Limits to know about
+
+- **The syllabus could not be cited.** That the courtesies and numbers are A1 material rests on the
+  generator's own list of the DELF A1 themes; the reference that turns themes into words is a book this
+  repository does not hold.
+- **The sounds deck quotes four articles and carries no English approximation.** A learner hears a
+  sound only through the device's French voice. Stress, intonation and the dropping of e in speech are
+  not carded: the articles do not treat them in a quotable rule. A1 has no noun with an aspirated h, so
+  that card's example words are mute-h words, labelled as such.
+- **Example words are chosen by a pattern and checked against the card's IPA**, not by ear. A word
+  whose printed IPA is its second pronunciation could be mis-filed; none was seen in the report.
+- **Eight cards of B1 to C1 are an inflected form beside its own headword** (le bijoux, délicate,
+  domine, paraphrase, financière, perce, redresse, étale). Found, not folded: none is a beginner's card.
+- **Fourteen notes left A2, B1 and the phrases.** A reader who holds those decks keeps the old cards
+  after an Update and meets the word again in A1, on a new id.
+- **`.claude/delf/check-delf.js` and `check-phrases.js` are not in CI.** Run by hand on 2026-11-16,
+  check-delf's "repairs are in the deck" assertion fails on main and on this branch alike (it looks for
+  a bare word where the headword carries its article), and the phrases deck's subtitle may not say DELF
+  or DALF, which is why it says "A1's words".
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
