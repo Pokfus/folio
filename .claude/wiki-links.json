@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T18:21Z",
+ "generated": "2026-11-26T19:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8990,
+  "ok": 8994,
   "redirect-broader": 864,
   "redirect-variant": 520,
-  "section-redirect": 203,
+  "section-redirect": 202,
   "disambiguation": 164,
-  "none": 1304,
+  "none": 1301,
   "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
@@ -67348,11 +67348,12 @@
    ]
   },
   "ru-119": {
-   "answer": "tamga",
-   "title": "Tamga",
-   "url": "https://en.wikipedia.org/wiki/Tamga",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "yam",
+   "title": "Yam (route)",
+   "url": "https://en.wikipedia.org/wiki/Yam_(route)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-120": {
    "answer": "Great Troubles",
@@ -75392,9 +75393,9 @@
    ]
   },
   "ru-345": {
-   "answer": "Free Economic Society",
-   "title": "Free Economic Society",
-   "url": "https://en.wikipedia.org/wiki/Free_Economic_Society",
+   "answer": "enlightened absolutism",
+   "title": "Enlightened absolutism",
+   "url": "https://en.wikipedia.org/wiki/Enlightened_absolutism",
    "via": "glossary",
    "status": "ok"
   },
@@ -83124,13 +83125,11 @@
    "status": "ok"
   },
   "ru-409": {
-   "answer": "Polish–Saxon crisis",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "section-redirect",
-   "from": "Polish–Saxon crisis",
-   "target": "Congress of Vienna#Polish-Saxon crisis"
+   "answer": "Congress of Vienna",
+   "title": "Congress of Vienna",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Vienna",
+   "via": "glossary",
+   "status": "ok"
   },
   "ru-410": {
    "answer": "Congress Poland",
@@ -83333,9 +83332,9 @@
    "from": "Russo-Turkish War of 1828–1829"
   },
   "ru-433": {
-   "answer": "Convention of Balta Liman",
-   "title": "Convention of Balta Liman",
-   "url": "https://en.wikipedia.org/wiki/Convention_of_Balta_Liman",
+   "answer": "Revolutions of 1848",
+   "title": "Revolutions of 1848",
+   "url": "https://en.wikipedia.org/wiki/Revolutions_of_1848",
    "via": "glossary",
    "status": "ok"
   },
@@ -83405,18 +83404,11 @@
    "from": "Great Reforms"
   },
   "ru-443": {
-   "answer": "Editing Commissions",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "2026 Russian plague scare",
-    "Conflict-of-interest editing on Wikipedia",
-    "He Jiankui affair",
-    "2026 Russian legislative election",
-    "United Russia"
-   ]
+   "answer": "Emancipation reform of 1861",
+   "title": "Emancipation reform of 1861",
+   "url": "https://en.wikipedia.org/wiki/Emancipation_reform_of_1861",
+   "via": "glossary",
+   "status": "ok"
   },
   "ru-444": {
    "answer": "Emancipation Manifesto",
@@ -83577,9 +83569,9 @@
    "status": "ok"
   },
   "ru-462": {
-   "answer": "Convention of Peking",
-   "title": "Convention of Peking",
-   "url": "https://en.wikipedia.org/wiki/Convention_of_Peking",
+   "answer": "Vladivostok",
+   "title": "Vladivostok",
+   "url": "https://en.wikipedia.org/wiki/Vladivostok",
    "via": "glossary",
    "status": "ok"
   },
@@ -88412,9 +88404,9 @@
    "status": "ok"
   },
   "ru-504": {
-   "answer": "Mensheviks",
-   "title": "Mensheviks",
-   "url": "https://en.wikipedia.org/wiki/Mensheviks",
+   "answer": "Bolsheviks",
+   "title": "Bolsheviks",
+   "url": "https://en.wikipedia.org/wiki/Bolsheviks",
    "via": "glossary",
    "status": "ok"
   },
@@ -88628,18 +88620,11 @@
    "status": "ok"
   },
   "ru-531": {
-   "answer": "Period Preparatory to War",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Tokyo Shinbu Gakko",
-    "Franco-Russian Alliance",
-    "Emperor-system fascism",
-    "Iran–Russia relations",
-    "International reaction to the Russo-Georgian War"
-   ]
+   "answer": "July Crisis",
+   "title": "July Crisis",
+   "url": "https://en.wikipedia.org/wiki/July_Crisis",
+   "via": "glossary",
+   "status": "ok"
   },
   "ru-532": {
    "answer": "Russian general mobilisation",
@@ -88691,9 +88676,9 @@
    ]
   },
   "ru-537": {
-   "answer": "Mogilev",
-   "title": "Mogilev",
-   "url": "https://en.wikipedia.org/wiki/Mogilev",
+   "answer": "Stavka",
+   "title": "Stavka",
+   "url": "https://en.wikipedia.org/wiki/Stavka",
    "via": "glossary",
    "status": "ok"
   },
@@ -88925,18 +88910,11 @@
    "from": "Moscow Soviet"
   },
   "ru-565": {
-   "answer": "Petrograd Red Guard",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Red Guards (Russia)",
-    "Russian Civil War",
-    "Red Terror",
-    "Semyonovsky Life Guards Regiment",
-    "Russian Revolution"
-   ]
+   "answer": "Red Guards",
+   "title": "Red Guards (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Red_Guards_(Russia)",
+   "via": "glossary",
+   "status": "ok"
   },
   "ru-566": {
    "answer": "Military Revolutionary Committee",
@@ -89185,9 +89163,9 @@
    "status": "ok"
   },
   "ru-600": {
-   "answer": "Atamanshchina",
-   "title": "Atamanshchina",
-   "url": "https://en.wikipedia.org/wiki/Atamanshchina",
+   "answer": "White Terror",
+   "title": "White Terror (Russia)",
+   "url": "https://en.wikipedia.org/wiki/White_Terror_(Russia)",
    "via": "glossary",
    "status": "ok"
   },
@@ -91991,9 +91969,9 @@
    "status": "ok"
   },
   "ru-628": {
-   "answer": "Great Break",
-   "title": "Great Break (Soviet Union)",
-   "url": "https://en.wikipedia.org/wiki/Great_Break_(Soviet_Union)",
+   "answer": "First five-year plan",
+   "title": "First five-year plan (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/First_five-year_plan_(Soviet_Union)",
    "via": "glossary",
    "status": "ok"
   },
@@ -92252,9 +92230,9 @@
    "status": "ok"
   },
   "ru-663": {
-   "answer": "Yelnya offensive",
-   "title": "Yelnya offensive",
-   "url": "https://en.wikipedia.org/wiki/Yelnya_offensive",
+   "answer": "Battle of Smolensk",
+   "title": "Battle of Smolensk (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Smolensk_(1941)",
    "via": "glossary",
    "status": "ok"
   },
@@ -92302,9 +92280,9 @@
    "status": "ok"
   },
   "ru-669": {
-   "answer": "Central Headquarters of the Partisan Movement",
-   "title": "Central Headquarters of the Partisan Movement",
-   "url": "https://en.wikipedia.org/wiki/Central_Headquarters_of_the_Partisan_Movement",
+   "answer": "Soviet partisans",
+   "title": "Soviet partisans",
+   "url": "https://en.wikipedia.org/wiki/Soviet_partisans",
    "via": "glossary",
    "status": "ok"
   },
@@ -92316,9 +92294,9 @@
    "status": "ok"
   },
   "ru-671": {
-   "answer": "Black Book of Soviet Jewry",
-   "title": "The Black Book of Soviet Jewry",
-   "url": "https://en.wikipedia.org/wiki/The_Black_Book_of_Soviet_Jewry",
+   "answer": "Holocaust in the Soviet Union",
+   "title": "The Holocaust in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_the_Soviet_Union",
    "via": "glossary",
    "status": "ok"
   },
