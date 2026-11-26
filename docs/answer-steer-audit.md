@@ -169,6 +169,23 @@ plan line now reads the new answer; the original subject is the findings file's 
 | cnh-978 | Gunpowder | Wujing Zongyao | wh-530 — **rewritten 2026-11-26** |
 | cnh-980 | Compass | Dream Pool Essays | wh-531 — **rewritten 2026-11-26** |
 
+**Done 2026-11-26**: all 33 rows were rewritten to the original subject, written from China — the *Analects*, *Mencius*,
+*Xunzi*, *Zhuangzi*, *Han Feizi*, Sima Qian and Ban Gu beside the SEP, the IEP, the Palace Museum and the classical texts in
+Chinese (`add-card.js --replace`; the old answer stays a sentence of most backgrounds). No twin inside China: `cnh-518`
+*Ming Great Wall*, `cnh-427` *palace examination*, `cnh-843` *Mozi*, `cnh-238` and `cnh-460` are different things, and the
+house forms are kept (*Daoism*, *Dao*, *Chan Buddhism*, *li* 禮). Confucius, Mencius, Xunzi, Laozi (a traditional birth year
+only), Zhuangzi and Han Feizi have the person template and join the China audit's protected list; the eight old
+individuals left it. The plan lines are retitled back, and `docs/china-chronology.md`'s rows and pins follow the new date
+lines. Nine glossary terms were new: `Chinese_philosophy`, `Hundred_Schools_of_Thought`, `Mohism`, `School_of_Names`,
+`Junzi`, `New_Confucianism`, `Temple_of_Heaven`, `Dougong` and `Han_Fei` (alias *Han Feizi*). The Hall of Supreme Harmony
+and the Temple of Heaven have new locators; `cnh-722` keeps its Shanhai Pass point, and Tibet and Xinjiang take their
+admin-1 regions as places. Wikipedia links were set by hand for `cnh-835` (*Xunzi (philosopher)*), `cnh-842` (*Zhuang
+Zhou*), `cnh-844` (*Mohism*, replacing the old *Lu Ban*) and `cnh-846` (*Han Fei*). The glossary pins of *Hangu Pass*,
+*Jiangnan Examination Hall* and *Nanchan Temple* went with the old answers, and *Great Wall of China*'s pin is left out
+because `cnh-722`'s point and `wh-407`'s now lie more than 25 km apart. No pictures were added (Wikimedia refused this
+session), and none of the cards carries one. Two existing glossary dates now disagree with the card's: *Mencius*
+("4th century BCE") and *Taoism* ("from the 6th century BCE"). Both are left for the owner.
+
 ### Ancient Egypt
 
 Steered off World History, Greece, Rome and Visual Art cards, from the "already taken" lists in
