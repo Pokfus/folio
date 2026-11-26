@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":{"terms":1011,"points":775,"countries":236,"windows":1777,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"34a20fb2cc1bed38","counts":{"terms":1011,"points":775,"countries":236,"windows":1783,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1279,6 +1279,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":
 "Caspian_Sea":[50.5,42,"coord",0,0,0],
 "Castellum_aquae":[14.486,40.75,"coord",0,0,0],
 "Catacombs_of_Kom_El_Shoqafa":[29.893,31.179,"coord",0,0,0],
+"Cathedral_of_Christ_the_Saviour":[37.606,55.744,"coord",0,0,0],
 "Caucasus":[43.093,43.155,"range",0,0,0],
 "Cave_of_Altamira":[-4.117,43.383,"site",0,0,0],
 "Cayman_Islands":[-81.24,19.32,"country","adm0:cym",0,40],
@@ -1700,6 +1701,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":
 "Jericho":[35.444,31.871,"coord",0,0,0],
 "Jersey":[-2.09,49.22,"country","adm0:jey",0,40],
 "Jerusalem":[35.207,31.778,"capital",0,0,0],
+"Jewish_Autonomous_Oblast":[132.933,48.8,"coord",0,0,0],
 "Jharkhand":[84.947,23.544,"admin1","adm1:ind:in-jh",0,16.39],
 "Jiahu":[113.661,33.614,"site",0,0,0],
 "Jialing_River":[106.021,31.4,"river",0,0,0],
@@ -1774,6 +1776,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":
 "Kingston":[-76.767,17.977,"capital",0,0,0],
 "Kinkaku-ji":[135.729,35.04,"coord",0,0,0],
 "Kiribati":[-157.38,1.82,"country","adm0:kir",0,3.36],
+"Kirillo-Belozersky_Monastery":[38.369,59.857,"coord",0,0,0],
 "Kirov,_Kirov_Oblast":[50.111,58.193,"admin1","adm1:rus:ru-kir",0,13.74],
 "Kivach_Falls":[33.98,62.275,"coord",0,0,0],
 "Klyuchevskaya_Sopka":[160.644,56.056,"coord",0,0,0],
@@ -2164,6 +2167,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":
 "Omaha":[-95.937,41.259,"coord",0,0,0],
 "Oman":[57.34,22.12,"country","adm0:omn",0,7.03],
 "Omsk":[73.398,54.992,"city",0,0,0],
+"Optina_Monastery":[35.833,54.053,"coord",0,0,0],
 "Oracle_of_Ammon":[25.519,29.205,"coord",0,0,0],
 "Oregon":[-120.386,43.833,"admin1","adm1:usa:us-or",0,11.77],
 "Orenburg":[56.215,51.516,"admin1","adm1:rus:ru-ore",0,10.31],
@@ -2441,6 +2445,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":
 "Soknopaiou_Nesos":[30.669,29.535,"coord",0,0,0],
 "Solarium_Augusti":[12.479,41.903,"coord",0,0,0],
 "Solomon_Islands":[159.17,-8.03,"country","adm0:slb",0,5.94],
+"Solovetsky_Monastery":[35.711,65.024,"coord",0,0,0],
 "Somalia":[45.19,3.57,"country","adm0:som",0,5],
 "Song_(state)":[115.614,34.384,"coord",0,0,0],
 "Song_dynasty":[113.175,30.821,"polity","pol:song",1056,3.29],
@@ -2665,6 +2670,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f520d81cf5afef73","counts":
 "Utica,_Tunisia":[10.062,37.057,"site",0,0,0],
 "Uttar_Pradesh":[80.612,26.831,"admin1","adm1:ind:in-up",0,10.19],
 "Uzbekistan":[64.01,41.69,"country","adm0:uzb",0,5.32],
+"Valaam_Monastery":[30.945,61.389,"coord",0,0,0],
 "Valdai_Hills":[33.5,57,"coord",0,0,0],
 "Valley_Forge":[-75.439,40.097,"coord",0,0,0],
 "Valley_of_Geysers":[160.139,54.431,"coord",0,0,0],

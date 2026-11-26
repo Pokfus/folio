@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 9006 | the title is the article |
-| `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 116 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 9097 | the title is the article |
+| `redirect-variant` | 521 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 863 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 866 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 202 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 204 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 165 | only a disambiguation page; no link could be chosen |
-| `none` | 1290 | nothing matched; no link |
+| `none` | 1292 | nothing matched; no link |
 
-**10523 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10619 of 12300 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (863)
+## Redirected to a differently named article — check each (866)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -707,6 +707,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-764` **Don River** → [Don (river)](https://en.wikipedia.org/wiki/Don_(river)) (from `Don River`)
 - `ru-784` **Great Abatis Line** → [Great Zasechnaya cherta](https://en.wikipedia.org/wiki/Great_Zasechnaya_cherta) (from `Great Abatis Line`)
 - `ru-800` **Evenks** → [Evenki people](https://en.wikipedia.org/wiki/Evenki_people) (from `Evenks`)
+- `ru-817` **Jadidism** → [Jadid](https://en.wikipedia.org/wiki/Jadid) (from `Jadidism`)
+- `ru-832` **Autonomous Soviet Socialist Republic** → [Autonomous republics and oblasts of the Soviet Union](https://en.wikipedia.org/wiki/Autonomous_republics_and_oblasts_of_the_Soviet_Union) (from `Autonomous Soviet Socialist Republic`)
+- `ru-856` **Ober-Procurator** → [Procurator (Russia)](https://en.wikipedia.org/wiki/Procurator_(Russia)) (from `Ober-Procurator`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -908,7 +911,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (116)
+## Settled from a disambiguation page (117)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -1002,6 +1005,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ru-477` **Alexander III** → [Alexander III of Russia](https://en.wikipedia.org/wiki/Alexander_III_of_Russia) (via the disambiguation page `Alexander III`)
 - `ru-644` **special settlements** → [Special settlements in the Soviet Union](https://en.wikipedia.org/wiki/Special_settlements_in_the_Soviet_Union) (via the disambiguation page `Special settlement`)
 - `ru-746` **annexation of Crimea** → [2014 Russian annexation of Crimea](https://en.wikipedia.org/wiki/2014_Russian_annexation_of_Crimea) (via the disambiguation page `Russian annexation of Crimea`)
+- `ru-887` **selo** → [Selo, Russia](https://en.wikipedia.org/wiki/Selo,_Russia) (via the disambiguation page `Selo`)
 - `us-021` **Moundville** → [Moundville, Alabama](https://en.wikipedia.org/wiki/Moundville,_Alabama) (via the disambiguation page `Moundville`)
 - `us-028` **Mogollon** → [Mogollon, New Mexico](https://en.wikipedia.org/wiki/Mogollon,_New_Mexico) (via the disambiguation page `Mogollon`)
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
@@ -1060,7 +1064,6 @@ Pick the right article by hand, or leave the card without a link.
 - `cnh-166` **Li Kui** — `Li Kui` is a disambiguation page; its links: `Li Kui (legalist)`, `Li Kui (chancellor)`, `Li Kui (Water Margin)`
 - `cnh-194` **huangdi** — `Huangdi` is a disambiguation page; its links: `Huangdi, Henan`, `Huangdi, Liaoning`, `Huangdi, Xinjiang`, `Huangdi Township`
 - `cnh-359` **Zhenguan era** — `Zhenguan` is a disambiguation page
-- `cnh-835` **Xunzi** — `Xunzi` is a disambiguation page; its links: `Xunzi (philosopher)`, `Xunzi (book)`
 - `eep-070` **Emergency brake** — `Emergency brake` is a disambiguation page; its links: `Emergency brake (train)`, `Emergency brake assist`
 - `eep-136` **RT** — `RT` is a disambiguation page; its links: `R/T`, `RT!`, `Lil RT`, `RT (energy)`, `RT America`, `RT Arabic`
 - `eep-150` **Screening** — `Screening` is a disambiguation page; its links: `Baggage screening`, `Call screening`, `Electric-field screening`, `High-throughput screening`, `Mechanical screening`, `Screening (economics)`
@@ -1197,6 +1200,8 @@ Pick the right article by hand, or leave the card without a link.
 - `ru-043` **Rus'–Byzantine Treaty** — `Rus'–Byzantine Treaty` is a disambiguation page; its links: `Rus'–Byzantine Treaty (907)`, `Rus'–Byzantine Treaty (911)`, `Rus'–Byzantine Treaty (945)`
 - `ru-132` **Metropolitan Peter** — `Metropolitan Peter` is a disambiguation page
 - `ru-794` **Chuvash** — `Chuvash` is a disambiguation page; its links: `Chuvash language`, `Chuvash people`, `Chuvash Autonomous Soviet Socialist Republic`, `Chuvash Autonomous Oblast`
+- `ru-855` **Josephites** — `Josephites` is a disambiguation page; its links: `Josephite marriage`, `Josephite movement`, `Josephites of Belgium`, `Josephite (Latter Day Saints)`
+- `ru-881` **Yuri's Day** — `Yuri's Day` is a disambiguation page; its links: `Yuri's Day in Autumn`, `Yuri's Day in Spring`, `Yuri's Day (film)`
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
@@ -1226,7 +1231,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (202)
+## Section redirects — no dedicated page (204)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1401,6 +1406,9 @@ Wikipedia treats these as part of another article. No link.
 - `ru-514` **Potemkin mutiny** — `Potemkin mutiny` only redirects into `Russian battleship Potemkin#Mutiny`
 - `ru-588` **military specialists** — `Military specialist` only redirects into `Military history of the Soviet Union#Tsarist and revolutionary background`
 - `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
+- `ru-819` **History of the Jews in the Russian Empire** — `History of the Jews in the Russian Empire` only redirects into `History of the Jews in Russia#Russian Empire`
+- `ru-854` **White clergy** — `White clergy` only redirects into `Secular clergy#Eastern Orthodox Church`
+- `ru-883` **Barshchina** — `Barshchina` only redirects into `Corvée#Russian Empire`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`
@@ -1433,7 +1441,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1290)
+## No article found (1292)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2632,6 +2640,15 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-708` **October 1964 Plenum** — search suggests `October 1964`, `Vladimir Lenin`, `Albania–Russia relations`, `Communist Party of the Soviet Union`, `Copyright law of Russia`
 - `ru-731` **Gaidar reforms** — search suggests `Yeltsin–Gaidar government reforms`, `Yegor Gaidar`, `Mikhail Poltoranin`, `List of presidents of Russia`, `List of libraries in Russia`
 - `ru-791` **Ilminsky system** — search suggests `Bashkir alphabet`, `Yañalif`, `Tatar alphabets`, `Order of Saint Anna`, `Tatar language`
+- `ru-863` **Local Council of 1917–1918** — search suggests `1917–18 Local Council of the Russian Orthodox Church`, `Kingdom of Poland (1917–1918)`, `Establishment of Soviet power in Russia (1917–1918)`, `Council of People's Commissars of the Russian Soviet Federative Socialist Republic`, `Russian Revolution`
+- `ru-866` **seizure of church valuables** — search suggests `1922 seizure of church valuables in Russia`, `Opposition to the Russian Orthodox Church during the Russian Civil War`, `USSR anti-religious campaign (1921–1928)`, `Shuya Cathedral`, `Living Church`
+- `ru-868` **anti-religious campaign of 1928–1941** — search suggests `USSR anti-religious campaign (1928–1941)`, `USSR anti-religious campaign (1921–1928)`, `Atrocities and victims of the USSR anti-religious campaign (1928-1941)`, `USSR anti-religious campaign (1958–1964)`, `Opposition to the Russian Orthodox Church during the Russian Civil War`
+- `ru-870` **Bishops' Council of 1943** — search suggests `1943 Bishops' Council of the Russian Orthodox Church`, `Bishops' Council of the Russian Orthodox Church`, `Russian Orthodox Church Outside of Russia`, `1945 Local Council of the Russian Orthodox Church`, `Patriarch of Moscow and all Rus'`
+- `ru-871` **Khrushchev's anti-religious campaign** — search suggests `USSR anti-religious campaign (1958–1964)`, `USSR anti-religious campaign (1928–1941)`, `USSR anti-religious campaign (1921–1928)`, `USSR anti-religious campaign (1970s–1987)`, `Opposition to the Russian Orthodox Church during the Russian Civil War`
+- `ru-873` **Millennium of the Christianization of Rus'** — search suggests `Christianization of Kievan Rus'`, `Vladimir the Great`, `1000th anniversary of the Christianization of Rus'`, `Millennium of Russia`, `Olga of Kiev`
+- `ru-879` **usadba** — search suggests `Novaya Usadba`, `Lipovskaya Usadba`, `Tsentralnaya Usadba 3-go Goskonezavoda`, `REN TV`, `Putevaya Usadba 9 km zheleznoy dorogi Luostari–Nikel`
+- `ru-885` **serf theatre** — search suggests `Russian Serf Theatre`, `Russia`, `Catherine the Great`, `Sheremetev Fortress Theatre`, `Barbara (singer)`
+- `ru-892` **meshchane** — search suggests `Moscow`, `Tsarist Russia`, `The Philistines`, `Private Committee`, `Merchant guild (Russian Empire)`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`
