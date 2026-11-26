@@ -543,6 +543,9 @@
   // a cloud-published overlay, or a bare {}) can never leave a section undefined for applyAdminEdits
   function normalizeAdminEdits(o) {
     if (!o || typeof o !== "object") o = {};
+    /* the philosophy cards became `phi-NNN` (2026-11-26; see PH_CARD): an overlay saved or published before carries
+       their old ids as keys and list entries. Only an exact quoted card id is rewritten — never text inside a field. */
+    try { const j = JSON.stringify(o); if (/"ph-\d{3}"/.test(j)) o = JSON.parse(j.replace(/"ph-(\d{3})"/g, '"phi-$1"')); } catch (e) {}
     const t = o.tree || {};
     return {
       cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossarySources: o.glossarySources || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
@@ -1794,8 +1797,13 @@
   /* A KEY or a LIST ENTRY is always an id, so either is mapped whenever the table names it. A string VALUE in
      an object is mapped only when it is shaped like a card id (`handoff.id`, a card-of-the-day record), because
      a value may be free text — a note, a name — and a reader called "dino" is not a collection. */
+  /* …AND PHILOSOPHY'S CARDS ARE `phi-NNN` (2026-11-26, on request: "Rename the philosophy card codes from 'ph' to
+     'phi'"). A rule rather than a table, since every card keeps its number: ph-007 is phi-007. Only CARD ids move —
+     the decks keep their `ph-…` ids, which no reader sees — so the rule matches three digits and nothing else. */
+  const PH_CARD = /^ph-(\d{3})$/;
+  function idRemap(v) { if (DINO_TO_PAL[v]) return DINO_TO_PAL[v]; const m = PH_CARD.exec(v); return m ? "phi-" + m[1] : v; }
   function dinoRemap(v, inObject) {
-    if (typeof v === "string") return (!inObject || /^dino-\d{3}$/.test(v)) ? (DINO_TO_PAL[v] || v) : v;
+    if (typeof v === "string") return (!inObject || /^(?:dino|ph)-\d{3}$/.test(v)) ? idRemap(v) : v;
     if (Array.isArray(v)) {
       const out = [];
       v.forEach((x) => {
@@ -1808,7 +1816,7 @@
     if (v && typeof v === "object") {
       const o = {};
       Object.keys(v).forEach((k) => {
-        const nk = DINO_TO_PAL[k] || k;
+        const nk = idRemap(k);
         if (nk !== k && (nk in v || nk in o)) return;   // the new id is already there: it is the newer record
         o[nk] = dinoRemap(v[k], true);
       });
@@ -1822,7 +1830,7 @@
       const v = st[k];
       if (!v || typeof v !== "object" || k === "user") return;   // `user` is the reader's name and join date
       const was = JSON.stringify(v);
-      if (was.indexOf('"dino') < 0) return;
+      if (was.indexOf('"dino') < 0 && was.indexOf('"ph-') < 0) return;
       const now = dinoRemap(v, false);
       if (JSON.stringify(now) !== was) st[k] = now;
     });
@@ -3115,7 +3123,7 @@
       if (revTableMissing(r)) { _revTableMissing = true; return null; }
       if (!r.ok || !Array.isArray(r.data)) return from ? out : null;   // a half-read archive is still a truthful prefix
       r.data.forEach((row) => out.push([
-        DINO_TO_PAL[row.card_id] || row.card_id, Date.parse(row.reviewed_at), row.grade, row.state,
+        idRemap(row.card_id), Date.parse(row.reviewed_at), row.grade, row.state,
         row.prev_min, row.next_min, row.ease100, row.ds,
       ]));
       if (onPage) onPage(out.length);
@@ -4187,7 +4195,7 @@
        Jupiter and Saturn carry their bare names as aliases of the PLANETS here only — in a Roman card they are the gods. */
     /* "recite its Vedic hymns from memory" in a history card is not the cognitive faculty (2026-11-22, on request: "memory should be a collection-specific gloss for psychology") */
     Memory: { roots: ["psych"], tags: ["psychology", "neuroscience"] },
-    /* the inference, not the kidnapping: "abduction" links by itself only in Philosophy (2026-11-26, on request, ph-026) */
+    /* the inference, not the kidnapping: "abduction" links by itself only in Philosophy (2026-11-26, on request, phi-026) */
     Abductive_reasoning: { roots: ["phil"], tags: ["philosophy", "logic", "epistemology"] },
     /* 2026-11-26, on request: the Roman auxilia link by themselves only in Ancient Rome ("auxiliaries" in a Chinese or
        Greek card are not Rome's); a crop's ear is not the organ, so Ear links by itself only in Biology and Psychology
@@ -42384,7 +42392,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
     /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
-    /* A WORKED EXAMPLE (2026-11-20, on request: ph-049's truth table "between the background section and
+    /* A WORKED EXAMPLE (2026-11-20, on request: phi-049's truth table "between the background section and
        sources section") — directly under the Background fold, above the Atlas box. See cardExampleHTML. */
     html += cardExampleHTML(c);
     html += cardLocatorHTML(c);
@@ -42836,7 +42844,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (t) {
       h += '<div class="ex-scroll"><table class="ex-table">';
       if (Array.isArray(t.head) && t.head.length) h += "<thead><tr>" + t.head.map((x) => '<th scope="col">' + esc(x) + "</th>").join("") + "</tr></thead>";
-      /* a truth value's cell is coloured (2026-11-26, on request, ph-049: "T cells should have a green filling, F cells red") */
+      /* a truth value's cell is coloured (2026-11-26, on request, phi-049: "T cells should have a green filling, F cells red") */
       const tv = (x) => { const v = String(x == null ? "" : x).trim(); return v === "T" ? ' class="ex-t"' : v === "F" ? ' class="ex-f"' : ""; };
       h += "<tbody>" + t.rows.map((r) => "<tr>" + (Array.isArray(r) ? r : []).map((x) => "<td" + tv(x) + ">" + esc(x) + "</td>").join("") + "</tr>").join("") + "</tbody></table></div>";
     }

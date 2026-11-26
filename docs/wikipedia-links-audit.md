@@ -491,16 +491,16 @@ The answer redirects to an article with another name. Most are the same subject 
 - `pea-193` **Secret Speech** → [On the Cult of Personality and Its Consequences](https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences) (from `Secret Speech`)
 - `pea-200` **Partisan faction** → [Guerrilla faction](https://en.wikipedia.org/wiki/Guerrilla_faction) (from `Partisan faction`)
 - `pea-216` **China Dream** → [Chinese Dream](https://en.wikipedia.org/wiki/Chinese_Dream) (from `China Dream`)
-- `ph-010` **conceptual analysis** → [Philosophical analysis](https://en.wikipedia.org/wiki/Philosophical_analysis) (from `Conceptual analysis`)
-- `ph-021` **logical argument** → [Argument](https://en.wikipedia.org/wiki/Argument) (from `Logical argument`)
-- `ph-029` **inference to the best explanation** → [Abductive reasoning](https://en.wikipedia.org/wiki/Abductive_reasoning) (from `Inference to the best explanation`)
-- `ph-030` **necessary and sufficient conditions** → [Necessity and sufficiency](https://en.wikipedia.org/wiki/Necessity_and_sufficiency) (from `Necessary and sufficient conditions`)
-- `ph-040` **appeal to authority** → [Argument from authority](https://en.wikipedia.org/wiki/Argument_from_authority) (from `Appeal to authority`)
-- `ph-046` **formal logic** → [Mathematical logic](https://en.wikipedia.org/wiki/Mathematical_logic) (from `Formal logic`)
-- `ph-056` **predicate logic** → [First-order logic](https://en.wikipedia.org/wiki/First-order_logic) (from `Predicate logic`)
-- `ph-060` **syllogistic logic** → [Term logic](https://en.wikipedia.org/wiki/Term_logic) (from `Syllogistic logic`)
-- `ph-098` **actual infinity** → [Actual and potential infinity](https://en.wikipedia.org/wiki/Actual_and_potential_infinity) (from `Actual infinity`)
-- `ph-100` **unreasonable effectiveness of mathematics** → [The Unreasonable Effectiveness of Mathematics in the Natural Sciences](https://en.wikipedia.org/wiki/The_Unreasonable_Effectiveness_of_Mathematics_in_the_Natural_Sciences) (from `Unreasonable effectiveness of mathematics`)
+- `phi-010` **conceptual analysis** → [Philosophical analysis](https://en.wikipedia.org/wiki/Philosophical_analysis) (from `Conceptual analysis`)
+- `phi-021` **logical argument** → [Argument](https://en.wikipedia.org/wiki/Argument) (from `Logical argument`)
+- `phi-029` **inference to the best explanation** → [Abductive reasoning](https://en.wikipedia.org/wiki/Abductive_reasoning) (from `Inference to the best explanation`)
+- `phi-030` **necessary and sufficient conditions** → [Necessity and sufficiency](https://en.wikipedia.org/wiki/Necessity_and_sufficiency) (from `Necessary and sufficient conditions`)
+- `phi-040` **appeal to authority** → [Argument from authority](https://en.wikipedia.org/wiki/Argument_from_authority) (from `Appeal to authority`)
+- `phi-046` **formal logic** → [Mathematical logic](https://en.wikipedia.org/wiki/Mathematical_logic) (from `Formal logic`)
+- `phi-056` **predicate logic** → [First-order logic](https://en.wikipedia.org/wiki/First-order_logic) (from `Predicate logic`)
+- `phi-060` **syllogistic logic** → [Term logic](https://en.wikipedia.org/wiki/Term_logic) (from `Syllogistic logic`)
+- `phi-098` **actual infinity** → [Actual and potential infinity](https://en.wikipedia.org/wiki/Actual_and_potential_infinity) (from `Actual infinity`)
+- `phi-100` **unreasonable effectiveness of mathematics** → [The Unreasonable Effectiveness of Mathematics in the Natural Sciences](https://en.wikipedia.org/wiki/The_Unreasonable_Effectiveness_of_Mathematics_in_the_Natural_Sciences) (from `Unreasonable effectiveness of mathematics`)
 - `ps-004` **mental process** → [Cognition](https://en.wikipedia.org/wiki/Cognition) (from `Mental process`)
 - `ps-011` **nature and nurture** → [Nature versus nurture](https://en.wikipedia.org/wiki/Nature_versus_nurture) (from `Nature and nurture`)
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
@@ -1324,9 +1324,9 @@ Wikipedia treats these as part of another article. No link.
 - `pal-666` **ossified tendons** — `Ossified tendons` only redirects into `Tendon#Ossified tendons`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
 - `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
-- `ph-020` **philosophical progress** — `Philosophical progress` only redirects into `Metaphilosophy#Progress`
-- `ph-055` **axiomatic method** — `Axiomatic method` only redirects into `Axiomatic system#Axiomatic method`
-- `ph-072` **semantic completeness** — `Semantic completeness` only redirects into `Completeness (logic)#Semantic completeness`
+- `phi-020` **philosophical progress** — `Philosophical progress` only redirects into `Metaphilosophy#Progress`
+- `phi-055` **axiomatic method** — `Axiomatic method` only redirects into `Axiomatic system#Axiomatic method`
+- `phi-072` **semantic completeness** — `Semantic completeness` only redirects into `Completeness (logic)#Semantic completeness`
 - `ps-025` **substance dualism** — `Substance dualism` only redirects into `Mind–body dualism#Substance dualism`
 - `ps-050` **imageless thought** — `Imageless thought` only redirects into `Oswald Külpe#Imageless thought`
 - `ps-101` **WEIRD** — `WEIRD` only redirects into `Psychology#WEIRD bias`

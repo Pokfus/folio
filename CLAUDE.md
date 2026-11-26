@@ -258,7 +258,7 @@ have not this session.
 | The Viking Age | `vikingage` | `vk-` | `docs/vikingage-card-plan.md` | 9 / 39 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | live |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | live |
-| Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | live: 100 cards, contiguous — next is `ph-101` |
+| Philosophy | `phil` | `phi-` | `docs/philosophy-card-plan.md` | 9 / 38 | live: 100 cards, contiguous — next is `phi-101` |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | live |
 | Palaeontology | `paleo` | `pal-` | `docs/palaeontology-card-plan.md` | 10 / 46 | live: the 100 Dinosaurs cards renumbered into it (scattered, appendix of the plan); next is `pal-001` |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | live: `astro-001`–`200` written, next is `astro-201` |
@@ -279,7 +279,7 @@ have not this session.
 | The EU as an External Power | `eep` | `eep-` | `docs/eu-external-power-card-plan.md` | 14 / 14 | live, a course in the Special section: 292 of 300 planned cards written; Reading 3 (8 cards) waits for its PDF |
 | Gateway to Global Affairs | `gga` | `gga-` | `docs/gateway-to-global-affairs-card-plan.md` | 21 / 21 | a COURSE (Leiden), 297 of 300 cards written over Lectures 1–6 and 14 readings (from `gga-057` on, from the course texts only); Lecture 7 awaits slides |
 
-**Dinosaurs (`dino`) is DORMANT** (2026-11-12): out of the tree, its plan kept, its cards renumbered into Palaeontology; `DINO_TO_PAL` / `migrateDinoIds` in `app.js` carry readers' progress — keep that table equal to the plan's appendix.
+**Dinosaurs (`dino`) is DORMANT** (2026-11-12): out of the tree, its plan kept, its cards renumbered into Palaeontology; `DINO_TO_PAL` / `migrateDinoIds` in `app.js` carry readers' progress — keep that table equal to the plan's appendix. **Philosophy's card ids are `phi-NNN`** (renamed from `ph-NNN` on 2026-11-26; its deck ids stay `ph-…`): `PH_CARD` / `idRemap` in the same migration carry progress, the review archive and a stored admin overlay (`normalizeAdminEdits`) — never reuse a `ph-NNN` id.
 
 The lowest unused id for a prefix (substitute it); `next-cards.js` does this and also prints the topic:
 

@@ -9597,7 +9597,7 @@ body[data-theme="carnelian"].night .collection-deco{
    separate claim about the past and reads as one. */
 /* THE EXAMPLE SECTION (see cardExampleHTML in app.js): a worked example under the Background fold —
    a small ruled table that scrolls sideways on its own rather than widening a phone's page. */
-/* THE EXAMPLE IS A PANEL (2026-11-26, on request, ph-049: "ensure the table is centered, the text is smaller, the entire
+/* THE EXAMPLE IS A PANEL (2026-11-26, on request, phi-049: "ensure the table is centered, the text is smaller, the entire
    section has a colored background, and in the table: T cells should have a green filling, F cells red") */
 .card-example{margin-top:18px; padding:14px 16px 6px; border-radius:10px; background:var(--indigo-wash); font-size:calc(15px * var(--fs));}
 .card-example .ex-text{margin:0 0 10px; line-height:1.55;}

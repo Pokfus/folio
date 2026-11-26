@@ -80,7 +80,7 @@ const PLANS = {
   vikingage: ["vikingage", "vk-", 1000],
   japan: ["japan", "jp-", 1000],
   psychology: ["psych", "ps-", 1000],
-  philosophy: ["phil", "ph-", 1000],
+  philosophy: ["phil", "phi-", 1000],
   biology: ["bio", "bio-", 1000],
   /* Dinosaurs (`dino`) went DORMANT on 2026-11-12 and its 100 cards were renumbered into Palaeontology;
      its plan stays in docs/ but declares no collection, so it is not read here. */

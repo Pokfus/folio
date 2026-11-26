@@ -9790,7 +9790,7 @@ division-capital city tier are inert dead code.
   **📖 `docs/accounts-sync.md` also carries this bullet's account, moved out of here.**
 ### Card example section (2026-11-20)
 
-On request (ph-049: "between the background section and sources section, add an Example section showcasing a truth
+On request (phi-049: "between the background section and sources section, add an Example section showcasing a truth
 table"), a card may carry the optional HEAVY field `example` — `{ intro?, table: { head: [...], rows: [[...]] }, note? }` —
 listed in `CARD_EXTRA_FIELDS` (app.js) and `EXTRA_FIELDS` (`.claude/card-io.js`), which `split-cards.js --check` keeps
 equal. `cardExampleHTML` draws it as `.card-example` directly under the Background fold and above the Atlas box; the
