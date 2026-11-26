@@ -2903,3 +2903,14 @@ cannot see — its newlines made spaces. The run prints "N figure(s) dropped, �
 Re-run after touching: `node .claude/fetch-book.js euclid-elements --force` (8 pages), check "277 figure(s) dropped", "216
 heading block(s) fenced, 216 lifted", the six `fix applied 1x` lines and "refix applied 49x", then `node .claude/book-audit.js`
 (one finding, IV. 13–14's shared construction, is genuine).
+
+## `dropFigures` — an illustrated printing's pictures (Nov 2026, Candide)
+
+`dropFigures: true` removes every `<figure>` in `cleanBody`, counted ("N figure(s) dropped"; a warning when none is
+found). Klee's 26 drawings in the Pantheon Candide each carry a `<figcaption>` that is the FILE's name ("Candide Chapter
+4.2"); with the tags stripped it stood as a loose line at the head or foot of a chapter, and nothing threw. Gated per
+book. The same book's French reuses `original.prep: "contrat"`, which now also drops a centred "FIN DE CANDIDE." (text
+the Contrat never prints).
+
+Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
+"26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.

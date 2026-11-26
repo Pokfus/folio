@@ -20917,6 +20917,165 @@ const BOOKS = {
     ],
     minChars: 3000,
   },
+  "voltaire-candide": {
+    title: "Candide",
+    // the title the first edition (1759) prints
+    subtitle: "Candide, ou l’Optimisme",
+    author: "Voltaire",
+    translator: "Tobias Smollett, revised by James Thornton",
+    edition: "Candide, Pantheon Books, New York, undated (not before 1942), reprinting the Everyman's Library revision",
+    written: "1759",
+    year: 1759,
+    /* ---------- THE LICENCE, and it IS qualified — the first book on the shelf not published before 1929 ----------
+       Voltaire published Candide in 1759 and died in 1778. English Wikisource has ONE English Candide (Author:Voltaire
+       lists no other; The Works of Voltaire, vol. 1, 1906, is not proofread): the translation traditionally given to
+       Tobias Smollett (1721–1771), "in the special revision by James Thornton, as published in Everyman's Library"
+       (the scan's copyright page, djvu p. 8, which thanks E. P. Dutton for permission), printed by PANTHEON BOOKS
+       INC., NEW YORK with Paul Klee's twenty-six illustrations (the title page, djvu p. 7). The scan and its
+       catalogue records (Internet Archive `candide00volt_1`, Commons, the Index page) say 1920, but the book itself
+       prints no date and Pantheon Books was founded in 1942, so the printing is a 1940s one at the earliest and the
+       pre-1929 rule does not reach it. The owner chose (Nov 2026) to shelve it on the US non-renewal ground, said
+       plainly: a search of Stanford's Copyright Renewal Database for "Candide" (Nov 2026) returns renewals for the
+       translations of Aldington/Kent, Bair, Torrey, Block and Crocker, and none for Thornton's revision, Everyman's
+       Library or this Pantheon printing. Thornton's dates are not known, so no life-plus-seventy claim is made. The
+       pages are validated (Index `Progress=T`, February 2026). Klee's pictures are not taken: the Library is text only,
+       and Klee died in 1940.
+
+       ---------- WHAT IS TAKEN ----------
+       The thirty chapters, one wiki page each, titled from the contents page (djvu pp. 9–10). Nothing else is in
+       the volume but the title, copyright and contents pages, and the colophon.
+
+       THE ORIGINAL is the Garnier edition (Œuvres complètes de Voltaire, ed. Louis Moland, tome 21, Paris, 1877) as
+       VALIDATED on French Wikisource, one page per chapter. The other French copy there (Beuchot, 1829) is marked
+       half-proofread. Garnier's pages are built like the Contrat's — the wiki header INSIDE the transclusion as
+       `ws-noexport` divs, an `<h3>` head "CHAPITRE I." over the title, editors' footnotes — so `prep: "contrat"`
+       reads them unchanged (contratPrep: no half-title or "LIVRE" head occurs here, and its CHAPITRE fence is only
+       written where text stands before the head, which none does). The edition's notes (Beuchot's, Moland's,
+       Voltaire's own of 1761) go with their markers, as on every original. Moland prints the text of 1761 and later,
+       with the long addition to chapter 22; Thornton's chapter 22 has it too (djvu pp. 79–90). */
+    rights:
+      "The French text is public domain everywhere: Voltaire published Candide in 1759 and died in 1778. The " +
+      "English is the translation traditionally attributed to Tobias Smollett, who died in 1771, as revised by " +
+      "James Thornton for Everyman's Library and reprinted by Pantheon Books, New York. That printing carries no " +
+      "date and cannot be earlier than 1942, when Pantheon was founded, so it is not public domain by age. No " +
+      "renewal of its copyright, or of Thornton's revision, appears in the US copyright renewal records, so " +
+      "Folio treats it as public domain in the United States. Thornton's dates are unknown, so no claim is made " +
+      "for countries where copyright runs for a life plus seventy years. The text is the validated Wikisource " +
+      "transcription; Paul Klee's illustrations are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Candide",
+
+    /* THE FRONT MATTER — chapter 0. Every fact is a matter of record (the 1759 printing and its pretended German
+       author, the Lisbon earthquake of 1755, Admiral Byng's execution in 1757, the addition of 1761); where the
+       reading of the book is divided — above all the garden of the last page — it says so rather than picking. */
+    about: [
+      "<b>Candide</b> is a short comic novel by Voltaire about a young man taught that all is for the best in " +
+        "the best of all possible worlds, and what the world then does to him. Turned out of the castle where " +
+        "he grew up for kissing the baron's daughter, Cunegund, he is press-ganged into an army, shipwrecked, " +
+        "caught in an earthquake, flogged by the Inquisition, and carried across Europe, to South America and " +
+        "back; at every turn his tutor, the philosopher Pangloss, explains that it could not have been better " +
+        "arranged. It ends with the survivors on a small farm near Constantinople, and its last sentence — " +
+        "in the French <i>il faut cultiver notre jardin</i>, usually given in English as <i>we must " +
+        "cultivate our garden</i>, and here as <i>let us take care of our garden</i> — is the one it is " +
+        "remembered by.",
+      "The target of its satire is the philosophical optimism of the age: the argument of Gottfried Wilhelm " +
+        "Leibniz, in his <i>Theodicy</i> of 1710, that a perfect God must have made the best world that " +
+        "could exist, and the popular form of it that Alexander Pope put into verse — <i>whatever is, is " +
+        "right</i>. Pangloss, whose name means \"all tongue\", speaks its vocabulary of sufficient reason and " +
+        "pre-established harmony. Voltaire's quarrel with it was sharpened by the Lisbon earthquake of 1 " +
+        "November 1755, which he had already answered in his <i>Poem on the Lisbon Disaster</i> of 1756, and " +
+        "the book draws on the news of its own years: the Seven Years' War, which began in 1756, stands behind " +
+        "the war of the Bulgarians and the Abares, and the English admiral shot on his own deck in chapter 23 " +
+        "\"to encourage the others\" is John Byng, executed in 1757.",
+      "Voltaire was the pen name of François-Marie Arouet, born in Paris in 1694. He was imprisoned twice in " +
+        "the Bastille as a young man and lived in England from 1726 to 1728, and by the 1750s, after three " +
+        "years at the court of Frederick the Great of Prussia, he was the most famous writer in Europe — " +
+        "poet, playwright, historian and pamphleteer. He was living near Geneva when he wrote <i>Candide</i>. " +
+        "It appeared early in 1759, presented as a translation from the German of a \"Doctor Ralph\", and " +
+        "though it was condemned by the authorities in Geneva and in Paris it was reprinted again and again " +
+        "that year. Voltaire never openly owned it. In 1761 he added a long passage to the visit to Paris in " +
+        "chapter 22, which both columns here contain. He died in Paris in 1778.",
+      "How to read the garden is still argued over: as a modest, practical wisdom that replaces the systems " +
+        "of the philosophers, as a retreat from the world, or as an ending as ironic as everything before it. " +
+        "So is how far the book answers Leibniz himself rather than a caricature of him.",
+      "The English is the eighteenth-century translation traditionally attributed to the Scottish novelist " +
+        "Tobias Smollett, who brought out an English edition of Voltaire's works in the 1760s, as revised by " +
+        "James Thornton for Everyman's Library. It keeps eighteenth-century English forms of the names — " +
+        "Cunegund for Cunégonde, Pacquette for Paquette — and the chapter titles are the edition's own. This " +
+        "printing, by Pantheon Books of New York, carries Paul Klee's illustrations, which are not included: " +
+        "the Library is text only. Beside it stands the French, in Louis Moland's edition of Voltaire's works " +
+        "(Garnier, Paris, 1877), paired chapter by chapter, since neither numbers anything smaller; its " +
+        "editors' notes are left out.",
+    ],
+
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 30 }, (_, i) => i + 1),
+    page: (n) => "Candide/Chapter " + n,
+    // the contents page's titles (djvu pp. 9–10), transcribed; the wiki's own Chapter N page names carry none
+    titleOf: (n) => [
+      "How Candide Was Brought Up in a Magnificent Castle, and How He Was Driven Thence",
+      "What Befell Candide Among the Bulgarians",
+      "How Candide Escaped from the Bulgarians, and What Befell Him Afterwards",
+      "How Candide Found His Old Master in Philosophy, Dr. Pangloss, Again, and What Happened to Them",
+      "A Tempest, a Shipwreck, an Earthquake; and What Else Befell Dr. Pangloss, Candide, and James, the Anabaptist",
+      "How the Portuguese Made a Superb Auto-De-Fé to Prevent Any Future Earthquakes, and How Candide Underwent Public Flagellation",
+      "How the Old Woman Took Care Of Candide, and How He Found the Object of His Love",
+      "The History of Cunegund",
+      "What Happened to Cunegund, Candide, the Grand Inquisitor, and the Jew",
+      "In What Distress Candide, Cunegund, and the Old Woman Arrive at Cadiz, and Of Their Embarkation",
+      "The History of the Old Woman",
+      "The Adventures of the Old Woman Continued",
+      "How Candide Was Obliged to Leave the Fair Cunegund and the Old Woman",
+      "The Reception Candide and Cacambo Met with Among the Jesuits in Paraguay",
+      "How Candide Killed the Brother of His Dear Cunegund",
+      "What Happened to Our Two Travellers with Two Girls, Two Monkeys, and the Savages, Called Oreillons",
+      "Candide and His Servant Arrive in the Country of El Dorado. What They Saw There",
+      "What They Saw in the Country of El Dorado",
+      "What Happened to Them at Surinam, and How Candide Became Acquainted with Martin",
+      "What Befell Candide and Martin on Their Voyage",
+      "Candide and Martin, While Thus Reasoning with Each Other, Draw Near to the Coast of France",
+      "What Happened to Candide and Martin in France",
+      "Candide and Martin Touch Upon the English Coast; What They Saw There",
+      "Of Pacquette and Friar Giroflée",
+      "Candide and Martin Pay a Visit to Signor Pococurante, a Noble Venetian",
+      "Candide and Martin Sup with Six Strangers; and Who They Were",
+      "Candide’s Voyage to Constantinople",
+      "What Befell Candide, Cunegund, Pangloss, Martin, &c.",
+      "In What Manner Candide Found Cunegund and the Old Woman Again",
+      "Conclusion",
+    ][n - 1],
+    // chapters 6, 21 and 23 run to two or three printed pages
+    minChars: 1500,
+    /* The edition's own head over each chapter — one centred block, "CHAPTER IV" over the title in italics —
+       which Folio prints above the text itself. Tested on the block's whole text, so the title is required to
+       follow the numeral and nothing shorter can match. */
+    dropHeads: [/^CHAPTER\s+[IVXL]+\.?\s+\S/],
+    // the printer's colophon after the last line of chapter 30: "This edition … is limited to 625 copies …"
+    dropTail: [/^This edition of Voltaire['\u2019]s Candide\b[\s\S]*\blimited to 625 copies\b/],
+    // Klee's drawings, whose captions are file names ("Candide Chapter 4.2") — see dropFigures in cleanBody
+    dropFigures: true,
+    /* Found by book-scan.js and read against the scan (Internet Archive `candide00volt_1`, printed p. 95, whose
+       last letter is broken); the edition prints "Friar Giroflée" everywhere else. */
+    fixes: [
+      ["Friai Giroflée", "Friar Giroflée", "XXIV: `Friai` for `Friar`; the scan, p. 95, reads Friar"],
+    ],
+
+    original: {
+      lang: "fr",
+      langName: "French",
+      perChapter: true,
+      wiki: "fr.wikisource.org",
+      page: (n) => "Candide, ou l’Optimisme/Garnier 1877/Chapitre " + n,
+      // the header inside the transclusion, the <h3> head and the notes' markers — see the licence note above
+      prep: "contrat",
+      edition: "Œuvres complètes de Voltaire, tome 21, ed. Louis Moland, Garnier frères, Paris, 1877, as validated at French Wikisource",
+      rights:
+        "Public domain worldwide: Voltaire published Candide in 1759 and died in 1778. The transcription is of " +
+        "Louis Moland's edition of 1877; Moland died in 1899.",
+      sourceName: "Wikisource (French)",
+      sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -22448,6 +22607,14 @@ function cleanBody(h, noteIds, book, warn) {
      GATED per book so it is provably inert on everything already shipped, which is the discipline
      this file's history asks for on any edit to cleanBody — the extractor is shared and its other
      callers have been proof-read by readers. */
+  /* AN ILLUSTRATED PRINTING'S PICTURES (Nov 2026, adding Candide, whose Pantheon printing carries Klee's
+     twenty-six drawings). Each is a `<figure>` whose `<figcaption>` is the FILE's name ("Candide Chapter 4.2"),
+     not a caption the book prints, and once the tags are stripped that name stands as a loose line of text
+     at the head or foot of a chapter. The Library is text only, so the whole figure goes. Counted, so a run
+     says how many it took; gated per book, so it is inert on every book already shipped. */
+  if (book && book.dropFigures) {
+    b = b.replace(/<figure\b[\s\S]*?<\/figure>/g, () => { FIGS_DROPPED++; return ""; });
+  }
   if (book && book.dropAuxToc) {
     for (let k = 0; k < 8; k++) {
       const m = /<div class="[^"]*\bwst-auxtoc\b[^"]*"[^>]*>/.exec(b);
@@ -23177,6 +23344,8 @@ function applyGlyphs(h) {
    changed it — and a repair that quietly lapses is worse than none, because the book goes on claiming
    to carry it. Every firing is counted and the count is printed on every run. */
 const FIX_HITS = Object.create(null);
+// the figures `dropFigures` removed, printed at the end of a run
+let FIGS_DROPPED = 0;
 function applyFixes(h) {
   if (!BOOK || !BOOK.fixes) return h;
   for (const [from, to] of BOOK.fixes) {
@@ -28605,7 +28774,8 @@ function contratPrep(h, warn) {
       const e = blockEnd(b, m.index, "div");
       if (e < 0) break;
       const t = b.slice(m.index, e).replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
-      if (/CONTRACT SOCIAL/.test(t) || /^Fin du Livre\b/i.test(t)) { b = b.slice(0, m.index) + b.slice(e); hit = true; break; }
+      // and Candide's closing "FIN DE CANDIDE." (Moland's, Nov 2026), which the Contrat never prints
+      if (/CONTRACT SOCIAL/.test(t) || /^Fin du Livre\b/i.test(t) || /^FIN DE CANDIDE\.?$/.test(t)) { b = b.slice(0, m.index) + b.slice(e); hit = true; break; }
       rx.lastIndex = e;
     }
     if (!hit) break;
@@ -35545,6 +35715,10 @@ function writeEnglish(chapters, warnings) {
       console.log("  refix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
       if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
     }
+  }
+  if (BOOK.dropFigures) {
+    console.log("  " + FIGS_DROPPED + " figure(s) dropped");
+    if (!FIGS_DROPPED) warnings.push("dropFigures is declared and no figure was found");
   }
   /* WHAT THE ESCAPED-TAG RULE TOOK OUT, named rather than counted (Sep 2026, batch E45). It is the
      one pass in this file that removes text from every book on the shelf without a row in any entry
