@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-20T01:39Z",
+ "generated": "2026-11-26T14:31Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8904,
-  "redirect-broader": 856,
-  "redirect-variant": 519,
+  "ok": 8988,
+  "redirect-broader": 864,
+  "redirect-variant": 520,
   "section-redirect": 203,
-  "disambiguation": 163,
-  "none": 1301,
-  "disambig-resolved": 116,
+  "disambiguation": 164,
+  "none": 1306,
+  "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
   "no-article": 21
@@ -96263,6 +96263,758 @@
     "Hatshepsut",
     "Ramesses II"
    ]
+  },
+  "ru-701": {
+   "answer": "Operation Whirlwind",
+   "title": "Operation Whirlwind",
+   "url": "https://en.wikipedia.org/wiki/Operation_Whirlwind",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-702": {
+   "answer": "Virgin Lands campaign",
+   "title": "Virgin Lands campaign",
+   "url": "https://en.wikipedia.org/wiki/Virgin_Lands_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-703": {
+   "answer": "Sputnik 1",
+   "title": "Sputnik 1",
+   "url": "https://en.wikipedia.org/wiki/Sputnik_1",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-704": {
+   "answer": "Yuri Gagarin",
+   "title": "Yuri Gagarin",
+   "url": "https://en.wikipedia.org/wiki/Yuri_Gagarin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-705": {
+   "answer": "Soviet space programme",
+   "title": "Soviet space program",
+   "url": "https://en.wikipedia.org/wiki/Soviet_space_program",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Soviet space programme"
+  },
+  "ru-706": {
+   "answer": "Operation Anadyr",
+   "title": "Operation Anadyr",
+   "url": "https://en.wikipedia.org/wiki/Operation_Anadyr",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-707": {
+   "answer": "Sino-Soviet border conflict",
+   "title": "Sino-Soviet border conflict",
+   "url": "https://en.wikipedia.org/wiki/Sino-Soviet_border_conflict",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-708": {
+   "answer": "October 1964 Plenum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "October 1964",
+    "Vladimir Lenin",
+    "Albania–Russia relations",
+    "Communist Party of the Soviet Union",
+    "Copyright law of Russia"
+   ]
+  },
+  "ru-709": {
+   "answer": "Leonid Brezhnev",
+   "title": "Leonid Brezhnev",
+   "url": "https://en.wikipedia.org/wiki/Leonid_Brezhnev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-710": {
+   "answer": "Era of Stagnation",
+   "title": "Era of Stagnation",
+   "url": "https://en.wikipedia.org/wiki/Era_of_Stagnation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-711": {
+   "answer": "Brezhnev Doctrine",
+   "title": "Brezhnev Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Brezhnev_Doctrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-712": {
+   "answer": "Soviet dissidents",
+   "title": "Soviet dissidents",
+   "url": "https://en.wikipedia.org/wiki/Soviet_dissidents",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-713": {
+   "answer": "Andrei Sakharov",
+   "title": "Andrei Sakharov",
+   "url": "https://en.wikipedia.org/wiki/Andrei_Sakharov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-714": {
+   "answer": "Soviet–Afghan War",
+   "title": "Soviet–Afghan War",
+   "url": "https://en.wikipedia.org/wiki/Soviet%E2%80%93Afghan_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-715": {
+   "answer": "Uskorenie",
+   "title": "Uskorenie",
+   "url": "https://en.wikipedia.org/wiki/Uskorenie",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-716": {
+   "answer": "Mikhail Gorbachev",
+   "title": "Mikhail Gorbachev",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Gorbachev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-717": {
+   "answer": "Perestroika",
+   "title": "Perestroika",
+   "url": "https://en.wikipedia.org/wiki/Perestroika",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-718": {
+   "answer": "Glasnost",
+   "title": "Glasnost",
+   "url": "https://en.wikipedia.org/wiki/Glasnost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-719": {
+   "answer": "Chernobyl disaster",
+   "title": "Chernobyl disaster",
+   "url": "https://en.wikipedia.org/wiki/Chernobyl_disaster",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-720": {
+   "answer": "Congress of People's Deputies of the Soviet Union",
+   "title": "Congress of People's Deputies of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_People's_Deputies_of_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-721": {
+   "answer": "Jeltoqsan",
+   "title": "Jeltoqsan",
+   "url": "https://en.wikipedia.org/wiki/Jeltoqsan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-722": {
+   "answer": "Baltic Way",
+   "title": "Baltic Way",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Way",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-723": {
+   "answer": "Nagorno-Karabakh conflict",
+   "title": "Nagorno-Karabakh conflict",
+   "url": "https://en.wikipedia.org/wiki/Nagorno-Karabakh_conflict",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-724": {
+   "answer": "Sinatra Doctrine",
+   "title": "Sinatra Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Sinatra_Doctrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-725": {
+   "answer": "Boris Yeltsin",
+   "title": "Boris Yeltsin",
+   "url": "https://en.wikipedia.org/wiki/Boris_Yeltsin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-726": {
+   "answer": "Declaration of State Sovereignty of the RSFSR",
+   "title": "Declaration of State Sovereignty of the Russian SFSR",
+   "url": "https://en.wikipedia.org/wiki/Declaration_of_State_Sovereignty_of_the_Russian_SFSR",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Declaration of State Sovereignty of the RSFSR"
+  },
+  "ru-727": {
+   "answer": "1991 Soviet coup attempt",
+   "title": "1991 Soviet coup attempt",
+   "url": "https://en.wikipedia.org/wiki/1991_Soviet_coup_attempt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-728": {
+   "answer": "New Union Treaty",
+   "title": "New Union Treaty",
+   "url": "https://en.wikipedia.org/wiki/New_Union_Treaty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-729": {
+   "answer": "Belovezha Accords",
+   "title": "Belovezha Accords",
+   "url": "https://en.wikipedia.org/wiki/Belovezha_Accords",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-730": {
+   "answer": "Commonwealth of Independent States",
+   "title": "Commonwealth of Independent States",
+   "url": "https://en.wikipedia.org/wiki/Commonwealth_of_Independent_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-731": {
+   "answer": "Gaidar reforms",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Yeltsin–Gaidar government reforms",
+    "Yegor Gaidar",
+    "Mikhail Poltoranin",
+    "List of presidents of Russia",
+    "List of libraries in Russia"
+   ]
+  },
+  "ru-732": {
+   "answer": "voucher privatisation",
+   "title": "Voucher privatization",
+   "url": "https://en.wikipedia.org/wiki/Voucher_privatization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Voucher privatisation"
+  },
+  "ru-733": {
+   "answer": "Russian oligarchs",
+   "title": "Russian oligarchs",
+   "url": "https://en.wikipedia.org/wiki/Russian_oligarchs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-734": {
+   "answer": "1993 Russian constitutional crisis",
+   "title": "1993 Russian constitutional crisis",
+   "url": "https://en.wikipedia.org/wiki/1993_Russian_constitutional_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-735": {
+   "answer": "Constitution of Russia",
+   "title": "Constitution of Russia",
+   "url": "https://en.wikipedia.org/wiki/Constitution_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-736": {
+   "answer": "First Chechen War",
+   "title": "First Chechen War",
+   "url": "https://en.wikipedia.org/wiki/First_Chechen_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-737": {
+   "answer": "1996 Russian presidential election",
+   "title": "1996 Russian presidential election",
+   "url": "https://en.wikipedia.org/wiki/1996_Russian_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-738": {
+   "answer": "1998 Russian financial crisis",
+   "title": "1998 Russian financial crisis",
+   "url": "https://en.wikipedia.org/wiki/1998_Russian_financial_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-739": {
+   "answer": "Second Chechen War",
+   "title": "Second Chechen War",
+   "url": "https://en.wikipedia.org/wiki/Second_Chechen_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-740": {
+   "answer": "Vladimir Putin",
+   "title": "Vladimir Putin",
+   "url": "https://en.wikipedia.org/wiki/Vladimir_Putin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-741": {
+   "answer": "power vertical",
+   "title": "Political groups under Vladimir Putin's presidency",
+   "url": "https://en.wikipedia.org/wiki/Political_groups_under_Vladimir_Putin's_presidency",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Power vertical"
+  },
+  "ru-742": {
+   "answer": "Gazprom",
+   "title": "Gazprom",
+   "url": "https://en.wikipedia.org/wiki/Gazprom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-743": {
+   "answer": "NTV",
+   "title": "NTV (Russia)",
+   "url": "https://en.wikipedia.org/wiki/NTV_(Russia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-744": {
+   "answer": "Alexei Navalny",
+   "title": "Alexei Navalny",
+   "url": "https://en.wikipedia.org/wiki/Alexei_Navalny",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-745": {
+   "answer": "Russo-Georgian War",
+   "title": "Russo-Georgian War",
+   "url": "https://en.wikipedia.org/wiki/Russo-Georgian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-746": {
+   "answer": "annexation of Crimea",
+   "title": "2014 Russian annexation of Crimea",
+   "url": "https://en.wikipedia.org/wiki/2014_Russian_annexation_of_Crimea",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Russian annexation of Crimea"
+  },
+  "ru-747": {
+   "answer": "war in Donbas",
+   "title": "War in Donbas",
+   "url": "https://en.wikipedia.org/wiki/War_in_Donbas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-748": {
+   "answer": "Russian invasion of Ukraine",
+   "title": "Russo-Ukrainian war (2022–present)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Ukrainian_war_(2022%E2%80%93present)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian invasion of Ukraine"
+  },
+  "ru-749": {
+   "answer": "General Assembly Resolution ES-11/1",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United Nations General Assembly Resolution ES-11/1",
+    "United Nations General Assembly Resolution ES-11/4",
+    "United Nations General Assembly Resolution ES-11/5",
+    "United Nations General Assembly Resolution ES-11/7",
+    "United Nations General Assembly Resolution ES-11/2"
+   ]
+  },
+  "ru-750": {
+   "answer": "Memorial",
+   "title": "Memorial (society)",
+   "url": "https://en.wikipedia.org/wiki/Memorial_(society)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-751": {
+   "answer": "natural zones of Russia",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Geography of Russia",
+    "Economy of Russia",
+    "Wildlife of Russia",
+    "Russo-Ukrainian war",
+    "Russia"
+   ]
+  },
+  "ru-752": {
+   "answer": "East European Plain",
+   "title": "East European Plain",
+   "url": "https://en.wikipedia.org/wiki/East_European_Plain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-753": {
+   "answer": "Ural Mountains",
+   "title": "Ural Mountains",
+   "url": "https://en.wikipedia.org/wiki/Ural_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-754": {
+   "answer": "Siberia",
+   "title": "Siberia",
+   "url": "https://en.wikipedia.org/wiki/Siberia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-755": {
+   "answer": "Russian Far East",
+   "title": "Russian Far East",
+   "url": "https://en.wikipedia.org/wiki/Russian_Far_East",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-756": {
+   "answer": "Caucasus",
+   "title": "Caucasus",
+   "url": "https://en.wikipedia.org/wiki/Caucasus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-757": {
+   "answer": "Russian Arctic",
+   "title": "Far North (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Far_North_(Russia)",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Russian Arctic"
+  },
+  "ru-758": {
+   "answer": "Permafrost",
+   "title": "Permafrost",
+   "url": "https://en.wikipedia.org/wiki/Permafrost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-759": {
+   "answer": "Taiga",
+   "title": "Taiga",
+   "url": "https://en.wikipedia.org/wiki/Taiga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-760": {
+   "answer": "Tundra",
+   "title": "Tundra",
+   "url": "https://en.wikipedia.org/wiki/Tundra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-761": {
+   "answer": "Chernozem",
+   "title": "Chernozem",
+   "url": "https://en.wikipedia.org/wiki/Chernozem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-762": {
+   "answer": "Continental climate",
+   "title": "Continental climate",
+   "url": "https://en.wikipedia.org/wiki/Continental_climate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-763": {
+   "answer": "Volga",
+   "title": "Volga",
+   "url": "https://en.wikipedia.org/wiki/Volga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-764": {
+   "answer": "Don River",
+   "title": "Don (river)",
+   "url": "https://en.wikipedia.org/wiki/Don_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Don River"
+  },
+  "ru-765": {
+   "answer": "Dnieper",
+   "title": "Dnieper",
+   "url": "https://en.wikipedia.org/wiki/Dnieper",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-766": {
+   "answer": "Yenisei",
+   "title": "Yenisei",
+   "url": "https://en.wikipedia.org/wiki/Yenisei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-767": {
+   "answer": "Lena River",
+   "title": "Lena River",
+   "url": "https://en.wikipedia.org/wiki/Lena_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-768": {
+   "answer": "Amur",
+   "title": "Amur",
+   "url": "https://en.wikipedia.org/wiki/Amur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-769": {
+   "answer": "Lake Baikal",
+   "title": "Lake Baikal",
+   "url": "https://en.wikipedia.org/wiki/Lake_Baikal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-770": {
+   "answer": "Caspian Sea",
+   "title": "Caspian Sea",
+   "url": "https://en.wikipedia.org/wiki/Caspian_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-781": {
+   "answer": "Moscow Metro",
+   "title": "Moscow Metro",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Metro",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-782": {
+   "answer": "Nevsky Prospect",
+   "title": "Nevsky Prospect",
+   "url": "https://en.wikipedia.org/wiki/Nevsky_Prospect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-783": {
+   "answer": "posad",
+   "title": "Posad",
+   "url": "https://en.wikipedia.org/wiki/Posad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-784": {
+   "answer": "Great Abatis Line",
+   "title": "Great Zasechnaya cherta",
+   "url": "https://en.wikipedia.org/wiki/Great_Zasechnaya_cherta",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Abatis Line"
+  },
+  "ru-785": {
+   "answer": "Moscow Time",
+   "title": "Moscow Time",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-786": {
+   "answer": "2021 Russian census",
+   "title": "2021 Russian census",
+   "url": "https://en.wikipedia.org/wiki/2021_Russian_census",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-787": {
+   "answer": "Russians",
+   "title": "Russians",
+   "url": "https://en.wikipedia.org/wiki/Russians",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-788": {
+   "answer": "Ukrainians",
+   "title": "Ukrainians",
+   "url": "https://en.wikipedia.org/wiki/Ukrainians",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-789": {
+   "answer": "Belarusians",
+   "title": "Belarusians",
+   "url": "https://en.wikipedia.org/wiki/Belarusians",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-790": {
+   "answer": "inorodtsy",
+   "title": "Inorodtsy",
+   "url": "https://en.wikipedia.org/wiki/Inorodtsy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-791": {
+   "answer": "Ilminsky system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bashkir alphabet",
+    "Yañalif",
+    "Tatar alphabets",
+    "Order of Saint Anna",
+    "Tatar language"
+   ]
+  },
+  "ru-792": {
+   "answer": "Volga Tatars",
+   "title": "Volga Tatars",
+   "url": "https://en.wikipedia.org/wiki/Volga_Tatars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-793": {
+   "answer": "Bashkirs",
+   "title": "Bashkirs",
+   "url": "https://en.wikipedia.org/wiki/Bashkirs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-794": {
+   "answer": "Chuvash",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Chuvash",
+   "suggestions": [
+    "Chuvash language",
+    "Chuvash people",
+    "Chuvash Autonomous Soviet Socialist Republic",
+    "Chuvash Autonomous Oblast"
+   ]
+  },
+  "ru-795": {
+   "answer": "Mordvins",
+   "title": "Mordvins",
+   "url": "https://en.wikipedia.org/wiki/Mordvins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-796": {
+   "answer": "Udmurts",
+   "title": "Udmurts",
+   "url": "https://en.wikipedia.org/wiki/Udmurts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-797": {
+   "answer": "Kalmyks",
+   "title": "Kalmyks",
+   "url": "https://en.wikipedia.org/wiki/Kalmyks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-798": {
+   "answer": "Buryats",
+   "title": "Buryats",
+   "url": "https://en.wikipedia.org/wiki/Buryats",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-799": {
+   "answer": "Yakuts",
+   "title": "Yakuts",
+   "url": "https://en.wikipedia.org/wiki/Yakuts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-800": {
+   "answer": "Evenks",
+   "title": "Evenki people",
+   "url": "https://en.wikipedia.org/wiki/Evenki_people",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Evenks"
+  },
+  "ru-771": {
+   "answer": "Black Sea Fleet",
+   "title": "Black Sea Fleet",
+   "url": "https://en.wikipedia.org/wiki/Black_Sea_Fleet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-772": {
+   "answer": "Baltic Fleet",
+   "title": "Baltic Fleet",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Fleet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-773": {
+   "answer": "White Sea",
+   "title": "White Sea",
+   "url": "https://en.wikipedia.org/wiki/White_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-774": {
+   "answer": "Northern Sea Route",
+   "title": "Northern Sea Route",
+   "url": "https://en.wikipedia.org/wiki/Northern_Sea_Route",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-775": {
+   "answer": "zapovednik",
+   "title": "Zapovednik",
+   "url": "https://en.wikipedia.org/wiki/Zapovednik",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-776": {
+   "answer": "three-field system",
+   "title": "Three-field system",
+   "url": "https://en.wikipedia.org/wiki/Three-field_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-777": {
+   "answer": "Kursk Magnetic Anomaly",
+   "title": "Kursk Magnetic Anomaly",
+   "url": "https://en.wikipedia.org/wiki/Kursk_Magnetic_Anomaly",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-778": {
+   "answer": "Samotlor field",
+   "title": "Samotlor Field",
+   "url": "https://en.wikipedia.org/wiki/Samotlor_Field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-779": {
+   "answer": "Urengoy gas field",
+   "title": "Urengoy gas field",
+   "url": "https://en.wikipedia.org/wiki/Urengoy_gas_field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-780": {
+   "answer": "Baikal–Amur Mainline",
+   "title": "Baikal–Amur Mainline",
+   "url": "https://en.wikipedia.org/wiki/Baikal%E2%80%93Amur_Mainline",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
