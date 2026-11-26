@@ -1583,6 +1583,69 @@ after import (an abbreviation "No." read as a sentence break). Twelve Wikipedia 
 point at the right article; none was set by hand. `migrate-places.js` drifted only the report, reverted;
 `check-places.js` passes 31 of 31.
 
+### What carried this batch — `ru-701` to `ru-800`
+
+A hundred cards in one session (2026-11-26): the rest of `ru-after-stalin`, all of `ru-federation` and `ru-land`,
+and the first fifteen of `ru-peoples`, written as before by ten parallel passes of ten, each checked by a dry-run
+validator (`add-card.js --dry-run`, `add-glossary.js` in a sandbox copy that now also carries `app.js`, and a clash
+check against every answer, glossary key and alias) and imported serially. **Every line's SUBJECT stands, so the
+list below is unchanged**; where the answer term is not the line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-701 | Operation Whirlwind | ru-706 | Operation Anadyr |
+| ru-707 | Sino-Soviet border conflict | ru-708 | October 1964 Plenum |
+| ru-711 | Brezhnev Doctrine | ru-712 | Soviet dissidents |
+| ru-715 | Uskorenie | ru-721 | Jeltoqsan |
+| ru-722 | Baltic Way | ru-724 | Sinatra Doctrine |
+| ru-726 | Declaration of State Sovereignty of the RSFSR | ru-728 | New Union Treaty |
+| ru-731 | Gaidar reforms | ru-732 | voucher privatisation |
+| ru-734 | 1993 Russian constitutional crisis | ru-735 | Constitution of Russia |
+| ru-737 | 1996 Russian presidential election | ru-738 | 1998 Russian financial crisis |
+| ru-741 | power vertical | ru-742 | Gazprom |
+| ru-743 | NTV | ru-744 | Alexei Navalny |
+| ru-749 | General Assembly Resolution ES-11/1 | ru-750 | Memorial |
+| ru-751 | natural zones of Russia | ru-762 | Continental climate |
+| ru-764 | Don River | ru-766 | Yenisei |
+| ru-767 | Lena River | ru-769 | Lake Baikal |
+| ru-771 | Black Sea Fleet | ru-772 | Baltic Fleet |
+| ru-775 | zapovednik | ru-776 | three-field system |
+| ru-777 | Kursk Magnetic Anomaly | ru-778 | Samotlor field |
+| ru-779 | Urengoy gas field | ru-780 | Baikal–Amur Mainline |
+| ru-781 | Moscow Metro | ru-782 | Nevsky Prospect |
+| ru-783 | posad | ru-784 | Great Abatis Line |
+| ru-785 | Moscow Time | ru-786 | 2021 Russian census |
+| ru-790 | inorodtsy | ru-791 | Ilminsky system |
+| ru-794 | Chuvash | ru-795 | Mordvins |
+| ru-796 | Udmurts | | |
+
+**THE SURVEY AND WAR CARDS WERE STEERED AROUND, NOT SHARED**: Hungary 1956 (`wh-958`) → Operation Whirlwind, the
+Cuban Missile Crisis (`us-888`, `wh-961`) → Operation Anadyr, the plan table's "Soviet decision"; the Sino-Soviet split
+(`cnh-668`) → the 1969 border conflict; the Prague Spring (`wh-965`) → the Brezhnev Doctrine; the Fall of the Berlin
+Wall (`wh-970`) → the Sinatra Doctrine; the Dissolution of the Soviet Union (`wh-987`) → the New Union Treaty. **ONE
+WAR AND NINE PLACES ARE DELIBERATELY SHARED**: `ru-714` *Soviet–Afghan War* with `wh-969`, and the land deck's natural
+features with the geography map cards whose answer they literally are — *East European Plain* (`gru-908`), *Ural
+Mountains* (`gru-901`, `gw-914`), *Volga* (`gw-829`), *Don River* (`gru-813`), *Lena River* (`gru-810`), *Lake Baikal*
+(`gru-802`, `gw-818`), *Caspian Sea* (`gru-803`, `gw-811`), *White Sea* (`gru-811`); each is written from Russian
+history's side with questions off the map card's angles, on the existing glossary term. *Moscow* (`ru-127`) and
+*Saint Petersburg* (`gru-004`) were not shared: the city lines answer the Metro and Nevsky Prospect. Two passes both
+reached for the *Great Abatis Line*; it stayed with the frontier line (`ru-784`) and the forests line became the
+zapovednik. *Russification* is `ru-455`'s, so `ru-791` answers the Ilminsky system. 81 glossary terms are new;
+`Memorial_(society)` is case-sensitive so the ordinary word does not link.
+
+**NON-ARTICLE GLOSSARY KEYS**: `October_1964_Plenum`, `Power_vertical` (a redirect to a broader article) and
+`Natural_zones_of_Russia`. `ru-708` and `ru-751` have no Wikipedia link (no dedicated article); nine links were marked
+CHECK and all point at the right article. **Two Russian Wikipedia titles carry a year in brackets**; the Russian names
+fold it into the phrase («Президентские выборы в России 1996 года»), as earlier cards do.
+
+**DATES**: 7 person and 9 battle/war templates from the passes' sidecars, the war lines with a **Troops** row
+(`set-template-dates.js` now takes `troops`), never casualties; the invasion of Ukraine has no End row and its result
+reads "Ongoing as of November 2026". Every contested figure (Afghan, Chechen, Karabakh and Donbas dead, Chernobyl's
+toll, the 1993 shooting, the 2021 census) is a range or carries its owner, and the 2008 war is written to the EU
+fact-finding mission's findings and flagged as disputed. **`check-cards.js` (report only) lists four findings left
+standing**: three "scholar" hits that are historical actors (Suslov, Yeltsin, the Venice Commission) and `ru-739`
+citing Human Rights Watch in 3 of 7 sources.
+
 ---
 
 # The list
