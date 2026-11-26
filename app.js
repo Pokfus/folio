@@ -37826,6 +37826,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        never in `S` or the synced blob; carried on the params for the cram queue's reason, so a repaint
        mid-session does not zero them. A reload starts a fresh tally (its params are new). */
     const tally = params._tally || (params._tally = { n: 0, again: 0, ms: 0, cards: {}, misses: {} });
+    /* …AND WHERE THE STUDIED DECK STOOD WHEN THE SESSION OPENED (2026-11-26, on request: "On the study session completion
+       screen, it should also show the progress bar of the collection or deck that was studied, with the newly added
+       progress highlighted"). Two counts — cards met, cards learned — read off the same records the home row's bar is
+       drawn from (adProg), carried on the params for the tally's reason. A cram has no bar: it schedules nothing. */
+    const prog0 = cram ? null : (params._prog0 || (params._prog0 = (() => {
+      const e = scopeEntryId(params.scope), ids = entryCardIds(e);
+      return { e: e, total: ids.length, studied: ids.filter(isSeen).length, learned: ids.filter(atCriterion).length };
+    })()));
     /* EVERY SESSION GOES BACK TO THE HOME PAGE (Aug 2026, on request: "once completing daily studies for a
        deck, the button should lead back to the home page, not the collections page"). It used to depend on
        the scope — the review, the Card of the day and a group returned home while a DECK returned to the
@@ -38922,6 +38930,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "</div>";
     }
 
+    function sessionProgHTML() {
+      if (!prog0 || !prog0.total) return "";
+      const ids = entryCardIds(prog0.e), total = ids.length;
+      if (!total) return "";
+      const studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
+      const pct = (n) => Math.max(0, Math.min(100, (100 * n) / total)).toFixed(2);
+      const s0 = Math.min(prog0.studied, studied), l0 = Math.min(prog0.learned, learned);
+      const ds = studied - s0, dl = learned - l0;
+      const info = entryInfo(prog0.e), title = (info && info.title) || "";
+      const gain = [ds ? "+" + ds + " studied" : "", dl ? "+" + dl + " learned" : ""].filter(Boolean).join(" · ");
+      return '<div class="sc-prog" aria-label="' + esc(title + ": " + studied + " of " + total + " studied, " + learned + " learned") + '">' +
+        '<div class="sc-prog-h"><span class="sc-prog-t">' + esc(title) + '</span><span class="sc-prog-n">' + studied + " / " + total +
+          (gain ? ' <b class="sc-prog-gain">' + esc(gain) + "</b>" : "") + "</span></div>" +
+        '<div class="sc-prog-track">' +
+          '<div class="sc-seg sc-seen" style="width:' + pct(s0) + '%"></div>' +
+          '<div class="sc-seg sc-seen-new" style="left:' + pct(s0) + "%;width:" + pct(ds) + '%"></div>' +
+          '<div class="sc-seg sc-learn" style="width:' + pct(l0) + '%"></div>' +
+          '<div class="sc-seg sc-learn-new" style="left:' + pct(l0) + "%;width:" + pct(dl) + '%"></div>' +
+        "</div></div>";
+    }
+
     function renderComplete(how) {
       detachKeys();
       // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue,
@@ -38939,6 +38968,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <h2>${how && how.timeUp ? "Time's up" : cram ? "Cram complete" : "Session complete"}</h2>
         <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}.${cram ? " Nothing was scheduled — your reviews are where they were." : " Your progress is saved."}</p>
         ${sessionSummaryHTML()}
+        ${sessionProgHTML()}
         ${/* THREE EQUAL BUTTONS ON ONE LINE (Oct 2026, on request: "these three should be formatted more
               neatly"). They were a wrapping flex row, which on most widths put two on one line and the
               third alone under them. `.sc-actions` is a grid of equal columns, however many of the three
@@ -38984,7 +39014,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         boxMs = 0; boxFrom = 0;
         if (cram) { startCram(cram.entry); return; }
         const next = Object.assign({}, params, { box: 0 });
-        delete next._tally;
+        delete next._tally; delete next._prog0;
         route("study", next);
       });
       // the summary's hardest cards open at their own address, which is read-only (see PAGES.card)
