@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8995 | the title is the article |
+| `ok` | 8996 | the title is the article |
 | `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 116 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 864 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 865 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 202 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 164 | only a disambiguation page; no link could be chosen |
-| `none` | 1301 | nothing matched; no link |
+| `none` | 1299 | nothing matched; no link |
 
-**10513 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10515 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (864)
+## Redirected to a differently named article — check each (865)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -604,6 +604,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `rm-592` **Lateran Basilica** → [Archbasilica of Saint John Lateran](https://en.wikipedia.org/wiki/Archbasilica_of_Saint_John_Lateran) (from `Lateran Basilica`)
 - `rm-597` **Julian the Apostate** → [Julian (emperor)](https://en.wikipedia.org/wiki/Julian_(emperor)) (from `Julian the Apostate`)
 - `rm-606` **Theodosian decrees** → [Persecution of pagans under Theodosius I](https://en.wikipedia.org/wiki/Persecution_of_pagans_under_Theodosius_I) (from `Theodosian decrees`)
+- `rm-619` **papacy** → [Pope](https://en.wikipedia.org/wiki/Pope) (from `Papacy`)
 - `rm-628` **Genseric** → [Gaiseric](https://en.wikipedia.org/wiki/Gaiseric) (from `Genseric`)
 - `rm-632` **Vandal sack of Rome** → [Sack of Rome (455)](https://en.wikipedia.org/wiki/Sack_of_Rome_(455)) (from `Vandal sack of Rome`)
 - `rm-637` **Eastern Roman Empire** → [Byzantine Empire](https://en.wikipedia.org/wiki/Byzantine_Empire) (from `Eastern Roman Empire`)
@@ -797,9 +798,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `wh-490` **Anglo-Saxon England** → [History of Anglo-Saxon England](https://en.wikipedia.org/wiki/History_of_Anglo-Saxon_England) (from `Anglo-Saxon England`)
 - `wh-494` **papacy** → [Pope](https://en.wikipedia.org/wiki/Pope) (from `Papacy`)
 - `wh-541` **metal movable type** → [Movable type](https://en.wikipedia.org/wiki/Movable_type) (from `Metal movable type`)
-- `wh-543` **Genji Monogatari** → [The Tale of Genji](https://en.wikipedia.org/wiki/The_Tale_of_Genji) (from `Genji Monogatari`)
 - `wh-559` **Dai Viet** → [Đại Việt](https://en.wikipedia.org/wiki/%C4%90%E1%BA%A1i_Vi%E1%BB%87t) (from `Dai Viet`)
 - `wh-584` **Ajami** → [Ajam](https://en.wikipedia.org/wiki/Ajam) (from `Ajami`)
+- `wh-587` **pastoral nomadism** → [Nomadic pastoralism](https://en.wikipedia.org/wiki/Nomadic_pastoralism) (from `Pastoral nomadism`)
 - `wh-617` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `wh-620` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
 - `wh-629` **linear perspective** → [Perspective (graphical)](https://en.wikipedia.org/wiki/Perspective_(graphical)) (from `Linear perspective`)
@@ -1433,7 +1434,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1301)
+## No article found (1299)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2300,7 +2301,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-773` **Hellenistic kingship** — search suggests `Hellenistic period`, `Greece in the Hellenistic period`, `Ancient Greece`, `Diadochi`, `Macedonia (ancient kingdom)`
 - `gr-779` **Seleucid colonisation** — search suggests `Seleucid Empire`, `Greece in the Hellenistic period`, `List of wars involving Greece`, `Ancient Greece`, `Greece in the Roman era`
 - `gr-813` **Hellenistic epigram** — search suggests `Epigram`, `Hellenistic period`, `Ancient Greek mathematics`, `Bianor (poet)`, `Macedonia (ancient kingdom)`
-- `gr-821` **siege of Syracuse (213–212 BCE)** — search suggests `Siege of Syracuse (213–212 BC)`, `210s BC`, `213 BC`, `Second Punic War`, `Timeline of Syracuse, Sicily`
 - `gr-848` **symploke** — search suggests `Polybius`, `Ultraconservatism`, `François Dosse`, `Poetry`, `Crouching Tiger, Hidden Dragon`
 - `gr-855` **freedom of the Greeks** — search suggests `Greece`, `Ancient Greece`, `Demographics of Greece`, `Kingdom of Greece`, `Aromanians in Greece`
 - `gr-868` **bequest of Attalus III** — search suggests `Eumenes III`, `Asia (Roman province)`, `Classical Anatolia`, `Caligula`, `Promagistrate`
@@ -2539,7 +2539,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `rm-463` **arcanum imperii** — search suggests `Augustus`, `Reign of Augustus`, `List of Latin phrases (A)`, `List of Latin phrases (full)`
 - `rm-468` **adlectio** — search suggests `Equites`, `Constantine the Great`, `Consularis`, `Gaius Cornelius Gallicanus`, `Senate of the Roman Empire`
 - `rm-476` **Liber Spectaculorum** — search suggests `Martial`, `AD 80`, `Laureolus`, `Philip the Arab`, `80s`
-- `rm-494` **optimus princeps** — search suggests `Trajan`, `Rome`, `Ancient Rome`, `History of Rome`, `Roman Kingdom`
 - `rm-529` **honestiores** — search suggests `Roman Empire`, `Sexuality in ancient Rome`, `Homosexuality in ancient Rome`, `Honestiores and humiliores`, `Slavery in ancient Rome`
 - `rm-532` **curator rei publicae** — search suggests `Augustus`, `Gaius Caesonius Macer Rufinianus`, `List of Roman moneyers during the Republic`, `Lucius Caesonius Lucillus Macer Rufinianus`, `Gaius Pomponius Bassus Terentianus`
 - `rm-558` **Aurelian's coinage reform** — search suggests `Aurelian`, `Roman currency`, `As (Roman coin)`, `Tacitus (emperor)`, `Roman Empire`

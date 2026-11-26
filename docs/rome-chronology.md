@@ -361,7 +361,6 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the quindecimviri: raised to ten (by tradition) | 367 BCE | `rm-895` |
 | the pontifex maximus: the first plebeian | 254 BCE | `rm-896` |
 | the College of Pontiffs opened to plebeians / the augurs raised to nine (the Ogulnian law) | 300 BCE | `rm-897`, `rm-898` |
-| the Temple of Saturn dedicated (tradition, Livy) / also dated | 497 BCE / 498 BCE | `rm-912` |
 | the Saturnalia instituted with the temple (tradition, Livy) | 497 BCE | `rm-917` |
 | the cult of Aesculapius arrives on the Tiber Island / also dated (Platner and Ashby give both) | 291 BCE / 292 BCE | `rm-921` |
 | the Capitoline Brutus: the museum's dating / also dated (a review) / donated | c. 400 – 200 BCE / c. 125 – 75 BCE / 1564 | `rm-972` |
@@ -510,7 +509,6 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Temple of Castor and Pollux restored | 117 BCE | `rm-894` |
 | the College of Pontiffs enlarged to fifteen (a dictionary's year) | 81 BCE | `rm-897` |
 | Spurinna's warning to Caesar | 44 BCE | `rm-900` |
-| the Temple of Saturn rebuilt by Munatius Plancus | 42 BCE | `rm-912` |
 | the Saturnalia reorganised: the public banquet and the cry (Livy) | 217 BCE | `rm-917` |
 | the Lupercalia at which Antony offered Caesar the diadem | 44 BCE | `rm-918` |
 | Magna Mater: arrived / her Palatine temple dedicated (Livy) | 204 BCE / 191 BCE | `rm-922` |
@@ -536,7 +534,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Tomb of Eurysaces built (the Capitoline Museums) / found | c. 40 – 30 BCE / 1838 | `rm-971` |
 | the Pompeian styles (Mau): the first / the second begins / the fourth / the scheme published | c. 200 – 90 BCE / c. 80 BCE / c. 50 – 79 CE / 1882 | `rm-977` |
 | the Basilica Aemilia: contracted / rebuilt by Paullus / burned | 179 BCE / 55 – 34 BCE / 14 BCE | `rm-984` |
-| the Aqua Marcia: built / restored by Titus (Platner) | 144 – 140 BCE / 79 CE | `rm-988` |
+| Roman aqueducts: the first at Rome (Aqua Appia) / Agrippa's water board / the last at Rome (Aqua Alexandrina) / cut by the Goths | 312 BCE / 11 BCE / 226 CE / 537 CE | `rm-988` |
 | the Pons Fabricius: built / the consuls' inscription (read as a restoration or as an approval) | 62 BCE / 21 BCE | `rm-993` |
 
 ## The Principate
@@ -609,7 +607,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Aqua Claudia: begun / dedicated / restored | 38 CE / 1 August 52 CE (Frontinus's day; the year from the moderns) / 71 CE | `rm-436` |
 | Messalina: born / married Claudius / killed | c. 25 CE / c. 39 CE / 48 CE | `rm-437` |
 | Agrippina the Younger: born / married Claudius / Augusta / killed | 6 November 15 CE / 49 CE / 50 CE / March 59 CE | `rm-438` |
-| Britannicus: born / Nero adopted / died | 41 CE (also dated 42) / 50 CE / 55 CE | `rm-439` |
+| Nero: born / reigned / Britannicus died / died | 15 December 37 CE / 13 October 54 – 9 June 68 CE / February 55 CE / 9 June 68 CE | `rm-439` |
 | Burrus: prefect / hailed Nero / died | 51 – 62 CE / 13 October 54 CE (Tacitus's day) / 62 CE | `rm-440` |
 | Anicetus: Agrippina killed / exiled | March 59 CE / 62 CE | `rm-441` |
 | the Boudican revolt | 60 or 61 CE (Tacitus's year 61; Henderson argues 60) | `rm-442`, `rm-443` |
@@ -661,7 +659,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Nerva–Antonines / Commodus died | 96 – 192 CE / 31 December 192 CE | `rm-491` |
 | Nerva: born / reigned / adopted Trajan / died | 8 November 30 CE (Longden; Livius: 30 November) / 96 – 98 CE / October 97 CE / January 98 CE | `rm-492` |
 | Plotina: empress / the Epicurean letter / died | 98 – 117 CE / 121 CE / c. 122 CE (one modern account) | `rm-493` |
-| optimus princeps: first used / on coins / in the official name | 100 CE / 103 – 111 CE / 114 CE | `rm-494` |
+| Trajan: born / reigned / Optimus in the official name / died | 18 September 53 CE / 28 January 98 – August 117 CE / 114 CE / August 117 CE (8 or 9 August) | `rm-494` |
 | Trajan's Dacian Wars: first / second / the province / abandoned | 101 – 102 CE / 105 – 106 CE / 106 CE / c. 271 CE | `rm-495` |
 | Decebalus: king by / died | 86 CE / 106 CE | `rm-496` |
 | Trajan's Column: dedicated / Saint Peter set on it | 113 CE / 1588 | `rm-497` |
@@ -682,7 +680,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Aelia Capitolina founded | c. 130 CE (Eusebius puts it after the revolt) | `rm-512` |
 | Antoninus Pius: born / reigned / died | 19 September 86 CE / 138 – 161 CE / 7 March 161 CE | `rm-513` |
 | the Antonine Wall: begun / given up / World Heritage | c. 142 CE / c. 158 – 164 CE (debated) / 2008 | `rm-514` |
-| Avidius Cassius: revolt and death | 175 CE | `rm-515` |
+| Marcus Aurelius: born / reigned / the revolt of Avidius Cassius / died | 26 April 121 CE / 7 March 161 – 17 March 180 CE / 175 CE / 17 March 180 CE | `rm-515` |
 | Lucius Verus: born / reigned / died | 15 December 130 CE / 161 – 169 CE / 169 CE | `rm-516` |
 | the Parthian war of Lucius Verus: war / Artaxata / Ctesiphon / triumph | 161 – 166 CE / 163 CE / 165 CE (Livius: 164 CE) / 166 CE | `rm-517` |
 | the Antonine Plague: outbreak / reached Rome | c. 165 – 180 CE / 166 CE | `rm-518` |
@@ -907,7 +905,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the City of God: begun / completed | c. 412 – 413 CE / 426 CE | `rm-616` |
 | Donatism (its opponents' name): began / the synod at Rome / Arles / the Carthage conference | c. 311 CE / 2 October 313 CE / 1 August 314 CE / June 411 CE | `rm-617` |
 | the Council of Chalcedon: met / the Ephesus synod it undid | 8 October – 1 November 451 CE / 449 CE | `rm-618` |
-| Damasus I: born / bishop of Rome / died | c. 304 CE (one older account) / 366 – 384 CE / 11 December 384 CE | `rm-619` |
+| the papacy in late antiquity: the Serdica appeals canon / the rival elections of Damasus and Ursinus / the first surviving decretal (Siricius) / Gelasius's two powers | 343 CE / 366 CE / 385 CE / 494 CE | `rm-619` |
 | Leo I, bishop of Rome: consecrated / died | 29 September 440 CE / 10 November 461 CE | `rm-620` |
 | the fall of the Western Roman Empire (a modern label): the provinces lost / Carthage taken / the usual end | 395 – 476 CE (one recent outline) / 439 CE / 476 CE (a convention) | `rm-621` |
 | Stilicho: in power / executed | 395 – 408 CE / 22 August 408 CE | `rm-622` |
@@ -1384,7 +1382,7 @@ rm-435: 48; 1528
 rm-436: 38; 52; 71
 rm-437: 25; 39; 48
 rm-438: 15; 49; 59
-rm-439: 41; 42; 50; 55
+rm-439: 37; 54; 68; 55
 rm-440: 51; 62; 54; 62
 rm-441: 59; 62
 rm-442: 60; 61
@@ -1438,7 +1436,7 @@ rm-490: 69; 96; 96
 rm-491: 96; 192; 192
 rm-492: 30; 96; 98; 97; 98
 rm-493: 98; 117; 121; 122
-rm-494: 100; 103; 111; 114
+rm-494: 53; 98; 117; 114
 rm-495: 101; 106; 106
 rm-496: 86; 106
 rm-497: 113; 1588
@@ -1459,7 +1457,7 @@ rm-511: 132; 135
 rm-512: 130
 rm-513: 86; 138; 161
 rm-514: 142; 158; 164; 2008
-rm-515: 175
+rm-515: 121; 161; 180; 175
 rm-516: 130; 161; 169
 rm-517: 161; 166
 rm-518: 165; 180; 166
@@ -1560,7 +1558,7 @@ rm-615: 354; 387; 395; 430
 rm-616: 412; 413; 426
 rm-617: 311; 313; 314; 411
 rm-618: 451; 449
-rm-619: 304; 366; 384
+rm-619: 343; 366; 385; 494
 rm-620: 440; 461
 rm-621: 395; 476; 439
 rm-622: 395; 408
@@ -1729,7 +1727,6 @@ rm-898: 300
 rm-900: 44
 rm-903: 21; 304
 rm-907: 509
-rm-912: 497; 498; 42
 rm-917: 497; 217
 rm-918: 44; 494
 rm-921: 291; 292
@@ -1785,7 +1782,7 @@ rm-983: 1537
 rm-984: 179; 55; 34; 14
 rm-986: 203
 rm-987: 106; 161; 1703
-rm-988: 144; 140; 79
+rm-988: 312; 11; 226; 537
 rm-989: 40; 80; 1985
 rm-990: 70; 97; 103; 104
 rm-991: 20
