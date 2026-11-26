@@ -45,12 +45,12 @@ const HEAD = W(`merhaba | selam | evet | hayır | teşekkür ederim |
   teşekkürler | lütfen | rica ederim | bir şey değil | tamam |
   günaydın | iyi günler | iyi akşamlar | iyi geceler | hoşça kal |
   güle güle | görüşürüz | ben | sen | o |
-  biz | siz | nasılsın | nasılsınız | iyiyim, teşekkürler |
+  biz | siz | nasılsın | nasılsınız | iyi |
   ad | benim adım | adınız ne | memnun oldum | affedersiniz |
   pardon | özür dilemek | sağ ol | buyurun | efendim |
   bu | şu | ne | kim | bir |
   var | yok | değil | mi | de |
-  ve | ama | çok | iyi | kötü |
+  ve | ama | çok | güzel | kötü |
   olmak | etmek | yapmak | istemek | bilmek |
   gelmek | gitmek | almak | vermek | görmek |
   demek | söylemek | yemek | içmek | su |

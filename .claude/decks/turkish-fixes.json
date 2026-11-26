@@ -1,1 +1,330 @@
-{"_about":"","add":{},"decks":{}}
+{
+ "_about": "turkish-fixes.json — the Turkish record (Nov 2026, the Turkish beginner pass; docs/lang-decks.md). `add` is WRITTEN BY .claude/turkish/inserts.py, never by hand: its lists are at the top of that script. `decks` is written here by hand: each deck's subtitle template, its descSub pairs over the generator's description, and the tail that ends the description and is recounted on every run. Applied by .claude/decks/turkish-fix.js, whose header describes every key and placeholder.",
+ "add": {
+  "turkisha1": [
+   {
+    "word": "teşekkür ederim",
+    "id": 501,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "rica ederim",
+    "id": 502,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "bir şey değil",
+    "id": 503,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "iyi günler",
+    "id": 504,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "iyi akşamlar",
+    "id": 505,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "iyi geceler",
+    "id": 506,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "hoşça kal",
+    "id": 507,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "güle güle",
+    "id": 508,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "benim adım",
+    "id": 509,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "adınız ne",
+    "id": 510,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "memnun oldum",
+    "id": 511,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "hoş bulduk",
+    "id": 512,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf (the answer to hoş geldiniz)"
+   },
+   {
+    "word": "kolay gelsin",
+    "id": 513,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "afiyet olsun",
+    "id": 514,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "geçmiş olsun",
+    "id": 515,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "saat kaç",
+    "id": 516,
+    "from": "trphrase",
+    "why": "an everyday formula; the phrases deck is the last on the shelf, spelled with two A1 cards"
+   },
+   {
+    "word": "selam",
+    "id": 517,
+    "from": "turkisha2",
+    "why": "a greeting; A2's note 18"
+   },
+   {
+    "word": "günaydın",
+    "id": 518,
+    "from": "turkisha2",
+    "why": "a greeting; A2's note 313"
+   },
+   {
+    "word": "affedersiniz",
+    "id": 519,
+    "from": "turkisha2",
+    "why": "excuse me; A2's note 381"
+   },
+   {
+    "word": "pardon",
+    "id": 520,
+    "from": "turkisha2",
+    "why": "sorry; A2's note 376"
+   },
+   {
+    "word": "ad",
+    "id": 521,
+    "from": "turkisha2",
+    "why": "name: benim adım and adınız ne are made with it"
+   },
+   {
+    "word": "su",
+    "id": 522,
+    "from": "turkisha2",
+    "why": "water, which a beginner asks for; meyve suyu is an A1 card"
+   },
+   {
+    "word": "içmek",
+    "id": 523,
+    "from": "turkisha2",
+    "why": "to drink, beside yemek"
+   },
+   {
+    "word": "sağ ol",
+    "id": 524,
+    "from": "turkishb1",
+    "why": "thank you, the everyday one; B1's note 133"
+   },
+   {
+    "word": "buyurun",
+    "id": 525,
+    "from": "turkishb1",
+    "why": "said by every shopkeeper and waiter; B1's note 143"
+   },
+   {
+    "word": "hoş geldiniz",
+    "id": 526,
+    "from": "turkishb2",
+    "why": "welcome; B2's note 167"
+   },
+   {
+    "word": "sıfır",
+    "id": 527,
+    "from": "turkishb2",
+    "why": "zero: A1 holds every other number to ten; B2's note 249"
+   },
+   {
+    "word": "dördüncü",
+    "id": 528,
+    "from": "turkishb2",
+    "why": "an ordinal: A1 holds first to third, and its grammar list names the ordinals"
+   },
+   {
+    "word": "beşinci",
+    "id": 529,
+    "from": "turkishb2",
+    "why": "an ordinal, as dördüncü"
+   },
+   {
+    "word": "kahverengi",
+    "id": 530,
+    "from": "turkishb2",
+    "why": "a colour: A1 holds nine others"
+   },
+   {
+    "word": "gri",
+    "id": 531,
+    "from": "turkishb2",
+    "why": "a colour, as kahverengi"
+   },
+   {
+    "word": "mi",
+    "id": 532,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">mi<span class=\"uc-tts uc-say\" data-say=\"mi\"></span></div>",
+     "Word": "mi",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">particle</div><div class=\"uc-gl\">Used to form interrogatives.</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Kötü mü?\"></span>Kötü <b>mü</b>?</div><div class=\"uc-exe\">Is it bad?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Yeni misin?\"></span>Yeni <b>misin</b>?</div><div class=\"uc-exe\">Are you new?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Komitede misin?\"></span>Komitede <b>misin</b>?</div><div class=\"uc-exe\">Are you on the committee?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "the question particle, in 64 words of A1's sentences (mi, mı, misin, musun, miyim …) and on no card; select.py excludes it from the frequency fill by name"
+   },
+   {
+    "word": "de",
+    "id": 533,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">de<span class=\"uc-tts uc-say\" data-say=\"de\"></span></div>",
+     "Word": "de",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">conjunction</div><ol class=\"uc-gls\"><li>as well, too, also</li><li>however</li></ol></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ben de gittim.\"></span>Ben <b>de</b> gittim.</div><div class=\"uc-exe\">I also went.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Üçümüz de öğrenciyiz.\"></span>Üçümüz <b>de</b> öğrenciyiz.</div><div class=\"uc-exe\">All three of us are students.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sen de, oğlum.\"></span>Sen <b>de</b>, oğlum.</div><div class=\"uc-exe\">You too, my son.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "\"too, also\", written apart: 11 words of A1's sentences and on no card; excluded from the fill by name"
+   },
+   {
+    "word": "nasılsın",
+    "id": 534,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">nasılsın<span class=\"uc-tts uc-say\" data-say=\"nasılsın\"></span></div>",
+     "Word": "nasılsın",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">how are you (informal)</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Merhaba, nasılsın?\"></span>Merhaba, <b>nasılsın</b>?</div><div class=\"uc-exe\">Hello, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Günaydın, nasılsın?\"></span>Günaydın, <b>nasılsın</b>?</div><div class=\"uc-exe\">Good morning, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Nasılsın, Tom?\"></span><b>Nasılsın</b>, Tom?</div><div class=\"uc-exe\">How are you, Tom?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "how are you (to sen); a one-word entry Wiktionary files as a phrase, which no stage read"
+   },
+   {
+    "word": "nasılsınız",
+    "id": 535,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">nasılsınız<span class=\"uc-tts uc-say\" data-say=\"nasılsınız\"></span></div>",
+     "Word": "nasılsınız",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">how are you? (formal)</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Günaydın, nasılsınız?\"></span>Günaydın, <b>nasılsınız</b>?</div><div class=\"uc-exe\">Good morning, how are you doing?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Hepiniz nasılsınız?\"></span>Hepiniz <b>nasılsınız</b>?</div><div class=\"uc-exe\">How are you all?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sizler nasılsınız?\"></span>Sizler <b>nasılsınız</b>?</div><div class=\"uc-exe\">How are y&#x27;all?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "how are you (to siz); as nasılsın"
+   },
+   {
+    "word": "görüşürüz",
+    "id": 536,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">görüşürüz<span class=\"uc-tts uc-say\" data-say=\"görüşürüz\"></span></div>",
+     "Word": "görüşürüz",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">see you</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Yakında görüşürüz!\"></span>Yakında <b>görüşürüz</b>!</div><div class=\"uc-exe\">See you soon!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sonra görüşürüz.\"></span>Sonra <b>görüşürüz</b>.</div><div class=\"uc-exe\">See you then.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tekrar görüşürüz.\"></span>Tekrar <b>görüşürüz</b>.</div><div class=\"uc-exe\">See you again.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "see you; as nasılsın"
+   },
+   {
+    "word": "ne kadar",
+    "id": 537,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">ne kadar<span class=\"uc-tts uc-say\" data-say=\"ne kadar\"></span></div>",
+     "Word": "ne kadar",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><ol class=\"uc-gls\"><li>how much? (quantity)</li><li>how much? (cost)</li></ol></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ne kadar?\"></span><b>Ne kadar</b>?</div><div class=\"uc-exe\">How much?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Fiyatı ne kadar?\"></span>Fiyatı <b>ne kadar</b>?</div><div class=\"uc-exe\">How much is it?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Boyun ne kadar?\"></span>Boyun <b>ne kadar</b>?</div><div class=\"uc-exe\">How tall are you?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "how much: a two-word determiner the frequency list cannot count"
+   },
+   {
+    "word": "özür dilemek",
+    "id": 538,
+    "fields": {
+     "Turkish": "<div class=\"uc-word\">özür dilemek<span class=\"uc-tts uc-say\" data-say=\"özür dilemek\"></span></div>",
+     "Word": "özür dilemek",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><div class=\"uc-gl\">to apologize</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Özür dileme.\"></span><b>Özür dileme</b>.</div><div class=\"uc-exe\">Don&#x27;t apologize.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Özür dilerim.\"></span><b>Özür dilerim</b>.</div><div class=\"uc-exe\">I&#x27;m sorry.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Özür dilemelisin.\"></span><b>Özür dilemelisin</b>.</div><div class=\"uc-exe\">You should apologize.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-26: the entry's senses; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.py",
+    "why": "to apologize: Wiktionary has no entry for özür dilerim, and this verb's sentences are that formula"
+   }
+  ]
+ },
+ "decks": {
+  "turkisha1": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "descSub": [
+    [
+     "The cards are ordered by that frequency, so the words met most often come first; the 10 two-word expressions, which a list of single words cannot count, come last.",
+     "The list was drawn by that frequency, and after the first 100 cards the order still follows it (the end of this description says how); the two-word expressions the list itself held, which a list of single words cannot count, come last, but for hafta sonu, which stands with the days."
+    ]
+   ],
+   "tail": "THE BEGINNER PASS (Nov 2026). The figures above describe the list as the frequency dealt it. The deck is now {notes} notes, {cards} cards: those 500, and {added} a beginner needs that the list did not hold. Sixteen everyday formulas that were cards of the phrases deck, the last on the shelf (teşekkür ederim, rica ederim, iyi günler, iyi akşamlar, iyi geceler, hoşça kal, güle güle, adınız ne, benim adım, memnun oldum, kolay gelsin, afiyet olsun, geçmiş olsun and three more); selam, günaydın, affedersiniz, pardon, ad, su and içmek, which were cards of A2; sağ ol and buyurun, of B1; hoş geldiniz, sıfır, the fourth and fifth ordinals and two colours (kahverengi, gri), of B2. And seven that no deck held, each built from its English Wiktionary entry as every other card is: the question particle mi and the word de (\"too\"), written apart, which the frequency list could not tell from suffixes; nasılsın, nasılsınız and görüşürüz, one-word formulas; ne kadar; and özür dilemek, whose sentences are the apology özür dilerim. THE ORDER is a teaching order first and frequency after: the first 100 notes are written by hand — the greetings and courtesies, the pronouns, a first exchange, this and that, var, yok and değil with mi and de, ten verbs, the question words, zero to ten, and five formulas for a guest, a worker, a meal and the sick — and the rest follow by frequency with each closed set together: twenty to a thousand and the ordinals from note 121, the days from note 151, the months and the seasons from note 161, the colours from note 201, the compass points from note 301. THE PACE: the app gives ten new cards a day, both directions together, which is five words a day: merhaba and teşekkür ederim on day one, good morning to good night on day {day:günaydın}, nasılsın on day {day:nasılsın}, the first verbs on day {day:olmak}, the question words from day {day:nerede}, zero to ten on days {day:sıfır} and {day:on}; {days} days for the deck. Taken in the shelf's order — the sounds deck, A1, A2, B1, B2, C1, the phrases — A1 runs from day {from} to day {to}, B1 is reached on day {turkishb1.from}, and the whole shelf is {shelfNotes} notes, {shelfDays} days, {shelfYears} years. The sounds deck (Turkish — Sounds and spelling: how the letters are read, where the stress falls and how the suffixes on these cards change with the word) can be studied beside A1 instead of before it. WHAT A CARD SHOWS SINCE THIS PASS: a noun's row ends with two possessed forms, \"my\" and \"his, her\" (kitabım, kitabı; arabam, arabası) — a fifth of the words in these sentences were suffixed forms of an A1 word that no card showed, and the possessed forms were the largest part; a verb's row adds the negative of the present and the two commands, to sen and to siz (gitmiyor; git, gidin); o and bu show their plurals (onlar, bunlar), which are no cards of their own; and a sentence is no longer matched to a word by a form that is another word's spelling (on, \"ten\", by onu, \"him\"; demek by de, \"too\"). SEN AND SIZ: sen is one person you know well; siz is several people, or one person addressed politely. A formula made for siz is its polite form (nasılsınız, adınız ne, affedersiniz, hoş geldiniz, buyurun), and the command shown for siz is the one to use with a stranger. NOT HERE, because the English Wiktionary has no entry of its own to build the card from: nereye (\"where to\") and onlar (\"they\"; it is on o's row), which it files only as forms of another word, ne zaman (\"when\"), özür dilerim and iyiyim (\"I am fine\"; the phrases deck has iyiyim, teşekkürler) as cards of one word, and the names Türkçe and Türkiye.",
+   "hints": {
+    "teşekkür ederim": "sağ ol",
+    "sağ ol": "teşekkür ederim"
+   }
+  },
+  "turkisha2": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (Nov 2026). The figures above describe the list as the frequency dealt it. The deck is now {notes} notes, {cards} cards: {left} cards went down to Turkish A1 — selam, günaydın, affedersiniz, pardon, ad, su and içmek — and a reader who already holds them here keeps them. THE PACE: the app gives ten new cards a day, both directions together, which is five words a day, {days} days for this deck; taken in the shelf's order (the sounds deck, A1, A2, B1, B2, C1, the phrases) it runs from day {from} to day {to} of {shelfDays}. A beginner starts with Turkish A1 and, beside it, Turkish — Sounds and spelling. WHAT A CARD SHOWS SINCE THIS PASS: a noun's row ends with two possessed forms, \"my\" and \"his, her\" (kitabım, kitabı; arabam, arabası); a verb's row adds the negative of the present and the two commands, to sen and to siz (gitmiyor; git, gidin); and a sentence is no longer matched to a word by a form that is another word's spelling."
+  },
+  "turkishb1": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (Nov 2026). The figures above describe the list as the frequency dealt it. The deck is now {notes} notes, {cards} cards: {left} cards went down to Turkish A1 — sağ ol and buyurun — and a reader who already holds them here keeps them. THE PACE: the app gives ten new cards a day, both directions together, which is five words a day, {days} days for this deck; taken in the shelf's order (the sounds deck, A1, A2, B1, B2, C1, the phrases) it runs from day {from} to day {to} of {shelfDays}. A beginner starts with Turkish A1 and, beside it, Turkish — Sounds and spelling. WHAT A CARD SHOWS SINCE THIS PASS: a noun's row ends with two possessed forms, \"my\" and \"his, her\" (kitabım, kitabı; arabam, arabası); a verb's row adds the negative of the present and the two commands, to sen and to siz (gitmiyor; git, gidin); and a sentence is no longer matched to a word by a form that is another word's spelling."
+  },
+  "turkishb2": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (Nov 2026). The figures above describe the list as the frequency dealt it. The deck is now {notes} notes, {cards} cards: {left} cards went down to Turkish A1 — hoş geldiniz, sıfır, dördüncü, beşinci, kahverengi and gri — and a reader who already holds them here keeps them. THE PACE: the app gives ten new cards a day, both directions together, which is five words a day, {days} days for this deck; taken in the shelf's order (the sounds deck, A1, A2, B1, B2, C1, the phrases) it runs from day {from} to day {to} of {shelfDays}. A beginner starts with Turkish A1 and, beside it, Turkish — Sounds and spelling. WHAT A CARD SHOWS SINCE THIS PASS: a noun's row ends with two possessed forms, \"my\" and \"his, her\" (kitabım, kitabı; arabam, arabası); a verb's row adds the negative of the present and the two commands, to sen and to siz (gitmiyor; git, gidin); and a sentence is no longer matched to a word by a form that is another word's spelling."
+  },
+  "turkishc1": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (Nov 2026). The deck is {notes} notes, {cards} cards, as the frequency dealt it; no card of it moved. THE PACE: the app gives ten new cards a day, both directions together, which is five words a day, {days} days for this deck; taken in the shelf's order (the sounds deck, A1, A2, B1, B2, C1, the phrases) it runs from day {from} to day {to} of {shelfDays}. A beginner starts with Turkish A1 and, beside it, Turkish — Sounds and spelling. WHAT A CARD SHOWS SINCE THIS PASS: a noun's row ends with two possessed forms, \"my\" and \"his, her\" (kitabım, kitabı; arabam, arabası); a verb's row adds the negative of the present and the two commands, to sen and to siz (gitmiyor; git, gidin); and a sentence is no longer matched to a word by a form that is another word's spelling."
+  },
+  "trphrase": {
+   "subtitle": "{notes} expressions · {phrases} everyday, {idioms} idioms, {proverbs} proverbs · both directions",
+   "descSub": [
+    [
+     "Within each subdeck the expressions are ordered by how often they occur in Tatoeba's Turkish sentences, an expression ending in a verb being counted in any form of that verb, so the ones met most often come first.",
+     "Within each subdeck the expressions come by reading level (the end of this description says how), and inside a level by how often they occurred in Tatoeba's Turkish sentences when the deck was first built, an expression ending in a verb being counted in any form of that verb."
+    ],
+    [
+     "(değil mi, teşekkür ederim, ne demek …)",
+     "(değil mi, ne demek, önemli değil …)"
+    ]
+   ],
+   "tail": "THE BEGINNER PASS (Nov 2026). The figures above describe the list as it was drawn. The deck is now {notes} expressions — {phrases} everyday phrases, {idioms} idioms and {proverbs} proverbs — because {left} everyday formulas (teşekkür ederim, rica ederim, bir şey değil, iyi günler, iyi akşamlar, iyi geceler, hoşça kal, güle güle, benim adım, adınız ne, memnun oldum, hoş bulduk, kolay gelsin, afiyet olsun, geçmiş olsun, saat kaç) are now cards of Turkish A1, where a beginner meets them in the first weeks and not after C1; a reader who already holds them here keeps them. THE ORDER inside each subdeck is by reading level: first the expressions every word of which is on a card of Turkish A1, a suffixed form counting only if a card shows it, then A2, B1, B2 and C1, and last those that use a word or a form no level shows — which is most of them, since an idiom is a sentence in miniature and its words are inflected. So this deck can be begun beside A1 and need not wait for C1; the idioms and proverbs are for a reader who has the levels behind them. THE PACE: the app gives ten new cards a day, both directions together, which is five expressions a day, {days} days for this deck; taken last in the shelf's order it runs from day {from} to day {to}."
+  }
+ }
+}

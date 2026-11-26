@@ -383,6 +383,22 @@ jobs:
       - name: check-urdu (no word on two levels, pinned ids, one romanisation scheme, balanced markup)
         if: ${{ !cancelled() }}
         run: node .claude/urdu/check-urdu.js
+      # The Turkish decks (2026-11-26, the Turkish beginner pass): turkish-fixes.json (the cards moved down to A1,
+      # the cards added, the end of each description), turkish-order.json and the pinned ids, over the six decks
+      # of card type `turkish` and the sounds deck (`trsound`). All four read only the repository: no cache, no
+      # network, no browser.
+      - name: turkish-fix --check (the Turkish decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/turkish-fix.js --check
+      - name: turkish-order --check (the Turkish order file is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/turkish-order.js --check
+      - name: build-turkish-sounds --check (the Turkish sounds deck is what its table and Turkish A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-turkish-sounds.js --check
+      - name: check-turkish (no word on two decks, pinned ids, no pointer glosses, known forms labels, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/turkish/check-turkish.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.

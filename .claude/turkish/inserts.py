@@ -45,7 +45,6 @@ MOVES = {
         ("iyi geceler", "trphrase", PHR),
         ("hoşça kal", "trphrase", PHR),
         ("güle güle", "trphrase", PHR),
-        ("iyiyim, teşekkürler", "trphrase", PHR + " (the answer to nasılsın; Wiktionary has no entry for iyiyim alone)"),
         ("benim adım", "trphrase", PHR),
         ("adınız ne", "trphrase", PHR),
         ("memnun oldum", "trphrase", PHR),
