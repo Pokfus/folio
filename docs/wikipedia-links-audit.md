@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 9115 | the title is the article |
+| `ok` | 9172 | the title is the article |
 | `redirect-variant` | 522 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 866 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 873 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 204 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 165 | only a disambiguation page; no link could be chosen |
-| `none` | 1293 | nothing matched; no link |
+| `section-redirect` | 206 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 166 | only a disambiguation page; no link could be chosen |
+| `none` | 1296 | nothing matched; no link |
 
-**10638 of 12320 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10702 of 12390 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (866)
+## Redirected to a differently named article — check each (873)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -710,6 +710,13 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-817` **Jadidism** → [Jadid](https://en.wikipedia.org/wiki/Jadid) (from `Jadidism`)
 - `ru-832` **Autonomous Soviet Socialist Republic** → [Autonomous republics and oblasts of the Soviet Union](https://en.wikipedia.org/wiki/Autonomous_republics_and_oblasts_of_the_Soviet_Union) (from `Autonomous Soviet Socialist Republic`)
 - `ru-856` **Ober-Procurator** → [Procurator (Russia)](https://en.wikipedia.org/wiki/Procurator_(Russia)) (from `Ober-Procurator`)
+- `ru-913` **Russian anarchism** → [Anarchism in Russia](https://en.wikipedia.org/wiki/Anarchism_in_Russia) (from `Russian anarchism`)
+- `ru-916` **Russian liberalism** → [Liberalism in Russia](https://en.wikipedia.org/wiki/Liberalism_in_Russia) (from `Russian liberalism`)
+- `ru-917` **Russian conservatism** → [Conservatism in Russia](https://en.wikipedia.org/wiki/Conservatism_in_Russia) (from `Russian conservatism`)
+- `ru-927` **Old Russian literature** → [Old East Slavic literature](https://en.wikipedia.org/wiki/Old_East_Slavic_literature) (from `Old Russian literature`)
+- `ru-956` **Silver Age** → [Ages of Man](https://en.wikipedia.org/wiki/Ages_of_Man) (from `Silver Age`)
+- `ru-967` **Russian architecture** → [Architecture of Russia](https://en.wikipedia.org/wiki/Architecture_of_Russia) (from `Russian architecture`)
+- `ru-989` **Russian music** → [Music of Russia](https://en.wikipedia.org/wiki/Music_of_Russia) (from `Russian music`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -1049,7 +1056,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (165)
+## Disambiguation pages that could not be settled (166)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1201,6 +1208,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ru-132` **Metropolitan Peter** — `Metropolitan Peter` is a disambiguation page
 - `ru-794` **Chuvash** — `Chuvash` is a disambiguation page; its links: `Chuvash language`, `Chuvash people`, `Chuvash Autonomous Soviet Socialist Republic`, `Chuvash Autonomous Oblast`
 - `ru-881` **Yuri's Day** — `Yuri's Day` is a disambiguation page; its links: `Yuri's Day in Autumn`, `Yuri's Day in Spring`, `Yuri's Day (film)`
+- `ru-903` **byt** — `Byt` is a disambiguation page
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
@@ -1230,7 +1238,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (204)
+## Section redirects — no dedicated page (206)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1407,6 +1415,8 @@ Wikipedia treats these as part of another article. No link.
 - `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
 - `ru-854` **White clergy** — `White clergy` only redirects into `Secular clergy#Eastern Orthodox Church`
 - `ru-883` **Barshchina** — `Barshchina` only redirects into `Corvée#Russian Empire`
+- `ru-955` **thick journal** — `Thick journal` only redirects into `Literary magazine#Thick journal`
+- `ru-966` **Russian art** — `Russian art` only redirects into `Culture of Russia#Visual arts`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`
@@ -1439,7 +1449,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1293)
+## No article found (1296)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2640,7 +2650,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-791` **Ilminsky system** — search suggests `Bashkir alphabet`, `Yañalif`, `Tatar alphabets`, `Order of Saint Anna`, `Tatar language`
 - `ru-879` **usadba** — search suggests `Novaya Usadba`, `Lipovskaya Usadba`, `Tsentralnaya Usadba 3-go Goskonezavoda`, `REN TV`, `Putevaya Usadba 9 km zheleznoy dorogi Luostari–Nikel`
 - `ru-892` **meshchane** — search suggests `Moscow`, `Tsarist Russia`, `The Philistines`, `Private Committee`, `Merchant guild (Russian Empire)`
+- `ru-908` **Westernisers** — search suggests `Nicholas II`, `Smoking in Russia`, `Westernization`, `Alexander I of Russia`, `Germany–Russia relations`
 - `ru-940` **Russian realism** — search suggests `Russian literature`, `Culture of Russia`, `Russia`, `Magical realism`, `Russians`
+- `ru-971` **Russian Empire style** — search suggests `Russian Empire`, `Coat of arms of Russia`, `Pogroms in the Russian Empire`, `Emperor of Russia`, `Antisemitism in the Russian Empire`
+- `ru-978` **Peter the Great Interrogating the Tsarevich Alexei** — search suggests `Alexei Petrovich, Tsarevich of Russia`, `Peter the Great Interrogating the Tsarevich Alexei Petrovich at Peterhof`, `Peter the Great`, `Ivan the Terrible and His Son Ivan`, `Nikolai Ge`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`

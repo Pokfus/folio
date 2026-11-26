@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T23:39Z",
+ "generated": "2026-11-26T23:51Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 9115,
-  "redirect-broader": 866,
+  "ok": 9172,
+  "redirect-broader": 873,
   "redirect-variant": 522,
-  "section-redirect": 204,
-  "disambiguation": 165,
-  "none": 1293,
+  "section-redirect": 206,
+  "disambiguation": 166,
+  "none": 1296,
   "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
@@ -97795,6 +97795,530 @@
    "answer": "War and Peace",
    "title": "War and Peace",
    "url": "https://en.wikipedia.org/wiki/War_and_Peace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-901": {
+   "answer": "Domostroy",
+   "title": "Domostroy",
+   "url": "https://en.wikipedia.org/wiki/Domostroy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-902": {
+   "answer": "Zhenotdel",
+   "title": "Zhenotdel",
+   "url": "https://en.wikipedia.org/wiki/Zhenotdel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-903": {
+   "answer": "byt",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Byt",
+   "suggestions": []
+  },
+  "ru-904": {
+   "answer": "communal apartment",
+   "title": "Communal apartment",
+   "url": "https://en.wikipedia.org/wiki/Communal_apartment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-905": {
+   "answer": "shortage economy",
+   "title": "Shortage economy",
+   "url": "https://en.wikipedia.org/wiki/Shortage_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-906": {
+   "answer": "Russian philosophy",
+   "title": "Russian philosophy",
+   "url": "https://en.wikipedia.org/wiki/Russian_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-907": {
+   "answer": "Slavophilia",
+   "title": "Slavophilia",
+   "url": "https://en.wikipedia.org/wiki/Slavophilia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-908": {
+   "answer": "Westernisers",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nicholas II",
+    "Smoking in Russia",
+    "Westernization",
+    "Alexander I of Russia",
+    "Germany–Russia relations"
+   ]
+  },
+  "ru-909": {
+   "answer": "Pyotr Chaadayev",
+   "title": "Pyotr Chaadayev",
+   "url": "https://en.wikipedia.org/wiki/Pyotr_Chaadayev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-910": {
+   "answer": "Alexander Herzen",
+   "title": "Alexander Herzen",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Herzen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-911": {
+   "answer": "Vissarion Belinsky",
+   "title": "Vissarion Belinsky",
+   "url": "https://en.wikipedia.org/wiki/Vissarion_Belinsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-912": {
+   "answer": "Mikhail Bakunin",
+   "title": "Mikhail Bakunin",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Bakunin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-913": {
+   "answer": "Russian anarchism",
+   "title": "Anarchism in Russia",
+   "url": "https://en.wikipedia.org/wiki/Anarchism_in_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian anarchism"
+  },
+  "ru-914": {
+   "answer": "Peter Kropotkin",
+   "title": "Peter Kropotkin",
+   "url": "https://en.wikipedia.org/wiki/Peter_Kropotkin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-915": {
+   "answer": "Nikolay Mikhaylovsky",
+   "title": "Nikolay Mikhaylovsky",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Mikhaylovsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-916": {
+   "answer": "Russian liberalism",
+   "title": "Liberalism in Russia",
+   "url": "https://en.wikipedia.org/wiki/Liberalism_in_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian liberalism"
+  },
+  "ru-917": {
+   "answer": "Russian conservatism",
+   "title": "Conservatism in Russia",
+   "url": "https://en.wikipedia.org/wiki/Conservatism_in_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian conservatism"
+  },
+  "ru-918": {
+   "answer": "Pan-Slavism",
+   "title": "Pan-Slavism",
+   "url": "https://en.wikipedia.org/wiki/Pan-Slavism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-919": {
+   "answer": "Nikolay Danilevsky",
+   "title": "Nikolay Danilevsky",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Danilevsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-920": {
+   "answer": "Vladimir Solovyov",
+   "title": "Vladimir Solovyov (philosopher)",
+   "url": "https://en.wikipedia.org/wiki/Vladimir_Solovyov_(philosopher)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-921": {
+   "answer": "Russian religious renaissance",
+   "title": "Russian Religious Renaissance",
+   "url": "https://en.wikipedia.org/wiki/Russian_Religious_Renaissance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-922": {
+   "answer": "Vekhi",
+   "title": "Vekhi",
+   "url": "https://en.wikipedia.org/wiki/Vekhi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-923": {
+   "answer": "Marxism–Leninism",
+   "title": "Marxism–Leninism",
+   "url": "https://en.wikipedia.org/wiki/Marxism%E2%80%93Leninism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-924": {
+   "answer": "Eurasianism",
+   "title": "Eurasianism",
+   "url": "https://en.wikipedia.org/wiki/Eurasianism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-925": {
+   "answer": "Russian idea",
+   "title": "Russian Idea",
+   "url": "https://en.wikipedia.org/wiki/Russian_Idea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-926": {
+   "answer": "Russian literature",
+   "title": "Russian literature",
+   "url": "https://en.wikipedia.org/wiki/Russian_literature",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-927": {
+   "answer": "Old Russian literature",
+   "title": "Old East Slavic literature",
+   "url": "https://en.wikipedia.org/wiki/Old_East_Slavic_literature",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Old Russian literature"
+  },
+  "ru-928": {
+   "answer": "Russian folklore",
+   "title": "Russian folklore",
+   "url": "https://en.wikipedia.org/wiki/Russian_folklore",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-929": {
+   "answer": "bylina",
+   "title": "Bylina",
+   "url": "https://en.wikipedia.org/wiki/Bylina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-930": {
+   "answer": "Nikolay Karamzin",
+   "title": "Nikolay Karamzin",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Karamzin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-951": {
+   "answer": "Anna Karenina",
+   "title": "Anna Karenina",
+   "url": "https://en.wikipedia.org/wiki/Anna_Karenina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-952": {
+   "answer": "Tolstoyan movement",
+   "title": "Tolstoyan movement",
+   "url": "https://en.wikipedia.org/wiki/Tolstoyan_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-953": {
+   "answer": "Anton Chekhov",
+   "title": "Anton Chekhov",
+   "url": "https://en.wikipedia.org/wiki/Anton_Chekhov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-954": {
+   "answer": "Cherry Orchard",
+   "title": "The Cherry Orchard",
+   "url": "https://en.wikipedia.org/wiki/The_Cherry_Orchard",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-955": {
+   "answer": "thick journal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Thick journal",
+   "target": "Literary magazine#Thick journal"
+  },
+  "ru-956": {
+   "answer": "Silver Age",
+   "title": "Ages of Man",
+   "url": "https://en.wikipedia.org/wiki/Ages_of_Man",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Silver Age"
+  },
+  "ru-957": {
+   "answer": "Russian symbolism",
+   "title": "Russian symbolism",
+   "url": "https://en.wikipedia.org/wiki/Russian_symbolism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-958": {
+   "answer": "Vladimir Mayakovsky",
+   "title": "Vladimir Mayakovsky",
+   "url": "https://en.wikipedia.org/wiki/Vladimir_Mayakovsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-959": {
+   "answer": "Anna Akhmatova",
+   "title": "Anna Akhmatova",
+   "url": "https://en.wikipedia.org/wiki/Anna_Akhmatova",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-960": {
+   "answer": "Osip Mandelstam",
+   "title": "Osip Mandelstam",
+   "url": "https://en.wikipedia.org/wiki/Osip_Mandelstam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-961": {
+   "answer": "Mikhail Bulgakov",
+   "title": "Mikhail Bulgakov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Bulgakov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-962": {
+   "answer": "Boris Pasternak",
+   "title": "Boris Pasternak",
+   "url": "https://en.wikipedia.org/wiki/Boris_Pasternak",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-963": {
+   "answer": "Socialist realism",
+   "title": "Socialist realism",
+   "url": "https://en.wikipedia.org/wiki/Socialist_realism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-964": {
+   "answer": "Samizdat",
+   "title": "Samizdat",
+   "url": "https://en.wikipedia.org/wiki/Samizdat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-965": {
+   "answer": "Aleksandr Solzhenitsyn",
+   "title": "Aleksandr Solzhenitsyn",
+   "url": "https://en.wikipedia.org/wiki/Aleksandr_Solzhenitsyn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-966": {
+   "answer": "Russian art",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Russian art",
+   "target": "Culture of Russia#Visual arts"
+  },
+  "ru-967": {
+   "answer": "Russian architecture",
+   "title": "Architecture of Russia",
+   "url": "https://en.wikipedia.org/wiki/Architecture_of_Russia",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Russian architecture"
+  },
+  "ru-968": {
+   "answer": "Russian wooden architecture",
+   "title": "Russian wooden architecture",
+   "url": "https://en.wikipedia.org/wiki/Russian_wooden_architecture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-969": {
+   "answer": "Kizhi Pogost",
+   "title": "Kizhi Pogost",
+   "url": "https://en.wikipedia.org/wiki/Kizhi_Pogost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-970": {
+   "answer": "Kazan Cathedral",
+   "title": "Kazan Cathedral, Saint Petersburg",
+   "url": "https://en.wikipedia.org/wiki/Kazan_Cathedral,_Saint_Petersburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-971": {
+   "answer": "Russian Empire style",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian Empire",
+    "Coat of arms of Russia",
+    "Pogroms in the Russian Empire",
+    "Emperor of Russia",
+    "Antisemitism in the Russian Empire"
+   ]
+  },
+  "ru-972": {
+   "answer": "Russian Revival architecture",
+   "title": "Russian Revival architecture",
+   "url": "https://en.wikipedia.org/wiki/Russian_Revival_architecture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-973": {
+   "answer": "Dmitry Levitzky",
+   "title": "Dmitry Levitzky",
+   "url": "https://en.wikipedia.org/wiki/Dmitry_Levitzky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-974": {
+   "answer": "Peredvizhniki",
+   "title": "Peredvizhniki",
+   "url": "https://en.wikipedia.org/wiki/Peredvizhniki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-975": {
+   "answer": "Ilya Repin",
+   "title": "Ilya Repin",
+   "url": "https://en.wikipedia.org/wiki/Ilya_Repin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-976": {
+   "answer": "Vasily Surikov",
+   "title": "Vasily Surikov",
+   "url": "https://en.wikipedia.org/wiki/Vasily_Surikov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-977": {
+   "answer": "Isaac Levitan",
+   "title": "Isaac Levitan",
+   "url": "https://en.wikipedia.org/wiki/Isaac_Levitan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-978": {
+   "answer": "Peter the Great Interrogating the Tsarevich Alexei",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Alexei Petrovich, Tsarevich of Russia",
+    "Peter the Great Interrogating the Tsarevich Alexei Petrovich at Peterhof",
+    "Peter the Great",
+    "Ivan the Terrible and His Son Ivan",
+    "Nikolai Ge"
+   ]
+  },
+  "ru-979": {
+   "answer": "Pavel Tretyakov",
+   "title": "Pavel Tretyakov",
+   "url": "https://en.wikipedia.org/wiki/Pavel_Tretyakov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-980": {
+   "answer": "Palekh miniature",
+   "title": "Palekh miniature",
+   "url": "https://en.wikipedia.org/wiki/Palekh_miniature",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-981": {
+   "answer": "Fabergé egg",
+   "title": "Fabergé egg",
+   "url": "https://en.wikipedia.org/wiki/Faberg%C3%A9_egg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-982": {
+   "answer": "Russian avant-garde",
+   "title": "Russian avant-garde",
+   "url": "https://en.wikipedia.org/wiki/Russian_avant-garde",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-983": {
+   "answer": "Kazimir Malevich",
+   "title": "Kazimir Malevich",
+   "url": "https://en.wikipedia.org/wiki/Kazimir_Malevich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-984": {
+   "answer": "Wassily Kandinsky",
+   "title": "Wassily Kandinsky",
+   "url": "https://en.wikipedia.org/wiki/Wassily_Kandinsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-985": {
+   "answer": "Constructivism",
+   "title": "Constructivism (art)",
+   "url": "https://en.wikipedia.org/wiki/Constructivism_(art)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-986": {
+   "answer": "Khrushchevka",
+   "title": "Khrushchevka",
+   "url": "https://en.wikipedia.org/wiki/Khrushchevka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-987": {
+   "answer": "Stalinist architecture",
+   "title": "Stalinist architecture",
+   "url": "https://en.wikipedia.org/wiki/Stalinist_architecture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-988": {
+   "answer": "Mayakovskaya",
+   "title": "Mayakovskaya (Moscow Metro)",
+   "url": "https://en.wikipedia.org/wiki/Mayakovskaya_(Moscow_Metro)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-989": {
+   "answer": "Russian music",
+   "title": "Music of Russia",
+   "url": "https://en.wikipedia.org/wiki/Music_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian music"
+  },
+  "ru-990": {
+   "answer": "Mikhail Glinka",
+   "title": "Mikhail Glinka",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Glinka",
    "via": "glossary",
    "status": "ok"
   }
