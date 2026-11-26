@@ -31,6 +31,14 @@
   to pick and a substituted homophone would be a different character with its own risk of being read
   wrong. The reader hears one syllable of context and then the card's own, which is what a dictionary's
   audio does with a particle.
+
+  REVISED 2026-11-22, on a report that 还 was read as 还是. A word in `Say` makes the reader hear a
+  DIFFERENT word from the card's, which reads as a fault, not as context. So, in this order: (1) a card
+  that teaches every reading the engine could pick, or whose "minority" rests on one or two corpus words,
+  carries NO Say; (2) otherwise the Say is a one-syllable HOMOPHONE with only that reading (差 chà → 诧,
+  呀 yā → 鸭, 铺 pū → 扑, 踏 tà → 榻), so the speaker says exactly the card's syllable; (3) only where no
+  such character exists does a word remain — 了 le (no single-reading character is a neutral-tone le)
+  keeps 好了, and 哄 hǒng keeps 哄骗.
 */
 const fs = require("fs"), path = require("path");
 const DECKS = path.join(__dirname, "..", "..", "decks");
