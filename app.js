@@ -23458,10 +23458,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!ttsSupported()) { done(); return; }
     const text = ((p && p.text) || "").trim();
     if (!text) { done(); return; }
-    const chunks = p.zh ? [text] : ttsChunks(text);
+    const chunks = (p.zh || p.native) ? [text] : ttsChunks(text);
     chunks.forEach((chunk, i) => {
       const u = new SpeechSynthesisUtterance(chunk);
       if (p.zh) { u.lang = "zh-CN"; u.rate = TTS_RATE_ZH; const v = ttsVoiceZh(); if (v) u.voice = v; }
+      else if (p.native) {
+        u.lang = p.native;
+        try { const pre = p.native.slice(0, 2).toLowerCase(), v = speechSynthesis.getVoices().find((x) => String(x.lang || "").toLowerCase().indexOf(pre) === 0); if (v) u.voice = v; } catch (e) {}
+      }
       else {
         u.lang = "en-US"; u.rate = ttsRateEn(); u.pitch = 0.9;
         const v = ttsVoiceEn();
@@ -23497,7 +23501,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!ttsSupported()) { toast(ttsSilentNote(), TTS_NOTE_MS); return; }
     if (btn && btn.classList.contains("tts-paused")) { ttsPauseToggle(); return; }   // paused: the play button resumes
     if (btn && btn.classList.contains("tts-playing")) { ttsStop(); return; }
-    const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && !p.zh);
+    const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && !p.zh && !p.native);
     list.forEach((p) => { if (btn && !p.btn) p.btn = btn; });
     ttsSay(list, 0);
     const gen = _ttsSeq;
@@ -23518,7 +23522,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (kind === "answer") {
       const t = ttsStrip((c && (c.answerText || c.answer)) || "");
       const parts = [{ text: t, baked: bakedUrl(id, "a", t) }];
-      if (c && c.hanzi) parts.push({ text: c.hanzi, zh: true });   // Chinese stays on the device voice (no commercially-safe zh Piper voice)
+      /* the answer's native name stays on the device voice (no commercially-safe Piper voice for any of them). Only a
+         Chinese one is `zh`; a Japanese, Korean, Russian or (2026-11-26) ancient Greek one carries its own language,
+         so it is never read in a Chinese voice — see answerNameLang */
+      if (c && c.hanzi) { const L = answerNameLang(c); parts.push(L.cls === "zh" ? { text: c.hanzi, zh: true } : { text: c.hanzi, native: L.tag }); }
       return parts;
     }
     /* THE BACKGROUND IS READ WHOLE (Oct 2026, on request): a card with a book quotation renders its abstract as
@@ -40820,7 +40827,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // `hanzi`, the Revised Romanization in `pinyin`, written by `.claude/set-ko-names.js`; set in the reader's system font, as Japanese is
   // `ru-` (Nov 2026, on request: "add Russian translations to all the cards in the Russia History collection"): Cyrillic in
   // `hanzi`, a Latin transliteration in `pinyin`, written by `.claude/set-ru-names.js`; set in the site's sans, as Korean is
-  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }], ["ru-", { tag: "ru-RU", label: "Russian", cls: "ru" }]];
+  // `gr-` (2026-11-26, on request: "add (ancient) Greek translations to the main answer term" where it is an ancient Greek
+  // term, not a modern academic one): polytonic Greek in `hanzi`, a plain romanisation in `pinyin`, written by
+  // `.claude/set-grc-names.js`. Spoken by a MODERN Greek voice (`el-GR`) — no device ships an ancient one.
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }], ["ru-", { tag: "ru-RU", label: "Russian", cls: "ru" }], ["gr-", { tag: "el-GR", label: "Ancient Greek", cls: "grc" }]];
   const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
   /* …AND A PREFIX THAT HOLDS MORE THAN ONE COUNTRY SAYS IT BY TAG (Oct 2026, on request: Politics: East Asia's
      Japan terms showed a Chinese translation). `pea-` is a course on China, Japan and the Koreas, so the
