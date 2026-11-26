@@ -26,9 +26,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8994 | the title is the article |
+| `ok` | 8995 | the title is the article |
 | `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 116 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 864 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
@@ -354,7 +354,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gr-829` **precession of the equinoxes** → [Axial precession](https://en.wikipedia.org/wiki/Axial_precession) (from `Precession of the equinoxes`)
 - `gr-834` **human dissection** → [Dissection](https://en.wikipedia.org/wiki/Dissection) (from `Human dissection`)
 - `gr-843` **Garden of Epicurus** → [Epicurus](https://en.wikipedia.org/wiki/Epicurus) (from `Garden of Epicurus`)
-- `gr-850` **Peace of Phoenice** → [Treaty of Phoenice](https://en.wikipedia.org/wiki/Treaty_of_Phoenice) (from `Peace of Phoenice`)
+- `gr-862` **province of Macedonia** → [Macedonia (Roman province)](https://en.wikipedia.org/wiki/Macedonia_(Roman_province)) (from `Province of Macedonia`)
 - `gr-866` **mixed constitution** → [Mixed government](https://en.wikipedia.org/wiki/Mixed_government) (from `Mixed constitution`)
 - `gr-876` **Cleopatra VII** → [Cleopatra](https://en.wikipedia.org/wiki/Cleopatra) (from `Cleopatra VII`)
 - `gr-907` **Homeric Hymn to Demeter** → [Homeric Hymns](https://en.wikipedia.org/wiki/Homeric_Hymns) (from `Homeric Hymn to Demeter`)
@@ -909,7 +909,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (117)
+## Settled from a disambiguation page (116)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -961,7 +961,6 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `gr-718` **siege of Gaza** → [Siege of Gaza (332 BC)](https://en.wikipedia.org/wiki/Siege_of_Gaza_(332_BC)) (via the disambiguation page `Siege of Gaza`)
 - `gr-788` **Galatians** → [Galatians (people)](https://en.wikipedia.org/wiki/Galatians_(people)) (via the disambiguation page `Galatians`)
 - `gr-851` **Philip V** → [Philip V of Macedon](https://en.wikipedia.org/wiki/Philip_V_of_Macedon) (via the disambiguation page `Philip V`)
-- `gr-854` **Nabis** → [Nabis of Sparta](https://en.wikipedia.org/wiki/Nabis_of_Sparta) (via the disambiguation page `Nabis`)
 - `gr-943` **Helen** → [Helen of Troy](https://en.wikipedia.org/wiki/Helen_of_Troy) (via the disambiguation page `Helen`)
 - `gr-960` **Siren** → [Siren (mythology)](https://en.wikipedia.org/wiki/Siren_(mythology)) (via the disambiguation page `Siren`)
 - `gr-966` **Greek religion** → [Ancient Greek religion](https://en.wikipedia.org/wiki/Ancient_Greek_religion) (via the disambiguation page `Greek religion`)
@@ -2301,10 +2300,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-773` **Hellenistic kingship** — search suggests `Hellenistic period`, `Greece in the Hellenistic period`, `Ancient Greece`, `Diadochi`, `Macedonia (ancient kingdom)`
 - `gr-779` **Seleucid colonisation** — search suggests `Seleucid Empire`, `Greece in the Hellenistic period`, `List of wars involving Greece`, `Ancient Greece`, `Greece in the Roman era`
 - `gr-813` **Hellenistic epigram** — search suggests `Epigram`, `Hellenistic period`, `Ancient Greek mathematics`, `Bianor (poet)`, `Macedonia (ancient kingdom)`
+- `gr-821` **siege of Syracuse (213–212 BCE)** — search suggests `Siege of Syracuse (213–212 BC)`, `210s BC`, `213 BC`, `Second Punic War`, `Timeline of Syracuse, Sicily`
 - `gr-848` **symploke** — search suggests `Polybius`, `Ultraconservatism`, `François Dosse`, `Poetry`, `Crouching Tiger, Hidden Dragon`
-- `gr-852` **siege of Abydos** — search suggests `Abydos (Hellespont)`, `Timeline of ancient Greece`, `Greco-Persian Wars`, `Classical Greece`, `Second Persian invasion of Greece`
-- `gr-856` **siege of Ambracia** — search suggests `Ambracia`, `Siege hook`, `Arta, Greece`, `Outline of ancient Greece`, `Index of ancient Greece-related articles`
-- `gr-859` **Callicrates of Leontium** — search suggests `List of ancient Greeks`
+- `gr-855` **freedom of the Greeks** — search suggests `Greece`, `Ancient Greece`, `Demographics of Greece`, `Kingdom of Greece`, `Aromanians in Greece`
+- `gr-868` **bequest of Attalus III** — search suggests `Eumenes III`, `Asia (Roman province)`, `Classical Anatolia`, `Caligula`, `Promagistrate`
 - `gr-877` **province of Achaea** — search suggests `Achaia (Roman province)`, `Achaea`, `Achaea (ancient region)`, `Principality of Achaea`, `Achaea (disambiguation)`
 - `gr-957` **Apologoi** — search suggests `Odyssey`, `List of Homeric scenes with proper names`, `Geography of the Odyssey`, `Joel Christensen`
 - `gr-967` **polis religion** — search suggests `Ancient Greek religion`, `Polis`, `Christiane Sourvinou-Inwood`, `Religion in Greece`, `Greek hero cult`

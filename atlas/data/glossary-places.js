@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":{"terms":1014,"points":778,"countries":236,"windows":1782,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"9104deb3266994af","counts":{"terms":1012,"points":776,"countries":236,"windows":1780,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -680,7 +680,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":
 "Olympia_(Washington)":"pl:q38888",
 "Oman":"adm0:omn",
 "Omsk":"city:1159149579",
-"Orchomenos":"pl:q543895",
 "Oregon":"adm1:usa:us-or",
 "Orenburg":"adm1:rus:ru-ore",
 "Oryol":"adm1:rus:ru-orl",
@@ -898,7 +897,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":
 "The_Hague":"city:1159149457",
 "Thera":"pl:q129296",
 "Thessaloniki":"city:1159150955",
-"Thessaly":"pl:q166919",
 "Three_Gorges":"reg:1159103743",
 "Tian_Shan":"reg:1159104299",
 "Tiananmen_Square":"pl:q164055",
@@ -1347,6 +1345,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":
 "Connecticut_River":[-72.334,41.272,"coord",0,0,0],
 "Constantinople":[28.976,41.012,"city",0,0,0],
 "Cook_Islands":[-159.79,-21.22,"country","adm0:cok",0,22.1],
+"Corcyra":[19.921,39.624,"coord",0,0,0],
 "Corinth":[22.879,37.906,"site",0,0,0],
 "Costa_Rica":[-84.08,10.07,"country","adm0:cri",0,20.5],
 "Crater_Lake":[-122.1,42.942,"lake",0,0,0],
@@ -2171,7 +2170,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":
 "Oman":[57.34,22.12,"country","adm0:omn",0,7.03],
 "Omsk":[73.398,54.992,"city",0,0,0],
 "Oracle_of_Ammon":[25.519,29.205,"coord",0,0,0],
-"Orchomenos":[22.981,38.493,"town",0,0,0],
 "Oregon":[-120.386,43.833,"admin1","adm1:usa:us-or",0,11.77],
 "Orenburg":[56.215,51.516,"admin1","adm1:rus:ru-ore",0,10.31],
 "Oryol":[36.417,52.878,"admin1","adm1:rus:ru-orl",0,34.94],
@@ -2581,7 +2579,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":
 "Themistoclean_Wall":[23.719,37.978,"coord",0,0,0],
 "Thera":[25.433,36.415,"island",0,0,0],
 "Thessaloniki":[22.883,40.698,"town",0,0,0],
-"Thessaly":[22.2,39.6,"region",0,0,0],
 "Three_Gorges":[110.912,30.848,"region",0,0,0],
 "Throne_Room_at_Knossos":[25.163,35.298,"coord",0,0,0],
 "Tian_Shan":[77.178,41.683,"range",0,0,0],
@@ -2690,7 +2687,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72f0af0cacd7a6e1","counts":
 "Vesuvius":[14.429,40.823,"mountain",0,0,0],
 "Via_Aemilia":[11.343,44.495,"coord",0,0,0],
 "Via_Domiziana":[13.853,41.141,"coord",0,0,0],
-"Via_Egnatia":[22.936,40.64,"coord",0,0,0],
 "Via_Flaminia":[12.477,41.911,"coord",0,0,0],
 "Victoria_Falls":[25.858,-17.925,"coord",0,0,0],
 "Victoria_Island_(Canada)":[-108.247,70.47,"island",0,0,0],
