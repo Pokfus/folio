@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8990 | the title is the article |
+| `ok` | 8994 | the title is the article |
 | `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 864 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 203 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 202 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 164 | only a disambiguation page; no link could be chosen |
-| `none` | 1304 | nothing matched; no link |
+| `none` | 1301 | nothing matched; no link |
 
-**10509 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10513 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1227,7 +1227,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (203)
+## Section redirects — no dedicated page (202)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1399,7 +1399,6 @@ Wikipedia treats these as part of another article. No link.
 - `ru-158` **Boyar Duma** — `Boyar Duma` only redirects into `Duma#Boyar duma`
 - `ru-212` **oprichnik** — `Oprichnik` only redirects into `Oprichnina#Organization`
 - `ru-308` **civil script** — `Civil script` only redirects into `Reforms of Russian orthography#18th-century changes`
-- `ru-409` **Polish–Saxon crisis** — `Polish–Saxon crisis` only redirects into `Congress of Vienna#Polish-Saxon crisis`
 - `ru-514` **Potemkin mutiny** — `Potemkin mutiny` only redirects into `Russian battleship Potemkin#Mutiny`
 - `ru-588` **military specialists** — `Military specialist` only redirects into `Military history of the Soviet Union#Tsarist and revolutionary background`
 - `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
@@ -1435,7 +1434,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1304)
+## No article found (1301)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2615,7 +2614,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-369` **Charter to the Towns** — search suggests `Russia`, `Magadan`, `Federal subjects of Russia`, `Russo-Ukrainian war`, `Anadyr (town)`
 - `ru-412` **Semyonovsky Regiment mutiny** — search suggests `Semyonovsky Life Guards Regiment`, `Preobrazhensky Life Guards Regiment`, `Russian Naval Infantry`, `Russian Imperial Guard`, `Russian Revolution of 1905`
 - `ru-424` **cast-iron statute** — search suggests `Russia`, `Brass knuckles`, `History of metallurgy in the Urals`, `Royal Mail`, `Russia under Vladimir Putin`
-- `ru-443` **Editing Commissions** — search suggests `2026 Russian plague scare`, `Conflict-of-interest editing on Wikipedia`, `He Jiankui affair`, `2026 Russian legislative election`, `United Russia`
 - `ru-445` **redemption payments** — search suggests `Emancipation reform of 1861`, `Economy of Tsarist Russia`, `Russian Empire`, `Bond (finance)`, `Redemptioner`
 - `ru-446` **krugovaya poruka** — search suggests `Obshchina`
 - `ru-450` **Municipal Statute of 1870** — search suggests `Russian Empire`, `Moscow`, `Statute Law Revision Act 1875`, `Nicholas II`, `Statute Law Revision Act 1950`
@@ -2630,7 +2628,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-515` **October general strike** — search suggests `Russian strikes against Ukrainian infrastructure`, `Deep strike campaign`, `Russian attacks on civilians in the Russo-Ukrainian war (2022–present)`, `Seattle General Strike`, `Winnipeg general strike`
 - `ru-518` **Fundamental Laws of 1906** — search suggests `Russian Constitution of 1906`, `Fundamental law`, `Persian Constitution of 1906`, `Russia`, `Emperor of Russia`
 - `ru-524` **Stolypin agrarian reform** — search suggests `Stolypin reform`, `Pyotr Stolypin`, `Nicholas II`, `Land reform`, `Agrarian socialism`
-- `ru-531` **Period Preparatory to War** — search suggests `Tokyo Shinbu Gakko`, `Franco-Russian Alliance`, `Emperor-system fascism`, `Iran–Russia relations`, `International reaction to the Russo-Georgian War`
 - `ru-532` **Russian general mobilisation** — search suggests `2022 Russian mobilization`, `Russian Armed Forces`, `Russo-Ukrainian war`, `2022 Russian invasion of Ukraine`, `2026 Penza Oblast mobilisation`
 - `ru-536` **Great Retreat of 1915** — search suggests `Great Retreat (Russia)`, `Great Retreat (disambiguation)`, `Great Retreat (Serbia)`, `Great Retreat`, `Aleksei Brusilov`
 - `ru-540` **Russian prisoners of war** — search suggests `Russo-Ukrainian war`, `Russian Civil War`, `Russian war crimes`, `2024 Ankara prisoner exchange`, `Russo-Ukrainian war (2022–present)`
@@ -2638,7 +2635,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-548` **ministerial leapfrog** — search suggests `State Duma (Russian Empire)`, `February Revolution`, `Alexander Trepov`, `Oleg Deripaska`, `Electric car use by country`
 - `ru-557` **first coalition government** — search suggests `Sixth National Government of New Zealand`, `List of countries with coalition governments`, `War of the First Coalition`, `15 October Coalition`, `Russia–Syria–Iran–Iraq coalition`
 - `ru-558` **First All-Russian Congress of Soviets** — search suggests `All-Russian Congress of Soviets`, `Second All-Russian Congress of Soviets of Workers' and Soldiers' Deputies`, `First All-Russian Congress of Soviets of Workers' and Soldiers' Deputies`, `All-Russian Central Executive Committee`, `Supreme Soviet of Russia`
-- `ru-565` **Petrograd Red Guard** — search suggests `Red Guards (Russia)`, `Russian Civil War`, `Red Terror`, `Semyonovsky Life Guards Regiment`, `Russian Revolution`
 - `ru-601` **pogroms of 1918–1921** — search suggests `Pogroms during the Russian Civil War`, `Pogrom`, `Lwów pogrom (1918)`, `Odessa pogroms`, `Pogroms in the Russian Empire`
 - `ru-652` **Stalin’s cult of personality** — search suggests `Joseph Stalin's cult of personality`, `On the Cult of Personality and Its Consequences`, `Cult of personality`, `North Korean cult of personality`, `List of cults of personality`
 - `ru-665` **evacuation of Soviet industry** — search suggests `Evacuation in the Soviet Union`, `Evacuation of East Prussia`, `North Korea–Russia relations`, `Soviet industry in World War II`, `Evacuation of Manchukuo`

@@ -19,22 +19,31 @@ rewrite — new questions and background on the new term, `add-card.js --replace
 
 | id | plan line | current answer | famous term | caused by |
 |---|---|---|---|---|
-| ru-119 | What the Mongol conquest did to Rus' | tamga | yam | eg-133 (Egypt's Nubian Yam) |
-| ru-289 | The founding of Saint Petersburg | Peter and Paul Fortress | Saint Petersburg | gru-004 — ⚠ ru-782 now answers it |
-| ru-345 | Enlightened absolutism in Russia | Free Economic Society | enlightened absolutism | wh-752 |
-| ru-409 | Russia at the Congress of Vienna | Polish–Saxon crisis | Congress of Vienna | wh-766 |
-| ru-433 | Russia and the revolutions of 1848 | Convention of Balta Liman | Revolutions of 1848 | wh-773 |
-| ru-443 | Emancipation reform of 1861 | Editing Commissions | Emancipation reform of 1861 | wh-811 |
-| ru-462 | The founding of Vladivostok | Convention of Peking | Vladivostok | gru-527 |
-| ru-504 | Bolsheviks and Mensheviks | Mensheviks | Bolsheviks | wh-898 |
-| ru-531 | Russia and the July Crisis | Period Preparatory to War | July Crisis | wh-874 |
-| ru-537 | Nicholas II takes command | Mogilev | Stavka | ww2-285 |
-| ru-565 | Red Guards | Petrograd Red Guard | Red Guards | cnh-671 (China's, a different thing) |
-| ru-600 | White Terror | Atamanshchina | White Terror | cnh-694, pea-137 (different White Terrors) |
-| ru-628 | First five-year plan | Great Break | First five-year plan | cnh-660 (China's plan), wh-902 |
-| ru-663 | Battle of Smolensk, 1941 | Yelnya offensive | Battle of Smolensk | ww2-272 |
-| ru-669 | Soviet partisans | Central Headquarters of the Partisan Movement | Soviet partisans | ww2-292 |
-| ru-671 | The Holocaust in the Soviet Union | Black Book of Soviet Jewry | Holocaust in the Soviet Union | ww2-731, ww2-771, wh-934 |
+| ru-119 | What the Mongol conquest did to Rus' | tamga | yam | eg-133 (Egypt's Nubian Yam) — **rewritten 2026-11-26** |
+| ru-289 | The founding of Saint Petersburg | Peter and Paul Fortress | Saint Petersburg | gru-004 — ⚠ ru-782 now answers it — **skipped 2026-11-26** (twin) |
+| ru-345 | Enlightened absolutism in Russia | Free Economic Society | enlightened absolutism | wh-752 — **rewritten 2026-11-26** |
+| ru-409 | Russia at the Congress of Vienna | Polish–Saxon crisis | Congress of Vienna | wh-766 — **rewritten 2026-11-26** |
+| ru-433 | Russia and the revolutions of 1848 | Convention of Balta Liman | Revolutions of 1848 | wh-773 — **rewritten 2026-11-26** |
+| ru-443 | Emancipation reform of 1861 | Editing Commissions | Emancipation reform of 1861 | wh-811 — **rewritten 2026-11-26** |
+| ru-462 | The founding of Vladivostok | Convention of Peking | Vladivostok | gru-527 — **rewritten 2026-11-26** |
+| ru-504 | Bolsheviks and Mensheviks | Mensheviks | Bolsheviks | wh-898 — **rewritten 2026-11-26** |
+| ru-531 | Russia and the July Crisis | Period Preparatory to War | July Crisis | wh-874 — **rewritten 2026-11-26** |
+| ru-537 | Nicholas II takes command | Mogilev | Stavka | ww2-285 — **rewritten 2026-11-26** |
+| ru-565 | Red Guards | Petrograd Red Guard | Red Guards | cnh-671 (China's, a different thing) — **rewritten 2026-11-26** |
+| ru-600 | White Terror | Atamanshchina | White Terror | cnh-694, pea-137 (different White Terrors) — **rewritten 2026-11-26** |
+| ru-628 | First five-year plan | Great Break | First five-year plan | cnh-660 (China's plan), wh-902 — **rewritten 2026-11-26** |
+| ru-663 | Battle of Smolensk, 1941 | Yelnya offensive | Battle of Smolensk | ww2-272 — **rewritten 2026-11-26** |
+| ru-669 | Soviet partisans | Central Headquarters of the Partisan Movement | Soviet partisans | ww2-292 — **rewritten 2026-11-26** |
+| ru-671 | The Holocaust in the Soviet Union | Black Book of Soviet Jewry | Holocaust in the Soviet Union | ww2-731, ww2-771, wh-934 — **rewritten 2026-11-26** |
+
+**Done 2026-11-26**: fifteen of the sixteen rows were rewritten to the famous term, written from the Russian or Soviet
+side (`add-card.js --replace`; the old answer stays a sentence of twelve of the backgrounds). **`ru-289` was skipped**: its
+famous term, *Saint Petersburg*, is already `ru-782`'s answer, and the founding is not a different thing that shares
+the name, so it keeps the Peter and Paul Fortress. `ru-663` answers *Battle of Smolensk* beside `ru-399`'s *1812 Battle
+of Smolensk* (different battles, different answers). Four glossary terms were new: `Yam_(route)`, `Red_Guards_(Russia)`
+and `White_Terror_(Russia)` (the bare names belong to Egypt's Yam, China's Red Guards and Taiwan's White Terror, so
+none takes the bare alias), and `First_five-year_plan_(Soviet_Union)` (`First_five-year_plan` is a disambiguation
+page). `ru-119`'s Wikipedia link was set by hand to *Yam (route)*; the resolver had picked *Yam (Nubia)*.
 
 ### Ancient Greece (the Rome-and-the-East deck, steered off Ancient Rome's cards)
 

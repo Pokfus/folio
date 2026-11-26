@@ -13072,7 +13072,11 @@ window.GLOSSARY = {
 "Revolutions_of_1989": "",
 "International_sanctions_during_the_Russo-Ukrainian_war": "",
 "Geography_of_Russia": "",
-"Climate_of_Russia": ""
+"Climate_of_Russia": "",
+"First_five-year_plan_(Soviet_Union)": "",
+"Red_Guards_(Russia)": "",
+"White_Terror_(Russia)": "",
+"Yam_(route)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19443,7 +19447,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Urengoy_gas_field": "1966–present",
 "Baikal–Amur_Mainline": "1932–2003",
 "Revolutions_of_1989": "1989",
-"International_sanctions_during_the_Russo-Ukrainian_war": "2014–"
+"International_sanctions_during_the_Russo-Ukrainian_war": "2014–",
+"First_five-year_plan_(Soviet_Union)": "1928–1932",
+"Red_Guards_(Russia)": "1917–1918",
+"White_Terror_(Russia)": "1917–1922"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28087,7 +28094,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Urengoy_gas_field": ["Urengoy field","Urengoy"],
 "Baikal–Amur_Mainline": ["Baikal-Amur Mainline","BAM","Baikal–Amur Railway"],
 "Revolutions_of_1989": ["Autumn of Nations"],
-"International_sanctions_during_the_Russo-Ukrainian_war": ["Sanctions against Russia","sanctions on Russia"]
+"International_sanctions_during_the_Russo-Ukrainian_war": ["Sanctions against Russia","sanctions on Russia"],
+"Red_Guards_(Russia)": ["Red Guard (Russia)"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -41424,7 +41432,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Revolutions_of_1989": ["event","history","politics","cold war","eastern europe","20th century"],
 "International_sanctions_during_the_Russo-Ukrainian_war": ["event","politics","economics","international relations","russia"],
 "Geography_of_Russia": ["place","geography","russia","siberia"],
-"Climate_of_Russia": ["concept","geography","climate","russia"]
+"Climate_of_Russia": ["concept","geography","climate","russia"],
+"First_five-year_plan_(Soviet_Union)": ["event","history","economics","politics","russia"],
+"Red_Guards_(Russia)": ["institution","history","politics","warfare","russia"],
+"White_Terror_(Russia)": ["event","history","warfare","politics","russia"],
+"Yam_(route)": ["institution","history","mongols","asia","russia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
