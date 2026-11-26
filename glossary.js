@@ -13068,7 +13068,9 @@ window.GLOSSARY = {
 "Kursk_Magnetic_Anomaly": "",
 "Samotlor_Field": "",
 "Urengoy_gas_field": "",
-"Baikal–Amur_Mainline": ""
+"Baikal–Amur_Mainline": "",
+"Revolutions_of_1989": "",
+"International_sanctions_during_the_Russo-Ukrainian_war": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19437,7 +19439,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Zapovednik": "1916–present",
 "Samotlor_Field": "1965–present",
 "Urengoy_gas_field": "1966–present",
-"Baikal–Amur_Mainline": "1932–2003"
+"Baikal–Amur_Mainline": "1932–2003",
+"Revolutions_of_1989": "1989",
+"International_sanctions_during_the_Russo-Ukrainian_war": "2014–"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28079,7 +28083,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kursk_Magnetic_Anomaly": ["KMA"],
 "Samotlor_Field": ["Samotlor field","Samotlor oil field"],
 "Urengoy_gas_field": ["Urengoy field","Urengoy"],
-"Baikal–Amur_Mainline": ["Baikal-Amur Mainline","BAM","Baikal–Amur Railway"]
+"Baikal–Amur_Mainline": ["Baikal-Amur Mainline","BAM","Baikal–Amur Railway"],
+"Revolutions_of_1989": ["Autumn of Nations"],
+"International_sanctions_during_the_Russo-Ukrainian_war": ["Sanctions against Russia","sanctions on Russia"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -41412,7 +41418,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kursk_Magnetic_Anomaly": ["place","geography","industry","russia"],
 "Samotlor_Field": ["place","industry","russia","siberia"],
 "Urengoy_gas_field": ["place","industry","russia","siberia"],
-"Baikal–Amur_Mainline": ["building","history","technology","russia","siberia"]
+"Baikal–Amur_Mainline": ["building","history","technology","russia","siberia"],
+"Revolutions_of_1989": ["event","history","politics","cold war","eastern europe","20th century"],
+"International_sanctions_during_the_Russo-Ukrainian_war": ["event","politics","economics","international relations","russia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

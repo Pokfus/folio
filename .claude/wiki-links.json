@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T18:11Z",
+ "generated": "2026-11-26T18:16Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 8988,
-  "redirect-broader": 864,
+  "redirect-broader": 865,
   "redirect-variant": 520,
   "section-redirect": 203,
   "disambiguation": 164,
-  "none": 1306,
+  "none": 1305,
   "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
@@ -96434,9 +96434,9 @@
    "status": "ok"
   },
   "ru-724": {
-   "answer": "Sinatra Doctrine",
-   "title": "Sinatra Doctrine",
-   "url": "https://en.wikipedia.org/wiki/Sinatra_Doctrine",
+   "answer": "Revolutions of 1989",
+   "title": "Revolutions of 1989",
+   "url": "https://en.wikipedia.org/wiki/Revolutions_of_1989",
    "via": "glossary",
    "status": "ok"
   },
@@ -96463,9 +96463,9 @@
    "status": "ok"
   },
   "ru-728": {
-   "answer": "New Union Treaty",
-   "title": "New Union Treaty",
-   "url": "https://en.wikipedia.org/wiki/New_Union_Treaty",
+   "answer": "Dissolution of the Soviet Union",
+   "title": "Dissolution of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union",
    "via": "glossary",
    "status": "ok"
   },
@@ -96621,23 +96621,17 @@
    "from": "Russian invasion of Ukraine"
   },
   "ru-749": {
-   "answer": "General Assembly Resolution ES-11/1",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "United Nations General Assembly Resolution ES-11/1",
-    "United Nations General Assembly Resolution ES-11/4",
-    "United Nations General Assembly Resolution ES-11/5",
-    "United Nations General Assembly Resolution ES-11/7",
-    "United Nations General Assembly Resolution ES-11/2"
-   ]
+   "answer": "Sanctions against Russia",
+   "title": "International sanctions during the Russo-Ukrainian war",
+   "url": "https://en.wikipedia.org/wiki/International_sanctions_during_the_Russo-Ukrainian_war",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-750": {
-   "answer": "Memorial",
-   "title": "Memorial (society)",
-   "url": "https://en.wikipedia.org/wiki/Memorial_(society)",
+   "answer": "memory law",
+   "title": "Memory law",
+   "url": "https://en.wikipedia.org/wiki/Memory_law",
    "via": "glossary",
    "status": "ok"
   },
