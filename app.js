@@ -27588,16 +27588,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
       '<div class="hw-week"><span class="hb-k">This week</span>' + bars + line(week) + "</div></div>";
   }
-  /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
-     Site cards only: a community card's text lives per note and may not be loaded yet.
-     NEVER A CARD WHOSE QUESTION NEEDS ITS PICTURE (Oct 2026, on request: "the preview doesn't include an
-     image or atlas box and the question makes no sense by itself"): a map card's question points at the
-     atlas, a flag or draw-the-flag card's at the flag, an artwork card's at the picture — "The country or
-     territory whose flag is shown is ___" is nothing on a card that shows no flag. The preview holds text
-     only, so it skips past those to the next card whose question stands alone. */
-  function previewable(c) {
-    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
-  }
+
   /* THE WEEK AHEAD, ABOVE THE MINIGAMES (Nov 2026, on request; until the same month the foot of the daily-study banner, design B of the forecast
      mock-ups). Seven chips — today, then the next six days — so the week's load is seen on every visit
      without opening the statistics. TODAY is the banner's own count (what is waiting now, new cards
@@ -27646,17 +27637,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     })();
   });
 
-  function reviewPreviewHTML(ids) {
-    const pick = [];
-    for (const id of ids) { const c = CARD_BY_ID[id]; if (previewable(c)) pick.push(c); if (pick.length === 3) break; }
-    if (!pick.length) return "";
-    const txt = (q) => esc(String(q).replace(/<[^>]+>/g, "")).replace(/_{3,}/g, '<u class="pv-blank"></u>');
-    const name = (c) => { const r = cardCollectionRoot(c.id); return r ? nodeTitle(r) : ""; };
-    const state = (c) => { const rec = S.cards[c.id]; return !rec ? "New" : schedIsLearning(rec.status) ? "Learning" : "Review"; };
-    return '<div class="rv-preview" aria-hidden="true">' + pick.map((c, i) =>
-      '<div class="pv-card pv' + (i + 1) + '"><span class="pv-eb">' + esc(name(c)) + (i === 0 ? "<em>next up</em>" : "") + "</span>" +
-      "<p>" + txt(c.question) + '</p><span class="pv-ft">' + state(c) + "</span></div>").reverse().join("") + "</div>";
-  }
+
 
   /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
      Adding a collection brings its whole subtree into the review (see addActive), and a 1,000-card plan's
@@ -29524,7 +29505,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   control inside a button had to be a `role="button"` span the banner's own handler deferred
                   to. */""}
           </div>
-          ${reviewPreviewHTML(pile.ids)}`;
+          ${/* the fanned preview of the next three cards stood here, desktop only, until 2026-11-26 (on request:
+                "remove these previews and reorganise the desktop banner to be organised cleanly") — the desktop
+                now takes the tablet's full-width layout, see .rv-banner in styles.css */""}`;
     }
     /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
        request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
