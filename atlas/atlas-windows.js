@@ -255,7 +255,10 @@
       if (areaSetName) {
         const A = window.ATLAS_AREA_SETS && window.ATLAS_AREA_SETS[areaSetName]; if (!A || !Array.isArray(A.parts) || !A.parts.length) return false;
         const dec = (e) => { const out = []; let x = e[0], y = e[1]; out.push([x / A.q, y / A.q]); for (let i = 2; i < e.length; i += 2) { x += e[i]; y += e[i + 1]; out.push([x / A.q, y / A.q]); } return out; };
-        areaSet = { frame: A.frame, parts: A.parts.map((pt) => ({ id: pt.id, rings: pt.rings.map(dec) })) };
+        /* only the parts the card names a shade for (2026-11-26, on request, us-084: "Remove the former Oklahoma territories
+           from the atlas") — a card naming one shade draws the set's first part alone */
+        const nParts = Math.max(1, parseInt(host.getAttribute("data-map-areas-n"), 10) || A.parts.length);
+        areaSet = { frame: A.frame, parts: A.parts.slice(0, nParts).map((pt) => ({ id: pt.id, rings: pt.rings.map(dec) })) };
       }
       if (!targets.length && !dot && !isWar && !areaSet) return false;
       if (wantsOwnRiver) {   // the card's own river, by its name or a glossary alias, out of rivers.js (and the frame's hi-res set where there is one)

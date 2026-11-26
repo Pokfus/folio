@@ -868,6 +868,9 @@ polities of `atlas/data/history.bin`, each drawn in ONE year.
 second in a lighter gold (`TINT_AREA2`) on its own canvas, cut by the land mask exactly as a locator's authored `area` is
 (`paintMasked` in `atlas-windows.js`) — no engine primitive, so WebGL2 and the Canvas 2D path draw it alike. `keys` may be
 empty: the set's `frame` opens the window. The key above the window has one row per shade, then the card's `note`.
+**The window draws only as many parts as the card names shades** (`data-map-areas-n`, 2026-11-26, on request: "Remove the
+former Oklahoma territories from the atlas"): us-084 now names one shade, so the set's second part — the former Oklahoma
+reservations — is in the file and is not drawn. Name the second shade again to bring it back.
 - **The one set, `us-reservations`** (`.claude/atlas-build/build-area-sets.js`, 117 KB): the Census Bureau's 2023 AIANNH
   cartographic boundary file (public domain, pinned as `census-cb-2023-aiannh`), simplified at 500 m. "current" =
   reservations with their off-reservation trust land (MTFCC G2100) and legal joint-use areas; "former" = the Oklahoma tribal
