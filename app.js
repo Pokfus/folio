@@ -4189,6 +4189,12 @@
     Memory: { roots: ["psych"], tags: ["psychology", "neuroscience"] },
     /* the inference, not the kidnapping: "abduction" links by itself only in Philosophy (2026-11-26, on request, ph-026) */
     Abductive_reasoning: { roots: ["phil"], tags: ["philosophy", "logic", "epistemology"] },
+    /* 2026-11-26, on request: the Roman auxilia link by themselves only in Ancient Rome ("auxiliaries" in a Chinese or
+       Greek card are not Rome's); a crop's ear is not the organ, so Ear links by itself only in Biology and Psychology
+       (eg-021); and "scales" is Biology's term alone (gr-607's comic weighing of verse is not fish scales) */
+    Auxilia: { roots: ["col-40"], tags: ["rome", "roman"] },
+    Ear: { roots: ["bio", "psych"], tags: ["biology", "anatomy", "psychology", "hearing", "neuroscience"] },
+    "Scale_(zoology)": { roots: ["bio"], tags: ["biology", "zoology"] },
     Sun: { roots: ["astro"], tags: ["astronomy"] },
     Vacuum: { roots: ["astro"], tags: ["astronomy", "physics"] },
     Orbital_eccentricity: { roots: ["astro"], tags: ["astronomy"] },
