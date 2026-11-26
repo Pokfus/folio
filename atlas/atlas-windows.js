@@ -121,7 +121,10 @@
     const pastLayer = !isGloss && !isMembers && !isWar && !!(def && def.past);
     let pastYear = null, pastView = null, pastOK = false;
     const memYear = isMembers && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
-    const memGroups = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.length) : [];
+    /* a group's id written "-pol:…" is SUBTRACTED from its shade (`members.groups[].minus`, 2026-11-26, rm-343: "a secondary shade for the
+       areas that he added"): memGroups keeps the ids drawn, memMinus beside it the ids cut out (pack states or extents, painted by paintExtents) */
+    const memRaw = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.some((x) => x[0] !== "-")) : [];
+    const memGroups = memRaw.map((g) => g.filter((x) => x[0] !== "-")), memMinus = memRaw.map((g) => g.filter((x) => x[0] === "-").map((x) => x.slice(1)));
     let memHist = false;
     /* AN EXTENT AS A MEMBERS GROUP (2026-11-19, on request: gr-231's window "must show the borders of the whole Spartan state"; docs/atlas-v2-card-windows.md "An extent as a members
        group"). A group may name history.bin EXTENTS (`pol:ext_…`, the authored or derived war extents) — Lacedaemon's two halves, `pol:ext_sparta` and `pol:ext_messenia`. The engine
@@ -534,10 +537,11 @@
           const ps = []; if (ext.length) ps.push(winHub.entityRings(ext, y, lv)); for (const [p, l] of byPack) ps.push(winHub.packRings ? winHub.packRings(p, l, y, lv) : Promise.resolve(null));
           return Promise.all(ps).then((rs) => (rs.some((r) => r == null) ? null : { faces: [], rings: [].concat.apply([], rs.map((r) => r.rings)) }));
         };
-        Promise.all(memPaint.map((ids) => (ids.length ? groupRings(ids) : Promise.resolve({ faces: [], rings: [] })))).then((rs) => {
+        const none = () => Promise.resolve({ faces: [], rings: [] });
+        Promise.all(memPaint.map((ids, i) => Promise.all([ids.length ? groupRings(ids) : none(), (memMinus[i] || []).length ? groupRings(memMinus[i]) : none()]))).then((rs) => {
           if (stopped || extR.asked !== key) return;
-          if (rs.some((r) => r == null)) { extR.asked = ""; return; }   // the history (or a pack) is not in yet: asked again at the next frame (the hub's onChange redraws when it lands)
-          extR.key = key; extR.groups = rs.map((r, i) => ({ rings: r.rings, tint: memTint(i) })); if (win) win.schedule();
+          if (rs.some((r) => r[0] == null || r[1] == null)) { extR.asked = ""; return; }   // the history (or a pack) is not in yet: asked again at the next frame (the hub's onChange redraws when it lands)
+          extR.key = key; extR.groups = rs.map((r, i) => ({ rings: r[0].rings, minus: r[1].rings, tint: memTint(i) })); if (win) win.schedule();
         }, () => { extR.asked = ""; });
       }
       if (!extR.groups) return;
@@ -545,14 +549,18 @@
         if (!g.rings.length) continue;
         const t = g.tint;
         // the fill: the group's tint over the land (the land mask keeps it off the sea where the window's coast is finer than the rings' level)
-        paintMasked(ctx, api, (m) => { m.beginPath(); extPath(m, api, g.rings); m.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; m.fill(); });
+        // a group with `minus` rings is clipped to everything OUTSIDE them: a huge rectangle and the minus rings, even-odd
+        const cutMinus = (m) => { if (!g.minus || !g.minus.length) return; m.beginPath(); m.rect(-1e5, -1e5, 2e5, 2e5); extPath(m, api, g.minus); m.clip("evenodd"); };
+        paintMasked(ctx, api, (m) => { m.save(); cutMinus(m); m.beginPath(); extPath(m, api, g.rings); m.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; m.fill(); m.restore(); });
         // the outline: a band OUTSIDE the union only, stroked at twice the width with the union's own fill then cut out of it, so a line two of the group's extents share is not drawn
         if (!extCv) extCv = document.createElement("canvas");
         if (extCv.width !== cv.width || extCv.height !== cv.height) { extCv.width = cv.width; extCv.height = cv.height; }
         const o = extCv.getContext("2d"); o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, extCv.width, extCv.height); o.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
+        o.save(); cutMinus(o);
         o.beginPath(); extPath(o, api, g.rings);
         o.lineJoin = "round"; o.lineCap = "round"; o.lineWidth = 2 * 2.2; o.strokeStyle = t.line; o.stroke();
         o.globalCompositeOperation = "destination-out"; o.fillStyle = "#000"; o.fill(); o.globalCompositeOperation = "source-over";
+        o.restore();
         ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
         if (!api.fast && t.glow) { ctx.shadowColor = t.glow; ctx.shadowBlur = 7 * api.dpr; ctx.drawImage(extCv, 0, 0); ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; }
         ctx.drawImage(extCv, 0, 0); ctx.restore();
@@ -899,7 +907,7 @@
         memHist = memYear != null && memGroups.length > 0 && !hub.canvas2d;
         memPaint = memGroups.map((g) => g.filter(painted)); memHasPaint = memPaint.some((g) => g.length > 0);
         if (memHist) {   // a border pack's state (2026-11-20): the hub fetches the pack; one that cannot be read leaves the state undrawn, so the window says so instead
-          const memPacks = [...new Set([].concat.apply([], memGroups).map(packOf).filter(Boolean))];
+          const memPacks = [...new Set([].concat.apply([], memGroups.concat(memMinus)).map(packOf).filter(Boolean))];
           if (memPacks.length) {
             for (const p of memPacks) hub.startPack(p);
             const packFailed = () => memPacks.some((p) => hub.packState(p) === "failed");

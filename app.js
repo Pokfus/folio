@@ -41916,7 +41916,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        window draws that year's states (history.bin entities, `ids`) and tints the first group gold and the second blue (TINT_LATE); `keys` stay as the present-day
        fallback for a browser that cannot draw a past year, and frame the window. Each group is a row of the key with its own swatch. */
     const year = Number.isInteger(m.year) ? m.year : null;
-    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 3);   // three since 2026-10-29 (TINT_THIRD)
+    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [], minus: Array.isArray(g && g.minus) ? g.minus.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 3);   // `minus` (2026-11-26, rm-343): ids whose ground the group's shade leaves out — Caesar's additions are the Republic of 44 BCE minus that of 59   // three since 2026-10-29 (TINT_THIRD)
     /* `span: [y0, y1]` (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): a members window on a past
        year carries the war windows' timeline over those years, stepping where its states change (`entsTimeline` in atlas.js); `year` is where the pin opens. */
     const span = groups.length && Array.isArray(m.span) && m.span.length === 2 && Number.isInteger(m.span[0]) && Number.isInteger(m.span[1]) && m.span[0] < m.span[1] ? [m.span[0], m.span[1]] : null;
@@ -42159,7 +42159,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return cardLocatorWindowHTML(c, lf, null, null, "map-front",
         "An interactive globe with one " + what + " marked on it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?", false);
     }
-    const l = cardLocator(c), w = cardWar(c), m = w ? null : cardMembers(c);
+    /* `members.overWar` (2026-11-26, on request, gr-521: "Remove the atlas map, I dislike the way it looks. Then rebuild it in our
+       usual style, showing the states of Athens and Sparta in 431"): the card keeps its `war` block — wars.js, the war sides'
+       pinned hash and history.bin's extents are built from it — but its window is the members window on a past year's borders */
+    const mOver = c && c.members && c.members.overWar ? cardMembers(c) : null;
+    const l = cardLocator(c), w = mOver ? null : cardWar(c), m = w ? null : cardMembers(c);
     /* A WAR CARD GETS THIS WINDOW WITHOUT A LOCATOR, and that is the point of asking the war block for
        one: the two sides ARE the place, so the frame is read off their own extent (see `fitTarget`) and
        no separate coordinate has to be researched for a card whose subject is a hundred thousand square
@@ -42196,7 +42200,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (m && m.areas ? ' data-map-areas="' + esc(m.areas.set) + '" data-map-areas-n="' + ((m.areas.shades || []).length || 2) + '"' : "") +
       // a present-day members window with no seat names its group, never its first key (Manchuria, not "Heilongjiang"; 2026-10-30)
       (m && !at && !m.groups.length && !m.areas ? ' data-map-name="' + esc(m.name) + '"' : "") +
-      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
+      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.concat((g.minus || []).map((x) => "-" + x)).join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
       (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +

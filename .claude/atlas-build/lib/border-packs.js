@@ -47,7 +47,12 @@ function allStates(spec) {
       if (!Array.isArray(st.years) || !st.years.length || !st.years.every((y) => Number.isInteger(y) && y >= YEAR_MIN && y <= YEAR_MAX)) throw new Error(`border-packs.json: ${key}: \`years\` must be integers in ${YEAR_MIN}..${YEAR_MAX}`);
       for (let i = 1; i < st.years.length; i++) if (st.years[i] <= st.years[i - 1]) throw new Error(`border-packs.json: ${key}: \`years\` must ascend without repeats`);
       if (st.cards && !(Array.isArray(st.cards) && st.cards.every((c) => typeof c === "string"))) throw new Error(`border-packs.json: ${key}: \`cards\` must list card ids`);
-      out.push({ pack: name, key, id: "pol:" + key, label: st.label, cliopatria: st.cliopatria.slice(), years: st.years.slice(), cards: (st.cards || []).slice().sort(), why: st.why || "" });
+      /* `rowYears` (2026-11-26, rm-343: the Republic BEFORE Caesar's conquests drawn in the window's year of his death, so the
+         Republic of that year, in the same pack, keeps only what he added): { "<year>": <the year whose row draws it> } — build-history.js
+         `rowsAt`'s third element. The row must be alive in that year, exactly as for a plain year. */
+      const ry = st.rowYears || {};
+      if (typeof ry !== "object" || Array.isArray(ry) || !Object.entries(ry).every(([y, r]) => st.years.includes(Number(y)) && Number.isInteger(r) && r >= YEAR_MIN && r <= YEAR_MAX)) throw new Error(`border-packs.json: ${key}: \`rowYears\` maps one of its years to an integer year`);
+      out.push({ pack: name, key, id: "pol:" + key, label: st.label, cliopatria: st.cliopatria.slice(), years: st.years.slice(), rowYears: Object.assign({}, ry), cards: (st.cards || []).slice().sort(), why: st.why || "" });
     }
   }
   return out;
@@ -59,7 +64,7 @@ function packSpec(name) {
   const polities = {}, links = {};
   for (const s of states) {
     // each year is a one-year step drawn by the Cliopatria row alive in it (build-history.js `rowsAt`, which stops the build unless exactly one row is)
-    polities[s.key] = { label: s.label, cliopatria: s.cliopatria, rowsAt: s.years.map((y) => [y, y]) };
+    polities[s.key] = { label: s.label, cliopatria: s.cliopatria, rowsAt: s.years.map((y) => (s.rowYears && s.rowYears[y] != null ? [y, y, s.rowYears[y]] : [y, y])) };
     for (const c of s.cards) { const o = links[c] || (links[c] = {}); (o.area || (o.area = [])).push(s.key); }
   }
   return { polities, links };
@@ -75,7 +80,7 @@ function packRows(name, clioFile, clioSha, spec) {
       const p = f.properties;
       for (const [key, pol] of Object.entries(spec.polities)) {
         if (!pol.cliopatria.includes(p.Name)) continue;
-        if (!pol.rowsAt.some(([y]) => p.FromYear <= y && p.ToYear >= y)) continue;
+        if (!pol.rowsAt.some(([y, , r]) => p.FromYear <= (r == null ? y : r) && p.ToYear >= (r == null ? y : r))) continue;
         feats.push({ type: "Feature", properties: { Name: p.Name, FromYear: p.FromYear, ToYear: p.ToYear, Wikidata: p.Wikidata || null, Wikipedia: p.Wikipedia || null, Area: p.Area }, geometry: f.geometry });
         break;
       }
