@@ -2914,3 +2914,19 @@ the Contrat never prints).
 
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
+
+## `cutHeads` and `prep: "paine"` — titled heads and a pamphlet's tables (Nov 2026, Common Sense)
+
+`cutHeads: [rx, …]` makes `cut` find its heads by TEXT instead of by a "CHAPTER II" numeral: one pattern per head, in
+order, tested on the centred block's text with its tags turned to spaces (so a long s splits a word — "pre s ent",
+"COMMON SENS E." — and the patterns allow for it); a missing head or one out of order THROWS. `cut(n)` may now return
+null, and that part is read whole (Common Sense's Introduction and Appendix are pages of their own).
+
+`prep: "paine"` (`painePrep`, on the raw page after `cut`) removes every centred FINIS block (two inside the text, which
+would otherwise be one-word quotations) and rebuilds each `<table>` as a `bk-table` through the treaty's stash, put
+back right after `cleanBody`: the hidden alignment "0" goes, a ditto mark becomes the words it stands for, a first row
+with no figure is the header, and `colspan` is kept. Gated per book.
+
+Re-run after touching: `node .claude/fetch-book.js paine-common-sense --force` (three fetches), check "1 FINIS dropped"
+on Part 5 and "1 FINIS dropped, 2 table(s) kept" on Part 6, and `node .claude/book-audit.js`.
+

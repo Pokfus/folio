@@ -21076,6 +21076,102 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+  "paine-common-sense": {
+    title: "Common Sense",
+    // the title page's own words (djvu p. 9)
+    subtitle: "Addressed to the Inhabitants of America",
+    author: "Thomas Paine",
+    /* NO `translator`: written in English, as the Declaration was, so the run header names the printing. */
+    edition: "Common Sense: Addressed to the Inhabitants of America, the sixth edition, re-printed by John Carter, Providence, 1776",
+    written: "1776",
+    year: 1776,
+    /* ---------- THE LICENCE, AND WHY THIS PRINTING ----------
+       Paine published Common Sense in 1776 and died in 1809; this printing is of 1776. Public domain everywhere.
+       English Wikisource has ONE transcription of the pamphlet, `Common Sense (1776)` (`Common Sense (Paine)`
+       redirects to it): John Carter's Providence reprint, whose title page reads "The Sixth EDITION. Philadelphia,
+       Printed: PROVIDENCE, Re-printed and Sold by John Carter, at Shakespear's Head, near the Court-House.
+       M,DCC,LXXVI." It is the ENLARGED text — the Introduction, the four sections, the Appendix with the address to
+       the Quakers, and the "Addition" of the navy calculations that a later Philadelphia edition inserted — and the
+       Index (`Common sense - addressed to the inhabitants of America.djvu`) is VALIDATED (`Progress=T`, August 2021).
+       ---------- WHAT IS TAKEN ----------
+       Six parts. The Introduction (djvu p. 11) and the Appendix (djvu pp. 43–54) are a wiki page each; the four
+       sections stand on ONE page (djvu pp. 13–41) under their printed heads alone, which `cut` + `cutHeads` divides
+       (see cutAtChapterHeads). The titles are the title page's list of the four "SUBJECTS", numbered as it numbers
+       them; the heads above the text itself are dropped. The title page (the epigraph from Thomson, the imprint) is
+       not a part: the front matter names it. The printed "FINIS" after Section IV and after the address to the
+       Quakers and Carter's imprint at the foot of the Appendix go. */
+    rights:
+      "Public domain. Thomas Paine published Common Sense in Philadelphia in 1776 and died in 1809, and this " +
+      "printing of it was made in Providence in 1776, so it has never been in copyright anywhere. The text is the " +
+      "validated Wikisource transcription of John Carter's reprint.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Common_Sense_(1776)",
+    /* THE FRONT MATTER — chapter 0. Each fact is one of the record: the date and place of publication, Paine's
+       arrival from England in 1774, the enlarged edition with the Appendix, the Declaration six months later. Where
+       the record is disputed — how many copies sold — it says so rather than give a figure. */
+    about: [
+      "<b>Common Sense</b> is the pamphlet in which Thomas Paine argued that the American colonies should break " +
+        "with Britain at once and govern themselves as a republic. It appeared in Philadelphia in January 1776, " +
+        "nine months after the fighting at Lexington and Concord, when most colonists still spoke of the war as a " +
+        "quarrel with the king's ministers that might yet end in reconciliation. Paine said plainly what few had " +
+        "said in print: that the fault lay with the king and with kingship itself, and that the only remedy was " +
+        "independence. Six months later, on 4 July 1776, Congress adopted the Declaration of Independence.",
+      "It is short and it is written for anyone to read, without Latin or learned quotation, and it is built in " +
+        "four parts, which the title page lists. The first sets out where government comes from — a necessary " +
+        "evil, made by people to protect themselves — and attacks the British constitution that the colonists " +
+        "had been taught to admire. The second attacks monarchy and hereditary succession, from the Bible and from " +
+        "English history. The third, on <i>the present State of American Affairs</i>, is the case for separation: " +
+        "<i>'Tis time to part</i>. The fourth argues that America already has the strength to stand alone, and " +
+        "counts what a navy would cost.",
+      "Paine was born in Thetford, in Norfolk, in 1737, and had been a corset-maker, a teacher and an excise " +
+        "officer in England before he sailed for Philadelphia late in 1774 with a letter of introduction from " +
+        "Benjamin Franklin. He had been in America barely a year when he wrote this, and it was published " +
+        "without his name, <i>written by an Englishman</i>. It was reprinted all over the colonies within weeks; " +
+        "how many copies were sold is not known, and the large figures often quoted are disputed. He went on to " +
+        "write <i>The American Crisis</i> during the war, and later <i>Rights of Man</i> in defence of the French " +
+        "Revolution and <i>The Age of Reason</i> against organised religion. He died in New York in 1809.",
+      "The text here is the enlarged form the pamphlet took within weeks of its first printing. The " +
+        "<b>Appendix</b> answers the speech King George III had made to Parliament in October 1775, which, as " +
+        "Paine says, reached Philadelphia on the very day the pamphlet came out, and it is followed by a letter to " +
+        "the Quakers, who had published a statement of loyalty to the king. Last comes an <i>Addition</i> from a " +
+        "new Philadelphia edition: the figures for the cost of the British navy that Paine had given without " +
+        "proof in the fourth section, set out ship by ship.",
+      "This printing is a reprint made in <b>Providence</b>, Rhode Island, in 1776 by John Carter, who calls it " +
+        "the sixth edition. Its spelling and punctuation are 1776's — <i>connexion</i>, <i>shew</i>, " +
+        "<i>independancy</i> beside <i>independence</i> — and they are kept. The printer's long s is shown as an " +
+        "ordinary s. The title page carries two lines of the Scottish poet James Thomson as its motto: <i>Man " +
+        "knows no Master save creating Heaven, Or those whom Choice and Common Good ordain.</i> The text comes " +
+        "from Wikisource, where it has been proofread twice against the scan.",
+    ],
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6],
+    page: (n) => "Common Sense (1776)/" + (n === 1 ? "Introduction" : n === 6 ? "Appendix" : "Common Sense"),
+    // the four sections share one page; the Introduction and the Appendix are pages of their own
+    cut: (n) => (n >= 2 && n <= 5 ? n - 1 : null),
+    /* Tested on the block's text with its tags turned to spaces, so a long s or a letter-spaced word splits a
+       word ("COMMON SENS E.", "pre s ent"); each pattern allows for it. */
+    cutHeads: [
+      /^COMMON SENS ?E\. Of the Origin and De ?s ?ign of Government\b/,
+      /^Of Monarchy and hereditary Succe ?s ?s ?ion ?\.$/,
+      /^Thoughts on the pre ?s ?ent State of American Affairs ?\.$/,
+      /^Of the pre ?s ?ent Ability of America\b/,
+    ],
+    // the title page's list of "SUBJECTS" (djvu p. 9), numbered as it numbers them
+    titleOf: (n) => [
+      "Introduction",
+      "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution",
+      "II. Of Monarchy and Hereditary Succession",
+      "III. Thoughts on the present State of American Affairs",
+      "IV. Of the present Ability of America, with some miscellaneous Reflections",
+      "Appendix: The Necessity of Independency",
+    ][n - 1],
+    // the printed heads above the Introduction and the Appendix; the four sections' are cut away with them
+    dropHeads: [/^INTRODUCTIO ?N ?\.$/, /^APPENDIX TO COMMON SENSE ?: The Nece ?s ?s ?ity of Independency ?\.$/],
+    // Carter's imprint at the foot of the Appendix; the two FINIS go in painePrep
+    dropTail: [/^Providence ?: Printed and Sold by John Carter ?\.$/],
+    // the FINIS printed inside the text and the Addition's two tables — see painePrep
+    prep: "paine",
+  },
 };
 
 /* ---------- args ---------- */
@@ -24007,7 +24103,7 @@ function betweenAnchors(h, span) {
    against it by id; the caller then keeps only the notes the part's own markers open. */
 const CUT_FENCE = ["\uE020", "\uE021"];
 const CUT_PAGES = {};
-function cutAtChapterHeads(h, k, warn) {
+function cutAtChapterHeads(h, k, warn, titled) {
   const start = h.indexOf('<div class="prp-pages-output"');
   if (start < 0) throw new Error("cut: no transclusion on the page");
   const refAt = h.search(/<div class="reflist|<ol class="references"/);
@@ -24036,8 +24132,19 @@ function cutAtChapterHeads(h, k, warn) {
     const refs0 = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
     return '<div class="prp-pages-output">' + h.slice(hb.end, stop) + "</div>" + (refs0 ? "\n" + refs0[0] : "");
   }
-  const heads = blocks.filter((b) => /\bchapter\s+[IVXL]+\b/i.test(b.t));
-  heads.forEach((b, i) => {
+  /* HEADS THAT CARRY A TITLE AND NO NUMERAL (Nov 2026, Common Sense): `cutHeads` lists one pattern per
+     head, in order, each tested on the centred block's whole text and each found AFTER the one before it —
+     a missing head THROWS, as a misread numeral does below. Carter's 1776 printing sets Paine's four
+     sections on one page under their titles alone ("Of Monarchy and hereditary Succession."). */
+  let heads = titled ? titled.map((rx) => blocks.find((b) => rx.test(b.t))) : null;
+  if (titled) {
+    heads.forEach((b, i) => {
+      if (!b) throw new Error("cut: no head matching " + titled[i]);
+      if (i && b.at <= heads[i - 1].at) throw new Error("cut: head " + (i + 1) + " stands before head " + i);
+    });
+  }
+  if (!titled) heads = blocks.filter((b) => /\bchapter\s+[IVXL]+\b/i.test(b.t));
+  if (!titled) heads.forEach((b, i) => {
     const r = /\bchapter\s+([IVXL]+)\b/i.exec(b.t)[1].toUpperCase();
     if (r !== toRoman(i + 1)) throw new Error("cut: head " + (i + 1) + " reads CHAPTER " + r);
   });
@@ -24089,6 +24196,46 @@ function liftChapterFence(html) {
      between `<br>`s. Each non-empty cell becomes one paragraph of an indented block, its own line breaks
      kept, in the source's reading order (row by row).
    And a row of asterisks (a display:block span, sometimes mid-paragraph) becomes a paragraph of its own. */
+/* ---------- COMMON SENSE: Carter's FINIS and the navy tables (Nov 2026) ----------
+   `prep: "paine"`, run on the RAW page after `cut`, like `kantPrep`. Two things in the 1776 Providence
+   printing that the generic passes get wrong, neither of which throws:
+   · "FINIS" IS PRINTED TWICE INSIDE THE TEXT — after Section IV and after the address to the Quakers, which
+     the Addition follows — as a centred block, which would become a one-word QUOTATION. Every centred
+     block reading FINIS is removed, counted.
+   · THE ADDITION'S TWO TABLES ARE TABLES (the cost of a ship of each rate; the navy of 1757, ship by ship,
+     four columns). stripTags unwraps them into one run of figures with every relation lost. Each is rebuilt
+     as a clean `bk-table` (the Treaty of Versailles' class) and put back after cleanBody through the
+     treaty's stash. The transcription's alignment padding — a hidden "0" before a two-digit figure — goes,
+     and a ditto mark is written as the words it stands for ("For a ship of"), as the treaty pass does. A
+     first row with no figure in it is the header. */
+function painePrep(h, warn) {
+  let finis = 0;
+  h = h.replace(/<div class="wst-center[^"]*"[^>]*>\s*<p>\s*(?:<[^>]+>\s*)*FINI(?:<[^>]+>)*S(?:<[^>]+>)*\.?\s*(?:<\/[^>]+>\s*)*<\/p>\s*<\/div>/g,
+    () => { finis++; return ""; });
+  if (/>\s*FINI/.test(h)) warn("a FINIS in a shape painePrep does not know was left as it stands");
+  let tables = 0;
+  h = h.replace(/<table\b[^>]*>([\s\S]*?)<\/table>/g, (m, inner) => {
+    tables++;
+    const clean = (c) => treatyInline(c
+      .replace(/<style[\s\S]*?<\/style>/g, "")
+      .replace(/<span style="visibility:hidden;color:transparent;">0<\/span>/g, "")
+      .replace(/<span class="__ditto"><span class="__ditto_hidden">([\s\S]*?)<\/span><span class="__ditto_text[^"]*"><\/span><\/span>/g, "$1")
+      .replace(/<span class="wst-gap[^"]*"[^>]*><\/span>/g, ""));
+    const rows = (inner.match(/<tr\b[\s\S]*?<\/tr>/g) || [])
+      .map((r) => [...r.matchAll(/<td\b([^>]*)>([\s\S]*?)<\/td>/g)]
+        .map((c) => ({ span: (c[1].match(/\bcolspan="\d+"/) || [""])[0], html: clean(c[2]) })));
+    if (/ditto|visibility:hidden/.test(rows.flat().map((c) => c.html).join(""))) warn("a table cell kept markup painePrep does not know");
+    const head = rows.length && !rows[0].some((c) => /\d/.test(c.html));
+    // the totals' label spans two columns ("Cost," under Guns and Cost of one), so colspan is kept
+    TREATY_STASH.push('<div class="bk-table"><table>' + rows.map((r, i) => "<tr>" + r.map((c) => {
+      const tag = head && !i ? "th" : "td";
+      return "<" + tag + (c.span ? " " + c.span : "") + ">" + c.html + "</" + tag + ">";
+    }).join("") + "</tr>").join("") + "</table></div>");
+    return "<p>" + TREATY_TABLE + (TREATY_STASH.length - 1) + "@@</p>";
+  });
+  if (finis || tables) console.log("  paine: " + finis + " FINIS dropped, " + tables + " table(s) kept");
+  return h;
+}
 const KANT_HEAD = "@@KNH@@", KANT_STARS = "@@KNA@@";
 function kantPrep(h, warn) {
   let b = h;
@@ -35142,7 +35289,9 @@ async function fetchEnglish() {
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     /* ONE PAGE PER BOOK, CUT AT ITS CHAPTER HEADS (Nov 2026, The Social Contract): see `cutAtChapterHeads`. */
-    if (BOOK.cut) h = cutAtChapterHeads(h, BOOK.cut(n), warn);
+    /* `cut(n)` may return null for a part that is a page of its own (Common Sense's Introduction and Appendix). */
+    const cutK = BOOK.cut ? BOOK.cut(n) : null;
+    if (cutK != null) h = cutAtChapterHeads(h, cutK, warn, BOOK.cutHeads);
     let html, notes, orig = "", tFromText = "";
     if (BOOK.prep === "leviathan") {
       const got = leviathanPrep(h, warn);
@@ -35151,6 +35300,7 @@ async function fetchEnglish() {
     /* Meiklejohn's headings and tables — see kantPrep. Every page of a section, so the extras below too. */
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
     if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
+    if (BOOK.prep === "paine") h = painePrep(h, warn);
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -35210,6 +35360,8 @@ async function fetchEnglish() {
       if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(pageNames[0]);
       const multi = pageNames.length > 1;
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
+      // the tables painePrep stashed, put back after the tag stripper, which keeps no table tags
+      if (BOOK.prep === "paine") html = html.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k]);
       if (keep) html = pruneNotes(html, keep);
       if (BOOK.prep === "leviathan") {
         const got = liftSidenotes(html, warn);
