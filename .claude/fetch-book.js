@@ -20676,6 +20676,137 @@ const BOOKS = {
     ],
     minChars: 3000,
   },
+  "freud-interpretation-of-dreams": {
+    title: "The Interpretation of Dreams",
+    subtitle: "Die Traumdeutung",
+    author: "Sigmund Freud",
+    translator: "A. A. Brill",
+    edition: "Authorised translation of the third edition, The Macmillan Company, New York, 1913",
+    written: "1899",
+    year: 1899,
+    /* ---------- THE LICENCE ----------
+       Freud died in London in 1939. Brill's translation of the third German edition (1911) was published in
+       New York in 1913, before 1929, so it is public domain in the United States. Brill died in 1948, so the
+       translation is out of copyright wherever copyright runs for the translator's life plus seventy-five
+       years or less (Wikisource tags the work PD-old-75-US for the translator and PD-old-80-US for Freud);
+       NOT, until 2029, where it runs for life plus eighty — the rights box says so rather than claiming the
+       world. The transcription is Wikisource's, of `Freud - The interpretation of dreams.djvu`, and every
+       page fetched carries `data-page-quality="4"` (validated). */
+    rights:
+      "Public domain in the United States, where A. A. Brill's translation was published in 1913. Sigmund " +
+      "Freud died in 1939 and Brill in 1948, so it is also out of copyright in countries where copyright " +
+      "lasts for the author's life plus seventy-five years or less. The text is the validated Wikisource " +
+      "transcription of the 1913 edition, from a scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Interpretation_of_Dreams_(Freud)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every claim
+       about the book's content was checked against this text (the sample dream's date, the wish, the
+       censorship, the dream-work's four headings, Oedipus and Hamlet, the via regia, the father's death in
+       the second preface); the publishing history is the one every account of the book agrees on. */
+    about: [
+      "<b>The Interpretation of Dreams</b> argues that a dream has a meaning, and that the meaning can be " +
+        "found. Sigmund Freud's answer is that <i>the dream is the fulfilment of a wish</i>. What the " +
+        "dreamer remembers — the <i>manifest content</i> — is a disguised version of hidden <i>dream " +
+        "thoughts</i>, the latent content; the disguise is the work of a <i>censorship</i> that will not let " +
+        "a forbidden wish into consciousness unaltered. To interpret a dream is to undo the disguise, by " +
+        "taking it piece by piece and following the thoughts that occur to the dreamer about each piece.",
+      "The book opens with a long survey of what earlier writers had said about dreams (chapter I). " +
+        "Chapter II sets out Freud's method on one of his own dreams, the dream of Irma's injection of July " +
+        "1895, and chapters III and IV argue that every dream fulfils a wish, distorted where the wish is " +
+        "one the dreamer would disown. Chapter V turns to the material of dreams — the impressions of the " +
+        "day before, childhood memories, bodily stimuli and the typical dreams nearly everyone has; it is " +
+        "here that Freud reads the dream of a parent's death through Sophocles' <i>Oedipus Rex</i>, with " +
+        "Shakespeare's <i>Hamlet</i> in a long footnote. Chapter VI, the longest, describes the <i>dream-work</i>: " +
+        "condensation, displacement, the means of representation and secondary elaboration. Chapter VII " +
+        "builds from all this a psychology of the mind, with its unconscious and its systems, and calls the " +
+        "interpretation of dreams the <i>via regia</i>, the royal road, to the knowledge of the unconscious.",
+      "Freud was born in 1856 in Freiberg, in Moravia, and grew up in Vienna, where he trained as a " +
+        "physician and neurologist. Treating patients with hysteria, he came to listen to their dreams, " +
+        "and analysed his own. The book appeared in November 1899, its title page dated 1900, and sold " +
+        "slowly; a second edition followed only in 1909, and a third in 1911. In the preface to the second " +
+        "edition Freud says that the book had proved to be part of his self-analysis, his reaction to the " +
+        "death of his father. He left Vienna for London after the Nazi annexation of Austria in 1938 and " +
+        "died there in 1939.",
+      "This is the first English translation, by A. A. Brill, the first translator of Freud into English, " +
+        "made from the third German edition and published in 1913. Freud went on revising the book through " +
+        "eight editions in his lifetime, so this text lacks his later additions; the translation now " +
+        "usually read is James Strachey's, in the Standard Edition of 1953. The title page's motto, from " +
+        "Virgil's <i>Aeneid</i>, <i>Flectere si nequeo superos, Acheronta movebo</i> — if I cannot bend " +
+        "the powers above, I shall move the underworld — returns in chapter VII.",
+      "The text here gives the seven chapters in the book's own order, the sections inside them headed " +
+        "(a), (b) and so on as printed, and the Literary Index after them: a raised number after an " +
+        "author's name in the text (<i>Haffner</i>³²) is Freud's reference to that numbered entry in the " +
+        "index, not a footnote. The footnotes are in the notes under each chapter. Not included: the title " +
+        "page, Freud's introductory remarks and his prefaces to the second and third editions, the " +
+        "contents, the three diagrams of the psychic apparatus in chapter VII (the text describes them) " +
+        "and the general index.",
+    ],
+    chapterWord: "Chapter",
+    /* EIGHT, the last the Literary Index: the raised numbers after an author's name in the text (Haffner³²,
+       Burdach⁸ — some 180 of them) are Freud's references into it, and without it they point nowhere and
+       read as footnote markers that open nothing. */
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8],
+    page: (n) => "The Interpretation of Dreams (Freud)/Chapter " + n,
+    titleOf: (n) => [null,
+      "I. The Scientific Literature on the Problems of the Dream",
+      "II. Method of Dream Interpretation: The Analysis of a Sample Dream",
+      "III. The Dream is the Fulfilment of a Wish",
+      "IV. Distortion in Dreams",
+      "V. The Material and Sources of Dreams",
+      "VI. The Dream-Work",
+      "VII. The Psychology of the Dream Activities",
+      "VIII. Literary Index",
+    ][n],
+    // the three diagrams of the psychic apparatus in chapter VII, captioned "Fig. 1." … — the Library is text only
+    dropFigures: true,
+    /* The printed heads: each chapter's centred numeral and capital title, which the tab already says
+       (chapters I–III set in one block, IV–VII in two). Chapter I's carries Freud's footnote on its title
+       ("To the first publication of this book, 1900": the survey stops there), so that one head is kept
+       as a head line, in the tab's words, rather than dropped and its marker lost with it. The rows run
+       on the extractor's output, so each names the exact block. */
+    reFixes: [
+      [/<blockquote>\s*<p>THE INTERPRETATION OF DREAMS<\/p><p>I<\/p><p>THE SCIENTIFIC LITERATURE ON THE PROBLEMS OF THE DREAM<sup class="fn" data-fn="1"><\/sup><\/p>\s*<\/blockquote>\s*/g,
+       '<p class="bk-head">The Scientific Literature on the Problems of the Dream<sup class="fn" data-fn="1"></sup></p>\n',
+       "I: the half-title and chapter head, kept as a head line for the footnote on it"],
+      [/<blockquote>\s*<p>(?:II|III)<\/p>(?:<p>[A-Z ,:-]+<\/p>){1,2}\s*<\/blockquote>\s*/g, "",
+       "II–III: the chapter head, one centred block"],
+      [/<blockquote>\s*<p>(?:IV|V|VI|VII|VIII)<\/p>\s*<\/blockquote>\s*<blockquote>\s*<p>[A-Z ,:-]+<\/p>\s*<\/blockquote>\s*/g, "",
+       "IV–VIII: the chapter head, numeral and title in two centred blocks"],
+      /* THE HEADS INSIDE A CHAPTER — the lettered sections "(a) Recent and Indifferent Impressions…", the
+         two heads of chapter II's sample dream, the title Freud gives a patient's dream in chapter VI and the
+         Literary Index's second list —
+         are centred in the printing, so they arrive as blockquotes and would read as quotations. Set as the
+         italic head line the reader has for a printed rubric. Two rows, as Darwin's argument: open the block
+         that holds exactly such a head, then close it. */
+      [/<blockquote>\s*<p>(?=(?:\(<i>[a-h]<\/i>\) <i>[^<]+<\/i>|<i>\([a-h]\) [^<]+<\/i>|Dream of July 23–24, 1895|Analysis|II\. <i>"A Beautiful Dream"<\/i>|PSYCHOANALYTIC LITERATURE OF DREAMS)<\/p>\s*<\/blockquote>)/g,
+       '<p class="bk-head">', "the heads inside a chapter: open each as a head line rather than a quotation"],
+      [/(?<=<p class="bk-head">(?:\(<i>[a-h]<\/i>\) <i>[^<]+<\/i>|<i>\([a-h]\) [^<]+<\/i>|Dream of July 23–24, 1895|Analysis|II\. <i>"A Beautiful Dream"<\/i>|PSYCHOANALYTIC LITERATURE OF DREAMS))<\/p>\s*<\/blockquote>/g,
+       "</p>", "the heads inside a chapter: close each"],
+      /* A paragraph the transcription leaves as a bare run that opens on text and runs into an italic title,
+         which the loose-run pass then cuts at the <i>, leaving "Cicero (" a paragraph of its own and the rest
+         outside every paragraph. Wrapped here, whole. */
+      [/(?<=<\/blockquote>\s*)Cicero \(<i>De Divinatione<\/i>, II\) says quite similarly, as does also Maury much later:—(?=\s*<p>)/g,
+       "<p>Cicero (<i>De Divinatione</i>, II) says quite similarly, as does also Maury much later:—</p>",
+       "I: the paragraph on Cicero, a bare run broken at its italic title"],
+      /* The transcription's blank line: an empty paragraph after chapter II's "following dream", and a <br>
+         opening a paragraph after the Faust quotation in chapter VI. */
+      [/<p><br><\/p>/g, "", "an empty paragraph: the transcription's blank line"],
+      [/<p><br>\n(?=[^<\s])/g, "<p>", "a <br> opening a paragraph: the transcription's blank line"],
+      /* The captions of chapter VII's three diagrams of the psychic apparatus, left standing alone once
+         `dropFigures` has taken the pictures; the front matter says the diagrams are not reproduced. */
+      [/<blockquote>\s*<p>Fig\.? [123]\.<\/p>\s*<\/blockquote>\s*/g, "", "VII: the three diagrams' captions"],
+      /* A PRINTER'S SIGNATURE MARK, "L", at the foot of p. 161 (the first leaf of gathering L), transcribed as
+         a small right-set line; it splits a sentence across the page turn. Dropped and the sentence joined. */
+      [/What thorough revenge<\/p>\s*<blockquote>\s*<p>L<\/p>\s*<\/blockquote>\s*(?:<p[^>]*>)?I take upon/g,
+       "What thorough revenge I take upon", "V: the signature mark L, mid-sentence on p. 161–162"],
+      [/in return I put myself in his place in the dream\.\n<p>Another case/g,
+       "in return I put myself in his place in the dream.</p>\n<p>Another case",
+       "V: close the paragraph the signature mark interrupted, which the transcription leaves as a bare run"],
+    ],
+    // the shortest, the Literary Index, is about 12,000 characters of text
+    minChars: 3000,
+  },
   "jerome-letters": {
     title: "The Letters of St. Jerome",
     subtitle: "Epistulae",

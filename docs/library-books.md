@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
+  matter (chapter 0 — see the Library bullet). Currently eighty-one (counted off `books/`, Nov 2026):
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -165,6 +165,20 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `freud-interpretation-of-dreams` (~1.2 MB, **8 chapters**, `chapterWord: "Chapter"` — Freud's seven and his Literary
+  Index — **182 notes**, Freud's and Brill's; **no original**: de.wikisource has no Die Traumdeutung, and Brill
+  translated the third edition, 1911). A. A. Brill's first English translation, Macmillan, New York, 1913, validated on
+  Wikisource (every page `data-page-quality="4"`). **A LIMITED LICENCE**, said in the rights box: public domain in the US
+  (1913) and wherever copyright runs life + 75 or less (Freud d. 1939, Brill d. 1948) — not yet under life + 80.
+  Generic extractor; `reFixes` take the chapter heads (chapter I's kept as a head line, for the footnote on its title),
+  set the 22 centred heads inside a chapter — the lettered sections "(a) …", the sample dream's two heads, "A Beautiful
+  Dream", the index's second list — as `bk-head`, drop the three diagram captions after `dropFigures` and the printer's
+  signature mark "L" mid-sentence on p. 161–162, and mend three blank-line/bare-run scars. **The Literary Index is
+  shipped on purpose**: the ~180 raised numbers after an author's name (Haffner³²) are Freud's references into it, and
+  without it they read as footnote markers that open nothing; the front matter says so. One footnote (Gruppe, I) is
+  cited twice, as on the page. Colour `#3C5721` (13.9: Hobbes, the Book of Documents nearest; Lucretius, quoted in I,
+  held 15.1 off). `glossOff`: 18 keys — see the comment on the app.js entry. Excerpt: the via regia, chapter VII.
+  Not included: the prefaces, the contents, the diagrams, the general index.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on

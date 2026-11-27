@@ -13272,6 +13272,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding The Interpretation of Dreams, measured as the rows above (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen light
+     inks; a sweep of the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: the sweep's best,
+     #3F5A24 at 14.0, has Lucretius as its nearest, and Freud quotes Lucretius on dreams in his first chapter;
+     the next olive keeps him 15.1 off. Its nearest are Hobbes 13.9, the Book of Documents 13.9 and Aesop 14.3,
+     none read beside Freud, while Darwin stands 36.4 off, Aristotle 52.0, Descartes 65.8, Plato 69.8 and Kant
+     89.7. It reads 4.91:1 on the tightest light paper. */
+  "Sigmund Freud": "#3C5721",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17616,6 +17624,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "freud-interpretation-of-dreams",
+      title: "The Interpretation of Dreams",
+      subtitle: "Die Traumdeutung",
+      author: "Sigmund Freud",
+      written: "1899",
+      year: 1899,
+      translator: "A. A. Brill",
+      edition: "Authorised translation of the third edition, The Macmillan Company, New York, 1913",
+      /* A LIMITED licence: public domain in the US (1913) and wherever copyright runs life + 75 or less, since
+         Brill died in 1948 — not yet where it runs life + 80. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where A. A. Brill's translation was published in 1913. Sigmund " +
+        "Freud died in 1939 and Brill in 1948, so it is also out of copyright in countries where copyright " +
+        "lasts for the author's life plus seventy-five years or less. The text is the validated Wikisource " +
+        "transcription of the 1913 edition, from a scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Interpretation_of_Dreams_(Freud)",
+      /* NO `origLang`: de.wikisource has no page "Die Traumdeutung" (looked for, Nov 2026), and Brill translated
+         the third edition (1911), so any German beside it would have to be that edition to pair. Eight chapters — Freud's seven and the Literary Index his raised numbers refer to. No `parts`. */
+      chapterWord: "Chapter",
+      count: 8,
+      total: 8,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 8 chapters
+         (every `.ttip`, 150 keys, Nov 2026). NAMESAKES: Freud's Abraham is the psychoanalyst Karl Abraham, his
+         Jodl the philosopher Friedrich Jodl, his Maine the philosopher Maine de Biran, his Pallas the virgin
+         goddess, his Mora Daudet's Duc de Mora, his Miss Lyons an English teacher, his "St. Paul's Cathedral, near
+         Rome" St Paul Outside the Walls, not the apostle; the rose of Jericho is a plant; "Saxony (Anglo-Saxon)" is
+         a pun; "sexual selection" is the parents' preference for a child of the other sex, not Darwin's; the
+         children of Israel are the biblical people; the Czech of his Moravian childhood and the Turkish drawings
+         are not the modern states. IN THE LITERARY INDEX, words of titles: Italian "Sui", French "Évolution",
+         "Taste Dreams", "The Pathology of Mind", the American Journal of Psychology. */
+      glossOff: ["Abraham", "Alfred_Jodl", "Maine", "Marcus_Antonius_Pallas", "Mora_(military_unit)", "Lyon",
+        "St._Paul", "Jericho", "Anglo-Saxon_England", "Sexual_selection", "Israel", "Czech_Republic", "Turkey",
+        "Sui_dynasty", "Evolution", "Taste", "Pathology", "Psychology"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27365,6 +27409,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
     { book: "quran", n: 1, t: "The Opening", p: 1,
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
+    { book: "freud-interpretation-of-dreams", n: 7, t: "VII. The Psychology of the Dream Activities", p: 160,
+      text: "At any rate the interpretation of dreams is the via regia to a knowledge of the unconscious in the psychic life." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
   ];
