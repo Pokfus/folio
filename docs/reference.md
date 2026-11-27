@@ -4103,8 +4103,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     resolved when it was written. **AND A WAY BACK**: `bookHold` (the study record captured before routing) draws the
     "Back to card" pill (`.bk-tocard`, on <body>, removed by every route()), which resumes the session on the same card.
   · **A BOOK SAYS HOW MANY PEOPLE HAVE READ IT** (`book_stats` + `bump_book_read`, **schema section 16**;
-    `bookStatsLoad` / `bookReads` / `bookReadMaybeCount` / `BOOK_READ_MIN` / `.bk-tile-reads`; Sep 2026,
-    on request). The third pooled counter after the card difficulties and the daily games, and it exists
+    `bookStatsLoad` / `bookReads` / `bookReadMaybeCount` / `BOOK_READ_MIN` / `.bk-reads`; Sep 2026,
+    on request). **Since Nov 2026 (on request) the count sits in the banner's TOP-RIGHT corner** (`.bk-reads`,
+    absolute, left of a favourite's star; above 640 px the right-hand block is padded down clear of it), and
+    `BOOK_SORTS` has a `popular` row ("Popularity", most read first) — the shelf re-sorts (`sortedNow`) when
+    the counts land, and with no counts it falls through to the title. The third pooled counter after the card difficulties and the daily games, and it exists
     for their reason: `progress` is readable only by its owner and their accepted friends, so nothing can
     count across readers — the figure has nowhere to live but a table joined to nobody.
     **A READ IS A READER, NOT AN OPENING**: counted once per book per reader, the first time they have

@@ -8615,13 +8615,18 @@ body.night .book-tile, body.night .gloss-book{
   background:color-mix(in srgb, var(--bk-accent) 9%, transparent);
 }
 
-/* How many people have read the book (Sep 2026). Quiet and monospaced like every other figure on the
-   site — it is a footnote on the banner, not a badge: the tile's own chips say what the book IS, and a
-   readership count competing with them would read as a claim about the work. */
-.bk-tile-reads{
+/* How many people have read the book (Sep 2026; in the banner's top-right corner since Nov 2026, on
+   request). Quiet and monospaced like every other figure on the site — a footnote on the banner, not a
+   badge. A starred banner's star holds the corner itself, so the count steps left of it. */
+.bk-reads{
+  position:absolute; top:8px; right:12px; pointer-events:none;
   font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.04em;
-  line-height:1; flex:none; white-space:nowrap; color:var(--ink-faint);
+  line-height:1; white-space:nowrap; color:var(--ink-faint);
 }
+.bk-star ~ .bk-reads{right:31px;}
+/* the right-hand block is centred on the banner's height, so on a wide banner it could rise into the
+   corner; it is pushed down by the count's own line. A phone drops that block to the foot, clear of it. */
+@media (min-width:641px){ .bk-reads ~ .bk-tile-body .bk-tile-foot{padding-top:15px;} }
 .bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */
 .bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
@@ -10798,8 +10803,8 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .page .book-tile::before{content:""; position:absolute; left:0; top:0; bottom:0; width:var(--w, 0%); pointer-events:none;
   background:linear-gradient(90deg, color-mix(in srgb, var(--bk-accent) 22%, var(--card)), color-mix(in srgb, var(--bk-accent) 9%, var(--card)));}
 .page .book-tile[style*="--w:0%"]::before{display:none;}
-.page .book-tile > .bk-spine, .page .book-tile > .bk-tile-body, .page .book-tile > .bk-star{position:relative; z-index:1;}
-.page .book-tile > .bk-star{position:absolute;}
+.page .book-tile > .bk-spine, .page .book-tile > .bk-tile-body, .page .book-tile > .bk-star, .page .book-tile > .bk-reads{position:relative; z-index:1;}
+.page .book-tile > .bk-star, .page .book-tile > .bk-reads{position:absolute;}
 .page .bk-tile-bar{display:none;}
 @media (min-width:1025px){
   .book-timeline .book-grid{grid-template-columns:1fr 1fr; column-gap:14px;}

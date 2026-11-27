@@ -33963,6 +33963,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["title", "Title", "A – Z", "Z – A"],
     ["author", "Author", "A – Z", "Z – A"],
     ["written", "Date", "Oldest first", "Newest first"],
+    // how many readers each book has had (`bookReads`); until the pooled table answers every book is 0 and
+    // the order falls through to the title, so the shelf is never sorted by nothing
+    ["popular", "Popularity", "Most read first", "Least read first"],
   ];
   // read through a whitelist, like the theme: a key retired from BOOK_SORTS must fall back rather than
   // leave the shelf sorted by nothing at all
@@ -34033,15 +34036,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          It goes in the ARIA LABEL as well: that label REPLACES the banner's own text for a screen
          reader, so a chip left out of it is a chip only the sighted reader is told about. */
       const orig = b.origLang ? "with original " + (b.origName || "text") : "";   // "with original Greek" (Oct 2026, on request; was "Greek original")
+      const rd = bookReads(b.id), rdTxt = rd == null ? "" : rd === 1 ? "1 read" : rd + " reads";
       /* `--w` is how far the book is read, painted ACROSS the banner from the left the way a deck row on
          the home page paints its day (Oct 2026 Timeline design, on request) — in place of the thin bar
          along the bottom edge, which is gone. */
       return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}; --w:${pos ? pct : 0}%"
-                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", " + esc(orig) : ""}${fav ? ", a favourite" : ""}${rdTxt ? ", " + esc(rdTxt) : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
               second target here would be a second answer to the same question sitting 8px from the first */""}
         ${fav ? `<span class="bk-star" aria-hidden="true">${BOOK_STAR}</span>` : ""}
+        ${/* HOW MANY PEOPLE HAVE READ IT (Sep 2026, on request; moved to the banner's top-right corner, Nov 2026,
+              on request). Drawn only where there IS a figure: `bookReads` is null until the pooled table has
+              answered, and on a project that has not run schema section 16 it stays null for good  a shelf
+              of books each claiming "0 reads" would be a statement about the books rather than about the
+              database. A book nobody has read yet is 0 and says so, which is a real answer. */""}
+        ${rdTxt ? `<span class="bk-reads notranslate" aria-hidden="true" title="How many people have read this">${esc(rdTxt)}</span>` : ""}
         <span class="bk-tile-body">
           <span class="bk-tile-main">
             <span class="bk-tile-author">${esc(b.author)}</span>
@@ -34051,12 +34061,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <span class="bk-tile-foot">
             <span class="bk-tile-meta">${len}</span>
             ${orig ? `<span class="bk-tile-orig">${esc(orig)}</span>` : ""}
-            ${/* HOW MANY PEOPLE HAVE READ IT (Sep 2026, on request). Drawn only where there IS a figure:
-                  `bookReads` is null until the pooled table has answered, and on a project that has not
-                  run schema section 16 it stays null for good — a shelf of books each claiming "0 reads"
-                  would be a statement about the books rather than about the database. A book nobody has
-                  finished yet is 0 and says so, which is a real answer and a different one. */""}
-            ${(() => { const rd = bookReads(b.id); return rd == null ? "" : `<span class="bk-tile-reads notranslate" title="${esc(t("How many people have read this"))}">${rd === 1 ? esc(t("read once")) : rd + " " + esc(t("reads"))}</span>`; })()}
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
@@ -34073,9 +34077,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (key === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
       if (key === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
       if (key === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
+      if (key === "popular") return (bookReads(b.id) | 0) - (bookReads(a.id) | 0) || a.title.localeCompare(b.title);
       return readAt(b) - readAt(a) || a.title.localeCompare(b.title);
     };
-    const sorted = BOOKS.slice().sort((a, b) => (rev ? -forward(a, b) : forward(a, b)));
+    // a function, not a constant: the read counts land after the first paint, and a shelf sorted by
+    // popularity must be re-sorted by the repaint they trigger
+    const sortedNow = () => BOOKS.slice().sort((a, b) => (rev ? -forward(a, b) : forward(a, b)));
+    let sorted = sortedNow();
     /* FAVOURITES SIT IN A SECTION OF THEIR OWN AT THE TOP (Aug 2026, on request), and a starred book is
        NOT repeated in the shelf below — one book, one banner, or a reader scrolling past their own
        favourites twice has to work out which of the two is the real one. The lower section is therefore
@@ -34183,6 +34191,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        with no request at all, so the figure is already there on the first paint. */
     bookStatsLoad().then((st) => {
       if (!st || !shelf.isConnected) return;
+      sorted = sortedNow();
       shelf.innerHTML = shelfHTML(bookQuery);
       wireShelf();
     });
