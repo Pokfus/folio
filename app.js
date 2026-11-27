@@ -13142,6 +13142,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stand well off: the Anglo-Saxon Chronicle 92.9, Bede 43.9, Snorri 81.5, the Poetic Edda 20.7. Keyed by
      id, the chronicle being anonymous. */
   "russian-primary-chronicle": "#933700",
+  /* MEASURED AS EVERY ROW ABOVE (Nov 2026, adding the Chronicle of Novgorod): CIELAB distance, L 12.3–47.8
+     and chroma 18–85, 22 or more from every dark theme ink and 4.5:1 on every light paper and card. The shelf
+     is now full enough that the band's best clears only 13.2 (a violet beside Magna Carta and the King James
+     Bible); this forest green takes 12.8, from Chaucer, Aesop and the Book of Documents, at 6.71:1 on the
+     tightest light paper, because the books a reader sets beside it stand far off: the Russian Primary
+     Chronicle 71.6, the Anglo-Saxon Chronicle 68.2, Bede 30.1. Keyed by id, the chronicle being anonymous. */
+  "novgorod-chronicle": "#0C451E",
   /* MEASURED AS EVERY ROW ABOVE, with sixty colours placed (Nov 2026, adding the Ninety-five Theses):
      CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
      4.5:1 on every light paper, card and second paper. The deep violet first chosen (#410064) went to
@@ -17128,6 +17135,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Rurik": [[11, 153]],
         "Yaroslav_the_Wise": [42, [133, 153]],
       },
+    },
+    {
+      id: "novgorod-chronicle",
+      title: "The Chronicle of Novgorod",
+      subtitle: "1016–1471",
+      /* ANONYMOUS, kept by many hands at the archbishop's court and in the city's churches. Keyed for
+         colour by id — see bookColor. */
+      author: "Anonymous",
+      /* A RANGE, on Shakhmatov's account of the text in this volume: the Synodal transcript copied about
+         1330, the Commission transcript rearranged in the 1450s. The key is that decade. */
+      written: "c. 1330–1450s",
+      year: 1450,
+      translator: "Robert Michell and Nevill Forbes",
+      edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914, pp. 1–221",
+      /* A LIMIT TO STATE: published in 1914 (before 1931, so public domain in the United States); Forbes
+         died in 1929, but Michell's death date could not be established. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with one limit. The chronicle was kept at Novgorod from the " +
+        "eleventh century to the fifteenth. Robert Michell and Nevill Forbes's translation was published in " +
+        "London in 1914, as volume 25 of the Royal Historical Society's Camden Third Series, and is in the " +
+        "public domain in the United States as a work published before 1931. Nevill Forbes died in 1929; the " +
+        "date of Robert Michell's death could not be established, so whether the translation is also free " +
+        "in countries that protect a work for seventy years after its author's death cannot be stated. " +
+        "C. Raymond Beazley's introduction and A. A. Shakhmatov's account of the text are not reproduced.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/chronicleofnovgo00michrich",
+      /* NO `origLang`: the Old Russian is not transcribed whole anywhere the importer reads. TEN PARTS CUT
+         BY YEAR, Folio's and not the edition's (some 430 entries, a third of them a bare year), then the
+         editors' Appendix on money. */
+      chapterWord: "Part",
+      count: 11,
+      total: 11,
     },
     {
       id: "luther-ninety-five-theses",

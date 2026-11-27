@@ -18762,22 +18762,91 @@ const BOOKS = {
     subtitle: "1016–1471",
     author: "Anonymous",
     translator: "Robert Michell and Nevill Forbes",
-    edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914",
+    edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914, pp. 1–221",
+    /* A RANGE, on A. A. Shakhmatov's account of the text printed in this volume (pp. xxxvii–xli): the
+       Synodal transcript is "an almost contemporary copy" of Archbishop Basil's compilation, which ran to
+       1329, with entries added to 1352; the Commission transcript, which carries the text on to 1446, is a
+       rearrangement made at Novgorod "in the fifties of the fifteenth century". The key is that decade. */
+    written: "c. 1330–1450s",
+    year: 1450,
+
+    /* ---------- THE LICENCE ----------
+       THE GROUND IS THE PUBLICATION DATE: the translation was published in London in 1914, before 1931, so
+       it is in the public domain in the United States. Nevill Forbes lived 1883–1929 (the Internet Archive's
+       catalogue record). ROBERT MICHELL'S DEATH COULD NOT BE ESTABLISHED (searched Nov 2026: library
+       authorities and the web give no date), so whether the translation is free where the term is the
+       author's life plus seventy years cannot be said, and the rights box says so. C. Raymond Beazley's
+       introduction (he died in 1955) and Shakhmatov's account of the text are not reproduced.
+       WHAT WAS LOOKED AT AND WHY THIS ONE: English Wikisource holds no text of the Novgorod chronicle, and
+       Project Gutenberg none; the Internet Archive has this one scan of the 1914 volume, whose ABBYY export
+       (a box for every character) and page images download freely. A PDF of another copy, with its own OCR
+       (Acrobat Capture, 2000), is on the University of Washington's site (faculty.washington.edu/dwaugh);
+       it was used only as a second OCR to diff against, and it loses its order after p. 70.
+       NO ORIGINAL BESIDE IT: the Old Russian is not transcribed whole anywhere this importer reads. */
+    rights:
+      "Public domain in the United States, with one limit. The chronicle was kept at Novgorod from the " +
+      "eleventh century to the fifteenth. Robert Michell and Nevill Forbes's translation was published in " +
+      "London in 1914, as volume 25 of the Royal Historical Society's Camden Third Series, and is in the " +
+      "public domain in the United States as a work published before 1931. Nevill Forbes died in 1929; the " +
+      "date of Robert Michell's death could not be established, so whether the translation is also free " +
+      "in countries that protect a work for seventy years after its author's death cannot be stated. " +
+      "C. Raymond Beazley's introduction and A. A. Shakhmatov's account of the text are not reproduced.",
+    about: [
+      "The Chronicle of Novgorod is the oldest surviving chronicle of Novgorod the Great, the city-republic " +
+        "of north-western Russia, kept year by year at its archbishop's court and in its churches. This " +
+        "translation begins in 1016, with Yaroslav's war against Svyatopolk, and goes on to 1446: the princes " +
+        "the citizens invited and drove out, the posadniks and archbishops chosen at " +
+        "the Veche, fires, famines, floods and signs in the sky, the building of churches, wars with the Svei " +
+        "(the Swedes), the Nemtsy (the Germans), Lithuania and the Tartars — Knyaz Olexander's battle with the " +
+        "Nemtsy on Lake Chud in 1242 among them — and the city's long quarrel with the princes of Vladimir " +
+        "and Moscow.",
+      "According to the account of the text by the Russian scholar A. A. Shakhmatov printed in this " +
+        "edition, chronicle-writing at Novgorod had begun by the eleventh century. The oldest copy, the " +
+        "Synodal transcript, is an almost contemporary copy of a compilation made under Archbishop Basil " +
+        "about 1330; it has lost its first sheets, so it begins in 1016, and its entries end in 1352. From " +
+        "1333 the translation follows the Commission transcript, a fifteenth-century compilation, to 1446. " +
+        "The last part here, the record of the year 1471, when Ivan III of Moscow put an end to Novgorod's " +
+        "independence, was added by the editors from a text edited in the sixteenth century, as their note " +
+        "there says.",
+      "<b>How it is divided.</b> The chronicle has no chapters: it is a run of entries, each headed by its " +
+        "year twice, the year of our era (A.D.) and the year from the Creation (A.M.), and many of them are a " +
+        "year with nothing beside it. The parts here are Folio's, runs of years cut to roughly equal lengths, " +
+        "and each tab names its span; the record of 1471 is a part of its own, and the editors' Appendix on " +
+        "money, weights and measures is the last. The edition prints no entry for 1273, 1351 or 1422, prints " +
+        "1355 and 1356 twice where the Synodal transcript ends, and heads 1446 twice, once without its year " +
+        "from the Creation; all are kept as printed. The opening passage in square brackets, under 1016, is " +
+        "supplied from another manuscript, as the editors' first note says.",
+      "<b>The footnotes</b> are the translators' and editors': most gloss a Russian word they leave " +
+        "untranslated — <i>Knyaz</i> (prince), <i>Posadnik</i> (the city's elected burgomaster), <i>Veche</i> " +
+        "(the popular assembly), <i>Vladyka</i> (archbishop) — or identify a person or a place. Beazley's " +
+        "introduction, Shakhmatov's account of the text, the translators' lists of terms, the note on the " +
+        "bibliography and the index are not included.",
+      "<b>About this text.</b> It was read from the Internet Archive's scan of the 1914 printing, and the " +
+        "scanner's misreadings were corrected against the page images; a dozen lines struck through in pencil " +
+        "in the scanned copy were read off the image. One misprinted year has been corrected (A.M. 7708 for " +
+        "6708, under 1200), and on p. 37 a footnote mark printed 3, on a page with only two notes, is taken as " +
+        "the second. The translators' italics are not reproduced.",
+    ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/chronicleofnovgo00michrich",
     url: "https://archive.org/download/chronicleofnovgo00michrich/chronicleofnovgo00michrich_abbyy.gz",
     layout: "novgorod",
     chapterWord: "Part",
-    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+    chapters: Array.from({ length: 11 }, (_, i) => i + 1),
     leaves: [53, 273],
     begin: /^A\.D\. 1016\. A\.M\. 6524\. \[There was a fight/,
-    mainEnd: /^Having received their liberty from their sovereign/,
+    splitBefore: [/\[a\.d\. 1471\. A\.M\. 6979\./],
     /* THE RUNS OF HEADS THE PRINTED PAGE BREAKS, each read off the page and left as printed: no head for
        1273, 1351 (the edition's own note: "No record for 1351") or 1422 — both OCRs agree and the page
        confirms — and 1355–1356 printed twice, where the Synodal text ends and the edition goes on from the
-       Commission text (its notes on p. 144). */
-    headRuns: ["1272→1274", "1350→1352", "1356→1355", "1421→1423"],
-    spans: [[1016, 1099], [1100, 1149], [1150, 1199], [1200, 1249], [1250, 1299], [1300, 1349], [1350, 1399], [1400, 1449], [1450, 1471]],
+       Commission text (its notes on p. 144). The chronicle proper ends in 1446; the record of 1471 that
+       follows, in brackets, is the editors' addition from a sixteenth-century text (their note on p. 205),
+       and it is a part of its own. The edition also heads 1432 twice (its note: "Year repeated"). */
+    headRuns: ["1272→1274", "1350→1352", "1356→1355", "1421→1423", "1446→1471"],
+    /* FOLIO'S SPANS, NOT THE EDITION'S: cut so that the parts run to roughly equal lengths — the eleventh
+       century fills four pages, the 1220s thirty. */
+    spans: [[1016, 1149], [1150, 1199], [1200, 1224], [1225, 1249], [1250, 1299], [1300, 1349], [1350, 1399],
+      [1400, 1424], [1425, 1446], [1471, 1471]],
     appendices: [{ head: /^APPENDIX\.?$/, title: "Appendix: Money, Weights and Measures" }],
     /* A COMPOUND THAT KEEPS ITS HYPHEN WHERE IT FALLS AT A LINE END — the line-end hyphens whose joined
        form is no word and whose hyphened form the edition uses elsewhere or is plainly a compound. */
@@ -18941,6 +19010,14 @@ const BOOKS = {
       [/\bloanovich\b/g, "Ioanovich", "`Ioanovich` read as `loanovich`"],
       [/\bloan\b/g, "Ioan", "`Ioan` read as `loan`"],
       [/\bPloimki\b/g, "Plotniki", "`Plotniki` read as `Ploimki`"],
+      [/\bMetropohtan\b/g, "Metropolitan", "`Metropolitan` read as `Metropohtan`"],
+      [/\bMetropoHtan\b/g, "Metropolitan", "`Metropolitan` read as `MetropoHtan`"],
+      [/\bVasihevich\b/g, "Vasilievich", "`Vasilievich` read as `Vasihevich`"],
+      [/\bahve\b/g, "alive", "`alive` read as `ahve`"],
+      [/\bcalhng\b/g, "calling", "`calling` read as `calhng`"],
+      [/\bestabhshed\b/g, "established", "`established` read as `estabhshed`"],
+      [/\bhke\b/g, "like", "`like` read as `hke`"],
+      [/\bPohsh\b/g, "Polish", "`Polish` read as `Pohsh`"],
       [/\bK(?:iiyaz|iyaz|yiyaz|ynaz|jiyaz|jtyaz|nvaz|tiyaz|ttyaz)\b/g, "Knyaz", "the italic Knyaz misread (eleven forms)"],
       [/\bIg(?:iimen|mnen|imien|unien)\b/g, "Igumen", "the italic Igumen misread"],
       [/\bIg(?:mnens|nmens|uniens|iimens)\b/g, "Igumens", "the italic Igumens misread"],
@@ -19480,6 +19557,36 @@ const BOOKS = {
         "a g read as q (note 2 on p. 67)"],
       ["E. of Xovgorod.", "E. of Novgorod.",
         "an N read as X (a note on p. 103)"],
+      ["terrible fight,, and", "terrible fight, and",
+        "a pencil mark in the margin read as a second comma (p. 2)"],
+      ["refuge for Christi;ins,", "refuge for Christians,",
+        "`a` read as `;i` (p. 87)"],
+      ["Knyaz Yaroslav ;⟦3@90⟧", "Knyaz Yaroslav;⟦3@90⟧",
+        "a space the page does not set (p. 38)"],
+      ["their bishops.and halted", "their bishops, and halted",
+        "a comma read as a full stop and the space lost"],
+      ["the Nemetski a.nd Korel", "the Nemetski and Korel",
+        "a speck read inside `and` (p. 132)"],
+      ["displeasure with me,, and", "displeasure with me, and",
+        "a speck read as a second comma"],
+      ["went to Volodimir,, and", "went to Volodimir, and",
+        "a speck read as a second comma"],
+      ["Monday, May 27,. in", "Monday, May 27, in",
+        "a speck read as a full stop"],
+      ["[a.d. 1471. A.M. 6979.", "[A.D. 1471. A.M. 6979.",
+        "the small capitals of the bracketed head read as lower case (p. 205)"],
+      ["on the Korel- villages", "on the Korel⟦2@241⟧ villages",
+        "p. 189, note 2 cited a second time: its mark read as `-`"],
+      ["in the threshold- in the House", "in the threshold⟦2@243⟧ in the House",
+        "p. 191, note 2: its mark read as `-`"],
+      ["beyond the Volok to- bless", "beyond the Volok to bless",
+        "a speck read as a hyphen (p. 204)"],
+      ["pp. ix, x, xi, etc-", "pp. ix, x, xi, etc.",
+        "a full stop read as a hyphen (note 2 on p. 6)"],
+      ["Kunas; cf- appendix.", "Kunas; cf. appendix.",
+        "a full stop read as a hyphen (note 2 on p. 37)"],
+      ["Pie my a.", "Plemya.",
+        "the italic plemya misread (note 1 on p. 38; the translators' list gives \"Clan = plemya (p. 38)\")"],
       ["raised a wall- around", "raised a wall⟦2@119⟧ around", "p. 67, note 2: its mark read as `-`"],
       ["Having received their Hberty", "Having received their liberty", "the li of liberty read as `H` (p. 219)"],
     ],
@@ -35944,7 +36051,7 @@ function chronicleJoin(a, b, BOOK, c) {
    year, as the Anglo-Saxon Chronicle is cut. The heads are walked for gaps and reversals on every run,
    and a head whose two years do not differ by 5508 or 5509 is reported: the September and March years
    both occur in this chronicle, so either difference is the chronicle's own. */
-const NOVGOROD_HEAD = /^A\.\s?D\.\s?(\d{4})\.(?:\s+A\.\s?M\.\s?(\d{4})\.)?/;
+const NOVGOROD_HEAD = /^\[?A\.\s?D\.\s?(\d{4})\.(?:\s+A\.\s?M\.\s?(\d{4})\.)?/;
 
 function novgorodPages(xml) {
   const pages = [];
@@ -36128,6 +36235,17 @@ function extractNovgorod(xml, BOOK, warn) {
     paras.push({ t: s.t, head: s.head, leaf: s.leaf, leaves: [s.leaf] });
   }
 
+  /* A HEAD THE ENGINE RAN ONTO THE PARAGRAPH ABOVE (`splitBefore`: the bracketed record of 1471, which
+     the editors add after the chronicle proper) opens a paragraph of its own. */
+  for (const rx of BOOK.splitBefore || []) {
+    const i = paras.findIndex((p) => rx.test(p.t));
+    if (i < 0) { warn("splitBefore " + rx + " matched no paragraph"); continue; }
+    const p = paras[i], at = p.t.search(rx);
+    if (at <= 0) continue;
+    paras.splice(i + 1, 0, { t: p.t.slice(at), head: false, leaf: p.leaves[p.leaves.length - 1], leaves: [p.leaves[p.leaves.length - 1]] });
+    p.t = p.t.slice(0, at).trim();
+  }
+
   /* The candidates, resolved from the table read off the page images. */
   const table = BOOK.marks || {};
   const used = {};
@@ -36175,11 +36293,12 @@ function extractNovgorod(xml, BOOK, warn) {
 
   const text = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const startAt = paras.findIndex((p) => BOOK.begin.test(p.t));
-  const endAt = paras.findIndex((p) => BOOK.mainEnd.test(p.t));
+  /* the annals end where the first appendix's heading stands */
+  const endAt = paras.findIndex((p, i) => i > startAt && p.head && BOOK.appendices[0].head.test(p.t)) - 1;
   if (startAt < 0 || endAt < startAt) throw new Error("the translation's first or last paragraph is not where the entry says");
 
   /* The year heads, walked; then the spans. */
-  const chapters = BOOK.spans.map((s) => ({ t: s[0] + "–" + s[1], from: s[0], to: s[1], ps: [] }));
+  const chapters = BOOK.spans.map((s) => ({ t: s[0] === s[1] ? String(s[0]) : s[0] + "–" + s[1], from: s[0], to: s[1], ps: [] }));
   let ci = 0, lastAD = 0;
   for (let i = startAt; i <= endAt; i++) {
     const p = paras[i];

@@ -301,6 +301,21 @@ book added later will meet the same traps.
   Not taken: Cross's Introduction (pp. 77–135), his headnote to each appendix (its Cyrillic bibliography is
   unreadable OCR), the map. The Old East Slavic is on Russian Wikisource and would pair on the years — not
   measured yet.
+  `novgorod-chronicle` (~530 KB, **11 chapters** — ten spans of years and the editors' Appendix — **663 notes**,
+  no original; Robert Michell and Nevill Forbes's translation, Camden Third Series 25, 1914, pp. 1–221;
+  `layout: "novgorod"` → `extractNovgorod` / `novgorodPages` / `novgorodLineText` / `novgorodQuotes`). **The
+  first book read off an ABBYY export's CHARACTER boxes** (`_abbyy.gz`), because its ~700 footnote marks are
+  findable only by their height: a glyph whose foot stands a quarter of the capital height above the
+  baseline. 747 candidates, each read off a contact sheet of page crops into the entry's `marks` table (a
+  note number, or what the glyphs really are); ~75 marks the box test missed (a raised ² read as a trailing
+  `-`, ¹ as `/`, a mark glued to its word as `}` or `P`) found from the notes never cited and written as
+  fixes rows. Parts are Folio's spans of years cut to equal lengths (`spans`); the editors' bracketed record of
+  1471 is its own part. The printed heads' gaps and repeats are declared in `headRuns`; one printer's misprint
+  (A.M. 7708). Prose: italic words (Knyaz, Posadnik-ship, Igumen, Nemtsy) and the engine's li/h, ll/U, y/v,
+  I/l confusions are reFixes; a dozen pencil-struck lines and the notes' Greek were read off the image; p. 3,
+  a column of bare heads, is `transcribed`. Licence: US 1914 publication; Forbes d. 1929; **Michell's death
+  date not found**, so the rights box states the limit. Colour `#0C451E` (12.8; the shelf's best left was
+  13.2). Not done: a glossary-link sweep (`glossOff`). `test-library.js` `novgorodChecks`.
   `treaty-of-versailles` (~500 KB, **15 chapters** — the treaty's fifteen Parts, the Preamble at the head of Part I
   and the signatures at the foot of Part XV, through `page(n)` arrays — **no notes, no original**; the official
   English text as printed at Ottawa in 1919, Canada's Sessional Paper No. 41, the one whole-treaty transcription on

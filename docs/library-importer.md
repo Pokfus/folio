@@ -2986,3 +2986,36 @@ and the characters check it, so a paragraph added or split upstream throws inste
 later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
+
+## The `novgorod` layout — annals read off an ABBYY export's character boxes (Nov 2026, the Chronicle of Novgorod)
+
+`layout: "novgorod"` → `extractNovgorod` (with `novgorodPages`, `novgorodLineText`, `novgorodQuotes`).
+Michell and Forbes's 1914 volume has ~700 footnotes, numbered from 1 on each page, and the OCR reads their
+raised figures as `^`, `*`, `"`, `'`, a digit or nothing — so the importer reads the ABBYY export
+(`_abbyy.gz`, a box for every character and a baseline for every line) instead of `_djvu.xml`. What it settled:
+
+- **A mark is a glyph raised a quarter of the capital height off the baseline.** Stops and hyphens are
+  excluded (a hyphen floats by its shape — which is why a raised ² read as `-` is missed); a raised quotation
+  mark or apostrophe is a candidate only straight after a letter and before a space or stop.
+- **Every candidate is read off the page, never guessed.** Method (scratch scripts, not committed): crop each candidate with its word into a
+  numbered contact sheet; the entry's `marks` table holds, per leaf and in reading order, a note number or the
+  text the glyphs are (`"’"`, `"p"` for the broken italic "Posadnik-shi", `""` for a speck; `"\"⟦2⟧"` puts a
+  note beside a quotation mark in the page's order). Every candidate must be in the table, every row used,
+  every note cited — the run says which is not.
+- **Count reconciliation per page does not work**: a note is often cited twice, and ~10 % of marks are missed
+  by the box test. The missed ones were found from the notes never cited and written as fixes rows
+  (`⟦k@leaf⟧`); a bare `⟦k⟧` resolves against the paragraph's own pages.
+- **Notes**: the foot of the page in a smaller size, or (where the engine gives notes the body's size) the run
+  set smaller by its capitals and closer by its pitch; two notes on one line split at a 40 px gap before a
+  mark; a printer's signature ("D 2", "* M2") is dropped.
+- **Lines**: pieces on one baseline join (a column of year heads beside the text, and a quotation mark hung in
+  the margin); a line set 200 px in beside a year head continues it (the hanging layout).
+- **Quotation marks**: the printer spaces them on both sides, so a mark between two spaces is decided by the
+  paragraph's alternation after its neighbours have had their say (after a colon it opens).
+- **What the second OCR is worth**: a PDF of another copy (Acrobat Capture, 2000) diffed well for the first
+  seventy pages and then lost its order; the rest was checked by the odd-word list and the page.
+- `NOVGOROD_DUMP=<file>` writes the paragraphs, the dropped lines, the notes, the raw pre-correction text
+  (`.raw.txt`), the candidates (`.cands.json`) and every line with its box (`.lines.json`) for cropping.
+- Re-run after touching: `node .claude/fetch-book.js novgorod-chronicle` (reads the cache) and
+  `node .claude/test-library.js` (`novgorodChecks`). Any change to how body lines are read can renumber the
+  candidates on a leaf and invalidate `marks` — the table-length check catches it.
