@@ -240,6 +240,20 @@ book added later will meet the same traps.
   four candidates are all right. Colour `#A20C45` (13.4: Aristophanes, Cervantes nearest; Jefferson 84, Rousseau 40,
   Hobbes 78 off). `glossOff`: 9 keys — see the comment on the app.js entry. Excerpt: "Society in every state is a
   blessing…", Section I. Not included: the title page (the front matter quotes its motto).
+  `marx-communist-manifesto` (~91 KB, **5 parts** — Engels's preface of 1888 and Parts I–IV, `chapterWord: "Part"`, so
+  a tab runs one ahead of the part's numeral and the front matter says so — **10 notes**, Engels's; **no original**).
+  Samuel Moore's authorized translation of 1888, edited and annotated by Engels, in Charles H. Kerr's Chicago printing
+  of 1910, the one transcription on en.wikisource (`Manifesto of the Communist Party`), validated (Index `Progress=T`,
+  Nov 2013). Public domain worldwide (Moore d. 1911, Engels 1895, Marx 1883). The base page carries the cover, the
+  title page, the preface, the Manifesto's unnumbered opening ("A spectre is haunting Europe") and Kerr's
+  advertisements; **`prep: "manifesto"`** (`docs/library-importer.md`) cuts the preface and the opening out of it, and
+  the opening is set at the head of Part I (`page(2)` is an array), Part I's own head kept below it because it carries
+  Engels's note on "bourgeoisie". Part III's six subheads are `bk-head`s. Kerr's printing substitutes its own Chicago
+  editions where Engels names a book (the preface and one note); kept, and the front matter says so. No `fixes`:
+  book-scan.js's three candidates (notion, notions, religions) are all right. Colour `#002A1E` (14.9: Boethius,
+  Kalidasa nearest; Jefferson 17.9, Hobbes 25.5). `glossOff`: 8 keys — see the comment on the app.js entry. Excerpt:
+  "The proletarians have nothing to lose but their chains", Part IV. Not included: the cover, the title page and the
+  advertisements.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
