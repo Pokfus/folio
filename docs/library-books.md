@@ -515,6 +515,17 @@ book added later will meet the same traps.
   a line's end (15 warned: the lemma's spelling differs from the line's, e.g. "sulllies"), none lost; all 222
   end notes reach the page. Fetched through `api`'s index.php fallback (api.php rate-limited from the first
   request). Its home excerpt is "To be, or not to be" (Act III, `p: 25`). Shakespeare's row colours it.
+  `tempest` (~180 KB, all 5 acts, **344 notes**, no original — the Yale Shakespeare of 1918, ed. Chauncey
+  Brewster Tinker, 1876–1963 (Wikipedia; Wikisource tags the volume PD/US|1963; the scan is the 1922 second
+  printing), so public domain in the US by the pre-1929 rule ONLY, in copyright under life plus seventy until
+  2034, and the rights text says so in Hamlet's form; `layout: "yale"`, no `plineFixes` (no "counted line"
+  warning)). Prospero's EPILOGUE is a page of its own, read by the new `postPage` and set at the foot of Act V.
+  333 glosses land on their word, 2 on their text, 9 at a line's end, none lost; all 40 end notes reach the page,
+  the Epilogue's own on its head. `yaleCast` now also reads a group's plain names ("Nymphs," "Reapers," under
+  Iris, Ceres and Juno) — unchanged for Macbeth, Romeo and Juliet and Julius Caesar, and it would restore the
+  "A Gentleman" the shipped Hamlet drops from its Courtiers (not re-imported). Left as transcribed, unverified
+  against the print: "Sesastian" in the list of characters. Home excerpt "Our revels now are ended" (Act IV,
+  `p: 44`). Fetched through index.php (`action=render&useparsoid=0`), api.php rate-limited from the first request.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

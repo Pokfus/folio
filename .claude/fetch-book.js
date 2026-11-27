@@ -17873,6 +17873,80 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  tempest: {
+    title: "The Tempest",
+    // NO `subtitle`: the Folio's title is the whole of it
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Chauncey Brewster Tinker, Yale University Press, New Haven, 1918",
+    written: "c. 1611",
+    year: 1611,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1918 (the scan is
+       the second printing, 1922, of the same setting), the series of the other four Yale plays and
+       transcribed on Wikisource in the same way, so the `yale` layout reads it. Tinker lived 1876–1963
+       (Wikipedia; Wikisource tags the volume PD/US|1963): public domain in the United States under the
+       pre-1929 rule, but where the term is life plus seventy NOT until 2034 — the second Yale play that
+       is public domain in the United States only, which the rights text says, in Hamlet's form. The
+       appendices and the index are the editor's apparatus and are left behind, as for Macbeth.
+       Prospero's EPILOGUE is on a page of its own after Act V: `postPage`, set at the foot of Act V
+       (the mirror of Romeo and Juliet's `prePage`). */
+    rights:
+      "Public domain in the United States. Shakespeare wrote the play around 1611 and it was first " +
+      "printed in the First Folio of 1623, so the work itself has never been in copyright. The text here " +
+      "is the Yale Shakespeare edition edited by Chauncey Brewster Tinker and published by Yale University " +
+      "Press in 1918, before 1929, so its copyright has expired in the United States. Tinker died in 1963, " +
+      "so his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+      "years, including the United Kingdom and the European Union, until 2034. What is taken is the play " +
+      "and its Epilogue, the edition's list of characters, Tinker's glosses from the foot of each page and " +
+      "his end notes, which are set with the glosses that point to them; his appendices and index are not " +
+      "reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Tempest_(1918)_Yale",
+
+    about: [
+      "<b>The Tempest</b> opens on a ship breaking up in a storm off an island. The storm is the work of " +
+        "Prospero, once Duke of Milan, who was overthrown twelve years before by his brother Antonio with " +
+        "the help of Alonso, King of Naples, and set adrift with his small daughter Miranda. They came " +
+        "ashore on the island, where Prospero's books of magic made him its master: Ariel, a spirit he " +
+        "freed from a cloven pine, serves him for a promised liberty, and Caliban, the son of the witch " +
+        "who ruled the island before him, serves him as a slave.",
+      "The ship carried Antonio, Alonso, Alonso's son Ferdinand and their court, and Prospero has every " +
+        "one of them brought ashore unharmed and scattered about the island. Ferdinand, believing his " +
+        "father drowned, meets Miranda and the two fall in love at first sight, as Prospero means them to. " +
+        "Antonio tempts Alonso's brother Sebastian to murder the king in his sleep; Caliban, finding a " +
+        "drunken jester and butler, Trinculo and Stephano, takes the butler for a god and plots with them " +
+        "to kill Prospero. Ariel, invisible, frustrates both plots.",
+      "In the last act Prospero has his enemies at his mercy and forgives them. He takes back his dukedom, " +
+        "gives Miranda to Ferdinand, sets Ariel free and promises to break his staff and drown his book. " +
+        "Alone on the stage at the end he speaks an epilogue asking the audience to release him with their " +
+        "applause. The play is one of Shakespeare's last, and readers have long heard in Prospero's " +
+        "farewell to his art Shakespeare's own farewell to the stage, which the play itself does not say.",
+      "It was acted at court before James I on 1 November 1611, the first performance on record, and was " +
+        "probably written shortly before. It drew on accounts of the wreck of the <i>Sea Venture</i> on " +
+        "Bermuda in 1609, and Gonzalo's picture of an ideal commonwealth follows Montaigne's essay on " +
+        "cannibals in John Florio's translation. No single source for the plot is known. The play was not " +
+        "printed in Shakespeare's lifetime; it stands first in the First Folio of 1623, on which every " +
+        "edition rests.",
+      "The text here is the <i>Yale Shakespeare</i> edition of 1918, edited by Chauncey Brewster Tinker, in " +
+        "modernised spelling and divided into acts and scenes. Its line numbers are the edition's, printed " +
+        "every few lines, and can differ by a line or two from another edition's. The numbered notes are " +
+        "Tinker's: the short glosses at the foot of each page, and, where a gloss sent the reader to the " +
+        "back of the book, the longer note it pointed to. The notes are in American spelling, and the " +
+        "speakers' names are abbreviated as his page prints them. Prospero's Epilogue is at the end of Act V.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Tempest (1918) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Tempest (1918) Yale/Notes",
+    castPage: "Tempest (1918) Yale/Text",
+    postPage: "Tempest (1918) Yale/Text/Epilogue",
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -26853,6 +26927,18 @@ function extractYale(h, act, endnotes, used, warn) {
       n = 0; last = null;
       continue;
     }
+    /* An EPILOGUE on a page of its own (The Tempest, Nov 2026: Prospero's, after Act V) is read as that
+       page's prologue is — scene 0, its glosses under no anchor — but its verse is set wholly in italics
+       with no speaker's name (a centred "Spoken by Prospero" says who), so SPEAKER is not asked: it would
+       take the first italic line for a name. The page's closing FINIS is the printer's, not the play's. */
+    if (p.kind === "center" && /^EPILOGUE$/i.test(plain)) {
+      if (scenes.length) warn("an epilogue after a scene on the same page");
+      sc = { k: 0, head: "Epilogue", epi: true, items: [], lines: [] };
+      scenes.push(sc);
+      n = 0; last = null;
+      continue;
+    }
+    if (p.kind === "center" && /^FINIS\.?$/.test(plain)) continue;
     const sm = p.kind === "center" && plain.match(/^Scene (\w+)$/);
     if (sm) {
       const k = YALE_SCENE.indexOf(sm[1]);
@@ -26870,11 +26956,11 @@ function extractYale(h, act, endnotes, used, warn) {
     }
     const sp = p.html.match(SPEAKER);
     let who = "", rest = p.html;
-    if (sp && /^[A-Z]/.test(sp[2])) {
+    if (sp && /^[A-Z]/.test(sp[2]) && !sc.epi) {
       const name = sp[2].trim().replace(/\.$/, "");
       who = sp[4] ? sp[1] + name + sp[3] + " " + sp[4].trim() + sp[5] : sp[1] + name + sp[3] + sp[5];
       rest = p.html.slice(sp[0].length);
-    } else if (!sc.k) {
+    } else if (!sc.k && !sc.epi) {
       // the Chorus is set in roman ("Chor.") or inside a gloss tooltip, not in the italic SPEAKER reads
       const cm = p.html.match(/^\u0001?(Chor)\.\u0002?\s*/);
       if (cm) { who = cm[1]; rest = p.html.slice(cm[0].length); }
@@ -27110,7 +27196,10 @@ function yaleCast(h, warn) {
     const blk = m[0];
     if (/^<table/.test(blk)) {
       const cells = blk.split(/<td[^>]*>/).slice(1).map((c) => c.split(/<\/td>/)[0]);
-      const names = cells.filter((c) => /smallcaps/.test(c)).map(text);
+      /* a name is small capitals, or — for a group (The Tempest's "Nymphs," and "Reapers," under Iris,
+         Ceres and Juno) — a plain cell with words and no italic; the brace's cell is empty once its
+         <math> is gone */
+      const names = cells.filter((c) => /smallcaps/.test(c) || !/<i>/.test(c) && text(c)).map(text);
       const desc = cells.filter((c) => !/smallcaps/.test(c) && /<i>/.test(c)).map(text);
       if (!names.length) { warn("a cast table with no names"); continue; }
       out.push(names.join(" ").replace(/,$/, "") + (desc.length ? ", " + desc.join(" ") : ""));
@@ -34301,9 +34390,20 @@ async function fetchEnglish() {
       const first = n === BOOK.chapters[0];
       const off = first ? pre.notes.length : 0;
       const body = off ? got.html.replace(/data-fn="(\d+)"/g, (a, d) => 'data-fn="' + (+d + off) + '"') : got.html;
+      /* an epilogue on a page of its own (The Tempest's), set at the foot of the last act; its markers
+         are renumbered past the act's own notes */
+      const lastAct = n === BOOK.chapters[BOOK.chapters.length - 1];
+      let post = "", postNotes = [];
+      if (lastAct && BOOK.postPage) {
+        const ep = correctGot(extractYale(await cached("en-epilogue.html", BOOK.postPage), 0, endnotes, used, warn));
+        const off2 = off + got.notes.length;
+        post = ep.html.replace(/data-fn="(\d+)"/g, (a, d) => 'data-fn="' + (+d + off2) + '"');
+        postNotes = ep.notes;
+      }
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n),
-        html: (first && cast ? cast + "\n" : "") + (first && pre.html ? pre.html + "\n" : "") + body,
-        notes: (first ? pre.notes : []).concat(got.notes) });
+        html: (first && cast ? cast + "\n" : "") + (first && pre.html ? pre.html + "\n" : "") + body +
+          (post ? "\n" + post : ""),
+        notes: (first ? pre.notes : []).concat(got.notes, postNotes) });
     }
     // every end note reaches the page, through a gloss or on its own line — checked, not assumed
     if (FROM <= BOOK.chapters[0] && TO >= BOOK.chapters[BOOK.chapters.length - 1]) {
