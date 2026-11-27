@@ -450,6 +450,40 @@ To add a letter or a rule to the sounds deck: a row of `turkish-sounds.json` who
 quoted (`sounds.py --verify`), `sounds.py --fill`, `build-turkish-sounds.js`.
 
 
+## The Greek decks: the generator, the record, the pinned ids, the order and the sourced alphabet (Nov 2026)
+
+Two decks: the alphabet (card type `el-abc`, with ten reading rules of card type `el-read`) and A1 (card type
+`greek`). As with Urdu, **the generator (`.claude/greek/`, Python, a 370 MB cache) rebuilds them byte for
+byte**, proved before the pass on a fresh fetch and twice after it (`docs/lang-decks.md`, "The Greek beginner
+pass"). So a fault the generator can fix is fixed THERE, and the record holds only what is a decision about
+one card or one order: which cards A1 gains, the order, the end of each description. **A word or a letter is
+ONE NOTE with two card templates** (a reading rule has one), so the pin is of note ids (a card id is the note
+id, plus `~2` for the second direction).
+
+    node greek-fix.js --check                 # the two decks are what the record, the pin and the order make of them
+    node greek-order.js --check               # the order and the facts are what the rules give
+    node ../greek/check-greek.js              # pinned ids, no answer on its own question, labels, balanced markup
+    python3 ../greek/inserts.py --check       # the record's added cards are what the generator's code builds (needs the cache; not in CI)
+    python3 ../greek/alphabet.py --verify     # every sound, name and rule of the alphabet deck is in its pinned Wikipedia revision (needs the network; not in CI)
+
+| file | what it is |
+|---|---|
+| `greek-fixes.json` | the record. `add.greeka1`: rows of `word`, `id`, `why`, `src` and `fields` (the card's nine fields), **written by `../greek/inserts.py`, never by hand** — its list is at the top of that script. `decks`: each deck's `subtitle` template, `descSub` pairs, and `tail`, the paragraph that ends its description and is rewritten on every run from the counts and from the order's `facts`. |
+| `greek-ids.json` | deck id → key → the number in the note's id. The key is a word's `Word`, a letter's `Letter` as printed, a reading rule's `Key`. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` (none yet). APPLIED, so a deck the generator has just numbered by position is numbered back. A new alphabet note gets its row here by hand; a new word card gets it from its `add` row. |
+| `greek-order.json` | `greeka1.order`: every headword in the order the deck is dealt; `facts` for both decks: every figure a description states that is not a plain count. Written by `greek-order.js`. The alphabet has no order: it keeps `alphabet.py`'s. |
+| `greek-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank): A1's hand-written head of 86, four closed sets at stated note numbers. A card the record added that is named nowhere is an error, and so is a greeting that has left the days the description names. `--report` prints where everything fell. |
+| `greek-fix.js` | applies all three, in this order: the inserts, the ids, the order, the subtitles and descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. |
+| `../greek/inserts.py` | builds the `add` rows with `build_deck.build` and `examples.pick`, after the deck's own 500 rows have used up their sentences; a sentence chosen by hand is named by its Tatoeba id, with the reason. |
+
+`greek-fix.js` finds its decks by CARD TYPE (`greek`, `el-abc`). **A rebuild**, after any change to the
+generator: `python3 ../greek/run.py`, `../greek/alphabet.py` (it reads A1's deck file for its example words),
+`../greek/inserts.py`, `greek-fix.js`, `greek-order.js`, `greek-fix.js` again, `node .claude/build-lang-decks.js`.
+To add a word to A1: a row of `INSERTS` in `inserts.py` (the next id above 529, a Wiktionary headword),
+name it in the head or a set of `greek-order.js`, then the sequence from `inserts.py` on. To add a letter
+pair or a reading rule: a row of `LETTERS` or `RULES` in `alphabet.py` whose comparison is a cell of the key
+and whose rule is a quoted phrase (`--verify`), and its number in `greek-ids.json`. A second level (A2) joins
+`SHELF` in `greek-fix.js` and is seeded into the pin from its first build.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

@@ -6,6 +6,12 @@
     python3 .claude/greek/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/greek/alphabet.py            # the alphabet deck (reads lex.json)
 
+A DECK FILE IS NOT WHAT THIS WRITES ALONE (the beginner pass, 2026-11-27).  After it:
+`alphabet.py`, `inserts.py`, `node .claude/decks/greek-fix.js`, `greek-order.js`, `greek-fix.js`
+again, `node .claude/build-lang-decks.js` -- the record gives every note back its PINNED id,
+adds A1's 29 cards and deals the deck in its teaching order (`.claude/decks/README.md`, "The
+Greek decks").  This script numbers by position and deals by frequency, as it always did.
+
 ONE LEVEL PER RUN (`greek_level` reads the level once, at import).  Downloads
 its sources into `.claude/greek-cache/` (gitignored, about 370 MB, the
 Wiktionary extract being 220 MB of it) and leaves them there, so a re-run costs

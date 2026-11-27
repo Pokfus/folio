@@ -399,6 +399,18 @@ jobs:
       - name: check-turkish (no word on two decks, pinned ids, no pointer glosses, known forms labels, balanced markup)
         if: ${{ !cancelled() }}
         run: node .claude/turkish/check-turkish.js
+      # The Greek decks (2026-11-27, the Greek beginner pass): greek-fixes.json (the cards A1 gains, the end of
+      # each description), greek-order.json (A1's order and the figures the descriptions state) and the pinned
+      # ids, over the two decks of card type `greek` and `el-abc`. All three read only the repository.
+      - name: greek-fix --check (the Greek decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/greek-fix.js --check
+      - name: greek-order --check (the Greek order and the facts are what the rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/greek-order.js --check
+      - name: check-greek (pinned ids, no pointer glosses, no answer on its own question, known forms labels, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/greek/check-greek.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.
