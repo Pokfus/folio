@@ -125,6 +125,41 @@ def translit(word):
     return unicodedata.normalize('NFC', ''.join(out))
 
 
+# ---- the stress ---------------------------------------------------------------------------
+PLAIN = str.maketrans('άέήίόύώΐΰ', 'αεηιουωϊϋ')
+ACCENTED = re.compile('[άέήίόύώΐΰ]')
+
+
+def _before_accent(w):
+    """The letters before the stressed vowel sound: before the accented letter, and before
+    the first letter of a two-letter vowel whose second letter carries the accent (αί, εί,
+    οί, ού, αύ, εύ)."""
+    w = nfc(w).lower().replace('ς', 'σ')
+    m = ACCENTED.search(w)
+    if not m:
+        return None
+    i = m.start()
+    if i and w[i] in 'ίύ' and w[i - 1] in 'αεου':
+        i -= 1
+    return w[:i].translate(PLAIN)
+
+
+def stress_moved(head, form):
+    """Has the accent left the syllable the headword stresses?  True when the letters before
+    the stressed vowel differ (άνθρωπος / ανθρώπου, σπίτι / σπιτιού, ώρα / ωρών).  An accented
+    final ί that becomes a glide before the ending's vowel has not moved the stress off its
+    syllable (παιδί / παιδιά, παιδιού), and a one-word form is compared with a one-word head."""
+    if ' ' in head or ' ' in form or '/' in form:
+        return False
+    a, b = _before_accent(head), _before_accent(form)
+    if a is None or b is None or a == b:
+        return False
+    h = nfc(head).lower()
+    if b == a + 'ι' and h[len(a):len(a) + 1] == 'ί':
+        return False
+    return True
+
+
 SUPS = re.compile(r'[\u00b9\u00b2\u00b3\u2070-\u209f]+')
 
 

@@ -22,17 +22,34 @@ WHAT A CARD CARRIES:
   · up to three Tatoeba sentences, the word picked out, with a speaker.
 
 The speaker reads the `Say` field: the noun with its article, else the word.
+
+THE BEGINNER PASS (2026-11-27, docs/lang-decks.md "The Greek beginner pass") added, all from
+the same Wiktionary entry and nothing typed:
+  · `IPA`, Wiktionary's own transcription under the romanisation, where it gives one -- the
+    romanisation is letter for letter (kai, eímai, ntomáta) and does not say the sound;
+  · the SIX PERSONS OF THE FORM AFTER θα AND να (φάω, φας, φάει ...: Wiktionary's "dependent"),
+    where the table had shown the first person of the future only -- a third of the words
+    A1's sentences put after θα or να were on no card;
+  · a table for a word DECLINED BY GENDER BUT NOT BY NUMBER (ένας / μια / ένα, τρεις / τρία,
+    κανένας / καμία / κανένα), which the gender table, wanting a singular, had skipped;
+  · the OTHER SPELLINGS of a word on its forms line (`extract.py`'s variants: στο = σε + το,
+    κι, δε, απ', πάω);
+  · "stress moves" beside a noun's genitive or plural whose accent has left the syllable the
+    headword stresses (άνθρωπος, ανθρώπου);
+  · a bracket of the English side that prints the card's own Greek (θέλω να φάω on να) is
+    wrapped in `.uc-eg`, which the type's CSS hides under "Say it in Greek": the English side
+    is the QUESTION of the second card.
 """
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from gr import fold, nfc, translit
+from gr import fold, nfc, translit, tokens, stress_moved
 from greek_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'greek'
 COLOR = '#6F69D2'
-FIELDS = ['Greek', 'Roman', 'Word', 'Say', 'English', 'Forms', 'Table', 'Examples']
+FIELDS = ['Greek', 'Roman', 'Word', 'Say', 'English', 'Forms', 'Table', 'Examples', 'IPA']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'pron': 'pronoun', 'det': 'determiner', 'prep': 'preposition',
@@ -48,7 +65,8 @@ ART_ROMAN = {'ο': 'o', 'η': 'i', 'το': 'to', 'ο/η': 'o/i', 'η/ο': 'i/o',
 
 SAY = '<span class="uc-tts uc-say" data-say="{{Say}}"></span>'
 WORD = ('<div class="uc-word">{{Greek}}' + SAY + '</div>'
-        '{{#Roman}}<div class="uc-rom">{{Roman}}</div>{{/Roman}}')
+        '{{#Roman}}<div class="uc-rom">{{Roman}}</div>{{/Roman}}'
+        '{{#IPA}}<div class="uc-ipa">{{IPA}}</div>{{/IPA}}')
 ASK = '<div class="uc-ask">Say it in Greek</div><div class="uc-field">{{English}}</div>'
 FORMS = '{{#Forms}}{{Forms}}{{/Forms}}'
 TAIL = ('{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
@@ -139,7 +157,27 @@ def entries_for(row, lex):
     return out[:3]
 
 
-def english(ents, word=''):
+OWN = re.compile(r'([Ͱ-Ͽἀ-῿]+(?: [Ͱ-Ͽἀ-῿]+)*)(\s*\([^()]*\))?|\([^()]*\)')
+
+
+def eg(text, own):
+    """The gloss as HTML, a piece that prints the card's own Greek wrapped in `.uc-eg`: a
+    bracket holding one of the card's forms, or a form standing in the gloss with the
+    romanisation Wiktionary puts after it."""
+    out, at = [], 0
+    for m in OWN.finditer(text):
+        if not any(fold(t) in own for t in tokens(m.group(0))):
+            continue
+        out.append(E(text[at:m.start()]))
+        out.append(f'<span class="uc-eg">{E(m.group(0).strip())}</span>')
+        if m.group(0) != m.group(0).rstrip():
+            out.append(' ')
+        at = m.end()
+    out.append(E(text[at:]))
+    return ''.join(out).replace(' <span class="uc-eg">', '<span class="uc-eg"> ')
+
+
+def english(ents, word='', own=()):
     parts, shown = [], set()
     for e in ents:
         label = POS_NAME.get(e['pos'], e['pos'])
@@ -173,8 +211,8 @@ def english(ents, word=''):
         if not gl or all(x in shown for x in gl):
             continue
         shown.update(gl)
-        body = (f'<div class="uc-gl">{E(gl[0])}</div>' if len(gl) == 1 else
-                '<ol class="uc-gls">' + ''.join(f'<li>{E(x)}</li>' for x in gl) + '</ol>')
+        body = (f'<div class="uc-gl">{eg(gl[0], own)}</div>' if len(gl) == 1 else
+                '<ol class="uc-gls">' + ''.join(f'<li>{eg(x, own)}</li>' for x in gl) + '</ol>')
         parts.append(f'<div class="uc-sense"><div class="uc-pos">{E(label)}</div>{body}</div>')
     return ''.join(parts)
 
@@ -216,34 +254,38 @@ def vcell(tb, *need, skip=()):
     return cell(tb, 'active', *need, skip=skip) or cell(tb, *need, skip=skip + ('active',))
 
 
-def fi(label, t):
+def fi(label, t, word=''):
     if not t:
         return ''
+    moved = '<span class="uc-fs">stress moves</span>' if word and stress_moved(word, t['f']) else ''
     return (f'<span class="uc-fi"><span class="uc-fl">{E(label)}</span>{E(t["f"])}'
-            f'<span class="uc-fr">{E(t["r"])}</span></span>')
+            f'<span class="uc-fr">{E(t["r"])}</span>{moved}</span>')
 
 
-def forms_line(e, word):
+def forms_line(e, word, variants=(), head=''):
+    """`head` is the spelling the table belongs to, where the card prints another (μέρα, whose
+    forms are ημέρα's): the stress is compared with that one."""
     tb = e['table']
-    if not tb:
-        return ''
     bits = []
-    if e['pos'] == 'noun':
+    head = head or word
+    if e['pos'] == 'noun' and tb:
         gs = cell(tb, 'genitive', 'singular')
         np_ = cell(tb, 'nominative', 'plural')
-        bits.append(fi('genitive', gs))
+        bits.append(fi('genitive', gs, head))
         if np_ and fold(np_['f']) != fold(word):
-            bits.append(fi('plural', np_))
-    elif e['pos'] == 'adj':
+            bits.append(fi('plural', np_, head))
+    elif e['pos'] == 'adj' and tb:
         fe = cell(tb, 'feminine', 'nominative', 'singular')
         ne = cell(tb, 'neuter', 'nominative', 'singular')
         if fe and fold(fe['f']) != fold(word):
             bits.append(fi('feminine', fe))
         if ne and fold(ne['f']) != fold(word):
             bits.append(fi('neuter', ne))
-    elif e['pos'] == 'verb':
+    elif e['pos'] == 'verb' and tb:
         bits.append(fi('past', vcell(tb, 'past', 'perfective', 'indicative', 'first-person', 'singular')))
         bits.append(fi('future', vcell(tb, 'future', 'perfective', 'first-person', 'singular')))
+    # the word's other spellings (`extract.py`'s variants), each under Wiktionary's own label
+    bits += [fi(v['l'], {'f': v['f'], 'r': translit(v['f'])}) for v in variants]
     bits = [b for b in bits if b]
     return f'<div class="uc-forms">{"".join(bits)}</div>' if bits else ''
 
@@ -282,7 +324,10 @@ def table_html(e):
             block('present', by_person(tb, ('present', 'imperfective', 'indicative'))),
             block('simple past', by_person(tb, ('past', 'perfective', 'indicative'))),
             block('imperfect (was …-ing)', by_person(tb, ('imperfect', 'imperfective', 'indicative'))),
-            block('future (θα + …)', by_person(tb, ('future', 'perfective'))),
+            # the form after θα and να, by person (Wiktionary's "dependent"); a verb whose table
+            # has none keeps the one future cell it had
+            block('after θα (will …) and να (to …)', by_person(tb, ('dependent',)))
+            or block('future (θα + …)', by_person(tb, ('future', 'perfective'))),
             block('imperative', [row('once, to one', vcells(tb, 'imperative', 'perfective', 'singular')),
                                  row('once, to many', vcells(tb, 'imperative', 'perfective', 'plural')),
                                  row('ongoing, to one', vcells(tb, 'imperative', 'imperfective', 'singular')),
@@ -294,9 +339,14 @@ def table_html(e):
     elif any({'masculine', 'feminine', 'neuter'} & set(t['t']) for t in tb):
         # an adjective, the article, a pronoun or a determiner declined by gender
         blocks = []
+        numbered = any({'singular', 'plural'} & set(t['t']) for t in tb)
         for g in ('masculine', 'feminine', 'neuter'):
-            rows = [row(f'{l}, sg.', cells(tb, c, g, 'singular')) for l, c in CASES[:3]] + \
-                   [row(f'{l}, pl.', cells(tb, c, g, 'plural')) for l, c in CASES[:3]]
+            if numbered:
+                rows = [row(f'{l}, sg.', cells(tb, c, g, 'singular')) for l, c in CASES[:3]] + \
+                       [row(f'{l}, pl.', cells(tb, c, g, 'plural')) for l, c in CASES[:3]]
+            else:
+                # ένας, τρεις, κανένας: Wiktionary's table has a gender and a case, no number
+                rows = [row(l, cells(tb, c, g)) for l, c in CASES[:3]]
             blocks.append(block(g, rows))
     else:
         return ''
@@ -343,18 +393,29 @@ def build(rows, lex, exs):
         art = ARTICLE.get(main['gender'], '') if main['pos'] == 'noun' else ''
         head = (f'<span class="uc-art">{E(art)}</span> ' if art else '') + E(word)
         ex = exs.get(r['key'], [])
+        L = lex[r['via']] if r.get('via') else lex[r['key']]
+        own = {fold(word)} | {fold(t) for c in main['table'] for t in tokens(c['f'])}
+        # the word's other spellings: never its own, and the lemma's where the card prints an
+        # alternative of it (μέρα, an alternative form of ημέρα, whose forms the card shows)
+        variants = [v for v in L.get('variants', ()) if fold(v['f']) != fold(word)]
+        if fold(L['word']) != fold(word):
+            variants.insert(0, {'f': L['word'], 'l': 'also'})
+        ipa = main.get('ipa') or next((e['ipa'] for e in ents if e.get('ipa')), '')
+        if fold(L['word']) != fold(word):         # the IPA of the spelling printed, or none
+            ipa = lex.get(r['key'], {}).get('ipa', '')
         cards.append({'sub': '', 'fields': {
             'Greek': head,
             'Roman': E((ART_ROMAN[art] + ' ' if art else '') + roman),
             'Word': word,
             'Say': (art.split('/')[0] + ' ' if art else '') + word,
-            'English': english(ents, word),
-            'Forms': forms_line(main, word),
+            'English': english(ents, word, own),
+            'Forms': forms_line(main, word, variants, L['word']),
             'Table': table_html(main),
             'Examples': examples_html(ex),
+            'IPA': E(ipa),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'ipa': bool(ipa)})
     return cards, entries
 
 
@@ -364,6 +425,7 @@ def desc(entries, n):
     ex0 = sum(1 for e in entries if e['examples'] == 0)
     nouns = sum(1 for e in entries if e['pos'] == 'noun')
     verbs = sum(1 for e in entries if e['pos'] == 'verb')
+    ipa = sum(1 for e in entries if e.get('ipa'))
     SC = SCOPE[LEVEL]
     EX_NOTE = ('Every word carries three real example sentences' if ex3 == n else
                f'Real example sentences come with {n - ex0} of the {n} words, three apiece for '
@@ -388,12 +450,21 @@ def desc(entries, n):
         "the words you meet most often come first. "
         "Every headword has a romanisation beneath it, Wiktionary's own (spíti, tróo, the accent "
         "kept), so the deck can be studied before the alphabet is fluent; the Greek Alphabet deck, "
-        f"the first in this collection, teaches the letters themselves. The {nouns} nouns are "
+        "the first in this collection, teaches the letters themselves. That romanisation follows "
+        "the SPELLING letter for letter, not the sound — και is kai and is said \"ke\", είμαι is "
+        "eímai and is said \"íme\", ντομάτα is ntomáta and begins with a d — so beneath it, on "
+        f"{ipa} of the {n} cards, stands the pronunciation in the International Phonetic Alphabet "
+        "as Wiktionary gives it (/ce/, /ˈi.me/), whose symbols the alphabet deck explains; where "
+        f"Wiktionary gives none the card shows none. The {nouns} nouns are "
         "printed with their article — ο, η or το — because the article is the gender, which every "
         "adjective, article and pronoun agrees with, and they show their genitive and plural; the "
         f"{verbs} verbs show their simple past and future, where a Greek verb often changes stem "
-        "(τρώω, έφαγα, θα φάω), and behind the All forms fold their present, simple past, "
-        "imperfect, future and imperative by person. "
+        "(τρώω, έφαγα, θα φάω), and behind the All forms fold their present, simple past and "
+        "imperfect by person, the six forms that follow θα and να (φάω, φας, φάει: θα φας is "
+        "\"you will eat\", θέλω να φάω \"I want to eat\") and the imperative. A genitive or a "
+        "plural whose accent has left the headword's syllable says so (\"stress moves\"), and a "
+        "word's other spellings stand on the same line: the preposition joined to the article "
+        "(στο is σε + το), the short form before a vowel (κι, απ', γι'), δε beside δεν. "
         + EX_NOTE + ", with the word picked out in colour and a speaker beside the sentence and the "
         "headword. Sources. Level: the Common European Framework of Reference (Council of Europe), "
         "global scale. Meanings, gender, forms and romanisation: English Wiktionary, via the "
