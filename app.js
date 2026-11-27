@@ -38847,9 +38847,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            silently, since a card with no atlas window is the ordinary case and returns early too. */
         cardAtlasDiscover(cardLocatorFront(c) ? cardRoot : inner, c);
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
-           only: a type that marks several runs is asking for a control on each, not for a recital. */
+           only: a type that marks several runs is asking for a control on each, not for a recital.
+           An EXAMPLE sentence's speaker (`.uc-exsay`) is never the one: a vocabulary card whose headword
+           has no speaker of its own stays silent rather than reading out its first example (Nov 2026). */
         if (fromReader && autoSpeakOn) {
-          const say = inner.querySelector(".uc-tts");
+          const say = inner.querySelector(".uc-tts:not(.uc-exsay)");
           if (say) cardSpeak(say);
         }
         const bgHead = inner.querySelector(".bg-head");
