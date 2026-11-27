@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1429", released: "2026-11-27T21:26Z" };
+window.FOLIO_VERSION = { v: "1.1430", released: "2026-11-27T21:48Z" };
 
 window.CHANGELOG = [
   {
@@ -52,7 +52,7 @@ window.CHANGELOG = [
       "The Library can be sorted by <b>popularity</b>, and its date order files a work written over centuries at its earliest year.",
       "<b>About 4,000 slips of the scan or the press are corrected across 87 Library texts</b>, and each corrected text says how many on its About page.",
       "Library texts share one set of curled quotation marks, chapter titles in title case and true dashes, whatever their transcription used.",
-      "A Library text no longer links a name to a glossary term dated after the book, nor an ancient land to today's country of that name.",
+      "<b>About 8,500 wrong glossary links are gone from the Library</b>: a namesake, a term dated after the book, an ancient land's modern country.",
       "Marco Polo's Contents lists all 235 chapters, and the Confessions and the City of God head each Book with its own part.",
       "<b>Old English Level 1</b> now shows sē's whole table, bēon's present and Ælfric's own sentences with their page; the alphabet deck cites its sounds and gains <b>eight reading rules</b>.",
       "Swahili gains a <b>Sounds and spelling</b> deck; <b>Swahili A1</b> now opens with hujambo, every verb shows its tenses and every agreeing word five noun classes.",

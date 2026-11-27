@@ -155,14 +155,35 @@ function applyEmend(id, chapters, table) {
   }
   return out;
 }
+/* ---------- the glossary keys a book must not link ----------
+   `.claude/book-gloss-off.json`, `{ never: [key…], books: { "<id>": { off: [[key, why]…], offIn: [[key, [chapters], why]…] } } }`
+   — the reviewed result of sweeping every link the reader draws (.claude/book-gloss-sweep.js, Nov 2026).
+   It is written into the book's OWN lazy file (`glossOff` / `glossOffIn` beside `emended`), not into
+   app.js's eager registry: 2,000 keys nobody needs until a book is open do not belong on the boot path.
+   The registry rows keep their hand lists; the reader adds the two together (`bookGlossOff`).
+   There is deliberately NO shelf-wide list: a key wrong in every old book ("Stratum", "Cell", "Amazon
+   River" from a capitalised common word) is right in the next book of geology. The sweep instead
+   prints a key that is off in three other books under its own heading when a new book draws it. */
+const GLOSS_TABLE = path.join(__dirname, "book-gloss-off.json");
+function loadGlossOff() { try { return JSON.parse(fs.readFileSync(GLOSS_TABLE, "utf8")); } catch (e) { return { books: {} }; } }
+/* the lines that follow `id:` in a book's file, in the one order both writers use */
+function fileFields(id, emended, glossTable) {
+  const g = ((glossTable || loadGlossOff()).books || {})[id] || {};
+  const out = [];
+  if (emended) out.push("  emended: " + emended + ",");
+  if (g.off && g.off.length) out.push("  glossOff: " + JSON.stringify(g.off.map((r) => r[0])) + ",");
+  if (g.offIn && g.offIn.length) { const o = {}; g.offIn.forEach((r) => { o[r[0]] = r[1]; }); out.push("  glossOffIn: " + JSON.stringify(o) + ","); }
+  return out;
+}
 /* What fetch-book.js calls from `writeEnglish`, on the finished chapters, just before it serialises. */
 function finish(id, chapters, opts) {
   const em = applyEmend(id, chapters);
   const hf = (opts && opts.keepForm) ? { titles: 0, dashes: 0 } : houseForm(chapters);
-  return { emend: em, form: hf, emended: em.fired + em.applied };
+  const emended = em.fired + em.applied;
+  return { emend: em, form: hf, emended, fields: fileFields(id, emended) };
 }
 
-module.exports = { esc, chapterLine, houseTitle, houseDashes, houseForm, titleCase, applyEmend, finish, loadTable };
+module.exports = { esc, chapterLine, houseTitle, houseDashes, houseForm, titleCase, applyEmend, finish, loadTable, loadGlossOff, fileFields };
 
 /* ---------- the tool ---------- */
 if (require.main === module) {
@@ -197,20 +218,18 @@ if (require.main === module) {
     for (const b of res.emend.bad) { bad++; console.log(id + " ch" + b.row.ch + " " + (b.row.in || "text") + ": " + JSON.stringify(b.row.from) + " → " + JSON.stringify(b.row.to) + "\n      " + b.why); }
     const after = chapters.map(chapterLine);
     const diff = after.filter((l, k) => l !== before[k]).length;
+    /* the file-level fields: whatever stands between `id:` and `intro:` / `chapters:` is this tool's */
     const idLine = lines.findIndex((l) => l === '  id: "' + id + '",');
-    const emLine = lines.findIndex((l) => /^  emended: \d+,$/.test(l));
-    const want = res.emended ? "  emended: " + res.emended + "," : null;
-    const have = emLine >= 0 ? lines[emLine] : null;
+    let endF = idLine + 1; while (/^  (?:emended|glossOff|glossOffIn): /.test(lines[endF])) endF++;
+    const have = lines.slice(idLine + 1, endF).join("\n"), want = res.fields.join("\n");
     if (CHECK) {
       if (diff) { bad++; console.log(id + ": " + diff + " chapter(s) are not in the form this tool writes (" + res.emend.fired + " row(s) not yet applied, " + res.form.titles + " title(s), " + res.form.dashes + " `--`) — run: node .claude/book-emend.js --apply " + id); }
-      if (want !== have) { bad++; console.log(id + ": the file says " + (have || "no `emended`") + " and the table gives " + (want || "none")); }
+      if (want !== have) { bad++; console.log(id + ": its `emended` / `glossOff` / `glossOffIn` lines are not what the two tables give — run: node .claude/book-emend.js --apply " + id); }
       continue;
     }
     if (!diff && want === have) continue;
     after.forEach((l, k) => { lines[idx[k]] = l; });
-    if (want && emLine >= 0) lines[emLine] = want;
-    else if (want) lines.splice(idLine + 1, 0, want);
-    else if (emLine >= 0) lines.splice(emLine, 1);
+    lines.splice(idLine + 1, endF - idLine - 1, ...res.fields);
     fs.writeFileSync(file, lines.join("\n"));
     changed++;
     console.log(id + ": " + res.emend.fired + " emendation(s) applied now, " + res.emend.applied + " already in; " + res.form.titles + " title(s) and " + res.form.dashes + " dash(es) put in the house form; " + diff + " chapter line(s) rewritten.");

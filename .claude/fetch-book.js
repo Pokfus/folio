@@ -42899,8 +42899,9 @@ function writeEnglish(chapters, warnings) {
   lines.push("window.FOLIO_BOOKS_IN = window.FOLIO_BOOKS_IN || [];");
   lines.push("window.FOLIO_BOOKS_IN.push({");
   lines.push('  id: "' + id + '",');
-  // how many audit emendations this text carries; the reader's About page says so (bookIntroChapter)
-  if (EMEND.emended) lines.push("  emended: " + EMEND.emended + ",");
+  // `emended: N` (the reader's About page says so) and the glossary keys this book must not link
+  // (`glossOff` / `glossOffIn`, from .claude/book-gloss-off.json) — book-emend.js owns all three lines
+  EMEND.fields.forEach((l) => lines.push(l));
   /* The front matter, as ONE html string in the same shape a chapter's is — so the reader page can
      treat it as a chapter and needs no second renderer for it. Written before `chapters` because it
      reads first. */
@@ -44069,6 +44070,18 @@ function writeOriginal(byNum, warnings) {
 async function main() {
   if (!SKIP_EN) await fetchEnglish();
   if (BOOK.original && !SKIP_ORIG) await fetchOriginal();
+  /* EVERY CHECK THE LIBRARY AUDIT ASKS OF A BOOK, RUN ON THE ONE JUST WRITTEN (Nov 2026, on request:
+     "whenever a new book is added, ensure all these checks and processes are applied automatically and
+     immediately upon addition"). .claude/book-checks.js is the command; its report is the last thing on
+     the screen and a failed GATE fails this run. The emendations and the house form are not in it —
+     they are already in the file, applied at the write above. `--no-checks` skips this (a batch
+     re-import of a book that has not changed); `--fast-checks` skips its two slow steps. */
+  if (!process.argv.includes("--no-checks")) {
+    const r = require("child_process").spawnSync(process.execPath,
+      [path.join(__dirname, "book-checks.js"), id].concat(process.argv.includes("--fast-checks") ? ["--fast"] : []),
+      { stdio: "inherit", cwd: ROOT, env: process.env });
+    if (r.status) process.exitCode = 1;
+  }
 }
 
 main().catch((e) => { console.error("\n" + e.message); process.exit(1); });

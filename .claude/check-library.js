@@ -188,7 +188,7 @@ if (!ONLY && GLOSS) {
     const have = new Set((app.slice(m0, m1).match(/"((?:[^"\\]|\\.)+)"/g) || []).map((x) => JSON.parse(x)));
     let names = [];
     try { const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "country-names.js"), "utf8"))(w); names = w.ATLAS_COUNTRIES.countries.map((c) => c[0]); } catch (e) { fail("", "atlas/data/country-names.js does not load: " + e.message); }
-    const EXTRA = ["United_States", "Czech_Republic", "Serbia", "Tanzania", "Cape_Verde", "Vatican_City", "Hong_Kong", "Macau"], NOT = new Set(["Antarctica"]);
+    const EXTRA = ["United_States", "Czech_Republic", "Serbia", "Tanzania", "Cape_Verde", "Vatican_City", "Hong_Kong", "Macau", "State_of_Palestine"], NOT = new Set(["Antarctica"]);
     const want = new Set(EXTRA.filter((k) => k in GLOSS));
     for (const n of names) { const k = n.replace(/ /g, "_"); const hit = [k, "The_" + k, k + "_(country)"].find((x) => x in GLOSS); if (hit && !NOT.has(hit)) want.add(hit); }
     const missing = [...want].filter((k) => !have.has(k)), stale = [...have].filter((k) => !want.has(k));

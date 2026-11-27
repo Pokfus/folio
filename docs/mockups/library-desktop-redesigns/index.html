@@ -1,0 +1,1093 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Folio Library Redesigns</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
+<style>
+/* Layout: six alternative desktop pages for one shelf of 101 texts, sharing one state; a dark strip fixed
+   to the bottom edge is the mockup's own switcher and is not part of any design. */
+:root{
+  --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF; --ink:#1D1B29; --ink-soft:#514D68; --ink-quiet:#69657E;
+  --ink-faint:#918CA8; --rule:#DEDAEE; --indigo:#45549C; --indigo-bright:#5263B0; --indigo-wash:#E9ECFA;
+  --ochre:#9A7C55; --zh:#AE3350; --good:#4E9B7E;
+  --bg-grad:linear-gradient(135deg,#F4F0FB 0%,#EAF3FB 22%,#EFF8F2 44%,#FBF3F7 68%,#F2EFFC 100%);
+  --glass:rgba(247,246,251,.9); --lift:0 1px 2px rgba(29,27,41,.04),0 8px 24px rgba(29,27,41,.07);
+  --pop:0 2px 6px rgba(29,27,41,.08),0 18px 44px rgba(29,27,41,.16);
+  --bk-mix:100%; --bk-fill:100%;   /* how much of a book's own colour survives as text, and as a spine or a mark */
+  --cover-edge:rgba(29,27,41,0); --cover-ink:#FFFFFF; --wash:7%;
+  --chrome:#1D1B29; --chrome-2:#2C2940; --chrome-ink:#F3F1FC; --chrome-quiet:#ABA6C6; --chrome-rule:#3D395A;
+  --chrome-on:#F3F1FC; --chrome-on-ink:#1D1B29;
+  --f-sans:"Nunito Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-serif:"Lora",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --gut:32px; --bar-h:58px; --top:env(safe-area-inset-top,0px);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C; --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-quiet:#9A95B6;
+  --ink-faint:#827CA0; --rule:#302C48; --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A;
+  --ochre:#C3A47A; --zh:#EFA8B8; --good:#75C6A4;
+  --bg-grad:linear-gradient(135deg,#181630 0%,#101C2A 24%,#0F1F1E 48%,#23142A 72%,#14122A 100%);
+  --glass:rgba(19,18,32,.9); --lift:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+  --pop:0 2px 6px rgba(0,0,0,.4),0 18px 44px rgba(0,0,0,.5);
+  --bk-mix:50%; --bk-fill:66%; --cover-edge:rgba(255,255,255,.16); --cover-ink:#FFFFFF; --wash:13%;
+  --chrome:#2A2742; --chrome-2:#3A3658; --chrome-ink:#F3F1FC; --chrome-quiet:#B4AFD0; --chrome-rule:#4A4570;
+  --chrome-on:#F3F1FC; --chrome-on-ink:#1D1B29; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C; --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-quiet:#9A95B6;
+  --ink-faint:#827CA0; --rule:#302C48; --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A;
+  --ochre:#C3A47A; --zh:#EFA8B8; --good:#75C6A4;
+  --bg-grad:linear-gradient(135deg,#181630 0%,#101C2A 24%,#0F1F1E 48%,#23142A 72%,#14122A 100%);
+  --glass:rgba(19,18,32,.9); --lift:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+  --pop:0 2px 6px rgba(0,0,0,.4),0 18px 44px rgba(0,0,0,.5);
+  --bk-mix:50%; --bk-fill:66%; --cover-edge:rgba(255,255,255,.16); --cover-ink:#FFFFFF; --wash:13%;
+  --chrome:#2A2742; --chrome-2:#3A3658; --chrome-ink:#F3F1FC; --chrome-quiet:#B4AFD0; --chrome-rule:#4A4570;
+  --chrome-on:#F3F1FC; --chrome-on-ink:#1D1B29; color-scheme:dark }
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:15px/1.5 var(--f-sans);color:var(--ink);background-color:var(--paper);background-image:var(--bg-grad);
+  background-attachment:fixed;min-height:100vh;padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom,0px));overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:var(--top);z-index:10;background:var(--paper)}
+h1,h2,h3,p,dl,dd,ul{margin:0;padding:0}
+ul{list-style:none}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--indigo-bright);outline-offset:2px;border-radius:6px}
+svg.ic{flex:none;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mono{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:10.5px}
+.bk{--bkt:color-mix(in srgb,var(--bk) var(--bk-mix),white);--bkf:color-mix(in srgb,var(--bk) var(--bk-fill),white)}
+.wrap{padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
+.mid{max-width:1376px;margin-inline:auto}
+
+/* ── the site's own bar, static ─────────────────────────────────────────── */
+.site{border-bottom:1px solid var(--rule);background:color-mix(in srgb,var(--card) 55%,transparent)}
+.site-in{display:flex;align-items:center;gap:36px;height:60px}
+.brand{line-height:1}
+.brand b{font:800 23px/1 var(--f-sans);letter-spacing:-.02em;color:var(--ink)}
+.brand b i{font-style:normal;color:var(--zh)}
+.brand span{display:block;margin-top:5px;font:400 9.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet)}
+.site nav{display:flex;gap:30px;align-items:center}
+.site nav.r{margin-left:auto}
+.site nav a{display:flex;gap:8px;align-items:center;font:500 12px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);text-decoration:none;padding:8px 0;border-bottom:1.5px solid transparent}
+.site nav a.on{color:var(--indigo);border-bottom-color:var(--indigo)}
+
+/* ── page head ──────────────────────────────────────────────────────────── */
+.eyebrow{font:500 11.5px/1 var(--f-mono);letter-spacing:.24em;text-transform:uppercase;color:var(--indigo)}
+.ph h1{font:700 44px/1.05 var(--f-sans);letter-spacing:-.015em;margin-top:14px}
+.ph .lede{font:400 17.5px/1.45 var(--f-serif);color:var(--ink-soft);margin-top:14px;max-width:38em}
+.ph .lede::after{content:"";display:block;width:150px;height:2px;margin-top:16px;border-radius:2px;
+  background:linear-gradient(90deg,var(--indigo-bright),transparent)}
+.ph.slim{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
+.ph.slim h1{font-size:32px;margin-top:8px}
+.ph.slim .lede{font-size:15.5px;margin:0 0 3px;flex:1 1 300px;min-width:0}
+.ph.slim .lede::after{display:none}
+.headrow{display:flex;align-items:flex-end;justify-content:space-between;gap:24px 40px;flex-wrap:wrap}
+
+/* ── toolbar ────────────────────────────────────────────────────────────── */
+.tb{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative}
+.tb .search{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;flex:1 1 220px;min-width:160px;max-width:420px;
+  background:var(--card);border:1px solid var(--rule);border-radius:12px;color:var(--ink-quiet)}
+.tb .search:focus-within{border-color:var(--indigo-bright);box-shadow:0 0 0 3px color-mix(in srgb,var(--indigo-bright) 18%,transparent)}
+.tb input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:15px;color:var(--ink)}
+.tb input::placeholder{color:var(--ink-quiet)}
+.tb input::-webkit-search-cancel-button{display:none}
+.tb .count{font:400 12.5px/1 var(--f-mono);color:var(--ink-quiet);white-space:nowrap;min-width:9.2em}
+.tb .lbl{font:500 10.5px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-quiet)}
+.tb select,.tb .dir,.tb .help{height:40px;border:1px solid var(--rule);border-radius:12px;background:var(--card)}
+.tb select{padding:0 30px 0 12px;font-size:14.5px;appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-quiet) 50%),linear-gradient(135deg,var(--ink-quiet) 50%,transparent 50%);
+  background-position:calc(100% - 16px) 17px,calc(100% - 11px) 17px;background-size:5px 5px;background-repeat:no-repeat}
+.tb .dir{display:flex;align-items:center;gap:8px;padding:0 13px;font:400 12px/1 var(--f-mono);color:var(--ink-soft);white-space:nowrap}
+.tb .help{width:40px;font:600 17px/1 var(--f-sans);color:var(--ink-soft)}
+.tb select:hover,.tb .dir:hover,.tb .help:hover{border-color:var(--ink-faint)}
+.helpbox{position:absolute;right:0;top:48px;z-index:40;width:min(360px,calc(100vw - 32px));padding:16px 18px;background:var(--card);
+  border:1px solid var(--rule);border-radius:16px;box-shadow:var(--pop);font:400 14.5px/1.55 var(--f-serif);color:var(--ink-soft)}
+.helpbox b{font:700 14px var(--f-sans);color:var(--ink);display:block;margin-bottom:6px}
+.helpbox p+p{margin-top:8px}
+
+/* ── shared pieces ──────────────────────────────────────────────────────── */
+.au{font:600 10.5px/1.35 var(--f-mono);letter-spacing:.15em;text-transform:uppercase;color:var(--bkt)}
+.wr{font:italic 400 13.5px/1.35 var(--f-serif);color:var(--ink-soft)}
+.meta{font:400 10.5px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-quiet)}
+.orig{display:inline-block;font:600 11px/1 var(--f-sans);padding:4px 9px 4px;border-radius:999px;white-space:nowrap;color:var(--ink-soft);
+  border:1px solid color-mix(in srgb,var(--bkt) 50%,transparent);background:color-mix(in srgb,var(--bkt) 9%,var(--card))}
+.st{font:600 13px/1.3 var(--f-sans);white-space:nowrap}
+.st-new{color:var(--ink-soft)}
+.st-on{color:var(--indigo)}
+.st-done{color:var(--good);display:inline-flex;gap:5px;align-items:center}
+.pg{display:block;height:4px;border-radius:4px;background:var(--rule);overflow:hidden}
+.pg i{display:block;height:100%;border-radius:4px;background:var(--bkf)}
+.pg.done i{background:var(--good)}
+.sb{width:28px;height:28px;border-radius:8px;display:inline-grid;place-items:center;color:var(--ink-faint);flex:none}
+.sb:hover{color:var(--ochre);background:color-mix(in srgb,var(--ochre) 12%,transparent)}
+.sb.on{color:var(--ochre)}
+.sb.on svg{fill:currentColor}
+.sb.shy{opacity:0}
+.bk:hover .sb.shy,.bk:focus-within .sb.shy,.sb.shy.on,.sb.shy:focus-visible{opacity:1}
+@media (hover:none){.sb.shy{opacity:1}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 20px;border-radius:999px;
+  font:700 14.5px/1 var(--f-sans);background:var(--indigo);color:var(--card);white-space:nowrap}
+.btn:hover{background:var(--indigo-bright)}
+.btn.sm{height:32px;padding:0 14px;font-size:13px}
+.btn.line{background:none;color:var(--indigo);border:1px solid color-mix(in srgb,var(--indigo) 45%,transparent)}
+.btn.line:hover{background:var(--indigo-wash)}
+.tbtn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:9px;font:600 13px/1 var(--f-sans);color:var(--ink-soft)}
+.tbtn:hover{background:var(--paper-2);color:var(--ink)}
+.tbtn.on{color:var(--ochre)} .tbtn.on svg{fill:currentColor}
+.grp-h{display:flex;align-items:center;gap:12px;font:500 11px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet)}
+.grp-h::after{content:"";flex:1;height:1px;background:var(--rule)}
+.grp-h em{font-style:normal;letter-spacing:.08em;color:var(--ink-faint)}
+.none{padding:56px 20px;text-align:center;font:400 17px/1.5 var(--f-serif);color:var(--ink-soft)}
+.none button{color:var(--indigo);text-decoration:underline;text-underline-offset:3px}
+.is-sel{--sel:1}
+.menu{position:fixed;z-index:90;min-width:190px;padding:6px;background:var(--card);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--pop)}
+.menu b{display:block;padding:8px 10px 6px;font:700 13px/1.25 var(--f-sans);max-width:240px}
+.menu button{display:flex;width:100%;gap:10px;align-items:center;padding:9px 10px;border-radius:9px;font:600 14px/1 var(--f-sans);color:var(--ink-soft);text-align:left}
+.menu button:hover,.menu button:focus-visible{background:var(--indigo-wash);color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(var(--bar-h) + 18px);transform:translateX(-50%);z-index:95;max-width:min(560px,calc(100vw - 32px));
+  padding:11px 18px;border-radius:999px;background:var(--ink);color:var(--paper);font:600 13.5px/1.35 var(--f-sans);box-shadow:var(--pop);text-align:center}
+.tip{position:fixed;z-index:80;pointer-events:none;padding:8px 11px;border-radius:10px;background:var(--ink);color:var(--paper);
+  font:600 12.5px/1.3 var(--f-sans);max-width:280px;box-shadow:var(--pop)}
+.tip small{display:block;margin-top:2px;font:italic 400 12px/1.3 var(--f-serif);opacity:.85}
+
+/* ── 1 · Reading room ───────────────────────────────────────────────────── */
+.d1{display:grid;grid-template-columns:232px minmax(0,1fr) 384px;gap:32px;padding-block:30px 48px;align-items:start}
+.d1-rail,.d1-det{position:sticky;top:calc(var(--top) + 18px);max-height:calc(100vh - var(--bar-h) - 36px);overflow:auto;scrollbar-width:thin}
+.d1-rail{padding-right:6px}
+.d1-rail h2{display:flex;justify-content:space-between;align-items:center;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-quiet);padding:16px 0 8px;border-top:1px solid var(--rule);margin-top:12px}
+.d1-rail section:first-of-type h2{border-top:0;margin-top:0;padding-top:4px}
+.d1-rail .clr{font:600 12px/1 var(--f-sans);letter-spacing:0;text-transform:none;color:var(--indigo)}
+.fo{display:flex;width:100%;align-items:center;gap:9px;padding:4.5px 6px;margin-left:-6px;border-radius:8px;font:400 13.5px/1.3 var(--f-sans);color:var(--ink-soft);text-align:left}
+.fo:hover{background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--ink)}
+.fo i{flex:none;width:14px;height:14px;border-radius:4px;border:1.5px solid var(--ink-faint);display:grid;place-items:center;color:var(--card)}
+.fo span{flex:1;min-width:0}
+.fo em{font:400 11px/1 var(--f-mono);color:var(--ink-quiet);font-style:normal}
+.fo.on{color:var(--ink);font-weight:700}
+.fo.on i{background:var(--indigo);border-color:var(--indigo)}
+.fo.zero{opacity:.45}
+.d1-main .ph{margin-bottom:22px}
+.d1-main .tb{margin-bottom:14px;flex-wrap:nowrap}
+.d1-main .tb .lbl{display:none}
+.d1-main .tb .count{min-width:0}
+.d1-main .tb .search{flex:1 1 120px;min-width:110px}
+.d1-list{background:var(--card);border:1px solid var(--rule);border-radius:18px;overflow:hidden}
+.d1-gh{padding:9px 18px;background:color-mix(in srgb,var(--paper-2) 55%,var(--card));border-bottom:1px solid var(--rule);
+  font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet)}
+.r1+.d1-gh{border-top:1px solid var(--rule)}
+.r1{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto 28px;gap:4px 16px;align-items:center;padding:11px 10px 11px 20px;cursor:pointer}
+.r1+.r1{border-top:1px solid var(--rule)}
+.r1::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:var(--bkf)}
+.r1:hover{background:color-mix(in srgb,var(--paper) 70%,var(--card))}
+.r1.is-sel{background:var(--indigo-wash)}
+.r1.is-sel::before{top:0;bottom:0;width:5px;border-radius:0}
+.r1-t{font:700 15.5px/1.3 var(--f-sans);letter-spacing:-.005em}
+.r1-s{display:flex;gap:4px 10px;align-items:baseline;flex-wrap:wrap;margin-top:3px}
+.r1-b{text-align:right;display:grid;gap:5px;justify-items:end}
+.r1-m{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.r1-on{display:flex;gap:9px;align-items:center}
+.r1-on .pg{width:52px}
+.d1-det{background:var(--card);border:1px solid var(--rule);border-radius:20px;box-shadow:var(--lift)}
+.det-top{padding:22px 24px 20px;border-top:6px solid var(--bkf);border-radius:20px 20px 0 0;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bkt) var(--wash),var(--card)),var(--card))}
+.det-top .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.det-top .au{font-size:11px;padding-top:8px}
+.det-top h2{font:700 27px/1.14 var(--f-sans);letter-spacing:-.012em;margin-top:10px;text-wrap:balance}
+.det-top .sub{font:italic 400 15px/1.4 var(--f-serif);color:var(--ink-soft);margin-top:8px}
+.det-facts{padding:4px 24px 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 18px}
+.det-facts dt,.det-facts dd{padding:9px 0;border-top:1px solid var(--rule)}
+.det-facts dt{font:500 10.5px/1.6 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-quiet)}
+.det-facts dd{font:400 14.5px/1.4 var(--f-sans);color:var(--ink)}
+.det-facts dd.s{font-family:var(--f-serif);font-style:italic}
+.det-place{margin:6px 24px 0;padding:16px 0 0;border-top:1px solid var(--rule)}
+.det-place .l{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}
+.det-place .l small{font:italic 400 13px/1 var(--f-serif);color:var(--ink-quiet)}
+.det-place .pg{height:6px}
+.det-go{padding:18px 24px 20px;display:grid;gap:10px}
+.det-go .btn{height:48px;font-size:15.5px;background:var(--bkt);color:var(--card)}
+.det-go .btn:hover{filter:brightness(1.1)}
+.det-go .hint{font:400 11px/1.5 var(--f-mono);color:var(--ink-quiet);text-align:center}
+
+/* ── 2 · Stacks ─────────────────────────────────────────────────────────── */
+.d2{padding-block:34px 56px;--cols:7;--gap:22px}
+.d2-band{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:var(--gap);margin-top:30px}
+.d2-zone{display:flex;flex-direction:column;gap:14px;grid-column:1/-1;min-width:0}
+.d2-cont{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);flex:1}
+.d2-wall{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:26px var(--gap)}
+.d2-band.both .d2-zone.c{grid-column:span 4}
+.d2-band.both .d2-zone.f{grid-column:span 3}
+.d2-band.both .d2-cont{grid-template-columns:1fr 1fr}
+.d2-band.both .d2-wall{grid-template-columns:repeat(3,minmax(0,1fr))}
+.c2{display:grid;grid-template-columns:104px minmax(0,1fr);background:var(--card);border:1px solid var(--rule);border-radius:16px;overflow:hidden;cursor:pointer;min-height:132px}
+.c2:hover{box-shadow:var(--lift)}
+.c2.is-sel{border-color:var(--indigo-bright)}
+.c2-n{background:var(--bk);color:var(--cover-ink);padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 0 1px var(--cover-edge)}
+.c2-n b{font:800 32px/1 var(--f-sans);letter-spacing:-.02em}
+.c2-n b small{font:700 15px/1 var(--f-sans);margin-left:1px;opacity:.85}
+.c2-n span{font:500 10px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.c2-b{padding:14px 16px 13px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.c2-b h3{font:700 16.5px/1.22 var(--f-sans);letter-spacing:-.005em}
+.c2-b .f{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.c2-b .f small{font:italic 400 12.5px/1.2 var(--f-serif);color:var(--ink-quiet)}
+.d2-else{margin-top:40px}
+.d2-sec{margin-top:6px}
+.d2-sh{position:sticky;top:var(--top);z-index:6;display:flex;align-items:baseline;gap:14px;padding:14px 0 12px;margin-bottom:6px;
+  background:var(--paper);border-bottom:1px solid var(--rule)}
+.d2-sh h2{font:700 19px/1.1 var(--f-sans);letter-spacing:-.008em}
+.d2-sh span{font:400 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-quiet)}
+.d2-sh span.s{font:italic 400 13.5px/1 var(--f-serif);letter-spacing:0;text-transform:none;margin-left:auto}
+.d2-sec .d2-wall{padding:14px 0 24px}
+.cv{min-width:0;cursor:pointer;outline-offset:4px}
+.cv-face{position:relative;aspect-ratio:2/3;border-radius:5px 9px 9px 5px;background:var(--bk);color:var(--cover-ink);overflow:hidden;
+  padding:16px 14px 13px 22px;display:flex;flex-direction:column;
+  box-shadow:inset 0 0 0 1px var(--cover-edge),0 1px 2px rgba(29,27,41,.16),0 6px 14px rgba(29,27,41,.12);transition:transform .18s ease,box-shadow .18s ease}
+.cv-face::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(0,0,0,.06));border-right:1px solid rgba(255,255,255,.2)}
+.cv:hover .cv-face,.cv:focus-within .cv-face{transform:translateY(-4px);box-shadow:inset 0 0 0 1px var(--cover-edge),0 2px 4px rgba(29,27,41,.18),0 16px 28px rgba(29,27,41,.2)}
+.cv.is-sel .cv-face{outline:2px solid var(--indigo-bright);outline-offset:3px}
+.cv-au{font:500 9.5px/1.45 var(--f-mono);letter-spacing:.15em;text-transform:uppercase;opacity:.9;padding-right:18px}
+.cv-rule{display:block;width:22px;height:2px;background:currentColor;opacity:.55;margin:11px 0 12px;flex:none}
+.cv-t{font:700 19px/1.13 var(--f-sans);letter-spacing:-.012em;text-wrap:balance;overflow-wrap:break-word;hyphens:auto}
+.cv-t.s1{font-size:23px;line-height:1.08} .cv-t.s3{font-size:16.5px} .cv-t.s4{font-size:14.5px;line-height:1.18}
+.cv-sub{font:italic 400 11.5px/1.35 var(--f-serif);opacity:.86;margin-top:9px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cv-base{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.cv-or{font:600 9.5px/1 var(--f-sans);padding:4px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.5);white-space:nowrap}
+.cv-wr{font:italic 400 12.5px/1.3 var(--f-serif);opacity:.95}
+.cv-star{position:absolute;top:10px;right:9px;color:var(--cover-ink)}
+.cv-star svg{fill:currentColor}
+.cv-sheet{position:absolute;left:9px;right:0;bottom:0;padding:12px 12px 12px;background:var(--card);color:var(--ink);border-radius:12px 12px 0 0;
+  display:grid;gap:9px;transform:translateY(102%);transition:transform .2s ease;box-shadow:0 -6px 18px rgba(0,0,0,.18)}
+.cv:hover .cv-sheet,.cv:focus-within .cv-sheet{transform:none}
+.cv-sheet p{font:italic 400 12px/1.35 var(--f-serif);color:var(--ink-soft)}
+.cv-sheet .btn{height:34px;font-size:13px;padding:0 10px}
+.cv-sheet .acts{display:flex;justify-content:space-between;margin:-3px -4px -5px}
+.cv-sheet .tbtn{height:28px;font-size:12px;padding:0 6px}
+.cv-pg{height:3px;border-radius:3px;margin:9px 0 0;background:var(--rule);overflow:hidden}
+.cv-pg.no{background:none}
+.cv-pg i{display:block;height:100%;background:var(--bkf)}
+.cv-pg.done i{background:var(--good)}
+.cv-foot{padding-top:8px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 8px;align-items:baseline}
+.cv-foot .meta:first-child{grid-column:1/-1}
+.cv-foot .st{font-size:12.5px}
+
+/* ── 3 · Time river ─────────────────────────────────────────────────────── */
+.d3{padding-block:22px 56px}
+.rv{margin-top:18px;background:var(--card);border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+.rv-head{display:flex;align-items:center;gap:16px;padding:9px 18px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.rv-head .t{font:500 11px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.rv-head .n{font:italic 400 13.5px/1.3 var(--f-serif);color:var(--ink-quiet);flex:1 1 240px;min-width:0}
+.rv-zoom{display:flex;align-items:center;gap:4px}
+.rv-zoom button{height:30px;min-width:30px;padding:0 8px;border:1px solid var(--rule);border-radius:9px;display:grid;place-items:center;font:600 12px/1 var(--f-sans);color:var(--ink-soft)}
+.rv-zoom button:hover:not(:disabled){border-color:var(--ink-faint);color:var(--ink)}
+.rv-zoom button:disabled{opacity:.4;cursor:default}
+.rv-zoom output{font:400 11.5px/1 var(--f-mono);color:var(--ink-quiet);min-width:46px;text-align:center}
+.rv-body{display:grid;grid-template-columns:176px minmax(0,1fr)}
+.rv-lanes{border-right:1px solid var(--rule);padding-top:26px}
+.rv-lanes div{display:flex;align-items:center;gap:8px;padding:0 10px 0 18px;font:600 12px/1.2 var(--f-sans);color:var(--ink-soft);border-top:1px solid var(--rule)}
+.rv-lanes div em{font:400 10.5px/1 var(--f-mono);color:var(--ink-quiet);font-style:normal;margin-left:auto}
+.rv-sc{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;cursor:grab}
+.rv-sc.drag{cursor:grabbing}
+.rv-in{position:relative}
+.rv-era{position:absolute;top:0;bottom:0;border-left:1px solid var(--rule);overflow:clip}
+.rv-era:nth-child(even){background:color-mix(in srgb,var(--paper-2) 38%,transparent)}
+.rv-era:first-child{border-left:0}
+.rv-era span{position:sticky;left:10px;display:inline-block;margin:8px 10px 0;font:500 10px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-quiet);white-space:nowrap}
+.rv-lane{position:absolute;left:0;right:0;border-top:1px solid var(--rule)}
+.rv-tick{position:absolute;bottom:0;width:1px;height:6px;background:var(--ink-faint);opacity:.55}
+.rv-tick.k{height:11px;opacity:1;background:var(--ink-quiet)}
+.rv-ax{position:absolute;left:0;right:0;bottom:0;height:34px;border-top:1px solid var(--rule);background:var(--card)}
+.rv-ax b{position:absolute;top:13px;transform:translateX(-50%);font:400 10.5px/1 var(--f-mono);color:var(--ink-quiet);white-space:nowrap}
+.rv-ax b.l{transform:none} .rv-ax b.r{transform:translateX(-100%)}
+.rv-ax .rv-tick{bottom:auto;top:0}
+.rc{position:absolute;height:16px;display:flex;align-items:center;border-radius:4px;white-space:nowrap;font:600 11.5px/1 var(--f-sans);color:var(--ink);transition:opacity .15s}
+.rc i{flex:none;width:10px;height:16px;border-radius:3px;background:var(--bkf)}
+.rc span{padding:0 7px 0 6px}
+.rc.lab{background:color-mix(in srgb,var(--bkt) 10%,var(--card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bkt) 32%,transparent)}
+.rc:hover{z-index:3}
+.rc:hover i,.rc:focus-visible i{box-shadow:0 0 0 2px var(--card),0 0 0 3.5px var(--bkt)}
+.rc.fav::after{content:"";position:absolute;left:3.5px;top:-4px;width:4px;height:4px;border-radius:50%;background:var(--ochre)}
+.rc.on i{background:linear-gradient(0deg,var(--bkf) var(--p),color-mix(in srgb,var(--bkf) 35%,var(--card)) var(--p))}
+.rc.dim{opacity:.16}
+.rc.is-sel{z-index:4}
+.rc.is-sel i{box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--indigo-bright)}
+.rc.is-sel.lab{box-shadow:inset 0 0 0 1.5px var(--indigo-bright)}
+.rv-key{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font:400 12px/1 var(--f-sans);color:var(--ink-quiet)}
+.rv-key span{display:flex;gap:6px;align-items:center}
+.rv-key i{width:9px;height:14px;border-radius:2.5px;background:var(--ink-faint);display:block}
+.rv-key i.h{background:linear-gradient(0deg,var(--ink-faint) 45%,var(--rule) 45%)}
+.rv-key i.s{width:5px;height:5px;border-radius:50%;background:var(--ochre)}
+.pop{width:300px;padding:16px 16px 12px 22px;overflow:hidden}
+.pop::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--bkf)}
+.pop h3{font:700 18px/1.2 var(--f-sans);margin:5px 0 3px;letter-spacing:-.008em}
+.pop .m{display:flex;gap:7px 10px;align-items:center;flex-wrap:wrap;margin-top:9px}
+.pop .p{display:grid;gap:7px;margin-top:11px}
+.pop .a{display:flex;gap:4px;align-items:center;margin-top:13px;padding-top:10px;border-top:1px solid var(--rule)}
+.pop .a .btn{margin-right:auto;width:auto;color:var(--card);padding:0 14px}
+.pop .a .btn:hover{background:var(--indigo-bright);color:var(--card)}
+.pop .a .sb{display:inline-grid;width:28px;padding:0}
+.d3-lh{margin:34px 0 14px}
+.d3-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px}
+.d3-list+.d3-lh{margin-top:28px}
+.b3{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;min-height:88px;padding:12px 12px 12px 22px;background:var(--card);
+  border:1px solid var(--rule);border-radius:15px;cursor:pointer;overflow:hidden}
+.b3::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--bkf)}
+.b3:hover{box-shadow:var(--lift)}
+.b3.is-sel{border-color:var(--indigo-bright);box-shadow:0 0 0 1px var(--indigo-bright)}
+.b3 h3{font:600 17px/1.22 var(--f-sans);margin:3px 0 2px;letter-spacing:-.005em}
+.b3-r{display:grid;justify-items:end;gap:6px;text-align:right}
+.b3-r .top{display:flex;align-items:center;gap:4px;min-height:22px}
+.b3-r .sb{width:22px;height:22px}
+
+/* ── 4 · Catalogue ──────────────────────────────────────────────────────── */
+.d4{padding-block:22px 56px}
+.d4-cont{display:flex;gap:12px;align-items:stretch;margin:18px 0 16px}
+.d4-cont>.l{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet);padding:0 2px}
+.d4-cont>div{flex:1;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.c4{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:11px 14px 12px 20px;background:var(--card);border:1px solid var(--rule);border-radius:14px;cursor:pointer;overflow:hidden}
+.c4::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--bkf)}
+.c4:hover{box-shadow:var(--lift)}
+.c4.is-sel{border-color:var(--indigo-bright)}
+.c4 h3{font:700 15px/1.25 var(--f-sans)}
+.c4 .au{font-size:9.5px}
+.c4 .p{grid-column:1/-1;display:flex;gap:10px;align-items:center;margin-top:4px}
+.c4 .p .pg{flex:1}
+.d4-tw{background:var(--card);border:1px solid var(--rule);border-radius:16px}
+.d4-t{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:13.5px}
+.d4-t th,.d4-t td{padding:0 10px;text-align:left;vertical-align:middle}
+.d4-t thead th{position:sticky;top:var(--top);z-index:5;height:38px;background:var(--card);border-bottom:1px solid var(--rule);
+  font:500 10.5px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-quiet);white-space:nowrap}
+.d4-t thead th:first-child{border-radius:16px 0 0 0} .d4-t thead th:last-child{border-radius:0 16px 0 0}
+.d4-t thead button{display:inline-flex;align-items:center;gap:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;height:38px}
+.d4-t thead button:hover{color:var(--ink)}
+.d4-t thead th.on button{color:var(--indigo)}
+.d4-t thead button svg{opacity:.35} .d4-t thead th.on button svg{opacity:1}
+.d4-t tbody td{height:33px;border-top:1px solid color-mix(in srgb,var(--rule) 70%,transparent);line-height:1.25;padding-top:5px;padding-bottom:5px}
+.d4-t tr.g th{height:30px;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet);
+  background:color-mix(in srgb,var(--paper-2) 50%,var(--card));border-top:1px solid var(--rule)}
+.d4-t tbody tr.bk{cursor:pointer}
+.d4-t tbody tr.bk:hover td{background:color-mix(in srgb,var(--paper) 75%,var(--card))}
+.d4-t tbody tr.bk.is-sel td{background:var(--indigo-wash)}
+.d4-t tbody tr.bk:focus-visible{outline:none}
+.d4-t tbody tr.bk:focus-visible td{background:var(--indigo-wash);box-shadow:inset 0 1.5px 0 var(--indigo-bright),inset 0 -1.5px 0 var(--indigo-bright)}
+.d4-t td.sp{padding:0;position:relative}
+.d4-t td.sp::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:5px;border-radius:0 3px 3px 0;background:var(--bkf)}
+.d4-t td.sr{padding:0 2px 0 8px}
+.d4-t td.ti div{display:flex;gap:0 9px;align-items:baseline}
+.d4-t td.ti div.s{flex-wrap:wrap;max-height:1.3em;overflow:hidden}
+.d4-t td.ti div.s small{flex:1 0 96px}
+.d4-t td.ti b{font:700 14.5px/1.25 var(--f-sans);min-width:0}
+.d4-t td.ti small{flex:1 1 0;min-width:0;font:italic 400 12.5px/1.25 var(--f-serif);color:var(--ink-quiet);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d4-t td.wri{font:italic 400 13.5px/1.25 var(--f-serif);color:var(--ink-soft)}
+.d4-t td.len{font:400 12.5px/1.25 var(--f-sans);color:var(--ink-soft)}
+.d4-t td.or .orig{font-size:10.5px;padding:3px 8px}
+.d4-t td.or em{color:var(--ink-faint);font-style:normal}
+.d4-t td.rd,.d4-t th.rd{text-align:right}
+.d4-t td.rd{font:400 12px/1 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
+.d4-t td.rd span{display:inline-block;vertical-align:middle;width:34px;height:4px;margin-right:9px;border-radius:3px;background:var(--rule);overflow:hidden}
+.d4-t td.rd i{display:block;height:100%;background:var(--ink-faint)}
+.d4-t td.pl .st{font-size:12.5px}
+.d4-t td.pl .w{display:flex;align-items:center;gap:9px}
+.d4-t td.pl .pg{width:54px;flex:none}
+.d4-t td.mo{padding:0 6px 0 0;text-align:right}
+.d4-t .au{font-size:10px;letter-spacing:.12em}
+.d4-foot{padding:11px 16px;border-top:1px solid var(--rule);font:400 11px/1.4 var(--f-mono);color:var(--ink-quiet)}
+
+/* ── 5 · Traditions ─────────────────────────────────────────────────────── */
+.d5{padding-block:22px 18px}
+.d5-ctl{display:flex;align-items:center;gap:10px 16px;margin:18px 0 12px;flex-wrap:wrap}
+.seg{display:inline-flex;padding:3px;border-radius:12px;background:color-mix(in srgb,var(--paper-2) 80%,transparent);border:1px solid var(--rule)}
+.seg button{height:32px;padding:0 14px;border-radius:9px;font:600 13.5px/1 var(--f-sans);color:var(--ink-soft)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(29,27,41,.12)}
+.d5-jump{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+.d5-jump button{height:30px;padding:0 11px;border-radius:999px;border:1px solid var(--rule);background:color-mix(in srgb,var(--card) 70%,transparent);font:600 12.5px/1 var(--f-sans);color:var(--ink-soft);white-space:nowrap}
+.d5-jump button em{font:400 10.5px/1 var(--f-mono);font-style:normal;color:var(--ink-quiet);margin-left:5px}
+.d5-jump button{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.d5-jump button:hover{border-color:var(--ink-faint);color:var(--ink)}
+.d5-jump button.zero{opacity:.45}
+.d5-board{display:grid;grid-auto-flow:column;grid-auto-columns:250px;align-items:start;height:560px;overflow:auto;
+  border:1px solid var(--rule);border-radius:18px;background:color-mix(in srgb,var(--paper-2) 42%,var(--card));scrollbar-width:thin;overscroll-behavior-x:contain}
+.d5-col{min-width:0;border-right:1px solid var(--rule);min-height:100%}
+.d5-col.fav{position:sticky;left:0;z-index:4;align-self:stretch;background:color-mix(in srgb,var(--indigo-wash) 55%,var(--card));border-right:1px solid var(--rule);box-shadow:6px 0 14px -10px rgba(29,27,41,.35)}
+.d5-ch{position:sticky;top:0;z-index:3;padding:13px 14px 11px;background:var(--card);border-bottom:1px solid var(--rule)}
+.d5-col.fav .d5-ch{background:color-mix(in srgb,var(--indigo-wash) 55%,var(--card))}
+.d5-ch h2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font:700 14.5px/1.2 var(--f-sans)}
+.d5-ch h2 em{font:400 11px/1 var(--f-mono);font-style:normal;color:var(--ink-quiet)}
+.d5-ch p{font:italic 400 12.5px/1.3 var(--f-serif);color:var(--ink-quiet);margin-top:3px}
+.d5-cards{display:grid;gap:8px;padding:10px}
+.d5-cards .e{font:italic 400 13px/1.4 var(--f-serif);color:var(--ink-quiet);padding:8px 4px}
+.k5{position:relative;padding:9px 8px 9px 16px;background:var(--card);border:1px solid var(--rule);border-radius:12px;cursor:pointer;overflow:hidden;min-width:0}
+.k5::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--bkf)}
+.k5:hover{border-color:var(--ink-faint)}
+.k5.is-sel{border-color:var(--indigo-bright);box-shadow:0 0 0 1px var(--indigo-bright)}
+.k5 .h{display:flex;justify-content:space-between;gap:4px;align-items:flex-start}
+.k5 .au{font-size:9.5px;letter-spacing:.12em;padding-top:3px}
+.k5 .sb{margin:-5px -3px -8px 0;width:24px;height:24px}
+.k5 h3{font:700 14.5px/1.22 var(--f-sans);margin:3px 0 2px}
+.k5 .wr{font-size:12.5px}
+.k5 .f{display:grid;gap:3px;margin-top:8px}
+.k5 .meta{font-size:9.5px;letter-spacing:.06em}
+.k5 .st{font-size:12px}
+.k5 .orig{font-size:10px;padding:3px 7px;margin-top:6px}
+.k5 .pg{height:3px;margin-top:7px}
+
+/* ── 6 · Desk ───────────────────────────────────────────────────────────── */
+.d6{padding-block:34px 56px;max-width:1312px}
+.d6-top{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);gap:24px;margin-top:28px}
+.hero{position:relative;padding:30px 34px 28px 42px;background:linear-gradient(115deg,var(--card) 46%,color-mix(in srgb,var(--bkt) calc(var(--wash) * 1.6),var(--card)));
+  border:1px solid var(--rule);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--lift)}
+.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--bkf)}
+.hero .k{display:flex;gap:10px;align-items:center;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet)}
+.hero .k i{width:6px;height:6px;border-radius:50%;background:var(--good)}
+.hero-g{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 36px;align-items:end;margin-top:26px}
+.hero .au{font-size:12px}
+.hero h2{font:700 46px/1.04 var(--f-sans);letter-spacing:-.022em;margin-top:10px;text-wrap:balance}
+.hero .sub{font:italic 400 17px/1.45 var(--f-serif);color:var(--ink-soft);margin-top:12px;max-width:34em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero .facts{display:flex;gap:6px 16px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.hero .big{text-align:right}
+.hero .big b{font:800 76px/.9 var(--f-sans);letter-spacing:-.04em;color:var(--bkt);font-variant-numeric:tabular-nums}
+.hero .big b small{font:700 30px/1 var(--f-sans);margin-left:2px}
+.hero .big span{display:block;margin-top:8px;font:500 10.5px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-quiet)}
+.strip{display:flex;gap:3px;margin-top:auto;padding-top:28px}
+.strip i{flex:1;height:8px;border-radius:2px;background:var(--rule);min-width:1px}
+.strip i.f{background:var(--bkf)} .strip i.h{background:color-mix(in srgb,var(--bkf) 45%,var(--rule))}
+.strip.many{gap:1px}
+.hero-f{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap}
+.hero-f .w{font:600 15px/1.3 var(--f-sans)}
+.hero-f .w small{font:italic 400 14px/1 var(--f-serif);color:var(--ink-quiet);margin-left:10px}
+.hero-f .a{display:flex;gap:8px;align-items:center}
+.hero-f .btn{height:48px;padding:0 26px;font-size:15.5px;background:var(--bkt)}
+.hero-f .btn:hover{filter:brightness(1.1)}
+.d6-side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.also{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:18px 20px 8px;flex:1}
+.also h2,.figs h2{font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-quiet)}
+.a6{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;align-items:center;padding:12px 0 12px 16px;cursor:pointer}
+.a6+.a6{border-top:1px solid var(--rule)}
+.a6::before{content:"";position:absolute;left:0;top:13px;bottom:13px;width:4px;border-radius:4px;background:var(--bkf)}
+.a6 h3{font:700 15.5px/1.25 var(--f-sans)}
+.a6 .au{font-size:9.5px}
+.a6 .r{text-align:right;display:grid;gap:6px;justify-items:end}
+.a6 .r .pg{width:92px}
+.a6 .r small{font:italic 400 12.5px/1 var(--f-serif);color:var(--ink-quiet)}
+.a6:hover h3{color:var(--indigo)}
+.a6.is-sel h3{color:var(--indigo)}
+.also .done{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center;padding:12px 0 10px;border-top:1px solid var(--rule);font:400 13.5px/1.3 var(--f-sans);color:var(--ink-soft)}
+.also .done button{font:600 13.5px/1.3 var(--f-sans);color:var(--ink-soft);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
+.also .done button:hover{color:var(--indigo)}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--rule);border-radius:20px;background:color-mix(in srgb,var(--card) 60%,transparent)}
+.figs div{padding:16px 14px 15px 18px}
+.figs div+div{border-left:1px solid var(--rule)}
+.figs b{display:block;font:700 30px/1 var(--f-sans);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.figs span{display:block;margin-top:7px;font:400 12.5px/1.3 var(--f-sans);color:var(--ink-soft)}
+.d6-else{margin:38px 0 4px}
+.shelf{margin-top:30px}
+.shelf-h{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.shelf-h h2{font:700 22px/1.15 var(--f-sans);letter-spacing:-.012em}
+.shelf-h span{font:400 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-quiet)}
+.shelf-h button{margin-left:auto;display:inline-flex;gap:6px;align-items:center;font:600 13.5px/1 var(--f-sans);color:var(--indigo);padding:6px 4px}
+.shelf-h button:hover{color:var(--indigo-bright)}
+.shelf-h button svg{transition:transform .15s}
+.shelf.open .shelf-h button svg{transform:rotate(180deg)}
+.shelf-r{display:grid;grid-template-columns:repeat(auto-fill,minmax(218px,1fr));gap:16px}
+.shelf.few .shelf-r{grid-template-columns:repeat(auto-fit,minmax(218px,1fr))}
+.k6{position:relative;display:flex;flex-direction:column;min-height:172px;padding:15px 12px 13px 22px;background:var(--card);border:1px solid var(--rule);border-radius:16px;cursor:pointer;overflow:hidden;min-width:0}
+.k6::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--bkf)}
+.k6:hover{box-shadow:var(--lift)}
+.k6.is-sel{border-color:var(--indigo-bright);box-shadow:0 0 0 1px var(--indigo-bright)}
+.k6 .h{display:flex;justify-content:space-between;gap:6px;align-items:flex-start}
+.k6 .au{padding-top:4px}
+.k6 .sb{margin:-5px -4px -6px 0}
+.k6 h3{font:700 17px/1.2 var(--f-sans);letter-spacing:-.008em;margin:5px 0 4px;text-wrap:balance}
+.k6 .orig{align-self:flex-start;margin-top:9px}
+.k6 .f{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.k6 .f .meta{font-size:10px;letter-spacing:.07em;line-height:1.5}
+.k6 .f .r{display:grid;gap:5px;justify-items:end}
+.k6 .f .pg{width:64px}
+
+/* ── the mockup's own switcher ──────────────────────────────────────────── */
+#mock{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--chrome);color:var(--chrome-ink);border-top:1px solid var(--chrome-rule);
+  padding:8px max(16px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+.mk{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;min-height:40px}
+.mk-tag{font:500 9.5px/1.3 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--chrome-quiet)}
+.mk-tabs{display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--chrome-2)}
+.mk-tabs button{display:flex;align-items:center;gap:7px;height:32px;padding:0 11px 0 6px;border-radius:9px;font:600 13px/1 var(--f-sans);color:var(--chrome-quiet);white-space:nowrap}
+.mk-tabs button kbd{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;font:600 11px/1 var(--f-mono);border:1px solid var(--chrome-rule);color:inherit}
+.mk-tabs button:hover{color:var(--chrome-ink)}
+.mk-tabs button.on{background:var(--chrome-on);color:var(--chrome-on-ink)}
+.mk-tabs button.on kbd{border-color:transparent;background:var(--chrome-on-ink);color:var(--chrome-on)}
+.mk-note{flex:1 1 300px;min-width:0;font:400 12.5px/1.35 var(--f-sans);color:var(--chrome-quiet);text-wrap:pretty}
+.mk-note b{color:var(--chrome-ink);font-weight:700}
+.mk-theme{display:flex;padding:3px;border-radius:12px;background:var(--chrome-2)}
+.mk-theme button{display:flex;gap:6px;align-items:center;height:32px;padding:0 11px;border-radius:9px;font:600 13px/1 var(--f-sans);color:var(--chrome-quiet)}
+.mk-theme button.on{background:var(--chrome-on);color:var(--chrome-on-ink)}
+.mk-keys{font:400 10.5px/1.3 var(--f-mono);color:var(--chrome-quiet);white-space:nowrap}
+#mock :focus-visible{outline-color:var(--chrome-ink)}
+
+/* ── narrower windows ───────────────────────────────────────────────────── */
+@media (max-width:1339px){ .d2{--cols:6}
+  .d2-band.both .d2-zone.c,.d2-band.both .d2-zone.f{grid-column:1/-1}
+  .d2-cont,.d2-band.both .d2-cont{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .d2-band.both .d2-wall{grid-template-columns:repeat(var(--cols),minmax(0,1fr))}
+  .mk-note{order:5;flex-basis:100%} }
+@media (max-width:1279px){
+  .site-in{gap:24px} .site nav{gap:22px}
+  .d1{grid-template-columns:196px minmax(0,1fr) 316px;gap:22px}
+  .r1{grid-template-columns:minmax(0,1fr) 28px}
+  .r1-b{grid-column:1;grid-row:2;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;text-align:left;margin-top:2px}
+  .r1 .sb{grid-row:1;grid-column:2}
+  .r1-m{justify-content:flex-start;flex-wrap:nowrap} .r1-on .pg{display:none}
+  .d1-main .tb{flex-wrap:wrap} .d1-main .tb .search{flex-basis:100%;max-width:none} .d1-main .tb .count{margin-right:auto}
+  .det-top,.det-facts,.det-go{padding-left:20px;padding-right:20px} .det-place{margin-inline:20px}
+  .d3-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero h2{font-size:38px} .hero .big b{font-size:60px}
+  .d6-side{display:contents} .d6-top .figs{grid-column:1/-1}
+  .d4-t th.c-au{width:14%!important} .d4-t th.c-wr{width:14%!important} .d4-t th.c-le{width:9%!important} }
+@media (max-width:1159px){ .d2{--cols:5} .site nav.r a span{display:none} }
+@media (max-width:959px){ :root{--gut:20px}
+  .d2{--cols:4}
+  .site nav.l a:not(.on),.site nav.r{display:none}
+  .d1{grid-template-columns:1fr} .d1-rail,.d1-det{position:static;max-height:none} .d1-det{order:-1} .d1-main{order:-2}
+  .d1-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 24px}
+  .d6-top{grid-template-columns:1fr} .figs{grid-template-columns:repeat(2,minmax(0,1fr))} .figs div:nth-child(3){border-left:0} .figs div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .rv-body{grid-template-columns:118px minmax(0,1fr)} .rv-lanes div{padding-left:10px;font-size:11px} .rv-lanes div em{display:none}
+  .d5-jump{flex-basis:100%} .d4-tw{overflow-x:auto} .d4-t{min-width:900px} .d4-t thead th{position:static}
+  .d4-cont{flex-direction:column} .d4-cont>.l{writing-mode:horizontal-tb;transform:none;text-align:left}
+  .mk-tabs button span{display:none} .mk-tabs button{padding:0 6px} .mk-keys{display:none} }
+@media (max-width:719px){ :root{--gut:16px} .d2{--cols:3;--gap:14px}
+  .ph h1{font-size:36px} .d2-cont,.d2-band.both .d2-cont{grid-template-columns:1fr} .d3-list{grid-template-columns:1fr} .hero{padding:24px 20px 22px 30px} .hero h2{font-size:30px}
+  .hero-g{grid-template-columns:1fr} .hero .big{text-align:left} .tb .lbl{display:none} .mk-tag{display:none} }
+@media (max-width:519px){ .d2{--cols:2} .brand span{display:none} .d5-board{grid-auto-columns:232px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;scroll-behavior:auto!important} }
+</style>
+
+<header class="site"><div class="wrap site-in">
+  <div class="brand"><b>Folio<i>.</i></b><span>Memorise anything</span></div>
+  <nav class="l" aria-label="Site">
+    <a href="#" data-noop><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+    <a href="#" data-noop><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><rect x="4" y="7" width="13" height="13" rx="2"/><path d="M8 7V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-2"/></svg><span>Collections</span></a>
+    <a href="#" data-noop><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.600 0 17M12 3.500c-2.600 2.400-2.600 14.600 0 17"/></svg><span>Atlas</span></a>
+    <a href="#" data-noop class="on" aria-current="page"><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><path d="M12 6.500c-2-1.300-4.700-1.700-8-1.500v13c3.300-.2 6 .2 8 1.500 2-1.300 4.700-1.700 8-1.500V5c-3.300-.2-6 .2-8 1.500zM12 6.500v13"/></svg><span>Library</span></a>
+  </nav>
+  <nav class="r" aria-label="Account">
+    <a href="#" data-noop><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg><span>Search</span></a>
+    <a href="#" data-noop><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="3.500"/><path d="M5 20c.6-3.600 3.400-5.500 7-5.500s6.400 1.900 7 5.500"/></svg><span>Account</span></a>
+    <a href="#" data-noop><svg class="ic" width="16" height="16" viewBox="0 0 24 24"><path d="M5 7h9M18 7h1M5 12h2M11 12h8M5 17h7M16 17h3"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="14" cy="17" r="2"/></svg><span>Settings</span></a>
+  </nav>
+</div></header>
+
+<main id="stage"></main>
+
+<div id="mock" role="region" aria-label="Mockup switcher">
+  <div class="mk">
+    <span class="mk-tag">Mockup<br>switcher</span>
+    <div class="mk-tabs" id="mk-tabs" role="tablist" aria-label="Design"></div>
+    <p class="mk-note" id="mk-note" aria-live="polite"></p>
+    <div class="mk-theme" role="group" aria-label="Theme">
+      <button type="button" id="th-day" data-theme-set="day"><svg class="ic" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.600 5.600l1.500 1.500M16.900 16.900l1.500 1.500M5.600 18.400l1.500-1.500M16.900 7.100l1.500-1.500"/></svg>Day</button>
+      <button type="button" id="th-night" data-theme-set="night"><svg class="ic" width="14" height="14" viewBox="0 0 24 24"><path d="M19.500 14.500A8 8 0 0 1 9.500 4.500a8 8 0 1 0 10 10z"/></svg>Night</button>
+    </div>
+    <span class="mk-keys">Keys 1–6 · ← → · D</span>
+  </div>
+</div>
+
+<script>
+/*BOOKS:start*/const BOOKS = [{"id":"seneca-letters","title":"Letters from a Stoic","subtitle":"Moral Letters to Lucilius","author":"Seneca","written":"c. 62–65 CE","year":62,"translator":"Richard Mott Gummere","len":"124 letters","word":"Letter","count":124,"orig":"Latin","color":"#8257C2","tradition":"Rome","form":"Philosophy","fav":false,"reads":808,"at":{"ch":47,"pct":38,"daysAgo":9}},{"id":"marcus-aurelius-meditations","title":"Meditations","subtitle":"To Himself","author":"Marcus Aurelius","written":"c. 170–180 CE","year":170,"translator":"C. R. Haines","len":"12 books","word":"Book","count":12,"orig":"Greek","color":"#2F7D6E","tradition":"Rome","form":"Philosophy","fav":true,"reads":125,"at":{"ch":12,"pct":100,"daysAgo":60}},{"id":"sun-tzu-art-of-war","title":"The Art of War","subtitle":"The Oldest Military Treatise in the World","author":"Sun Tzu","written":"c. 5th century BCE","year":-500,"translator":"Lionel Giles","len":"13 chapters","word":"Chapter","count":13,"orig":"Chinese","color":"#A6452F","tradition":"China","form":"Philosophy","fav":false,"reads":170,"at":{"ch":13,"pct":100,"daysAgo":75}},{"id":"plato-republic","title":"The Republic","subtitle":"Politeia","author":"Plato","written":"c. 375 BCE","year":-375,"translator":"Paul Shorey","len":"10 books","word":"Book","count":10,"orig":"Greek","color":"#7A3B6B","tradition":"Greece","form":"Philosophy","fav":true,"reads":194,"at":null},{"id":"plato-dialogues","title":"The Dialogues","subtitle":"Thirty-five Works in Nine Tetralogies","author":"Plato","written":"c. 399–347 BCE","year":-399,"translator":"Harold North Fowler, W. R. M. Lamb and R. G. Bury","len":"35 of 36 dialogues","word":"Dialogue","count":35,"orig":"Greek","color":"#7A3B6B","tradition":"Greece","form":"Philosophy","fav":false,"reads":3,"at":null},{"id":"ovid-metamorphoses","title":"Metamorphoses","subtitle":"Of Bodies Changed to Other Forms","author":"Ovid","written":"completed c. 8 CE","year":8,"translator":"Brookes More","len":"15 books","word":"Book","count":15,"orig":"Latin","color":"#9C3557","tradition":"Rome","form":"Epic and poetry","fav":false,"reads":666,"at":null},{"id":"suetonius-twelve-caesars","title":"The Twelve Caesars","subtitle":"De vita Caesarum","author":"Suetonius","written":"c. 121 CE","year":121,"translator":"Alexander Thomson","len":"12 lives","word":"Life","count":12,"orig":"Latin","color":"#8C6D1F","tradition":"Rome","form":"History","fav":false,"reads":228,"at":null},{"id":"tacitus-annals","title":"The Annals","subtitle":"Ab excessu divi Augusti","author":"Tacitus","written":"early 2nd century CE","year":115,"translator":"Alfred John Church and William Jackson Brodribb","len":"12 books","word":"Book","count":12,"orig":"Latin","color":"#6C2442","tradition":"Rome","form":"History","fav":false,"reads":9,"at":null},{"id":"plutarch-lives","title":"Parallel Lives","subtitle":"","author":"Plutarch","written":"early 2nd century CE","year":110,"translator":"Bernadotte Perrin","len":"68 lives","word":"Life","count":68,"orig":"Greek","color":"#5139C3","tradition":"Greece","form":"History","fav":false,"reads":655,"at":null},{"id":"cassius-dio-roman-history","title":"Roman History","subtitle":"","author":"Cassius Dio","written":"early 3rd century CE","year":229,"translator":"Earnest Cary","len":"75 books","word":"Book","count":75,"orig":"","color":"#685874","tradition":"Rome","form":"History","fav":false,"reads":212,"at":null},{"id":"lucretius-nature-of-things","title":"On the Nature of Things","subtitle":"De Rerum Natura","author":"Lucretius","written":"c. 55 BCE","year":-55,"translator":"William Ellery Leonard","len":"6 books","word":"Book","count":6,"orig":"Latin","color":"#4F7A3A","tradition":"Rome","form":"Philosophy","fav":false,"reads":510,"at":null},{"id":"aristotle-nicomachean-ethics","title":"Nicomachean Ethics","subtitle":"Ethica Nicomachea","author":"Aristotle","written":"c. 340 BCE","year":-340,"translator":"W. D. Ross","len":"10 books","word":"Book","count":10,"orig":"Greek","color":"#3F6E8C","tradition":"Greece","form":"Philosophy","fav":false,"reads":531,"at":null},{"id":"sophocles-oedipus-rex","title":"Oedipus Rex","subtitle":"Οἰδίπους Τύραννος","author":"Sophocles","written":"c. 429 BCE","year":-429,"translator":"Richard Jebb","len":"15 parts","word":"Part","count":15,"orig":"Greek","color":"#7A2E2E","tradition":"Greece","form":"Drama","fav":false,"reads":49,"at":null},{"id":"euripides-medea","title":"Medea","subtitle":"Μήδεια","author":"Euripides","written":"431 BCE","year":-431,"translator":"Edward P. Coleridge","len":"13 parts","word":"Part","count":13,"orig":"Greek","color":"#72187F","tradition":"Greece","form":"Drama","fav":false,"reads":141,"at":null},{"id":"sophocles-antigone","title":"Antigone","subtitle":"Ἀντιγόνη","author":"Sophocles","written":"c. 441 BCE","year":-441,"translator":"Richard Jebb","len":"16 parts","word":"Part","count":16,"orig":"Greek","color":"#7A2E2E","tradition":"Greece","form":"Drama","fav":false,"reads":98,"at":null},{"id":"aristophanes-lysistrata","title":"Lysistrata","subtitle":"","author":"Aristophanes","written":"411 BCE","year":-411,"translator":"The Athenian Society","len":"2 parts","word":"Part","count":2,"orig":"","color":"#A50030","tradition":"Greece","form":"Drama","fav":false,"reads":534,"at":null},{"id":"kalidasa-shakuntala","title":"Sacontala","subtitle":"or, The Fatal Ring","author":"Kalidasa","written":"c. 4th–5th century CE","year":301,"translator":"William Jones","len":"9 parts","word":"Part","count":9,"orig":"","color":"#004248","tradition":"India","form":"Drama","fav":false,"reads":869,"at":null},{"id":"beowulf","title":"Beowulf","subtitle":"","author":"Anonymous","written":"c. 700–1000 CE","year":700,"translator":"Francis Barton Gummere","len":"42 fitts","word":"Fitt","count":42,"orig":"Old English","color":"#55303C","tradition":"Medieval Europe","form":"Epic and poetry","fav":false,"reads":136,"at":null},{"id":"herodotus-histories","title":"The Histories","subtitle":"Ἱστορίαι","author":"Herodotus","written":"c. 430 BCE","year":-430,"translator":"A. D. Godley","len":"9 books","word":"Book","count":9,"orig":"Greek","color":"#43479C","tradition":"Greece","form":"History","fav":false,"reads":781,"at":{"ch":3,"pct":42,"daysAgo":2}},{"id":"confucius-analects","title":"The Analects","subtitle":"Confucian Analects","author":"Confucius","written":"c. 5th–3rd century BCE","year":-500,"translator":"James Legge","len":"20 books","word":"Book","count":20,"orig":"Chinese","color":"#6B4D2E","tradition":"China","form":"Philosophy","fav":false,"reads":8,"at":null},{"id":"mencius","title":"Mencius","subtitle":"The Works of Mencius","author":"Mencius","written":"c. 4th century BCE","year":-301,"translator":"James Legge","len":"14 parts","word":"Part","count":14,"orig":"Chinese","color":"#006C78","tradition":"China","form":"Philosophy","fav":false,"reads":348,"at":null},{"id":"machiavelli-prince","title":"The Prince","subtitle":"Il Principe","author":"Niccolò Machiavelli","written":"1513","year":1513,"translator":"W. K. Marriott","len":"26 chapters","word":"Chapter","count":26,"orig":"Italian","color":"#2C74BC","tradition":"Renaissance and early modern","form":"Law and politics","fav":false,"reads":91,"at":null},{"id":"caesar-gallic-war","title":"The Gallic War","subtitle":"Commentarii de Bello Gallico","author":"Julius Caesar","written":"c. 58–50 BCE","year":-58,"translator":"W. A. McDevitte and W. S. Bohn","len":"8 books","word":"Book","count":8,"orig":"Latin","color":"#AE5A02","tradition":"Rome","form":"History","fav":false,"reads":146,"at":null},{"id":"livy-history-of-rome","title":"The History of Rome","subtitle":"Ab Urbe Condita","author":"Livy","written":"begun c. 27 BCE","year":-27,"translator":"D. Spillan, Cyrus Edmonds and W. A. McDevitte","len":"35 of 142 books","word":"Book","count":35,"orig":"Latin","color":"#632106","tradition":"Rome","form":"History","fav":false,"reads":29,"at":null},{"id":"thucydides-peloponnesian-war","title":"The History of the Peloponnesian War","subtitle":"The War between Athens and Sparta","author":"Thucydides","written":"c. 431–400 BCE","year":-431,"translator":"Richard Crawley","len":"8 books","word":"Book","count":8,"orig":"Greek","color":"#AE3688","tradition":"Greece","form":"History","fav":false,"reads":433,"at":null},{"id":"polybius-histories","title":"The Histories","subtitle":"How Rome Came to Rule the World","author":"Polybius","written":"2nd century BCE","year":-150,"translator":"Evelyn S. Shuckburgh","len":"38 books","word":"Book","count":38,"orig":"Greek","color":"#5A0051","tradition":"Greece","form":"History","fav":false,"reads":9,"at":null},{"id":"aesop-fables","title":"Aesop's Fables","subtitle":"Three Hundred Æsop's Fables","author":"Aesop","written":"c. 6th century BCE, collected later","year":-550,"translator":"George Fyler Townsend","len":"313 fables","word":"Fable","count":313,"orig":"","color":"#324A2C","tradition":"Greece","form":"Tales and fiction","fav":false,"reads":16,"at":null},{"id":"song-of-roland","title":"The Song of Roland","subtitle":"","author":"Anonymous","written":"c. 1100","year":1100,"translator":"Charles Kenneth Scott Moncrieff","len":"291 laisses","word":"Laisse","count":291,"orig":"Old French","color":"#42426F","tradition":"Medieval Europe","form":"Epic and poetry","fav":false,"reads":580,"at":null},{"id":"epic-of-gilgamesh","title":"The Epic of Gilgamesh","subtitle":"","author":"Anonymous","written":"c. 1200 BCE","year":-1200,"translator":"R. Campbell Thompson","len":"12 tablets","word":"Tablet","count":12,"orig":"","color":"#484B00","tradition":"Egypt and Mesopotamia","form":"Epic and poetry","fav":false,"reads":784,"at":null},{"id":"bhagavad-gita","title":"The Bhagavad Gita","subtitle":"","author":"Vyasa","written":"c. 2nd century BCE – 2nd century CE","year":-200,"translator":"Annie Besant","len":"18 discourses","word":"Discourse","count":18,"orig":"Sanskrit","color":"#743C00","tradition":"India","form":"Scripture and religion","fav":false,"reads":634,"at":null},{"id":"classic-of-poetry","title":"The Classic of Poetry","subtitle":"The Shih King","author":"Anonymous","written":"c. 11th–7th century BCE","year":-1100,"translator":"James Legge","len":"102 of 305 odes","word":"Ode","count":102,"orig":"","color":"#845A63","tradition":"China","form":"Epic and poetry","fav":false,"reads":659,"at":null},{"id":"book-of-documents","title":"The Book of Documents","subtitle":"The Shu King","author":"Anonymous","written":"c. 11th–4th century BCE","year":-1100,"translator":"James Legge","len":"59 documents","word":"Document","count":59,"orig":"","color":"#0F4503","tradition":"China","form":"History","fav":false,"reads":122,"at":null},{"id":"book-of-rites","title":"The Book of Rites","subtitle":"The Li Ji","author":"Anonymous","written":"c. 3rd–1st century BCE","year":-300,"translator":"James Legge","len":"10 of 46 books","word":"Book","count":10,"orig":"","color":"#460030","tradition":"China","form":"Philosophy","fav":false,"reads":29,"at":null},{"id":"prose-edda","title":"The Prose Edda","subtitle":"","author":"Snorri Sturluson","written":"c. 1220","year":1220,"translator":"Arthur Gilchrist Brodeur","len":"3 of 4 parts","word":"Part","count":3,"orig":"","color":"#401A5C","tradition":"Medieval Europe","form":"Scripture and religion","fav":false,"reads":540,"at":null},{"id":"poetic-edda","title":"The Poetic Edda","subtitle":"","author":"Anonymous","written":"c. 900–1250 CE","year":900,"translator":"Henry Adams Bellows","len":"35 poems","word":"Poem","count":35,"orig":"","color":"#720000","tradition":"Medieval Europe","form":"Epic and poetry","fav":false,"reads":245,"at":null},{"id":"don-quixote","title":"Don Quixote","subtitle":"El ingenioso hidalgo Don Quijote de la Mancha","author":"Miguel de Cervantes","written":"1605 & 1615","year":1605,"translator":"John Ormsby","len":"126 chapters","word":"Chapter","count":126,"orig":"","color":"#B10960","tradition":"Renaissance and early modern","form":"Tales and fiction","fav":false,"reads":41,"at":null},{"id":"satyricon","title":"The Satyricon","subtitle":"Satyricon","author":"Petronius","written":"c. 60s CE","year":65,"translator":"Michael Heseltine","len":"141 sections","word":"Section","count":141,"orig":"Latin","color":"#66693C","tradition":"Rome","form":"Tales and fiction","fav":false,"reads":813,"at":null},{"id":"ramayana","title":"The Ramayana","subtitle":"रामायणम्","author":"Valmiki","written":"c. 500 BCE – 200 CE","year":-500,"translator":"Ralph T. H. Griffith","len":"493 of 645 cantos","word":"Canto","count":493,"orig":"Sanskrit","color":"#814E99","tradition":"India","form":"Epic and poetry","fav":false,"reads":17,"at":null},{"id":"ptahhotep","title":"The Maxims of Ptahhotep","subtitle":"The Instruction of Ptah-hotep","author":"Ptahhotep","written":"c. 2400 BCE, or the Middle Kingdom","year":-2400,"translator":"Battiscombe G. Gunn","len":"47 sections","word":"Section","count":47,"orig":"","color":"#00486C","tradition":"Egypt and Mesopotamia","form":"Philosophy","fav":false,"reads":3,"at":null},{"id":"boethius-consolation","title":"The Consolation of Philosophy","subtitle":"Philosophiae Consolationis","author":"Boethius","written":"c. 523–524 CE, in prison at Pavia","year":523,"translator":"H. R. James","len":"5 books","word":"Book","count":5,"orig":"Latin","color":"#002700","tradition":"Medieval Europe","form":"Philosophy","fav":false,"reads":648,"at":null},{"id":"morte-darthur","title":"Le Morte d'Arthur","subtitle":"King Arthur and of his Noble Knights of the Round Table","author":"Thomas Malory","written":"c. 1469–70, printed 1485","year":1469,"translator":"","len":"21 books","word":"Book","count":21,"orig":"","color":"#9E1402","tradition":"Medieval Europe","form":"Tales and fiction","fav":false,"reads":28,"at":null},{"id":"marco-polo","title":"The Travels of Marco Polo","subtitle":"","author":"Marco Polo","written":"c. 1298","year":1298,"translator":"Sir Henry Yule","len":"235 chapters","word":"Chapter","count":235,"orig":"","color":"#5A009C","tradition":"Medieval Europe","form":"Travel and memoir","fav":false,"reads":14,"at":null},{"id":"bede-history","title":"The Ecclesiastical History of the English People","subtitle":"","author":"Bede","written":"731 CE","year":731,"translator":"A. M. Sellar","len":"5 books","word":"Book","count":5,"orig":"Latin","color":"#3C3000","tradition":"Medieval Europe","form":"History","fav":false,"reads":301,"at":null},{"id":"rigveda","title":"The Rigveda","subtitle":"ऋग्वेदः","author":"Anonymous","written":"c. 1500–1000 BCE","year":-1500,"translator":"Ralph T. H. Griffith","len":"1028 hymns","word":"Hymn","count":1028,"orig":"Sanskrit","color":"#5A6F00","tradition":"India","form":"Scripture and religion","fav":false,"reads":880,"at":null},{"id":"summa-theologica","title":"Summa Theologica","subtitle":"Summa Theologiae","author":"Thomas Aquinas","written":"1265–1274, unfinished","year":1265,"translator":"Fathers of the English Dominican Province","len":"614 questions","word":"Question","count":614,"orig":"","color":"#006C00","tradition":"Scripture and the Church","form":"Scripture and religion","fav":false,"reads":703,"at":null},{"id":"confessions","title":"Confessions","subtitle":"Confessionum Libri Tredecim","author":"Augustine of Hippo","written":"c. 397–400 CE","year":397,"translator":"J. G. Pilkington","len":"13 books","word":"Book","count":13,"orig":"Latin","color":"#3F1800","tradition":"Scripture and the Church","form":"Travel and memoir","fav":false,"reads":151,"at":null},{"id":"city-of-god","title":"The City of God","subtitle":"De Civitate Dei contra Paganos","author":"Augustine of Hippo","written":"413–426 CE","year":413,"translator":"Marcus Dods","len":"22 books","word":"Book","count":22,"orig":"Latin","color":"#3F1800","tradition":"Scripture and the Church","form":"Scripture and religion","fav":false,"reads":3,"at":null},{"id":"homer-iliad","title":"The Iliad","subtitle":"Ἰλιάς","author":"Homer","written":"composed c. 750–700 BCE","year":-750,"translator":"A. T. Murray","len":"24 books","word":"Book","count":24,"orig":"Greek","color":"#001270","tradition":"Greece","form":"Epic and poetry","fav":false,"reads":152,"at":null},{"id":"homer-odyssey","title":"The Odyssey","subtitle":"Ὀδύσσεια","author":"Homer","written":"composed c. 725–675 BCE","year":-725,"translator":"A. T. Murray","len":"24 books","word":"Book","count":24,"orig":"Greek","color":"#001270","tradition":"Greece","form":"Epic and poetry","fav":true,"reads":767,"at":{"ch":9,"pct":36,"daysAgo":30}},{"id":"virgil-aeneid","title":"The Aeneid","subtitle":"Aeneis","author":"Virgil","written":"c. 29–19 BCE","year":-29,"translator":"Theodore C. Williams","len":"12 books","word":"Book","count":12,"orig":"Latin","color":"#4A0418","tradition":"Rome","form":"Epic and poetry","fav":false,"reads":4,"at":null},{"id":"journey-to-the-west","title":"Journey to the West","subtitle":"西遊記","author":"Wu Cheng'en","written":"first printed 1592","year":1592,"translator":"Timothy Richard","len":"100 chapters","word":"Chapter","count":100,"orig":"Chinese","color":"#7B0050","tradition":"China","form":"Tales and fiction","fav":false,"reads":100,"at":null},{"id":"three-kingdoms","title":"Romance of the Three Kingdoms","subtitle":"三國演義","author":"Luo Guanzhong","written":"14th century, first printed 1522","year":1301,"translator":"C. H. Brewitt-Taylor","len":"120 chapters","word":"Chapter","count":120,"orig":"Chinese","color":"#2438A8","tradition":"China","form":"Tales and fiction","fav":false,"reads":26,"at":null},{"id":"canterbury-tales","title":"The Canterbury Tales","subtitle":"","author":"Geoffrey Chaucer","written":"c. 1387–1400","year":1387,"translator":"John S. P. Tatlock and Percy MacKaye","len":"25 tales","word":"Tale","count":25,"orig":"Middle English","color":"#00603A","tradition":"Medieval Europe","form":"Tales and fiction","fav":false,"reads":395,"at":null},{"id":"divine-comedy","title":"The Divine Comedy","subtitle":"","author":"Dante Alighieri","written":"c. 1308–1321","year":1308,"translator":"Henry Wadsworth Longfellow","len":"100 cantos","word":"Canto","count":100,"orig":"","color":"#002B6B","tradition":"Medieval Europe","form":"Epic and poetry","fav":false,"reads":706,"at":null},{"id":"macbeth","title":"Macbeth","subtitle":"The Tragedy of Macbeth","author":"William Shakespeare","written":"c. 1606","year":1606,"translator":"","len":"5 acts","word":"Act","count":5,"orig":"","color":"#000081","tradition":"Renaissance and early modern","form":"Drama","fav":false,"reads":395,"at":null},{"id":"romeo-and-juliet","title":"Romeo and Juliet","subtitle":"The Most Excellent and Lamentable Tragedy of Romeo and Juliet","author":"William Shakespeare","written":"c. 1595","year":1595,"translator":"","len":"5 acts","word":"Act","count":5,"orig":"","color":"#000081","tradition":"Renaissance and early modern","form":"Drama","fav":false,"reads":23,"at":null},{"id":"julius-caesar","title":"Julius Caesar","subtitle":"The Tragedy of Julius Caesar","author":"William Shakespeare","written":"1599","year":1599,"translator":"","len":"5 acts","word":"Act","count":5,"orig":"","color":"#000081","tradition":"Renaissance and early modern","form":"Drama","fav":false,"reads":511,"at":null},{"id":"hamlet","title":"Hamlet","subtitle":"The Tragedy of Hamlet, Prince of Denmark","author":"William Shakespeare","written":"c. 1600","year":1600,"translator":"","len":"5 acts","word":"Act","count":5,"orig":"","color":"#000081","tradition":"Renaissance and early modern","form":"Drama","fav":false,"reads":571,"at":null},{"id":"tempest","title":"The Tempest","subtitle":"","author":"William Shakespeare","written":"c. 1611","year":1611,"translator":"","len":"5 acts","word":"Act","count":5,"orig":"","color":"#000081","tradition":"Renaissance and early modern","form":"Drama","fav":false,"reads":469,"at":null},{"id":"classic-of-tea","title":"The Classic of Tea","subtitle":"The Ch‘a Ching, the First Book About Tea","author":"Lu Yu","written":"c. 760–780 CE","year":760,"translator":"Z. L. Yih, as condensed by William H. Ukers","len":"10 parts","word":"Part","count":10,"orig":"Chinese","color":"#96009F","tradition":"China","form":"Science","fav":false,"reads":337,"at":null},{"id":"declaration-of-independence","title":"The Declaration of Independence","subtitle":"In Congress, July 4, 1776","author":"Thomas Jefferson","written":"1776","year":1776,"translator":"","len":"1 part","word":"Part","count":1,"orig":"","color":"#005142","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":466,"at":null},{"id":"magna-carta","title":"Magna Carta","subtitle":"The Great Charter of King John, 1215","author":"Anonymous","written":"1215","year":1215,"translator":"William Sharp McKechnie","len":"63 chapters","word":"Chapter","count":63,"orig":"Latin","color":"#632D9F","tradition":"Medieval Europe","form":"Law and politics","fav":false,"reads":204,"at":null},{"id":"pausanias-description-of-greece","title":"Description of Greece","subtitle":"Ἑλλάδος Περιήγησις","author":"Pausanias","written":"c. 155–180 CE","year":155,"translator":"W. H. S. Jones and H. A. Ormerod","len":"10 books","word":"Book","count":10,"orig":"Greek","color":"#14203C","tradition":"Greece","form":"Travel and memoir","fav":false,"reads":282,"at":null},{"id":"strabo-geography","title":"Geography","subtitle":"Γεωγραφικά","author":"Strabo","written":"c. 7–24 CE","year":7,"translator":"H. C. Hamilton and W. Falconer","len":"17 books","word":"Book","count":17,"orig":"Greek","color":"#7B002A","tradition":"Greece","form":"Science","fav":false,"reads":79,"at":null},{"id":"diodorus-library","title":"The Library of History","subtitle":"Βιβλιοθήκη ἱστορική","author":"Diodorus Siculus","written":"c. 60–30 BCE","year":-60,"translator":"C. H. Oldfather and others","len":"15 of 40 books","word":"Book","count":15,"orig":"Greek","color":"#634806","tradition":"Greece","form":"History","fav":false,"reads":201,"at":null},{"id":"apollodorus-library","title":"The Library","subtitle":"Βιβλιοθήκη","author":"Apollodorus","written":"1st–2nd century CE","year":1,"translator":"Sir James George Frazer","len":"4 books","word":"Book","count":4,"orig":"Greek","color":"#2F5F00","tradition":"Greece","form":"Scripture and religion","fav":false,"reads":4,"at":null},{"id":"anglo-saxon-chronicle","title":"The Anglo-Saxon Chronicle","subtitle":"","author":"Anonymous","written":"c. 890–1154 CE","year":890,"translator":"J. A. Giles","len":"9 parts","word":"Part","count":9,"orig":"","color":"#0C4E8D","tradition":"Medieval Europe","form":"History","fav":false,"reads":5,"at":null},{"id":"treaty-of-versailles","title":"The Treaty of Versailles","subtitle":"Treaty of Peace between the Allied and Associated Powers and Germany","author":"The Allied and Associated Powers and Germany","written":"1919","year":1919,"translator":"","len":"15 parts","word":"Part","count":15,"orig":"","color":"#7B002A","tradition":"Modern science and thought","form":"Law and politics","fav":false,"reads":381,"at":null},{"id":"russian-primary-chronicle","title":"The Russian Primary Chronicle","subtitle":"The Tale of Bygone Years","author":"Anonymous","written":"c. 1111–1116","year":1111,"translator":"Samuel Hazzard Cross","len":"153 entries","word":"Entry","count":153,"orig":"","color":"#933700","tradition":"Medieval Europe","form":"History","fav":false,"reads":575,"at":null},{"id":"novgorod-chronicle","title":"The Chronicle of Novgorod","subtitle":"1016–1471","author":"Anonymous","written":"c. 1330–1450s","year":1330,"translator":"Robert Michell and Nevill Forbes","len":"11 parts","word":"Part","count":11,"orig":"","color":"#6F008D","tradition":"Medieval Europe","form":"History","fav":false,"reads":573,"at":null},{"id":"luther-ninety-five-theses","title":"The Ninety-five Theses","subtitle":"A Disputation on the Power and Efficacy of Indulgences","author":"Martin Luther","written":"1517","year":1517,"translator":"Charles M. Jacobs","len":"2 parts","word":"Part","count":2,"orig":"","color":"#9A0084","tradition":"Scripture and the Church","form":"Scripture and religion","fav":false,"reads":8,"at":null},{"id":"king-james-bible","title":"The Bible","subtitle":"The Holy Bible, Authorized Version, 1611","author":"Anonymous","written":"c. 1000 BCE – c. 300 CE","year":-1000,"translator":"the King James translators","len":"1362 chapters","word":"Chapter","count":1362,"orig":"","color":"#410064","tradition":"Scripture and the Church","form":"Scripture and religion","fav":false,"reads":770,"at":null},{"id":"quran","title":"The Quran","subtitle":"The Meaning of the Glorious Koran","author":"Anonymous","written":"c. 610–632 CE","year":610,"translator":"Marmaduke Pickthall","len":"114 sûrahs","word":"Sûrah","count":114,"orig":"","color":"#006321","tradition":"Scripture and the Church","form":"Scripture and religion","fav":false,"reads":299,"at":null},{"id":"hobbes-leviathan","title":"Leviathan","subtitle":"Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill","author":"Thomas Hobbes","written":"1651","year":1651,"translator":"","len":"49 sections","word":"Section","count":49,"orig":"","color":"#263700","tradition":"Renaissance and early modern","form":"Law and politics","fav":false,"reads":395,"at":null},{"id":"rousseau-social-contract","title":"The Social Contract","subtitle":"Du contrat social, ou Principes du droit politique","author":"Jean-Jacques Rousseau","written":"1762","year":1762,"translator":"G. D. H. Cole","len":"49 sections","word":"Section","count":49,"orig":"French","color":"#663930","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":522,"at":null},{"id":"kant-critique-of-pure-reason","title":"Critique of Pure Reason","subtitle":"Kritik der reinen Vernunft","author":"Immanuel Kant","written":"1781, revised 1787","year":1781,"translator":"J. M. D. Meiklejohn","len":"19 sections","word":"Section","count":19,"orig":"","color":"#592F85","tradition":"Enlightenment and revolution","form":"Philosophy","fav":false,"reads":355,"at":null},{"id":"augustus-res-gestae","title":"Res Gestae Divi Augusti","subtitle":"The Deeds of the Divine Augustus","author":"Augustus","written":"14 CE","year":14,"translator":"Frederick W. Shipley","len":"7 parts","word":"Part","count":7,"orig":"Latin","color":"#84307B","tradition":"Rome","form":"History","fav":false,"reads":609,"at":null},{"id":"descartes-discourse-on-method","title":"Discourse on the Method","subtitle":"Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences","author":"René Descartes","written":"1637","year":1637,"translator":"John Veitch","len":"7 sections","word":"Section","count":7,"orig":"French","color":"#962A30","tradition":"Renaissance and early modern","form":"Philosophy","fav":false,"reads":549,"at":null},{"id":"more-utopia","title":"Utopia","subtitle":"De optimo rei publicae statu deque nova insula Utopia","author":"Thomas More","written":"1516","year":1516,"translator":"Gilbert Burnet","len":"9 chapters","word":"Chapter","count":9,"orig":"","color":"#5A0009","tradition":"Renaissance and early modern","form":"Law and politics","fav":false,"reads":94,"at":null},{"id":"darwin-origin-of-species","title":"On the Origin of Species","subtitle":"By Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life","author":"Charles Darwin","written":"1859","year":1859,"translator":"","len":"15 sections","word":"Section","count":15,"orig":"","color":"#573006","tradition":"Modern science and thought","form":"Science","fav":false,"reads":478,"at":{"ch":2,"pct":8,"daysAgo":1}},{"id":"jerome-letters","title":"The Letters of St. Jerome","subtitle":"Epistulae","author":"Jerome","written":"c. 370–419 CE","year":370,"translator":"W. H. Fremantle","len":"150 letters","word":"Letter","count":150,"orig":"","color":"#5D3B75","tradition":"Scripture and the Church","form":"Travel and memoir","fav":false,"reads":133,"at":null},{"id":"euclid-elements","title":"The Elements","subtitle":"Books I–VI, XI and XII","author":"Euclid","written":"c. 300 BCE","year":-300,"translator":"Robert Simson, revised by Isaac Todhunter","len":"8 books","word":"Book","count":8,"orig":"","color":"#5A0009","tradition":"Greece","form":"Science","fav":false,"reads":506,"at":null},{"id":"voltaire-candide","title":"Candide","subtitle":"Candide, ou l’Optimisme","author":"Voltaire","written":"1759","year":1759,"translator":"Tobias Smollett, revised by James Thornton","len":"30 chapters","word":"Chapter","count":30,"orig":"French","color":"#12155D","tradition":"Enlightenment and revolution","form":"Tales and fiction","fav":false,"reads":10,"at":null},{"id":"book-of-the-dead","title":"The Book of the Dead","subtitle":"According to the Theban Recension","author":"Anonymous","written":"c. 1550–50 BCE","year":-1550,"translator":"E. A. Wallis Budge","len":"114 chapters","word":"Chapter","count":114,"orig":"","color":"#212406","tradition":"Egypt and Mesopotamia","form":"Scripture and religion","fav":false,"reads":726,"at":null},{"id":"erman-egyptian-literature","title":"The Literature of the Ancient Egyptians","subtitle":"Poems, Narratives, and Manuals of Instruction, from the Third and Second Millennia B.C.","author":"Adolf Erman","written":"1923","year":1923,"translator":"Aylward M. Blackman","len":"74 chapters","word":"Chapter","count":74,"orig":"","color":"#C9000C","tradition":"Egypt and Mesopotamia","form":"Tales and fiction","fav":false,"reads":6,"at":null},{"id":"james-principles-of-psychology","title":"The Principles of Psychology","subtitle":"","author":"William James","written":"1890","year":1890,"translator":"","len":"29 sections","word":"Section","count":29,"orig":"","color":"#0024A5","tradition":"Modern science and thought","form":"Science","fav":false,"reads":583,"at":null},{"id":"pavlov-conditioned-reflexes","title":"Conditioned Reflexes","subtitle":"An Investigation of the Physiological Activity of the Cerebral Cortex","author":"Ivan Pavlov","written":"1926","year":1926,"translator":"G. V. Anrep","len":"24 lectures","word":"Lecture","count":24,"orig":"","color":"#032D21","tradition":"Modern science and thought","form":"Science","fav":false,"reads":157,"at":null},{"id":"darwin-expression-of-emotions","title":"The Expression of the Emotions in Man and Animals","subtitle":"","author":"Charles Darwin","written":"1872","year":1872,"translator":"","len":"15 sections","word":"Section","count":15,"orig":"","color":"#573006","tradition":"Modern science and thought","form":"Science","fav":false,"reads":252,"at":null},{"id":"freud-interpretation-of-dreams","title":"The Interpretation of Dreams","subtitle":"Die Traumdeutung","author":"Sigmund Freud","written":"1899","year":1899,"translator":"A. A. Brill","len":"8 chapters","word":"Chapter","count":8,"orig":"","color":"#844227","tradition":"Modern science and thought","form":"Science","fav":false,"reads":58,"at":null},{"id":"thorndike-animal-intelligence","title":"Animal Intelligence","subtitle":"Experimental Studies","author":"Edward L. Thorndike","written":"1911","year":1911,"translator":"","len":"8 sections","word":"Section","count":8,"orig":"","color":"#724560","tradition":"Modern science and thought","form":"Science","fav":false,"reads":737,"at":null},{"id":"petrie-egyptian-tales","title":"Egyptian Tales","subtitle":"Translated from the Papyri · First Series, IVth to XIIth Dynasty","author":"Anonymous","written":"c. 2000–1600 BCE (the papyri)","year":-2000,"translator":"W. M. Flinders Petrie","len":"6 tales","word":"Tale","count":6,"orig":"","color":"#422448","tradition":"Egypt and Mesopotamia","form":"Tales and fiction","fav":false,"reads":880,"at":null},{"id":"douglass-narrative","title":"Narrative of the Life of Frederick Douglass","subtitle":"An American Slave, Written by Himself","author":"Frederick Douglass","written":"1845","year":1845,"translator":"","len":"14 sections","word":"Section","count":14,"orig":"","color":"#3F5A24","tradition":"Enlightenment and revolution","form":"Travel and memoir","fav":false,"reads":91,"at":null},{"id":"paine-common-sense","title":"Common Sense","subtitle":"Addressed to the Inhabitants of America","author":"Thomas Paine","written":"1776","year":1776,"translator":"","len":"6 parts","word":"Part","count":6,"orig":"","color":"#A20C45","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":607,"at":null},{"id":"us-constitution","title":"The Constitution of the United States","subtitle":"Signed in Convention at Philadelphia, September 17, 1787","author":"The Constitutional Convention","written":"1787","year":1787,"translator":"","len":"8 parts","word":"Part","count":8,"orig":"","color":"#45007E","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":75,"at":null},{"id":"us-bill-of-rights","title":"The Bill of Rights","subtitle":"Articles in Addition to, and Amendment of, the Constitution, 1789","author":"The First Congress of the United States","written":"1789","year":1789,"translator":"","len":"1 part","word":"Part","count":1,"orig":"","color":"#724560","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":838,"at":null},{"id":"washington-farewell-address","title":"Washington's Farewell Address","subtitle":"To the People of the United States, 1796","author":"George Washington","written":"1796","year":1796,"translator":"","len":"1 part","word":"Part","count":1,"orig":"","color":"#002D84","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":28,"at":null},{"id":"marx-communist-manifesto","title":"The Communist Manifesto","subtitle":"Manifesto of the Communist Party","author":"Karl Marx and Friedrich Engels","written":"1848","year":1848,"translator":"Samuel Moore","len":"5 parts","word":"Part","count":5,"orig":"","color":"#002A1E","tradition":"Enlightenment and revolution","form":"Law and politics","fav":false,"reads":22,"at":null},{"id":"ebbinghaus-memory","title":"Memory","subtitle":"A Contribution to Experimental Psychology","author":"Hermann Ebbinghaus","written":"1885","year":1885,"translator":"Henry A. Ruger and Clara E. Bussenius","len":"9 chapters","word":"Chapter","count":9,"orig":"","color":"#9C0066","tradition":"Modern science and thought","form":"Science","fav":false,"reads":132,"at":null},{"id":"breasted-ancient-records","title":"Ancient Records of Egypt","subtitle":"Historical Documents from the Earliest Times to the Persian Conquest","author":"James Henry Breasted","written":"c. 2600–525 BCE; translated 1906","year":-2600,"translator":"","len":"94 chapters","word":"Chapter","count":94,"orig":"","color":"#06451E","tradition":"Egypt and Mesopotamia","form":"History","fav":false,"reads":54,"at":null},{"id":"xunzi","title":"Xunzi","subtitle":"The Works of Hsüntze","author":"Xunzi","written":"3rd century BCE","year":-250,"translator":"Homer H. Dubs","len":"20 sections","word":"Section","count":20,"orig":"","color":"#C9002A","tradition":"China","form":"Philosophy","fav":false,"reads":21,"at":null},{"id":"mozi","title":"Mozi","subtitle":"The Ethical and Political Works of Motse","author":"Mozi","written":"5th–3rd century BCE","year":-500,"translator":"Yi-Pao Mei","len":"36 of 71 chapters","word":"Chapter","count":36,"orig":"","color":"#0060CC","tradition":"China","form":"Philosophy","fav":false,"reads":6,"at":null}];/*BOOKS:end*/
+
+/* ── vocabulary ─────────────────────────────────────────────────────────── */
+const TRADS = ["Egypt and Mesopotamia","Greece","Rome","China","India","Scripture and the Church","Medieval Europe","Renaissance and early modern","Enlightenment and revolution","Modern science and thought"];
+const FORMS = ["Epic and poetry","History","Philosophy","Drama","Law and politics","Tales and fiction","Scripture and religion","Travel and memoir","Science"];
+const SORTS = [["last","Last read","Most recent first","Least recent first"],["title","Title","A – Z","Z – A"],["author","Author","A – Z","Z – A"],
+  ["date","Date","Oldest first","Newest first"],["pop","Popularity","Most read first","Least read first"]];
+const DESIGNS = [
+  ["Reading room","Best for choosing: filters on the left, every fact about a text on the right, and no page change between them. Costs: three panes leave the list itself the narrowest of the six."],
+  ["Stacks","Most like a bookshop: each text is an object in its own colour, and browsing is the point. Costs: the longest page, about 14 covers to a screen."],
+  ["Time river","Shows what no list can: when each text was written, and what else was being written then. Costs: the river takes the first screen, so the list starts below it."],
+  ["Catalogue","Densest: about 22 texts to a screen, and every column sorts from its own heading. Costs: the least bookish; it reads as a table."],
+  ["Traditions","Sets the traditions side by side, each in the order you chose. Costs: ten columns do not fit, so the board scrolls sideways inside its frame."],
+  ["Desk","Opens on the book you are in the middle of, then a shelf for each form. Costs: a shelf shows one row until you ask for the rest."]];
+const N = BOOKS.length, byId = Object.fromEntries(BOOKS.map(b => [b.id, b]));
+
+/* ── state shared by all six ────────────────────────────────────────────── */
+const S = { d: 1, theme: null, q: "", sort: "last", rev: false, favs: new Set(BOOKS.filter(b => b.fav).map(b => b.id)), sel: null,
+  f: { state: new Set(), tradition: new Set(), form: new Set(), orig: new Set(), len: new Set() }, grp: "tradition", open: new Set(), zoom: 1 };
+
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const P = { star: "M12 3.600l2.600 5.300 5.800.800-4.200 4.100 1 5.800-5.200-2.700-5.200 2.700 1-5.800-4.200-4.100 5.800-.800z", check: "M5 12.500l4.500 4.500L19 7.500",
+  share: "M12 15V4M8 7.500L12 4l4 3.500M6 12v6a1.500 1.500 0 0 0 1.500 1.500h9A1.500 1.500 0 0 0 18 18v-6", sort: "M7 5v14M4 8l3-3 3 3M17 19V5M14 16l3 3 3-3",
+  search: "M11 4.500a6.500 6.500 0 1 0 0 13 6.500 6.500 0 0 0 0-13zM16 16l4 4", more: "M6 12h.010M12 12h.010M18 12h.010", up: "M6 14l6-6 6 6", down: "M6 10l6 6 6-6",
+  plus: "M12 5v14M5 12h14", minus: "M5 12h14", go: "M5 12h14M13 6l6 6-6 6", x: "M6 6l12 12M18 6L6 18" };
+const ic = (n, s = 16, w) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24"${w ? ` style="stroke-width:${w}"` : ""} aria-hidden="true"><path d="${P[n]}"/></svg>`;
+
+const fold = s => { const v = String(s == null ? "" : s).toLowerCase(); try { return v.normalize("NFD").replace(/[̀-ͯ]/g, ""); } catch (e) { return v; } };
+BOOKS.forEach(b => { b.hay = fold(b.title + " " + b.author + " " + b.written); });
+const qWords = () => fold(S.q).split(/\s+/).filter(Boolean);
+const matches = (b, w) => w.every(x => b.hay.indexOf(x) >= 0);
+const isFav = b => S.favs.has(b.id);
+const stateOf = b => !b.at ? "new" : b.at.pct >= 100 ? "done" : "on";
+const lastAt = b => b.at ? b.at.daysAgo : 1e9;
+function forward(a, b) {
+  const t = a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+  if (S.sort === "title") return t;
+  if (S.sort === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || t;
+  if (S.sort === "date") return a.year - b.year || t;
+  if (S.sort === "pop") return b.reads - a.reads || t;
+  return lastAt(a) - lastAt(b) || t;
+}
+const sorted = list => list.slice().sort((a, b) => S.rev ? -forward(a, b) : forward(a, b));
+const shelf = () => { const w = qWords(); return sorted(BOOKS.filter(b => matches(b, w))); };
+/* Favourites first under their own heading, the rest under "Everything else"; no headings when nothing is starred. */
+function split(list) {
+  const f = list.filter(isFav), r = list.filter(b => !isFav(b));
+  if (!S.favs.size) return [{ head: "", items: list }];
+  return [{ head: "Favourites", items: f }, { head: "Everything else", items: r }].filter(g => g.items.length);
+}
+const countText = n => n === N ? `${N} texts` : `${n} of ${N} texts`;
+const reads = b => b.reads === 1 ? "read once" : b.reads + " reads";
+const whereOf = b => `${b.word} ${b.at.ch} · ${b.at.pct}%`;
+const ago = d => d === 0 ? "today" : d === 1 ? "yesterday" : d < 14 ? d + " days ago" : d < 60 ? Math.round(d / 7) + " weeks ago" : Math.round(d / 30) + " months ago";
+const yr = y => y < 0 ? -y + " BCE" : y < 1000 ? y + " CE" : String(y);
+const span = l => { const a = Math.min(...l.map(b => b.year)), z = Math.max(...l.map(b => b.year)); return a === z ? yr(a) : (a < 0 && z < 0 ? -a : yr(a)) + " – " + yr(z); };
+const st = b => { const s = stateOf(b); return s === "new" ? `<span class="st st-new">Start reading</span>` : s === "done" ? `<span class="st st-done">${ic("check", 14, 2.2)}Finished</span>` : `<span class="st st-on">${esc(whereOf(b))}</span>`; };
+const pg = b => b.at ? `<span class="pg${b.at.pct >= 100 ? " done" : ""}"><i style="width:${b.at.pct}%"></i></span>` : "";
+const orig = b => b.orig ? `<span class="orig">with original ${esc(b.orig)}</span>` : "";
+const star = (b, shy) => `<button type="button" class="sb${shy ? " shy" : ""}${isFav(b) ? " on" : ""}" data-star="${b.id}" aria-pressed="${isFav(b)}" aria-label="${isFav(b) ? "Remove from" : "Add to"} favourites: ${esc(b.title)}" title="${isFav(b) ? "Starred" : "Star"}">${ic("star", 16)}</button>`;
+const goLabel = b => { const s = stateOf(b); return s === "on" ? "Continue reading" : s === "done" ? "Read again" : "Start reading"; };
+const attrs = (b, cls) => `class="${cls} bk${S.sel === b.id ? " is-sel" : ""}" data-b="${b.id}" tabindex="0" style="--bk:${b.color}"`;
+const label = b => `${b.title} by ${b.author}, written ${b.written}${b.orig ? ", with original " + b.orig : ""}${isFav(b) ? ", a favourite" : ""}`;
+const emptyHTML = () => `<div class="none">No texts match ${S.q ? "“" + esc(S.q) + "”" : "these filters"}. <button type="button" data-clear>Clear the search${S.d === 1 ? " and filters" : ""}</button></div>`;
+
+function head(slim) {
+  return `<div class="ph${slim ? " slim" : ""}"><div><div class="eyebrow">Library</div><h1>Texts</h1></div><p class="lede">Historical texts in the public domain, completely free to read.</p></div>`;
+}
+function toolbar() {
+  return `<div class="tb" role="search">
+    <label class="search">${ic("search", 16)}<input id="q" type="search" placeholder="Search these texts…" aria-label="Search by title, author or date" autocomplete="off" value="${esc(S.q)}"></label>
+    <span class="count" id="count" aria-live="polite"></span>
+    <span class="lbl">Sort</span>
+    <select id="sort" aria-label="Sort by">${SORTS.map(o => `<option value="${o[0]}">${o[1]}</option>`).join("")}</select>
+    <button type="button" class="dir" id="dir">${ic("sort", 14)}<span></span></button>
+    <button type="button" class="help" id="help" aria-label="What this page does" aria-expanded="false">?</button>
+    <div class="helpbox" id="helpbox" hidden><b>The Library</b>
+      <p>A shelf of historical texts in the public domain. Open one and it keeps your place.</p>
+      <p>Search looks at the title, the author and the date; every word you type has to match.</p>
+      <p>Star a text to keep it under Favourites. Use its star, or right-click it for Star and Share.</p></div>
+  </div>`;
+}
+function sync(n) {
+  const so = SORTS.find(o => o[0] === S.sort);
+  const s = $("#sort"); if (s) s.value = S.sort;
+  const d = $("#dir span"); if (d) { d.textContent = so[S.rev ? 3 : 2]; $("#dir").setAttribute("aria-label", "Direction: " + so[S.rev ? 3 : 2] + ". Click to reverse."); }
+  const c = $("#count"); if (c) c.textContent = countText(n);
+  const q = $("#q"); if (q && q.value !== S.q) q.value = S.q;
+}
+
+/* ── 1 · Reading room ───────────────────────────────────────────────────── */
+const FACETS = [
+  { k: "state", name: "Reading", opts: [["on", "In progress"], ["new", "Unread"], ["done", "Finished"]], of: stateOf },
+  { k: "tradition", name: "Tradition", opts: TRADS.map(t => [t, t]), of: b => b.tradition },
+  { k: "form", name: "Form", opts: FORMS.map(t => [t, t]), of: b => b.form },
+  { k: "orig", name: "Original text", opts: [["y", "With original text"]], of: b => b.orig ? "y" : "n" },
+  { k: "len", name: "Length", opts: [["a", "1–9 parts"], ["b", "10–24 parts"], ["c", "25–99 parts"], ["d", "100 parts or more"]], of: b => b.count < 10 ? "a" : b.count < 25 ? "b" : b.count < 100 ? "c" : "d" }];
+const passes = (b, skip) => FACETS.every(F => F.k === skip || !S.f[F.k].size || S.f[F.k].has(F.of(b)));
+const anyFilter = () => FACETS.some(F => S.f[F.k].size);
+let d1list = [];
+const D1 = {
+  frame: () => `<div class="wrap"><div class="d1">
+    <aside class="d1-rail" id="rail" aria-label="Filters"></aside>
+    <section class="d1-main">${head()}${toolbar()}<div class="d1-list" id="list"></div></section>
+    <aside class="d1-det" id="det" aria-label="Selected text" aria-live="polite"></aside></div></div>`,
+  fill() {
+    const base = shelf();
+    d1list = base.filter(b => passes(b));
+    $("#rail").innerHTML = FACETS.map((F, i) => `<section><h2>${F.name}${i === 0 && anyFilter() ? `<button type="button" class="clr" data-clearf>Clear filters</button>` : ""}</h2>` +
+      F.opts.map(o => { const n = base.filter(b => passes(b, F.k) && F.of(b) === o[0]).length, on = S.f[F.k].has(o[0]);
+        return `<button type="button" class="fo${on ? " on" : ""}${n ? "" : " zero"}" data-f="${F.k}" data-v="${esc(o[0])}" aria-pressed="${on}"><i>${on ? ic("check", 10, 3.4) : ""}</i><span>${esc(o[1])}</span><em>${n}</em></button>`; }).join("") + `</section>`).join("");
+    $("#list").innerHTML = d1list.length ? split(d1list).map(g => (g.head ? `<div class="d1-gh">${g.head}</div>` : "") + g.items.map(b => `
+      <div ${attrs(b, "r1")} role="button" aria-label="${esc(label(b))}">
+        <div class="r1-a"><div class="r1-t">${esc(b.title)}</div><div class="r1-s"><span class="au">${esc(b.author)}</span><span class="wr">${esc(b.written)}</span></div></div>
+        <div class="r1-b">${stateOf(b) === "on" ? `<span class="r1-on">${pg(b)}${st(b)}</span>` : st(b)}
+          <div class="r1-m"><span class="meta">${esc(b.len)} · ${reads(b)}</span>${orig(b)}</div></div>
+        ${star(b, true)}
+      </div>`).join("")).join("") : emptyHTML();
+    D1.shown = d1list.includes(byId[S.sel]) ? S.sel : d1list[0] ? d1list[0].id : null;   // the pane never shows a text the filters have hidden
+    markSel(); D1.detail(D1.shown); sync(d1list.length);
+  },
+  detail(id) {
+    const b = byId[id], el = $("#det"); if (!el) return;
+    if (!b) { el.innerHTML = `<div class="none">Choose a text to see it here.</div>`; return; }
+    const s = stateOf(b);
+    el.className = "d1-det bk"; el.style.setProperty("--bk", b.color);
+    el.innerHTML = `<div class="det-top"><div class="row"><span class="au">${esc(b.author)}</span><span>${star(b)}<button type="button" class="sb" data-share="${b.id}" aria-label="Share ${esc(b.title)}" title="Share">${ic("share", 16)}</button></span></div>
+        <h2>${esc(b.title)}</h2>${b.subtitle ? `<p class="sub">${esc(b.subtitle)}</p>` : ""}</div>
+      <dl class="det-facts">
+        <dt>Written</dt><dd class="s">${esc(b.written)}</dd>
+        ${b.translator ? `<dt>Translator</dt><dd>${esc(b.translator)}</dd>` : ""}
+        <dt>Length</dt><dd>${esc(b.len)}</dd>
+        ${b.orig ? `<dt>Original</dt><dd>${orig(b)}</dd>` : ""}
+        <dt>Shelved</dt><dd>${esc(b.tradition)} · ${esc(b.form)}</dd>
+        <dt>Readers</dt><dd>${reads(b)}</dd></dl>
+      ${b.at ? `<div class="det-place"><div class="l">${st(b)}<small>last read ${ago(b.at.daysAgo)}</small></div>${pg(b)}</div>` : ""}
+      <div class="det-go"><button type="button" class="btn" data-go="${b.id}">${goLabel(b)}${s === "on" ? " · " + esc(b.word) + " " + b.at.ch : ""}${ic("go", 16, 2)}</button>
+        <p class="hint">↑ ↓ move through the shelf · Enter opens</p></div>`;
+  },
+  onSelect: id => { D1.shown = id; D1.detail(id); },
+  keys(e) {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return false;
+    const i = d1list.findIndex(b => b.id === D1.shown), n = d1list[Math.max(0, Math.min(d1list.length - 1, i + (e.key === "ArrowDown" ? 1 : -1)))];
+    if (n) { select(n.id); const r = $(`#list [data-b="${n.id}"]`); if (r) r.scrollIntoView({ block: "nearest" }); }
+    return true;
+  }
+};
+
+/* ── 2 · Stacks ─────────────────────────────────────────────────────────── */
+function cover(b) {
+  const L = b.title.length, W = Math.max(...b.title.split(/[\s-]+/).map(w => w.length));
+  const size = L > 40 ? "s4" : L > 26 || W > 13 ? "s3" : L > 13 || W > 10 ? "" : "s1";
+  const sub = b.subtitle && L <= 24 && b.subtitle.length <= 64 ? `<p class="cv-sub">${esc(b.subtitle)}</p>` : "";
+  const s = stateOf(b);
+  return `<article ${attrs(b, "cv")} aria-label="${esc(label(b))}">
+    <div class="cv-face"><span class="cv-au">${esc(b.author)}</span><i class="cv-rule"></i><h3 class="cv-t ${size}" lang="en">${esc(b.title)}</h3>${sub}
+      <div class="cv-base">${b.orig ? `<span class="cv-or">with original ${esc(b.orig)}</span>` : ""}<span class="cv-wr">${esc(b.written)}</span></div>
+      ${isFav(b) ? `<span class="cv-star" title="A favourite">${ic("star", 15)}</span>` : ""}
+      <div class="cv-sheet">${b.translator ? `<p>Translated by ${esc(b.translator)}</p>` : `<p>${esc(b.tradition)} · ${esc(b.form)}</p>`}
+        <button type="button" class="btn" data-go="${b.id}" tabindex="-1">${s === "on" ? "Continue · " + esc(b.word) + " " + b.at.ch : goLabel(b)}</button>
+        <div class="acts"><button type="button" class="tbtn${isFav(b) ? " on" : ""}" data-star="${b.id}" tabindex="-1">${ic("star", 14)}${isFav(b) ? "Starred" : "Star"}</button><button type="button" class="tbtn" data-share="${b.id}" tabindex="-1">${ic("share", 14)}Share</button></div></div>
+    </div>
+    <div class="cv-pg${s === "done" ? " done" : s === "new" ? " no" : ""}"><i style="width:${b.at ? b.at.pct : 0}%"></i></div>
+    <div class="cv-foot"><span class="meta">${esc(b.len)}</span>${st(b)}<span class="meta">${reads(b)}</span></div>
+  </article>`;
+}
+const D2 = {
+  frame: () => `<div class="wrap"><div class="d2 mid"><div class="headrow">${head()}${toolbar()}</div><div id="fill"></div></div></div>`,
+  fill() {
+    const list = shelf(), cont = list.filter(b => stateOf(b) === "on").sort((a, b) => a.at.daysAgo - b.at.daysAgo);
+    const favs = S.favs.size ? list.filter(isFav) : [], rest = S.favs.size ? list.filter(b => !isFav(b)) : list;
+    let h = "";
+    if (!list.length) h = emptyHTML();
+    else {
+      if (cont.length || favs.length) h += `<div class="d2-band${cont.length && favs.length && favs.length <= 3 ? " both" : ""}">` +
+        (cont.length ? `<section class="d2-zone c"><div class="grp-h">Continue reading <em>${cont.length}</em></div><div class="d2-cont">${cont.map(b => `
+          <div ${attrs(b, "c2")} role="button" aria-label="${esc(label(b))}"><div class="c2-n"><b>${b.at.pct}<small>%</small></b><span>${esc(b.word)} ${b.at.ch}</span></div>
+            <div class="c2-b"><span class="au">${esc(b.author)}</span><h3>${esc(b.title)}</h3><span class="wr">${esc(b.written)}</span>
+              <div class="f"><small>read ${ago(b.at.daysAgo)}</small><button type="button" class="btn sm" data-go="${b.id}">Continue</button></div></div></div>`).join("")}</div></section>` : "") +
+        (favs.length ? `<section class="d2-zone f"><div class="grp-h">Favourites <em>${favs.length}</em></div><div class="d2-wall">${favs.map(cover).join("")}</div></section>` : "") + `</div>`;
+      if (rest.length) h += (S.favs.size ? `<div class="grp-h d2-else">Everything else <em>${rest.length} texts, by tradition</em></div>` : `<div class="d2-else"></div>`) +
+        TRADS.map(t => { const l = rest.filter(b => b.tradition === t); return l.length ? `<section class="d2-sec"><div class="d2-sh"><h2>${t}</h2><span>${l.length} ${l.length === 1 ? "text" : "texts"}</span><span class="s">${span(l)}</span></div><div class="d2-wall">${l.map(cover).join("")}</div></section>` : ""; }).join("");
+    }
+    $("#fill").innerHTML = h; sync(list.length);
+  }
+};
+
+/* ── 3 · Time river ─────────────────────────────────────────────────────── */
+/* The axis is piecewise: each pair of knots is linear, and the pairs are given room by how crowded the shelf is
+   there. The ticks at every century show the stretch honestly: they bunch where the scale is tight. */
+const KNOTS = [[-2600, 0], [-800, .10], [-500, .16], [-300, .305], [1, .39], [500, .52], [1000, .585], [1500, .71], [1700, .83], [1800, .91], [1950, 1]];
+const ERAS = [["Ancient", -2600, -800], ["Classical antiquity", -800, 500], ["Middle Ages", 500, 1500], ["Early modern", 1500, 1800], ["Modern", 1800, 1950]];
+const ZOOMS = [1, 1.6, 2.5, 4, 6];
+function xf(y) { for (let i = 0; i < KNOTS.length - 1; i++) { const a = KNOTS[i], b = KNOTS[i + 1]; if (y <= b[0]) return a[1] + (b[1] - a[1]) * (y - a[0]) / (b[0] - a[0]); } return 1; }
+let mctx = null;
+function textW(s) { try { mctx = mctx || document.createElement("canvas").getContext("2d"); mctx.font = '600 11.5px "Nunito Sans", sans-serif'; return mctx.measureText(s).width; } catch (e) { return s.length * 6.3; } }
+function riverLayout() {
+  const sc = $("#rv-sc"); if (!sc) return;
+  const base = sc.clientWidth, old = sc.scrollWidth, mid = (sc.scrollLeft + base / 2) / (old || 1);
+  const W = Math.round(Math.max(base, 720) * S.zoom), padL = 16, padR = 22, X = y => padL + xf(y) * (W - padL - padR);
+  const PITCH = 18, PADV = 5, TOP = 26, MK = 10;
+  let y = TOP, lanes = "", chips = "", labels = "";
+  TRADS.forEach(t => {
+    const items = BOOKS.filter(b => b.tradition === t).sort((a, b) => a.year - b.year || a.title.localeCompare(b.title));
+    const endL = [-1e9, -1e9, -1e9], endM = [-1e9, -1e9, -1e9], rows = [[], [], []];
+    items.forEach(b => {
+      let x = X(b.year), r = -1; const wl = MK + 14 + textW(b.title);
+      for (let i = 0; i < 2 && r < 0; i++) if (x >= endL[i] + 6 && x + wl <= W - 4) r = i;
+      for (let i = 0; i < 3 && r < 0; i++) if (x >= endM[i] + 3) r = i;
+      if (r < 0) { r = endM.indexOf(Math.min(...endM)); x = endM[r] + 3; }   // a crowd: set it beside its neighbour, a few pixels late
+      rows[r].push({ b, x, wl }); endM[r] = x + MK; endL[r] = Math.max(endL[r], x + wl);
+    });
+    const used = Math.max(1, rows.filter(r => r.length).length), h = Math.max(30, used * PITCH + PADV * 2 - 2);
+    rows.forEach((row, r) => row.forEach((c, i) => {
+      const next = row[i + 1], room = (next ? next.x : W - 2) - c.x - 5, lab = room >= c.wl, b = c.b, s = stateOf(b);
+      chips += `<button type="button" class="rc bk${lab ? " lab" : ""}${isFav(b) ? " fav" : ""}${s === "on" ? " on" : ""}" data-b="${b.id}" data-tip="1" style="--bk:${b.color};--p:${b.at ? b.at.pct : 0}%;left:${c.x.toFixed(1)}px;top:${y + (used * PITCH + PADV * 2 - 2 < 30 ? 7 : PADV) + r * PITCH}px" aria-label="${esc(label(b))}"><i></i>${lab ? `<span>${esc(b.title)}</span>` : ""}</button>`;
+    }));
+    lanes += `<div class="rv-lane" style="top:${y}px;height:${h}px"></div>`;
+    labels += `<div style="height:${h}px">${t}<em>${items.length}</em></div>`;
+    y += h;
+  });
+  const H = y + 34;
+  let eras = ERAS.map(e => `<div class="rv-era" style="left:${e[1] === -2600 ? 0 : X(e[1]).toFixed(1)}px;width:${((e[2] === 1950 ? W : X(e[2])) - (e[1] === -2600 ? 0 : X(e[1]))).toFixed(1)}px"><span>${e[0]}</span></div>`).join("");
+  let ticks = ""; for (let c = -2600; c <= 1900; c += 100) if (!KNOTS.some(k => k[0] === c || k[0] === c + 1)) ticks += `<i class="rv-tick" style="left:${X(c).toFixed(1)}px"></i>`;
+  const every = S.zoom >= 2.5 ? 1 : 2;
+  const ax = KNOTS.map((k, i) => `<i class="rv-tick k" style="left:${X(k[0]).toFixed(1)}px"></i>` + (i % every && i !== KNOTS.length - 1 && S.zoom < 1.6 && base < 900 ? "" : `<b class="${i === 0 ? "l" : i === KNOTS.length - 1 ? "r" : ""}" style="left:${X(k[0]).toFixed(1)}px">${yr(k[0])}</b>`)).join("");
+  $("#rv-in").style.cssText = `width:${W}px;height:${H}px`;
+  $("#rv-in").innerHTML = `<div>${eras}</div>${lanes}${chips}<div class="rv-ax">${ticks}${ax}</div>`;
+  $("#rv-lanes").innerHTML = labels;
+  sc.scrollLeft = mid * W - base / 2;
+  const z = ZOOMS.indexOf(S.zoom); $("#zout").disabled = z === 0; $("#zin").disabled = z === ZOOMS.length - 1; $("#zval").textContent = Math.round(S.zoom * 100) + "%";
+  riverMark();
+}
+function riverMark() { const w = qWords(); $$("#rv-in .rc").forEach(c => { c.classList.toggle("dim", !matches(byId[c.dataset.b], w)); c.classList.toggle("is-sel", c.dataset.b === S.sel); }); }
+function banner(b) {
+  return `<div ${attrs(b, "b3")} role="button" aria-label="${esc(label(b))}"><div><span class="au">${esc(b.author)}</span><h3>${esc(b.title)}</h3><span class="wr">${esc(b.written)}</span></div>
+    <div class="b3-r"><div class="top">${star(b, true)}<span class="meta">${esc(b.len)} · ${reads(b)}</span></div>${orig(b)}${st(b)}</div></div>`;
+}
+const D3 = {
+  frame: () => `<div class="wrap"><div class="d3"><div class="headrow">${head(true)}${toolbar()}</div>
+    <section class="rv" aria-label="The shelf in time">
+      <div class="rv-head"><span class="t">The shelf in time</span><span class="n">${yr(Math.min(...BOOKS.map(b => b.year)))} to ${yr(Math.max(...BOOKS.map(b => b.year)))}. The scale stretches where the shelf is crowded; a tick marks every century.</span>
+        <div class="rv-key"><span><i></i>a text</span><span><i class="h"></i>part read</span><span><i class="s"></i>favourite</span></div>
+        <div class="rv-zoom"><button type="button" id="zout" aria-label="Zoom out">${ic("minus", 14, 2)}</button><output id="zval">100%</output><button type="button" id="zin" aria-label="Zoom in">${ic("plus", 14, 2)}</button><button type="button" id="zfit">Fit</button></div></div>
+      <div class="rv-body"><div class="rv-lanes" id="rv-lanes"></div><div class="rv-sc" id="rv-sc" tabindex="0" aria-label="Timeline, scrolls sideways"><div class="rv-in" id="rv-in"></div></div></div></section>
+    <div id="fill"></div></div></div>`,
+  fill() {
+    const list = shelf(), so = SORTS.find(o => o[0] === S.sort);
+    $("#fill").innerHTML = list.length ? split(list).map(g => `<div class="grp-h d3-lh">${g.head || "The shelf"} <em>${g.items.length} ${g.items.length === 1 ? "text" : "texts"} · ${so[1].toLowerCase()}, ${so[S.rev ? 3 : 2].toLowerCase()}</em></div><div class="d3-list">${g.items.map(banner).join("")}</div>`).join("") : emptyHTML();
+    if (!$("#rv-in").firstChild) riverLayout(); else { $$("#rv-in .rc").forEach(c => c.classList.toggle("fav", S.favs.has(c.dataset.b))); riverMark(); }
+    D3.onSelect(S.sel); sync(list.length);
+  },
+  onSelect(id) {
+    riverMark();
+  },
+  resize: () => riverLayout()
+};
+
+/* ── 4 · Catalogue ──────────────────────────────────────────────────────── */
+const COLS = [["title", "Title", "c-ti", ""], ["author", "Author", "c-au", "width:17%"], ["date", "Written", "c-wr", "width:15%"], [null, "Length", "c-le", "width:9.5%"], [null, "Original", "c-or", "width:8.5%"], ["pop", "Reads", "rd", "width:8%"], ["last", "Your place", "c-pl", "width:14.5%"]];
+const MAXR = Math.max(...BOOKS.map(b => b.reads));
+const D4 = {
+  frame: () => `<div class="wrap"><div class="d4"><div class="headrow">${head(true)}${toolbar()}</div><div id="cont"></div>
+    <div class="d4-tw"><table class="d4-t" id="tbl"></table><div class="d4-foot">Click a heading to sort by it, and again to reverse. ↑ ↓ move along the rows; right-click a row for Star and Share.</div></div></div></div>`,
+  fill() {
+    const list = shelf(), cont = list.filter(b => stateOf(b) === "on").sort((a, b) => a.at.daysAgo - b.at.daysAgo);
+    $("#cont").innerHTML = cont.length ? `<div class="d4-cont"><span class="l">Continue</span><div>${cont.map(b => `<div ${attrs(b, "c4")} role="button" aria-label="${esc(label(b))}">
+      <div><span class="au">${esc(b.author)}</span><h3>${esc(b.title)}</h3></div><button type="button" class="btn sm line" data-go="${b.id}">Continue</button>
+      <div class="p">${pg(b)}${st(b)}</div></div>`).join("")}</div></div>` : "";
+    const so = SORTS.find(o => o[0] === S.sort);
+    const th = `<thead><tr><th style="width:8px"></th><th style="width:36px"><span hidden>Favourite</span></th>` + COLS.map(c => { const on = c[0] === S.sort;
+      return `<th class="${c[2]}${on ? " on" : ""}" style="${c[3]}" ${c[0] ? `aria-sort="${on ? (S.rev ? "descending" : "ascending") : "none"}"` : ""}>${c[0] ? `<button type="button" data-th="${c[0]}" title="${on ? so[S.rev ? 3 : 2] : "Sort by " + c[1].toLowerCase()}">${c[1]}${ic(on && S.rev ? "up" : "down", 12, 2.4)}</button>` : c[1]}</th>`; }).join("") + `<th style="width:38px"></th></tr></thead>`;
+    const rows = split(list).map(g => (g.head ? `<tr class="g"><th colspan="10" scope="colgroup">${g.head} · ${g.items.length}</th></tr>` : "") + g.items.map(b => `
+      <tr ${attrs(b, "")} aria-label="${esc(label(b))}"><td class="sp"></td><td class="sr">${star(b, true)}</td>
+        <td class="ti"><div${b.subtitle && b.title.length <= 24 ? ` class="s"` : ""}><b>${esc(b.title)}</b>${b.subtitle && b.title.length <= 24 ? `<small title="${esc(b.subtitle)}">${esc(b.subtitle)}</small>` : ""}</div></td>
+        <td><span class="au">${esc(b.author)}</span></td><td class="wri">${esc(b.written)}</td><td class="len">${esc(b.len)}</td>
+        <td class="or">${b.orig ? `<span class="orig" title="with original ${esc(b.orig)}">${esc(b.orig)}</span>` : `<em aria-label="English only shown">–</em>`}</td>
+        <td class="rd" title="${reads(b)}"><span><i style="width:${Math.max(4, Math.round(b.reads / MAXR * 100))}%"></i></span>${b.reads}</td>
+        <td class="pl">${stateOf(b) === "on" ? `<span class="w">${pg(b)}${st(b)}</span>` : st(b)}</td>
+        <td class="mo"><button type="button" class="sb shy" data-more="${b.id}" aria-label="More for ${esc(b.title)}">${ic("more", 16, 2.6)}</button></td></tr>`).join("")).join("");
+    $("#tbl").innerHTML = th + `<tbody>${rows || `<tr><td colspan="10">${emptyHTML()}</td></tr>`}</tbody>`;
+    sync(list.length);
+  },
+  keys(e) {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return false;
+    const rows = $$("#tbl tr.bk"), i = rows.indexOf(document.activeElement.closest ? document.activeElement.closest("tr.bk") : null);
+    const n = rows[i < 0 ? 0 : Math.max(0, Math.min(rows.length - 1, i + (e.key === "ArrowDown" ? 1 : -1)))];
+    if (n) { n.focus(); n.scrollIntoView({ block: "nearest" }); select(n.dataset.b); }
+    return true;
+  }
+};
+
+/* ── 5 · Traditions ─────────────────────────────────────────────────────── */
+function k5(b) {
+  return `<div ${attrs(b, "k5")} role="button" aria-label="${esc(label(b))}"><div class="h"><span class="au">${esc(b.author)}</span>${star(b, true)}</div>
+    <h3>${esc(b.title)}</h3><span class="wr">${esc(b.written)}</span>${b.orig ? `<div>${orig(b)}</div>` : ""}
+    <div class="f"><span class="meta">${esc(b.len)} · ${reads(b)}</span>${st(b)}</div>${stateOf(b) === "on" ? pg(b) : ""}</div>`;
+}
+const D5 = {
+  frame: () => `<div class="wrap"><div class="d5"><div class="headrow">${head(true)}${toolbar()}</div>
+    <div class="d5-ctl"><span class="tb"><span class="lbl">Group by</span></span><div class="seg" role="group" aria-label="Group by"><button type="button" data-grp="tradition">Tradition</button><button type="button" data-grp="form">Form</button></div>
+      <div class="d5-jump" id="jump" aria-label="Jump to a column"></div></div>
+    <div class="d5-board" id="board" tabindex="0" aria-label="Board, scrolls sideways"></div></div></div>`,
+  fill() {
+    const board = $("#board"), keep = [board.scrollLeft, board.scrollTop], list = shelf();
+    const keys = S.grp === "form" ? FORMS : TRADS, favs = S.favs.size ? list.filter(isFav) : [], rest = S.favs.size ? list.filter(b => !isFav(b)) : list;
+    $$("[data-grp]").forEach(b => { b.classList.toggle("on", b.dataset.grp === S.grp); b.setAttribute("aria-pressed", b.dataset.grp === S.grp); });
+    const cols = keys.map(k => [k, rest.filter(b => b[S.grp] === k)]);
+    $("#jump").innerHTML = cols.map(c => `<button type="button" class="${c[1].length ? "" : "zero"}" data-jump="${esc(c[0])}">${esc(c[0])}<em>${c[1].length}</em></button>`).join("");
+    board.innerHTML = (S.favs.size ? `<section class="d5-col fav"><div class="d5-ch"><h2>Favourites<em>${favs.length}</em></h2><p>Starred, kept first</p></div><div class="d5-cards">${favs.map(k5).join("") || `<p class="e">No favourite matches.</p>`}</div></section>` : "") +
+      cols.map(c => `<section class="d5-col" data-col="${esc(c[0])}"><div class="d5-ch"><h2>${esc(c[0])}<em>${c[1].length}</em></h2><p>${c[1].length ? span(c[1]) : "Nothing matches"}</p></div><div class="d5-cards">${c[1].map(k5).join("") || `<p class="e">No text here matches.</p>`}</div></section>`).join("");
+    board.scrollLeft = keep[0]; board.scrollTop = keep[1]; D5.resize(); sync(list.length);
+  },
+  /* the board is its own scroller, sized to end just above the switcher so the page itself stays still */
+  resize() { const b = $("#board"); if (!b) return; const bar = $("#mock").offsetHeight; b.style.height = Math.max(420, innerHeight - bar - (b.getBoundingClientRect().top + scrollY) - 18) + "px"; }
+};
+
+/* ── 6 · Desk ───────────────────────────────────────────────────────────── */
+function k6(b, hide) {
+  return `<div ${attrs(b, "k6")}${hide ? " hidden" : ""} role="button" aria-label="${esc(label(b))}"><div class="h"><span class="au">${esc(b.author)}</span>${star(b, true)}</div>
+    <h3>${esc(b.title)}</h3><span class="wr">${esc(b.written)}</span>${orig(b)}
+    <div class="f"><span class="meta">${esc(b.len)}<br>${reads(b)}</span><span class="r">${stateOf(b) === "on" ? pg(b) : ""}${st(b)}</span></div></div>`;
+}
+function shelfRow(key, name, items, per) {
+  const open = S.open.has(key) || !!S.q, more = items.length > per;
+  return `<section class="shelf${open ? " open" : ""}${key === "fav" && items.length < per ? " few" : ""}"><div class="shelf-h"><h2>${esc(name)}</h2><span>${items.length} ${items.length === 1 ? "text" : "texts"}</span>${more && !S.q ? `<button type="button" data-shelf="${esc(key)}" aria-expanded="${open}">${open ? "Show one row" : "See all " + items.length}${ic("down", 14, 2.2)}</button>` : ""}</div>
+    <div class="shelf-r">${items.map((b, i) => k6(b, !open && i >= per)).join("")}</div></section>`;
+}
+const D6 = {
+  frame: () => `<div class="wrap"><div class="d6 mid"><div class="headrow">${head()}${toolbar()}</div><div id="fill"></div></div></div>`,
+  fill() {
+    const list = shelf(), on = BOOKS.filter(b => stateOf(b) === "on").sort((a, b) => a.at.daysAgo - b.at.daysAgo), done = BOOKS.filter(b => stateOf(b) === "done");
+    const b = on[0], w = $("#fill").clientWidth || 1248, per = Math.max(1, Math.floor((w + 16) / (218 + 16)));
+    let h = "";
+    if (b && !S.q) {
+      const segs = b.count <= 150 ? Array.from({ length: b.count }, (_, i) => `<i class="${i + 1 < b.at.ch ? "f" : i + 1 === b.at.ch ? "h" : ""}"></i>`).join("") : "";
+      h += `<div class="d6-top"><article class="hero bk${S.sel === b.id ? " is-sel" : ""}" data-b="${b.id}" style="--bk:${b.color}" aria-label="${esc(label(b))}">
+        <div class="k"><i></i>On your desk · read ${ago(b.at.daysAgo)}</div>
+        <div class="hero-g"><div><span class="au">${esc(b.author)}</span><h2>${esc(b.title)}</h2>${b.subtitle ? `<p class="sub">${esc(b.subtitle)}</p>` : ""}
+          <div class="facts"><span class="wr">${esc(b.written)}</span><span class="meta">${esc(b.len)} · ${reads(b)}</span>${orig(b)}</div></div>
+          <div class="big"><b>${b.at.pct}<small>%</small></b><span>read so far</span></div></div>
+        ${segs ? `<div class="strip${b.count > 60 ? " many" : ""}" role="img" aria-label="${esc(b.word)} ${b.at.ch} of ${b.count}">${segs}</div>` : `<div class="strip">${pg(b)}</div>`}
+        <div class="hero-f"><span class="w">${esc(b.word)} ${b.at.ch} of ${b.count}<small>${b.translator ? "translated by " + esc(b.translator) : ""}</small></span>
+          <span class="a">${star(b)}<button type="button" class="sb" data-share="${b.id}" aria-label="Share" title="Share">${ic("share", 16)}</button><button type="button" class="btn" data-go="${b.id}">Continue reading${ic("go", 16, 2)}</button></span></div></article>
+        <div class="d6-side"><section class="also"><h2>Also on your desk</h2>${on.slice(1).map(x => `<div ${attrs(x, "a6")} role="button" aria-label="${esc(label(x))}">
+            <div><span class="au">${esc(x.author)}</span><h3>${esc(x.title)}</h3></div><div class="r">${st(x)}${pg(x)}</div></div>`).join("")}
+            ${done.length ? `<div class="done"><span class="st st-done">${ic("check", 14, 2.2)}Finished</span>${done.map(x => `<button type="button" data-b="${x.id}">${esc(x.title)}</button>`).join("")}</div>` : ""}</section>
+          <section class="figs" aria-label="The shelf in figures">
+            <div><b>${N}</b><span>texts on the shelf</span></div><div><b>${BOOKS.filter(x => x.orig).length}</b><span>with the original beside the English</span></div>
+            <div><b>${new Set(BOOKS.map(x => x.tradition)).size}</b><span>traditions</span></div><div><b>${on.length}</b><span>of your books in progress</span></div></section></div></div>`;
+    }
+    if (!list.length) h += emptyHTML();
+    else {
+      const favs = S.favs.size ? list.filter(isFav) : [], rest = S.favs.size ? list.filter(x => !isFav(x)) : list;
+      if (favs.length) h += shelfRow("fav", "Favourites", favs, per);
+      if (rest.length && S.favs.size) h += `<div class="grp-h d6-else">Everything else <em>${rest.length} texts, by form</em></div>`;
+      h += FORMS.map(f => { const l = rest.filter(x => x.form === f); return l.length ? shelfRow(f, f, l, per) : ""; }).join("");
+    }
+    $("#fill").innerHTML = h; sync(list.length);
+  }
+};
+const VIEW = [D1, D2, D3, D4, D5, D6];
+
+/* ── mounting, selection, actions ───────────────────────────────────────── */
+function mount() {
+  closeMenu(); $("#stage").innerHTML = VIEW[S.d - 1].frame(); refresh();
+  $$("#mk-tabs button").forEach((b, i) => { b.classList.toggle("on", i + 1 === S.d); b.setAttribute("aria-selected", i + 1 === S.d); });
+  $("#mk-note").innerHTML = `<b>${DESIGNS[S.d - 1][0]}.</b> ${DESIGNS[S.d - 1][1]}`;
+  window.scrollTo(0, 0);
+}
+function refresh() { VIEW[S.d - 1].fill(); }
+function markSel() { $$("#stage [data-b]").forEach(e => e.classList.toggle("is-sel", e.dataset.b === S.sel)); }
+function select(id) { S.sel = id; markSel(); const v = VIEW[S.d - 1]; if (v.onSelect) v.onSelect(id); }
+function toggleStar(id) { S.favs.has(id) ? S.favs.delete(id) : S.favs.add(id); refresh(); toast(S.favs.has(id) ? `Starred “${byId[id].title}”` : `Removed “${byId[id].title}” from Favourites`); }
+function share(id) {
+  const b = byId[id], link = "https://folio.study/#library/" + id;
+  const done = ok => toast(ok ? `Link to “${b.title}” copied` : link);
+  try { navigator.clipboard.writeText(link).then(() => done(true), () => done(false)); } catch (e) { done(false); }
+}
+function go(id) { const b = byId[id], s = stateOf(b); toast(`Mockup only: the reader would open “${b.title}”${s === "on" ? " at " + b.word + " " + b.at.ch : ""}.`); }
+let toastT; function toast(m) { let t = $(".toast"); if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); } t.textContent = m; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2600); }
+let menuAt = 0;
+function closeMenu() { const m = $(".menu"); if (m) m.remove(); }
+function openMenu(id, x, y) {
+  closeMenu(); const b = byId[id], m = document.createElement("div"); m.className = "menu"; m.setAttribute("role", "menu");
+  m.innerHTML = `<b>${esc(b.title)}</b><button type="button" role="menuitem" data-go="${id}">${ic("go", 16)}${goLabel(b)}</button><button type="button" role="menuitem" data-star="${id}">${ic("star", 16)}${isFav(b) ? "Remove star" : "Star"}</button><button type="button" role="menuitem" data-share="${id}">${ic("share", 16)}Share</button>`;
+  document.body.appendChild(m); const r = m.getBoundingClientRect();
+  m.style.left = Math.max(8, Math.min(x, innerWidth - r.width - 8)) + "px"; m.style.top = Math.max(8, Math.min(y, innerHeight - r.height - 70)) + "px"; m.querySelector("button").focus();
+}
+
+/* the river's chip opens a small card beside it: the same facts and actions a banner carries */
+function openPop(id, chip) {
+  closeMenu(); const b = byId[id], m = document.createElement("div"); m.className = "menu pop bk"; m.style.setProperty("--bk", b.color); m.setAttribute("role", "dialog"); m.setAttribute("aria-label", b.title);
+  m.innerHTML = `<span class="au">${esc(b.author)}</span><h3>${esc(b.title)}</h3><span class="wr">${esc(b.written)}</span>
+    <div class="m"><span class="meta">${esc(b.len)} · ${reads(b)}</span>${orig(b)}</div>${b.at ? `<div class="p">${st(b)}${pg(b)}</div>` : ""}
+    <div class="a"><button type="button" class="btn sm" data-go="${id}">${goLabel(b)}</button>${star(b)}<button type="button" class="sb" data-share="${id}" aria-label="Share" title="Share">${ic("share", 16)}</button></div>`;
+  const tip = $(".tip"); if (tip) tip.hidden = true; menuAt = performance.now();
+  document.body.appendChild(m); const r = chip.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight, low = innerHeight - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-h")) || 60);
+  m.style.left = Math.max(8, Math.min(r.left - 8, innerWidth - w - 12)) + "px"; m.style.top = (r.bottom + 8 + h < low ? r.bottom + 8 : Math.max(8, r.top - h - 8)) + "px";
+}
+
+/* ── theme, hash, storage ───────────────────────────────────────────────── */
+const sysDark = () => { try { return matchMedia("(prefers-color-scheme: dark)").matches; } catch (e) { return false; } };
+const themeNow = () => S.theme || (sysDark() ? "night" : "day");
+function applyTheme() {
+  const r = document.documentElement; if (S.theme) r.setAttribute("data-theme", S.theme === "night" ? "dark" : "light"); else r.removeAttribute("data-theme");
+  $("#th-day").classList.toggle("on", themeNow() === "day"); $("#th-night").classList.toggle("on", themeNow() === "night");
+  $("#th-day").setAttribute("aria-pressed", themeNow() === "day"); $("#th-night").setAttribute("aria-pressed", themeNow() === "night");
+}
+function save() {
+  const h = "#" + S.d + (S.theme ? "-" + S.theme : "");
+  try { if (location.hash !== h) history.replaceState(null, "", h); } catch (e) { try { location.hash = h; } catch (e2) {} }
+  try { localStorage.setItem("folio-library-mockup", JSON.stringify({ d: S.d, theme: S.theme })); } catch (e) {}
+}
+function readHash() { const m = /^#([1-6])(?:-(day|night))?$/.exec(location.hash || ""); if (!m) return false; S.d = +m[1]; if (m[2]) S.theme = m[2]; return true; }
+function setDesign(n) { n = ((n - 1 + 6) % 6) + 1; if (n === S.d) return; S.d = n; mount(); save(); }
+function setTheme(t) { S.theme = t; applyTheme(); save(); }
+
+/* ── events ─────────────────────────────────────────────────────────────── */
+document.addEventListener("input", e => { if (e.target.id === "q") { S.q = e.target.value; refresh(); } });
+document.addEventListener("change", e => { if (e.target.id === "sort") { S.sort = e.target.value; S.rev = false; refresh(); } });
+document.addEventListener("click", e => {
+  const t = e.target, c = s => t.closest(s);
+  let el;
+  if (!c(".menu")) closeMenu();
+  if (c("[data-noop]")) { e.preventDefault(); return; }
+  if (!c("#help") && !c("#helpbox")) { const hb = $("#helpbox"); if (hb && !hb.hidden) { hb.hidden = true; $("#help").setAttribute("aria-expanded", "false"); } }
+  if ((el = c("#mk-tabs button"))) return setDesign(+el.dataset.d);
+  if ((el = c("[data-theme-set]"))) return setTheme(el.dataset.themeSet);
+  if (c("#help")) { const hb = $("#helpbox"); hb.hidden = !hb.hidden; $("#help").setAttribute("aria-expanded", String(!hb.hidden)); return; }
+  if (c("#dir")) { S.rev = !S.rev; return refresh(); }
+  if ((el = c("[data-star]"))) { closeMenu(); return toggleStar(el.dataset.star); }
+  if ((el = c("[data-share]"))) { closeMenu(); return share(el.dataset.share); }
+  if ((el = c("[data-go]"))) { closeMenu(); select(el.dataset.go); return go(el.dataset.go); }
+  if ((el = c("[data-more]"))) { const r = el.getBoundingClientRect(); return openMenu(el.dataset.more, r.right - 190, r.bottom + 4); }
+  if (c("[data-clear]")) { S.q = ""; FACETS.forEach(F => S.f[F.k].clear()); return refresh(); }
+  if (c("[data-clearf]")) { FACETS.forEach(F => S.f[F.k].clear()); return refresh(); }
+  if ((el = c("[data-f]"))) { const set = S.f[el.dataset.f]; set.has(el.dataset.v) ? set.delete(el.dataset.v) : set.add(el.dataset.v); return refresh(); }
+  if ((el = c("[data-th]"))) { if (S.sort === el.dataset.th) S.rev = !S.rev; else { S.sort = el.dataset.th; S.rev = false; } return refresh(); }
+  if ((el = c("[data-grp]"))) { S.grp = el.dataset.grp; $("#board").scrollLeft = 0; return refresh(); }
+  if ((el = c("[data-jump]"))) { const col = $$("#board .d5-col").find(x => x.dataset.col === el.dataset.jump), fav = $("#board .d5-col.fav"); if (col) $("#board").scrollTo({ left: col.offsetLeft - (fav ? fav.offsetWidth : 0), behavior: "smooth" }); return; }
+  if ((el = c("[data-shelf]"))) { const k = el.dataset.shelf; S.open.has(k) ? S.open.delete(k) : S.open.add(k); return refresh(); }
+  if (c("#zin") || c("#zout") || c("#zfit")) { const i = ZOOMS.indexOf(S.zoom); S.zoom = c("#zfit") ? 1 : ZOOMS[Math.max(0, Math.min(ZOOMS.length - 1, i + (c("#zin") ? 1 : -1)))]; return riverLayout(); }
+  if ((el = c("[data-b]"))) { if (panned) return; select(el.dataset.b); if (el.classList.contains("rc")) openPop(el.dataset.b, el); }
+});
+document.addEventListener("scroll", e => { if (performance.now() - menuAt > 250 && !(e.target.closest && e.target.closest(".menu"))) closeMenu(); }, true);
+document.addEventListener("contextmenu", e => { const el = e.target.closest("[data-b]"); if (el) { e.preventDefault(); select(el.dataset.b); openMenu(el.dataset.b, e.clientX, e.clientY); } });
+document.addEventListener("keydown", e => {
+  const tag = (e.target.tagName || "").toLowerCase(), typing = tag === "input" || tag === "select" || tag === "textarea";
+  if (e.key === "Escape") { closeMenu(); const hb = $("#helpbox"); if (hb) hb.hidden = true; if (typing && e.target.id === "q" && S.q) { S.q = ""; refresh(); } return; }
+  if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (/^[1-6]$/.test(e.key)) { e.preventDefault(); return setDesign(+e.key); }
+  if (e.key === "d" || e.key === "D") return setTheme(themeNow() === "night" ? "day" : "night");
+  const sideways = e.target.closest && e.target.closest("#rv-sc,#board");
+  if (e.key === "ArrowRight" && !sideways) return setDesign(S.d + 1);
+  if (e.key === "ArrowLeft" && !sideways) return setDesign(S.d - 1);
+  const v = VIEW[S.d - 1]; if (v.keys && v.keys(e)) { e.preventDefault(); return; }
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("[data-b]:not(button)")) { e.preventDefault(); if (e.key === "Enter" && S.sel === e.target.dataset.b) go(S.sel); else select(e.target.dataset.b); }
+  if (e.key === "/") { const q = $("#q"); if (q) { e.preventDefault(); q.focus(); } }
+});
+/* hover: the reading room previews a row in its detail pane; the river names a chip */
+let peekT;
+document.addEventListener("mouseover", e => {
+  const chip = e.target.closest(".rc");
+  let tip = $(".tip");
+  if (chip && !$(".menu")) { const b = byId[chip.dataset.b]; if (!tip) { tip = document.createElement("div"); tip.className = "tip"; document.body.appendChild(tip); }
+    tip.innerHTML = `${esc(b.title)}<small>${esc(b.author)} · ${esc(b.written)}</small>`; tip.hidden = false;
+    const r = chip.getBoundingClientRect(), w = tip.offsetWidth; tip.style.left = Math.max(8, Math.min(r.left, innerWidth - w - 8)) + "px"; tip.style.top = (r.top - tip.offsetHeight - 8) + "px";
+  } else if (tip) tip.hidden = true;
+  if (S.d !== 1) return;
+  const row = e.target.closest(".r1"), inDet = e.target.closest("#det");
+  clearTimeout(peekT);
+  if (row) peekT = setTimeout(() => D1.detail(row.dataset.b), 140);
+  else if (!inDet) peekT = setTimeout(() => D1.detail(D1.shown), 320);
+});
+/* drag the river sideways */
+let panned = false;
+document.addEventListener("pointerdown", e => {
+  const sc = e.target.closest("#rv-sc"); if (!sc || e.button !== 0 || e.pointerType === "touch") return;
+  const x0 = e.clientX, s0 = sc.scrollLeft; panned = false;
+  const mv = ev => { if (Math.abs(ev.clientX - x0) > 4) { panned = true; sc.classList.add("drag"); } if (panned) sc.scrollLeft = s0 - (ev.clientX - x0); };
+  const up = () => { removeEventListener("pointermove", mv); removeEventListener("pointerup", up); sc.classList.remove("drag"); setTimeout(() => { panned = false; }, 0); };
+  addEventListener("pointermove", mv); addEventListener("pointerup", up);
+});
+let rsT; addEventListener("resize", () => { clearTimeout(rsT); rsT = setTimeout(() => { const v = VIEW[S.d - 1]; if (v.resize) v.resize(); if (S.d === 6) refresh(); }, 120); });
+addEventListener("hashchange", () => { const d = S.d; if (readHash()) { applyTheme(); if (d !== S.d) mount(); } });
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme); } catch (e) {}
+
+/* ── start ──────────────────────────────────────────────────────────────── */
+$("#mk-tabs").innerHTML = DESIGNS.map((d, i) => `<button type="button" role="tab" data-d="${i + 1}" title="${d[0]}"><kbd>${i + 1}</kbd><span>${d[0]}</span></button>`).join("");
+try { const o = JSON.parse(localStorage.getItem("folio-library-mockup") || "null"); if (o && o.d >= 1 && o.d <= 6) { S.d = o.d; S.theme = o.theme === "day" || o.theme === "night" ? o.theme : null; } } catch (e) {}
+readHash();
+S.sel = sorted(BOOKS)[0].id;
+applyTheme(); mount();
+try { new ResizeObserver(() => { document.documentElement.style.setProperty("--bar-h", $("#mock").offsetHeight + "px"); if (S.d === 5) D5.resize(); }).observe($("#mock")); } catch (e) {}
+try { document.fonts.ready.then(() => { const v = VIEW[S.d - 1]; if (v.resize) v.resize(); }); } catch (e) {}
+</script>

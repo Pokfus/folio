@@ -18550,6 +18550,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      says so in a sentence (bookIntroChapter): a reader is owed the fact that the text in front of them
      is not letter for letter the transcription it was taken from. */
   const BOOK_EMENDED = {};
+  /* The glossary keys a book must not link, beyond its row's own hand list — `glossOff` / `glossOffIn` in
+     the book's generated file, written from .claude/book-gloss-off.json (the reviewed sweep of Nov 2026:
+     every link the reader drew in all 101 books, about 11,700 of them, read against its sentence). They
+     ride in the LAZY file because nobody needs them before the book is open. */
+  const BOOK_GLOSS_OFF = {};
   /* …overlaid with the admin's own edits (Aug 2026, on request: an admin should be able to edit the text
      of a book's opening About chapter). It follows the QUOTES pattern rather than the Mission's, and the
      difference is where the words end up living. The Mission's prose has mission.js to be baked back into;
@@ -18588,6 +18593,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       BOOK_TEXT[inc.id] = inc.chapters || [];
       if (inc.intro) BOOK_INTRO[inc.id] = inc.intro;
       if (inc.emended) BOOK_EMENDED[inc.id] = inc.emended | 0;
+      if (inc.glossOff || inc.glossOffIn) BOOK_GLOSS_OFF[inc.id] = { off: inc.glossOff || [], offIn: inc.glossOffIn || {} };
     });
   }
   function bookOrigIngest() {
@@ -18622,10 +18628,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      or a [first, last] range. */
   function bookGlossOff(b, c) {
     const off = (b.glossOff || []).slice();
-    const by = b.glossOffIn || {};
-    Object.keys(by).forEach((k) => {
+    const here = (by) => Object.keys(by).forEach((k) => {
       if (by[k].some((r) => (Array.isArray(r) ? c.n >= r[0] && c.n <= r[1] : c.n === r))) off.push(k);
     });
+    here(b.glossOffIn || {});
+    const swept = BOOK_GLOSS_OFF[b.id];
+    if (swept) { swept.off.forEach((k) => off.push(k)); here(swept.offIn); }
     return off.length ? off : null;
   }
   function bookChapters(id) { return BOOK_TEXT[id] || null; }
@@ -34524,6 +34532,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const GLOSS_STATE_FROM = 1500;
   /* <gloss-modern-states> */
   const GLOSS_MODERN_STATES = new Set([
+    "State_of_Palestine",
     "Afghanistan", "Albania", "Algeria", "American_Samoa", "Andorra", "Angola", "Anguilla", "Antigua_and_Barbuda",
     "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Barbados",
     "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia_and_Herzegovina", "Botswana",
@@ -34556,7 +34565,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "Åland",
   ]);
   /* </gloss-modern-states> */
-  const GLOSS_LATER_SLACK = 25;       // years: a date line is a round figure, and so is a book's
+  const GLOSS_LATER_SLACK = 10;       // years: a date line is a round figure, and so is a book's (25 at first: it let Providence, founded 1636, into Don Quixote)
   const _glossStart = new Map();
   function glossStartOf(k) {
     if (_glossStart.has(k)) return _glossStart.get(k);

@@ -306,6 +306,20 @@ jobs:
       - name: artefact split intact
         if: ${{ !cancelled() }}
         run: node .claude/split-artefacts.js --check
+      # The Library (Nov 2026 audit). Three gates, all offline and a few seconds each: the catalogue row,
+      # the importer's entry and the shipped file of every book agree (five books once fell off the shelf
+      # through a merge that left valid JavaScript); every emendation in .claude/book-emend.json is applied
+      # and every book is in the house form, with its glossOff lines as .claude/book-gloss-off.json gives
+      # them; and the reader's quotation-mark pass changes no length and leaves no straight mark.
+      - name: check-library (the Library's three tables agree)
+        if: ${{ !cancelled() }}
+        run: node .claude/check-library.js
+      - name: book-emend --check (emendations applied, the house form, the glossary switch-offs)
+        if: ${{ !cancelled() }}
+        run: node .claude/book-emend.js --check
+      - name: test-book-quotes (the reader's quotation marks, on every paragraph of the shelf)
+        if: ${{ !cancelled() }}
+        run: node .claude/test-book-quotes.js
       - name: check-questions
         if: ${{ !cancelled() }}
         run: node .claude/check-questions.js

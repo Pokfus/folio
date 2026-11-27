@@ -118,6 +118,11 @@ async function sweepBook(ctx, base, b) {
   await Promise.all(Array.from({ length: Math.min(WORKERS, todo.length) }, work));
   await browser.close(); server.close();
 
+  /* A KEY SWITCHED OFF IN THREE OTHER BOOKS IS PROBABLY WRONG IN THIS ONE TOO — the reviewed table
+     (.claude/book-gloss-off.json) is the shelf's memory of which keys catch namesakes and capitalised
+     common words ("Elder" → Starets, Pallas → Claudius's freedman, a town → the battle fought there). */
+  let offElsewhere = {};
+  try { const tb = JSON.parse(fs.readFileSync(path.join(__dirname, "book-gloss-off.json"), "utf8")).books || {}; for (const id of Object.keys(tb)) for (const r of tb[id].off || []) (offElsewhere[r[0]] = offElsewhere[r[0]] || new Set()).add(id); } catch (e) {}
   const report = {};
   for (const b of BOOKS) {
     const r = results[b.id]; if (!r) continue;
@@ -137,6 +142,8 @@ async function sweepBook(ctx, base, b) {
     if (JSON_OUT && ALL) continue;
     console.log("== " + b.id + " — " + rows.length + " key(s), " + report[b.id].links + " link(s) over " + r.chapters + " chapter tab(s); written " + b.written);
     if (wrong.length) { console.log("  WRONG — the term is later than the book:"); wrong.forEach((x) => console.log("    " + x.k.padEnd(34) + "×" + x.inText + "  " + x.wrong + "\n       …" + (x.ctx.find((c) => c.ch !== "0") || x.ctx[0]).t + "…")); }
+    const likely = rows.filter((x) => !x.wrong && x.inText > 0 && offElsewhere[x.k] && [...offElsewhere[x.k]].filter((o) => o !== b.id).length >= 3);
+    if (likely.length) { console.log("  LIKELY WRONG — switched off in three or more other books:"); likely.forEach((x) => console.log("    " + x.k.padEnd(34) + "×" + String(x.inText).padEnd(5) + " [" + Object.keys(x.surf).slice(0, 4).join(" | ") + "]  off in " + [...offElsewhere[x.k]].filter((o) => o !== b.id).length + " books\n       …" + (x.ctx.find((c) => c.ch !== "0") || x.ctx[0]).t + "…")); }
     if (!CHECK) { console.log("  READ — every other key, most linked first:"); rows.filter((x) => !x.wrong).forEach((x) => console.log("    " + x.k.padEnd(34) + "×" + String(x.n).padEnd(5) + " [" + Object.keys(x.surf).slice(0, 4).join(" | ") + "]  " + (x.date ? "(" + x.date + ") " : "") + "ch " + x.ctx.map((c) => c.ch).join(",") + "\n       …" + x.ctx[0].t + "…")); }
   }
   if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify(report));
