@@ -2424,6 +2424,12 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   volume of 1919): `[act, printed, correct, witness]`, applied to the act's cached page BEFORE `extractYale`
   and required to match exactly once. A gloss finds its line by number during extraction, so a number put
   right only in the output (`fixes`) leaves every gloss keyed to it "lost" — six on this play's two misprints.
+- **An EPILOGUE on a page of its own is `postPage`** (Nov 2026, The Tempest, the Yale volume of 1918): read as
+  `prePage`'s prologue is (scene `k: 0`, headed "Epilogue", its glosses under no anchor) and set at the foot of
+  the last act, its markers renumbered past the act's notes. Its verse is wholly italic with no speaker (a
+  centred "Spoken by Prospero" says who), so `SPEAKER` is not asked there — it would take the first italic line
+  for a name; the page's closing `FINIS.` is dropped. `yaleCast` takes a table's plain cells (no italic) as names
+  too, for a group set in roman under a brace.
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 

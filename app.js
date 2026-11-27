@@ -16531,6 +16531,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "tempest",
+      title: "The Tempest",
+      // NO `subtitle`: the Folio's title is the whole of it
+      author: "William Shakespeare",
+      /* "c.": acted at court on 1 November 1611, the first performance on record, and probably written
+         shortly before; first printed in the Folio of 1623, where it stands first. */
+      written: "c. 1611",
+      year: 1611,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Chauncey Brewster Tinker, Yale University Press, New Haven, 1918",
+      /* The play has never been in copyright; the Yale edition was published in 1918 and its editor died
+         in 1963 (Wikipedia; Wikisource's PD/US|1963), so it clears the US pre-1929 rule but NOT life plus
+         seventy until 2034 — public domain in the United States only, which the rights text says. */
+      rights:
+        "Public domain in the United States. Shakespeare wrote the play around 1611 and it was first " +
+        "printed in the First Folio of 1623, so the work itself has never been in copyright. The text here " +
+        "is the Yale Shakespeare edition edited by Chauncey Brewster Tinker and published by Yale University " +
+        "Press in 1918, before 1929, so its copyright has expired in the United States. Tinker died in 1963, " +
+        "so his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+        "years, including the United Kingdom and the European Union, until 2034. What is taken is the play " +
+        "and its Epilogue, the edition's list of characters, Tinker's glosses from the foot of each page and " +
+        "his end notes, which are set with the glosses that point to them; his appendices and index are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Tempest_(1918)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I, Prospero's Epilogue at the foot of Act V. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -27362,6 +27394,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
     { book: "hamlet", n: 3, t: "Act III", p: 25,
       text: "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and, by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause. There's the respect That makes calamity of so…" },
+    { book: "tempest", n: 4, t: "Act IV", p: 44,
+      text: "You do look, my son, in a mov'd sort, As if you were dismay'd: be cheerful, sir: Our revels now are ended. These our actors, As I foretold you, were all spirits and Are melted into air, into thin air: And, like the baseless fabric of this vision, The cloud-capp'd towers, the gorgeous palaces, The solemn temples, the great globe itself, Yea, all which it inherit, shall dissolve And, like this insubstantial pageant faded, Leave not a rack behind. We are such stuff As dreams are made on, and our little life Is rounded with a sleep.—Sir, I am vex'd: Bear with my weakness; my old brain is…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
