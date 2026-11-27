@@ -427,6 +427,19 @@ jobs:
       - name: check-greek (pinned ids, no pointer glosses, no answer on its own question, known forms labels, balanced markup)
         if: ${{ !cancelled() }}
         run: node .claude/greek/check-greek.js
+      # The Old English decks (2026-11-27, the Old English beginner pass): oldenglish-fixes.json (the end of each
+      # description), oldenglish-order.json (Level 1's order and the figures the descriptions state) and the
+      # pinned ids, over the two decks of card type `oldenglish` and `oe-abc`. All three read only the repository;
+      # check-oldenglish.js was in no workflow before this.
+      - name: oldenglish-fix --check (the Old English decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/oldenglish-fix.js --check
+      - name: oldenglish-order --check (the Old English order and the facts are what the rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/oldenglish-order.js --check
+      - name: check-oldenglish (pinned ids, a reference on every sentence, no answer on its own question, known forms labels, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/oldenglish/check-oldenglish.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.

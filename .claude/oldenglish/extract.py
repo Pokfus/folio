@@ -14,7 +14,13 @@ out tagged like the indicative's minus a person (`sīe` = ['present',
 'singular']), and the two participles come out tagged ['imperative', 'present']
 and ['imperative', 'past'].  The rows are always in the template's order, so
 `verb_table` walks them in order and names each slot itself; a verb whose rows
-do not walk cleanly gets no table rather than a wrong one.
+do not walk cleanly gets no table rather than a wrong one.  A page with TWO
+tables (the West Saxon one, then an Anglian one: forsēon, rǣdan, āhebban --
+found by checking twenty verbs' cards against Wiktionary's rendered pages, whose
+cells carry their slot in a class) arrives as one run of rows, and the walk
+stops at the second table's infinitive: until 2026-11-27 it read on, and the
+Anglian indicative plural landed in the subjunctive's cell.  bēon has no past
+at all (its past is wesan's) and is tabled without one.
 
 THE PERSONAL PRONOUNS SHARE ONE TABLE.  Wiktionary's `l-self` table under iċ,
 þū, hē, hēo, hit, wē, ġē, hīe is the WHOLE paradigm, so each lemma keeps only
@@ -98,6 +104,8 @@ FORCE = {
     'æhta': 'ǣht', 'æhtum': 'ǣht',         # "possessions" (Ælfric's spelling), not "eight"
     'timan': 'tīma',                       # "time" (dative), not tīeman "to give birth"
     'manna': 'mann', 'mannum': 'mann',     # mann's genitive and dative plural, not manna
+    'men': 'mann',                         # Ælfric's spelling of menn "men": man "one" has no
+                                           # plural (121 tokens had gone to it, 2026-11-27)
     'stemn': 'stefn', 'stemne': 'stefn',   # "voice": Wiktionary files it under stefn, and
                                            # its own stemn is "stem (of a tree)"
     'wat': 'witan', 'wiste': 'witan', 'wiston': 'witan', 'witon': 'witan', 'witan': 'witan',
@@ -115,6 +123,15 @@ POINTER = re.compile(r'^(?:alternative|obsolete|archaic|rare|late|early|nonstand
 # dæġ's "the runic character ᛞ", ꝥ)
 NOT_A_WORD = re.compile(r'^(?:the )?(?:letter|name of the letter|scribal abbreviation|'
                         r'runic spelling)|^Runic|runic character', re.I)
+
+
+def plain(s):
+    """A spelling as a text prints it, less what an editor adds: lower case, no macron, accent
+    or dot, ð as þ, ƿ as w -- but y, ie and -nys kept, which `fold` gives up."""
+    import unicodedata
+    s = unicodedata.normalize('NFD', s.lower())
+    s = ''.join(ch for ch in s if unicodedata.category(ch) != 'Mn')
+    return unicodedata.normalize('NFC', s).replace('ð', 'þ').replace('ƿ', 'w').replace('-', '')
 
 
 def headword(e):
@@ -213,6 +230,8 @@ def verb_table(rows):
         if T & {'comparative', 'superlative', 'adverb'}:
             continue
         if T == {'infinitive'}:
+            if seen_inf >= 2:        # a second table begins: the card shows the first
+                break
             slots['inf' if seen_inf == 0 else 'inf2'].append(form)
             seen_inf += 1
             continue
@@ -239,6 +258,8 @@ def verb_table(rows):
         elif 'plural' in T:
             slots[(f'subj_{tense}_pl' if subj else f'{tense}_pl')].append(form)
     need = ('inf', 'pres_fir', 'pres_thi', 'past_thi', 'past_pl')
+    if not any(k.startswith('past') for k in slots):      # bēon: Wiktionary tables no past
+        need = need[:3]
     if not all(slots.get(k) for k in need):
         return {}
     return {k: v for k, v in slots.items()}
@@ -270,6 +291,7 @@ def senses(e):
     for s in e.get('senses', []):
         tags = s.get('tags') or []
         gl = (s.get('glosses') or [''])[-1].strip()
+        gl = re.sub(r'#[*:].*$', '', gl, flags=re.S).strip()      # a quotation run into the gloss (þus)
         if s.get('form_of') or s.get('alt_of') or 'form-of' in tags or 'alt-of' in tags:
             for x in (s.get('form_of') or []) + (s.get('alt_of') or []):
                 if x.get('word'):
@@ -285,6 +307,7 @@ def senses(e):
 def main():
     lex = {}
     pointers = defaultdict(set)        # folded spelling -> target headwords (unfolded)
+    pointed = defaultdict(set)         # target headword -> the headwords of entries that point at it
     for line in open('kaikki-ang.jsonl', encoding='utf-8'):
         e = json.loads(line)
         if e.get('pos') not in KEEP:
@@ -296,6 +319,7 @@ def main():
         for p in ptr:
             pointers[fold(e['word'])].add(p)
             pointers[fold(head)].add(p)
+            pointed[p].add(head)
         if not gl:
             continue
         rows = table_rows(e)
@@ -309,6 +333,9 @@ def main():
                                   if k in (f.get('tags') or []) and 'table-tags' not in f.get('tags')]
                               for k in ('comparative', 'superlative', 'adverb')},
                'cls': next((f['form'] for f in e.get('forms', []) if 'class' in (f.get('tags') or [])), ''),
+               # a noun's declension, as its table's template names it ("strong a-stem", "weak")
+               'ncls': next((t.get('args', {}).get('type', '') for t in e.get('inflection_templates', [])
+                             if t.get('name') == 'ang-decl-noun'), ''),
                'strength': next((f['form'] for f in e.get('forms', [])
                                  if 'table-tags' in (f.get('tags') or []) and f['form'] in
                                  ('strong', 'weak', 'irregular', 'preterite-present', 'anomalous')), '')}
@@ -394,7 +421,17 @@ def main():
                 how = index[sp].pop(x)
                 put(sp, y, how if how != 'own' else 'form')
 
+    # the spellings Wiktionary files under each lemma in an entry of their own ("þisum: dative
+    # of þēs", "forþan: alternative form of forþon"), as it prints them -- build_deck.py shows
+    # the ones the corpus uses and the card's own table does not
+    for t, heads in pointed.items():
+        if t in lex:
+            y = lex[t].get('alt_of') or t
+            lex[y].setdefault('spellings', [])
+            lex[y]['spellings'] = sorted(set(lex[y]['spellings']) | heads)
+
     counts = Counter()
+    surface = defaultdict(Counter)     # folded token -> the spellings the corpus prints it in
     total = 0
     for line in open('corpus.txt', encoding='utf-8'):
         prev = '.'
@@ -405,6 +442,7 @@ def main():
             if tok.lower() in LATIN:
                 continue
             counts[(fold(tok), cap)] += 1
+            surface[fold(tok)][plain(tok)] += 1
             total += 1
             prev = 'x'
     cands = {}
@@ -451,6 +489,11 @@ def main():
     json.dump(lex, open('lex.json', 'w', encoding='utf-8'), ensure_ascii=False)
     json.dump({f'{t}{"^" if cap else ""}': [counts[(t, cap)], hs] for (t, cap), hs in cands.items()},
               open('freq.json', 'w', encoding='utf-8'), ensure_ascii=False)
+    json.dump({t: max(c, key=lambda k: (c[k], k)) for t, c in sorted(surface.items())},
+              open('surface.json', 'w', encoding='utf-8'), ensure_ascii=False)
+    # every counted token, matched or not: what build_deck.py's coverage figures are a share of
+    json.dump({t: sum(c.values()) for t, c in sorted(surface.items())},
+              open('tokens.json', 'w', encoding='utf-8'), ensure_ascii=False)
     unknown = Counter()
     for (t, cap), c in counts.items():
         if t not in index:

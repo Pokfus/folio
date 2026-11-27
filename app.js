@@ -13329,6 +13329,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aristotle 16.4, Marcus Aurelius 17.6, Kalidasa 18.1 — and 26 from Confucius's walnut, which keeps the
      two Confucian books apart on the shelf. */
   "Mencius": "#006C78",
+  /* Nov 2026, adding the Communist Manifesto, swept over the cube at a step of 3 (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-three light papers and cards; nearest-ink distance against the shelf's 79 rows). The
+     sweep tops out at 15.4; THE EURIPIDES TEST passes over its first nine, which sit 15–17 from Hobbes or Jefferson,
+     both read beside a political tract, for this near-black green at 14.9: its nearest are Boethius 14.9, Kalidasa
+     16.9 and Jefferson 17.9, with Hobbes 25.5, Rousseau 41.2, Darwin 43.8 and Paine 78.9. It reads 9.37:1 on the
+     tightest light paper. */
+  "Karl Marx and Friedrich Engels": "#002A1E",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17796,6 +17803,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOffIn: { Providence: [22], Ethics: [22], Logic: [23], London: [19] },
     },
     {
+      id: "darwin-expression-of-emotions",
+      title: "The Expression of the Emotions in Man and Animals",
+      author: "Charles Darwin",
+      written: "1872",
+      year: 1872,
+      /* NO `translator`: written in English, like the Origin of Species. */
+      edition: "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)",
+      /* No limit to state: printed in 1872, its author dead since 1882. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Charles Darwin published The Expression of the Emotions in Man and " +
+        "Animals in London in 1872 and died in 1882, so the book has never been in copyright anywhere " +
+        "since. The text is Project Gutenberg's transcription, from an 1899 reprint of the first edition.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/1227",
+      /* NO `origLang`: the book is English. Fifteen sections — Darwin's Introduction and his fourteen
+         chapters — so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each title
+         (the Origin of Species' arrangement). No `parts`: the book has none. */
+      chapterWord: "Section",
+      count: 15,
+      total: 15,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 15 sections
+         (every `.ttip`, 88 keys, Nov 2026). NAMESAKES: Darwin's Anubis is the baboon, not the god; his Christian is
+         Christian Gaika, a man; his Gloucester is Shakespeare's Duke, not the city; his Titus is Titus Andronicus, his
+         Wellington a lake in Victoria, his Wolf the artist Joseph Wolf, his 'Principles of Psychology' Spencer's (1855),
+         not James's, his 'Saturnalia' Macrobius's book, not the festival, and his Holland in I and XIII Sir Henry
+         Holland, not the country (the Dutch of the Introduction stay). ORDINARY WORDS and names inside names: Project
+         Gutenberg, the Ant-eater, the obliquity of the eyebrows, Bell's 'Anatomy and Philosophy of Expression', the
+         Merchant of Venice, an Industrial Settlement (a mission station), the Guinea coast (not the modern state), and
+         his Anglo-Saxons, Semitic races and Micronesians, which are peoples of his own day, not the kingdoms, the
+         language family or the modern country. */
+      glossOff: ["Anubis", "Christianity", "Gloucester", "Titus", "Wellington", "Wolf", "The_Principles_of_Psychology",
+        "Saturnalia", "Johannes_Gutenberg", "Ant", "Axial_tilt", "Philosophy", "Venice", "Settlement", "Guinea",
+        "Anglo-Saxon_England", "Semitic_languages", "Federated_States_of_Micronesia"],
+      glossOffIn: { Netherlands: [2, 14] },
+    },
+    {
       id: "freud-interpretation-of-dreams",
       title: "The Interpretation of Dreams",
       subtitle: "Die Traumdeutung",
@@ -17961,6 +18004,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
       glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
         "House_of_Commons_of_the_United_Kingdom"],
+    },
+    {
+      id: "marx-communist-manifesto",
+      title: "The Communist Manifesto",
+      subtitle: "Manifesto of the Communist Party",
+      author: "Karl Marx and Friedrich Engels",
+      // written in German in January 1848 and published in London that February
+      written: "1848",
+      year: 1848,
+      // the title page: "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS"
+      translator: "Samuel Moore",
+      edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
+      /* NO LIMIT TO STATE: the translation was published in 1888 and this printing in 1910; Moore died in 1911,
+         Engels in 1895, Marx in 1883. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. Karl Marx and Friedrich Engels wrote the Manifesto in German and published it in London in " +
+        "1848. Samuel Moore's English translation, edited by Engels, was first published in 1888, and this printing of " +
+        "it was made in Chicago in 1910. Moore died in 1911, Engels in 1895 and Marx in 1883, so the translation is out " +
+        "of copyright everywhere. The text is the validated Wikisource transcription of the 1910 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Manifesto_of_the_Communist_Party",
+      /* NO `origLang`: the German is not set beside it. Five parts: Engels's preface of 1888 and the Manifesto's
+         four, the unnumbered opening ("A spectre is haunting Europe") at the head of Part I. No `parts`. */
+      chapterWord: "Part",
+      count: 5,
+      total: 5,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all five parts
+         (every `.ttip`, Nov 2026). NAMESAKES: Helen is Helen Macfarlane, the first translator, not Helen of Troy;
+         the Council is the General Council of the International; the Holy Water, the New Jerusalem and the Home
+         Colonies are figures and a scheme's name; "Philosophy of Action" is a book's title. 1848'S MAP: the German
+         lands and the partitioned Poland of Part IV are not the modern states (Common Sense's rule). */
+      glossOff: ["Helen_of_Troy", "Council", "Water", "Jerusalem", "Colony", "Philosophy", "Germany", "Poland"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27708,6 +27783,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
     { book: "paine-common-sense", n: 2, t: "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution", p: 1,
       text: "Society in every state is a blessing, but government even in its best state is but a necessary evil; in its worst state an intolerable one." },
+    { book: "marx-communist-manifesto", n: 5, t: "IV. Position of the Communists in Relation to the Various Existing Opposition Parties", p: 10,
+      text: "The Communists disdain to conceal their views and aims. They openly declare that their ends can be attained only by the forcible overthrow of all existing social conditions. Let the ruling classes tremble at a Communistic revolution. The proletarians have nothing to lose but their chains. They have a world to win." },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,
       text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
@@ -27724,6 +27801,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "This battle with Mr. Covey was the turning-point in my career as a slave. It rekindled the few expiring embers of freedom, and revived within me a sense of my own manhood. It recalled the departed self-confidence, and inspired me again with a determination to be free. The gratification afforded by the triumph was a full compensation for whatever else might follow, even death itself. He only can understand the deep satisfaction which I experienced, who has himself repelled by force the bloody arm of slavery. I felt as I never felt before. It was a glorious resurrection, from the tomb of slavery, to the heaven of freedom. My long-crushed spirit rose, cowardice departed, bold defiance took its place; and I now resolved that, however long I might remain a slave in form, the day had passed forever when I could be a slave in fact." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
+    { book: "darwin-expression-of-emotions", n: 15, t: "XIV. Concluding Remarks and Summary", p: 29,
+      text: "The movements of expression in the face and body, whatever their origin may have been, are in themselves of much importance for our welfare. They serve as the first means of communication between the mother and her infant; she smiles approval, and thus encourages her child on the right path, or frowns disapproval. We readily perceive sympathy in others by their expression; our sufferings are thus mitigated and our pleasures increased; and mutual good feeling is thus strengthened. The movements of expression give vividness and energy to our spoken words. They reveal the thoughts and intentions of others more truly than do words, which may be falsified." },
     { book: "james-principles-of-psychology", n: 10, t: "IX. The Stream of Thought", p: 43,
       text: "Consciousness, then, does not appear to itself chopped up in bits. Such words as 'chain' or 'train' do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A 'river' or a 'stream' are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life." },
     { book: "thorndike-animal-intelligence", n: 3, t: "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals", p: 33,

@@ -21722,6 +21722,117 @@ const BOOKS = {
     minChars: 1500,
   },
 
+  "darwin-expression-of-emotions": {
+    title: "The Expression of the Emotions in Man and Animals",
+    author: "Charles Darwin",
+    /* NO `translator`: written in English, as the Origin of Species was. */
+    edition: "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)",
+    written: "1872",
+    year: 1872,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Darwin published the book in London in 1872 and died in 1882, so there is no copyright in it
+       anywhere. THE SOURCE IS PROJECT GUTENBERG (ebook 1227), not Wikisource: Wikisource has no
+       transcription of the book (Nov 2026 — the Author page's link is red). Gutenberg's title page reads
+       "New York, D. Appleton and Company, 1899", a reprint of the first edition's text: it carries none of
+       the notes Francis Darwin added to the second edition of 1890, and its readings were checked against
+       the Internet Archive's scan of the 1872 Murray printing (`expressionofemot1872darw`), which is the
+       witness for every row of `fixes` below. Fetched from Gutenberg's own mirror, gutenberg.pglaf.org,
+       which serves the same files as www.gutenberg.org at the same paths. */
+    rights:
+      "Public domain worldwide. Charles Darwin published The Expression of the Emotions in Man and " +
+      "Animals in London in 1872 and died in 1882, so the book has never been in copyright anywhere " +
+      "since. The text is Project Gutenberg's transcription, from an 1899 reprint of the first edition.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/1227",
+    url: "https://gutenberg.pglaf.org/1/2/2/1227/1227-h/1227-h.htm",
+    layout: "pglinknote",
+    pgAnchors: ["link2H_INTR"].concat(Array.from({ length: 14 }, (_, i) => "link2HCH" + String(i + 1).padStart(4, "0"))),
+    pgSkip: ["link2H_4_0003"],
+    pgNotes: "link2H_FOOT",
+    pgArgument: true,
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every
+       quotation in it was found in this text; the dates are the record's. */
+    about: [
+      "<b>The Expression of the Emotions in Man and Animals</b> asks why we look the way we do when we " +
+        "feel something: why a grieving person's eyebrows slant, why an angry dog bares its teeth, why we " +
+        "blush with shame and shrug when we cannot help. Charles Darwin's answer is that expressions have " +
+        "a history. Most of them, he argues, began as movements that were once of use, and became habits " +
+        "that are inherited; and many of the same expressions are found in every human race and, in part, " +
+        "in other animals — evidence that we share a common descent with them.",
+      "He explains them by <i>three Principles</i>, set out in the first three chapters: <i>the principle " +
+        "of serviceable associated Habits</i>, by which a movement once useful is repeated whenever the same " +
+        "state of mind returns, even when it is of no use; <i>the principle of Antithesis</i>, by which an " +
+        "opposite state of mind brings opposite movements — a friendly dog's whole body is the reverse of a " +
+        "hostile one's; and the direct action of the excited nervous system on the body, as in trembling. " +
+        "Chapters IV and V describe the expressions of animals, and the rest those of man: suffering and " +
+        "weeping, grief, joy and love, reflection and ill-temper, hatred and anger, disdain and disgust, " +
+        "surprise and fear, and blushing (VI–XIII). The last chapter sums up.",
+      "Darwin first took notes on expression in 1838, and he meant to treat the subject in <i>The Descent " +
+        "of Man</i> (1871); it grew into a book of its own, published by John Murray in 1872. He gathered " +
+        "his evidence widely. In 1867 he circulated a list of printed queries — <i>Is astonishment expressed " +
+        "by the eyes and mouth being opened wide, and by the eyebrows being raised?</i> — and received " +
+        "<i>thirty-six answers from different observers</i> in many parts of the world, several of them " +
+        "missionaries. He watched his own children and the animals at the Zoological Gardens, and he " +
+        "showed photographs, without a word of explanation, to people and asked them what emotion they " +
+        "saw.",
+      "The book is one of the first scientific works illustrated with photographs. Some of its plates " +
+        "come from the French physician Duchenne, who made the muscles of a man's face contract with " +
+        "electricity and photographed the result; others were taken for Darwin by the photographer Oscar " +
+        "Rejlander. Darwin died in 1882, and his son Francis edited a second edition in 1890. The book's " +
+        "claim that some facial expressions are the same in every culture was taken up again by " +
+        "psychologists in the twentieth century, and it is still argued over.",
+      "The text here is the first edition's, in its own spelling. It is given in the book's own order: the " +
+        "Introduction and the fourteen chapters, so a tab's number runs one ahead of the chapter's, whose " +
+        "Roman numeral opens each title. The italic lines that open each chapter are Darwin's own summary " +
+        "of its contents, printed under the chapter heading. His footnotes are kept under each chapter. The " +
+        "book's figures and its seven plates of photographs are not reproduced, so where Darwin writes " +
+        "<i>see fig. 5</i> or <i>Plate I.</i> there is no picture to see. Not included: the title page, the " +
+        "contents and the list of illustrations, and the index.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Introduction",
+      "I. General Principles of Expression",
+      "II. General Principles of Expression — continued",
+      "III. General Principles of Expression — concluded",
+      "IV. Means of Expression in Animals",
+      "V. Special Expressions of Animals",
+      "VI. Special Expressions of Man: Suffering and Weeping",
+      "VII. Low Spirits, Anxiety, Grief, Dejection, Despair",
+      "VIII. Joy, High Spirits, Love, Tender Feelings, Devotion",
+      "IX. Reflection — Meditation — Ill-temper — Sulkiness — Determination",
+      "X. Hatred and Anger",
+      "XI. Disdain — Contempt — Disgust — Guilt — Pride, etc. — Helplessness — Patience — Affirmation and Negation",
+      "XII. Surprise — Astonishment — Fear — Horror",
+      "XIII. Self-attention — Shame — Shyness — Modesty: Blushing",
+      "XIV. Concluding Remarks and Summary",
+    ][n],
+    /* Each row read against the Internet Archive's scan of the 1872 Murray printing (see the licence note). */
+    fixes: [
+      ["Professors Donders of Utrecht", "Professor Donders of Utrecht", "Introduction: 1872 reads “Professor”"],
+      ["the first edition, and in the third edition", "the first edition, and in 1844 the third edition", "Introduction: the year of Bell's third edition, which the transcription moved into note 3"],
+      ["&amp;c. 1792. 1844", "&amp;c. 1792.", "Introduction, note 3: the stray year that belongs in the text (row above)"],
+      ["from Herde\u2019s well-known", "from Henle\u2019s well-known", "Introduction: Henle's Handbuch, misread"],
+      ["as it appeirs to me", "as it appears to me", "Introduction: a misprint in the transcription"],
+      ["always lowers its bead", "always lowers its head", "I: a misread letter"],
+      ["hostile frame of mind be walks", "hostile frame of mind he walks", "II: a misread letter"],
+      ["species of Alacacus", "species of Macacus", "V: the genus, misread"],
+      ["partially cheeked by", "partially checked by", "VII: a misread letter"],
+      ["Ducheinne takes", "Duchenne takes", "XII, a note: the name, misspelt"],
+      ["Physiologi-cum", "Physiologicum", "VII, a note: the printer's line-end hyphen kept mid-line"],
+      ["regarde dons", "regarde dans", "IX, a note: Gratiolet's French, misread"],
+      ["p. 53. p. 53.{sic}", "p. 53.", "V, a note: the page typed twice and marked by the transcriber"],
+      ["full acount,{sic}", "full account,", "a note: the transcriber's {sic} on its own misspelling"],
+      ["both emotions and-sensations", "both emotions and sensations", "I, note 1: a hyphen typed for a space"],
+      ["lower parts of the checks downwards", "lower parts of the cheeks downwards", "XII: a misread letter"],
+      ["observed by Brehin with", "observed by Brehm with", "V: the naturalist's name, misread"],
+      ["Dr. Mandsley has", "Dr. Maudsley has", "VIII, a note: the name, misread"],
+      ["{footnote continues:} ", "", "I, a note: the transcriber's mark where the note runs onto the next page"],
+    ],
+    minChars: 3000,
+  },
+
   "petrie-egyptian-tales": {
     title: "Egyptian Tales",
     subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
@@ -22062,6 +22173,89 @@ const BOOKS = {
     dropTail: [/^Providence ?: Printed and Sold by John Carter ?\.$/],
     // the FINIS printed inside the text and the Addition's two tables — see painePrep
     prep: "paine",
+  },
+  "marx-communist-manifesto": {
+    title: "The Communist Manifesto",
+    // the title page's own words (djvu p. 5)
+    subtitle: "Manifesto of the Communist Party",
+    author: "Karl Marx and Friedrich Engels",
+    /* Moore's translation, "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS" (the title
+       page). Samuel Moore, 1838–1911, by his Wikipedia article; Engels's preface names him as the translator. */
+    translator: "Samuel Moore",
+    edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
+    written: "1848",
+    year: 1848,
+    /* ---------- THE LICENCE ----------
+       Marx and Engels wrote the Manifesto in German; it was published in London in February 1848. Moore's English
+       translation appeared in 1888 and this printing of it is Kerr's of 1910 — both before 1929, so public domain in
+       the United States. Moore died in 1911, Engels (who edited it and wrote the preface and notes) in 1895, Marx in
+       1883: past life plus a hundred everywhere. The Index (`Manifesto of the Communist Party.djvu`) is VALIDATED
+       (`Progress=T`, November 2013).
+       ---------- WHAT IS TAKEN ----------
+       Five parts: Engels's preface of 1888, and the Manifesto's four numbered parts, each a wiki page. The opening
+       ("A spectre is haunting Europe" … "the following manifesto"), which the printing sets on its own page after the
+       preface under the work's title, stands before Part I and is set at the head of Part I's tab, Part I's own head
+       kept below it (see manifestoPrep: it also carries Engels's note on "bourgeoisie"). The cover, the title page and
+       Kerr's five pages of advertisements are not taken. Engels's footnotes come with the text. */
+    rights:
+      "Public domain. Karl Marx and Friedrich Engels wrote the Manifesto in German and published it in London in " +
+      "1848. Samuel Moore's English translation, edited by Engels, was first published in 1888, and this printing of " +
+      "it was made in Chicago in 1910. Moore died in 1911, Engels in 1895 and Marx in 1883, so the translation is out " +
+      "of copyright everywhere. The text is the validated Wikisource transcription of the 1910 printing.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Manifesto_of_the_Communist_Party",
+    /* THE FRONT MATTER — chapter 0. Each fact is one the printing's own preface states (the League, the congress of
+       November 1847, the German manuscript of January 1848, the press a few weeks before the February revolution,
+       Helen Macfarlane's translation of 1850, Moore and Capital) or the record (the authors' dates, Moore's). */
+    about: [
+      "<b>The Communist Manifesto</b> is the pamphlet in which Karl Marx and Friedrich Engels set out, in a few " +
+        "dozen pages, the programme of the communist movement and the view of history behind it. It was written for " +
+        "the <b>Communist League</b>, a small association of workers that was, as Engels says in the preface here, " +
+        "first exclusively German and unavoidably a secret society. At a congress of the League in London in " +
+        "November 1847 the two were asked to draw up its programme. They wrote it in German in January 1848, and it " +
+        "went to the printer in London a few weeks before the revolution that broke out in Paris on 24 February.",
+      "Its opening is among the most quoted sentences ever written: <i>A spectre is haunting Europe — the spectre " +
+        "of Communism.</i> Part I, <i>Bourgeois and Proletarians</i>, argues that the history of all society is the " +
+        "history of class struggles, and describes how the modern bourgeoisie, the owners of capital, has remade " +
+        "the world in its own image and created in the proletariat, the class of wage-workers, the force that will " +
+        "overthrow it. Part II answers the objections to communism and lists the measures the workers would take on " +
+        "winning power. Part III criticises the other socialisms of the day, and Part IV sets out where communists " +
+        "stand towards the opposition parties of each country. It ends on its call: <i>Working men of all " +
+        "countries, unite!</i>",
+      "Karl Marx (1818–1883) was born in Trier, in the Prussian Rhineland, and was then a journalist living in " +
+        "exile in Brussels. Friedrich Engels (1820–1895), the son of a textile manufacturer, had worked in his " +
+        "family's firm in Manchester and had written on the condition of the English working class. Both were " +
+        "driven from the Continent after the revolutions of 1848 failed and settled in England, where Marx wrote " +
+        "<i>Capital</i> and Engels supported him. The Manifesto was little read at first; in the preface, Engels " +
+        "traces how it came to be printed in many languages and read by the working-class movement across the " +
+        "world.",
+      "The translation is by <b>Samuel Moore</b>, an English lawyer and a friend of both authors, who had " +
+        "translated most of the first volume of <i>Capital</i>. It was published in London in 1888, five years " +
+        "after Marx's death, and Engels revised it with him, wrote the preface and added the notes, which explain " +
+        "the Manifesto's historical allusions and correct what time had overtaken. This is that translation, the " +
+        "one most English readers have known. The first English translation, by Helen Macfarlane, had appeared in " +
+        "1850.",
+      "The text here is a reprint published in Chicago in 1910 by <b>Charles H. Kerr &amp; Company</b>, a socialist " +
+        "publishing house, priced at five cents. The book has five parts: Engels's preface, dated London, 30 " +
+        "January 1888, and the Manifesto's four, so each part's number in the bar runs one ahead of its own " +
+        "numeral. The Manifesto's opening paragraphs, which stand before Part I " +
+        "without a number, are set at the head of Part I. The footnotes are Engels's; where he names a book, this " +
+        "American printing gives its own Chicago edition. The text comes from " +
+        "Wikisource, where it has been proofread twice against the scan.",
+    ],
+    page: (n) => n === 1 ? "Manifesto of the Communist Party"
+      : n === 2 ? ["Manifesto of the Communist Party", "Manifesto of the Communist Party/1"]
+      : "Manifesto of the Communist Party/" + (n - 1),
+    chapterWord: "Part",
+    // the wiki's section heads, which transcribe the printed ones in its own case
+    titleOf: (n) => ["Preface",
+      "I. Bourgeois and Proletarians",
+      "II. Proletarians and Communists",
+      "III. Socialist and Communist Literature",
+      "IV. Position of the Communists in Relation to the Various Existing Opposition Parties"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+    // the base page cut in two, the cover and advertisements dropped, the centred heads — see manifestoPrep
+    prep: "manifesto",
   },
 };
 
@@ -25127,6 +25321,88 @@ function painePrep(h, warn) {
   if (finis || tables) console.log("  paine: " + finis + " FINIS dropped, " + tables + " table(s) kept");
   return h;
 }
+/* ---------- THE COMMUNIST MANIFESTO: one base page, two parts, and centred heads (Nov 2026) ----------
+   `prep: "manifesto"` → `manifestoPrep(h, page, warn)` on every raw page before the notes are gathered and before
+   cleanBody, then `manifestoFinish` on the assembled part. Two things about the Kerr transcription of Moore's
+   translation that the generic passes get silently wrong:
+   · THE BASE PAGE IS FIVE TRANSCLUSIONS AND AN ADVERTISEMENT BOX. `Manifesto of the Communist Party` transcludes the
+     paper cover (djvu 3), the title page (5), Engels's preface of 1888 (7–14), its two-note reference list, and the
+     first page of the Manifesto itself (15, "A spectre is haunting Europe" — the opening that stands before Part I),
+     then five pages of Kerr's advertisements in a collapsed box. cleanBody would take everything from the first
+     wrapper on: the cover's price and imprint as quotations, the preface, the opening and the publisher's list as
+     one part. So the page is cut by its own scan-page indexes: Part 1 (the Preface) from the wrapper holding the
+     `Preface` anchor to the wrapper of djvu page 15, which keeps the preface's note list; the opening from that
+     wrapper to the advertisement box. A missing landmark THROWS — a fall-back to the whole page would ship the cover
+     and the advertisements as text.
+   · EVERY HEAD IS A CENTRED BLOCK, which the generic div pass turns into a quotation. The FIRST centred block of a
+     page is the part's printed head, which the tab already names, and it goes — except where it carries a
+     footnote marker (Part I's, whose note explains "bourgeoisie" and "proletariat"), where it is kept as a heading
+     so the note keeps its anchor; that also marks where Part I begins below the opening, which is set at the head
+     of Part I's tab as Rousseau's preambles are (see cutAtChapterHeads). Every later centred block — Part III's
+     subheads, and the one `wst-block-center` that sets "1. Reactionary Socialism. / a. Feudal Socialism." — is a
+     heading: fenced here and lifted to one `bk-head` paragraph by manifestoFinish, its lines kept as `<br>`.
+     Engels's signature (a `wst-right` div) is unwrapped to a paragraph rather than left to become a quotation.
+   Gated on `prep === "manifesto"`, so inert on every other book. */
+const MANIFESTO_HEAD = "@@MNH@@";
+const MANIFESTO = { heads: 0, dropped: 0, lifted: 0 };
+function manifestoPrep(h, page, warn) {
+  const wraps = [];
+  for (let i = -1; (i = h.indexOf('<div class="prp-pages-output"', i + 1)) >= 0;) wraps.push(i);
+  const wrapOf = (at) => { let w = -1; for (const x of wraps) if (x <= at) w = x; return w; };
+  if (!/\//.test(page)) {
+    const pre = h.indexOf('<span class="anchor" id="Preface"');
+    const p15 = h.indexOf('data-page-index="15"');
+    const ads = h.indexOf('<div class="mw-collapsible', p15);
+    if (pre < 0 || p15 < 0 || ads < 0 || !(pre < p15 && p15 < ads))
+      throw new Error("manifesto: the base page's landmarks moved (Preface " + pre + ", page 15 " + p15 + ", box " + ads + ")");
+    const a = wrapOf(pre), b = wrapOf(p15);
+    if (a < 0 || b <= a) throw new Error("manifesto: the Preface and page 15 are not in two transclusions");
+    h = MANIFESTO_BASE_PART === "preface" ? h.slice(a, b) : h.slice(b, ads);
+  }
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  let first = true;
+  for (let guard = 0, at = 0; guard < 200; guard++) {
+    const rx = /<div class="(?:wst-center|wst-block-center|wst-right)\b[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(h);
+    if (!m) break;
+    const end = blockEnd(h, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = h.slice(m.index + m[0].length, end - "</div>".length);
+    let out;
+    if (/wst-right/.test(m[0])) out = inner;
+    else if (textOf(inner).length > 200) {
+      warn('a centred block is not a heading and was kept as text: "' + textOf(inner).slice(0, 60) + '"');
+      out = inner;
+    } else if (first && !/<sup\b[^>]*class="reference"/.test(inner)) {
+      MANIFESTO.dropped++;
+      out = "";
+    } else {
+      const x = inner.replace(/<style[\s\S]*?<\/style>|<link\b[^>]*>/g, "")
+        .replace(/<\/?(?:p|div)\b[^>]*>/g, "<br>").replace(/<br\s*\/?>/g, "<br>")
+        .replace(/(?:\s*<br>\s*)+/g, "<br>").replace(/^(?:\s*<br>)+|(?:<br>\s*)+$/g, "").trim();
+      MANIFESTO.heads++;
+      out = "<p>" + MANIFESTO_HEAD + x + MANIFESTO_HEAD + "</p>";
+    }
+    if (!/wst-right/.test(m[0])) first = false;
+    h = h.slice(0, m.index) + out + h.slice(end);
+    at = m.index + out.length;
+  }
+  return h;
+}
+let MANIFESTO_BASE_PART = "preface";
+function manifestoFinish(html, warn) {
+  let out = html.replace(new RegExp("<p>\\s*" + MANIFESTO_HEAD + "([\\s\\S]*?)" + MANIFESTO_HEAD + "\\s*</p>", "g"),
+    (m, x) => { MANIFESTO.lifted++; return '<p class="bk-head">' + x.trim() + "</p>"; });
+  out = out.replace(new RegExp(MANIFESTO_HEAD + "([\\s\\S]*?)" + MANIFESTO_HEAD, "g"),
+    (m, x) => { warn("a heading fence outside its own paragraph: " + x.slice(0, 60)); return x; });
+  // the scan pages' spacer lines: a paragraph of nothing but line breaks, and breaks closing a paragraph
+  out = out.replace(/\n?<p>(?:\s|<br>)*<\/p>/g, "").replace(/(?:\s*<br>)+\s*<\/p>/g, "</p>")
+    .replace(/<p class="bk-head">(?:\s*<br>)+/g, '<p class="bk-head">');
+  return out;
+}
+
 const KANT_HEAD = "@@KNH@@", KANT_STARS = "@@KNA@@";
 function kantPrep(h, warn) {
   let b = h;
@@ -34687,6 +34963,134 @@ function thorndikePrep(h, warn) {
   return h;
 }
 
+/* ============================================================
+   A GUTENBERG HTML EDITION WITH ITS NOTES COLLECTED AT THE END     (layout: "pglinknote")
+   ============================================================
+   Nov 2026, adding Darwin's The Expression of the Emotions in Man and Animals (Gutenberg ebook 1227).
+   The older Gutenberg HTML shape, not the one `pgchapters` reads: each printed division is a
+   `<div class="chapter">` headed by an `<h2>` carrying an anchor (`link2H_INTR`, `link2HCH0001` …),
+   and EVERY NOTE OF THE BOOK stands in one last division (`link2H_FOOT`), keyed `linknote-N`, with
+   the markers in the text `<a href="#linknote-N" …>[N]</a>`. The transcriber numbers the notes per
+   chapter with a hundreds offset (1–22, 101–120, 201–203 …), so a chapter's notes are found by its own
+   markers, never by the number. What it does, each a quiet failure if missed:
+   · THE DIVISIONS ARE NAMED BY ANCHOR (`BOOK.pgAnchors`, in reading order, section n = index + 1), and
+     every `<div class="chapter">` must be one of them, `BOOK.pgSkip` (the half-title) or the notes —
+     an unknown division is reported, never dropped in silence. A chapter's `<h2>` must read
+     "CHAPTER <its numeral>.", checked as a run.
+   · THE NOTES: each opens on "N (return)" and wraps its text in square brackets; both are taken off,
+     and a note without them is reported. A note of several paragraphs (a long quotation in one) is
+     joined with `<br><br>`. Each chapter keeps the notes its markers cite, renumbered from 1 in citing
+     order; a marker with no note, or a note no marker cites, is reported.
+   · THE CHAPTER'S ARGUMENT — the small-type list of its topics under each chapter head, the first
+     paragraph of every chapter but the Introduction — is set as a `bk-head` line, as the Origin of
+     Species' are (`BOOK.pgArgument`).
+   · THE FIGURES go with their anchors and their captions (the transcription sets a caption as a
+     paragraph "{illust. caption = …}", one of them carrying a scrap of the sentence above it, one
+     never closing its brace), counted — the Library sets no pictures.
+   · VERSE (`<p class="poem">`) becomes a quotation block with its lines kept; the thematic rules and
+     every link and anchor go. */
+function extractPgLinknote(h, BOOK, warn) {
+  const c = { notes: 0, marks: 0, figures: 0, captions: 0, verse: 0, heads: 0, breaks: 0 };
+  const s0 = h.indexOf("*** START OF"), e0 = h.indexOf("*** END OF");
+  if (s0 < 0 || e0 < 0) throw new Error("the edition lacks Gutenberg's START and END lines");
+  /* The typographic entities, written as the characters every other book carries (`&amp;` stays). */
+  const ENT = { mdash: "\u2014", rsquo: "\u2019", lsquo: "\u2018", ldquo: "\u201c", rdquo: "\u201d" };
+  const body = h.slice(s0, e0).replace(/&(mdash|rsquo|lsquo|ldquo|rdquo);/g, (w, k) => ENT[k]);
+  const segs = {};
+  let notesSeg = null;
+  for (const m of body.matchAll(/<div class="chapter"[^>]*>/g)) {
+    const end = pgDivEnd(body, m.index);
+    if (end < 0) throw new Error("an unclosed chapter division near offset " + m.index);
+    const seg = body.slice(m.index, end);
+    const a = /<h2\b[^>]*>\s*<a name="([^"]+)"/.exec(seg);
+    const id = a && a[1];
+    if (id === BOOK.pgNotes) notesSeg = seg;
+    else if (BOOK.pgAnchors.includes(id)) segs[id] = seg;
+    else if (!(BOOK.pgSkip || []).includes(id))
+      warn("a division the entry does not name (" + id + "): " + pgFlat(seg).slice(0, 80));
+  }
+  if (!notesSeg) throw new Error("the notes division " + BOOK.pgNotes + " is not in the edition");
+
+  /* the notes, keyed by the transcriber's number */
+  const notes = {};
+  const parts = notesSeg.split(/<p>\s*<a name="linknote-(\d+)"[^>]*>\s*(?:<!--[^>]*-->)?\s*<\/a>\s*<\/p>/);
+  for (let i = 1; i < parts.length; i += 2) {
+    const k = parts[i];
+    let t = parts[i + 1].replace(/<\/div>(?:<!--[^>]*-->)?\s*$/, "");
+    const paras = [...t.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((m) => m[1]);
+    if (!paras.length) { warn("note " + k + " came back empty"); continue; }
+    const head = /^\s*(\d+) \(<a [^>]*>return<\/a>\)<br\s*\/?>\s*\[\s*/.exec(paras[0]);
+    if (!head || head[1] !== k) warn("note " + k + " does not open on its number and a bracket: " + pgFlat(paras[0]).slice(0, 60));
+    else paras[0] = paras[0].slice(head[0].length);
+    const last = paras.length - 1;
+    if (!/\]\s*$/.test(paras[last])) warn("note " + k + " does not close on a bracket: " + pgFlat(paras[last]).slice(-60));
+    else paras[last] = paras[last].replace(/\s*\]\s*$/, "");
+    const rest = pgFlat(t.replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, ""));
+    if (rest) warn("note " + k + " has text outside its paragraphs: " + rest.slice(0, 60));
+    notes[k] = paras.map((p) => pgFlat(p.replace(/<\/?a\b[^>]*>/g, ""))).filter(Boolean).join("<br><br>");
+    c.notes++;
+  }
+  const cited = new Set();
+
+  const out = BOOK.pgAnchors.map((id, i) => {
+    const n = i + 1;
+    let s = segs[id];
+    if (!s) throw new Error("the division " + id + " (section " + n + ") is not in the edition");
+    /* the head: checked, then dropped — the tab names the chapter */
+    const hd = /<h2\b[^>]*>([\s\S]*?)<\/h2>/.exec(s);
+    const htext = pgFlat(hd[1].replace(/<\/?a\b[^>]*>/g, "")).replace(/<br>/g, " ");
+    if (n > 1 && !new RegExp("^CHAPTER " + toRoman(n - 1) + "\\.").test(htext))
+      warn("section " + n + " is headed " + JSON.stringify(htext.slice(0, 40)));
+    s = s.slice(hd.index + hd[0].length).replace(/<\/div>(?:<!--[^>]*-->)?\s*$/, "");
+    /* the figures, their anchors and their captions */
+    s = s.replace(/<p>\s*<a name="linkimage-\d+"[^>]*>\s*(?:<!--[^>]*-->)?\s*<\/a>\s*<\/p>/g, "");
+    s = pgTakeDivs(s, "fig", () => { c.figures++; return ""; });
+    s = s.replace(/<p>\s*\{illust\. caption =[\s\S]*?<\/p>/g, () => { c.captions++; return ""; });
+    if (/<img\b|\{illust/.test(s)) warn("section " + n + ": a picture or caption left in the text");
+    /* the markers, before any link is unwrapped */
+    s = s.replace(/<a\s+href="#linknote-(\d+)"[^>]*>\s*\[\d+\]\s*<\/a>/g, (w, k) => {
+      c.marks++; return '<sup class="fn" data-fn="' + k + '"></sup>';
+    });
+    if (/linknote/.test(s)) warn("section " + n + ": a note marker was not recognised");
+    c.breaks += (s.match(/<hr\b[^>]*>/g) || []).length;
+    s = s.replace(/<hr\b[^>]*>/g, "").replace(/<\/?a\b[^>]*>/g, "");
+    /* the argument under the chapter head */
+    if (BOOK.pgArgument && n > 1) {
+      let done = false;
+      s = s.replace(/<p\b[^>]*>/, (w) => { done = true; c.heads++; return "<p>@@PGH"; });
+      if (!done) warn("section " + n + ": no argument under the head");
+    }
+    /* verse */
+    s = s.replace(/<p class="poem">([\s\S]*?)<\/p>/g, (w, x) => { c.verse++; return "<blockquote><p>" + x + "</p></blockquote>"; });
+
+    s = stripTags(s.replace(/&nbsp;/g, " "));
+    s = s.replace(/\s+/g, " ").replace(/\s*<br>\s*/g, "<br>");
+    s = s.replace(/<p>(?:\s|<br>)*/g, "<p>").replace(/(?:\s|<br>)*<\/p>/g, "</p>").replace(/<p><\/p>/g, "");
+    s = s.replace(/\s*(<\/?(?:p|blockquote)\b[^>]*>)\s*/g, "$1");
+    s = s.replace(/(<\/p>|<\/blockquote>)(?=<)/g, "$1\n").replace(/(<blockquote>)(?=<p)/g, "$1\n").trim();
+    s = s.replace(/<p>@@PGH\s*/g, '<p class="bk-head">');
+    if (/@@PG/.test(s)) warn("section " + n + ": a placeholder was left in the text");
+    const loose = s.replace(/<p\b[^>]*>[\s\S]*?<\/p>|<\/?blockquote>/g, "").trim();
+    if (loose) warn("section " + n + ": text outside every paragraph: " + loose.slice(0, 80));
+
+    const seen = [], map = {};
+    s = s.replace(/<sup class="fn" data-fn="([^"]+)"><\/sup>/g, (w, k) => {
+      if (!map[k]) {
+        if (notes[k] === undefined) { warn("section " + n + " cites a note " + k + " that is not printed"); return ""; }
+        if (cited.has(k)) warn("note " + k + " is cited from two sections");
+        cited.add(k);
+        seen.push(notes[k]); map[k] = seen.length;
+      }
+      return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+    });
+    return { n, html: s, notes: seen };
+  });
+  const orphan = Object.keys(notes).filter((k) => !cited.has(k));
+  if (orphan.length) warn("note(s) " + orphan.join(", ") + " printed but never cited");
+  return { chapters: out, counts: c };
+}
+
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -36076,6 +36480,28 @@ async function fetchEnglish() {
 
   /* A GUTENBERG HTML EDITION IN ONE FILE PER VOLUME, cut at its own chapter heads — see the block
      above extractPgChapters. Cached as Polo's two volumes are. */
+  /* A GUTENBERG HTML EDITION WITH ITS NOTES COLLECTED AT THE END — see the block above
+     extractPgLinknote. One file, cached whole as `en-page.html`. */
+  if (BOOK.layout === "pglinknote") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = correctGot(extractPgLinknote(raw.replace(/\r\n?/g, "\n"), BOOK, warn));
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers), " +
+      c.heads + " chapter argument(s) set as head lines, " + c.verse + " verse block(s), " + c.figures +
+      " figure(s) and " + c.captions + " caption(s) left out, " + c.breaks + " rule(s) removed");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "pgchapters") {
     const warn = (m) => warnings.push(m);
     const vols = [];
@@ -36661,6 +37087,7 @@ async function fetchEnglish() {
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
     if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
     if (BOOK.prep === "paine") h = painePrep(h, warn);
+    if (BOOK.prep === "manifesto") { MANIFESTO_BASE_PART = n === 1 ? "preface" : "opening"; h = manifestoPrep(h, pageNames[0], warn); }
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -36760,6 +37187,7 @@ async function fetchEnglish() {
         let eh = await api(extra);
         if (BOOK.prep === "kant") eh = kantPrep(eh, warn);
         if (BOOK.prep === "euclid") eh = euclidPrep(eh, warn);
+        if (BOOK.prep === "manifesto") eh = manifestoPrep(eh, extra, warn);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -36780,6 +37208,7 @@ async function fetchEnglish() {
         const got = kantNestedNotes(html, notes, warn);
         html = got.html; notes = got.notes;
       }
+      if (BOOK.prep === "manifesto") html = manifestoFinish(html, warn);
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
       /* AN APPARATUS THE EDITION DOES NOT HAVE (Aug 2026, adding Le Morte d'Arthur — the first wiki
@@ -37331,6 +37760,9 @@ function writeEnglish(chapters, warnings) {
   if (KANT.heads || KANT.lifted)
     console.log("  " + KANT.heads + " heading block(s) fenced, " + KANT.lifted + " lifted, " + KANT.tables + " table(s) read as blocks, " + KANT.stars + " asterisk row(s), " + KANT.nested + " note(s) inside a note spliced" +
       (KANT.heads === KANT.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
+  if (MANIFESTO.heads || MANIFESTO.dropped)
+    console.log("  " + MANIFESTO.dropped + " printed head(s) dropped, " + MANIFESTO.heads + " heading block(s) fenced, " +
+      MANIFESTO.lifted + " lifted" + (MANIFESTO.heads === MANIFESTO.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
   if (SIDENOTES.fenced || SIDENOTES.lifted)
     console.log("  " + SIDENOTES.fenced + " marginal note(s) fenced, " + SIDENOTES.lifted + " lifted" +
       (SIDENOTES.fenced === SIDENOTES.lifted ? "" : " — MISMATCH, a note was lost or doubled"));

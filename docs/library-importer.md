@@ -3006,3 +3006,38 @@ cannot quietly move a note into the wrong chapter:
   `<blockquote>`; **a `<ul>`** (the kittens' ages, a schedule) becomes one paragraph, an item to a line — unwrapped by
   the tag strip its items ran together outside every paragraph.
 
+## `prep: "manifesto"` — a base page holding a preface, an opening and advertisements (Nov 2026, the Communist Manifesto)
+
+`manifestoPrep(h, page, warn)` runs on every raw page (the first and each extra of a `page(n)` array) before `notesOf`
+and `cleanBody`; `manifestoFinish` runs on the assembled part. The base page `Manifesto of the Communist Party`
+transcludes the cover, the title page, Engels's preface, its note list and djvu page 15 (the unnumbered opening), then
+a collapsed box of advertisements; `cleanBody` alone would take all of it as one part. So the base page is cut by its
+landmarks: the preface from the wrapper holding the `Preface` anchor to the wrapper of `data-page-index="15"`, the
+opening from there to the `mw-collapsible` box — a missing or out-of-order landmark THROWS. Every `wst-center` (and
+the one `wst-block-center`) is a head: the first on a page is the printed part head and is dropped, unless it carries
+a note marker (Part I's), and every other is fenced and lifted to one `bk-head` with its lines as `<br>`; a block over
+200 characters is kept as text and warned. Engels's `wst-right` signature is unwrapped to a paragraph.
+
+Re-run after touching: `node .claude/fetch-book.js marx-communist-manifesto --force` (six fetches), check "5 printed
+head(s) dropped, 6 heading block(s) fenced, 6 lifted" and 10 notes, then `node .claude/book-audit.js`.
+
+## `layout: "pglinknote"` — a Gutenberg HTML edition with every note at the end (Nov 2026, The Expression of the Emotions)
+
+The OLDER Gutenberg HTML shape (ebook 1227), which `pgchapters` cannot read: each printed division is a
+`<div class="chapter">` under an `<h2>` carrying an anchor (`link2H_INTR`, `link2HCH0001` …), and every note of the
+book stands in one closing division (`link2H_FOOT`) as `linknote-N`, cited by `<a href="#linknote-N">[N]</a>`.
+`extractPgLinknote` reads one file (`url`, cached as `en-page.html`). The entry names the divisions by anchor in
+reading order (`pgAnchors`, section n = index + 1), the half-title to skip (`pgSkip`) and the notes' anchor
+(`pgNotes`); `pgArgument: true` sets the first paragraph of every chapter after the first section as a `bk-head`
+line (Darwin's argument, as the Origin's). What it settled, each a quiet failure if missed:
+- **The note numbers carry a hundreds offset per chapter** (1–22, 101–120, 201–203 …), so a chapter's notes are the
+  ones its markers cite, renumbered from 1 — never a range of numbers. A note cited from two sections, a marker with
+  no note and a note nothing cites are all reported.
+- **A note opens on "N (return)" and wraps its text in square brackets**; both are taken off, and a note without them
+  is reported rather than trimmed blindly. A note of several paragraphs (Galton's letter in I) is joined with `<br><br>`.
+- **Every `<div class="chapter">` must be named** (an anchor, the skip list or the notes); an unknown one is reported,
+  and a chapter's `<h2>` must read "CHAPTER <its numeral>.", checked as a run.
+- **A caption is a paragraph "{illust. caption = …}"**, one of them carrying a scrap of the sentence above it and one
+  never closing its brace, so the whole paragraph goes with its figure, counted.
+- **The typographic entities** (`&mdash;`, `&lsquo;` … ) are written as characters before anything else, so `fixes`
+  rows are written with the real characters; `&amp;` stays.
