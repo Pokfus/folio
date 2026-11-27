@@ -116,15 +116,32 @@ def f(name):
 _DECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'decks')
 
 
+_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'decks', 'latin-fixes.json')
+
+
 def words_below():
-    """Every lemma a lower level teaches, read off its SHIPPED deck file (`Key`)."""
+    """Every lemma the GENERATOR dealt to a lower level, read off its SHIPPED deck file (`Key`).
+
+    The shipped decks are the generator's output with the record applied
+    (`.claude/decks/latin-fixes.json`, `latin-fix.js`, the beginner pass of Nov 2026): cards
+    moved down from a higher level, and cards no level had.  A level rebuilt alone must be
+    dealt the list it was dealt before anything moved, so a word the record ADDED to a deck is
+    not counted as taught there, and a word the record took OUT of a deck (a move's `from`)
+    still is.  Without this a rebuilt A2 would treat the record's `alius`, added to A1, as
+    taught below and be dealt one word fewer.  The key is the fold of the row's headword."""
+    add = {}
+    if os.path.exists(_RECORD):
+        add = json.load(open(_RECORD, encoding='utf-8')).get('add', {})
+    from la import fold
     out = set()
     for lvl in BELOW.get(LEVEL, []):
         p = os.path.join(_DECKS, DECK_FILES[lvl])
         if not os.path.exists(p):
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
-        for c in json.load(open(p, encoding='utf-8'))['cards']:
-            k = (c.get('fields') or {}).get('Key', '')
-            if k:
-                out.add(k)
+        keys = {(c.get('fields') or {}).get('Key', '')
+                for c in json.load(open(p, encoding='utf-8'))['cards']} - {''}
+        keys -= {fold(r['word']) for r in add.get(DECK_IDS[lvl], [])}
+        keys |= {fold(r['word']) for rows in add.values() for r in rows
+                 if r.get('from') == DECK_IDS[lvl]}
+        out |= keys
     return out

@@ -1,0 +1,1536 @@
+{
+ "_": "latin-sounds.json — the table behind decks/Latin-Sounds-and-Spelling.folio-deck.json, read by build-latin-sounds.js. NOTHING IN IT IS COMPOSED but the labels `when`, `kind` and `name`. In `sounds`, a row's `ipa` and `like` are the 'IPA' and 'English approximation' cells of one row of the key of Wikipedia's Help:IPA/Latin at the revision in `sources.key`; `col` says which of the key's two columns of letters the row's letter stands in (Class., Eccl., or both), and that is what `when` reports: the Classical value is always first and the Church value beside it. A row with `src` phonology is instead a row of the table 'Ecclesiastical pronunciation (Italian pronunciation)' of 'Latin phonology and orthography' (its Pronunciation and English-approximation cells), used where the key has no Church row for the letter (h, ch). A `says` is a list of quotations, each a run of consecutive words of the page named beside it in `src` (key: the notes under the key's tables; phonology; declension: 'Latin declension'; conjugation: 'Latin conjugation'), with a cut marked […]. Every word is a Latin A1 headword, spelled as its card prints it, and the two transcriptions beside it are the English Wiktionary's own for that headword — the one it tags Classical Latin and the one it notes as modern Italianate Ecclesiastical — written by `python3 .claude/latin/sounds.py --fill` from the kaikki.org extraction (fetched 2026-11-27); none is typed. An ending card's table is not stored: `tableFrom` names Latin A1 cards and `blocks` the blocks of their All forms table, which build-latin-sounds.js copies, so a pattern shows only forms a card shows. `python3 .claude/latin/sounds.py --verify` fetches the four revisions and checks every cell and quotation against them. A row's `key` is what its card id is pinned to in latin-ids.json (deck lasounds): never change one.",
+ "sources": {
+  "key": {
+   "title": "Help:IPA/Latin",
+   "url": "https://en.wikipedia.org/wiki/Help:IPA/Latin",
+   "revid": 1385934515,
+   "date": "2026-11-16"
+  },
+  "phonology": {
+   "title": "Latin phonology and orthography",
+   "url": "https://en.wikipedia.org/wiki/Latin_phonology_and_orthography",
+   "revid": 1381667996,
+   "date": "2026-10-24"
+  },
+  "declension": {
+   "title": "Latin declension",
+   "url": "https://en.wikipedia.org/wiki/Latin_declension",
+   "revid": 1385002572,
+   "date": "2026-11-11"
+  },
+  "conjugation": {
+   "title": "Latin conjugation",
+   "url": "https://en.wikipedia.org/wiki/Latin_conjugation",
+   "revid": 1367838080,
+   "date": "2026-08-05"
+  },
+  "wiktionary": {
+   "title": "English Wiktionary, via the kaikki.org extraction",
+   "url": "https://kaikki.org/dictionary/Latin/",
+   "fetched": "2026-11-27"
+  }
+ },
+ "rules": [
+  {
+   "key": "rule:two",
+   "show": "vīgintī",
+   "kind": "Latin, read two ways",
+   "name": "the classical pronunciation and the Church one",
+   "says": [
+    "The charts below show the way in which the International Phonetic Alphabet (IPA) represents Classical Latin and Ecclesiastical Latin pronunciations in Wikipedia articles.",
+    "Since the late 19th and early 20th centuries, an Italianate pronunciation of Latin has grown to be accepted as a universal standard in the Catholic Church.",
+    "In Classical Latin, ⟨c g t⟩ are always pronounced hard, as [k g t]. In Ecclesiastical Latin, ⟨c g sc⟩ are pronounced as soft [tʃ dʒ ʃ] before the front vowels ⟨e i y ae oe⟩, and unstressed ⟨ti⟩ before a vowel is pronounced [tsi]."
+   ],
+   "src": [
+    "key",
+    "phonology",
+    "key"
+   ],
+   "words": [
+    [
+     "vīgintī",
+     "[wiːˈɡɪn.tiː]",
+     "[viˈd͡ʒin.ti]"
+    ],
+    [
+     "caelum",
+     "[ˈkae̯.ɫũː]",
+     "[ˈt͡ʃɛː.lum]"
+    ],
+    [
+     "gēns",
+     "[ˈɡẽːs]",
+     "[ˈd͡ʒɛns]"
+    ],
+    [
+     "sciō",
+     "[ˈski.oː]",
+     "[ˈʃiː.o]"
+    ],
+    [
+     "grātia",
+     "[ˈɡraː.ti.a]",
+     "[ˈɡrat.t͡si.a]"
+    ],
+    [
+     "magnus",
+     "[ˈmaŋ.nʊs]",
+     "[ˈmaɲ.ɲus]"
+    ],
+    [
+     "hodiē",
+     "[ˈhɔ.di.eː]",
+     "[ˈɔː.di.e]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:macron",
+   "show": "ā ē ī ō ū",
+   "kind": "Latin spelling",
+   "name": "the macron: a long vowel",
+   "says": [
+    "Classical Latin has long and short vowels. If vowel length is marked, long vowels are marked with macrons, ⟨ā, ē, ī, ō, ū, ȳ⟩, and short vowels with breves, ⟨ă, ĕ, ĭ, ŏ, ŭ, y̆⟩. Ecclesiastical Latin does not distinguish between long and short vowels.",
+    "Textbooks and dictionaries usually indicate the length of vowels by putting a macron above the long vowel (less frequently, the breve is also used to mark short vowels), but it is not generally done in regular texts."
+   ],
+   "src": [
+    "key",
+    "phonology"
+   ],
+   "words": [
+    [
+     "mālum",
+     "[ˈmaː.ɫũː]",
+     "[ˈmaː.lum]"
+    ],
+    [
+     "malus",
+     "[ˈma.ɫʊs]",
+     "[ˈmaː.lus]"
+    ],
+    [
+     "ōs",
+     "[ˈoːs]",
+     "[ˈɔs]"
+    ],
+    [
+     "liber",
+     "[ˈlɪ.bɛr]",
+     "[ˈliː.ber]"
+    ],
+    [
+     "līberī",
+     "[ˈliː.bɛ.riː]",
+     "[ˈliː.be.ri]"
+    ],
+    [
+     "populus",
+     "[ˈpɔ.pʊ.ɫʊs]",
+     "[ˈpɔː.pu.lus]"
+    ],
+    [
+     "rēx",
+     "[ˈreːks]",
+     "[ˈrɛks]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:stress",
+   "show": "ˈ",
+   "kind": "Latin stress",
+   "name": "where the stress falls",
+   "says": [
+    "In words of two syllables, the stress is on the first syllable. In words of three or more syllables, the stress is on the penultimate syllable if heavy, and on the antepenultimate syllable otherwise.",
+    "Thus, a syllable is heavy if it ends in a long vowel, a diphthong, or a consonant."
+   ],
+   "src": [
+    "key",
+    "phonology"
+   ],
+   "words": [
+    [
+     "amīcus",
+     "[aˈmiː.kʊs]",
+     "[aˈmiː.kus]"
+    ],
+    [
+     "fenestra",
+     "[fɛˈnɛs.tra]",
+     "[feˈnɛs.tra]"
+    ],
+    [
+     "puella",
+     "[puˈɛl.la]",
+     "[puˈɛl.la]"
+    ],
+    [
+     "dominus",
+     "[ˈdɔ.mɪ.nʊs]",
+     "[ˈdɔː.mi.nus]"
+    ],
+    [
+     "fēmina",
+     "[ˈfeː.mɪ.na]",
+     "[ˈfɛː.mi.na]"
+    ],
+    [
+     "populus",
+     "[ˈpɔ.pʊ.ɫʊs]",
+     "[ˈpɔː.pu.lus]"
+    ],
+    [
+     "habeō",
+     "[ˈha.be.oː]",
+     "[ˈaː.be.o]"
+    ],
+    [
+     "accipiō",
+     "[akˈkɪ.pi.oː]",
+     "[atˈt͡ʃiː.pi.o]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:double",
+   "show": "ll · nn · tt",
+   "kind": "Latin spelling",
+   "name": "a doubled consonant",
+   "says": [
+    "Geminate (double) consonants are written with a doubled letter except for /jj/ and /ww/: anus [ˈanʊs], annus [ˈannʊs].",
+    "Length is the duration of time that a particular sound is held before proceeding to the next sound in a word."
+   ],
+   "src": [
+    "key",
+    "phonology"
+   ],
+   "words": [
+    [
+     "annus",
+     "[ˈan.nʊs]",
+     "[ˈan.nus]"
+    ],
+    [
+     "terra",
+     "[ˈtɛr.ra]",
+     "[ˈtɛr.ra]"
+    ],
+    [
+     "bellum",
+     "[ˈbɛl.lũː]",
+     "[ˈbɛl.lum]"
+    ],
+    [
+     "ille",
+     "[ˈɪl.lɛ]",
+     "[ˈil.le]"
+    ],
+    [
+     "mittō",
+     "[ˈmɪt.toː]",
+     "[ˈmit.to]"
+    ],
+    [
+     "puella",
+     "[puˈɛl.la]",
+     "[puˈɛl.la]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:final-m",
+   "show": "-um · -am · -em",
+   "kind": "Latin spelling",
+   "name": "a vowel and m at the end of a word",
+   "rows": [
+    {
+     "when": "Classical",
+     "col": "class",
+     "ipa": "◌̃ː",
+     "like": "long nasal vowels"
+    }
+   ],
+   "says": [
+    "In Classical Latin, the combination of a vowel and ⟨m⟩ at the end of a word, or a vowel and ⟨n⟩ before ⟨s⟩ or ⟨f⟩, represents a long nasal vowel."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "cum",
+     "[ˈkũː]",
+     "[ˈkum]"
+    ],
+    [
+     "iam",
+     "[ˈjãː]",
+     "[ˈjam]"
+    ],
+    [
+     "bellum",
+     "[ˈbɛl.lũː]",
+     "[ˈbɛl.lum]"
+    ],
+    [
+     "caelum",
+     "[ˈkae̯.ɫũː]",
+     "[ˈt͡ʃɛː.lum]"
+    ],
+    [
+     "mēnsa",
+     "[ˈmẽː.sa]",
+     "[ˈmɛn.sa]"
+    ],
+    [
+     "cōnsul",
+     "[ˈkõː.sʊɫ]",
+     "[ˈkɔn.sul]"
+    ],
+    [
+     "īnfāns",
+     "[ˈĩː.fãːs]",
+     "[ˈiɱ.fans]"
+    ]
+   ]
+  }
+ ],
+ "sounds": [
+  {
+   "key": "vowel:a",
+   "show": "a · ā",
+   "kind": "Latin vowel",
+   "mark": "[aā]",
+   "rows": [
+    {
+     "when": "Classical and Church, a",
+     "col": "both",
+     "ipa": "a",
+     "like": "p<b>a</b>sta"
+    },
+    {
+     "when": "Classical, ā",
+     "col": "class",
+     "ipa": "aː",
+     "like": "f<b>a</b>ther"
+    }
+   ],
+   "words": [
+    [
+     "aqua",
+     "[ˈa.kʷa]",
+     "[ˈaː.kʷa]"
+    ],
+    [
+     "pater",
+     "[ˈpa.tɛr]",
+     "[ˈpaː.ter]"
+    ],
+    [
+     "māter",
+     "[ˈmaː.tɛr]",
+     "[ˈmaː.ter]"
+    ],
+    [
+     "amō",
+     "[ˈa.moː]",
+     "[ˈaː.mo]"
+    ],
+    [
+     "mālum",
+     "[ˈmaː.ɫũː]",
+     "[ˈmaː.lum]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:e",
+   "show": "e · ē",
+   "kind": "Latin vowel",
+   "mark": "[eē]",
+   "rows": [
+    {
+     "when": "Classical, e",
+     "col": "class",
+     "ipa": "ɛ",
+     "like": "m<b>e</b>t"
+    },
+    {
+     "when": "Classical, ē",
+     "col": "class",
+     "ipa": "eː",
+     "like": "Scottish m<b>a</b>de"
+    },
+    {
+     "when": "Church, e",
+     "col": "eccl",
+     "ipa": "e",
+     "like": "m<b>e</b>t"
+    }
+   ],
+   "words": [
+    [
+     "et",
+     "[ˈɛt]",
+     "[ˈɛt]"
+    ],
+    [
+     "bene",
+     "[ˈbɛ.nɛ]",
+     "[ˈbɛː.ne]"
+    ],
+    [
+     "rēx",
+     "[ˈreːks]",
+     "[ˈrɛks]"
+    ],
+    [
+     "mēnsa",
+     "[ˈmẽː.sa]",
+     "[ˈmɛn.sa]"
+    ],
+    [
+     "edō",
+     "[ˈɛ.doː]",
+     "[ˈɛː.do]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:i",
+   "show": "i · ī",
+   "kind": "Latin vowel",
+   "mark": "[iī]",
+   "rows": [
+    {
+     "when": "Classical, i",
+     "col": "class",
+     "ipa": "ɪ",
+     "like": "m<b>i</b>t"
+    },
+    {
+     "when": "Classical, ī",
+     "col": "class",
+     "ipa": "iː",
+     "like": "m<b>ea</b>d"
+    },
+    {
+     "when": "Church, i",
+     "col": "eccl",
+     "ipa": "i",
+     "like": "m<b>ea</b>d"
+    }
+   ],
+   "words": [
+    [
+     "in",
+     "[ˈɪn]",
+     "[ˈin]"
+    ],
+    [
+     "ita",
+     "[ˈɪ.ta]",
+     "[ˈiː.ta]"
+    ],
+    [
+     "vīta",
+     "[ˈwiː.ta]",
+     "[ˈviː.ta]"
+    ],
+    [
+     "fīlia",
+     "[ˈfiː.li.a]",
+     "[ˈfiː.li.a]"
+    ],
+    [
+     "dīcō",
+     "[ˈdiː.koː]",
+     "[ˈdiː.ko]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:o",
+   "show": "o · ō",
+   "kind": "Latin vowel",
+   "mark": "[oō]",
+   "rows": [
+    {
+     "when": "Classical, o",
+     "col": "class",
+     "ipa": "ɔ",
+     "like": "<b>o</b>ff"
+    },
+    {
+     "when": "Classical, ō",
+     "col": "class",
+     "ipa": "oː",
+     "like": "st<b>o</b>ry (long)"
+    },
+    {
+     "when": "Church, o",
+     "col": "eccl",
+     "ipa": "o",
+     "like": "st<b>o</b>ry (short)"
+    }
+   ],
+   "words": [
+    [
+     "homo",
+     "[ˈhɔ.moː]",
+     "[ˈɔː.mo]"
+    ],
+    [
+     "nox",
+     "[ˈnɔks]",
+     "[ˈnɔks]"
+    ],
+    [
+     "nōn",
+     "[ˈnoːn]",
+     "[ˈnɔn]"
+    ],
+    [
+     "sōl",
+     "[ˈsoːɫ]",
+     "[ˈsɔl]"
+    ],
+    [
+     "dō",
+     "[ˈdoː]",
+     "[ˈdɔː]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:u",
+   "show": "u · ū",
+   "kind": "Latin vowel",
+   "mark": "[uū]",
+   "rows": [
+    {
+     "when": "Classical, u",
+     "col": "class",
+     "ipa": "ʊ",
+     "like": "p<b>u</b>t"
+    },
+    {
+     "when": "Classical, ū",
+     "col": "class",
+     "ipa": "uː",
+     "like": "c<b>oo</b>l (long)"
+    },
+    {
+     "when": "Church, u",
+     "col": "eccl",
+     "ipa": "u",
+     "like": "c<b>oo</b>l (short)"
+    }
+   ],
+   "words": [
+    [
+     "sum",
+     "[ˈsũː]",
+     "[ˈsum]"
+    ],
+    [
+     "nunc",
+     "[ˈnʊŋk]",
+     "[ˈnuŋk]"
+    ],
+    [
+     "tū",
+     "[ˈtuː]",
+     "[ˈtuː]"
+    ],
+    [
+     "ūnus",
+     "[ˈuː.nʊs]",
+     "[ˈuː.nus]"
+    ],
+    [
+     "lūna",
+     "[ˈɫuː.na]",
+     "[ˈluː.na]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:ae",
+   "show": "ae",
+   "kind": "Latin vowel",
+   "mark": "ae",
+   "rows": [
+    {
+     "when": "Classical",
+     "col": "class",
+     "ipa": "ae̯",
+     "like": "s<b>igh</b>"
+    },
+    {
+     "when": "Church",
+     "col": "eccl",
+     "ipa": "e",
+     "like": "m<b>e</b>t"
+    }
+   ],
+   "words": [
+    [
+     "caelum",
+     "[ˈkae̯.ɫũː]",
+     "[ˈt͡ʃɛː.lum]"
+    ],
+    [
+     "quaerō",
+     "[ˈkʷae̯.roː]",
+     "[ˈkʷɛː.ro]"
+    ],
+    [
+     "saepe",
+     "[ˈsae̯.pɛ]",
+     "[ˈsɛː.pe]"
+    ],
+    [
+     "laetus",
+     "[ˈɫae̯.tʊs]",
+     "[ˈlɛː.tus]"
+    ],
+    [
+     "aetās",
+     "[ˈae̯.taːs]",
+     "[ˈɛː.tas]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:oe",
+   "show": "oe",
+   "kind": "Latin vowel",
+   "mark": "oe",
+   "rows": [
+    {
+     "when": "Classical",
+     "col": "class",
+     "ipa": "oe̯",
+     "like": "b<b>oy</b>"
+    },
+    {
+     "when": "Church",
+     "col": "eccl",
+     "ipa": "e",
+     "like": "m<b>e</b>t"
+    }
+   ],
+   "words": [
+    [
+     "poena",
+     "[ˈpoe̯.na]",
+     "[ˈpɛː.na]"
+    ],
+    [
+     "coepī",
+     "[ˈkoe̯.piː]",
+     "[ˈt͡ʃɛː.pi]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:au",
+   "show": "au",
+   "kind": "Latin vowel",
+   "mark": "au",
+   "rows": [
+    {
+     "when": "Classical and Church",
+     "col": "both",
+     "ipa": "au̯",
+     "like": "c<b>ow</b>"
+    }
+   ],
+   "words": [
+    [
+     "aut",
+     "[ˈau̯t]",
+     "[ˈau̯t]"
+    ],
+    [
+     "aurum",
+     "[ˈau̯.rũː]",
+     "[ˈaːu̯.rum]"
+    ],
+    [
+     "audiō",
+     "[ˈau̯.di.oː]",
+     "[ˈaːu̯.di.o]"
+    ],
+    [
+     "causa",
+     "[ˈkau̯.sa]",
+     "[ˈkaːu̯.sa]"
+    ],
+    [
+     "nauta",
+     "[ˈnau̯.ta]",
+     "[ˈnaːu̯.ta]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:c",
+   "show": "c",
+   "kind": "Latin consonant",
+   "mark": "c",
+   "rows": [
+    {
+     "when": "Classical; Church before a, o, u",
+     "col": "both",
+     "ipa": "k",
+     "like": "s<b>c</b>ar"
+    },
+    {
+     "when": "Church, before e, i, y, ae, oe",
+     "col": "eccl",
+     "ipa": "tʃ",
+     "like": "<b>ch</b>ange"
+    }
+   ],
+   "says": [
+    "In Classical Latin, ⟨c g t⟩ are always pronounced hard, as [k g t]. In Ecclesiastical Latin, ⟨c g sc⟩ are pronounced as soft [tʃ dʒ ʃ] before the front vowels ⟨e i y ae oe⟩, and unstressed ⟨ti⟩ before a vowel is pronounced [tsi]."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "caelum",
+     "[ˈkae̯.ɫũː]",
+     "[ˈt͡ʃɛː.lum]"
+    ],
+    [
+     "cibus",
+     "[ˈkɪ.bʊs]",
+     "[ˈt͡ʃiː.bus]"
+    ],
+    [
+     "centum",
+     "[ˈkɛn.tũː]",
+     "[ˈt͡ʃɛn.tum]"
+    ],
+    [
+     "faciō",
+     "[ˈfa.ki.oː]",
+     "[ˈfaː.t͡ʃi.o]"
+    ],
+    [
+     "cīvis",
+     "[ˈkiː.wɪs]",
+     "[ˈt͡ʃiː.vis]"
+    ],
+    [
+     "dīcō",
+     "[ˈdiː.koː]",
+     "[ˈdiː.ko]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:g",
+   "show": "g",
+   "kind": "Latin consonant",
+   "mark": "g(?!n)",
+   "rows": [
+    {
+     "when": "Classical; Church before a, o, u",
+     "col": "both",
+     "ipa": "ɡ",
+     "like": "<b>g</b>ear"
+    },
+    {
+     "when": "Church, before e, i, y, ae, oe",
+     "col": "eccl",
+     "ipa": "dʒ",
+     "like": "<b>g</b>iant"
+    }
+   ],
+   "says": [
+    "In Classical Latin, ⟨c g t⟩ are always pronounced hard, as [k g t]. In Ecclesiastical Latin, ⟨c g sc⟩ are pronounced as soft [tʃ dʒ ʃ] before the front vowels ⟨e i y ae oe⟩, and unstressed ⟨ti⟩ before a vowel is pronounced [tsi]."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "gēns",
+     "[ˈɡẽːs]",
+     "[ˈd͡ʒɛns]"
+    ],
+    [
+     "genus",
+     "[ˈɡɛ.nʊs]",
+     "[ˈd͡ʒɛː.nus]"
+    ],
+    [
+     "gerō",
+     "[ˈɡɛ.roː]",
+     "[ˈd͡ʒɛː.ro]"
+    ],
+    [
+     "fugiō",
+     "[ˈfʊ.ɡi.oː]",
+     "[ˈfuː.d͡ʒi.o]"
+    ],
+    [
+     "magis",
+     "[ˈma.ɡɪs]",
+     "[ˈmaː.d͡ʒis]"
+    ],
+    [
+     "legō",
+     "[ˈɫɛ.ɡoː]",
+     "[ˈlɛː.ɡo]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:gn",
+   "show": "gn",
+   "kind": "Latin consonant",
+   "mark": "gn",
+   "rows": [
+    {
+     "when": "Classical, the g of gn",
+     "col": "class",
+     "ipa": "ŋ",
+     "like": "so<b>ng</b>"
+    },
+    {
+     "when": "Church, gn",
+     "col": "eccl",
+     "ipa": "ɲ",
+     "like": "o<b>ni</b>on"
+    }
+   ],
+   "says": [
+    "In both Classical and Ecclesiastical Latin, ⟨n⟩ is pronounced as [ŋ] before /k, ɡ/. The digraph ⟨gn⟩ is pronounced as [ŋn] in Classical Latin, but [ɲ] in Ecclesiastical Latin."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "magnus",
+     "[ˈmaŋ.nʊs]",
+     "[ˈmaɲ.ɲus]"
+    ],
+    [
+     "ignis",
+     "[ˈɪŋ.nɪs]",
+     "[ˈiɲ.ɲis]"
+    ],
+    [
+     "signum",
+     "[ˈsɪŋ.nũː]",
+     "[ˈsiɲ.ɲum]"
+    ],
+    [
+     "dignus",
+     "[ˈdɪŋ.nʊs]",
+     "[ˈdiɲ.ɲus]"
+    ],
+    [
+     "rēgnum",
+     "[ˈreːŋ.nũː]",
+     "[ˈrɛɲ.ɲum]"
+    ],
+    [
+     "cognōscō",
+     "[kɔŋˈnoːs.koː]",
+     "[koɲˈɲɔs.ko]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:sc",
+   "show": "sc",
+   "kind": "Latin consonant",
+   "mark": "sc",
+   "rows": [
+    {
+     "when": "Church, before e, i, y, ae, oe",
+     "col": "eccl",
+     "ipa": "ʃ",
+     "like": "<b>sh</b>ip"
+    }
+   ],
+   "says": [
+    "In Classical Latin, ⟨c g t⟩ are always pronounced hard, as [k g t]. In Ecclesiastical Latin, ⟨c g sc⟩ are pronounced as soft [tʃ dʒ ʃ] before the front vowels ⟨e i y ae oe⟩, and unstressed ⟨ti⟩ before a vowel is pronounced [tsi]."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "scelus",
+     "[ˈskɛ.ɫʊs]",
+     "[ˈʃɛː.lus]"
+    ],
+    [
+     "sciō",
+     "[ˈski.oː]",
+     "[ˈʃiː.o]"
+    ],
+    [
+     "discipulus",
+     "[dɪsˈkɪ.pʊ.ɫʊs]",
+     "[diʃˈʃiː.pu.lus]"
+    ],
+    [
+     "piscis",
+     "[ˈpɪs.kɪs]",
+     "[ˈpiʃ.ʃis]"
+    ],
+    [
+     "discō",
+     "[ˈdɪs.koː]",
+     "[ˈdis.ko]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:ti",
+   "show": "ti",
+   "kind": "Latin consonant",
+   "mark": "t(?=[iī][aāeēoōuū])",
+   "rows": [
+    {
+     "when": "Classical",
+     "col": "both",
+     "ipa": "t",
+     "like": "s<b>t</b>one"
+    },
+    {
+     "when": "Church, unstressed ti before a vowel",
+     "col": "eccl",
+     "ipa": "ts",
+     "like": "Bo<b>ts</b>wana"
+    }
+   ],
+   "says": [
+    "In Classical Latin, ⟨c g t⟩ are always pronounced hard, as [k g t]. In Ecclesiastical Latin, ⟨c g sc⟩ are pronounced as soft [tʃ dʒ ʃ] before the front vowels ⟨e i y ae oe⟩, and unstressed ⟨ti⟩ before a vowel is pronounced [tsi]."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "grātia",
+     "[ˈɡraː.ti.a]",
+     "[ˈɡrat.t͡si.a]"
+    ],
+    [
+     "etiam",
+     "[ˈɛ.ti.ãː]",
+     "[ˈɛt.t͡si.am]"
+    ],
+    [
+     "ratiō",
+     "[ˈra.ti.oː]",
+     "[ˈrat.t͡si.o]"
+    ],
+    [
+     "pretium",
+     "[ˈprɛ.ti.ũː]",
+     "[ˈprɛt.t͡si.um]"
+    ],
+    [
+     "vitium",
+     "[ˈwɪ.ti.ũː]",
+     "[ˈvit.t͡si.um]"
+    ],
+    [
+     "tertius",
+     "[ˈtɛr.ti.ʊs]",
+     "[ˈtɛr.t͡si.us]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:v",
+   "show": "v",
+   "kind": "Latin consonant",
+   "mark": "v",
+   "rows": [
+    {
+     "when": "Classical, written u in the key",
+     "col": "both",
+     "ipa": "w",
+     "like": "<b>w</b>est"
+    },
+    {
+     "when": "Church",
+     "col": "eccl",
+     "ipa": "v",
+     "like": "<b>v</b>est"
+    }
+   ],
+   "says": [
+    "In Classical Latin, ⟨i u⟩ represent the vowels /ɪ iː/ and /ʊ uː/, and the consonants /j/ and /w/. Between consonants or when marked with macrons or breves, ⟨i u⟩ are vowels. […] In Ecclesiastical Latin, ⟨i⟩ represents the vowel /i/, ⟨j⟩ represents the consonant /j/, ⟨u⟩ represents the vowel /u/ or (in the combinations ⟨gu su qu⟩) the consonant /w/, and ⟨v⟩ represents the fricative /v/."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "veniō",
+     "[ˈwɛ.ni.oː]",
+     "[ˈvɛː.ni.o]"
+    ],
+    [
+     "videō",
+     "[ˈwɪ.de.oː]",
+     "[ˈviː.de.o]"
+    ],
+    [
+     "vīta",
+     "[ˈwiː.ta]",
+     "[ˈviː.ta]"
+    ],
+    [
+     "vir",
+     "[ˈwɪr]",
+     "[ˈvir]"
+    ],
+    [
+     "vōs",
+     "[ˈwoːs]",
+     "[ˈvɔs]"
+    ],
+    [
+     "novus",
+     "[ˈnɔ.wʊs]",
+     "[ˈnɔː.vus]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:i",
+   "show": "i",
+   "kind": "Latin consonant",
+   "name": "before a vowel, at the start of a word or between vowels",
+   "mark": "^i(?=[aāeēoōuū])",
+   "rows": [
+    {
+     "when": "Classical and Church",
+     "col": "both",
+     "ipa": "j",
+     "like": "<b>y</b>es"
+    }
+   ],
+   "says": [
+    "In Classical Latin, ⟨i u⟩ represent the vowels /ɪ iː/ and /ʊ uː/, and the consonants /j/ and /w/. Between consonants or when marked with macrons or breves, ⟨i u⟩ are vowels. […] In Ecclesiastical Latin, ⟨i⟩ represents the vowel /i/, ⟨j⟩ represents the consonant /j/, ⟨u⟩ represents the vowel /u/ or (in the combinations ⟨gu su qu⟩) the consonant /w/, and ⟨v⟩ represents the fricative /v/."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "iam",
+     "[ˈjãː]",
+     "[ˈjam]"
+    ],
+    [
+     "iubeō",
+     "[ˈjʊ.be.oː]",
+     "[ˈjuː.be.o]"
+    ],
+    [
+     "iūs",
+     "[ˈjuːs]",
+     "[ˈjus]"
+    ],
+    [
+     "iānua",
+     "[ˈjaː.nu.a]",
+     "[ˈjaː.nu.a]"
+    ],
+    [
+     "iaceō",
+     "[ˈja.ke.oː]",
+     "[ˈjaː.t͡ʃe.o]"
+    ],
+    [
+     "iuvenis",
+     "[ˈjʊ.wɛ.nɪs]",
+     "[ˈjuː.ve.nis]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:h",
+   "show": "h",
+   "kind": "Latin consonant",
+   "mark": "h",
+   "rows": [
+    {
+     "when": "Classical",
+     "col": "class",
+     "ipa": "h",
+     "like": "<b>h</b>er or <b>h</b>our"
+    },
+    {
+     "when": "Church, in nearly all cases",
+     "src": "phonology",
+     "ipa": "∅",
+     "like": "(silent)"
+    }
+   ],
+   "words": [
+    [
+     "habeō",
+     "[ˈha.be.oː]",
+     "[ˈaː.be.o]"
+    ],
+    [
+     "homo",
+     "[ˈhɔ.moː]",
+     "[ˈɔː.mo]"
+    ],
+    [
+     "hic",
+     "[ˈhɪk]",
+     "[ˈik]"
+    ],
+    [
+     "hōra",
+     "[ˈhoː.ra]",
+     "[ˈɔː.ra]"
+    ],
+    [
+     "hodiē",
+     "[ˈhɔ.di.eː]",
+     "[ˈɔː.di.e]"
+    ],
+    [
+     "honor",
+     "[ˈhɔ.nɔr]",
+     "[ˈɔː.nor]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:qu",
+   "show": "qu",
+   "kind": "Latin consonant",
+   "mark": "qu",
+   "rows": [
+    {
+     "when": "Classical and Church",
+     "col": "both",
+     "ipa": "kʷ",
+     "like": "s<b>qu</b>ash"
+    }
+   ],
+   "words": [
+    [
+     "quī",
+     "[ˈkʷiː]",
+     "[ˈkʷiː]"
+    ],
+    [
+     "quis",
+     "[ˈkʷɪs]",
+     "[ˈkʷis]"
+    ],
+    [
+     "quam",
+     "[ˈkʷãː]",
+     "[ˈkʷam]"
+    ],
+    [
+     "quattuor",
+     "[ˈkʷat.tu.ɔr]",
+     "[ˈkʷat.tu.or]"
+    ],
+    [
+     "aqua",
+     "[ˈa.kʷa]",
+     "[ˈaː.kʷa]"
+    ],
+    [
+     "equus",
+     "[ˈɛ.kʊs]",
+     "[ˈɛː.kʷus]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:r",
+   "show": "r",
+   "kind": "Latin consonant",
+   "mark": "r",
+   "rows": [
+    {
+     "when": "Classical and Church",
+     "col": "both",
+     "ipa": "r",
+     "like": "trilled or tapped r"
+    }
+   ],
+   "words": [
+    [
+     "rēx",
+     "[ˈreːks]",
+     "[ˈrɛks]"
+    ],
+    [
+     "terra",
+     "[ˈtɛr.ra]",
+     "[ˈtɛr.ra]"
+    ],
+    [
+     "pater",
+     "[ˈpa.tɛr]",
+     "[ˈpaː.ter]"
+    ],
+    [
+     "ruber",
+     "[ˈrʊ.bɛr]",
+     "[ˈruː.ber]"
+    ],
+    [
+     "currō",
+     "[ˈkʊr.roː]",
+     "[ˈkur.ro]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:s",
+   "show": "s",
+   "kind": "Latin consonant",
+   "mark": "s",
+   "rows": [
+    {
+     "when": "Classical and Church",
+     "col": "both",
+     "ipa": "s",
+     "like": "between <b>s</b>ip and <b>sh</b>ip (retracted)"
+    }
+   ],
+   "says": [
+    "In Ecclesiastical Latin, ⟨s⟩ between vowels is often pronounced [z]."
+   ],
+   "src": [
+    "key"
+   ],
+   "words": [
+    [
+     "sum",
+     "[ˈsũː]",
+     "[ˈsum]"
+    ],
+    [
+     "causa",
+     "[ˈkau̯.sa]",
+     "[ˈkaːu̯.sa]"
+    ],
+    [
+     "miser",
+     "[ˈmɪ.sɛr]",
+     "[ˈmiː.s̬er]"
+    ],
+    [
+     "casa",
+     "[ˈka.sa]",
+     "[ˈkaː.s̬a]"
+    ],
+    [
+     "quaesō",
+     "[ˈkʷae̯.soː]",
+     "[ˈkʷɛː.s̬o]"
+    ],
+    [
+     "mēnsa",
+     "[ˈmẽː.sa]",
+     "[ˈmɛn.sa]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:ch",
+   "show": "ch",
+   "kind": "Latin consonant",
+   "mark": "ch",
+   "rows": [
+    {
+     "when": "Classical",
+     "col": "class",
+     "ipa": "kʰ",
+     "like": "<b>c</b>ar"
+    },
+    {
+     "when": "Church, always",
+     "src": "phonology",
+     "ipa": "[k]",
+     "like": "s<b>k</b>y (never aspirated as in <b>k</b>ill)"
+    }
+   ],
+   "words": [
+    [
+     "pulcher",
+     "[ˈpʊɫ.kʰɛr]",
+     "[ˈpul.ker]"
+    ],
+    [
+     "schola",
+     "[ˈskʰɔ.ɫa]",
+     "[ˈskɔː.la]"
+    ],
+    [
+     "bracchium",
+     "[ˈbrak.kʰi.ũː]",
+     "[ˈbrak.ki.um]"
+    ]
+   ]
+  }
+ ],
+ "endings": [
+  {
+   "key": "end:cases",
+   "show": "rēx · rēgis · rēgī",
+   "kind": "Latin endings",
+   "name": "the cases",
+   "says": [
+    "A complete Latin noun declension includes up to seven grammatical cases: nominative, vocative, accusative, genitive, dative, ablative and locative. The locative is limited to a few nouns: generally names of cities, small islands and a few other words.",
+    "The nominative and vocative are always identical in the plural. […] The dative, ablative, and locative are always identical in the plural. […] For neuter nouns, the nominative, vocative, and accusative cases are always identical."
+   ],
+   "src": [
+    "declension",
+    "declension"
+   ],
+   "tableFrom": [
+    "rēx"
+   ]
+  },
+  {
+   "key": "end:decl1",
+   "show": "-a, -ae",
+   "kind": "Latin endings",
+   "name": "the first declension",
+   "says": [
+    "Nouns of this declension usually end in -a in the nominative singular and are mostly feminine, e.g. via, viae f. ('road') and aqua, aquae f. ('water')."
+   ],
+   "src": [
+    "declension"
+   ],
+   "tableFrom": [
+    "via"
+   ]
+  },
+  {
+   "key": "end:decl2",
+   "show": "-us, -ī · -um, -ī",
+   "kind": "Latin endings",
+   "name": "the second declension",
+   "says": [
+    "The second declension is a large group of nouns consisting of mostly masculine nouns like equus, equī ('horse') and puer, puerī ('boy') and neuter nouns like castellum, castellī ('fort').",
+    "In the nominative singular, most masculine nouns consist of the stem and the ending -us, although some end in -er, which is not necessarily attached to the complete stem."
+   ],
+   "src": [
+    "declension",
+    "declension"
+   ],
+   "tableFrom": [
+    "equus",
+    "bellum"
+   ]
+  },
+  {
+   "key": "end:decl3",
+   "show": "rēx, rēgis",
+   "kind": "Latin endings",
+   "name": "the third declension",
+   "says": [
+    "The third declension is the largest group of nouns.",
+    "This group of nouns includes masculine, feminine, and neuter nouns.",
+    "The stem of a consonant-stem noun may be found from the genitive case by removing the ending -is."
+   ],
+   "src": [
+    "declension",
+    "declension",
+    "declension"
+   ],
+   "tableFrom": [
+    "rēx",
+    "nōmen"
+   ]
+  },
+  {
+   "key": "end:decl4",
+   "show": "-us, -ūs",
+   "kind": "Latin endings",
+   "name": "the fourth declension",
+   "says": [
+    "The fourth declension is a group of nouns consisting of mostly masculine words such as flūctus, flūctūs m. ('wave') and portus, portūs m. ('port') with a few feminine exceptions, including manus, manūs f. ('hand') and domus, domūs f. ('house')."
+   ],
+   "src": [
+    "declension"
+   ],
+   "tableFrom": [
+    "manus"
+   ]
+  },
+  {
+   "key": "end:decl5",
+   "show": "-ēs, -eī",
+   "kind": "Latin endings",
+   "name": "the fifth declension",
+   "says": [
+    "The fifth declension is a small group of nouns consisting of mostly feminine nouns like rēs, reī f. ('affair, matter, thing') and diēs, diēī m. ('day'; but f. in names of days)."
+   ],
+   "src": [
+    "declension"
+   ],
+   "tableFrom": [
+    "rēs",
+    "diēs"
+   ]
+  },
+  {
+   "key": "end:parts",
+   "show": "amō, amāre, amāvī, amātum",
+   "kind": "Latin endings",
+   "name": "a verb's four principal parts",
+   "says": [
+    "In a dictionary, Latin verbs are listed with four \"principal parts\" (or fewer for deponent and defective verbs), which allow the student to deduce the other conjugated forms of the verbs.",
+    "the first person singular of the present indicative active […] the present infinitive active […] the first person singular of the perfect indicative active"
+   ],
+   "src": [
+    "conjugation",
+    "conjugation"
+   ],
+   "partsFrom": [
+    "amō",
+    "habeō",
+    "dīcō",
+    "capiō",
+    "audiō"
+   ]
+  },
+  {
+   "key": "end:conj1",
+   "show": "-ō, -āre",
+   "kind": "Latin endings",
+   "name": "the first conjugation",
+   "says": [
+    "The first conjugation is characterized by the vowel ā and can be recognized by the -āre ending of the present active infinitive form."
+   ],
+   "src": [
+    "conjugation"
+   ],
+   "tableFrom": [
+    "amō"
+   ],
+   "blocks": [
+    "present",
+    "future"
+   ]
+  },
+  {
+   "key": "end:conj2",
+   "show": "-eō, -ēre",
+   "kind": "Latin endings",
+   "name": "the second conjugation",
+   "says": [
+    "The second conjugation is characterized by the vowel ē, and can be recognized by the -eō ending of the first person present indicative and the -ēre ending of the present active infinitive form"
+   ],
+   "src": [
+    "conjugation"
+   ],
+   "tableFrom": [
+    "videō"
+   ],
+   "blocks": [
+    "present",
+    "future"
+   ]
+  },
+  {
+   "key": "end:conj3",
+   "show": "-ō, -ere",
+   "kind": "Latin endings",
+   "name": "the third conjugation",
+   "says": [
+    "The third conjugation has a variable short stem vowel, which may be e, i, or u in different environments. Verbs of this conjugation end in -ere in the present active infinitive."
+   ],
+   "src": [
+    "conjugation"
+   ],
+   "tableFrom": [
+    "dūcō"
+   ],
+   "blocks": [
+    "present",
+    "future"
+   ]
+  },
+  {
+   "key": "end:conj3io",
+   "show": "-iō, -ere",
+   "kind": "Latin endings",
+   "name": "the third conjugation in -iō",
+   "says": [
+    "Intermediate between the third and fourth conjugation are the third-conjugation verbs with suffix –iō. These resemble the fourth conjugation in some forms."
+   ],
+   "src": [
+    "conjugation"
+   ],
+   "tableFrom": [
+    "capiō"
+   ],
+   "blocks": [
+    "present",
+    "future"
+   ]
+  },
+  {
+   "key": "end:conj4",
+   "show": "-iō, -īre",
+   "kind": "Latin endings",
+   "name": "the fourth conjugation",
+   "says": [
+    "The fourth conjugation is characterized by the vowel ī and can be recognized by the -īre ending of the present active infinitive."
+   ],
+   "src": [
+    "conjugation"
+   ],
+   "tableFrom": [
+    "audiō"
+   ],
+   "blocks": [
+    "present",
+    "future"
+   ]
+  },
+  {
+   "key": "end:deponent",
+   "show": "loquor, loquī, locūtus sum",
+   "kind": "Latin endings",
+   "name": "a deponent verb",
+   "says": [
+    "Deponent verbs are verbs that are passive in form (that is, conjugated as though in the passive voice) but active in meaning. These verbs have only three principal parts"
+   ],
+   "src": [
+    "conjugation"
+   ],
+   "tableFrom": [
+    "loquor"
+   ],
+   "blocks": [
+    "present",
+    "future"
+   ]
+  }
+ ]
+}

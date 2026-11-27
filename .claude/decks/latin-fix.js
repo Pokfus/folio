@@ -51,7 +51,7 @@
         Wiktionary's entry). Its number is retired; nothing is copied.
     `decks` `{ <deck id>: { subtitle?, descSub?, hints?, tail? } }`. `subtitle` is a template. `descSub` is
         `[find, replace]` pairs over the generator's description, each satisfied if it matched or if its
-        replacement already stands. `hints` is `{ word: other word }`: the label `not <other word>` on the
+        replacement already stands; the replacement takes the placeholders below. `hints` is `{ word: other word }`: the label `not <other word>` on the
         first part-of-speech line of a card's English side (the generator's own label for two notes of one
         deck with the same English, for cards the record brought together). `tail` is a paragraph that
         ENDS the description, beginning with the words THE BEGINNER PASS: on every run whatever stands
@@ -315,7 +315,8 @@ for (const id of Object.keys(REC.decks || {})) {
   let desc = meta.desc;
   const cut = desc.indexOf(TAIL);
   if (cut >= 0) desc = desc.slice(0, cut).trimEnd();
-  for (const [find, rep] of r.descSub || []) {
+  for (const [find, rep0] of r.descSub || []) {
+    const rep = render(rep0, id); // a replacement may state a figure: it is recounted like a tail's
     if (desc.includes(find)) desc = desc.split(find).join(rep);
     else if (!desc.includes(rep)) fail("decks." + id + ".descSub: neither the text nor its replacement stands: " + find.slice(0, 70));
   }

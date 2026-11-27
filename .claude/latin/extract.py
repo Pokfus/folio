@@ -155,6 +155,39 @@ def plural_only(e):
 GOOD_FORM = re.compile(r"^[a-zà-ɏ̀-ͯ ]+$")
 
 
+def entry(e, real, gl):
+    """One Wiktionary entry as `lex.json` holds it.  Shared with `inserts.py` (the beginner
+    pass, Nov 2026), which builds the record's added cards from entries this stage's filters
+    leave out: an enclitic (`-que`), a phrase with a question mark, a month's capital."""
+    table, head = [], []
+    for f in e.get('forms') or []:
+        fm, tags = tidy(f.get('form', '')), f.get('tags') or []
+        if 'table-tags' in tags or 'inflection-template' in tags or 'romanization' in tags:
+            continue
+        if f.get('source') in ('declension', 'conjugation', 'inflection'):
+            if GOOD_FORM.match(fm.lower()) and '+' not in fm:
+                table.append({'f': fm, 't': tags})
+        elif 'canonical' not in tags and fm:
+            head.append({'f': fm, 't': tags})
+    return {'pos': e['pos'], 'etym': e.get('etymology_number', ''), 'canon': canonical(e),
+            'gender': gender_of(e), 'cls': class_of(e), 'pl': plural_only(e),
+            'glosses': gl, 'head': head, 'table': table,
+            'cases': sorted({t[5:] for s in real for t in s.get('tags') or []
+                             if t.startswith('with-')} |
+                            {(h.get('args') or {}).get('2', '') for h in e.get('head_templates') or []
+                             if h.get('name') == 'la-prep'} - {''})}
+
+
+def glosses(real):
+    gl = []
+    for s in real:
+        tags = set(s.get('tags') or [])
+        g = clean_gloss((s.get('glosses') or [''])[-1])
+        if g:
+            gl.append({'g': g, 'weak': bool(tags & WEAK), 'tags': sorted(tags & SHOW_TAGS)})
+    return gl
+
+
 def read_lemmas():
     """Every lemma of the dump a deck could teach, by its fold.  Shared with
     `corpus.py`, which counts the same lemmas over a classical corpus."""
@@ -171,32 +204,11 @@ def read_lemmas():
         real = [s for s in senses if not is_formof(s, e['pos']) and s.get('glosses')]
         if not real:
             continue
-        gl = []
-        for s in real:
-            tags = set(s.get('tags') or [])
-            g = clean_gloss((s.get('glosses') or [''])[-1])
-            if g:
-                gl.append({'g': g, 'weak': bool(tags & WEAK), 'tags': sorted(tags & SHOW_TAGS)})
+        gl = glosses(real)
         if not gl:
             continue
-        table, head = [], []
-        for f in e.get('forms') or []:
-            fm, tags = tidy(f.get('form', '')), f.get('tags') or []
-            if 'table-tags' in tags or 'inflection-template' in tags or 'romanization' in tags:
-                continue
-            if f.get('source') in ('declension', 'conjugation', 'inflection'):
-                if GOOD_FORM.match(fm.lower()) and '+' not in fm:
-                    table.append({'f': fm, 't': tags})
-            elif 'canonical' not in tags and fm:
-                head.append({'f': fm, 't': tags})
         k = fold(w)
-        ent = {'pos': e['pos'], 'etym': e.get('etymology_number', ''), 'canon': canonical(e),
-               'gender': gender_of(e), 'cls': class_of(e), 'pl': plural_only(e),
-               'glosses': gl, 'head': head, 'table': table,
-               'cases': sorted({t[5:] for s in real for t in s.get('tags') or []
-                                if t.startswith('with-')} |
-                               {(h.get('args') or {}).get('2', '') for h in e.get('head_templates') or []
-                                if h.get('name') == 'la-prep'} - {''})}
+        ent = entry(e, real, gl)
         lemmas.setdefault(k, {'word': w, 'entries': []})['entries'].append(ent)
     return lemmas
 
