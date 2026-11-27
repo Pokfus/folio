@@ -2987,6 +2987,25 @@ later chapter by one. If it throws, re-measure the table by the same alignment; 
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
 
+## `prep: "thorndike"` — a Gutenberg file reshaped into the `pgchapters` form (Nov 2026, Animal Intelligence)
+
+Thorndike's book (Gutenberg ebook 69904) is the `pgchapters` case in one file, set by a different transcriber, so
+`thorndikePrep` (called in the `pgchapters` branch before `extractPgChapters`) rewrites it into the form James's
+files have and the reader is untouched. Each rewrite is counted and throws on a mismatch, so a change upstream
+cannot quietly move a note into the wrong chapter:
+- **The rule is `<hr class="chap x-ebookmaker-drop">`**, which the reader's `<hr class="chap"…` does not match.
+- **All the notes stand in one FOOTNOTES division after the last chapter**, numbered 1–46 across the book, with bare
+  anchors (`Footnote_12`). Each goes to the foot of the division holding its FIRST marker, in James's anchor form
+  (`Footnote_12_12`, the `label` span); 48 markers for 46 notes, two notes being cited by two table cells each.
+- **A chapter head is one `<h2>`** ("CHAPTER IV<br>" + the title + sometimes a note): it becomes an `<h5>` numeral
+  (`chapterHead` finds it) and an `<h4>` title, which the reader drops, or keeps as a head line when it carries a note.
+- **The inner heads are `<h3>`–`<h5>`**, which the reader drops or holds as James's numeral lines, so they move to
+  `<h6>`; the running title `<h1>` over chapter I goes.
+- **A figure's class carries its width** (`figcenter illowp48`), cut to the bare class the reader drops; **a table is
+  bare**, wrapped in the `<div class="center">` the reader stashes; **a quotation is `<div class="blockquote">`**, made a
+  `<blockquote>`; **a `<ul>`** (the kittens' ages, a schedule) becomes one paragraph, an item to a line — unwrapped by
+  the tag strip its items ran together outside every paragraph.
+
 ## `prep: "manifesto"` — a base page holding a preface, an opening and advertisements (Nov 2026, the Communist Manifesto)
 
 `manifestoPrep(h, page, warn)` runs on every raw page (the first and each extra of a `page(n)` array) before `notesOf`
