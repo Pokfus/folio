@@ -97723,10 +97723,11 @@
   },
   "ru-933": {
    "answer": "Bronze Horseman",
-   "title": "Bronze Horseman",
-   "url": "https://en.wikipedia.org/wiki/Bronze_Horseman",
-   "via": "glossary",
-   "status": "ok"
+   "title": "The Bronze Horseman (poem)",
+   "url": "https://en.wikipedia.org/wiki/The_Bronze_Horseman_(poem)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-941": {
    "answer": "Ivan Turgenev",
@@ -97851,17 +97852,11 @@
   },
   "ru-908": {
    "answer": "Westernisers",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Nicholas II",
-    "Smoking in Russia",
-    "Westernization",
-    "Alexander I of Russia",
-    "Germany–Russia relations"
-   ]
+   "title": "Westernizer",
+   "url": "https://en.wikipedia.org/wiki/Westernizer",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-909": {
    "answer": "Pyotr Chaadayev",
@@ -98060,11 +98055,11 @@
   },
   "ru-956": {
    "answer": "Silver Age",
-   "title": "Ages of Man",
-   "url": "https://en.wikipedia.org/wiki/Ages_of_Man",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Silver Age"
+   "title": "Silver Age of Russian Poetry",
+   "url": "https://en.wikipedia.org/wiki/Silver_Age_of_Russian_Poetry",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-957": {
    "answer": "Russian symbolism",
@@ -98225,17 +98220,11 @@
   },
   "ru-978": {
    "answer": "Peter the Great Interrogating the Tsarevich Alexei",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Alexei Petrovich, Tsarevich of Russia",
-    "Peter the Great Interrogating the Tsarevich Alexei Petrovich at Peterhof",
-    "Peter the Great",
-    "Ivan the Terrible and His Son Ivan",
-    "Nikolai Ge"
-   ]
+   "title": "Peter the Great Interrogating the Tsarevich Alexei Petrovich at Peterhof",
+   "url": "https://en.wikipedia.org/wiki/Peter_the_Great_Interrogating_the_Tsarevich_Alexei_Petrovich_at_Peterhof",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-979": {
    "answer": "Pavel Tretyakov",

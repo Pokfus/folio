@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"34a20fb2cc1bed38","counts":{"terms":1011,"points":775,"countries":236,"windows":1783,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"c157edaaa3ae1f1e","counts":{"terms":1011,"points":775,"countries":236,"windows":1786,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1745,6 +1745,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"34a20fb2cc1bed38","counts":
 "Kawagarbo":[98.683,28.438,"mountain",0,0,0],
 "Kazakhstan":[68.69,49.05,"country","adm0:kaz",0,2.51],
 "Kazan":[49.124,55.752,"city",0,0,0],
+"Kazan_Cathedral,_Saint_Petersburg":[30.325,59.934,"coord",0,0,0],
 "Kellia":[30.369,30.776,"coord",0,0,0],
 "Kemerovo":[87.168,54.646,"admin1","adm1:rus:ru-kem",0,14.69],
 "Kenchō-ji":[139.555,35.332,"coord",0,0,0],
@@ -1779,6 +1780,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"34a20fb2cc1bed38","counts":
 "Kirillo-Belozersky_Monastery":[38.369,59.857,"coord",0,0,0],
 "Kirov,_Kirov_Oblast":[50.111,58.193,"admin1","adm1:rus:ru-kir",0,13.74],
 "Kivach_Falls":[33.98,62.275,"coord",0,0,0],
+"Kizhi_Pogost":[35.225,62.067,"coord",0,0,0],
 "Klyuchevskaya_Sopka":[160.644,56.056,"coord",0,0,0],
 "Knossos":[25.163,35.298,"site",0,0,0],
 "Kolyma_(river)":[161.364,69.548,"coord",0,0,0],
@@ -1959,6 +1961,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"34a20fb2cc1bed38","counts":
 "Mausoleum_of_Augustus":[12.476,41.906,"site",0,0,0],
 "Mausoleum_of_the_First_Qin_Emperor":[109.254,34.382,"coord",0,0,0],
 "Maya_civilisation":[32.602,25.741,"coord",0,0,0],
+"Mayakovskaya_(Moscow_Metro)":[37.596,55.77,"coord",0,0,0],
 "Mecca":[39.818,21.432,"city",0,0,0],
 "Medinet_Habu":[32.601,25.72,"coord",0,0,0],
 "Mediterranean":[17,38,"coord",0,0,0],
