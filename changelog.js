@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1407", released: "2026-11-27T19:34Z" };
+window.FOLIO_VERSION = { v: "1.1416", released: "2026-11-27T19:36Z" };
 
 window.CHANGELOG = [
   {
@@ -46,7 +46,9 @@ window.CHANGELOG = [
       "A language vocabulary card whose word has no speaker of its own no longer reads its first <b>example sentence</b> aloud when revealed.",
       "Latin gains a <b>Sounds and spelling</b> deck with both pronunciations; <b>Latin A1</b> now opens with salvē and valē, and 33 missing words join the levels, the months among them.",
       "The Greek alphabet deck gains <b>ten reading rules</b> and cites its sounds; <b>Greek A1</b> now opens with the greetings and shows each word's pronunciation.",
-      "<i>The Book of the Dead</i> joins the Library: 114 chapters in E. A. Wallis Budge's translation, from the 1901 anthology <i>Egyptian Literature</i>.",
+      "<b>Find it</b> no longer turns the globe to a past state before you guess, says when a year's map is still drawing, and lights a pick's outline with its fill.",
+      "Eight books join the Library: <b>The Tempest</b>, <i>Common Sense</i>, Douglass's <i>Narrative</i>, <i>Egyptian Tales</i>, Budge's <i>Book of the Dead</i>, Freud on dreams, James's <i>Principles of Psychology</i> and Legge's <b>Mencius</b>.",
+      "<b>Old English Level 1</b> now shows sē's whole table, bēon's present and Ælfric's own sentences with their page; the alphabet deck cites its sounds and gains <b>eight reading rules</b>.",
     ],
   },
   {

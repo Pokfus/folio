@@ -6,7 +6,7 @@ record of how the others were built, and every rule there applies here unless th
 Asked for on 2026-11-09: "Add an Old English language collection."
 
 **STATUS (2026-11-09): the alphabet deck and Level 1 are built** (`.claude/oldenglish/`, §6). Levels 2–4
-are not.
+are not. **2026-11-27: both were audited and rebuilt in the beginner pass (§7).**
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -138,3 +138,23 @@ one sentence (115 with three); 2 notes labelled by the shelf-wide unique-English
 letters, long double consonants, unstressed ġe-), 1 for the letters said as today, 3 manuscript letters
 (wynn, insular g, ꝥ); every sound side and every letter side unique (asserted). The shelf's hue is measured:
 `#004E30`, 15.4 from its nearest of 63 (re-swept at the merge: Arabic had taken the first sweep's `#2A8424`).
+
+## 7. The beginner pass (2026-11-27)
+
+The audit, what it found and what was built are in `docs/lang-decks.md`, "The Old English beginner pass";
+the files and the order of a rebuild are in `.claude/decks/README.md`, "The Old English decks". What changes
+in THIS plan:
+
+- **§1 stands**: frequency bands, the alphabet first, the normalised headword, no speaker, the descendant.
+  Level 1 is still dealt by frequency; eight small closed sets now arrive together.
+- **§2**: Tatoeba's Old English is read from `.claude/oldenglish/tatoeba-ang.tsv`, pinned in the repository,
+  and the ranking counts only its sentences up to 2026-11-09. Example sentences are also Ælfric's own, from
+  Thorpe's edition with Thorpe's facing translation (public domain), cited by page. The alphabet's sounds are
+  Wikipedia's Help:IPA/Old English and its rules quotations of three pinned revisions, not Sweet's "Sounds".
+- **§3**: `Forms` also carries a noun's declension and a line "also in the texts"; `Table` an adjective's weak
+  declension; each sentence its reference. The alphabet deck has a second card type, `oe-read`.
+- **§4, "Known, left"**: "304 of Level 1's 500 words have no Tatoeba sentence" is now 23 with no sentence at
+  all. The rest stands.
+- **§5, Phase 2**: before `--level l2`, read the pass's note on `select.py` (it cuts the band by rank and
+  trusts the ranking to stand still). §6's "a re-run is byte-identical" was not true of Level 1 while
+  Tatoeba was live, and is now.

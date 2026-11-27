@@ -14,17 +14,33 @@ deck's description names them:
   · Henry Sweet, An Anglo-Saxon Primer, 8th edition (Oxford, 1905), Project
     Gutenberg ebook #34316 -- the six reading TEXTS only (Sweet's normalised early
     West Saxon), never the grammar or the glossary;
-  · Tatoeba's Old English sentences (`ang_sentences.tsv`, CC BY 2.0 FR).
+  · Tatoeba's Old English sentences (CC BY 2.0 FR), read from `tatoeba-ang.tsv` beside this
+    script -- the export pinned in the repository (run.py's header says why) -- and only the
+    sentences up to `TATOEBA_CUT`, the last id of the export of 2026-11-09 the ranking was
+    first counted on.  A sentence added since is a card's example, never a count.
 
 WHAT THIS MEANS FOR THE ORDER, said plainly in the plan: Ælfric is a preacher,
 so God, Christ, heaven and the apostles are commoner here than in the poetry --
 which is true of the surviving prose as a whole, most of which is religious.
 """
-import html, re
+import html, os, re
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+TATOEBA_CUT = 14107058
+
+
+def read(path):
+    """A Project Gutenberg page as text.  gutenberg.org's own copy is UTF-8; the mirrors keep the
+    file as it was submitted, in Latin-1 (run.py falls back to one when the main site is down)."""
+    raw = open(path, 'rb').read()
+    try:
+        return raw.decode('utf-8')
+    except UnicodeDecodeError:
+        return raw.decode('latin-1')
 
 
 def cells(path, rx):
-    s = open(path, encoding='utf-8').read()
+    s = read(path)
     out = []
     for b in re.findall(rx, s, re.S):
         b = re.sub(r'<span class="(?:pagenum|linenum)">.*?</span>', ' ', b, flags=re.S)
@@ -36,7 +52,7 @@ def cells(path, rx):
 
 def sweet_texts(path):
     """Sweet's six reading texts: everything between 'TEXTS.' and 'NOTES.'."""
-    s = open(path, encoding='utf-8').read()
+    s = read(path)
     a = s.index('<h2>TEXTS.</h2>')
     b = s.index('<h2>NOTES.</h2>')
     body = s[a:b]
@@ -46,20 +62,25 @@ def sweet_texts(path):
     return [html.unescape(body)]
 
 
-def tatoeba(path):
+def tatoeba_rows():
+    """(id, Old English, English or '') for every sentence of the pinned export."""
     out = []
-    for line in open(path, encoding='utf-8'):
+    for line in open(os.path.join(HERE, 'tatoeba-ang.tsv'), encoding='utf-8'):
         p = line.rstrip('\n').split('\t')
         if len(p) >= 3:
-            out.append(p[2])
+            out.append((int(p[0]), p[1], p[2]))
     return out
+
+
+def tatoeba():
+    return [oe for i, oe, _ in tatoeba_rows() if i <= TATOEBA_CUT]
 
 
 def main():
     parts = {
         'thorpe': cells('pg38334.html', r'<td class="saxonice">(.*?)</td>'),
         'sweet': sweet_texts('pg34316.html'),
-        'tatoeba': tatoeba('ang_sentences.tsv'),
+        'tatoeba': tatoeba(),
     }
     with open('corpus.txt', 'w', encoding='utf-8') as fh:
         for name, texts in parts.items():

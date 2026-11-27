@@ -527,6 +527,41 @@ pair or a reading rule: a row of `LETTERS` or `RULES` in `alphabet.py` whose com
 and whose rule is a quoted phrase (`--verify`), and its number in `greek-ids.json`. A second level (A2) joins
 `SHELF` in `greek-fix.js` and is seeded into the pin from its first build.
 
+## The Old English decks: the generator, the record, the pinned ids, the order and the sourced alphabet (Nov 2026)
+
+Two decks: the alphabet (card type `oe-abc`, with eight reading rules of card type `oe-read`) and Level 1
+(card type `oldenglish`). **The generator (`.claude/oldenglish/`, Python, a 270 MB cache) rebuilds them byte
+for byte** — since the pass, which found that it had not: Tatoeba's Old English export is part of the corpus
+the level is ranked on and had grown, so it is now PINNED in the repository (`../oldenglish/tatoeba-ang.tsv`;
+`docs/lang-decks.md`, "The Old English beginner pass"). A fault the generator can fix is fixed THERE, and the
+record holds only what is a decision about one order or the end of a description. **A word or a letter is ONE
+NOTE with two card templates** (a reading rule has one), so the pin is of note ids (a card id is the note id,
+plus `~2` for the second direction).
+
+    node oldenglish-fix.js --check             # the two decks are what the record, the pin and the order make of them
+    node oldenglish-order.js --check           # the order and the facts are what the rules give
+    node ../oldenglish/check-oldenglish.js     # pinned ids, a reference on every sentence, no answer on its own question, labels, balanced markup
+    python3 ../oldenglish/alphabet.py --verify # every sound and rule of the alphabet deck is in its pinned Wikipedia revision (needs the network or the cache; not in CI)
+
+| file | what it is |
+|---|---|
+| `oldenglish-fixes.json` | the record. `add` is EMPTY: Level 1 gained no card (a level is a band of frequency). `decks`: each deck's `tail`, the paragraph that ends its description and is rewritten on every run from the counts and from the order's `facts` (`subtitle` and `descSub` are honoured and unused). |
+| `oldenglish-ids.json` | deck id → key → the number in the note's id. The key is a word's `Word`, a letter's `Letter` as printed, a reading rule's `Key`. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` (none yet). APPLIED, so a deck the generator has just numbered by position is numbered back. For Level 1 the number is the word's rank in the count of 2026-11-09. A new alphabet note gets its row here by hand. |
+| `oldenglish-order.json` | `oel1.order`: every headword in the order the deck is dealt; `facts` for both decks: every figure a description's last paragraph states that is not a plain count. Written by `oldenglish-order.js`. The alphabet has no order: it keeps `alphabet.py`'s. |
+| `oldenglish-order.js` | how that file is computed, from the PINNED NUMBER: frequency, with one rule — each of eight small closed sets (`SETS`) arrives together where its commonest member falls. A set word that is not a Level 1 card is an error. `--report` prints where everything fell. |
+| `oldenglish-fix.js` | applies all three, in this order: the ids, the order, the descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. |
+| `../oldenglish/tatoeba-ang.tsv` | Tatoeba's Old English export, pinned (id, Old English, the shortest English translation; CC BY 2.0 FR). `corpus.py` counts the sentences up to `TATOEBA_CUT`; `examples.py` reads all of it. `run.py --snapshot-tatoeba` rewrites it — a decision: newer sentences become examples, and the cut keeps the ranking still. |
+| `../oldenglish/thorpe.py` | Ælfric's sentences paired with Thorpe's facing translation, by page, under an anchor check; `examples.py` puts them first. |
+
+`oldenglish-fix.js` finds its decks by CARD TYPE (`oldenglish`, `oe-abc`). **A rebuild**, after any change to
+the generator: `python3 ../oldenglish/run.py --no-fetch` (or without the flag, for a first fetch),
+`../oldenglish/alphabet.py` (it reads Level 1's deck file for its example words), `oldenglish-fix.js`,
+`oldenglish-order.js`, `oldenglish-fix.js` again, `node .claude/build-lang-decks.js`. To add a letter or a
+reading rule: a row of `LETTERS` or `RULES` in `alphabet.py` whose comparison is a row of the key and whose
+rule is a quoted phrase (`--verify`), and its number in `oldenglish-ids.json`. To change the order: a row of
+`SETS`. **Level 2** joins `SHELF` in `oldenglish-fix.js` and is seeded into the pin from its first build;
+`select.py` cuts a band by rank and does not read the levels below, so build it on the same cache.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

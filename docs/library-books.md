@@ -12,7 +12,27 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently eighty:
+  matter (chapter 0 — see the Library bullet). Currently eighty-eight:
+  `james-principles-of-psychology` (~3.3 MB, **29 sections** — James's Preface and his twenty-eight chapters, so a tab
+  runs one ahead of the chapter; `chapterWord: "Section"`, titles from the contents pages via `titleOf`, the two printed
+  volumes as the `parts` — **1,193 notes**, James's own, renumbered per chapter; no original, the book being English).
+  **From Project Gutenberg, not Wikisource**: Wikisource transcludes only chapters 1, 2, 8 and 9 and its two scans stand
+  at "to be proofread" (Nov 2026). Gutenberg's ebooks 57628 and 57634 are proofread transcriptions of a **1918 Holt
+  printing** of the 1890 plates (the title pages read 1918; same text and pagination), so the edition line says "a 1918
+  printing". Read by the new `pgchapters` layout (`docs/library-importer.md`, last section): divisions cut at
+  `<hr class="chap">`, chapter heads checked as a run I–XXVIII over both files, the Preface found by its anchor. Ten
+  chapters hang a note on their head (where the chapter first appeared — Popular Science Monthly, Mind, the Journal of
+  Speculative Philosophy); those keep their title as a `bk-head` line with the marker, every other chapter head is
+  dropped. **94 figures left out** with their captions (the front matter says so), 14 tables kept as `bk-table`, 206
+  head lines inside the chapters. When Gutenberg was down (Nov 2026) the files were read from its pglaf mirror
+  (`gutenberg.pglaf.org/5/7/6/2/57628/57628-h/`), byte-for-byte the files `urls` names. Licence: printed 1890, James
+  d. 1910 — no limit to state. Colour `#0024A5` (12.5: the band is full; every philosopher and naturalist 28.4 or more
+  off). `glossOff` (swept over the front matter and all 29 sections, 168 keys): namesakes (Clay, Wolf, Abraham, Herzen,
+  Stanley, Scribe, Wellington, Titus, Budæus's Commentarii, Cambridge MA, the US Senate) and words inside names
+  (Gutenberg, India rubber, the Loyal Legion, the Academies, convergence, diffusion, concords, Rhône, the Journal of
+  Speculative Philosophy, Socius, Coriolanus the play, Spencer's evolutionary psychology, Kant's transcendentalism);
+  `glossOffIn` for Providence, Ethics, Logic and London where one section means a book or God. Excerpt: "Consciousness,
+  then, does not appear to itself chopped up in bits" (IX). Not included: title pages, dedication, contents, index.
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -162,7 +182,7 @@ book added later will meet the same traps.
   against it and Harvard's OCR: `Tern` ×4 → `Tem`, `dnii` → `<i>ānti</i>`, `Recennsion`, `inn`, `neverresting`,
   `chancellor-inchief`; "foward" (ch. 85) is the printing's and stays. Public domain in the US (1901); Budge d. 1934, so
   life plus seventy cleared 2005, life plus a hundred runs to 2035, and the rights box says so. Passed over: the wiki's
-  "Papyrus of Ani (1913)", one unsourced e-text page. Colour `#3F2148` (16.5 from its nearest; Ptahhotep 29.9).
+  "Papyrus of Ani (1913)", one unsourced e-text page. Colour `#212406` (15.4, Bede; first `#3F2148`, which Petrie's Egyptian Tales took the same day — 44.1 from it now, Ptahhotep 45.9).
   `GLOSS_BOOK` gains `Book_of_the_Dead`. `glossOff`: 15 keys — see the comment on the app.js entry. Excerpt: the
   Negative Confession's first five declarations, chapter 99. Not included: the anthology's introduction (by its series
   editor) and its other contents.
@@ -184,6 +204,61 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `freud-interpretation-of-dreams` (~1.2 MB, **8 chapters**, `chapterWord: "Chapter"` — Freud's seven and his Literary
+  Index — **182 notes**, Freud's and Brill's; **no original**: de.wikisource has no Die Traumdeutung, and Brill
+  translated the third edition, 1911). A. A. Brill's first English translation, Macmillan, New York, 1913, validated on
+  Wikisource (every page `data-page-quality="4"`). **A LIMITED LICENCE**, said in the rights box: public domain in the US
+  (1913) and wherever copyright runs life + 75 or less (Freud d. 1939, Brill d. 1948) — not yet under life + 80.
+  Generic extractor; `reFixes` take the chapter heads (chapter I's kept as a head line, for the footnote on its title),
+  set the 22 centred heads inside a chapter — the lettered sections "(a) …", the sample dream's two heads, "A Beautiful
+  Dream", the index's second list — as `bk-head`, drop the three diagram captions after `dropFigures` and the printer's
+  signature mark "L" mid-sentence on p. 161–162, and mend three blank-line/bare-run scars. **The Literary Index is
+  shipped on purpose**: the ~180 raised numbers after an author's name (Haffner³²) are Freud's references into it, and
+  without it they read as footnote markers that open nothing; the front matter says so. One footnote (Gruppe, I) is
+  cited twice, as on the page. Colour `#844227` (13.4: Livy, Sun Tzu, Vyasa nearest; Sophocles 14.9, Darwin 16.7 — first
+  `#3C5721`, which Douglass's row took the same day). `glossOff`: 18 keys — see the comment on the app.js entry. Excerpt: the via regia, chapter VII.
+  Not included: the prefaces, the contents, the diagrams, the general index.
+  `petrie-egyptian-tales` (~99 KB, **6 tabs**, one per tale as the contents page lists them — `chapterWord: "Tale"`,
+  **no notes**, no original). W. M. Flinders Petrie's *Egyptian Tales, First Series* (Methuen): the three Westcar
+  Papyrus "Tales of the Magicians", the Peasant and the Workman (the Eloquent Peasant), the Shipwrecked Sailor and the
+  Adventures of Sanehat (Sinuhe). **Asked for as the 1895 book; what ships is the 1899 SECOND edition**, because the one
+  transcription — Project Gutenberg #7386 — is of it; en.wikisource does not carry the book. Fetched from the Internet
+  Archive's mirror of the ebook (`egyptiantalestra07386gut`) because Gutenberg was down that day. Read word by word
+  against the IA OCR of both printings (1895 `egyptiantalestr01petrgoog`, 1899 `egyptiantalestr00elligoog`): 25
+  `fixes` rows, each where the two printings agree against the transcription (two where only the 1895 scan is
+  legible). Layout `egtales` (new): cut at the contents page's heads; seven plate-caption lines (`EGTALES_CAPTIONS`,
+  every one in the 1899 List of Illustrations) and two transcriber's "[Page N]" marks dropped; one verse block (the
+  peasant's song); Petrie's **Remarks** — his whole apparatus — kept at each tale's foot under a `bk-head`. Public
+  domain (published 1895/1899; Petrie d. 1942, Griffith d. 1934; life plus a hundred runs to 2043). Anonymous, so
+  coloured on its id, `#422448` (16.5 from the Song of Roland). `GLOSS_BOOK` maps the four glossary terms of its works
+  (Westcar_Papyrus, The_Eloquent_Peasant, Tale_of_the_Shipwrecked_Sailor, Story_of_Sinuhe) to it. Excerpt: the
+  serpent's coming, the Shipwrecked Sailor. Not included: the introduction (it introduces both series), the index,
+  Tristram Ellis's illustrations.
+  `douglass-narrative` (~224 KB, **14 sections** — Garrison's Preface, Phillips's Letter, chapters I–XI and the
+  Appendix, so a tab runs two ahead of the chapter; `chapterWord: "Section"` — **4 notes**, Douglass's own; no original).
+  The first edition, the Anti-Slavery Office, Boston, 1845, validated on Wikisource (Index `Progress=T`, every page
+  quality 4). Public domain worldwide (Douglass d. 1895, Garrison 1879, Phillips 1884). Generic extractor: `dropHeads`
+  takes the Preface's, the Letter's, the half-title over chapter I, each "CHAPTER IV." and the Appendix's heads,
+  `dropTail` the "THE END."; `reFixes` unwrap the right-aligned closings and signatures (Garrison, Phillips, Douglass,
+  the pass in X, the certificate in XI) that arrive as blockquotes, wrap the two indented date/addressee lines that
+  arrive as bare runs, join the Great House Farm song's indented second line and the Appendix parody's title to its
+  verses. Chapter titles are the bare numerals the book prints (`titleOf`). book-scan.js's one real question,
+  "Shalt I not visit" in the Appendix, is the printing's (the IA OCR of `narrativeoflifeo1845doug` agrees): kept.
+  Colour `#3F5A24` (14.0: Lucretius, Petronius, Aesop nearest; Jefferson 25.9). `glossOff`: 13 keys — see the comment on
+  the app.js entry. Excerpt: the turning-point paragraph after the fight with Covey, chapter X. Not included: the title
+  page and the frontispiece portrait.
+  `paine-common-sense` (~127 KB, **6 parts** — the Introduction, Sections I–IV and the Appendix, `chapterWord: "Part"`
+  — **3 notes**, the edition's; **no original**). John Carter's Providence reprint of 1776 ("The Sixth EDITION"), the
+  ONE transcription on en.wikisource (`Common Sense (1776)`; `Common Sense (Paine)` redirects), validated (Index
+  `Progress=T`, Aug 2021): the enlarged text with the Appendix, the address to the Quakers and the "Addition" of the
+  navy calculations. Public domain worldwide (Paine d. 1809). The four sections share ONE page under titled heads with
+  no numeral, so `cut` gained **`cutHeads`** (one pattern per head, in order; `cut(n)` may return null for a part that
+  is a page of its own); **`prep: "paine"`** drops the two FINIS blocks inside the text and rebuilds the Addition's two
+  tables as `bk-table`s (alignment "0"s and ditto marks resolved, the totals' colspan kept). Titles are the title
+  page's list of "SUBJECTS". `dropHeads` the printed heads, `dropTail` Carter's imprint. No `fixes`: book-scan.js's
+  four candidates are all right. Colour `#A20C45` (13.4: Aristophanes, Cervantes nearest; Jefferson 84, Rousseau 40,
+  Hobbes 78 off). `glossOff`: 9 keys — see the comment on the app.js entry. Excerpt: "Society in every state is a
+  blessing…", Section I. Not included: the title page (the front matter quotes its motto).
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
@@ -534,6 +609,17 @@ book added later will meet the same traps.
   a line's end (15 warned: the lemma's spelling differs from the line's, e.g. "sulllies"), none lost; all 222
   end notes reach the page. Fetched through `api`'s index.php fallback (api.php rate-limited from the first
   request). Its home excerpt is "To be, or not to be" (Act III, `p: 25`). Shakespeare's row colours it.
+  `tempest` (~180 KB, all 5 acts, **344 notes**, no original — the Yale Shakespeare of 1918, ed. Chauncey
+  Brewster Tinker, 1876–1963 (Wikipedia; Wikisource tags the volume PD/US|1963; the scan is the 1922 second
+  printing), so public domain in the US by the pre-1929 rule ONLY, in copyright under life plus seventy until
+  2034, and the rights text says so in Hamlet's form; `layout: "yale"`, no `plineFixes` (no "counted line"
+  warning)). Prospero's EPILOGUE is a page of its own, read by the new `postPage` and set at the foot of Act V.
+  333 glosses land on their word, 2 on their text, 9 at a line's end, none lost; all 40 end notes reach the page,
+  the Epilogue's own on its head. `yaleCast` now also reads a group's plain names ("Nymphs," "Reapers," under
+  Iris, Ceres and Juno) — unchanged for Macbeth, Romeo and Juliet and Julius Caesar, and it would restore the
+  "A Gentleman" the shipped Hamlet drops from its Courtiers (not re-imported). Left as transcribed, unverified
+  against the print: "Sesastian" in the list of characters. Home excerpt "Our revels now are ended" (Act IV,
+  `p: 44`). Fetched through index.php (`action=render&useparsoid=0`), api.php rate-limited from the first request.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because
