@@ -21978,6 +21978,89 @@ const BOOKS = {
     // the FINIS printed inside the text and the Addition's two tables — see painePrep
     prep: "paine",
   },
+  "marx-communist-manifesto": {
+    title: "The Communist Manifesto",
+    // the title page's own words (djvu p. 5)
+    subtitle: "Manifesto of the Communist Party",
+    author: "Karl Marx and Friedrich Engels",
+    /* Moore's translation, "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS" (the title
+       page). Samuel Moore, 1838–1911, by his Wikipedia article; Engels's preface names him as the translator. */
+    translator: "Samuel Moore",
+    edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
+    written: "1848",
+    year: 1848,
+    /* ---------- THE LICENCE ----------
+       Marx and Engels wrote the Manifesto in German; it was published in London in February 1848. Moore's English
+       translation appeared in 1888 and this printing of it is Kerr's of 1910 — both before 1929, so public domain in
+       the United States. Moore died in 1911, Engels (who edited it and wrote the preface and notes) in 1895, Marx in
+       1883: past life plus a hundred everywhere. The Index (`Manifesto of the Communist Party.djvu`) is VALIDATED
+       (`Progress=T`, November 2013).
+       ---------- WHAT IS TAKEN ----------
+       Five parts: Engels's preface of 1888, and the Manifesto's four numbered parts, each a wiki page. The opening
+       ("A spectre is haunting Europe" … "the following manifesto"), which the printing sets on its own page after the
+       preface under the work's title, stands before Part I and is set at the head of Part I's tab, Part I's own head
+       kept below it (see manifestoPrep: it also carries Engels's note on "bourgeoisie"). The cover, the title page and
+       Kerr's five pages of advertisements are not taken. Engels's footnotes come with the text. */
+    rights:
+      "Public domain. Karl Marx and Friedrich Engels wrote the Manifesto in German and published it in London in " +
+      "1848. Samuel Moore's English translation, edited by Engels, was first published in 1888, and this printing of " +
+      "it was made in Chicago in 1910. Moore died in 1911, Engels in 1895 and Marx in 1883, so the translation is out " +
+      "of copyright everywhere. The text is the validated Wikisource transcription of the 1910 printing.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Manifesto_of_the_Communist_Party",
+    /* THE FRONT MATTER — chapter 0. Each fact is one the printing's own preface states (the League, the congress of
+       November 1847, the German manuscript of January 1848, the press a few weeks before the February revolution,
+       Helen Macfarlane's translation of 1850, Moore and Capital) or the record (the authors' dates, Moore's). */
+    about: [
+      "<b>The Communist Manifesto</b> is the pamphlet in which Karl Marx and Friedrich Engels set out, in a few " +
+        "dozen pages, the programme of the communist movement and the view of history behind it. It was written for " +
+        "the <b>Communist League</b>, a small association of workers that was, as Engels says in the preface here, " +
+        "first exclusively German and unavoidably a secret society. At a congress of the League in London in " +
+        "November 1847 the two were asked to draw up its programme. They wrote it in German in January 1848, and it " +
+        "went to the printer in London a few weeks before the revolution that broke out in Paris on 24 February.",
+      "Its opening is among the most quoted sentences ever written: <i>A spectre is haunting Europe — the spectre " +
+        "of Communism.</i> Part I, <i>Bourgeois and Proletarians</i>, argues that the history of all society is the " +
+        "history of class struggles, and describes how the modern bourgeoisie, the owners of capital, has remade " +
+        "the world in its own image and created in the proletariat, the class of wage-workers, the force that will " +
+        "overthrow it. Part II answers the objections to communism and lists the measures the workers would take on " +
+        "winning power. Part III criticises the other socialisms of the day, and Part IV sets out where communists " +
+        "stand towards the opposition parties of each country. It ends on its call: <i>Working men of all " +
+        "countries, unite!</i>",
+      "Karl Marx (1818–1883) was born in Trier, in the Prussian Rhineland, and was then a journalist living in " +
+        "exile in Brussels. Friedrich Engels (1820–1895), the son of a textile manufacturer, had worked in his " +
+        "family's firm in Manchester and had written on the condition of the English working class. Both were " +
+        "driven from the Continent after the revolutions of 1848 failed and settled in England, where Marx wrote " +
+        "<i>Capital</i> and Engels supported him. The Manifesto was little read at first; in the preface, Engels " +
+        "traces how it came to be printed in many languages and read by the working-class movement across the " +
+        "world.",
+      "The translation is by <b>Samuel Moore</b>, an English lawyer and a friend of both authors, who had " +
+        "translated most of the first volume of <i>Capital</i>. It was published in London in 1888, five years " +
+        "after Marx's death, and Engels revised it with him, wrote the preface and added the notes, which explain " +
+        "the Manifesto's historical allusions and correct what time had overtaken. This is that translation, the " +
+        "one most English readers have known. The first English translation, by Helen Macfarlane, had appeared in " +
+        "1850.",
+      "The text here is a reprint published in Chicago in 1910 by <b>Charles H. Kerr &amp; Company</b>, a socialist " +
+        "publishing house, priced at five cents. The book has five parts: Engels's preface, dated London, 30 " +
+        "January 1888, and the Manifesto's four, so each part's number in the bar runs one ahead of its own " +
+        "numeral. The Manifesto's opening paragraphs, which stand before Part I " +
+        "without a number, are set at the head of Part I. The footnotes are Engels's; where he names a book, this " +
+        "American printing gives its own Chicago edition. The text comes from " +
+        "Wikisource, where it has been proofread twice against the scan.",
+    ],
+    page: (n) => n === 1 ? "Manifesto of the Communist Party"
+      : n === 2 ? ["Manifesto of the Communist Party", "Manifesto of the Communist Party/1"]
+      : "Manifesto of the Communist Party/" + (n - 1),
+    chapterWord: "Part",
+    // the wiki's section heads, which transcribe the printed ones in its own case
+    titleOf: (n) => ["Preface",
+      "I. Bourgeois and Proletarians",
+      "II. Proletarians and Communists",
+      "III. Socialist and Communist Literature",
+      "IV. Position of the Communists in Relation to the Various Existing Opposition Parties"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+    // the base page cut in two, the cover and advertisements dropped, the centred heads — see manifestoPrep
+    prep: "manifesto",
+  },
 };
 
 /* ---------- args ---------- */
@@ -25042,6 +25125,88 @@ function painePrep(h, warn) {
   if (finis || tables) console.log("  paine: " + finis + " FINIS dropped, " + tables + " table(s) kept");
   return h;
 }
+/* ---------- THE COMMUNIST MANIFESTO: one base page, two parts, and centred heads (Nov 2026) ----------
+   `prep: "manifesto"` → `manifestoPrep(h, page, warn)` on every raw page before the notes are gathered and before
+   cleanBody, then `manifestoFinish` on the assembled part. Two things about the Kerr transcription of Moore's
+   translation that the generic passes get silently wrong:
+   · THE BASE PAGE IS FIVE TRANSCLUSIONS AND AN ADVERTISEMENT BOX. `Manifesto of the Communist Party` transcludes the
+     paper cover (djvu 3), the title page (5), Engels's preface of 1888 (7–14), its two-note reference list, and the
+     first page of the Manifesto itself (15, "A spectre is haunting Europe" — the opening that stands before Part I),
+     then five pages of Kerr's advertisements in a collapsed box. cleanBody would take everything from the first
+     wrapper on: the cover's price and imprint as quotations, the preface, the opening and the publisher's list as
+     one part. So the page is cut by its own scan-page indexes: Part 1 (the Preface) from the wrapper holding the
+     `Preface` anchor to the wrapper of djvu page 15, which keeps the preface's note list; the opening from that
+     wrapper to the advertisement box. A missing landmark THROWS — a fall-back to the whole page would ship the cover
+     and the advertisements as text.
+   · EVERY HEAD IS A CENTRED BLOCK, which the generic div pass turns into a quotation. The FIRST centred block of a
+     page is the part's printed head, which the tab already names, and it goes — except where it carries a
+     footnote marker (Part I's, whose note explains "bourgeoisie" and "proletariat"), where it is kept as a heading
+     so the note keeps its anchor; that also marks where Part I begins below the opening, which is set at the head
+     of Part I's tab as Rousseau's preambles are (see cutAtChapterHeads). Every later centred block — Part III's
+     subheads, and the one `wst-block-center` that sets "1. Reactionary Socialism. / a. Feudal Socialism." — is a
+     heading: fenced here and lifted to one `bk-head` paragraph by manifestoFinish, its lines kept as `<br>`.
+     Engels's signature (a `wst-right` div) is unwrapped to a paragraph rather than left to become a quotation.
+   Gated on `prep === "manifesto"`, so inert on every other book. */
+const MANIFESTO_HEAD = "@@MNH@@";
+const MANIFESTO = { heads: 0, dropped: 0, lifted: 0 };
+function manifestoPrep(h, page, warn) {
+  const wraps = [];
+  for (let i = -1; (i = h.indexOf('<div class="prp-pages-output"', i + 1)) >= 0;) wraps.push(i);
+  const wrapOf = (at) => { let w = -1; for (const x of wraps) if (x <= at) w = x; return w; };
+  if (!/\//.test(page)) {
+    const pre = h.indexOf('<span class="anchor" id="Preface"');
+    const p15 = h.indexOf('data-page-index="15"');
+    const ads = h.indexOf('<div class="mw-collapsible', p15);
+    if (pre < 0 || p15 < 0 || ads < 0 || !(pre < p15 && p15 < ads))
+      throw new Error("manifesto: the base page's landmarks moved (Preface " + pre + ", page 15 " + p15 + ", box " + ads + ")");
+    const a = wrapOf(pre), b = wrapOf(p15);
+    if (a < 0 || b <= a) throw new Error("manifesto: the Preface and page 15 are not in two transclusions");
+    h = MANIFESTO_BASE_PART === "preface" ? h.slice(a, b) : h.slice(b, ads);
+  }
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  let first = true;
+  for (let guard = 0, at = 0; guard < 200; guard++) {
+    const rx = /<div class="(?:wst-center|wst-block-center|wst-right)\b[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(h);
+    if (!m) break;
+    const end = blockEnd(h, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = h.slice(m.index + m[0].length, end - "</div>".length);
+    let out;
+    if (/wst-right/.test(m[0])) out = inner;
+    else if (textOf(inner).length > 200) {
+      warn('a centred block is not a heading and was kept as text: "' + textOf(inner).slice(0, 60) + '"');
+      out = inner;
+    } else if (first && !/<sup\b[^>]*class="reference"/.test(inner)) {
+      MANIFESTO.dropped++;
+      out = "";
+    } else {
+      const x = inner.replace(/<style[\s\S]*?<\/style>|<link\b[^>]*>/g, "")
+        .replace(/<\/?(?:p|div)\b[^>]*>/g, "<br>").replace(/<br\s*\/?>/g, "<br>")
+        .replace(/(?:\s*<br>\s*)+/g, "<br>").replace(/^(?:\s*<br>)+|(?:<br>\s*)+$/g, "").trim();
+      MANIFESTO.heads++;
+      out = "<p>" + MANIFESTO_HEAD + x + MANIFESTO_HEAD + "</p>";
+    }
+    if (!/wst-right/.test(m[0])) first = false;
+    h = h.slice(0, m.index) + out + h.slice(end);
+    at = m.index + out.length;
+  }
+  return h;
+}
+let MANIFESTO_BASE_PART = "preface";
+function manifestoFinish(html, warn) {
+  let out = html.replace(new RegExp("<p>\\s*" + MANIFESTO_HEAD + "([\\s\\S]*?)" + MANIFESTO_HEAD + "\\s*</p>", "g"),
+    (m, x) => { MANIFESTO.lifted++; return '<p class="bk-head">' + x.trim() + "</p>"; });
+  out = out.replace(new RegExp(MANIFESTO_HEAD + "([\\s\\S]*?)" + MANIFESTO_HEAD, "g"),
+    (m, x) => { warn("a heading fence outside its own paragraph: " + x.slice(0, 60)); return x; });
+  // the scan pages' spacer lines: a paragraph of nothing but line breaks, and breaks closing a paragraph
+  out = out.replace(/\n?<p>(?:\s|<br>)*<\/p>/g, "").replace(/(?:\s*<br>)+\s*<\/p>/g, "</p>")
+    .replace(/<p class="bk-head">(?:\s*<br>)+/g, '<p class="bk-head">');
+  return out;
+}
+
 const KANT_HEAD = "@@KNH@@", KANT_STARS = "@@KNA@@";
 function kantPrep(h, warn) {
   let b = h;
@@ -36500,6 +36665,7 @@ async function fetchEnglish() {
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
     if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
     if (BOOK.prep === "paine") h = painePrep(h, warn);
+    if (BOOK.prep === "manifesto") { MANIFESTO_BASE_PART = n === 1 ? "preface" : "opening"; h = manifestoPrep(h, pageNames[0], warn); }
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -36599,6 +36765,7 @@ async function fetchEnglish() {
         let eh = await api(extra);
         if (BOOK.prep === "kant") eh = kantPrep(eh, warn);
         if (BOOK.prep === "euclid") eh = euclidPrep(eh, warn);
+        if (BOOK.prep === "manifesto") eh = manifestoPrep(eh, extra, warn);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -36619,6 +36786,7 @@ async function fetchEnglish() {
         const got = kantNestedNotes(html, notes, warn);
         html = got.html; notes = got.notes;
       }
+      if (BOOK.prep === "manifesto") html = manifestoFinish(html, warn);
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
       /* AN APPARATUS THE EDITION DOES NOT HAVE (Aug 2026, adding Le Morte d'Arthur — the first wiki
@@ -37170,6 +37338,9 @@ function writeEnglish(chapters, warnings) {
   if (KANT.heads || KANT.lifted)
     console.log("  " + KANT.heads + " heading block(s) fenced, " + KANT.lifted + " lifted, " + KANT.tables + " table(s) read as blocks, " + KANT.stars + " asterisk row(s), " + KANT.nested + " note(s) inside a note spliced" +
       (KANT.heads === KANT.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
+  if (MANIFESTO.heads || MANIFESTO.dropped)
+    console.log("  " + MANIFESTO.dropped + " printed head(s) dropped, " + MANIFESTO.heads + " heading block(s) fenced, " +
+      MANIFESTO.lifted + " lifted" + (MANIFESTO.heads === MANIFESTO.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
   if (SIDENOTES.fenced || SIDENOTES.lifted)
     console.log("  " + SIDENOTES.fenced + " marginal note(s) fenced, " + SIDENOTES.lifted + " lifted" +
       (SIDENOTES.fenced === SIDENOTES.lifted ? "" : " — MISMATCH, a note was lost or doubled"));

@@ -2986,3 +2986,18 @@ and the characters check it, so a paragraph added or split upstream throws inste
 later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
+
+## `prep: "manifesto"` — a base page holding a preface, an opening and advertisements (Nov 2026, the Communist Manifesto)
+
+`manifestoPrep(h, page, warn)` runs on every raw page (the first and each extra of a `page(n)` array) before `notesOf`
+and `cleanBody`; `manifestoFinish` runs on the assembled part. The base page `Manifesto of the Communist Party`
+transcludes the cover, the title page, Engels's preface, its note list and djvu page 15 (the unnumbered opening), then
+a collapsed box of advertisements; `cleanBody` alone would take all of it as one part. So the base page is cut by its
+landmarks: the preface from the wrapper holding the `Preface` anchor to the wrapper of `data-page-index="15"`, the
+opening from there to the `mw-collapsible` box — a missing or out-of-order landmark THROWS. Every `wst-center` (and
+the one `wst-block-center`) is a head: the first on a page is the printed part head and is dropped, unless it carries
+a note marker (Part I's), and every other is fenced and lifted to one `bk-head` with its lines as `<br>`; a block over
+200 characters is kept as text and warned. Engels's `wst-right` signature is unwrapped to a paragraph.
+
+Re-run after touching: `node .claude/fetch-book.js marx-communist-manifesto --force` (six fetches), check "5 printed
+head(s) dropped, 6 heading block(s) fenced, 6 lifted" and 10 notes, then `node .claude/book-audit.js`.
