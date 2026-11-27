@@ -25,6 +25,15 @@ exceptions, each found on reading the ranking (`docs/greek-decks-plan.md`):
   · A CONTRACTION (`στο` = σε + το) gives its count to the preposition it opens
     with, never the article -- `σε` is the word the learner meets.
 
+THE PRONUNCIATION AND THE OTHER SPELLINGS (the beginner pass, 2026-11-27).  An entry keeps
+Wiktionary's own IPA where it gives one (`ipa`: the first phonemic /…/ transcription, else the
+first of any kind), never one worked out here.  A lemma keeps its VARIANTS: every spelling
+Wiktionary files as a contraction, an alternative form or "a form of … before a vowel" of it
+(`στο` = σε + το, `κι` for και, `δε` for δεν, `απ'` for από, `πάω` for πηγαίνω) that carries no
+weak tag and that the subtitle list counts at least `VAR_MIN` times, the commonest first, at
+most `VAR_MAX`.  The twelve commonest forms of that list that no A1 card showed were all of
+this kind (στο ένα μια στην κι δε στον στη σ' απ' στα γι').
+
 All matching goes through `gr.fold` (lower case, final sigma), which KEEPS the
 accent, so `η` "the" and `ή` "or", `που` "that" and `πού` "where" stay apart.
 
@@ -53,6 +62,14 @@ WEAK = {'rare', 'obsolete', 'archaic', 'dated', 'dialectal', 'regional', 'uncomm
         'poetic', 'historical', 'vulgar', 'derogatory', 'offensive', 'nonstandard',
         'misspelling', 'Katharevousa', 'literary', 'Cyprus', 'Ancient', 'euphemistic'}
 
+# THE VARIANTS a lemma's card lists (see the docstring): which tags refuse one, how common it
+# must be, how many at most.
+VAR_WEAK = WEAK | {'Cypriot', 'polytonic', 'apocopic'}
+VAR_MIN, VAR_MAX = 5000, 8
+VAR_WORD = re.compile(r"^[Ͱ-Ͽἀ-῿]+['’]?$")
+VAR_PLUS = re.compile(r'^contraction of \S+ \([^)]*\) \+ (\S+)')
+VAR_FORM = re.compile(r'^(?:colloquial )?form of ')
+
 # a table cell with one of these is a real form, but too rare to claim a count from a commoner word
 RARE_CELL = {'archaic', 'dated', 'rare', 'obsolete', 'Katharevousa', 'dialectal'}
 
@@ -62,6 +79,36 @@ def roman_of(e):
         if 'romanization' in (f.get('tags') or []):
             return roman_clean(f.get('form', ''))
     return translit(e.get('word', ''))
+
+
+def ipa_of(e):
+    """Wiktionary's IPA for the entry: the first phonemic one, else the first given."""
+    got = [nfc(x['ipa']) for x in e.get('sounds') or [] if x.get('ipa')]
+    return next((x for x in got if x.startswith('/')), got[0] if got else '')
+
+
+def variants_of(e, w):
+    """(target fold, label) for each lemma this entry is a contraction or another spelling of."""
+    if not VAR_WORD.match(w):
+        return
+    for s in e.get('senses') or []:
+        tags = set(s.get('tags') or [])
+        g = (s.get('glosses') or [''])[-1]
+        tg = [nfc(t.get('word', '')) for t in (s.get('alt_of') or []) + (s.get('form_of') or [])]
+        if not tg or tags & VAR_WEAK:
+            continue
+        if e.get('pos') == 'contraction' or 'contraction' in tags:
+            m = VAR_PLUS.match(g)
+            label = '+ ' + m.group(1) if m and is_greek(m.group(1)) else 'short'
+        elif 'alt_of' in s and 'abbreviation' not in tags:
+            label = 'also'
+        elif VAR_FORM.match(g):
+            label = 'before a vowel' if 'before a vowel' in g else 'also'
+        else:
+            continue
+        for t in tg:
+            if is_greek(t) and fold(t) != fold(w.rstrip("'’")):
+                yield fold(t), label
 
 
 def gender_of(e):
@@ -128,10 +175,13 @@ def main():
     pointers = []            # (surface fold, target fold, kind) from form-of entries
     contractions = {}        # στο -> σε
     formonly = {}
+    variants = collections.defaultdict(dict)     # target fold -> {spelling: label}
     for line in open(DUMP, encoding='utf-8'):
         e = json.loads(line)
         pos = e.get('pos')
         w = nfc(e.get('word', ''))
+        for tgt, label in variants_of(e, w):
+            variants[tgt].setdefault(w, label)
         if pos == 'contraction' and is_greek(w):
             for s in e.get('senses') or []:
                 m = CONTRACTION.match((s.get('glosses') or [''])[-1])
@@ -172,7 +222,7 @@ def main():
             # inventory; the fill never takes one, `select.py` resolves through it.
             alts = [nfc(t.get('word', '')) for s in senses for t in s.get('alt_of') or []]
             if alts and all('alt_of' in s for s in senses) and is_greek(alts[0]):
-                formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(alts[0])})
+                formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(alts[0]), 'ipa': ipa_of(e)})
             continue
         gl, shown = [], set()
         for s in real:
@@ -182,7 +232,7 @@ def main():
                 gl.append({'g': g, 'weak': bool(tags & WEAK),
                            'tags': sorted(tags & {'formal', 'informal', 'colloquial', 'figuratively',
                                                   'transitive', 'intransitive', 'idiomatic', 'slang',
-                                                  'familiar', 'plural', 'in-plural'})})
+                                                  'familiar', 'plural', 'in-plural', 'singular'})})
         table = []
         for f in e.get('forms') or []:
             fm = nfc(f.get('form', ''))
@@ -195,7 +245,7 @@ def main():
                       and is_greek(f.get('form', ''))}
         ent = {'pos': pos, 'etym': e.get('etymology_number', '') or '', 'roman': roman_of(e),
                'gender': gender_of(e) if pos == 'noun' else '', 'glosses': gl,
-               'table': table, 'head': head_forms}
+               'table': table, 'head': head_forms, 'ipa': ipa_of(e)}
         L = lemmas.setdefault(fold(w), {'word': w, 'entries': []})
         if cap:
             L['cap'] = True
@@ -283,6 +333,10 @@ def main():
         L.pop('cal', None)
         L['freq'] = round(L.pop('multi', 0) or freq.get(k, 0), 2)
         L['own'] = counts.get(k, 0)
+        vs = [(counts.get(fold(v.rstrip("'’")), 0), v, label) for v, label in variants.get(k, {}).items()]
+        vs = sorted((x for x in vs if x[0] >= VAR_MIN), key=lambda x: (-x[0], x[1]))[:VAR_MAX]
+        if vs:
+            L['variants'] = [{'f': v, 'l': label} for _, v, label in vs]
         out[k] = L
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False)
     top = sorted((L for L in out.values() if 'entries' in L), key=lambda L: -L['freq'])[:80]

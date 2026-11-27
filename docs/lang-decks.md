@@ -3767,7 +3767,16 @@ changed was the one that had been wrong all along.
   million (via Wikipedia); the hue is measured, `#9D0D6C` (re-swept at the merge, Arabic having taken the green).
 - `.claude/greek/` — the generator behind the Greek decks (Nov 2026, on request: "Add a Greek language
   collection"; the levels, the alphabet deck and the romanisation follow the Hindi owner's answers, the owner
-  not asked again). **Built: the alphabet, `decks/Greek-Alphabet.folio-deck.json`** (39 notes) **and A1,
+  not asked again). **READ THIS FIRST (2026-11-27, the Greek beginner pass — its section is near the foot of
+  this file): A DECK FILE IS NO LONGER WHAT `run.py` WRITES.** After the generator comes a record:
+  `python3 .claude/greek/run.py` → `alphabet.py` → `inserts.py` → `node .claude/decks/greek-fix.js` →
+  `greek-order.js` → `greek-fix.js` → `node .claude/build-lang-decks.js`. **A card id is PINNED to its note**
+  (`.claude/decks/greek-ids.json`; never delete or renumber a row), a card added to A1 is a row of
+  `greek-fixes.json` built by `inserts.py`, and the counts below are the generator's, before the record
+  (shipped: alphabet 50 notes with ten reading rules of card type `el-read`, A1 529). A fault the generator
+  can fix is fixed in the generator; `.claude/decks/README.md` "The Greek decks" has the table of files. The
+  card type has a ninth field, `IPA`. `.claude/greek/` imports nothing from `.claude/hindi/` and nothing
+  imports it. **Built: the alphabet, `decks/Greek-Alphabet.folio-deck.json`** (39 notes) **and A1,
   `decks/Greek-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/greek/run.py [--level a1]`,
   `python3 .claude/greek/alphabet.py`, `node .claude/greek/check-greek.js`; a re-run is byte-identical. Hindi's
   pipeline adapted: no graded list for the Certificate of Attainment in Greek was found published, so a level
@@ -6876,6 +6885,190 @@ sentences can be read whole (304 of 1,497); 9.6% of the words are on no card (10
   been met, 5 of 148 sentences whole.
 - **Not read card by card**: the 37 added and moved cards, the head and the sounds deck were; the other
   5,870 are as generated, with the changed fields read as a diff.
+## The Greek beginner pass (2026-11-27)
+
+On request, the audit the other shelves had been given: **what does a learner with no Greek and no Greek
+letters meet, in the order the shelf itself recommends** — the Alphabet, then A1, which is the last deck?
+Every figure was measured on the two decks as shipped that morning, at the language default of ten new cards
+a day with both directions together, which is five words a day. The rules are in the `.claude/greek/` entry
+above and in `.claude/decks/README.md` ("The Greek decks"); this section is the reasoning.
+
+**The generator's claim was proved first**: one fetch of the live sources (kaikki 221 MB, Tatoeba, the
+subtitle list; 366 MB), then `run.py --no-fetch --re-extract` and `alphabet.py`, and both files came out
+with the committed sha256 sums (Tatoeba had grown from 30,821 pairs to 30,823 and nothing moved). So a fault
+the generator can fix IS fixed in the generator, and only a decision about one card or one order is in a
+record — the Urdu split.
+
+### What the audit found, by what it costs a beginner
+
+1. **The form a verb takes after θα and να was on no card, except in the first person.** The table's
+   "future" block was one row (θα φάω). Wiktionary's table has all six "dependent" forms (φάω, φας, φάει,
+   φάμε, φάτε, φάνε) and the generator read only the cell tagged future. Of the 330 words A1's own sentences
+   put after να or θα, 94 were on no card; day one's first card, να, had the sentences Θα πάω να δω and Τι
+   θες να φας. Present, simple past (είδα, πήγα, ήρθα, είπα are all there), imperfect and imperative were
+   sound on 102 to 107 of 110 verbs, the thirteen -ομαι verbs included.
+2. **The twelve commonest word forms of Greek that no A1 card showed were all small words a card could have
+   shown**: στο, ένα, μια, στην, κι, δε, στον, στη, σ', απ', στα, γι'. σε's card said nothing of σε + the
+   article (στο to στους: 148 tokens of A1's sentences); ένας, τρεις, τέσσερις and κανένας had NO table,
+   because Wiktionary declines them by gender and case without a number and the table wanted a singular
+   (ένα 35 tokens, μια 28, τρία 6). 20.2% of the 6,910 word tokens of A1's sentences were forms on no card;
+   43 of the 300 commonest forms of the subtitle list, 362 of the 1,000.
+3. **The courtesies were late and the first conversation was not on the shelf.** γεια was note 91 (day 27
+   with the alphabet first), ευχαριστώ 67, παρακαλώ 96, συγγνώμη 123, αντίο 355, καλημέρα 362, καληνύχτα
+   370, καλησπέρα 406 (day 90), χαίρετε 458; ναι and όχι were early (26, 24). γεια σου, γεια σας, τι
+   κάνεις, τι κάνετε, με λένε, πώς σε λένε and χαίρω πολύ were cards of nothing — there is no phrases deck —
+   though each is an English Wiktionary entry; τι κάνεις and με λένε stood in one example sentence each.
+4. **A1 was dealt by lemma frequency and the closed sets were scattered.** Day one was να · είμαι · σε · ο
+   · και. One to ten ran from note 9 (ένας) to 455 (εννέα), zero was on no card, eleven and twelve were 490
+   and 466, thirteen to nineteen, forty and sixty to ninety on no card. The days ran 425 to 465, the months
+   472 to 493, six colours 382 to 497. εγώ, εσύ, αυτός, αυτή were notes 42 to 56, εμείς 245 and εσείς 231;
+   the weak pronouns μου σου του της μας σας τους were early (8 to 34) and τον, την, το are taught on ο's
+   table (the plan's §4). The question words ran from 15 (τι) to 316 (πόσος); the commonest verbs were
+   early (2 to 62) but τρώω 184 and πίνω 294; πάω was a card of nothing (now on πηγαίνω, finding 2's fix).
+5. **The romanisation follows the spelling, and nothing gave the sound.** The card has ONE romanisation
+   field, `Roman`: Wiktionary's (ELOT 743's letters with the accent kept), the same scheme in both decks
+   and on every table cell. It agrees with the Greek spelling on 500 of 500 headwords (`gr.translit`
+   reproduces every one) and marks the stress on all 464 words of two syllables or more. But it is a
+   transliteration: 169 of 500 hold a sequence an English reader says wrongly (ai 36, ei 35, oi 16, y 40,
+   nt 15, d for [ð] 42, g before e and i 16): kai is [ce], eímai [ˈi.me], ntomáta begins with [d]. `Say`
+   is not a romanisation at all: it is the Greek the speaker reads (the article and the noun), never shown,
+   and a needed duplicate of `Greek` since an attribute cannot hold markup. For a reader who has finished
+   the alphabet `Roman` repeats the Greek letter for letter; it stays, being the plan's §1 decision.
+6. **The alphabet deck taught the right things and could trace none of them.** It had the accent, the
+   diaeresis, ς inside the σ note, the five vowel pairs, αυ and ευ by what follows, μπ ντ γκ γγ τσ τζ and
+   γ before e and i. It did not have: γχ, the accent's place on a capital, the question mark (228 of A1's
+   1,483 sentences end in ;), a doubled consonant, σ as [z], the ι that is not a syllable (58 A1
+   headwords write an ι or υ before a vowel), or that the stress moves between forms. Its source was "the standard description of Modern
+   Greek". No source read here supports "a soft g made far back in the throat, almost gargled", "between
+   the a of cat and the a of father", "as in Spanish or Scottish English", "nearly the j of jam", or the
+   usage notes that told the six [i] spellings apart on the reverse card ("the ee of the feminine words and
+   endings", "the -αι of verb endings", "rare, in a few learned words", "the commoner of the two ways");
+   four letter names (γιώτα, κάπα, μι, νι) were not the ones Wikipedia's table gives. Nine of its 39
+   example words were not A1 cards. What the script hides, on A1's 500 headwords: 467 hold an [i], [e] or
+   [o] and 268 spell one otherwise than ι, ε, ο ([i]: ι 169 times, η 71, υ 41, ει 35, οι 16, υι 0; [e]: ε
+   157, αι 38; [o]: ο 244, ω 150); 146 need a two-letter spelling to be READ (αι 36, ει 35, ου 25, οι 16,
+   ντ 14, ευ 14, αυ 9, μπ 8); 127 end in ς; A1 has no headword with γκ, τζ, υι or a diaeresis.
+7. **Nouns and adjectives were sound; nothing said that the stress moves.** All 182 nouns show their
+   article and gender in the label (so the English → Greek card of φίλος and φίλη says which is wanted),
+   175 a genitive, 164 a plural, 179 the four cases in both numbers; 39 of 42 adjectives their three
+   genders. 101 noun tables hold a form stressed on another syllable than the headword (άνθρωπος,
+   ανθρώπου); the accent showed it and no label did. εγώ, εσύ, εμείς and εσείς have no table: Wiktionary
+   gives none.
+8. **Eight English → Greek fronts printed their own answer** (να, ο, θα, έχω, μπορώ, χρειάζομαι, μένω,
+   ας: the hand-written glosses carry a Greek example). Otherwise the reverse card was sound: no two notes
+   share an English side, 9 groups (20 notes) share a first gloss, 2.0 senses a note.
+9. **Sentences are four words at the median** (46 at most; three for 491 words, none for 2). In arrival
+   order 73.0% of a sentence's words had been met and 346 of 1,483 could be read whole (59.3% and 13 of
+   150 over the first fifty notes). 157 tokens are Τομ.
+10. **Every id was a position**, in both decks. **The pace was stated nowhere**: the alphabet 8 days, the
+    first greeting on day 27, A1 done on day 108.
+
+### What was built
+
+**In the generator** (`.claude/greek/`; A1 rebuilt, and generator plus record proved twice more to give the
+committed bytes). 306 of the 500 old notes are byte-identical in all eight old fields; no sentence, gloss
+order or id moved; the rest changed only by a rule below (Table 107, Forms 83, English 13).
+
+- **The six persons after θα and να** (`build_deck.table_html`: Wiktionary's "dependent" cells) on 102
+  verbs, in place of the one future row. Words after να or θα on no card: 94 → 44.
+- **A table for a word declined by gender without a number**: ένας (ένα, μια, μία, έναν, ενός), τρεις /
+  τρία, τέσσερις / τέσσερα, κανένας / καμία / κανένα.
+- **A word's other spellings on its forms line** (`extract.py` `variants`): what Wiktionary files as a
+  contraction, an alternative form or "a form before a vowel" of the word, no weak tag, at least 5,000 in
+  the subtitle list, eight at most — στο … στους on σε under `+ το`, κι, δε, απ', γι', μ', σ', πάω on
+  πηγαίνω, εφτά, οχτώ, συγνώμη. With the two above: the twelve forms of finding 2 are all on a card; A1's
+  sentence tokens on no card 20.2% → 14.2%; the commonest 300 forms on no card 43 → 14 (the fourteen are
+  misspellings and punctuation of the subtitle list, αυτόν, δυο and συνέβη), the commonest 1,000 362 → 279.
+- **`IPA`, a ninth field: Wiktionary's own transcription** under the romanisation, on 436 of the 500 (455
+  of 529); none is worked out here, and 24 are Wiktionary's narrow [ ] transcriptions as it gives them.
+  A card printed under an alternative spelling (μέρα, αγαπώ) takes that spelling's IPA or none.
+- **"stress moves"** beside a genitive or plural whose accent has left the headword's syllable
+  (`gr.stress_moved`): 51 nouns. A final ί that becomes a glide (παιδί, παιδιά) is not a move.
+- **The answer off its own question**: a bracket of the English side that prints the card's Greek is
+  wrapped in `.uc-eg`, hidden under "Say it in Greek" (8 cards); `check-greek.js` now refuses one outside.
+- **Wiktionary's register tag on a sense** that has one (`register`): γεια σου "(informal, singular)",
+  γεια σας "(formal, plural)" — and on five existing cards (παρακαλώ, μαμά, ζητάω, μωρό, αγόρι).
+- **The alphabet deck sourced** (`alphabet.py`): every IPA symbol and English comparison is a cell of
+  Wikipedia's Help:IPA/Greek (revision 1373072501), every letter's two names a cell of the Letters table
+  of "Greek alphabet" (1387421171), every rule a quoted phrase of those or of "Modern Greek phonology"
+  (1383354610), "Greek diacritics" (1378374654) or "Greek orthography" (1372376819). `--verify` checks 32
+  comparisons, 24 names and 19 phrases against the five revisions. One letter-pair added (γχ) and **ten
+  reading rules** (card type `el-read`, one card each: final sigma, the accent on a capital, the question
+  mark, the six spellings of [i], ε / αι and ο / ω, γ κ χ before e and i, the ι that is no syllable, a
+  doubled consonant, σ as [z], the stress that moves). The six single letters that share a sound name
+  themselves in English on their sound side; a quotation is hidden where the sound side is the question.
+  36 of the 40 letter and pair examples are A1 cards with A1's own romanisation, IPA and first meaning (the other four
+  are the spellings A1 has no word for).
+
+**In a record** (`.claude/decks/greek-fixes.json`, applied by `greek-fix.js`, on the Urdu model):
+
+- **Note ids pinned** (`greek-ids.json`, 539 rows seeded from the shipped positions before anything moved;
+  579 now, none retired). From the files: all 539 old ids name the same word or letter. In a browser, with
+  the decks as shipped: a reader holding the old Alphabet and A1 with 34 notes scheduled in BOTH directions
+  pressed the two Updates and kept all 68 schedules on the same words and letters; all 539 old ids named
+  the same word in the device's store afterwards; the type gained its IPA field and the alphabet its second
+  card type; a note the shipped deck does not have (one was planted) stayed on the device with its progress.
+- **29 cards added to A1** (ids 501 to 529), their fields built by `inserts.py` with the generator's own
+  code from each one's Wiktionary entry: γεια σου, γεια σας, τι κάνεις, τι κάνετε, με λένε, πώς σε λένε,
+  πώς σας λένε, χαίρω πολύ, τα λέμε, ευχαριστώ πολύ, δεν καταλαβαίνω, δεν ξέρω, πόσο κάνει, τι ώρα είναι,
+  καλή όρεξη, στην υγειά σου, zero, thirteen to nineteen, forty and sixty to ninety. Sentences are the
+  picker's, from those no card of the deck already shows; five cards name theirs by Tatoeba id, because
+  the picker matches words and τι κάνεις is also "what are you doing?".
+- **An order** (`greek-order.json`, computed by `greek-order.js` from the pinned number): 86 notes by hand
+  — the courtesies (two days), a first exchange, the pronouns, to be and to have, the weak pronouns, the
+  commonest verbs, the question words, zero to ten — then frequency with eleven to a thousand from note
+  101, the days from 151 with the months behind them, the colours from 201. γεια σου is the first card,
+  τι κάνεις day 3, με λένε day 4, zero to ten days 15 to 17.
+- **The descriptions**: each ends with a paragraph the record rewrites on every run from `greek-order.js`'s
+  `facts` — the order, the pace, what a card shows, and on A1 where the shelf ends.
+- **CI**: `greek-fix.js --check`, `greek-order.js --check`, `check-greek.js` (never a step before; it now
+  reads the pin). **Shared files touched**: `checks.yml` (those three steps), `lang-decks.js` (regenerated).
+
+After it: the alphabet 50 notes / 90 cards, 9 days; A1 529 notes, days 10 to 115. In arrival order 76.3% of
+a sentence's words have been met and 478 of 1,544 sentences can be read whole (73.0% and 346 of 1,483).
+
+### What was decided against, and why
+
+- **An A2 or a phrases deck.** Each Greek level is asked for on its own. What it would take: an A2
+  inventory in `inventory.py` and its `SCOPE`, one run, every card read; `words_below` already reads A1's
+  shipped file, the 29 added cards included. The seasons, six more colours, αυτόν and the ordinals above
+  third belong there. A phrases deck is the plan's phase 3: Wiktionary has the entries (καλώς ήρθες,
+  χρόνια πολλά, καλό ταξίδι were looked at and left for it).
+- **Moving the romanisation off the card, or a respelling in its place.** §1.3 is the owner's. A phonetic
+  respelling would be typed or worked out by rule; Wiktionary's IPA is quoted, and the alphabet deck's key
+  is the same page's.
+- **An IPA worked out from the spelling for the 74 cards without one.** Reading Greek is regular but the
+  glide, the medial μπ / ντ and loanwords are not; a rule that is right nine times in ten prints a wrong
+  sound on fifty cards.
+- **Adding the words to `inventory.py`.** A1 is cut at 500, so each would push a frequency word off the
+  only deck and renumber the rest.
+- **Tables for εγώ and εσύ, αυτόν in αυτός's table.** Wiktionary has none; a form is never typed. The weak
+  forms are cards.
+- **A continuous-future row** (θα τρώω). It is θα and the present, both on the card; θα's own card says
+  what it does.
+- **A teaching order for the letters, or subdecks for the sets.** Alphabetical order is every primer's, and
+  the app deals subdecks side by side.
+- **Changing `Say` for ο/η γιατρός and σύζυγος.** `check-say.js` (not a CI step; it fails for other shelves
+  too, and failed for these two cards before the pass) notes the speaker says one article; it cannot say a slash.
+- **Removing the film vocabulary** (σκοτώνω, θάνατος): the plan's "Known, left".
+
+### Limits to know about
+
+- **The head's sentences lean on words that arrive later**: over A1's first fifty notes 47.6% of sentence
+  words have been met (12 of 142 sentences whole), against 59.3% by frequency.
+- **74 cards have no IPA**, the phrases and να, τι, που, από, μου among them; 24 show Wiktionary's narrow
+  transcription, whose e̞, ɛ and ɔ the alphabet deck's key does not list.
+- **πώς σε λένε, πώς σας λένε, καλή όρεξη, στην υγειά σου and two numbers have no sentence**; a phrase's
+  romanisation is Wiktionary's headword line, question mark and capital included (Póso kánei?).
+- **The reading rules quote five pages** and were chosen by what A1 needs: nothing on δεν πειράζει-style
+  sandhi, on λ and ν before the glide, or on intonation. The plain line above each quote is this pass's
+  paraphrase. A bracket hidden on the English → Greek card stays hidden on that card's answer side.
+- **That the 29 additions are A1 material is a judgement**; the A1 description says which were added.
+- **Not read card by card**: the 29 added cards, the alphabet and the head of A1 were; the rest is as
+  generated. The browser checks (the Update press; each changed card type photographed front and back at
+  390 px, no overflow, the accents and the final sigma rendered) were scratch scripts.
+- **`alphabet.py --verify` and `inserts.py --check` need the network or the cache and are not CI steps.**
+- **Byte-identity depends on live sources**: on 2026-11-27 kaikki and Tatoeba still gave the committed A1.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 

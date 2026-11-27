@@ -155,6 +155,26 @@
   letter-spacing: 0.02em;
   opacity: 0.6;
 }
+/* THE PRONUNCIATION (the beginner pass): Wiktionary's IPA under the romanisation, which follows the
+   spelling and not the sound. */
+.uc-ipa {
+  margin-top: 1px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+/* "stress moves", beside a form whose accent has left the headword's syllable */
+.uc-fs {
+  white-space: nowrap;
+  margin-left: 6px;
+  font-size: 0.72em;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
+/* a bracket that prints the card's own Greek is not shown on the English → Greek card, whose
+   question is the English side */
+.uc-ask + .uc-field .uc-eg {
+  display: none;
+}
 .uc-fr {
   margin-left: 5px;
   font-size: 0.82em;

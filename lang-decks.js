@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 490 MB of decks. The file itself is fetched on Add. */
+   section without fetching 491 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -225,8 +225,8 @@ window.LANG_DECKS = [
   { lang: "Khmer (Cambodian)", file: "Khmer-A2.folio-deck.json", id: "khmera2", title: "Khmer A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 37, say: false, bytes: 377574, rev: "f3875ced5753" },
   { lang: "Khmer (Cambodian)", file: "Khmer-B1.folio-deck.json", id: "khmerb1", title: "Khmer B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 21, say: false, bytes: 433806, rev: "857aec8d689b" },
   { lang: "Khmer (Cambodian)", file: "Khmer-Phrases-and-Expressions.folio-deck.json", id: "kmphrase", title: "Khmer Phrases and Expressions", sub: "860 phrases and sentences · 35 phrases, 825 sentences · both directions", notes: 860, cards: 1720, subs: 2, tree: [{"n":"Phrases","c":70,"x":0},{"n":"Sentences","c":1650,"x":0}], flat: true, ex: 0, say: false, bytes: 345674, rev: "15e5a8efeeb2" },
-  { lang: "Greek", file: "Greek-Alphabet.folio-deck.json", id: "elabc", title: "Greek Alphabet", sub: "39 letters, letter pairs and signs · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 20633, rev: "bd6c036d16e7" },
-  { lang: "Greek", file: "Greek-A1.folio-deck.json", id: "greeka1", title: "Greek A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1495976, rev: "b4aa63c726e2" },
+  { lang: "Greek", file: "Greek-Alphabet.folio-deck.json", id: "elabc", title: "Greek Alphabet", sub: "40 letters, letter pairs and signs in both directions · 10 reading rules", notes: 50, cards: 90, ex: 0, bytes: 34215, rev: "aecd6c1c8647" },
+  { lang: "Greek", file: "Greek-A1.folio-deck.json", id: "greeka1", title: "Greek A1 Beginner", sub: "529 words and phrases · both directions, as two cards each", notes: 529, cards: 1058, ex: 98, bytes: 1639691, rev: "e58e8ab79e8f" },
   { lang: "Swedish", file: "Swedish-A1.folio-deck.json", id: "swedisha1", title: "Swedish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 838220, rev: "9163b06a486f" },
   { lang: "Swedish", file: "Swedish-A2.folio-deck.json", id: "swedisha2", title: "Swedish A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 98, bytes: 1412787, rev: "9d51e5724891" },
   { lang: "Swedish", file: "Swedish-B1.folio-deck.json", id: "swedishb1", title: "Swedish B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 91, bytes: 1856809, rev: "711244a8dc43" },

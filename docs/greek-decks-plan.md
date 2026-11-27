@@ -8,6 +8,14 @@ applies here unless this file says otherwise. Asked for on 2026-11-09: "Add a Gr
 **STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/greek/`, §6). A2 to C1 and a phrases
 deck are not.
 
+**THE BEGINNER PASS (2026-11-27)** changed what the two files are: the generator is followed by a record
+(`.claude/decks/greek-fixes.json`, `greek-ids.json`, `greek-order.json`), ids are PINNED, A1 is 529 notes in a
+teaching order, the card has a ninth field (`IPA`), the verb table's future row became the six forms after θα
+and να, and the alphabet deck is 50 notes whose every sound is a cell of a Wikipedia page at a pinned revision.
+§3 and §6 below describe the generator as first built; `docs/lang-decks.md` "The Greek beginner pass" has what
+changed and why, `.claude/decks/README.md` "The Greek decks" the files and the rebuild order. The decisions
+of §1 stand.
+
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Greek to the day's
 "collections join the Languages section" line) because it also changed the APP — the shelf's hue in `app.js`.
