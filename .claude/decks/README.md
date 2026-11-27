@@ -527,6 +527,83 @@ pair or a reading rule: a row of `LETTERS` or `RULES` in `alphabet.py` whose com
 and whose rule is a quoted phrase (`--verify`), and its number in `greek-ids.json`. A second level (A2) joins
 `SHELF` in `greek-fix.js` and is seeded into the pin from its first build.
 
+## The Old English decks: the generator, the record, the pinned ids, the order and the sourced alphabet (Nov 2026)
+
+Two decks: the alphabet (card type `oe-abc`, with eight reading rules of card type `oe-read`) and Level 1
+(card type `oldenglish`). **The generator (`.claude/oldenglish/`, Python, a 270 MB cache) rebuilds them byte
+for byte** — since the pass, which found that it had not: Tatoeba's Old English export is part of the corpus
+the level is ranked on and had grown, so it is now PINNED in the repository (`../oldenglish/tatoeba-ang.tsv`;
+`docs/lang-decks.md`, "The Old English beginner pass"). A fault the generator can fix is fixed THERE, and the
+record holds only what is a decision about one order or the end of a description. **A word or a letter is ONE
+NOTE with two card templates** (a reading rule has one), so the pin is of note ids (a card id is the note id,
+plus `~2` for the second direction).
+
+    node oldenglish-fix.js --check             # the two decks are what the record, the pin and the order make of them
+    node oldenglish-order.js --check           # the order and the facts are what the rules give
+    node ../oldenglish/check-oldenglish.js     # pinned ids, a reference on every sentence, no answer on its own question, labels, balanced markup
+    python3 ../oldenglish/alphabet.py --verify # every sound and rule of the alphabet deck is in its pinned Wikipedia revision (needs the network or the cache; not in CI)
+
+| file | what it is |
+|---|---|
+| `oldenglish-fixes.json` | the record. `add` is EMPTY: Level 1 gained no card (a level is a band of frequency). `decks`: each deck's `tail`, the paragraph that ends its description and is rewritten on every run from the counts and from the order's `facts` (`subtitle` and `descSub` are honoured and unused). |
+| `oldenglish-ids.json` | deck id → key → the number in the note's id. The key is a word's `Word`, a letter's `Letter` as printed, a reading rule's `Key`. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` (none yet). APPLIED, so a deck the generator has just numbered by position is numbered back. For Level 1 the number is the word's rank in the count of 2026-11-09. A new alphabet note gets its row here by hand. |
+| `oldenglish-order.json` | `oel1.order`: every headword in the order the deck is dealt; `facts` for both decks: every figure a description's last paragraph states that is not a plain count. Written by `oldenglish-order.js`. The alphabet has no order: it keeps `alphabet.py`'s. |
+| `oldenglish-order.js` | how that file is computed, from the PINNED NUMBER: frequency, with one rule — each of eight small closed sets (`SETS`) arrives together where its commonest member falls. A set word that is not a Level 1 card is an error. `--report` prints where everything fell. |
+| `oldenglish-fix.js` | applies all three, in this order: the ids, the order, the descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. |
+| `../oldenglish/tatoeba-ang.tsv` | Tatoeba's Old English export, pinned (id, Old English, the shortest English translation; CC BY 2.0 FR). `corpus.py` counts the sentences up to `TATOEBA_CUT`; `examples.py` reads all of it. `run.py --snapshot-tatoeba` rewrites it — a decision: newer sentences become examples, and the cut keeps the ranking still. |
+| `../oldenglish/thorpe.py` | Ælfric's sentences paired with Thorpe's facing translation, by page, under an anchor check; `examples.py` puts them first. |
+
+`oldenglish-fix.js` finds its decks by CARD TYPE (`oldenglish`, `oe-abc`). **A rebuild**, after any change to
+the generator: `python3 ../oldenglish/run.py --no-fetch` (or without the flag, for a first fetch),
+`../oldenglish/alphabet.py` (it reads Level 1's deck file for its example words), `oldenglish-fix.js`,
+`oldenglish-order.js`, `oldenglish-fix.js` again, `node .claude/build-lang-decks.js`. To add a letter or a
+reading rule: a row of `LETTERS` or `RULES` in `alphabet.py` whose comparison is a row of the key and whose
+rule is a quoted phrase (`--verify`), and its number in `oldenglish-ids.json`. To change the order: a row of
+`SETS`. **Level 2** joins `SHELF` in `oldenglish-fix.js` and is seeded into the pin from its first build;
+`select.py` cuts a band by rank and does not read the levels below, so build it on the same cache.
+## The Swahili decks: the generator, the record, the pinned ids, the order and the sounds deck (Nov 2026)
+
+Seven decks: A1, A2, B1, B2, C1 and the phrases (card type `swahili`) and the sounds deck (card type
+`swsound`). As with Urdu and Turkish, **the generator (`.claude/swahili/`, Python, a 330 MB cache)
+reproduces the six word decks** — proved before the pass with every source fetched fresh
+(`docs/lang-decks.md`, "The Swahili beginner pass": four files byte for byte, one sentence field each of A1
+and A2, Tatoeba's export having moved). So a fault the generator can fix is fixed THERE, and the record holds
+only what is a decision about one card or one order: which cards move down to A1, which are added, which
+note is dropped, the hints, the order, the end of each description. **A word is ONE NOTE with two card
+templates**, so the pin is of note ids (a card id is the note id, plus `~2` for English → Swahili). The key
+is the card's `Word` field: a verb's infinitive, an agreeing word's stem without its hyphen (`zuri`).
+
+    node swahili-fix.js --check               # the decks are what the record, the pin and the order make of them
+    node swahili-order.js --check             # the order file is what its rules give
+    node build-swahili-sounds.js --check      # the sounds deck is what its table and Swahili A1 give
+    node ../swahili/check-swahili.js          # no word on two decks, pinned ids, known forms labels, balanced markup
+    python3 ../swahili/inserts.py --check     # the record's added cards are what the generator's code builds (needs the cache; not in CI)
+    python3 ../swahili/sounds.py --verify     # every cell and quotation of the sounds table is in its pinned Wikipedia revision (needs the network; not in CI)
+
+| file | what it is |
+|---|---|
+| `swahili-fixes.json` | the record. `add`: deck id → rows, each `word`, `id` and `why`, and either `from` (a MOVE: the generator deals the card to that deck; `swahili-fix.js` takes it out of there whole, so a generator fix reaches it, and takes off the `not …` label its old deck gave it) or `fields` and `src` (an INSERT: a card no deck had). **`add` is written by `../swahili/inserts.py`, never by hand** — its lists are at the top of that script. `drop`: a note the generator no longer deals (`select.EXCLUDE`), its number retired; the row fails while the generator still deals it. `decks`: each deck's `subtitle` template, `descSub` pairs, `hints` (`{ word: [other words] }`, the reverse-card label `not <the others>`; one that would print a word of the card's own answer is refused) and `tail`, the paragraph that ends its description and is recounted on every run. |
+| `swahili-ids.json` | deck id → `Word` (for the sounds deck, the row's `key`) → the number in the note's id. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` by the move's or the drop's own row. APPLIED, so a deck the generator has just numbered by position is numbered back. Seeded on 2026-11-27 from the six decks as shipped (5,534 rows, each equal to its position). One key was renamed by hand, its number kept: A1's 43, `kwanza` → `kuanza` (`sw.HEAD_INF`). |
+| `swahili-order.json` | deck id → every `Word` in the order the deck is dealt (A1, the phrases), and `_stats`, the figures a description states that only `swahili-order.js` can count. A deck with no entry (A2 to C1) is dealt in the order of its pinned numbers. |
+| `swahili-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank as first shipped) and never from the file's own order: A1's hand-written head of 120, the closed sets at stated note numbers; the phrases by the lowest level whose cards spell them. A card the record added to A1 that is named nowhere is an error. `--report` prints where everything fell. |
+| `swahili-fix.js` | applies all three, in this order: the moves and inserts, the drops, the dup check, the ids, the order, the hints, the subtitles and descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. Holds the sounds deck to its pin and counts it on the shelf; never writes it. |
+| `swahili-sounds.json` | the sounds table: a sound row names one symbol of the key of Wikipedia's Help:IPA/Swahili and `../swahili/sounds.py --fill` writes that row's cells (never typed); a `says` is a quoted run of one of four pages at the revisions it names; `ipa` is the English Wiktionary's transcription of each A1 headword that has one. A row's `key` is what its id is pinned to. A rule's table of forms is not stored: `grid` names A1 cards and the cells of their Forms rows. |
+| `build-swahili-sounds.js` | writes `Swahili-Sounds-and-Spelling` (card type `swsound`). **Reads no live source**: the table and the shipped A1 deck. A sound's A1 examples are the first three words A1 deals whose spelling has it, so they follow A1's order. |
+| `../swahili/inserts.py` | builds the `add` rows: checks every move against the pin, and builds an insert's five fields with `build_deck.build`, its sentences found by `examples.pick` after A1's own 500 rows have taken theirs. |
+
+`swahili-fix.js` finds its decks by CARD TYPE. **A rebuild**, after any change to the generator:
+`python3 ../swahili/run.py --level a1 --no-fetch` … `a2`, `b1`, `b2`, `c1`, `phr` (all six, in that order: a
+moved card lives in the deck it came from until `swahili-fix.js` moves it, and is not stored in the record;
+add `--re-extract` to the first after a change to `extract.py`), `../swahili/inserts.py`, `swahili-fix.js`,
+`swahili-order.js`, `swahili-fix.js` again, `build-swahili-sounds.js`, `swahili-fix.js` a third time (the
+sounds deck's days are in every tail), `node .claude/build-lang-decks.js`. `swahili_level.words_below` reads
+the record, so each level — and the phrases deck — is dealt the list it was dealt before anything moved. To
+move a word down: a row of `MOVES` at the top of `inserts.py`, the sequence from `inserts.py` on, and its
+name in the head or a set of `swahili-order.js` if it lands in A1. To add a card no deck has: a row at the
+END of `INSERTS` (the entry's Wiktionary headword and its part of speech). To add a sound or a rule: a row of
+`swahili-sounds.json` (a sound's `sym` must be a row of the key; a rule's sentences are quoted), then
+`sounds.py --fill`, `sounds.py --verify`, `build-swahili-sounds.js`, `swahili-fix.js`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a
