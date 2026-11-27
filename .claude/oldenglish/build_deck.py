@@ -15,17 +15,44 @@ WHAT A CARD CARRIES:
   · the meanings, grouped by part of speech; a noun's GENDER in its label (Old
     English has three, and the article and every adjective agree), a verb's
     CLASS (strong I-VII, weak 1-3, preterite-present, irregular);
-  · one line of key forms: a noun's genitive and plural, a verb's principal
+  · one line of key forms: a noun's genitive, plural and declension, a verb's principal
     parts (past, past plural, past participle -- the forms a strong verb has to
     be learnt by), an adjective's comparative and superlative;
   · the Modern English DESCENDANT where Wiktionary traces one (cyning -> king),
     labelled as a descendant, since cniht's is "knight" and it means "boy";
-  · the paradigm behind a fold, and up to three Tatoeba sentences behind another.
+  · the paradigm behind a fold, and up to three sentences behind another, each with its
+    reference (Ælfric by Thorpe's page, Tatoeba by sentence id).
+
+THE BEGINNER PASS (2026-11-27; docs/lang-decks.md, "The Old English beginner pass") found
+that the commonest forms of the corpus were on no card, and why:
+  · `table_html` cut a declined word's table at the first row that repeated the first row's
+    tags, to drop an adjective's weak half -- but a CELL WITH TWO FORMS repeats its tags at
+    once, so sē (sē, þē) showed one cell of thirty and gōd (betera, sēlra) none of its own:
+    þām, þǣre, þæs and þone are 3.0% of every word Ælfric wrote.  The halves are now found
+    by the first cell's tags coming round AGAIN after other cells (`halves`), and the weak
+    half is shown, since "se hālga", "þā ēċan" are weak and as common as the strong;
+  · a word declined by gender without a number (hwā, hwæt) or in the plural only (twēġen)
+    had no table, or one with the genders run together;
+  · THE TEXTS' OWN SPELLINGS.  Wiktionary prints early West Saxon and Ælfric wrote late:
+    forþan for forþon, būton for būtan, þisum for þissum, sceolon for sċulon.  `also` adds one
+    line to the card, "also in the texts": a spelling is printed only when TWO sources agree
+    -- Wiktionary files it under this word in an entry of its own (an alternative form, or
+    a form of it) AND the corpus prints it at least `ALSO_MIN` times for this word -- and no
+    form already on the card is the same spelling under `oe.fold`.  The spelling is
+    Wiktionary's; none is typed here;
+  · a noun's declension is on its forms line (strong a-stem, weak, strong consonant stem),
+    as its Wiktionary table names it -- not in the label, which is part of the English side:
+    bearn and ċild are both "child", and two labels that differed only by "a-stem" and
+    "z-stem" would have passed for two different questions;
+  · a bracket of the English side that prints the card's own headword is wrapped in
+    `.uc-eg`, which the type's CSS hides under "Say it in Old English" (swā's gloss said
+    'often doubled as "swā swā"'), and a "compare Old Norse þat" is dropped.
 """
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from oe import fold
+from extract import plain
 from oe_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, BANDS
 
 STAMP = '2026-11-09T00:00:00.000Z'
@@ -112,7 +139,8 @@ def gloss_list(e, word, lex):
     for g in e['glosses']:
         if g['weak'] and gl:
             continue
-        t = re.sub(r'\s*[:;,]\s*$', '', g['g']).strip()
+        t = re.sub(r'[;,]?\s*compare [^()]*(?=\))', '', g['g'])     # "(…; compare Old Norse þat, Dutch dat)"
+        t = re.sub(r'\s*[:;,]\s*$', '', t).strip()
         m = SYNONYM.match(t)
         if m and m.group(1) in lex:                 # "synonym of missenlīċ": say what it means
             t = lex[m.group(1)]['entries'][0]['glosses'][0]['g']
@@ -142,6 +170,25 @@ def label(e):
     return lab
 
 
+BRACKET = re.compile(r'\s*\([^()]*\)')
+
+
+def gloss_html(g, word):
+    """A gloss as HTML.  A bracket that prints the card's own headword is wrapped in `.uc-eg`:
+    the English side is the QUESTION of the English -> Old English card, and nothing on it may
+    spell the answer."""
+    own = fold(word)
+    out, at = [], 0
+    for m in BRACKET.finditer(g):
+        if own in {fold(t) for t in re.findall(r"[^\W\d_]+", m.group(0))} and \
+                re.search('[þðæǣāēīōūȳċġ]', m.group(0)):
+            out.append(E(g[at:m.start()]))
+            out.append(f'<span class="uc-eg">{E(m.group(0))}</span>')
+            at = m.end()
+    out.append(E(g[at:]))
+    return ''.join(out)
+
+
 def english(ents, word, lex):
     parts, shown = [], set()
     for e in ents:
@@ -149,8 +196,8 @@ def english(ents, word, lex):
         if not gl or all(x in shown for x in gl):
             continue
         shown.update(gl)
-        body = (f'<div class="uc-gl">{E(gl[0])}</div>' if len(gl) == 1 else
-                '<ol class="uc-gls">' + ''.join(f'<li>{E(x)}</li>' for x in gl) + '</ol>')
+        body = (f'<div class="uc-gl">{gloss_html(gl[0], word)}</div>' if len(gl) == 1 else
+                '<ol class="uc-gls">' + ''.join(f'<li>{gloss_html(x, word)}</li>' for x in gl) + '</ol>')
         parts.append(f'<div class="uc-sense"><div class="uc-pos">{E(label(e))}</div>{body}</div>')
     return ''.join(parts)
 
@@ -182,7 +229,8 @@ def forms_line(e):
     if e['pos'] == 'noun':
         gs = cells(e['rows'], 'genitive', 'singular')[:1]
         pl = cells(e['rows'], 'nominative', 'plural')[:1]
-        bits = [fi('genitive', gs), fi('plural', pl)]
+        bits = [fi('genitive', gs), fi('plural', pl),
+                fi('declension', [e['ncls']] if e.get('ncls') else [])]
     elif e['pos'] == 'verb' and e.get('vt'):
         vt = e['vt']
         bits = [fi('past', vt.get('past_thi', [])[:1]), fi('past plural', vt.get('past_pl', [])[:1]),
@@ -193,6 +241,42 @@ def forms_line(e):
                 fi('superlative', hf.get('superlative', [])[:1])]
     bits = [b for b in bits if b]
     return f'<div class="uc-forms">{"".join(bits)}</div>' if bits else ''
+
+
+ALSO_MIN = 5
+ALSO_MAX = 6
+SHOWN = re.compile(r'class="uc-(?:fl">[^<]*</span>|cj-f">)([^<]*)<')
+
+
+def also(L, ents, shown_html, texts):
+    """The spellings the corpus prints for this word that no form on its card is (see the
+    header): Wiktionary files each under the word AND the corpus has it `ALSO_MIN` times."""
+    word = L['word']
+    have = {fold(word)}
+    for m in SHOWN.finditer(shown_html):
+        for x in re.findall(r"[^\W\d_]+(?:-[^\W\d_]+)*", html.unescape(m.group(1))):
+            have.add(fold(x))
+    cands = {}
+    for sp in list(L.get('spellings', [])) + [a for e in ents for a in e['alts']]:
+        k = fold(sp)
+        if k in have or re.search('[\u16a0-\u16ff]', sp) or ' ' in sp:
+            continue
+        n = texts['count'].get((k, word), 0)
+        if n >= ALSO_MIN:
+            cands.setdefault(k, []).append(sp)
+    out = []
+    for k, sps in cands.items():
+        # of two Wiktionary spellings the fold makes one, the one the corpus prints
+        best = sorted(set(sps), key=lambda x: (plain(x) != texts['surface'].get(k), x))[0]
+        out.append((-texts['count'][(k, word)], best))
+    return [sp for _, sp in sorted(out)[:ALSO_MAX]]
+
+
+def also_html(forms):
+    if not forms:
+        return ''
+    return (f'<div class="uc-also"><span class="uc-fl">also in the texts</span>'
+            f'{E(", ".join(forms))}</div>')
 
 
 def row(lab, forms):
@@ -211,6 +295,23 @@ def block(head, rows):
 
 CASES = ('nominative', 'accusative', 'genitive', 'dative')
 CASES_I = CASES + ('instrumental',)
+GENDERS = ('masculine', 'feminine', 'neuter')
+HEAD_ONLY = {'comparative', 'superlative', 'adverb'}
+
+
+def halves(R):
+    """A declined word's table as (strong, weak).  An adjective's table is its strong
+    declension and then its weak one; the weak half begins where the FIRST cell's tags come
+    round again after other cells have intervened -- not at the next row with those tags,
+    which is only that cell's second form (sē, þē).  A third run (a variant paradigm, as
+    under miċel) is left out.  A word with one declension (sē, þēs) has no weak half."""
+    R = [r for r in R if not set(r[1]) & HEAD_ONLY]
+    if not R:
+        return [], []
+    starts = [i for i in range(len(R)) if R[i][1] == R[0][1] and (i == 0 or R[i - 1][1] != R[0][1])]
+    cut = starts[1:3] + [len(R), len(R)]
+    return R[:cut[0]], R[cut[0]:cut[1]]
+
 
 
 def table_html(e):
@@ -237,13 +338,33 @@ def table_html(e):
     elif e['pos'] == 'noun':
         blocks = [block(n, [row(c, cells(R, c, n)) for c in CASES]) for n in ('singular', 'plural')]
     elif e['pos'] in ('adj', 'det', 'article', 'pron', 'num'):
-        genders = [x for x in ('masculine', 'feminine', 'neuter') if cells(R, x)]
-        if genders:
-            # an adjective's table is strong then weak; the strong half is the one listed first
-            strong = R[:next((i for i in range(1, len(R)) if R[i][1] == R[0][1]), len(R))]
-            blocks = [block(f'{x} singular', [row(c, cells(strong, c, x, 'singular')) for c in CASES_I])
+        strong, weak = halves(R)
+        genders = [x for x in GENDERS if cells(strong, x)]
+        numbered = any(set(t) & {'singular', 'plural', 'dual'} for _, t in strong)
+        if genders and not numbered:
+            # declined by gender with no number at all (hwā, hwæt): one block, a row a cell
+            seen, rows_ = [], []
+            for _, t in strong:
+                key = tuple(x for x in CASES_I + GENDERS if x in t)
+                if key in seen or not set(key) & set(CASES_I):
+                    continue
+                seen.append(key)
+                rows_.append(row(', '.join(key), [f_ for f_, t2 in strong
+                                                   if tuple(x for x in CASES_I + GENDERS if x in t2) == key]))
+            blocks = [block('forms', rows_)]
+        elif genders:
+            blocks = []
+            for name, half in (('strong ' if weak else '', strong), ('weak ', weak)):
+                if not half:
+                    continue
+                sg = [block(f'{name}{x} singular', [row(c, cells(half, c, x, 'singular')) for c in CASES_I])
                       for x in genders]
-            blocks.append(block('plural', [row(c, cells(strong, c, 'plural')) for c in CASES_I]))
+                if any(sg):
+                    blocks += sg
+                    blocks.append(block(f'{name}plural', [row(c, cells(half, c, 'plural')) for c in CASES_I]))
+                else:                                  # the plural only, by gender: twēġen, twā, tū
+                    blocks += [block(f'{name}{x} plural', [row(c, cells(half, c, x, 'plural')) for c in CASES_I])
+                               for x in genders]
         else:
             sg = [row(c, cells(R, c, skip=('plural', 'dual'))) for c in CASES]
             pl = [row(c, cells(R, c, 'plural')) for c in CASES]
@@ -276,11 +397,25 @@ def mark(sentence, hits):
 
 def examples_html(exs):
     return ''.join(f'<div class="uc-exi"><div class="uc-exz">{mark(s, hits)}</div>'
-                   f'<div class="uc-exe">{E(en)}</div></div>' for s, en, hits in exs)
+                   f'<div class="uc-exe">{E(en)}</div><div class="uc-exsrc">{E(ref)}</div></div>'
+                   for s, en, hits, ref in exs)
+
+
+def text_counts(lex):
+    """(folded token, lemma) -> how often the corpus prints it for that lemma, and each folded
+    token's commonest spelling: what `also` asks."""
+    freq = json.load(open('freq.json', encoding='utf-8'))
+    count = {}
+    for key, (n, hs) in freq.items():
+        h = max(hs, key=lambda x: (lex[x]['freq'], x))
+        k = key.rstrip('^')
+        count[(k, h)] = count.get((k, h), 0) + n
+    return {'count': count, 'surface': json.load(open('surface.json', encoding='utf-8'))}
 
 
 def build(rows, lex, exs):
     cards, entries = [], []
+    texts = text_counts(lex)
     for r in rows:
         L = lex[r['word']]
         ents = entries_for(L, lex)
@@ -290,28 +425,56 @@ def build(rows, lex, exs):
         word = L['word']
         ipa = next((e['ipa'] for e in ents if e['ipa']), '')
         ex = exs.get(word, [])
+        forms = forms_line(main)
+        table = next((t for t in map(table_html, ents) if t), '')
         cards.append({'sub': '', 'fields': {
             'OE': E(word),
             'IPA': E(ipa),
             'Word': word,
             'English': english(ents, word, lex),
-            'Forms': forms_line(main),
+            'Forms': forms + also_html(also(L, ents, forms + table, texts)),
             'Modern': modern_html(ents, word),
-            'Table': next((t for t in map(table_html, ents) if t), ''),
+            'Table': table,
             'Examples': examples_html(ex),
         }})
+        F = cards[-1]['fields']
+        shown = {fold(word)}
+        for m in SHOWN.finditer(F['Forms'] + F['Table']):
+            shown.update(fold(x) for x in re.findall(r"[^\W\d_]+(?:-[^\W\d_]+)*", html.unescape(m.group(1))))
         entries.append({'word': word, 'pos': main['pos'], 'examples': len(ex),
-                        'modern': bool(cards[-1]['fields']['Modern']), 'ipa': bool(ipa)})
+                        'aelfric': sum(1 for x in ex if x[3].startswith('Ælfric')),
+                        'modern': bool(F['Modern']), 'ipa': bool(ipa), 'shown': sorted(shown),
+                        'also': 'uc-also' in F['Forms'],
+                        'tabled': bool(F['Table'])})
     return cards, entries
+
+
+def coverage(entries):
+    """Of the corpus's running words, the share that is a form some card prints -- headword,
+    key forms, table, the texts' spellings -- under `oe.fold`; the share that is a form of a
+    word BEYOND this level; and the share no Wiktionary entry matches (names, and late
+    spellings nothing files)."""
+    toks = json.load(open('tokens.json', encoding='utf-8'))
+    matched = {k.rstrip('^') for k in json.load(open('freq.json', encoding='utf-8'))}
+    shown = {k for e in entries for k in e['shown']}
+    total = sum(toks.values())
+    on = sum(n for k, n in toks.items() if k in shown)
+    later = sum(n for k, n in toks.items() if k not in shown and k in matched)
+    return on / total, later / total, (total - on - later) / total
 
 
 def desc(entries, n):
     a, b = BANDS[LEVEL]
     ex3 = sum(1 for e in entries if e['examples'] == 3)
     ex0 = sum(1 for e in entries if e['examples'] == 0)
+    exa = sum(1 for e in entries if e['aelfric'])
     mod = sum(1 for e in entries if e['modern'])
     nouns = sum(1 for e in entries if e['pos'] == 'noun')
     verbs = sum(1 for e in entries if e['pos'] == 'verb')
+    adjs = sum(1 for e in entries if e['pos'] == 'adj')
+    also_n = sum(1 for e in entries if e['also'])
+    noipa = sum(1 for e in entries if not e['ipa'])
+    cov, later, nomatch = coverage(entries)
     band = ('the 500 commonest words of Old English prose' if a == 1 else
             f'the words ranked {a:,} to {b:,} in frequency in Old English prose, after the '
             f'{a - 1:,} the levels below this one teach')
@@ -325,25 +488,42 @@ def desc(entries, n):
         "The words were counted over about 112,000 words of Old English prose — Ælfric's Catholic "
         "Homilies (Thorpe's 1844 edition), the reading texts of Sweet's Anglo-Saxon Primer and "
         "Tatoeba's Old English sentences — by the WHOLE word, every form of a noun or a verb "
-        "added together, and the cards are dealt in that order, the commonest first. Ælfric was a "
+        "added together. Ælfric was a "
         "preacher and most surviving prose is religious, so God, Christ, heaven and the apostles "
         "come early; the vocabulary of the poetry is not here. "
         "Every headword is printed as modern editions and Wiktionary print it: a macron marks a "
         "long vowel (stān, 'stone') and a dot marks ċ and ġ where they are said 'ch' and 'y' "
-        "(iċ, ġēar), with a reconstructed pronunciation in IPA beneath; the Old English Alphabet "
+        "(iċ, ġēar), with a reconstructed pronunciation in IPA beneath"
+        + (f" ({noipa} words have none: Wiktionary gives none)" if noipa else "") +
+        "; the Old English Alphabet "
         "deck, the first in this collection, teaches how to read both. There is no speaker, "
         f"because no voice reads Old English. The {nouns} nouns show their gender, "
-        f"genitive and plural; the {verbs} verbs show their class and their principal parts — "
-        "past, past plural, past participle — which is how a strong verb is learnt; the All forms "
-        f"fold holds the paradigm. {mod} of the {n} words show their Modern English descendant "
+        f"genitive, plural and declension; the {verbs} verbs show their class and their principal "
+        "parts — past, past plural, past participle — which is how a strong verb is learnt; the "
+        f"All forms fold holds the paradigm: a noun's four cases, a verb's present, past and "
+        f"subjunctive, and for the {adjs} adjectives the strong and the weak declension. "
+        "THE TEXTS DO NOT SPELL AS THE DICTIONARY DOES: Wiktionary prints early West Saxon and "
+        f"Ælfric wrote late, so {also_n} cards carry a line, 'also in the texts', with the "
+        "spellings the corpus really prints for that word (forþan for forþon, þisum for þissum) — "
+        "only those Wiktionary itself files under the word. With them, the forms printed on these "
+        f"cards are {cov:.0%} of all the running words of the corpus; another {later:.0%} are forms "
+        f"of words beyond this level, and {nomatch:.0%} are names (Iohannes, Petrus) and spellings no "
+        "dictionary entry matches — so about one word in five of a page of Ælfric is still to be "
+        "looked up when this deck is done. "
+        f"{mod} of the {n} words show their Modern English descendant "
         "where one survives (cyning → king), labelled as a descendant, not a translation. "
-        + (f"Real example sentences come with {n - ex0} of the {n} words, three apiece for {ex3} "
-           "of them, the word picked out in colour. " if ex0 < n else "") +
+        + (f"Sentences come with {n - ex0} of the {n} words, three apiece for {ex3} of them, the "
+           f"word picked out in colour and the source under each. On {exa} cards at least one is "
+           "Ælfric's own, in Thorpe's spelling — no macron, no dot, ð as often as þ, an acute here "
+           "and there — with Thorpe's facing translation of 1844 and the page it stands on. The "
+           "rest are Tatoeba's, by sentence number: written by that site's contributors in our own "
+           "time, short and plain, and not evidence of the language. " if ex0 < n else "") +
         "Sources. Meanings, gender, class, forms, pronunciation and descendants: English "
         "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Frequency: counted by this "
         "deck's generator over B. Thorpe (ed.), The Homilies of the Anglo-Saxon Church, vol. 1 "
         "(1844) and H. Sweet, An Anglo-Saxon Primer, 8th ed. (1905), both public domain via "
-        "Project Gutenberg, and Tatoeba. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+        "Project Gutenberg, and Tatoeba. Example sentences: Thorpe's edition and translation "
+        "(public domain) and Tatoeba (tatoeba.org), CC BY 2.0 FR."
     )
 
 

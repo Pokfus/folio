@@ -18,7 +18,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
 import json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sw import norm
+from sw import norm, infinitive
 from swahili_level import LEVEL, TARGET, f, words_below
 from inventory import INVENTORY
 
@@ -118,6 +118,9 @@ EXCLUDE = {
     # read off the phrases deck (2026-11-12)
     'kwa mujibu': 'a fragment of kwa mujibu wa "according to", which C1 teaches',
     'mujibu wa': 'a fragment of kwa mujibu wa "according to", which C1 teaches',
+    # the beginner pass (Nov 2026): both were "my name is..." and each was labelled "not" the other,
+    # which on the English → Swahili card printed two of the answer's three words on its question
+    'jina langu': 'a fragment of jina langu ni "my name is...", which is a card',
     'fanya mapenzi': '"to have sex": left out, as kujamiiana is',
     'lala pamoja': '"to sleep together": left out, as kujamiiana is',
     'shiriki ngono': '"to have sex": left out, as kujamiiana is',
@@ -163,8 +166,10 @@ def say_of(L, pos=''):
     """The headword as a card prints and speaks it."""
     ents = [e for e in L['entries'] if not pos or e['pos'] == pos] or L['entries']
     e = ents[0]
+    if e.get('bare'):
+        return L['word']
     if e['pos'] == 'verb':
-        return e['inf'] or 'ku' + L['word']
+        return infinitive(norm(L['word']), e) or 'ku' + L['word']
     if e['canon'] and e['pos'] in AGREEING:
         return e['canon'].lstrip('-')
     return L['word']

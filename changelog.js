@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1415", released: "2026-11-27T19:50Z" };
+window.FOLIO_VERSION = { v: "1.1422", released: "2026-11-27T19:55Z" };
 
 window.CHANGELOG = [
   {
@@ -47,7 +47,9 @@ window.CHANGELOG = [
       "Latin gains a <b>Sounds and spelling</b> deck with both pronunciations; <b>Latin A1</b> now opens with salvē and valē, and 33 missing words join the levels, the months among them.",
       "The Greek alphabet deck gains <b>ten reading rules</b> and cites its sounds; <b>Greek A1</b> now opens with the greetings and shows each word's pronunciation.",
       "<b>Find it</b> no longer turns the globe to a past state before you guess, says when a year's map is still drawing, and lights a pick's outline with its fill.",
-      "Eight books join the Library: <b>The Tempest</b>, <i>Common Sense</i>, Douglass's <i>Narrative</i>, <i>Egyptian Tales</i>, Freud, James, Legge's <b>Mencius</b> and Pavlov's <i>Conditioned Reflexes</i>.",
+      "Thirteen books join the Library: <b>The Tempest</b>, <i>Common Sense</i>, Douglass, <i>Egyptian Tales</i>, <i>The Book of the Dead</i>, Freud, James, Thorndike, <b>Mencius</b>, the <b>Communist Manifesto</b>, Darwin, Erman and Pavlov.",
+      "<b>Old English Level 1</b> now shows sē's whole table, bēon's present and Ælfric's own sentences with their page; the alphabet deck cites its sounds and gains <b>eight reading rules</b>.",
+      "Swahili gains a <b>Sounds and spelling</b> deck; <b>Swahili A1</b> now opens with hujambo, every verb shows its tenses and every agreeing word five noun classes.",
     ],
   },
   {
