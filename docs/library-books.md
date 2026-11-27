@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently eighty:
+  matter (chapter 0 — see the Library bullet). Currently eighty-four:
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -181,6 +181,31 @@ book added later will meet the same traps.
   (Westcar_Papyrus, The_Eloquent_Peasant, Tale_of_the_Shipwrecked_Sailor, Story_of_Sinuhe) to it. Excerpt: the
   serpent's coming, the Shipwrecked Sailor. Not included: the introduction (it introduces both series), the index,
   Tristram Ellis's illustrations.
+  `douglass-narrative` (~224 KB, **14 sections** — Garrison's Preface, Phillips's Letter, chapters I–XI and the
+  Appendix, so a tab runs two ahead of the chapter; `chapterWord: "Section"` — **4 notes**, Douglass's own; no original).
+  The first edition, the Anti-Slavery Office, Boston, 1845, validated on Wikisource (Index `Progress=T`, every page
+  quality 4). Public domain worldwide (Douglass d. 1895, Garrison 1879, Phillips 1884). Generic extractor: `dropHeads`
+  takes the Preface's, the Letter's, the half-title over chapter I, each "CHAPTER IV." and the Appendix's heads,
+  `dropTail` the "THE END."; `reFixes` unwrap the right-aligned closings and signatures (Garrison, Phillips, Douglass,
+  the pass in X, the certificate in XI) that arrive as blockquotes, wrap the two indented date/addressee lines that
+  arrive as bare runs, join the Great House Farm song's indented second line and the Appendix parody's title to its
+  verses. Chapter titles are the bare numerals the book prints (`titleOf`). book-scan.js's one real question,
+  "Shalt I not visit" in the Appendix, is the printing's (the IA OCR of `narrativeoflifeo1845doug` agrees): kept.
+  Colour `#3F5A24` (14.0: Lucretius, Petronius, Aesop nearest; Jefferson 25.9). `glossOff`: 13 keys — see the comment on
+  the app.js entry. Excerpt: the turning-point paragraph after the fight with Covey, chapter X. Not included: the title
+  page and the frontispiece portrait.
+  `paine-common-sense` (~127 KB, **6 parts** — the Introduction, Sections I–IV and the Appendix, `chapterWord: "Part"`
+  — **3 notes**, the edition's; **no original**). John Carter's Providence reprint of 1776 ("The Sixth EDITION"), the
+  ONE transcription on en.wikisource (`Common Sense (1776)`; `Common Sense (Paine)` redirects), validated (Index
+  `Progress=T`, Aug 2021): the enlarged text with the Appendix, the address to the Quakers and the "Addition" of the
+  navy calculations. Public domain worldwide (Paine d. 1809). The four sections share ONE page under titled heads with
+  no numeral, so `cut` gained **`cutHeads`** (one pattern per head, in order; `cut(n)` may return null for a part that
+  is a page of its own); **`prep: "paine"`** drops the two FINIS blocks inside the text and rebuilds the Addition's two
+  tables as `bk-table`s (alignment "0"s and ditto marks resolved, the totals' colspan kept). Titles are the title
+  page's list of "SUBJECTS". `dropHeads` the printed heads, `dropTail` Carter's imprint. No `fixes`: book-scan.js's
+  four candidates are all right. Colour `#A20C45` (13.4: Aristophanes, Cervantes nearest; Jefferson 84, Rousseau 40,
+  Hobbes 78 off). `glossOff`: 9 keys — see the comment on the app.js entry. Excerpt: "Society in every state is a
+  blessing…", Section I. Not included: the title page (the front matter quotes its motto).
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
@@ -531,6 +556,17 @@ book added later will meet the same traps.
   a line's end (15 warned: the lemma's spelling differs from the line's, e.g. "sulllies"), none lost; all 222
   end notes reach the page. Fetched through `api`'s index.php fallback (api.php rate-limited from the first
   request). Its home excerpt is "To be, or not to be" (Act III, `p: 25`). Shakespeare's row colours it.
+  `tempest` (~180 KB, all 5 acts, **344 notes**, no original — the Yale Shakespeare of 1918, ed. Chauncey
+  Brewster Tinker, 1876–1963 (Wikipedia; Wikisource tags the volume PD/US|1963; the scan is the 1922 second
+  printing), so public domain in the US by the pre-1929 rule ONLY, in copyright under life plus seventy until
+  2034, and the rights text says so in Hamlet's form; `layout: "yale"`, no `plineFixes` (no "counted line"
+  warning)). Prospero's EPILOGUE is a page of its own, read by the new `postPage` and set at the foot of Act V.
+  333 glosses land on their word, 2 on their text, 9 at a line's end, none lost; all 40 end notes reach the page,
+  the Epilogue's own on its head. `yaleCast` now also reads a group's plain names ("Nymphs," "Reapers," under
+  Iris, Ceres and Juno) — unchanged for Macbeth, Romeo and Juliet and Julius Caesar, and it would restore the
+  "A Gentleman" the shipped Hamlet drops from its Courtiers (not re-imported). Left as transcribed, unverified
+  against the print: "Sesastian" in the list of characters. Home excerpt "Our revels now are ended" (Act IV,
+  `p: 44`). Fetched through index.php (`action=render&useparsoid=0`), api.php rate-limited from the first request.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

@@ -441,3 +441,7 @@ all history/science/philosophy collections".
 ## A border pack's state as a members group (2026-11-20, on request)
 
 A members group may name a state of a lazy BORDER PACK (`atlas/data/borders/<pack>.bin`, which pack: `atlas/data/border-packs.js`) instead of `history.bin`. The window paints it exactly as an extent above (`packOf` / `painted`, `paintExtents` → `groupRings` → `hub.packRings`), the hub fetching the pack once (`hub.startPack`; the worker's slot `pack:<name>`, rings only). The still renderer tints the present-day `keys`; a pack that cannot be read is the plain sentence. `test-atlas-windows.js` §12. 📖 `docs/atlas-v2-border-packs.md`.
+
+## Find it: no fly to the answer, a veil while the year draws, the pick in one frame (2026-11-27)
+
+On request: (1) every round now opens on the whole earth (`fly(15, 20, 1)` in `showRound`); an area round used to fly to its state's centre, which gave the answer away. The reveal still flies to the answer. (2) Until the window reports `settled` for the round's spec (the year's history meshed, the tiles in) the veil `#fi2Veil` ("Drawing the world of 763…" / "Drawing today's map…") covers the board and a tap is ignored (`startWait` / `endWait`, `waiting`; `root._finditApi.waiting()`); it appears only after 150 ms, lifts after 20 s whatever happens, and is never shown on the still renderer. (3) A pick is drawn with one full frame (`win.schedule()`), not `win.flash()`'s fills-only fast frame, so the fill, outline and glow arrive together. `test-atlas-embed.js` §6 still passes.
