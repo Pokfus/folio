@@ -1457,6 +1457,7 @@
     Iliad: "homer-iliad",
     Odyssey: "homer-odyssey",
     Epic_of_Gilgamesh: "epic-of-gilgamesh",
+    Book_of_the_Dead: "book-of-the-dead",
   };
   function glossBook(key) {
     if (!key || isDeckGlossKey(key)) return null;
@@ -13272,6 +13273,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding the Book of the Dead (anonymous, so keyed on its id), measured as the rows above (CIE76 over
+     L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-three light papers, cards and second papers; a sweep of the cube
+     at a step of 3, whose best stands 16.5 from its nearest). THE EURIPIDES TEST: the book a reader takes up beside
+     this one is Ptahhotep, the shelf's other Egyptian text, and this deep aubergine stands 29.9 from its blue; its
+     nearest are Jerome 16.4, the Book of Rites 16.6, Snorri Sturluson 16.6 and the Song of Roland 16.8, none read
+     beside it. It reads 8.31:1 on the tightest light paper. */
+  "book-of-the-dead": "#3F2148",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17616,6 +17624,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "book-of-the-dead",
+      title: "The Book of the Dead",
+      subtitle: "According to the Theban Recension",
+      author: "Anonymous",
+      /* The spells were copied into tombs from the start of the New Kingdom to the Roman conquest; the papyri
+         Budge translates from here are mostly of the New Kingdom (Nu, Ani, Nebseni), a few Ptolemaic (Lepsius's
+         Turin papyrus). `year` is the start of that span, the one number the shelf's sort needs. */
+      written: "c. 1550–50 BCE",
+      year: -1550,
+      translator: "E. A. Wallis Budge",
+      edition: "Egyptian Literature, The World's Great Classics, The Colonial Press, New York, 1901",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: Budge 1857–1934, printed 1901 — pre-1929 in the US,
+         life plus seventy cleared 2005, life plus a hundred runs to 2035. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The spells are some three thousand years old. E. A. Wallis Budge's " +
+        "translation was printed in this anthology in New York in 1901, so it is public domain in the United " +
+        "States as a work published before 1929, and he died in 1934, so it also cleared the translator's life " +
+        "plus seventy years in 2005. Where the term is life plus a hundred it remains in copyright until 2035. " +
+        "The anthology's introduction, by its series editor, and its other contents are not reproduced. (The " +
+        "modern translations by Raymond O. Faulkner and Thomas George Allen are in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Egyptian_Literature/The_Book_of_the_Dead",
+      /* THE PRINTED HEAD IS THE CHAPTER: 114 of them over scan pages 27–155, titled from the printed contents
+         page (six heads it omits take the wording of the head they repeat). Titles repeat where the anthology
+         gives another papyrus's version of a spell. No spell numbers are printed, and no original: see the
+         importer. */
+      chapterWord: "Chapter",
+      count: 114,
+      total: 114,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 114 chapters
+         (every `.ttip`, Nov 2026). Budge's ANT is a fish and his APE the god's sacred ape, not the animals; APEPI is
+         the serpent Apep, not the Hyksos king; the OVERSEER of the palace is an Egyptian title, not a plantation
+         overseer; the BUCKLE is the amulet, not Henry Thomas Buckle; HENNU is the god's sacred boat, not the high
+         steward; QEBH is the cool-water region, not King Qa'a; NOW, SUI, TOUCH and DOMINION are ordinary words;
+         RIGHT AND TRUTH is Maat, not the philosophical term; the EYE is the god's Eye, not the organ; the ALTAR is
+         Egyptian, not Greek; and Budge's PORCELAIN is faience. */
+      glossOff: ["Ant", "Ape", "Apepi", "Overseer", "Henry_Thomas_Buckle", "Henenu_(high_steward)", "Qa'a",
+        "National_Organization_for_Women", "Sui_dynasty", "Somatosensory_system", "Dominion", "Truth", "Human_eye",
+        "Greek_altar", "Porcelain"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27353,6 +27402,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "book-of-the-dead", n: 99, t: "The Negative Confession", p: 2,
+      text: "1. “Hail, thou whose strides are long, who comest forth from Annu (Heliopolis), I have not done iniquity. 2. “Hail, thou who art embraced by flame, who comest forth from Kher-āba, I have not robbed with violence. 3. “Hail, thou divine Nose (Fenti), who comest forth from Khemennu (Hermopolis), I have not done violence [to any man]. 4. “Hail, thou who eatest shades, who comest forth from the place where the Nile riseth, I have not committed theft. 5. “Hail, Neha-hau, who comest forth from Re-stau, I have not slain man or woman." },
     { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,

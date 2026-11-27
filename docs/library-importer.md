@@ -2914,3 +2914,25 @@ the Contrat never prints).
 
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
+
+## `parseText` + `cutHeads` — one run of scan pages, cut at its printed heads (Nov 2026, the Book of the Dead)
+
+`parseText: '<pages index="…" from=A to=B />\n<references/>'` renders that wikitext under the title `page(n)` returns
+(`apiText`: `action=parse` with `text=`, POSTed, held in `CUT_PAGES` for the run — one request for the whole book).
+`cutHeads: { skip, titles }` → `cutAtHeadings(h, n, BOOK, warn)` cuts it at every `wst-heading` div (`{{h|…}}`): the
+heads are COUNTED against `skip + titles.length` and each must carry its title's words (ON/OF/THE excepted) — a missing
+or extra head THROWS. Use it where a section's wiki subpages transclude named sections that do not match the scan pages
+(Budge's anthology: four broken, four missing, two doubled). Three traps the cut handles, none of which throws:
+- **A head sits inside the paragraph flow**: the chapter's last paragraph is left with an unclosed `<p>`, or with none
+  at all where the wikitext had no blank line, and the generic wrapping pass wraps a bare run only to its first inline
+  tag, splitting the sentence. The cut closes the paragraph and wraps the trailing run whole (32 chapters, measured by
+  counting text outside every `<p>`).
+- **A note marker on a head** is moved onto the part's first line (chapter 101's note on its title).
+- **`smallcaps: "rubric"`**: `{{sc}}` (`span.smallcaps`) becomes italic; a run with no capital letter, every `{{asc}}`
+  (`span.wst-asc`) and every `{{asc/s}}…{{asc/e}}` block (`div style="font-variant:all-small-caps"`, opened in one
+  page's body and closed in the next) is set in capitals, the case the transcription did not record. Matched balanced
+  (`blockEnd`), because a rubric can hold a note marker whose brackets are spans.
+
+Re-run after touching: `node .claude/fetch-book.js book-of-the-dead --force` (one parse request), then check 114
+chapters, 126 notes, nothing outside a `<p>` or blockquote, and `node .claude/book-audit.js`.
+

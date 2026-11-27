@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
+  matter (chapter 0 — see the Library bullet). Currently eighty:
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -147,6 +147,25 @@ book added later will meet the same traps.
   in words the book otherwise prints whole (`de-scribed` in I. 47). Public domain worldwide (Todhunter
   d. 1884). Colour `#5A0009` (14.3: the band is full; Plato 41.8 off). `glossOff`: four acronyms that are figures
   named by their points (EDF, AEF, FAC, ECA). Excerpt: Book I's first definitions.
+  `book-of-the-dead` (~282 KB, **114 chapters**, one per printed head, `chapterWord: "Chapter"` — **126 notes**, Budge's;
+  **no original**). E. A. Wallis Budge's translation as printed in the anthology *Egyptian Literature* (The World's Great
+  Classics, The Colonial Press, New York, 1901), scan pages 27–155 of its Wikisource Index (Progress=C: 28 pages
+  validated, 101 proofread). **THE WIKI'S OWN SUBPAGES CANNOT CUT IT**: of the 110, four transclude section names the scan
+  pages do not carry ("Of Drinking Water" returns nothing), four printed chapters have none and two carry two — so the
+  run of pages is rendered in ONE request (`parseText`, `apiText`: `action=parse` with `text=<pages … from=27 to=155/>`)
+  and cut at each `{{h|…}}` head (`cutHeads`, `cutAtHeadings`), checked against `BOTD_TITLES` — the printed contents
+  page's 108 titles in order, plus six heads it omits titled with the contents' wording of the head they repeat.
+  **Rubrics** (`smallcaps: "rubric"`): every small-capital run is italic; runs typed in lower case, `{{asc}}` spans and
+  the three `{{asc/s}}…{{asc/e}}` blocks are set in capitals, as printed (29). Each chapter keeps Budge's bracketed
+  source line under the head ("[From the Papyrus of Nu …]", 110 of 114: Nu 63, Ani 17, Nebseni 11). Nine `fixes`, each
+  read against the Toronto copy's page image (IA `egyptianliteratu00newyuoft`, leaf = scan page − 1) after a word diff
+  against it and Harvard's OCR: `Tern` ×4 → `Tem`, `dnii` → `<i>ānti</i>`, `Recennsion`, `inn`, `neverresting`,
+  `chancellor-inchief`; "foward" (ch. 85) is the printing's and stays. Public domain in the US (1901); Budge d. 1934, so
+  life plus seventy cleared 2005, life plus a hundred runs to 2035, and the rights box says so. Passed over: the wiki's
+  "Papyrus of Ani (1913)", one unsourced e-text page. Colour `#3F2148` (16.5 from its nearest; Ptahhotep 29.9).
+  `GLOSS_BOOK` gains `Book_of_the_Dead`. `glossOff`: 15 keys — see the comment on the app.js entry. Excerpt: the
+  Negative Confession's first five declarations, chapter 99. Not included: the anthology's introduction (by its series
+  editor) and its other contents.
   `voltaire-candide` (~208 KB English, ~185 KB French, **30 chapters**, `chapterWord: "Chapter"` — **2 notes**, the
   edition's; original **French**, paired on the CHAPTER as The Prince is). Smollett's translation as revised by James
   Thornton for Everyman's Library, in a Pantheon Books (New York) printing with Klee's 26 drawings — the only English
