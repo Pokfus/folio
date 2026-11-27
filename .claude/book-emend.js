@@ -143,18 +143,50 @@ function emendRow(c, row) {
   if (nFrom === 0) return nTo >= 1 ? "applied" : "neither `from` nor `to` stands in the " + where;
   return "`from` stands " + nFrom + " times in the " + where + " — it must be unique";
 }
-function applyEmend(id, chapters, table) {
+/* A RULE is an entry with `re` in place of `ch`/`from`: a fault that repeats by a pattern no row
+   could list sensibly — Livy's 600 line-break hyphens are rows (each needs a dictionary to know the
+   word), but the Summa's 889 link serials "([4311]Q[13]" and the Song of Roland's 128 page-break
+   marks are one expression each. `{ re, flags, to, in: "text"|"note"|"both", n, kind, why }`; `n` is
+   how many times it fired when it was written, which is what it adds to the book's `emended` count.
+   A rule must be IDEMPOTENT (what it writes it does not match), so applying it twice is applying it
+   once; it has no "applied" test of its own, which is one reason for the lock below. */
+function emendRule(chapters, rule) {
+  const re = new RegExp(rule.re, rule.flags || "g"); let k = 0;
+  const sub = (h) => h.replace(re, (...m) => { k++; return rule.to.replace(/\$(\d)/g, (x, d) => m[+d] == null ? "" : m[+d]); });
+  const where = rule.in || "both";
+  for (const c of chapters) {
+    if (rule.ch != null && String(c.n) !== String(rule.ch)) continue;
+    if (where !== "note") c.html = sub(c.html);
+    if (where !== "text" && c.notes) c.notes = c.notes.map(sub);
+  }
+  return k;
+}
+function applyEmend(id, chapters, table, start) {
   const rows = (table || loadTable())[id] || [];
   const byN = new Map(chapters.map((c) => [String(c.n), c]));
-  const out = { rows: rows.length, fired: 0, applied: 0, bad: [] };
-  for (const row of rows) {
+  const out = { rows: rows.length, fired: 0, applied: 0, bad: [], count: rows.reduce((a, r) => a + (r.re ? (r.n | 0) : 1), 0) };
+  rows.forEach((row, i) => {
+    if (i < (start | 0)) { out.applied++; return; }
+    if (row.re) { const k = emendRule(chapters, row); if (k) out.fired++; else out.applied++; out.ruleHits = (out.ruleHits || 0) + k; return; }
     const c = byN.get(String(row.ch));
-    if (!c) { out.bad.push({ row, why: "the book ships no chapter " + row.ch }); continue; }
+    if (!c) { out.bad.push({ row, why: "the book ships no chapter " + row.ch }); return; }
     const r = emendRow(c, row);
     if (r === "fired") out.fired++; else if (r === "applied") out.applied++; else out.bad.push({ row, why: r });
-  }
+  });
   return out;
 }
+/* THE LOCK — `.claude/book-emend.lock.json`, `{ "<id>": { entries: N, sha: "…" } }`: the digest of a
+   book's chapters as this tool last left them, and how many of its entries were in by then.
+   Entries are applied IN ORDER and a later one is written against the text the earlier ones left,
+   so a later entry can change words an earlier entry's `to` contained — and then "is `to` there?"
+   wrongly says the earlier one is missing. The lock answers the question the row test cannot: a
+   file whose digest is the lock's HAS its first N entries in, whatever they now look like, and only
+   the entries after N are applied to it. A fresh import has another digest, runs every entry from
+   the first, and must arrive at the lock's digest — which is how a re-import is known to reproduce
+   the audited text exactly. */
+const LOCK = path.join(__dirname, "book-emend.lock.json");
+const digest = (chapters) => require("crypto").createHash("sha256").update(chapters.map(chapterLine).join("\n")).digest("hex").slice(0, 24);
+function loadLock() { try { return JSON.parse(fs.readFileSync(LOCK, "utf8")); } catch (e) { return {}; } }
 /* ---------- the glossary keys a book must not link ----------
    `.claude/book-gloss-off.json`, `{ never: [key…], books: { "<id>": { off: [[key, why]…], offIn: [[key, [chapters], why]…] } } }`
    — the reviewed result of sweeping every link the reader draws (.claude/book-gloss-sweep.js, Nov 2026).
@@ -177,13 +209,17 @@ function fileFields(id, emended, glossTable) {
 }
 /* What fetch-book.js calls from `writeEnglish`, on the finished chapters, just before it serialises. */
 function finish(id, chapters, opts) {
-  const em = applyEmend(id, chapters);
+  const lock = loadLock()[id], before = digest(chapters);
+  const sealed = !!(lock && lock.sha === before);
+  const em = applyEmend(id, chapters, null, sealed ? lock.entries : 0);
   const hf = (opts && opts.keepForm) ? { titles: 0, dashes: 0 } : houseForm(chapters);
-  const emended = em.fired + em.applied;
-  return { emend: em, form: hf, emended, fields: fileFields(id, emended) };
+  const emended = em.count, sha = digest(chapters);
+  /* a fresh import that ran every entry and did not land on the lock's digest has not reproduced the audited text */
+  const drift = !!(lock && !sealed && lock.entries === em.rows && sha !== lock.sha);
+  return { emend: em, form: hf, emended, fields: fileFields(id, emended), sha, sealed, drift, lock };
 }
 
-module.exports = { esc, chapterLine, houseTitle, houseDashes, houseForm, titleCase, applyEmend, finish, loadTable, loadGlossOff, fileFields };
+module.exports = { esc, chapterLine, houseTitle, houseDashes, houseForm, titleCase, applyEmend, finish, loadTable, loadGlossOff, fileFields, loadLock, digest };
 
 /* ---------- the tool ---------- */
 if (require.main === module) {
@@ -197,7 +233,8 @@ if (require.main === module) {
   if (!APPLY && !CHECK) { console.log("usage: node .claude/book-emend.js --check | --apply <id>… | --apply --all | --list <id>"); process.exit(0); }
   for (const id of Object.keys(table)) if (!every.includes(id)) { console.log("book-emend.json names " + id + ", which is not a shipped book"); process.exitCode = 1; }
   const todo = CHECK || ALL ? every : ids;
-  let bad = 0, changed = 0;
+  let bad = 0, changed = 0, lockDirty = false;
+  const newLock = {}, lockOut = loadLock();
   for (const id of todo) {
     const file = path.join(DIR, id + ".js");
     const lines = fs.readFileSync(file, "utf8").split("\n");
@@ -215,6 +252,7 @@ if (require.main === module) {
     if (!chapters.length) continue;
     const before = chapters.map(chapterLine);
     const res = finish(id, chapters);
+    newLock[id] = (table[id] || []).length ? { entries: (table[id] || []).length, sha: res.sha } : undefined;
     for (const b of res.emend.bad) { bad++; console.log(id + " ch" + b.row.ch + " " + (b.row.in || "text") + ": " + JSON.stringify(b.row.from) + " → " + JSON.stringify(b.row.to) + "\n      " + b.why); }
     const after = chapters.map(chapterLine);
     const diff = after.filter((l, k) => l !== before[k]).length;
@@ -225,16 +263,20 @@ if (require.main === module) {
     if (CHECK) {
       if (diff) { bad++; console.log(id + ": " + diff + " chapter(s) are not in the form this tool writes (" + res.emend.fired + " row(s) not yet applied, " + res.form.titles + " title(s), " + res.form.dashes + " `--`) — run: node .claude/book-emend.js --apply " + id); }
       if (want !== have) { bad++; console.log(id + ": its `emended` / `glossOff` / `glossOffIn` lines are not what the two tables give — run: node .claude/book-emend.js --apply " + id); }
+      const lk = res.lock, n = (table[id] || []).length;
+      if (n && !(lk && lk.entries === n && lk.sha === res.sha && res.sealed)) { bad++; console.log(id + ": book-emend.lock.json does not seal this file (" + (lk ? "locked at " + lk.entries + " of " + n + " entries" + (res.sealed ? "" : ", another digest") : "no lock") + ") — run: node .claude/book-emend.js --apply " + id); }
       continue;
     }
+    if (!res.emend.bad.length) { if (newLock[id]) lockOut[id] = newLock[id]; else delete lockOut[id]; lockDirty = true; }
     if (!diff && want === have) continue;
     after.forEach((l, k) => { lines[idx[k]] = l; });
     lines.splice(idLine + 1, endF - idLine - 1, ...res.fields);
     fs.writeFileSync(file, lines.join("\n"));
     changed++;
-    console.log(id + ": " + res.emend.fired + " emendation(s) applied now, " + res.emend.applied + " already in; " + res.form.titles + " title(s) and " + res.form.dashes + " dash(es) put in the house form; " + diff + " chapter line(s) rewritten.");
+    console.log(id + ": " + res.emend.fired + " entr" + (res.emend.fired === 1 ? "y" : "ies") + " applied now" + (res.emend.ruleHits ? " (" + res.emend.ruleHits + " by rule)" : "") + ", " + res.emend.applied + " already in; " + res.form.titles + " title(s) and " + res.form.dashes + " dash(es) put in the house form; " + diff + " chapter line(s) rewritten.");
   }
-  if (CHECK) console.log(bad ? "\n" + bad + " finding(s)." : "book-emend: " + Object.values(table).reduce((a, r) => a + r.length, 0) + " emendation(s) in " + Object.keys(table).length + " book(s), all applied; every book is in the house form.");
+  if (!CHECK && lockDirty) { const o = {}; Object.keys(lockOut).sort().forEach((k) => { o[k] = lockOut[k]; }); fs.writeFileSync(LOCK, "{\n" + Object.keys(o).map((k) => " " + JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}\n"); }
+  if (CHECK) console.log(bad ? "\n" + bad + " finding(s)." : "book-emend: " + Object.values(table).reduce((a, r) => a + r.reduce((x, e) => x + (e.re ? (e.n | 0) : 1), 0), 0) + " emendation(s) in " + Object.keys(table).length + " book(s), all applied; every book is in the house form.");
   else console.log(changed + " file(s) written." + (bad ? " " + bad + " row(s) could not be placed." : ""));
   process.exit(bad ? 1 : 0);
 }

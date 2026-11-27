@@ -19,6 +19,7 @@
          2  book-emend.js --check the emendations are applied; the house form holds
          3  book-audit.js         nothing a finished book cannot contain (report; fails on tag damage only)
          4  test-book-quotes.js   the quotation-mark pass leaves no straight mark and no changed length
+         4b check-cards.js        every card that quotes the book still quotes its words
 
      EVIDENCE — candidates to be read, never a verdict. They never fail the run:
          5  book-spell.js         words no dictionary has, improbable pairs, line-break hyphens
@@ -92,6 +93,15 @@ r = run("book-audit.js");
   step(3, "book-audit", "gate", mine, mine ? (tags ? "FAIL (unbalanced tags)" : "findings to read") : "ok"); if (tags) failed++; }
 r = run("test-book-quotes.js");
 step(4, "test-book-quotes", "gate", r.code ? r.out : "", r.code ? "FAIL" : "ok"); if (r.code) failed++;
+/* 4b — THE CARDS THAT QUOTE THIS BOOK STILL QUOTE IT. A `card.quote` is the book's words in a named section
+   (check-cards.js compares them); an emendation inside a quoted passage, or a re-cut chapter, leaves the card
+   saying something the book no longer does. The first run of the audit's emendations broke seventeen. */
+r = run("check-cards.js");
+{ const blk = (/FAIL: quote-not-verbatim[^\n]*\n((?:  .*\n)*)/.exec(r.out) || [, ""])[1];
+  const ids = [...blk.matchAll(/^  ([a-z0-9]+-\d+)\b.*$/gm)].map((m) => [m[1], m[0].trim()]);
+  let mine = [];
+  if (ids.length) { const { loadCards } = require("./card-io.js"); const cs = loadCards().cards; mine = ids.filter(([cid]) => { const c = cs.find((x) => x.id === cid); return c && c.quote && c.quote.book === id; }).map((x) => x[1]); }
+  step("4b", "card quotations of this book", "gate", mine.join("\n") + (mine.length ? "\nGive each card the book's corrected words: node .claude/add-card-quotes.js <batch.json> --replace" : ""), mine.length ? "FAIL" : "ok"); if (mine.length) failed++; }
 /* ---- evidence ---- */
 r = run("book-spell.js", [id, "--max=60"]);
 step(5, "book-spell", "evidence", tail(r.out, 90), /Skipped/.test(r.out) ? "skipped (no dictionary on NODE_PATH)" : (/— (\d+) word/.exec(r.out) || [])[1] + " word(s), " + ((/, (\d+) improbable/.exec(r.out) || [])[1] || 0) + " pair(s), " + ((/, (\d+) line-break/.exec(r.out) || [])[1] || 0) + " hyphen(s)");

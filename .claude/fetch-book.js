@@ -42934,6 +42934,12 @@ function writeEnglish(chapters, warnings) {
   if (EMEND.emend.rows || EMEND.form.titles || EMEND.form.dashes)
     console.log("  " + EMEND.emend.fired + " of " + EMEND.emend.rows + " emendation(s) fired (book-emend.json); " +
       EMEND.form.titles + " chapter title(s) and " + EMEND.form.dashes + " typed dash(es) put in the house form");
+  if (EMEND.drift) {
+    process.exitCode = 1;
+    console.log("\n  THIS IMPORT DOES NOT REPRODUCE THE AUDITED TEXT. Every emendation ran, and the chapters' digest is " + EMEND.sha +
+      " where .claude/book-emend.lock.json has " + EMEND.lock.sha + ": the source has changed under the book, or an extractor has." +
+      "\n  Read `git diff books/" + id + ".js`; if the new text is right, `node .claude/book-emend.js --apply " + id + "` seals it.");
+  }
   if (EMEND.emend.bad.length) {
     process.exitCode = 1;
     console.log("\n  " + EMEND.emend.bad.length + " EMENDATION(S) DID NOT FIRE — the text has moved under them; correct the row or drop it:");

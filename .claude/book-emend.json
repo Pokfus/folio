@@ -893,7 +893,8 @@
   {"ch":74,"in":"text","from":"city of Mm,","to":"city of Min,","kind":"scan misreading","why":"in read as m; Koptos is the city of Min"},
   {"ch":74,"in":"text","from":"VVawat, Wawa: a","to":"Wawat, Wawa: a","kind":"scan misreading","why":"W read as VV"},
   {"ch":74,"in":"text","from":"Horns and Sēth","to":"Horus and Sēth","kind":"scan misreading","why":"the Two Lords are Horus and Sēth"},
-  {"ch":74,"in":"text","from":"the modem Gebel","to":"the modern Gebel","kind":"scan misreading","why":"rn read as m"}
+  {"ch":74,"in":"text","from":"the modem Gebel","to":"the modern Gebel","kind":"scan misreading","why":"rn read as m"},
+  {"re":"(?<![0-9>.,:\\-–])0(?=[ ,!]+[A-Za-z])(?![0-9])","to":"O","in":"text","n":19,"kind":"scan misreading","why":"digit 0 for the vocative O (19 when written)"}
  ],
  "euclid-elements": [
   {"ch":3,"in":"text","from":"meets the circmference","to":"meets the circumference","kind":"typo","why":"non-word; a letter dropped"},
@@ -974,7 +975,9 @@
   {"ch":4,"in":"text","from":"a dia- meter at","to":"a diameter at","kind":"line-break hyphen","why":"one of 52"},
   {"ch":5,"in":"text","from":"times ex- actly in","to":"times exactly in","kind":"line-break hyphen","why":"one of 52"},
   {"ch":6,"in":"text","from":"pro- portional to two sides","to":"proportional to two sides","kind":"line-break hyphen","why":"one of 52"},
-  {"ch":7,"in":"text","from":"perpen- dicular to the plane","to":"perpendicular to the plane","kind":"line-break hyphen","why":"one of 52"}
+  {"ch":7,"in":"text","from":"perpen- dicular to the plane","to":"perpendicular to the plane","kind":"line-break hyphen","why":"one of 52"},
+  {"re":"(?<![A-Za-z<\\/\"=-])he(?![A-Za-z\"=-])","to":"be","n":60,"kind":"scan misreading","why":"the scan read italic b as h in the enunciations; Euclid has no pronoun 'he' (all 68 read: each is the verb) (60 when written)"},
+  {"re":"(?<=[a-z])-\\n(?=[a-z])","to":"","n":46,"kind":"line-break hyphen","why":"the source's line break after a hyphen inside a word (paral-lelogram, tri-angle) (46 when written)"}
  ],
  "euripides-medea": [
   {"ch":1,"in":"text","from":"young is no inend to sorrow","to":"young is no friend to sorrow","kind":"scan misreading","why":"non-word; Coleridge: 'the soul of the young is no friend to sorrow'"},
@@ -2116,7 +2119,9 @@
   {"ch":1,"in":"text","from":"the solemn sacri- fices.","to":"the solemn sacrifices.","kind":"line-break hyphen","why":"line-break hyphen left inside a word (systematic class, see 'systematic')"},
   {"ch":10,"in":"text","from":"to-day and tomor- row,","to":"to-day and tomorrow,","kind":"line-break hyphen","why":"line-break hyphen left inside a word (systematic class, see 'systematic')"},
   {"ch":8,"in":"text","from":"that of Me- Metius across","to":"that of Metius across","kind":"doubled word","why":"the first syllable printed twice across a line-break hyphen"},
-  {"ch":25,"in":"text","from":"the corn which- had been","to":"the corn which had been","kind":"typo","why":"stray hyphen after a whole word"}
+  {"ch":25,"in":"text","from":"the corn which- had been","to":"the corn which had been","kind":"typo","why":"stray hyphen after a whole word"},
+  {"re":"\\b(four-and|lieutenant|devoting|well|senate|twenty|first|body|commander-in|new|battering|scaling)- (twenty|general|laws|merited|house|two|fruits|politic|chief|raised|rams|ladders)\\b","to":"$1-$2","n":15,"kind":"line-break hyphen","why":"a real compound broken at a line end: the hyphen is the word's, only the space goes (15 when written)"},
+  {"re":"(?<=[a-z])(?<!Pop)- (?=[a-z])(?!(?:and|or|nor|to) )","to":"","n":615,"kind":"line-break hyphen","why":"a printed line ended inside the word and the transcription kept the hyphen and the space (obliter- ated, accus- tomed): 624 read, every one a fault (615 when written)"}
  ],
  "lucretius-nature-of-things": [
   {"ch":1,"in":"text","from":"From out the triped and the Delphian","to":"From out the tripod and the Delphian","kind":"typo","why":"the Pythia's tripod; the same line recurs in Book V as 'From out the tripod and the Delphian laurel'"},
@@ -2787,7 +2792,9 @@
   {"ch":13,"in":"text","from":"</span> XIII After the battle","to":"</span> After the battle","kind":"stray apparatus","why":"the chapter's Roman numeral printed after its section number; every other section opens without one"},
   {"ch":16,"in":"text","from":"</span> XXIII. It was evening","to":"</span> It was evening","kind":"stray apparatus","why":"the chapter's Roman numeral printed after its section number; every other section opens without one"},
   {"ch":25,"in":"text","from":"</span> XX, He was also a good father","to":"</span> He was also a good father","kind":"stray apparatus","why":"the chapter's Roman numeral printed after its section number; every other section opens without one"},
-  {"ch":36,"in":"text","from":"</span> XXIII. Lucullus, after filling","to":"</span> Lucullus, after filling","kind":"stray apparatus","why":"the chapter's Roman numeral printed after its section number; every other section opens without one"}
+  {"ch":36,"in":"text","from":"</span> XXIII. Lucullus, after filling","to":"</span> Lucullus, after filling","kind":"stray apparatus","why":"the chapter's Roman numeral printed after its section number; every other section opens without one"},
+  {"re":"<q> +","to":"<q>","n":0,"kind":"form","why":"a space inside the opening of a quotation (250 when written)"},
+  {"re":" +</q>","to":"</q>","n":0,"kind":"form","why":"a space inside the close of a quotation (250 when written)"}
  ],
  "poetic-edda": [
   {"ch":6,"in":"text","from":"fourth line of stan a 19","to":"fourth line of stanza 19","kind":"scan misreading","why":"'stan a' is 'stanza' with the z lost; the introduction is describing where the Harbarthsljoth begins in the second manuscript"},
@@ -3428,7 +3435,8 @@
   {"ch":96,"in":"text","from":"endured in his labors. in vigil, and in prayer","to":"endured in his labors, in vigil, and in prayer","kind":"scan misreading","why":"full stop for the comma inside a list"},
   {"ch":119,"in":"text","from":"for the lamentation and great. mourning, since","to":"for the lamentation and great mourning, since","kind":"scan misreading","why":"stray full stop between adjective and noun"},
   {"ch":127,"in":"text","from":"and grant mea death by an unknown hand","to":"and grant me a death by an unknown hand","kind":"run-together","why":"the word space is misplaced"},
-  {"ch":132,"in":"text","from":"the prophet said, “T will change your feasts","to":"the prophet said, “I will change your feasts","kind":"scan misreading","why":"the pronoun I read as T"}
+  {"ch":132,"in":"text","from":"the prophet said, “T will change your feasts","to":"the prophet said, “I will change your feasts","kind":"scan misreading","why":"the pronoun I read as T"},
+  {"re":"“ +(?=[A-Za-z])","to":"“","n":0,"kind":"form","why":"a stray space after an opening quotation mark (63 when written)"}
  ],
  "satyricon": [
   {"ch":1,"in":"text","from":"pirates standing in chainson the beach","to":"pirates standing in chains on the beach","kind":"run-together","why":"two words run together"},
@@ -3499,7 +3507,8 @@
   {"ch":5,"in":"text","from":"<br>&#32;&#8203;<br>And Blancandrin","to":"<br>And Blancandrin","kind":"stray apparatus","why":"page-break marker left as an empty verse line"},
   {"ch":8,"in":"text","from":"<br>&#32;&#8203;<br>His catapults","to":"<br>His catapults","kind":"stray apparatus","why":"page-break marker left as an empty verse line"},
   {"ch":13,"in":"text","from":"AOI.<br>&#32;&#8203;</p>","to":"AOI.</p>","kind":"stray apparatus","why":"page-break marker left as an empty line at the end of the laisse"},
-  {"ch":243,"in":"text","from":"<br>&#32;&#8203;<br>Ye see my son","to":"<br>Ye see my son","kind":"stray apparatus","why":"page-break marker left as an empty verse line in the middle of Baligant's speech"}
+  {"ch":243,"in":"text","from":"<br>&#32;&#8203;<br>Ye see my son","to":"<br>Ye see my son","kind":"stray apparatus","why":"page-break marker left as an empty verse line in the middle of Baligant's speech"},
+  {"re":"<br>&#32;&#8203;","to":"","n":0,"kind":"stray apparatus","why":"the scan's page-break marker, set as a blank verse line in 128 laisses (123 when written)"}
  ],
  "sophocles-oedipus-rex": [
   {"ch":7,"in":"text","from":"to match withwith yours","to":"to match with yours","kind":"doubled word","why":"dittography run together"},
@@ -3721,7 +3730,8 @@
   {"ch":3,"in":"note","from":"Sucro, now 4ucar.","to":"Sucro, now Xucar.","kind":"scan misreading","why":"capital X printed as a digit"},
   {"ch":11,"in":"text","from":"Niphates. TheCurtii in","to":"Niphates. The Curtii in","kind":"run-together","why":"two words run together"},
   {"ch":8,"in":"note","from":"is corrupt.. See Groskurd","to":"is corrupt. See Groskurd","kind":"typo","why":"doubled full stop"},
-  {"ch":17,"in":"text","from":"of Apis.. Into this","to":"of Apis. Into this","kind":"typo","why":"doubled full stop"}
+  {"ch":17,"in":"text","from":"of Apis.. Into this","to":"of Apis. Into this","kind":"typo","why":"doubled full stop"},
+  {"re":"(?<![0-9A-Za-z.,:;\\-–])[3-9](?=[a-z]{2})(?!rd|th|ths)","to":"X","n":46,"kind":"scan misreading","why":"capital X read as a digit at the head of a name (3anthus, 7enophon, 4ucar) (46 when written)"}
  ],
  "suetonius-twelve-caesars": [
   {"ch":2,"in":"text","from":"near that of aEsculapius","to":"near that of AEsculapius","kind":"scan misreading","why":"the book writes the ligature as AE (AEmilius, AEtna, AEsculapius in ch5); lower-case a is a misread"},
@@ -3965,7 +3975,9 @@
   {"ch":271,"in":"text","from":"'''''''<i><b>On the contrary,'''''''</b></i>","to":"<i><b>On the contrary,</b></i>","kind":"garbage","why":"runs of wiki-markup apostrophes printed as characters (example of the systematic class)"},
   {"ch":478,"in":"text","from":"above ([4311]Q[13],","to":"above (Q[13],","kind":"stray apparatus","why":"the source's link serial printed before the cross-reference (example of the systematic class)"},
   {"ch":478,"in":"text","from":"([4312]Q[48], A[6])","to":"(Q[48], A[6])","kind":"stray apparatus","why":"as above"},
-  {"ch":613,"in":"text","from":"([5189]XP, Q[2], A[3])","to":"(XP, Q[2], A[3])","kind":"stray apparatus","why":"as above"}
+  {"ch":613,"in":"text","from":"([5189]XP, Q[2], A[3])","to":"(XP, Q[2], A[3])","kind":"stray apparatus","why":"as above"},
+  {"re":"\\[\\d{3,4}\\] ?(?=[A-Z]{1,2}[\\[,])","to":"","n":961,"kind":"stray apparatus","why":"the source's link serial before a cross-reference (([4311]Q[13], …), printed (961 when written)"},
+  {"re":"'{5,}","to":"","n":12,"kind":"stray apparatus","why":"wiki bold-italic marks printed beside a label already in <i><b> (12 when written)"}
  ],
  "sun-tzu-art-of-war": [
   {"ch":6,"in":"text","from":"sure of succeding in your","to":"sure of succeeding in your","kind":"typo","why":"non-word; 'succeeding'"},
@@ -4120,7 +4132,9 @@
   {"ch":11,"in":"text","from":"Her terror-struck companians","to":"Her terror-struck companions","kind":"scan misreading","why":"o read as a; non-word"},
   {"ch":11,"in":"text","from":"what condict was enkindled","to":"what conflict was enkindled","kind":"scan misreading","why":"'fl' read as 'd'; non-word"},
   {"ch":12,"in":"text","from":"lifted to the wails and towers","to":"lifted to the walls and towers","kind":"scan misreading","why":"l read as i: Aeneas points to the city's 'walls and towers'"},
-  {"ch":12,"in":"text","from":"tall forests, Bocks and herds","to":"tall forests, flocks and herds","kind":"scan misreading","why":"'fl' read as 'B'; 'Bocks' is no word, 'flocks and herds' the phrase"}
+  {"ch":12,"in":"text","from":"tall forests, Bocks and herds","to":"tall forests, flocks and herds","kind":"scan misreading","why":"'fl' read as 'B'; 'Bocks' is no word, 'flocks and herds' the phrase"},
+  {"re":"\\bI(?=[oy][a-z])(?!o\\b|onia|onic|opas|ollas|ole|xion|ulus|lus)","to":"l","n":101,"kind":"scan misreading","why":"capital I for l at the head of a word (Iong, Ioud, Iost, Iofty); Io, Ionian, Iopas, Iollas are names and stay (101 when written)"},
+  {"re":"(?<![0-9>.,:])0(?![0-9<])","to":"O","in":"text","n":34,"kind":"scan misreading","why":"digit 0 for the vocative O (0 Sibyl blest), 44 of 45 in Book VI (34 when written)"}
  ],
  "voltaire-candide": [
   {"ch":22,"in":"text","from":"flut-</p>\n<p>tered,","to":"fluttered,","kind":"line-break hyphen","why":"'fluttered' broken by a line-end hyphen AND a false paragraph break; the two paragraphs are one sentence"},

@@ -180,6 +180,28 @@ for (const b of BOOKS) {
   if (GLOSS) for (const k of (b.glossOff || []).concat(Object.keys(b.glossOffIn || {}))) if (!(k in GLOSS)) notes.push(id.padEnd(34) + "`glossOff` names " + JSON.stringify(k) + ", which is not a glossary key (harmless; a note, not a finding)");
 }
 
+/* ---------- the home page's excerpts are the books' own words ----------
+   `HOME_EXCERPTS` in app.js holds one passage per book for the home page's "Continue reading" box, with
+   the chapter's number and TITLE — typed into the eager file, so nothing re-reads them when the book
+   changes. The audit's emendations and the house form left seven of them stale (six titles still in
+   capitals or with their stop, and Strabo's "Erastosthenes" after the book had been corrected). Words
+   only are compared: the box prints plain text, so tags, marks and spacing are not its business. */
+if (!ONLY) {
+  const h0 = app.indexOf("const HOME_EXCERPTS = ["), h1 = app.indexOf("\n  ];", h0);
+  let EX = null;
+  try { EX = (0, eval)(app.slice(app.indexOf("[", h0), h1 + 4)); } catch (e) { fail("", "HOME_EXCERPTS in app.js does not evaluate: " + e.message); }
+  const words = (x) => String(x).replace(/<sup\b[^>]*>[\s\S]*?<\/sup>/g, "").replace(/<span class="bk-n"[^>]*>[\s\S]*?<\/span>/g, " ").replace(/<[^>]+>/g, " ").replace(/&#?\w+;/g, " ").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  for (const e of EX || []) {
+    const t = EN[e.book];
+    if (!t) { fail(e.book, "HOME_EXCERPTS quotes a book that is not shipped"); continue; }
+    const c = t.chapters.find((x) => x.n === e.n);
+    if (!c) { fail(e.book, "HOME_EXCERPTS names chapter " + e.n + ", which the book does not ship"); continue; }
+    if (c.t !== e.t) fail(e.book, "HOME_EXCERPTS titles chapter " + e.n + " " + JSON.stringify(e.t) + "; the book's own title is " + JSON.stringify(c.t));
+    const hay = " " + words(c.html) + " ";
+    for (const part of String(e.text).split("…")) { const w = words(part); if (w && !hay.includes(" " + w + " ")) fail(e.book, "HOME_EXCERPTS' passage is not the book's words in chapter " + e.n + " — near " + JSON.stringify(w.split(" ").slice(0, 8).join(" "))); }
+  }
+}
+
 /* ---------- the reader's list of modern states is the glossary's, against the Atlas's countries ---------- */
 if (!ONLY && GLOSS) {
   const m0 = app.indexOf("/* <gloss-modern-states> */"), m1 = app.indexOf("/* </gloss-modern-states> */");
