@@ -2424,6 +2424,12 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   volume of 1919): `[act, printed, correct, witness]`, applied to the act's cached page BEFORE `extractYale`
   and required to match exactly once. A gloss finds its line by number during extraction, so a number put
   right only in the output (`fixes`) leaves every gloss keyed to it "lost" — six on this play's two misprints.
+- **An EPILOGUE on a page of its own is `postPage`** (Nov 2026, The Tempest, the Yale volume of 1918): read as
+  `prePage`'s prologue is (scene `k: 0`, headed "Epilogue", its glosses under no anchor) and set at the foot of
+  the last act, its markers renumbered past the act's notes. Its verse is wholly italic with no speaker (a
+  centred "Spoken by Prospero" says who), so `SPEAKER` is not asked there — it would take the first italic line
+  for a name; the page's closing `FINIS.` is dropped. `yaleCast` takes a table's plain cells (no italic) as names
+  too, for a group set in roman under a brace.
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 
@@ -2914,3 +2920,34 @@ the Contrat never prints).
 
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
+
+## The `egtales` layout — a plain-text Gutenberg file cut at its contents heads (Nov 2026, Petrie's Egyptian Tales)
+
+Don Quixote's plain-text path with a closed vocabulary of capital lines: every all-capital line alone in a block must be
+a tale head (`EGTALES_HEADS`), a REMARKS head (a `bk-head` in the tale it follows) or a plate caption
+(`EGTALES_CAPTIONS`, dropped); anything else is warned about, never printed. The captions ("THE FAREWELL", "THE
+FLIGHT", "GOING TO WAWAT", a dynasty line under some) read exactly like section heads — the 1899 List of Illustrations
+is what says they are not. A block whose every line is indented two spaces is verse. The witness for the 25 `fixes` is
+a word-level alignment of the transcription against the IA OCR of BOTH printings, keeping only the places where the two
+OCRs agree with each other and not with the transcription (45 hits, most of them OCR noise shared by both), then
+a one-witness pass over words the transcription prints once or twice; every row was read in the scan's text before it
+was written.
+
+Re-run after touching: `node .claude/fetch-book.js petrie-egyptian-tales` (cached; `--force` refetches one file), check
+"6 tales, 147 paragraphs, 1 verse block(s), 4 Remarks heads", "dropped 7 plate caption(s) and 2 [Page N] mark(s)", and
+every `fix applied 1x`.
+
+## `cutHeads` and `prep: "paine"` — titled heads and a pamphlet's tables (Nov 2026, Common Sense)
+
+`cutHeads: [rx, …]` makes `cut` find its heads by TEXT instead of by a "CHAPTER II" numeral: one pattern per head, in
+order, tested on the centred block's text with its tags turned to spaces (so a long s splits a word — "pre s ent",
+"COMMON SENS E." — and the patterns allow for it); a missing head or one out of order THROWS. `cut(n)` may now return
+null, and that part is read whole (Common Sense's Introduction and Appendix are pages of their own).
+
+`prep: "paine"` (`painePrep`, on the raw page after `cut`) removes every centred FINIS block (two inside the text, which
+would otherwise be one-word quotations) and rebuilds each `<table>` as a `bk-table` through the treaty's stash, put
+back right after `cleanBody`: the hidden alignment "0" goes, a ditto mark becomes the words it stands for, a first row
+with no figure is the header, and `colspan` is kept. Gated per book.
+
+Re-run after touching: `node .claude/fetch-book.js paine-common-sense --force` (three fetches), check "1 FINIS dropped"
+on Part 5 and "1 FINIS dropped, 2 table(s) kept" on Part 6, and `node .claude/book-audit.js`.

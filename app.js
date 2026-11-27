@@ -1457,6 +1457,11 @@
     Iliad: "homer-iliad",
     Odyssey: "homer-odyssey",
     Epic_of_Gilgamesh: "epic-of-gilgamesh",
+    // the four works Petrie's first series holds (Nov 2026)
+    Westcar_Papyrus: "petrie-egyptian-tales",
+    The_Eloquent_Peasant: "petrie-egyptian-tales",
+    Tale_of_the_Shipwrecked_Sailor: "petrie-egyptian-tales",
+    Story_of_Sinuhe: "petrie-egyptian-tales",
   };
   function glossBook(key) {
     if (!key || isDeckGlossKey(key)) return null;
@@ -13274,12 +13279,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   "Voltaire": "#12155D",
   /* Nov 2026, adding The Interpretation of Dreams, measured as the rows above (CIE76 over L 12.3–47.8, chroma
      18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen light
-     inks; a sweep of the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: the sweep's best,
-     #3F5A24 at 14.0, has Lucretius as its nearest, and Freud quotes Lucretius on dreams in his first chapter;
-     the next olive keeps him 15.1 off. Its nearest are Hobbes 13.9, the Book of Documents 13.9 and Aesop 14.3,
-     none read beside Freud, while Darwin stands 36.4 off, Aristotle 52.0, Descartes 65.8, Plato 69.8 and Kant
-     89.7. It reads 4.91:1 on the tightest light paper. */
-  "Sigmund Freud": "#3C5721",
+     inks; a sweep of the cube at a step of 3, which tops out at 13.9). First placed at the olive #3C5721, which
+     Frederick Douglass's row, merged the same day, took from the same sweep (1.3 apart), so measured again with
+     Douglass on the shelf. THE EURIPIDES TEST: the sweep's best sit 13.9 from Darwin, 13.5 from Aristotle (whose
+     On Dreams Freud cites) or 13.5 from Sophocles (Oedipus); this brick red's nearest are Livy 13.4, Sun Tzu
+     14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
+     46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
+  "Sigmund Freud": "#844227",
+  /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
+     (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
+     purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
+     tales. Ptahhotep, the shelf's other Egyptian book, stands far off in blue. */
+  "petrie-egyptian-tales": "#422448",
+  /* Nov 2026, adding the Narrative of the Life of Frederick Douglass, measured as the rows above (CIE76 over
+     L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the
+     fifteen light inks; a sweep of the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: held 25
+     or more from Jefferson's Declaration and the King James Bible, the two books read beside this one, the
+     sweep's best still stands: this dark olive green, 14.0 from Lucretius, 14.5 from Petronius and 14.7 from
+     Aesop, none read beside Douglass; Jefferson stands 25.9 off, Darwin 36.8, Rousseau 41.9, the King James
+     Bible 96.6. It reads 4.69:1 on the tightest light paper. */
+  "Frederick Douglass": "#3F5A24",
+  /* Nov 2026, adding Common Sense, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all
+     forty-three distinct light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of
+     the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: the sweep's best sit 13.7–14.0 from
+     Hobbes, Rousseau and Lucretius, all read beside a political pamphlet; held 19 or more from Jefferson, Rousseau,
+     Hobbes, Voltaire, Machiavelli and More, the best are a plum 14.1 from Plato and this crimson at 13.4 — its
+     nearest are Aristophanes 13.4, Cervantes 13.7, Strabo and the Treaty of Versailles 14.3, none read beside
+     Paine, while More stands 29.8 off, Rousseau 39.7, Hobbes 77.6 and Jefferson's Declaration 84.2. It reads
+     4.73:1 on the tightest light paper. */
+  "Thomas Paine": "#A20C45",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16530,6 +16558,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "tempest",
+      title: "The Tempest",
+      // NO `subtitle`: the Folio's title is the whole of it
+      author: "William Shakespeare",
+      /* "c.": acted at court on 1 November 1611, the first performance on record, and probably written
+         shortly before; first printed in the Folio of 1623, where it stands first. */
+      written: "c. 1611",
+      year: 1611,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Chauncey Brewster Tinker, Yale University Press, New Haven, 1918",
+      /* The play has never been in copyright; the Yale edition was published in 1918 and its editor died
+         in 1963 (Wikipedia; Wikisource's PD/US|1963), so it clears the US pre-1929 rule but NOT life plus
+         seventy until 2034 — public domain in the United States only, which the rights text says. */
+      rights:
+        "Public domain in the United States. Shakespeare wrote the play around 1611 and it was first " +
+        "printed in the First Folio of 1623, so the work itself has never been in copyright. The text here " +
+        "is the Yale Shakespeare edition edited by Chauncey Brewster Tinker and published by Yale University " +
+        "Press in 1918, before 1929, so its copyright has expired in the United States. Tinker died in 1963, " +
+        "so his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+        "years, including the United Kingdom and the European Union, until 2034. What is taken is the play " +
+        "and its Epilogue, the edition's list of characters, Tinker's glosses from the foot of each page and " +
+        "his end notes, which are set with the glosses that point to them; his appendices and index are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Tempest_(1918)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I, Prospero's Epilogue at the foot of Act V. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -17660,6 +17720,105 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Abraham", "Alfred_Jodl", "Maine", "Marcus_Antonius_Pallas", "Mora_(military_unit)", "Lyon",
         "St._Paul", "Jericho", "Anglo-Saxon_England", "Sexual_selection", "Israel", "Czech_Republic", "Turkey",
         "Sui_dynasty", "Evolution", "Taste", "Pathology", "Psychology"],
+    },
+    {
+      id: "petrie-egyptian-tales",
+      title: "Egyptian Tales",
+      subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
+      author: "Anonymous",
+      /* The papyri are Middle Kingdom or a little later (the Westcar copy is the latest); Petrie set the tales
+         in the Fourth to the Twelfth Dynasty, which the subtitle keeps as his. `year` is the date sort's one
+         number; the prose carries the range. */
+      written: "c. 2000–1600 BCE (the papyri)",
+      year: -1900,
+      translator: "W. M. Flinders Petrie",
+      edition: "Egyptian Tales, Translated from the Papyri, First Series, ed. W. M. Flinders Petrie, " +
+        "Methuen, London, second edition, 1899 (first published 1895)",
+      /* The only transcription is Project Gutenberg's #7386, which is the 1899 second edition; it was read
+         against scans of both the 1895 and the 1899 printings. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. The tales are about four thousand years old. W. M. Flinders Petrie published this " +
+        "translation in London in 1895, and the second edition used here in 1899, so it is out of copyright " +
+        "in the United States as a work published before 1929; Petrie died in 1942 and F. Ll. Griffith, who " +
+        "revised the translations, in 1934, so it has also been out of copyright for the translator's life " +
+        "plus seventy years since 2013. Where the term is life plus a hundred it remains in copyright until " +
+        "2043. Petrie's introduction, the index and Tristram Ellis's illustrations are not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/7386",
+      // one tab per tale, as the contents page lists them; Petrie's Remarks at the foot of each
+      chapterWord: "Tale",
+      count: 6,
+      total: 6,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all six tabs (every `.ttip`,
+         Nov 2026). GUTENBERG is Project Gutenberg, not the printer; SENMUT is the land the sailors pass ("the land
+         of Senmut"), not Hatshepsut's steward; PALESTINE is the ancient hill country, not the modern state; Petrie's
+         ETHIOPIAN temple is Kushite, not modern Ethiopia's; and KHEPER is the first part of the king's name
+         Kheper-ka-ra, not the god. */
+      glossOff: ["Johannes_Gutenberg", "Senenmut", "State_of_Palestine", "Ethiopia", "Khepri"],
+    },
+    {
+      id: "douglass-narrative",
+      title: "Narrative of the Life of Frederick Douglass",
+      subtitle: "An American Slave, Written by Himself",
+      author: "Frederick Douglass",
+      written: "1845",
+      year: 1845,
+      /* NO `translator`: written in English. */
+      edition: "The first edition, the Anti-Slavery Office, Boston, 1845",
+      /* No limit to state: printed in 1845, its author dead since 1895, Garrison since 1879, Phillips since 1884.
+         See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Frederick Douglass published his Narrative in Boston in 1845 and died in " +
+        "1895; William Lloyd Garrison, who wrote its Preface, died in 1879, and Wendell Phillips, who wrote " +
+        "its prefatory Letter, in 1884. The text is the validated Wikisource transcription of the first " +
+        "edition, from a scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Narrative_of_the_Life_of_Frederick_Douglass,_an_American_Slave",
+      /* NO `origLang`: the book is English. Fourteen sections — Garrison's Preface, Phillips's Letter, Douglass's
+         eleven chapters and his Appendix — so a tab's number runs two ahead of the chapter's (the front matter
+         says so). No `parts`. */
+      chapterWord: "Section",
+      count: 14,
+      total: 14,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 14 sections
+         (every `.ttip`, Nov 2026). NAMESAKES: Lucretia is Lucretia Auld, not the Roman; Noah is Noah Willis, an
+         overseer; Austin is Austin Gore and Austin Woolfolk, not the Texan city; Augustus is one of Douglass's own
+         given names; Stanley is the name he travelled under, not the Falklands' capital; the Richmond is the
+         steamboat John W. Richmond and the Cat the schooner Wild Cat; Mr. Waters owns a wharf. ORDINARY WORDS AND
+         FIGURES: Providence is divine; the Italics are a copybook's lettering; "Spartan-like" simplicity is a
+         figure; Israel is the ark's, biblical; the West India experiment is British emancipation in the Caribbean,
+         not India. What stays is right in place: Maryland, Baltimore, the Chesapeake, Garrison, the Liberator
+         and Newport. */
+      glossOff: ["Lucretia", "Noah", "Austin", "Augustus", "Stanley,_Falkland_Islands", "Richmond", "Cat", "Water",
+        "Providence", "Italic_peoples", "Sparta", "Israel", "India"],
+      id: "paine-common-sense",
+      title: "Common Sense",
+      subtitle: "Addressed to the Inhabitants of America",
+      author: "Thomas Paine",
+      written: "1776",
+      year: 1776,
+      /* NO `translator` — written in English, so the rights box names the printing instead. */
+      edition: "Common Sense: Addressed to the Inhabitants of America, the sixth edition, re-printed by John Carter, Providence, 1776",
+      /* A LIMIT ON NOTHING: a pamphlet of 1776 in a printing of 1776, validated on Wikisource. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. Thomas Paine published Common Sense in Philadelphia in 1776 and died in 1809, and this " +
+        "printing of it was made in Providence in 1776, so it has never been in copyright anywhere. The text is the " +
+        "validated Wikisource transcription of John Carter's reprint.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Common_Sense_(1776)",
+      /* NO `origLang`: the English is the original. Six parts: the Introduction, the four sections the title page
+         lists, and the Appendix (with the address to the Quakers and the Addition's navy tables). */
+      chapterWord: "Part",
+      count: 6,
+      total: 6,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all six parts
+         (every `.ttip`, Nov 2026). YORK is the house of York beside Lancaster, or New-York, not the English city;
+         the JERSEYS are New Jersey, not the Channel Island; ISRAEL and EGYPT are the Bible's (Gideon, Samuel, the
+         Exodus), not the modern states; GERMANY, TURKEY, HOLLAND and CANADA are 1776's — the German lands, the
+         Ottoman Empire, the Dutch Republic and the British province — not the modern countries; and Paine's
+         COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
+      glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
+        "House_of_Commons_of_the_United_Kingdom"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27367,6 +27526,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
     { book: "hamlet", n: 3, t: "Act III", p: 25,
       text: "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and, by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause. There's the respect That makes calamity of so…" },
+    { book: "tempest", n: 4, t: "Act IV", p: 44,
+      text: "You do look, my son, in a mov'd sort, As if you were dismay'd: be cheerful, sir: Our revels now are ended. These our actors, As I foretold you, were all spirits and Are melted into air, into thin air: And, like the baseless fabric of this vision, The cloud-capp'd towers, the gorgeous palaces, The solemn temples, the great globe itself, Yea, all which it inherit, shall dissolve And, like this insubstantial pageant faded, Leave not a rack behind. We are such stuff As dreams are made on, and our little life Is rounded with a sleep.—Sir, I am vex'd: Bear with my weakness; my old brain is…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -27397,8 +27558,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "petrie-egyptian-tales", n: 5, t: "The Shipwrecked Sailor", p: 3,
+      text: "\"Suddenly I heard a noise as of thunder, which I thought to be that of a wave of the sea. The trees shook, and the earth was moved. I uncovered my face, and I saw that a serpent drew near. He was thirty cubits long, and his beard greater than two cubits; his body was as overlayed with gold, and his colour as that of true lazuli. He coiled himself before me." },
     { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
+    { book: "paine-common-sense", n: 2, t: "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution", p: 1,
+      text: "Society in every state is a blessing, but government even in its best state is but a necessary evil; in its worst state an intolerable one." },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,
       text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
@@ -27411,6 +27576,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
     { book: "freud-interpretation-of-dreams", n: 7, t: "VII. The Psychology of the Dream Activities", p: 160,
       text: "At any rate the interpretation of dreams is the via regia to a knowledge of the unconscious in the psychic life." },
+    { book: "douglass-narrative", n: 12, t: "Chapter X", p: 11,
+      text: "This battle with Mr. Covey was the turning-point in my career as a slave. It rekindled the few expiring embers of freedom, and revived within me a sense of my own manhood. It recalled the departed self-confidence, and inspired me again with a determination to be free. The gratification afforded by the triumph was a full compensation for whatever else might follow, even death itself. He only can understand the deep satisfaction which I experienced, who has himself repelled by force the bloody arm of slavery. I felt as I never felt before. It was a glorious resurrection, from the tomb of slavery, to the heaven of freedom. My long-crushed spirit rose, cowardice departed, bold defiance took its place; and I now resolved that, however long I might remain a slave in form, the day had passed forever when I could be a slave in fact." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
   ];

@@ -17873,6 +17873,80 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  tempest: {
+    title: "The Tempest",
+    // NO `subtitle`: the Folio's title is the whole of it
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Chauncey Brewster Tinker, Yale University Press, New Haven, 1918",
+    written: "c. 1611",
+    year: 1611,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1918 (the scan is
+       the second printing, 1922, of the same setting), the series of the other four Yale plays and
+       transcribed on Wikisource in the same way, so the `yale` layout reads it. Tinker lived 1876–1963
+       (Wikipedia; Wikisource tags the volume PD/US|1963): public domain in the United States under the
+       pre-1929 rule, but where the term is life plus seventy NOT until 2034 — the second Yale play that
+       is public domain in the United States only, which the rights text says, in Hamlet's form. The
+       appendices and the index are the editor's apparatus and are left behind, as for Macbeth.
+       Prospero's EPILOGUE is on a page of its own after Act V: `postPage`, set at the foot of Act V
+       (the mirror of Romeo and Juliet's `prePage`). */
+    rights:
+      "Public domain in the United States. Shakespeare wrote the play around 1611 and it was first " +
+      "printed in the First Folio of 1623, so the work itself has never been in copyright. The text here " +
+      "is the Yale Shakespeare edition edited by Chauncey Brewster Tinker and published by Yale University " +
+      "Press in 1918, before 1929, so its copyright has expired in the United States. Tinker died in 1963, " +
+      "so his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+      "years, including the United Kingdom and the European Union, until 2034. What is taken is the play " +
+      "and its Epilogue, the edition's list of characters, Tinker's glosses from the foot of each page and " +
+      "his end notes, which are set with the glosses that point to them; his appendices and index are not " +
+      "reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Tempest_(1918)_Yale",
+
+    about: [
+      "<b>The Tempest</b> opens on a ship breaking up in a storm off an island. The storm is the work of " +
+        "Prospero, once Duke of Milan, who was overthrown twelve years before by his brother Antonio with " +
+        "the help of Alonso, King of Naples, and set adrift with his small daughter Miranda. They came " +
+        "ashore on the island, where Prospero's books of magic made him its master: Ariel, a spirit he " +
+        "freed from a cloven pine, serves him for a promised liberty, and Caliban, the son of the witch " +
+        "who ruled the island before him, serves him as a slave.",
+      "The ship carried Antonio, Alonso, Alonso's son Ferdinand and their court, and Prospero has every " +
+        "one of them brought ashore unharmed and scattered about the island. Ferdinand, believing his " +
+        "father drowned, meets Miranda and the two fall in love at first sight, as Prospero means them to. " +
+        "Antonio tempts Alonso's brother Sebastian to murder the king in his sleep; Caliban, finding a " +
+        "drunken jester and butler, Trinculo and Stephano, takes the butler for a god and plots with them " +
+        "to kill Prospero. Ariel, invisible, frustrates both plots.",
+      "In the last act Prospero has his enemies at his mercy and forgives them. He takes back his dukedom, " +
+        "gives Miranda to Ferdinand, sets Ariel free and promises to break his staff and drown his book. " +
+        "Alone on the stage at the end he speaks an epilogue asking the audience to release him with their " +
+        "applause. The play is one of Shakespeare's last, and readers have long heard in Prospero's " +
+        "farewell to his art Shakespeare's own farewell to the stage, which the play itself does not say.",
+      "It was acted at court before James I on 1 November 1611, the first performance on record, and was " +
+        "probably written shortly before. It drew on accounts of the wreck of the <i>Sea Venture</i> on " +
+        "Bermuda in 1609, and Gonzalo's picture of an ideal commonwealth follows Montaigne's essay on " +
+        "cannibals in John Florio's translation. No single source for the plot is known. The play was not " +
+        "printed in Shakespeare's lifetime; it stands first in the First Folio of 1623, on which every " +
+        "edition rests.",
+      "The text here is the <i>Yale Shakespeare</i> edition of 1918, edited by Chauncey Brewster Tinker, in " +
+        "modernised spelling and divided into acts and scenes. Its line numbers are the edition's, printed " +
+        "every few lines, and can differ by a line or two from another edition's. The numbered notes are " +
+        "Tinker's: the short glosses at the foot of each page, and, where a gloss sent the reader to the " +
+        "back of the book, the longer note it pointed to. The notes are in American spelling, and the " +
+        "speakers' names are abbreviated as his page prints them. Prospero's Epilogue is at the end of Act V.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Tempest (1918) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Tempest (1918) Yale/Notes",
+    castPage: "Tempest (1918) Yale/Text",
+    postPage: "Tempest (1918) Yale/Text/Epilogue",
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -21207,6 +21281,348 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+
+  "petrie-egyptian-tales": {
+    title: "Egyptian Tales",
+    subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
+    author: "Anonymous",
+    translator: "W. M. Flinders Petrie",
+    edition: "Egyptian Tales, Translated from the Papyri, First Series, ed. W. M. Flinders Petrie, " +
+      "Methuen, London, second edition, 1899 (first published 1895)",
+    written: "c. 2000–1600 BCE (the papyri)",
+    year: -1900,
+
+    /* ---------- THE LICENCE, and the edition — which is the 1899 SECOND edition, not 1895 ----------
+       Asked for as "Petrie, Egyptian Tales (1895)". English Wikisource does not carry the book (Author:
+       William Matthew Flinders Petrie lists no Egyptian Tales; the only Petrie tales there are the
+       selection in Egyptian Literature, 1901, which is not this volume). The one transcription is Project
+       Gutenberg's #7386, and its own title page reads SECOND EDITION, LONDON, 1899 — so that is what is
+       shipped and what `edition` says. It was compared word by word against the Internet Archive's OCR of
+       BOTH printings — `egyptiantalestr01petrgoog` (Methuen 1895, the first edition) and
+       `egyptiantalestr00elligoog` (Methuen 1899, second edition) — and the two printings agree with each
+       other everywhere the transcription was found wrong, so the text read is the 1895 text as well.
+
+       Petrie lived 1853–1942 (the Internet Archive's catalogue record of #7386 gives both years), and
+       F. Ll. Griffith, whom the introduction credits with revising the translations, 1862–1934. Published
+       1895 and 1899: public domain in the United States as pre-1929 publications, and past life plus
+       seventy everywhere since 2013; where the term is life plus a hundred it runs to 2043.
+
+       GUTENBERG WAS DOWN FOR MAINTENANCE when this was imported (27 Nov 2026), so `url` is the Internet
+       Archive's mirror of the same ebook (`egyptiantalestra07386gut`, file egpt110.txt, "Edition: 10"),
+       while `sourceUrl` names the ebook itself.
+
+       WHAT IS NOT TAKEN: Petrie's introduction (it introduces both series — it speaks of Anpu and Bata
+       and of Setnau, who are in the second), the index, and Tristram Ellis's illustrations. Each plate
+       left a caption line in the transcription ("THE FAREWELL", "GOING TO WAWAT", a dynasty under some),
+       which reads in the flow exactly like a section head, and they are not: the 1899 List of
+       Illustrations names every one of them. Dropped by EGTALES_CAPTIONS, counted. Petrie's REMARKS after
+       each tale ARE taken — he prints no notes on the page ("Not even numbers are intruded to refer to
+       notes"), the remarks are his whole apparatus, and they stay where he put them, at each tale's foot. */
+    rights:
+      "Public domain. The tales are about four thousand years old. W. M. Flinders Petrie published this " +
+      "translation in London in 1895, and the second edition used here in 1899, so it is out of copyright " +
+      "in the United States as a work published before 1929; Petrie died in 1942 and F. Ll. Griffith, who " +
+      "revised the translations, in 1934, so it has also been out of copyright for the translator's life " +
+      "plus seventy years since 2013. Where the term is life plus a hundred it remains in copyright until " +
+      "2043. Petrie's introduction, the index and Tristram Ellis's illustrations are not reproduced.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/7386",
+    url: "https://archive.org/download/egyptiantalestra07386gut/egpt110.txt",
+
+    layout: "egtales",
+    chapterWord: "Tale",
+    chapters: [1, 2, 3, 4, 5, 6],
+    // the contents page's own titles; the first three are the Tales of the Magicians, nested under it there
+    titleOf: (n) => [
+      "Tales of the Magicians: Khafra's Tale",
+      "Tales of the Magicians: Baufra's Tale",
+      "Tales of the Magicians: Hordedef's Tale",
+      "The Peasant and the Workman",
+      "The Shipwrecked Sailor",
+      "The Adventures of Sanehat",
+    ][n - 1],
+    // Baufra's tale, the shortest, is about 3,900 characters
+    minChars: 2500,
+
+    /* EVERY ROW READ AGAINST BOTH PRINTINGS (see the licence note): the transcription is an OCR, and these
+       are the places where it disagrees with the 1895 and the 1899 scans while they agree with each other.
+       Two (`truth But`, `very self I`) lose a full stop the 1895 scan prints and the 1899 OCR does not read
+       either way. Petrie's own spellings are left — "fascimile" stands in both printings. */
+    fixes: [
+      ["from the Jake", "from the lake", "l read as J; both printings read lake"],
+      ["royal sou Bau", "royal son Bau", "n read as u; both printings read son"],
+      ["Let there he given", "Let there be given", "b read as h; both printings read be"],
+      ["earliest tale or the", "earliest tale of the", "both printings read of"],
+      ["or the children about whom", "of the children about whom", "both printings read of"],
+      ["The tales or the magicians", "The tales of the magicians", "the 1895 printing reads of"],
+      ["black aind blue", "black and blue", "a stray i; both printings read and"],
+      ["Hasten I bring", "Hasten! bring", "! read as I; both printings read Hasten!"],
+      ["came the Sskhti", "came the Sekhti", "e read as s; both printings read Sekhti"],
+      ["Meruitensa then sa^; d unto", "Meruitensa then said unto", "i read as ^;; both printings read said"],
+      ["My Lord Steward-Destroying", "My Lord Steward—Destroying", "both printings print a dash"],
+      ["of thy complaints\" He", "of thy complaints.\" He", "both printings print the stop"],
+      ["accumulate daring the", "accumulate during the", "both printings read during"],
+      ["Belt Jibrin", "Beit Jibrin", "both printings read Beit"],
+      ["ascription of righting", "ascription of fighting", "both printings read fighting"],
+      ["Docs not the eye", "Does not the eye", "the 1899 printing reads Does"],
+      ["in properly and descent", "in property and descent", "both printings read property"],
+      ["ringers; then go and", "fingers; then go and", "the 1895 printing reads fingers"],
+      ["it may-give", "it may give", "a line break taken for a hyphen; the printings break may / give"],
+      ["pre-monu-mental", "pre-monumental", "a line-end hyphen kept; the printings break pre-monu- / mental"],
+      ["Sehote-pabra", "Sehotepabra", "a line-end hyphen kept; the tale itself prints Sehotepabra"],
+      ["Userte-sen", "Usertesen", "a line-end hyphen kept; the book prints Usertesen throughout"],
+      ["knoweth their truth But", "knoweth their truth. But", "the 1895 printing prints the stop"],
+      ["to my very self I was", "to my very self. I was", "the 1895 printing prints the stop"],
+      ["ceased also..", "ceased also.", "a doubled stop; both printings print one"],
+    ],
+
+    about: [
+      "These are four of the oldest stories in the world, translated from Egyptian papyri by " +
+        "<b>W. M. Flinders Petrie</b>, the archaeologist who did more than anyone to turn the digging up " +
+        "of Egypt into a science, with the help of the philologist F. Ll. Griffith. The volume came out in " +
+        "1895 as the first of two series; this is its second edition of 1899. Petrie wanted ordinary " +
+        "readers to have them, and he says so: he smoothed some idioms, softened a few plain words, and " +
+        "kept his scholarship out of the way until each tale was over.",
+      "<b>The Tales of the Magicians</b> (tabs 1–3) come from the papyrus now called the <b>Westcar " +
+        "Papyrus</b>, in Berlin. King Khufu, the builder of the Great Pyramid, asks his sons for tales of " +
+        "wonders, and each tells one: a wax crocodile that comes alive to punish an adulterer, a lake " +
+        "folded in half to find a girl's lost jewel, and an old magician who can rejoin a severed head " +
+        "and who foretells the birth of three children who will one day be kings. The beginning of the " +
+        "papyrus is lost, and so is its end; the last tale stops in the middle.",
+      "<b>The Peasant and the Workman</b> (tab 4) is the tale usually called the <b>Eloquent Peasant</b>: " +
+        "a man robbed on the road appeals for justice so well that the king has him kept talking, and " +
+        "his speeches written down, before righting the wrong. <b>The Shipwrecked Sailor</b> (tab 5) is " +
+        "a sailor's account of being cast up on an island ruled by a vast, kindly serpent. <b>The " +
+        "Adventures of Sanehat</b> (tab 6) is the story known today as <b>Sinuhe</b> — a courtier who " +
+        "flees Egypt when the king dies, makes a life among the peoples of Syria and Palestine, fights a " +
+        "champion, and in old age is called home by the new king to be buried as an Egyptian. Scribes " +
+        "went on copying it for centuries.",
+      "Petrie's spellings are those of the 1890s, and some names have changed since. His Sanehat is " +
+        "Sinuhe; his Usertesen is the king now written Senusret; his Sehotepabra is Amenemhat I; the " +
+        "Sekhti and the Hemti are simply “the peasant” and “the workman”. His dates " +
+        "have changed too. He put the Tales of the Magicians in the Fourth Dynasty and the peasant in the " +
+        "Ninth, the times in which they are set; the papyri themselves are all Middle Kingdom or a little " +
+        "later, and that is where most scholars now place the stories as well.",
+      "Each tale ends with Petrie's <b>Remarks</b>, which are his notes: where the papyrus is, who had " +
+        "translated it, and what its details say about life in Egypt. They are kept where he put them, " +
+        "at the foot of each tale (for the three Tales of the Magicians, after the third). What is " +
+        "<b>not</b> here is his introduction, which introduces both series at once, the index, and " +
+        "Tristram Ellis's illustrations. The text is Project Gutenberg's transcription, read against " +
+        "scans of the 1895 and 1899 printings, and twenty-five slips in it were corrected where both " +
+        "printings, or the one legible scan, read otherwise.",
+    ],
+  },
+  "douglass-narrative": {
+    title: "Narrative of the Life of Frederick Douglass",
+    // the title page's full title, after the short one every reader knows it by
+    subtitle: "An American Slave, Written by Himself",
+    author: "Frederick Douglass",
+    /* NO `translator`: written in English. */
+    edition: "The first edition, the Anti-Slavery Office, Boston, 1845",
+    written: "1845",
+    year: 1845,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Douglass published the Narrative in Boston in 1845 and died in 1895; William Lloyd Garrison, whose
+       Preface opens it, died in 1879 and Wendell Phillips, whose Letter follows, in 1884. So there is no
+       copyright in any of it anywhere. The transcription is Wikisource's, of the scan
+       `Narrative of the Life of Frederick Douglass, an American Slave.djvu` (Index: Publisher "The
+       Anti-Slavery Office", Boston, 1845, LCCN 14003386, Progress=T), and VALIDATED page by page: every page
+       of the fourteen fetched carries `data-page-quality="4"`. Its four footnotes are Douglass's own. One reading was checked and KEPT: the
+       Appendix's "Shalt I not visit for these things?" (book-scan.js offers "Shall", as Jeremiah 5:9 has it)
+       is what the 1845 printing reads — the Internet Archive's OCR of `narrativeoflifeo1845doug`, a BYU copy
+       of this edition, reads "Shalt" too. Douglass's misquotation stands. */
+    rights:
+      "Public domain worldwide. Frederick Douglass published his Narrative in Boston in 1845 and died in " +
+      "1895; William Lloyd Garrison, who wrote its Preface, died in 1879, and Wendell Phillips, who wrote " +
+      "its prefatory Letter, in 1884. The text is the validated Wikisource transcription of the first " +
+      "edition, from a scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Narrative_of_the_Life_of_Frederick_Douglass,_an_American_Slave",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every fact in
+       it about the book was read off this text (the age reckoned from 1835, the names Bailey, Johnson and
+       Douglass, the third of September 1838, the certificate of 15 September, Nantucket on 11 August 1841,
+       the withheld means of escape, the Appendix's own explanation, Whittier named in chapter VIII); the
+       later life is the part every account of him agrees on. */
+    about: [
+      "<b>Narrative of the Life of Frederick Douglass, an American Slave, Written by Himself</b> is the " +
+        "story of Douglass's life in slavery and his first years of freedom, told by himself. It begins on a plantation " +
+        "in Talbot County, Maryland, where he was born a slave and never learned his own age — he reckoned " +
+        "it from hearing his master say, in 1835, that he was about seventeen. It ends in Massachusetts, " +
+        "where in August 1841, three years after his escape, he rose at an anti-slavery convention on " +
+        "Nantucket and spoke for the first time to a white audience. Between the two it shows slavery from " +
+        "inside: the separation of children from their mothers, the whip, hunger and cold, the selling of " +
+        "families, and the religion of the slaveholders who did these things.",
+      "The book opens with two documents by white abolitionists vouching for it: a Preface by William " +
+        "Lloyd Garrison, who heard Douglass speak at Nantucket, and a Letter from Wendell Phillips, who " +
+        "warns him that in publishing his name and his master's he puts his freedom at risk. Then come " +
+        "Douglass's eleven chapters. The first six cover his childhood on Colonel Edward Lloyd's " +
+        "plantation and his move to Baltimore, where his new mistress, Sophia Auld, began to teach him " +
+        "his letters until her husband forbade it; in his words, <i>from that moment, I understood the " +
+        "pathway from slavery to freedom</i>. Chapter VII tells how he taught himself to read and write " +
+        "anyway. Chapter X, the longest, is his year with Edward Covey, a farmer hired to break him, and " +
+        "the fight in which he resisted: <i>You have seen how a man was made a slave; you shall see how a " +
+        "slave was made a man.</i> Chapter XI is his escape and his first years of freedom. An Appendix " +
+        "explains that what he wrote against religion was meant for the <i>slaveholding religion of this " +
+        "land</i>, not the Christianity of Christ.",
+      "Douglass was born Frederick Bailey, his mother's surname. On 3 September 1838 he escaped from " +
+        "Baltimore and reached New York, but the Narrative deliberately does not say how, so as not to " +
+        "close the route to others. Within two weeks he married Anna Murray, a free woman who had " +
+        "followed him north, and the couple settled in New Bedford, Massachusetts. There he gave up the " +
+        "name Johnson, which he had taken in New York, for <i>Douglass</i>, from Walter Scott's poem " +
+        "<i>The Lady of the Lake</i>. He became a speaker for the Massachusetts Anti-Slavery Society, " +
+        "and this book, published in Boston in 1845, was partly an answer to audiences who doubted that " +
+        "so able a speaker could ever have been a slave.",
+      "The book was a success, and naming his owners made him a target for recapture. He spent the " +
+        "next two years lecturing in Ireland and Britain, where supporters raised the money to buy his " +
+        "legal freedom in 1846. Back in the United States he founded his own anti-slavery newspaper, " +
+        "<i>The North Star</i>, in 1847, and became one of the best-known Americans of his century: an " +
+        "abolitionist, a campaigner for women's rights and, after the Civil War, a federal official and " +
+        "the United States' minister to Haiti. He told his story " +
+        "twice more, in <i>My Bondage and My Freedom</i> (1855) and <i>Life and Times of Frederick " +
+        "Douglass</i> (1881). He died in Washington, D.C., in 1895.",
+      "The text here is the first edition, published by the Anti-Slavery Office in Boston in 1845, in " +
+        "its own spelling (<i>calk</i>, <i>favorable</i>). It is given in the book's own order: the " +
+        "Preface, the Letter, the eleven chapters and the Appendix, so a tab's number runs two ahead of " +
+        "the chapter's. The four footnotes are Douglass's own. The verses in chapter VIII are by John " +
+        "Greenleaf Whittier, whom Douglass names; the Appendix quotes two more poems, the second a parody " +
+        "of a hymn, each verse ending on <i>heavenly union</i>. The book's language about race is that " +
+        "of 1845, including a slur that Douglass quotes from the mouths of slaveholders. Not included: the " +
+        "title page and the engraved portrait facing it.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 14 }, (_, i) => i + 1),
+    page: (n) => "Narrative of the Life of Frederick Douglass, an American Slave/" +
+      (n === 1 ? "Preface by William Lloyd Garrison" : n === 2 ? "Letter from Wendell Phillips" :
+       n === 14 ? "Appendix" : "Chapter " + (n - 2)),
+    /* The book prints its chapters with a numeral and nothing else; titles are transcribed, never composed. */
+    titleOf: (n) => n === 1 ? "Preface, by William Lloyd Garrison" : n === 2 ? "Letter from Wendell Phillips"
+      : n === 14 ? "Appendix" : "Chapter " + toRoman(n - 2),
+    minChars: 3000,
+    /* The printed heads, which the tab already says: the Preface's and the Letter's, the half-title over
+       chapter I, each centred "CHAPTER IV.", the Appendix's; and the "THE END." under the Appendix. */
+    dropHeads: [/^PREFACE\.$/, /^LETTER FROM WENDELL PHILLIPS, ESQ\.$/,
+      /^NARRATIVE OF THE LIFE OF FREDERICK DOUGLASS\. CHAPTER I\.$/, /^CHAPTER [IVX]+\.$/, /^APPENDIX\.$/],
+    dropTail: [/^THE END\.$/],
+    dropBlankParas: true,
+    reFixes: [
+      /* RIGHT-ALIGNED LINES — a letter's closing and signature, the Letter's date line, and the signatures
+         of the pass in chapter X and the marriage certificate in chapter XI — arrive as blocks, i.e.
+         blockquotes, which would read as quotations. Set as plain lines: two rows, the opening tag where
+         its block holds one of these lines and nothing else, then the closing tag after such a line. */
+      [/<blockquote>\n(?=<p>(?:WM\. LLOYD GARRISON\.|WENDELL PHILLIPS\.|FREDERICK DOUGLASS\.|God speed the day!|Till then, and ever,|Yours truly,|Boston, <i>April<\/i> 22, 1845\.|"William Hamilton,|"Near St\. Michael's, in Talbot county, Maryland\."|"James W\. C\. Pennington\.)<\/p>\n<\/blockquote>)/g, "",
+       "a right-aligned closing, date or signature: unwrap it (the opening tag)"],
+      [/(?<=(?:^|\n)<p>(?:WM\. LLOYD GARRISON\.|WENDELL PHILLIPS\.|FREDERICK DOUGLASS\.|God speed the day!|Till then, and ever,|Yours truly,|Boston, <i>April<\/i> 22, 1845\.|"William Hamilton,|"Near St\. Michael's, in Talbot county, Maryland\."|"James W\. C\. Pennington\.)<\/p>)\n<\/blockquote>/g, "",
+       "a right-aligned closing, date or signature: unwrap it (the closing tag)"],
+      /* The two INDENTED lines (wikitext `:`) under a signature — the Preface's place and date, the
+         Letter's addressee — survive the tag strip as bare runs outside every paragraph. */
+      [/<\/p>\nBoston, <i>May<\/i> 1, 1845\.(?=\s*$)/g, "</p>\n<p>Boston, <i>May</i> 1, 1845.</p>",
+       "the Preface: its place and date, split by the small capitals of Boston"],
+      [/<\/p>\nFrederick Douglass\.\s*$/g, "</p>\n<p>Frederick Douglass.</p>", "the Letter: its addressee, a bare run"],
+      /* The Great House Farm song (chapter II): its second line is indented under the first, and arrives
+         as a blockquote inside the blockquote. One quotation, two lines. */
+      [/<p>"I am going away to the Great House Farm!<\/p>\n<blockquote>\n<p>O, yea! O, yea! O!"<\/p>\n<\/blockquote>/g,
+       '<p>"I am going away to the Great House Farm!<br>\nO, yea! O, yea! O!"</p>', "II: the song's indented second line"],
+      /* The Appendix's parody: its title and its verses in one quotation, as printed. */
+      [/"A PARODY\.<\/p>\n<\/blockquote>\n<blockquote>\n/g, '"A PARODY.</p>\n', "Appendix: the parody's title joined to its verses"],
+    ],
+  },
+  "paine-common-sense": {
+    title: "Common Sense",
+    // the title page's own words (djvu p. 9)
+    subtitle: "Addressed to the Inhabitants of America",
+    author: "Thomas Paine",
+    /* NO `translator`: written in English, as the Declaration was, so the run header names the printing. */
+    edition: "Common Sense: Addressed to the Inhabitants of America, the sixth edition, re-printed by John Carter, Providence, 1776",
+    written: "1776",
+    year: 1776,
+    /* ---------- THE LICENCE, AND WHY THIS PRINTING ----------
+       Paine published Common Sense in 1776 and died in 1809; this printing is of 1776. Public domain everywhere.
+       English Wikisource has ONE transcription of the pamphlet, `Common Sense (1776)` (`Common Sense (Paine)`
+       redirects to it): John Carter's Providence reprint, whose title page reads "The Sixth EDITION. Philadelphia,
+       Printed: PROVIDENCE, Re-printed and Sold by John Carter, at Shakespear's Head, near the Court-House.
+       M,DCC,LXXVI." It is the ENLARGED text — the Introduction, the four sections, the Appendix with the address to
+       the Quakers, and the "Addition" of the navy calculations that a later Philadelphia edition inserted — and the
+       Index (`Common sense - addressed to the inhabitants of America.djvu`) is VALIDATED (`Progress=T`, August 2021).
+       ---------- WHAT IS TAKEN ----------
+       Six parts. The Introduction (djvu p. 11) and the Appendix (djvu pp. 43–54) are a wiki page each; the four
+       sections stand on ONE page (djvu pp. 13–41) under their printed heads alone, which `cut` + `cutHeads` divides
+       (see cutAtChapterHeads). The titles are the title page's list of the four "SUBJECTS", numbered as it numbers
+       them; the heads above the text itself are dropped. The title page (the epigraph from Thomson, the imprint) is
+       not a part: the front matter names it. The printed "FINIS" after Section IV and after the address to the
+       Quakers and Carter's imprint at the foot of the Appendix go. */
+    rights:
+      "Public domain. Thomas Paine published Common Sense in Philadelphia in 1776 and died in 1809, and this " +
+      "printing of it was made in Providence in 1776, so it has never been in copyright anywhere. The text is the " +
+      "validated Wikisource transcription of John Carter's reprint.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Common_Sense_(1776)",
+    /* THE FRONT MATTER — chapter 0. Each fact is one of the record: the date and place of publication, Paine's
+       arrival from England in 1774, the enlarged edition with the Appendix, the Declaration six months later. Where
+       the record is disputed — how many copies sold — it says so rather than give a figure. */
+    about: [
+      "<b>Common Sense</b> is the pamphlet in which Thomas Paine argued that the American colonies should break " +
+        "with Britain at once and govern themselves as a republic. It appeared in Philadelphia in January 1776, " +
+        "nine months after the fighting at Lexington and Concord, when most colonists still spoke of the war as a " +
+        "quarrel with the king's ministers that might yet end in reconciliation. Paine said plainly what few had " +
+        "said in print: that the fault lay with the king and with kingship itself, and that the only remedy was " +
+        "independence. Six months later, on 4 July 1776, Congress adopted the Declaration of Independence.",
+      "It is short and it is written for anyone to read, without Latin or learned quotation, and it is built in " +
+        "four parts, which the title page lists. The first sets out where government comes from — a necessary " +
+        "evil, made by people to protect themselves — and attacks the British constitution that the colonists " +
+        "had been taught to admire. The second attacks monarchy and hereditary succession, from the Bible and from " +
+        "English history. The third, on <i>the present State of American Affairs</i>, is the case for separation: " +
+        "<i>'Tis time to part</i>. The fourth argues that America already has the strength to stand alone, and " +
+        "counts what a navy would cost.",
+      "Paine was born in Thetford, in Norfolk, in 1737, and had been a corset-maker, a teacher and an excise " +
+        "officer in England before he sailed for Philadelphia late in 1774 with a letter of introduction from " +
+        "Benjamin Franklin. He had been in America barely a year when he wrote this, and it was published " +
+        "without his name, <i>written by an Englishman</i>. It was reprinted all over the colonies within weeks; " +
+        "how many copies were sold is not known, and the large figures often quoted are disputed. He went on to " +
+        "write <i>The American Crisis</i> during the war, and later <i>Rights of Man</i> in defence of the French " +
+        "Revolution and <i>The Age of Reason</i> against organised religion. He died in New York in 1809.",
+      "The text here is the enlarged form the pamphlet took within weeks of its first printing. The " +
+        "<b>Appendix</b> answers the speech King George III had made to Parliament in October 1775, which, as " +
+        "Paine says, reached Philadelphia on the very day the pamphlet came out, and it is followed by a letter to " +
+        "the Quakers, who had published a statement of loyalty to the king. Last comes an <i>Addition</i> from a " +
+        "new Philadelphia edition: the figures for the cost of the British navy that Paine had given without " +
+        "proof in the fourth section, set out ship by ship.",
+      "This printing is a reprint made in <b>Providence</b>, Rhode Island, in 1776 by John Carter, who calls it " +
+        "the sixth edition. Its spelling and punctuation are 1776's — <i>connexion</i>, <i>shew</i>, " +
+        "<i>independancy</i> beside <i>independence</i> — and they are kept. The printer's long s is shown as an " +
+        "ordinary s. The title page carries two lines of the Scottish poet James Thomson as its motto: <i>Man " +
+        "knows no Master save creating Heaven, Or those whom Choice and Common Good ordain.</i> The text comes " +
+        "from Wikisource, where it has been proofread twice against the scan.",
+    ],
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6],
+    page: (n) => "Common Sense (1776)/" + (n === 1 ? "Introduction" : n === 6 ? "Appendix" : "Common Sense"),
+    // the four sections share one page; the Introduction and the Appendix are pages of their own
+    cut: (n) => (n >= 2 && n <= 5 ? n - 1 : null),
+    /* Tested on the block's text with its tags turned to spaces, so a long s or a letter-spaced word splits a
+       word ("COMMON SENS E.", "pre s ent"); each pattern allows for it. */
+    cutHeads: [
+      /^COMMON SENS ?E\. Of the Origin and De ?s ?ign of Government\b/,
+      /^Of Monarchy and hereditary Succe ?s ?s ?ion ?\.$/,
+      /^Thoughts on the pre ?s ?ent State of American Affairs ?\.$/,
+      /^Of the pre ?s ?ent Ability of America\b/,
+    ],
+    // the title page's list of "SUBJECTS" (djvu p. 9), numbered as it numbers them
+    titleOf: (n) => [
+      "Introduction",
+      "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution",
+      "II. Of Monarchy and Hereditary Succession",
+      "III. Thoughts on the present State of American Affairs",
+      "IV. Of the present Ability of America, with some miscellaneous Reflections",
+      "Appendix: The Necessity of Independency",
+    ][n - 1],
+    // the printed heads above the Introduction and the Appendix; the four sections' are cut away with them
+    dropHeads: [/^INTRODUCTIO ?N ?\.$/, /^APPENDIX TO COMMON SENSE ?: The Nece ?s ?s ?ity of Independency ?\.$/],
+    // Carter's imprint at the foot of the Appendix; the two FINIS go in painePrep
+    dropTail: [/^Providence ?: Printed and Sold by John Carter ?\.$/],
+    // the FINIS printed inside the text and the Addition's two tables — see painePrep
+    prep: "paine",
+  },
 };
 
 /* ---------- args ---------- */
@@ -24138,7 +24554,7 @@ function betweenAnchors(h, span) {
    against it by id; the caller then keeps only the notes the part's own markers open. */
 const CUT_FENCE = ["\uE020", "\uE021"];
 const CUT_PAGES = {};
-function cutAtChapterHeads(h, k, warn) {
+function cutAtChapterHeads(h, k, warn, titled) {
   const start = h.indexOf('<div class="prp-pages-output"');
   if (start < 0) throw new Error("cut: no transclusion on the page");
   const refAt = h.search(/<div class="reflist|<ol class="references"/);
@@ -24167,8 +24583,19 @@ function cutAtChapterHeads(h, k, warn) {
     const refs0 = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
     return '<div class="prp-pages-output">' + h.slice(hb.end, stop) + "</div>" + (refs0 ? "\n" + refs0[0] : "");
   }
-  const heads = blocks.filter((b) => /\bchapter\s+[IVXL]+\b/i.test(b.t));
-  heads.forEach((b, i) => {
+  /* HEADS THAT CARRY A TITLE AND NO NUMERAL (Nov 2026, Common Sense): `cutHeads` lists one pattern per
+     head, in order, each tested on the centred block's whole text and each found AFTER the one before it —
+     a missing head THROWS, as a misread numeral does below. Carter's 1776 printing sets Paine's four
+     sections on one page under their titles alone ("Of Monarchy and hereditary Succession."). */
+  let heads = titled ? titled.map((rx) => blocks.find((b) => rx.test(b.t))) : null;
+  if (titled) {
+    heads.forEach((b, i) => {
+      if (!b) throw new Error("cut: no head matching " + titled[i]);
+      if (i && b.at <= heads[i - 1].at) throw new Error("cut: head " + (i + 1) + " stands before head " + i);
+    });
+  }
+  if (!titled) heads = blocks.filter((b) => /\bchapter\s+[IVXL]+\b/i.test(b.t));
+  if (!titled) heads.forEach((b, i) => {
     const r = /\bchapter\s+([IVXL]+)\b/i.exec(b.t)[1].toUpperCase();
     if (r !== toRoman(i + 1)) throw new Error("cut: head " + (i + 1) + " reads CHAPTER " + r);
   });
@@ -24220,6 +24647,46 @@ function liftChapterFence(html) {
      between `<br>`s. Each non-empty cell becomes one paragraph of an indented block, its own line breaks
      kept, in the source's reading order (row by row).
    And a row of asterisks (a display:block span, sometimes mid-paragraph) becomes a paragraph of its own. */
+/* ---------- COMMON SENSE: Carter's FINIS and the navy tables (Nov 2026) ----------
+   `prep: "paine"`, run on the RAW page after `cut`, like `kantPrep`. Two things in the 1776 Providence
+   printing that the generic passes get wrong, neither of which throws:
+   · "FINIS" IS PRINTED TWICE INSIDE THE TEXT — after Section IV and after the address to the Quakers, which
+     the Addition follows — as a centred block, which would become a one-word QUOTATION. Every centred
+     block reading FINIS is removed, counted.
+   · THE ADDITION'S TWO TABLES ARE TABLES (the cost of a ship of each rate; the navy of 1757, ship by ship,
+     four columns). stripTags unwraps them into one run of figures with every relation lost. Each is rebuilt
+     as a clean `bk-table` (the Treaty of Versailles' class) and put back after cleanBody through the
+     treaty's stash. The transcription's alignment padding — a hidden "0" before a two-digit figure — goes,
+     and a ditto mark is written as the words it stands for ("For a ship of"), as the treaty pass does. A
+     first row with no figure in it is the header. */
+function painePrep(h, warn) {
+  let finis = 0;
+  h = h.replace(/<div class="wst-center[^"]*"[^>]*>\s*<p>\s*(?:<[^>]+>\s*)*FINI(?:<[^>]+>)*S(?:<[^>]+>)*\.?\s*(?:<\/[^>]+>\s*)*<\/p>\s*<\/div>/g,
+    () => { finis++; return ""; });
+  if (/>\s*FINI/.test(h)) warn("a FINIS in a shape painePrep does not know was left as it stands");
+  let tables = 0;
+  h = h.replace(/<table\b[^>]*>([\s\S]*?)<\/table>/g, (m, inner) => {
+    tables++;
+    const clean = (c) => treatyInline(c
+      .replace(/<style[\s\S]*?<\/style>/g, "")
+      .replace(/<span style="visibility:hidden;color:transparent;">0<\/span>/g, "")
+      .replace(/<span class="__ditto"><span class="__ditto_hidden">([\s\S]*?)<\/span><span class="__ditto_text[^"]*"><\/span><\/span>/g, "$1")
+      .replace(/<span class="wst-gap[^"]*"[^>]*><\/span>/g, ""));
+    const rows = (inner.match(/<tr\b[\s\S]*?<\/tr>/g) || [])
+      .map((r) => [...r.matchAll(/<td\b([^>]*)>([\s\S]*?)<\/td>/g)]
+        .map((c) => ({ span: (c[1].match(/\bcolspan="\d+"/) || [""])[0], html: clean(c[2]) })));
+    if (/ditto|visibility:hidden/.test(rows.flat().map((c) => c.html).join(""))) warn("a table cell kept markup painePrep does not know");
+    const head = rows.length && !rows[0].some((c) => /\d/.test(c.html));
+    // the totals' label spans two columns ("Cost," under Guns and Cost of one), so colspan is kept
+    TREATY_STASH.push('<div class="bk-table"><table>' + rows.map((r, i) => "<tr>" + r.map((c) => {
+      const tag = head && !i ? "th" : "td";
+      return "<" + tag + (c.span ? " " + c.span : "") + ">" + c.html + "</" + tag + ">";
+    }).join("") + "</tr>").join("") + "</table></div>");
+    return "<p>" + TREATY_TABLE + (TREATY_STASH.length - 1) + "@@</p>";
+  });
+  if (finis || tables) console.log("  paine: " + finis + " FINIS dropped, " + tables + " table(s) kept");
+  return h;
+}
 const KANT_HEAD = "@@KNH@@", KANT_STARS = "@@KNA@@";
 function kantPrep(h, warn) {
   let b = h;
@@ -26984,6 +27451,18 @@ function extractYale(h, act, endnotes, used, warn) {
       n = 0; last = null;
       continue;
     }
+    /* An EPILOGUE on a page of its own (The Tempest, Nov 2026: Prospero's, after Act V) is read as that
+       page's prologue is — scene 0, its glosses under no anchor — but its verse is set wholly in italics
+       with no speaker's name (a centred "Spoken by Prospero" says who), so SPEAKER is not asked: it would
+       take the first italic line for a name. The page's closing FINIS is the printer's, not the play's. */
+    if (p.kind === "center" && /^EPILOGUE$/i.test(plain)) {
+      if (scenes.length) warn("an epilogue after a scene on the same page");
+      sc = { k: 0, head: "Epilogue", epi: true, items: [], lines: [] };
+      scenes.push(sc);
+      n = 0; last = null;
+      continue;
+    }
+    if (p.kind === "center" && /^FINIS\.?$/.test(plain)) continue;
     const sm = p.kind === "center" && plain.match(/^Scene (\w+)$/);
     if (sm) {
       const k = YALE_SCENE.indexOf(sm[1]);
@@ -27001,11 +27480,11 @@ function extractYale(h, act, endnotes, used, warn) {
     }
     const sp = p.html.match(SPEAKER);
     let who = "", rest = p.html;
-    if (sp && /^[A-Z]/.test(sp[2])) {
+    if (sp && /^[A-Z]/.test(sp[2]) && !sc.epi) {
       const name = sp[2].trim().replace(/\.$/, "");
       who = sp[4] ? sp[1] + name + sp[3] + " " + sp[4].trim() + sp[5] : sp[1] + name + sp[3] + sp[5];
       rest = p.html.slice(sp[0].length);
-    } else if (!sc.k) {
+    } else if (!sc.k && !sc.epi) {
       // the Chorus is set in roman ("Chor.") or inside a gloss tooltip, not in the italic SPEAKER reads
       const cm = p.html.match(/^\u0001?(Chor)\.\u0002?\s*/);
       if (cm) { who = cm[1]; rest = p.html.slice(cm[0].length); }
@@ -27241,7 +27720,10 @@ function yaleCast(h, warn) {
     const blk = m[0];
     if (/^<table/.test(blk)) {
       const cells = blk.split(/<td[^>]*>/).slice(1).map((c) => c.split(/<\/td>/)[0]);
-      const names = cells.filter((c) => /smallcaps/.test(c)).map(text);
+      /* a name is small capitals, or — for a group (The Tempest's "Nymphs," and "Reapers," under Iris,
+         Ceres and Juno) — a plain cell with words and no italic; the brace's cell is empty once its
+         <math> is gone */
+      const names = cells.filter((c) => /smallcaps/.test(c) || !/<i>/.test(c) && text(c)).map(text);
       const desc = cells.filter((c) => !/smallcaps/.test(c) && /<i>/.test(c)).map(text);
       if (!names.length) { warn("a cast table with no names"); continue; }
       out.push(names.join(" ").replace(/,$/, "") + (desc.length ? ", " + desc.join(" ") : ""));
@@ -27598,6 +28080,66 @@ function extractQuixote(text, book, warn) {
     out.chapters.push({ n: i + 1, html: html.join("\n") });
   });
   return out;
+}
+/* ---------- PETRIE'S EGYPTIAN TALES — one plain-text Gutenberg file, cut at the contents page's heads ----------
+   (Nov 2026; `layout: "egtales"`.) Don Quixote's path with three things of its own:
+   · THE CUTS ARE THE CONTENTS PAGE'S OWN HEADS, alone on a line with blank lines round them, and EVERY
+     all-capital line in the body must be one of them, a REMARKS head or a known plate caption — anything
+     else is warned about rather than printed, since a caption read as prose is a loose capital line in a
+     tale and a head read as a caption is a tale lost.
+   · THE PLATE CAPTIONS (EGTALES_CAPTIONS) look exactly like section heads and are not: every one is in
+     the 1899 List of Illustrations. Dropped and counted.
+   · ONE INDENTED BLOCK, the peasant's song to the steward, is set as verse; two "[Page N]" marks the
+     transcriber left in the Remarks (where the printing has a marginal asterisk) are dropped, counted.
+   The Remarks are kept as Petrie printed them, under a `bk-head`, at the foot of the tale they follow. */
+const EGTALES_HEADS = {
+  "TALES OF THE MAGICIANS": 1, "KHAFRA'S TALE": 1, "BAUFRA'S TALE": 2, "HORDEDEF'S TALE": 3,
+  "THE PEASANT AND THE WORKMAN": 4, "THE SHIPWRECKED SAILOR": 5, "THE ADVENTURES OF SANEHAT": 6,
+};
+const EGTALES_CAPTIONS = ["IN THE SEKHET HEMAT", "IXTH DYNASTY", "GOING TO WAWAT", "XIITH DYNASTY",
+  "THE FAREWELL", "THE FLIGHT"];
+function extractEgtales(text, book, warn) {
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let t = text.replace(/\r\n?/g, "\n");
+  const end = t.indexOf("\nEnd of the Project Gutenberg");
+  if (end < 0) warn("the Gutenberg end line was not found");
+  // the body starts at the SECOND "INTRODUCTION" line (the first is the contents page's)
+  const intro = [...t.matchAll(/\nINTRODUCTION\n/g)];
+  if (intro.length !== 2) warn(intro.length + " INTRODUCTION lines, not 2");
+  t = t.slice(intro.length ? intro[intro.length - 1].index : 0, end > 0 ? end : t.length);
+  const c = { captions: 0, pages: 0, verse: 0, paras: 0, remarks: 0, italics: 0 };
+  t = t.replace(/\[Page \d+\] /g, () => { c.pages++; return ""; });
+
+  const out = {};
+  let cur = 0;
+  for (const blk of t.split(/\n[^\S\n]*\n/)) {
+    const ls = blk.split("\n").filter((l) => l.trim());
+    if (!ls.length) continue;
+    const one = ls.length === 1 ? ls[0].trim() : null;
+    if (one && !/[a-z]/.test(one)) {
+      if (one === "INTRODUCTION") { cur = 0; continue; }
+      if (EGTALES_CAPTIONS.includes(one)) { c.captions++; continue; }
+      if (one in EGTALES_HEADS) { cur = EGTALES_HEADS[one]; out[cur] = out[cur] || []; continue; }
+      if (one === "REMARKS" && cur) { c.remarks++; out[cur].push('<p class="bk-head">Remarks</p>'); continue; }
+      warn("an all-capital line that is no head and no known caption: " + one);
+      continue;
+    }
+    if (!cur) continue;                                          // Petrie's introduction
+    const fmt = (s) => esc(s).replace(/--/g, "—").replace(/ {2,}/g, " ")
+      .replace(/_([^_]+)_/g, (m, x) => { c.italics++; return "<i>" + x + "</i>"; });
+    if (ls.every((l) => /^ {2}\S/.test(l))) {
+      c.verse++;
+      out[cur].push("<blockquote><p>" + ls.map((l) => fmt(l.trim())).join("<br>") + "</p></blockquote>");
+    } else {
+      c.paras++;
+      out[cur].push("<p>" + fmt(ls.map((l) => l.trim()).join(" ")) + "</p>");
+    }
+  }
+  if (c.remarks !== 4) warn(c.remarks + " REMARKS heads, not 4");
+  const chapters = Object.keys(out).map(Number).sort((a, b) => a - b)
+    .map((n) => ({ n: n, html: out[n].join("\n") }));
+  chapters.forEach((ch) => { if (/_/.test(ch.html)) warn("tale " + ch.n + " still carries an underscore"); });
+  return { chapters: chapters, counts: c };
 }
 function extractJourney(text, book, warn) {
   const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -34432,9 +34974,20 @@ async function fetchEnglish() {
       const first = n === BOOK.chapters[0];
       const off = first ? pre.notes.length : 0;
       const body = off ? got.html.replace(/data-fn="(\d+)"/g, (a, d) => 'data-fn="' + (+d + off) + '"') : got.html;
+      /* an epilogue on a page of its own (The Tempest's), set at the foot of the last act; its markers
+         are renumbered past the act's own notes */
+      const lastAct = n === BOOK.chapters[BOOK.chapters.length - 1];
+      let post = "", postNotes = [];
+      if (lastAct && BOOK.postPage) {
+        const ep = correctGot(extractYale(await cached("en-epilogue.html", BOOK.postPage), 0, endnotes, used, warn));
+        const off2 = off + got.notes.length;
+        post = ep.html.replace(/data-fn="(\d+)"/g, (a, d) => 'data-fn="' + (+d + off2) + '"');
+        postNotes = ep.notes;
+      }
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n),
-        html: (first && cast ? cast + "\n" : "") + (first && pre.html ? pre.html + "\n" : "") + body,
-        notes: (first ? pre.notes : []).concat(got.notes) });
+        html: (first && cast ? cast + "\n" : "") + (first && pre.html ? pre.html + "\n" : "") + body +
+          (post ? "\n" + post : ""),
+        notes: (first ? pre.notes : []).concat(got.notes, postNotes) });
     }
     // every end note reaches the page, through a gloss or on its own line — checked, not assumed
     if (FROM <= BOOK.chapters[0] && TO >= BOOK.chapters[BOOK.chapters.length - 1]) {
@@ -35016,6 +35569,29 @@ async function fetchEnglish() {
         " chapter(s) left carrying one: " + got.underscored.join(", ") : ""));
     return writeEnglish(chapters, warnings);
   }
+  /* PETRIE'S EGYPTIAN TALES — one plain-text file, cached whole; see the block above extractEgtales. */
+  if (BOOK.layout === "egtales") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
+    const got = extractEgtales(raw, BOOK, warn);
+    const c = got.counts;
+    if (got.chapters.length !== BOOK.chapters.length)
+      warn("the transcription yields " + got.chapters.length + " tales; the entry expects " + BOOK.chapters.length);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: [] });
+    });
+    console.log("  " + chapters.length + " tales, " + c.paras + " paragraphs, " + c.verse + " verse block(s), " +
+      c.remarks + " Remarks heads, " + c.italics + " italic passage(s); dropped " + c.captions +
+      " plate caption(s) and " + c.pages + " [Page N] mark(s)");
+    return writeEnglish(chapters, warnings);
+  }
   /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One
      request for the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no
      network at all. See the block above extractChaucer for what a text with no markup has to be given
@@ -35273,7 +35849,9 @@ async function fetchEnglish() {
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     /* ONE PAGE PER BOOK, CUT AT ITS CHAPTER HEADS (Nov 2026, The Social Contract): see `cutAtChapterHeads`. */
-    if (BOOK.cut) h = cutAtChapterHeads(h, BOOK.cut(n), warn);
+    /* `cut(n)` may return null for a part that is a page of its own (Common Sense's Introduction and Appendix). */
+    const cutK = BOOK.cut ? BOOK.cut(n) : null;
+    if (cutK != null) h = cutAtChapterHeads(h, cutK, warn, BOOK.cutHeads);
     let html, notes, orig = "", tFromText = "";
     if (BOOK.prep === "leviathan") {
       const got = leviathanPrep(h, warn);
@@ -35282,6 +35860,7 @@ async function fetchEnglish() {
     /* Meiklejohn's headings and tables — see kantPrep. Every page of a section, so the extras below too. */
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
     if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
+    if (BOOK.prep === "paine") h = painePrep(h, warn);
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -35341,6 +35920,8 @@ async function fetchEnglish() {
       if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(pageNames[0]);
       const multi = pageNames.length > 1;
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
+      // the tables painePrep stashed, put back after the tag stripper, which keeps no table tags
+      if (BOOK.prep === "paine") html = html.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k]);
       if (keep) html = pruneNotes(html, keep);
       if (BOOK.prep === "leviathan") {
         const got = liftSidenotes(html, warn);
