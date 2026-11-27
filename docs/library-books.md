@@ -12,7 +12,30 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently eighty-six:
+  matter (chapter 0 — see the Library bullet). Currently eighty-eight:
+  `darwin-expression-of-emotions` (~640 KB, **15 sections** — Darwin's Introduction and his fourteen chapters, so a tab
+  runs one ahead of the chapter; `chapterWord: "Section"`, titles from the 1872 contents via `titleOf` — **303 notes**,
+  Darwin's own, renumbered per chapter; no original, the book being English). **From Project Gutenberg (ebook 1227), not
+  Wikisource**, which has no transcription (the Author page's link is red, Nov 2026). Gutenberg's title page reads **New
+  York, D. Appleton, 1899**: a reprint of the 1872 text with none of Francis Darwin's notes to the 1890 second edition,
+  so the edition line says "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)". Read by the new
+  `pglinknote` layout (`docs/library-importer.md`, last section): the older Gutenberg HTML, every note in one closing
+  division, divisions named by anchor. **Each chapter's argument** (the dashed list of topics under the head) is a
+  `bk-head` line, as in the Origin; 8 verse quotations are blocks; **26 figures and 4 caption paragraphs left out** (the
+  front matter says the figures and the seven heliotype plates are not reproduced; one caption carried a scrap of the
+  sentence above it). **The transcription is an old one with misreadings**: 19 `fixes`, each read against the Internet
+  Archive's scan of the 1872 Murray printing (`expressionofemot1872darw`) — Henle's (typed Herde's), Macacus (Alacacus),
+  Brehm, Duchenne, Maudsley, head/bead, he/be, cheeks, checked, Professor Donders, the year 1844 that had drifted from the
+  Introduction into note 3, and the transcriber's `{sic}` and `{footnote continues:}` marks. `book-scan.js` finds nothing
+  else that the scan confirms; French quotations keep the transcription's missing accents. The file was read from
+  Gutenberg's pglaf mirror while www.gutenberg.org was down for maintenance (`url` names the mirror). Licence: printed
+  1872, Darwin d. 1882 — no limit to state. Colour: Darwin's existing `#5A0009`. `glossOff` (swept over the front matter
+  and all 15 sections, 88 keys → 70): Anubis (the baboon), Christian (Gaika), Gloucester (the Duke), Titus (Andronicus),
+  Wellington (the lake), Wolf (the artist), Spencer's Principles of Psychology, Macrobius's Saturnalia, Gutenberg, the
+  Ant-eater, the obliquity of the eyebrows, Philosophy and Venice inside titles, an Industrial Settlement, the Guinea
+  coast, and Darwin's Anglo-Saxons, Semitic races and Micronesians; `glossOffIn` Netherlands in sections 2 and 14 (Sir
+  Henry Holland). Excerpt: "The movements of expression in the face and body…" (XIV). Not included: title page,
+  contents, list of illustrations, index.
   `james-principles-of-psychology` (~3.3 MB, **29 sections** — James's Preface and his twenty-eight chapters, so a tab
   runs one ahead of the chapter; `chapterWord: "Section"`, titles from the contents pages via `titleOf`, the two printed
   volumes as the `parts` — **1,193 notes**, James's own, renumbered per chapter; no original, the book being English).
