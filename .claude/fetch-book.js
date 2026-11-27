@@ -18884,6 +18884,841 @@ const BOOKS = {
     ],
   },
 
+  "novgorod-chronicle": {
+    title: "The Chronicle of Novgorod",
+    subtitle: "1016–1471",
+    author: "Anonymous",
+    translator: "Robert Michell and Nevill Forbes",
+    edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914, pp. 1–221",
+    /* A RANGE, on A. A. Shakhmatov's account of the text printed in this volume (pp. xxxvii–xli): the
+       Synodal transcript is "an almost contemporary copy" of Archbishop Basil's compilation, which ran to
+       1329, with entries added to 1352; the Commission transcript, which carries the text on to 1446, is a
+       rearrangement made at Novgorod "in the fifties of the fifteenth century". The key is that decade. */
+    written: "c. 1330–1450s",
+    year: 1450,
+
+    /* ---------- THE LICENCE ----------
+       THE GROUND IS THE PUBLICATION DATE: the translation was published in London in 1914, before 1931, so
+       it is in the public domain in the United States. Nevill Forbes lived 1883–1929 (the Internet Archive's
+       catalogue record). ROBERT MICHELL'S DEATH COULD NOT BE ESTABLISHED (searched Nov 2026: library
+       authorities and the web give no date), so whether the translation is free where the term is the
+       author's life plus seventy years cannot be said, and the rights box says so. C. Raymond Beazley's
+       introduction (he died in 1955) and Shakhmatov's account of the text are not reproduced.
+       WHAT WAS LOOKED AT AND WHY THIS ONE: English Wikisource holds no text of the Novgorod chronicle, and
+       Project Gutenberg none; the Internet Archive has this one scan of the 1914 volume, whose ABBYY export
+       (a box for every character) and page images download freely. A PDF of another copy, with its own OCR
+       (Acrobat Capture, 2000), is on the University of Washington's site (faculty.washington.edu/dwaugh);
+       it was used only as a second OCR to diff against, and it loses its order after p. 70.
+       NO ORIGINAL BESIDE IT: the Old Russian is not transcribed whole anywhere this importer reads. */
+    rights:
+      "Public domain in the United States, with one limit. The chronicle was kept at Novgorod from the " +
+      "eleventh century to the fifteenth. Robert Michell and Nevill Forbes's translation was published in " +
+      "London in 1914, as volume 25 of the Royal Historical Society's Camden Third Series, and is in the " +
+      "public domain in the United States as a work published before 1931. Nevill Forbes died in 1929; the " +
+      "date of Robert Michell's death could not be established, so whether the translation is also free " +
+      "in countries that protect a work for seventy years after its author's death cannot be stated. " +
+      "C. Raymond Beazley's introduction and A. A. Shakhmatov's account of the text are not reproduced.",
+    about: [
+      "The Chronicle of Novgorod is the oldest surviving chronicle of Novgorod the Great, the city-republic " +
+        "of north-western Russia, kept year by year at its archbishop's court and in its churches. This " +
+        "translation begins in 1016, with Yaroslav's war against Svyatopolk, and goes on to 1446: the princes " +
+        "the citizens invited and drove out, the posadniks and archbishops chosen at " +
+        "the Veche, fires, famines, floods and signs in the sky, the building of churches, wars with the Svei " +
+        "(the Swedes), the Nemtsy (the Germans), Lithuania and the Tartars — Knyaz Olexander's battle with the " +
+        "Nemtsy on Lake Chud in 1242 among them — and the city's long quarrel with the princes of Vladimir " +
+        "and Moscow.",
+      "According to the account of the text by the Russian scholar A. A. Shakhmatov printed in this " +
+        "edition, chronicle-writing at Novgorod had begun by the eleventh century. The oldest copy, the " +
+        "Synodal transcript, is an almost contemporary copy of a compilation made under Archbishop Basil " +
+        "about 1330; it has lost its first sheets, so it begins in 1016, and its entries end in 1352. From " +
+        "1333 the translation follows the Commission transcript, a fifteenth-century compilation, to 1446. " +
+        "The last part here, the record of the year 1471, when Ivan III of Moscow put an end to Novgorod's " +
+        "independence, was added by the editors from a text edited in the sixteenth century, as their note " +
+        "there says.",
+      "<b>How it is divided.</b> The chronicle has no chapters: it is a run of entries, each headed by its " +
+        "year twice, the year of our era (A.D.) and the year from the Creation (A.M.), and many of them are a " +
+        "year with nothing beside it. The parts here are Folio's, runs of years cut to roughly equal lengths, " +
+        "and each tab names its span; the record of 1471 is a part of its own, and the editors' Appendix on " +
+        "money, weights and measures is the last. The edition prints no entry for 1273, 1351 or 1422, prints " +
+        "1355 and 1356 twice where the Synodal transcript ends, and heads 1446 twice, once without its year " +
+        "from the Creation; all are kept as printed. The opening passage in square brackets, under 1016, is " +
+        "supplied from another manuscript, as the editors' first note says.",
+      "<b>The footnotes</b> are the translators' and editors': most gloss a Russian word they leave " +
+        "untranslated — <i>Knyaz</i> (prince), <i>Posadnik</i> (the city's elected burgomaster), <i>Veche</i> " +
+        "(the popular assembly), <i>Vladyka</i> (archbishop) — or identify a person or a place. Beazley's " +
+        "introduction, Shakhmatov's account of the text, the translators' lists of terms, the note on the " +
+        "bibliography and the index are not included.",
+      "<b>About this text.</b> It was read from the Internet Archive's scan of the 1914 printing, and the " +
+        "scanner's misreadings were corrected against the page images; a dozen lines struck through in pencil " +
+        "in the scanned copy were read off the image. One misprinted year has been corrected (A.M. 7708 for " +
+        "6708, under 1200), and on p. 37 a footnote mark printed 3, on a page with only two notes, is taken as " +
+        "the second. The translators' italics are not reproduced.",
+    ],
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/chronicleofnovgo00michrich",
+    url: "https://archive.org/download/chronicleofnovgo00michrich/chronicleofnovgo00michrich_abbyy.gz",
+    layout: "novgorod",
+    chapterWord: "Part",
+    chapters: Array.from({ length: 11 }, (_, i) => i + 1),
+    leaves: [53, 273],
+    begin: /^A\.D\. 1016\. A\.M\. 6524\. \[There was a fight/,
+    splitBefore: [/\[a\.d\. 1471\. A\.M\. 6979\./],
+    /* THE RUNS OF HEADS THE PRINTED PAGE BREAKS, each read off the page and left as printed: no head for
+       1273, 1351 (the edition's own note: "No record for 1351") or 1422 — both OCRs agree and the page
+       confirms — and 1355–1356 printed twice, where the Synodal text ends and the edition goes on from the
+       Commission text (its notes on p. 144). The chronicle proper ends in 1446; the record of 1471 that
+       follows, in brackets, is the editors' addition from a sixteenth-century text (their note on p. 205),
+       and it is a part of its own. The edition also heads 1432 twice (its note: "Year repeated"). */
+    headRuns: ["1272→1274", "1350→1352", "1356→1355", "1421→1423", "1446→1471"],
+    /* FOLIO'S SPANS, NOT THE EDITION'S: cut so that the parts run to roughly equal lengths — the eleventh
+       century fills four pages, the 1220s thirty. */
+    spans: [[1016, 1149], [1150, 1199], [1200, 1224], [1225, 1249], [1250, 1299], [1300, 1349], [1350, 1399],
+      [1400, 1424], [1425, 1446], [1471, 1471]],
+    appendices: [{ head: /^APPENDIX\.?$/, title: "Appendix: Money, Weights and Measures" }],
+    /* A COMPOUND THAT KEEPS ITS HYPHEN WHERE IT FALLS AT A LINE END — the line-end hyphens whose joined
+       form is no word and whose hyphened form the edition uses elsewhere or is plainly a compound. */
+    keepHyphens: ["god-fearing", "gold-topped", "seventy-four", "siege-engines", "stone-hearted", "vladyka-elect",
+      "posadnik-ship", "son-in", "brother-in", "daughter-in", "in-law"],
+    /* A PAGE TRANSCRIBED FROM ITS IMAGE — see extractNovgorod. p. 3: twenty-four year heads in a column, and
+       the engine read the column and the text beside it as one jumble. */
+    transcribed: {
+      55: {
+        paras: [
+          "A.D. 1022. A.M. 6530.", "A.D. 1023. A.M. 6531.", "A.D. 1024. A.M. 6532.", "A.D. 1025. A.M. 6533.",
+          "A.D. 1026. A.M. 6534.", "A.D. 1027. A.M. 6535.",
+          "A.D. 1028. A.M. 6536. There appeared a sign in the sky like a serpent.",
+          "A.D. 1029. A.M. 6537.", "A.D. 1030. A.M. 6538.", "A.D. 1031. A.M. 6539.", "A.D. 1032. A.M. 6540.",
+          "A.D. 1033. A.M. 6541.", "A.D. 1034. A.M. 6542.", "A.D. 1035. A.M. 6543.", "A.D. 1036. A.M. 6544.",
+          "A.D. 1037. A.M. 6545. Yaroslav founded the town⟦1⟧ of Kiev, and the Church of St. Sophia.",
+          "A.D. 1038. A.M. 6546.",
+          "A.D. 1039. A.M. 6547. The church of the Holy Mother of God was consecrated by Volodimir.",
+          "A.D. 1040. A.M. 6548.", "A.D. 1041. A.M. 6549.",
+          "A.D. 1042. A.M. 6550. Volodimir, the son of Yaroslav, went against the Yem⟦2⟧ people with the men of Novgorod.",
+          "A.D. 1043. A.M. 6551. Volodimir went against the Greeks.",
+          "A.D. 1044. A.M. 6552. Two Knyazes, Yaropolk and Oleg, sons of Svyatoslav, were buried, and they christened their bones.",
+          "A.D. 1045. A.M. 6553. St. Sophia was burnt down, on a Saturday, after the early morning service, in the third hour, on March 15.",
+        ],
+        notes: ["Gorod, sc. fortified town.", "A Finnish tribe."],
+      },
+    },
+    /* WHAT EACH CANDIDATE MARK IS, read off the page images — see extractNovgorod. Keyed by leaf, one
+       entry per candidate in reading order: a number is the note of that number at the foot of the same
+       page; a string is what the glyphs really are — an apostrophe, a quotation mark, a letter of an italic
+       word the engine broke ("p" ends the "Posadnik-shi" it reads for Posadnik-ship), or nothing (a speck,
+       a pen stroke); "⟦k⟧" inside a string places note k beside a quotation mark, in the page's order. */
+    marks: {
+      53: [2,3,4,5,6,7,8], 54: [1,2,3,4,5,6,7], 56: [1,2], 57: [2,3,4,5,6,7,8,9,10], 58: ["",1,"",2,3,3,4,5],
+      59: ["’","",1,2,3,4,"",5,6], 60: [1,2,3,4,5,6], 61: [1,3], 62: [1,2,3,4,5], 63: [1,2,3,4,""], 64: [1,3,4],
+      65: [1,3,"’",4,5,6], 66: [1], 68: [2], 69: ["",1], 70: [1,2,3,4,5], 71: [1,2], 72: [1,2,3], 73: ["p","p"],
+      74: [1,2], 75: ["p",1,"","p"], 76: [1,2], 77: [1,3,4,5], 78: [2,"",3], 79: [1,2,3,"p","p",4], 80: [1,""],
+      82: ["",1], 84: [1,2,3], 85: ["","","",1,2], 86: [1,"","",3,4,5], 87: [1,2,3,4], 88: [2,3,4,4], 89: ["’",1,2],
+      90: [1,3,4], 91: [1], 92: [1,2,3,4,5], 93: [1,"’"], 94: [1,2,3,4,5,6,7], 95: [1,2,"p",3,4,5], 96: [1,2,3,4],
+      97: [1], 98: [1,1,2,3], 99: [1], 100: [1,2,3,4,5,6], 101: ["’",1], 102: [1,2,3,4,"p",5], 103: [1,3,4,5],
+      104: [1,2,3,4,5,6,7], 105: [","], 106: [1,"","",2], 108: [1], 110: [1,2,3], 111: [1], 112: [1],
+      113: [1,3,4,5,6,7], 114: [1], 115: [1,2,"",3,4], 116: [1,2,3,4,5,6], 117: ["","","","",1,2,3], 118: [1,2,3],
+      119: [1], 120: ["\"⟦1⟧",2,2,3,4,5], 121: [1], 122: [1,2,3,4], 123: [1,2,3,4], 124: [1], 125: ["",1,3],
+      126: [1,"\"⟦2⟧",3], 127: [1,"p",3,4,5], 129: [1,2,3,4], 130: [1,2,3], 131: [1,3], 133: [1,2,3,"",4,4],
+      134: [1,"’","","",2], 135: [1,2,3,4], 136: [1,2,3,4,4,5,6,7], 137: [1,2,3,4], 138: [1,2,"","",""],
+      139: [1,3,""], 140: [1,2], 142: ["\"",1,3,"\"","'"], 143: [1,""], 144: [1,2], 145: [1,2], 146: ["’",1],
+      147: [1], 148: ["p","\"⟦1⟧","\"⟦2⟧"], 150: [1,2], 152: [1], 153: [","], 155: ["",1,3,4], 156: [1], 157: [1,2],
+      158: [1,2,3], 159: ["p",1,2,2,"’"], 160: [1,3,""], 161: [1,2,3,4], 162: [1,"p",2,"","","p"], 163: [1,2],
+      164: [1], 165: [1,2], 166: [1,2,3], 167: [1], 168: [1,"","","",2,1,1,3], 169: [1,3,4,5], 170: [1,"’","’"],
+      171: [1,2,2,2], 172: [1,"e",2], 173: [1], 174: [1,3], 175: [1,4,2,3,4,5,6,7], 176: [1,2],
+      177: [1,"","","","",3], 178: ["’",1,2,3,4,5], 179: [1,2,3], 180: ["",3,4,5], 181: [1,2,3,4], 182: [1,2,3,4],
+      183: [1,2,3], 184: [1,2,3,4,5,6], 185: [1,"\"⟦2⟧",3], 186: [2,3,"’",4,""], 187: [1], 188: [1], 189: [1],
+      190: [1,2], 191: [1,"",1,3,1,3], 192: [1,2,"","",3], 193: [1,3,4], 194: [1,2,3], 195: [1,2,3,4,5,5,5,6],
+      196: [1,3,4,5,6], 197: [1,2,3,4,5,"p"], 198: [1,2,3,3,4], 199: [1,2,3], 200: [1], 201: [1,2,3,4,5],
+      202: [2,3,4,5], 203: [1,2,3,4,5,6,""], 204: [1,"’",2,3,4,5,"’",2,6], 205: [1,2,3], 206: [1,2,3,4,5],
+      207: [1,3,4,5,6,5,4], 208: ["’",1,2], 209: [1,3,4,5], 210: [1], 211: [1,3,4,5], 212: [2], 213: ["’",1,2,3],
+      214: [1,"’",2,3,4], 215: ["’"], 216: [2,3,4,5], 217: [1,3,4], 218: [1,"p"], 219: [1,3,4,5,6,7,"V"],
+      220: [1,2,3], 221: [1,"",3,4,""], 222: ["⟦2⟧\""], 223: [1], 224: [1,"’",3], 225: [1,3,4], 226: ["\"⟦1⟧",2,3,4],
+      227: [1,2,3], 228: ["",1,"’",2,3], 229: [1,3], 230: [1,3,"’",4,5,6], 231: [1,2,"",3,"",""],
+      232: [1,2,3,4,5,6,7,8], 233: [1,2,3,4], 234: [1,1,1,2,1,"\""], 235: [1,"’",3,4,5,5], 236: [1,"’","y",""],
+      237: ["",1,2,1,3,"",4], 238: [1], 239: [1,"’"], 240: ["⟦1⟧\"","’",2], 241: [1,3,4,5,6], 242: [1,2,3,4,"’"],
+      243: [1,2,3,4], 244: ["n",1,1,2], 245: [1], 246: [1,2,3,4], 247: [1,2,3,4], 248: ["’",2," ",3],
+      249: [1,3,3,""], 250: [1,2,""], 251: [1,"’",2,3,4,5,6,"",7], 252: ["","","","",1,2,"\"⟦3⟧",3,4,2,"",""],
+      253: ["",1], 254: [1,2,3,4,"’"], 255: [2,3], 256: ["",1,2,3], 257: [1,2,3,4], 259: [1], 260: [1],
+      264: [2,3,4,5], 266: [""], 267: ["\"⟦1⟧","",2,3], 269: ["",""], 271: [1,""],
+    },
+    reFixes: [
+      /* THE ENGINE'S OWN CONFUSIONS, word by word: `li` read as `h` or `H`, `ll` as `U`, `y` as `v`, `I` as `l`
+         (Ioan, the chronicle's John, is `loan` throughout), each a word no text on the shelf uses and the
+         repair a word this text or the shelf does. */
+      [/\bApostoHc\b/g, "Apostolic", "`Apostolic` read as `ApostoHc`"],
+      [/\bapostohc\b/g, "apostolic", "`apostolic` read as `apostohc`"],
+      [/\bCyrU\b/g, "Cyril", "`Cyril` read as `CyrU`"],
+      [/\bDehver\b/g, "Deliver", "`Deliver` read as `Dehver`"],
+      [/\bFamiHes\b/g, "Families", "`Families` read as `FamiHes`"],
+      [/\bGorodishclie\b/g, "Gorodishche", "`Gorodishche` read as `Gorodishclie`"],
+      [/\bGospodm\b/g, "Gospodin", "`Gospodin` read as `Gospodm`"],
+      [/\bGramofa\b/g, "Gramota", "`Gramota` read as `Gramofa`"],
+      [/\bgraniota\b/g, "gramota", "`gramota` read as `graniota`"],
+      [/\bHvacinth\b/g, "Hyacinth", "`Hyacinth` read as `Hvacinth`"],
+      [/\bJanuarv\b/g, "January", "`January` read as `Januarv`"],
+      [/\bJiily\b/g, "July", "`July` read as `Jiily`"],
+      [/\bKJiolm\b/g, "Kholm", "`Kholm` read as `KJiolm`"],
+      [/\bKeksholin\b/g, "Keksholm", "`Keksholm` read as `Keksholin`"],
+      [/\bKiiny\b/g, "Kuny", "`Kuny` read as `Kiiny`"],
+      [/\bKnvazes\b/g, "Knyazes", "`Knyazes` read as `Knvazes`"],
+      [/\bKnyagmya\b/g, "Knyaginya", "`Knyaginya` read as `Knyagmya`"],
+      [/\bKostj'antin\b/g, "Kostyantin", "`Kostyantin` read as `Kostj'antin`"],
+      [/\bKostvantin\b/g, "Kostyantin", "`Kostyantin` read as `Kostvantin`"],
+      [/\bMikliail\b/g, "Mikhail", "`Mikhail` read as `Mikliail`"],
+      [/\bSj'nodal\b/g, "Synodal", "`Synodal` read as `Sj'nodal`"],
+      [/\bSpiriclon\b/g, "Spiridon", "`Spiridon` read as `Spiriclon`"],
+      [/\bVasiU\b/g, "Vasili", "`Vasili` read as `VasiU`"],
+      [/\bVolkliov\b/g, "Volkhov", "`Volkhov` read as `Volkliov`"],
+      [/\bVoyevocias\b/g, "Voyevodas", "`Voyevodas` read as `Voyevocias`"],
+      [/\bZakliari\b/g, "Zakhari", "`Zakhari` read as `Zakliari`"],
+      [/\bahens\b/g, "aliens", "`aliens` read as `ahens`"],
+      [/\bbhnd\b/g, "blind", "`blind` read as `bhnd`"],
+      [/\bbhnded\b/g, "blinded", "`blinded` read as `bhnded`"],
+      [/\bcaUing\b/g, "calling", "`calling` read as `caUing`"],
+      [/\bcaptiired\b/g, "captured", "`captured` read as `captiired`"],
+      [/\bchurhshness\b/g, "churlishness", "`churlishness` read as `churhshness`"],
+      [/\bcomphance\b/g, "compliance", "`compliance` read as `comphance`"],
+      [/\bdayhght\b/g, "daylight", "`daylight` read as `dayhght`"],
+      [/\bdechned\b/g, "declined", "`declined` read as `dechned`"],
+      [/\bdehberated\b/g, "deliberated", "`deliberated` read as `dehberated`"],
+      [/\bestabhshes\b/g, "establishes", "`establishes` read as `estabhshes`"],
+      [/\bfalhng\b/g, "falling", "`falling` read as `falhng`"],
+      [/\bheutenant\b/g, "lieutenant", "`lieutenant` read as `heutenant`"],
+      [/\bheutenants\b/g, "lieutenants", "`lieutenants` read as `heutenants`"],
+      [/\bhfe\b/g, "life", "`life` read as `hfe`"],
+      [/\bhght\b/g, "light", "`light` read as `hght`"],
+      [/\bhghtning\b/g, "lightning", "`lightning` read as `hghtning`"],
+      [/\bhirehngs\b/g, "hirelings", "`hirelings` read as `hirehngs`"],
+      [/\bhkewise\b/g, "likewise", "`likewise` read as `hkewise`"],
+      [/\bhsten\b/g, "listen", "`listen` read as `hsten`"],
+      [/\bhttle\b/g, "little", "`little` read as `httle`"],
+      [/\bhved\b/g, "lived", "`lived` read as `hved`"],
+      [/\bhves\b/g, "lives", "`lives` read as `hves`"],
+      [/\bikotis\b/g, "ikons", "`ikons` read as `ikotis`"],
+      [/\bincHned\b/g, "inclined", "`inclined` read as `incHned`"],
+      [/\binchned\b/g, "inclined", "`inclined` read as `inchned`"],
+      [/\bintelhgent\b/g, "intelligent", "`intelligent` read as `intelhgent`"],
+      [/\bkiinas\b/g, "kunas", "`kunas` read as `kiinas`"],
+      [/\bkimas\b/g, "kunas", "`kunas` read as `kimas`"],
+      [/\bkilHng\b/g, "killing", "`killing` read as `kilHng`"],
+      [/\bkilhng\b/g, "killing", "`killing` read as `kilhng`"],
+      [/\bliim\b/g, "him", "`him` read as `liim`"],
+      [/\bmetalHc\b/g, "metallic", "`metallic` read as `metalHc`"],
+      [/\bpainteci\b/g, "painted", "`painted` read as `painteci`"],
+      [/\bpeacefuUy\b/g, "peacefully", "`peacefully` read as `peacefuUy`"],
+      [/\bpubhc\b/g, "public", "`public` read as `pubhc`"],
+      [/\brebeUion\b/g, "rebellion", "`rebellion` read as `rebeUion`"],
+      [/\brehgion\b/g, "religion", "`religion` read as `rehgion`"],
+      [/\brepHed\b/g, "replied", "`replied` read as `repHed`"],
+      [/\bsterhng\b/g, "sterling", "`sterling` read as `sterhng`"],
+      [/\bsupphcation\b/g, "supplication", "`supplication` read as `supphcation`"],
+      [/\bswelhng\b/g, "swelling", "`swelling` read as `swelhng`"],
+      [/\bthev\b/g, "they", "`they` read as `thev`"],
+      [/\btliey\b/g, "they", "`they` read as `tliey`"],
+      [/\btliere\b/g, "there", "`there` read as `tliere`"],
+      [/\bwiU\b/g, "will", "`will` read as `wiU`"],
+      [/\bzeinlya\b/g, "zemlya", "`zemlya` read as `zeinlya`"],
+      [/\bMikhahtsa\b/g, "Mikhalitsa", "`Mikhalitsa` read as `Mikhahtsa`"],
+      [/\bOHsei\b/g, "Olisei", "`Olisei` read as `OHsei`"],
+      [/\bOhsei\b/g, "Olisei", "`Olisei` read as `Ohsei`"],
+      [/\bSehvester\b/g, "Selivester", "`Selivester` read as `Sehvester`"],
+      [/\bTysyaiskis\b/g, "Tysyatskis", "`Tysyatskis` read as `Tysyaiskis`"],
+      [/\bPhihp\b/g, "Philip", "`Philip` read as `Phihp`"],
+      [/\bVasih\b/g, "Vasili", "`Vasili` read as `Vasih`"],
+      [/\bHke\b/g, "like", "`like` read as `Hke`"],
+      [/\bKHment\b/g, "Kliment", "`Kliment` read as `KHment`"],
+      [/\bKhment\b/g, "Kliment", "`Kliment` read as `Khment`"],
+      [/\bTsargmd\b/g, "Tsargrad", "`Tsargrad` read as `Tsargmd`"],
+      [/\bTsargnid\b/g, "Tsargrad", "`Tsargrad` read as `Tsargnid`"],
+      [/\blona\b/g, "Iona", "`Iona` read as `lona`"],
+      [/\bloachim\b/g, "Ioachim", "`Ioachim` read as `loachim`"],
+      [/\bleremia\b/g, "Ieremia", "`Ieremia` read as `leremia`"],
+      [/\blerofei\b/g, "Ierofei", "`Ierofei` read as `lerofei`"],
+      [/\blevlich\b/g, "Ievlich", "`Ievlich` read as `levlich`"],
+      [/\bloanovich\b/g, "Ioanovich", "`Ioanovich` read as `loanovich`"],
+      [/\bloan\b/g, "Ioan", "`Ioan` read as `loan`"],
+      [/\bPloimki\b/g, "Plotniki", "`Plotniki` read as `Ploimki`"],
+      [/\bMetropohtan\b/g, "Metropolitan", "`Metropolitan` read as `Metropohtan`"],
+      [/\bMetropoHtan\b/g, "Metropolitan", "`Metropolitan` read as `MetropoHtan`"],
+      [/\bVasihevich\b/g, "Vasilievich", "`Vasilievich` read as `Vasihevich`"],
+      [/\bahve\b/g, "alive", "`alive` read as `ahve`"],
+      [/\bcalhng\b/g, "calling", "`calling` read as `calhng`"],
+      [/\bestabhshed\b/g, "established", "`established` read as `estabhshed`"],
+      [/\bhke\b/g, "like", "`like` read as `hke`"],
+      [/\bPohsh\b/g, "Polish", "`Polish` read as `Pohsh`"],
+      [/\bK(?:iiyaz|iyaz|yiyaz|ynaz|jiyaz|jtyaz|nvaz|tiyaz|ttyaz)\b/g, "Knyaz", "the italic Knyaz misread (eleven forms)"],
+      [/\bIg(?:iimen|mnen|imien|unien)\b/g, "Igumen", "the italic Igumen misread"],
+      [/\bIg(?:mnens|nmens|uniens|iimens)\b/g, "Igumens", "the italic Igumens misread"],
+      [/\bIg(?:mnena|iimena)\b/g, "Igumena", "the italic Igumena misread"],
+      [/\b(?:Nemisy|Neniisy|Nenitsy|Netntsy|Nentsy|N['’]emtsy|N['’]eyutsy)\b/g, "Nemtsy", "the italic Nemtsy misread"],
+      [/\b(?:Nemeiski|Nemetshi)\b/g, "Nemetski", "the italic Nemetski misread"],
+      [/\bPos(?:adnik|adyiik|ad\}iik|flnz|ain\/)-(?!ship\b)[^\s,.;:]*/g, "Posadnik-ship", "the italic Posadnik and the roman -ship misread (nineteen forms)"],
+      [/\bPosadyiik\b/g, "Posadnik", "the italic Posadnik misread"],
+    ],
+    fixes: [
+      /* ---------- THE YEAR HEADS ----------
+         Walked for gaps and reversals on every run; every row read off the page. One is the printer's. */
+      ["A.D. nil. A.M. 6619.", "A.D. 1111. A.M. 6619.", "the year 1111 read as `nil` (p. 8)"],
+      ["A.D. 114:2. A.M. 6650.", "A.D. 1142. A.M. 6650.", "the year 1142 read as `114:2` (p. 17)"],
+      ["A.M. G667.", "A.M. 6667.", "the year 6667 read as `G667` (p. 23)"],
+      ["A.M. 661)9.", "A.M. 6699.", "the year 6699 read as `661)9` (p. 35)"],
+      ["A.D. 1200. A.M. 7708.", "A.D. 1200. A.M. 6708.", "PRINTED `7708` (p. 42) — a misprint for 6708, between 6707 (1199) and 6709 (1201)"],
+      ["A.D. 1204. .\\.M. 6712.", "A.D. 1204. A.M. 6712.", "`A.M.` read as `.\\.M.` (p. 43)"],
+      ["A.M. G718.", "A.M. 6718.", "the year 6718 read as `G718` (p. 50)"],
+      ["A.M. 6744,", "A.M. 6744.", "a full stop read as a comma (p. 80)"],
+      ["A.D, 1237.", "A.D. 1237.", "a full stop read as a comma (p. 81)"],
+      ["A.D. 124L A.M. 6749.", "A.D. 1241. A.M. 6749.", "the year 1241 read as `124L` (p. 86)"],
+      ["A.D. 126L A.M. 6769.", "A.D. 1261. A.M. 6769.", "the year 1261 read as `126L` (p. 97)"],
+      ["A.M. 677L", "A.M. 6771.", "the year 6771 read as `677L` (p. 98)"],
+      ["A.D. 127L A.M. 6779.", "A.D. 1271. A.M. 6779.", "the year 1271 read as `127L` (p. 105)"],
+      ["A.M. 6866,", "A.M. 6866.", "a full stop read as a comma (p. 146)"],
+      ["A.D. 138L A.M. 6889.", "A.D. 1381. A.M. 6889.", "the year 1381 read as `138L` (p. 158)"],
+      ["A.M. G903.", "A.M. 6903.", "the year 6903 read as `G903` (p. 167)"],
+      ["A.M. 6948,", "A.M. 6948.", "a full stop read as a comma (p. 196)"],
+      ["A.D. 14:26. A.M. 6934.", "A.D. 1426. A.M. 6934.", "the year 1426 read as `14:26` (p. 192)"],
+      /* ---------- FOOTNOTE MARKS THE BOX TEST MISSED ----------
+         Found from each note never cited, and read off the page image: a raised figure set close to its
+         word, which the engine read as a letter or a stop of the line (`-` for ², `/` for ¹, `}`, `P`). */
+      ["the Lyakhi} And at that time", "the Lyakhi.⟦1@53⟧ And at that time",
+        "p. 1, note 1: the full stop and the mark read together as `}`"],
+      ["in Russia [Rus.y", "in Russia [Rus.]⟦1@57⟧",
+        "p. 5, note 1: the bracket and the mark read as `.y`"],
+      ["Medvezhya Golovofi on", "Medvezhya Golova⟦2@61⟧ on",
+        "p. 9, note 2: `Golova²` read as `Golovofi`"],
+      ["came from Donia- in health", "came from Donia⟦2@64⟧ in health",
+        "p. 12, note 2: its mark read as `-`"],
+      ["a war with Suzhdal,- and", "a war with Suzhdal,⟦2@65⟧ and",
+        "p. 13, note 2: its mark read as `-`"],
+      ["cost seven rezanas?-", "cost seven rezanas.⟦1@67⟧",
+        "p. 15, note 1: the stop and the mark read as `?-`"],
+      ["went out to Silnishche/ and", "went out to Silnishche,⟦1@68⟧ and",
+        "p. 16, note 1: the comma and the mark read as `/`"],
+      ["barrel (kadka)- for seven kunas? Oh", "barrel (kadka)⟦2@75⟧ for seven kunas.⟦3@75⟧ Oh",
+        "p. 23, notes 2 and 3: their marks read as `-` and `?`"],
+      ["a way to Vyatsko- and", "a way to Vyatsko⟦2@77⟧ and",
+        "p. 25, note 2: its mark read as `-`"],
+      ["Anna, Iguniena} of St. Barbara", "Anna, Igumena⟦1@78⟧ of St. Barbara",
+        "p. 26, note 1: its mark read as `}`, and Igumena misread"],
+      ["Divna Gora} and", "Divna Gora,⟦1@88⟧ and",
+        "p. 36, note 1: the comma and the mark read as `}`"],
+      ["householders, body-guards'- and", "householders, body-guards⟦2@90⟧ and",
+        "p. 38, note 2: its mark read as `’-`"],
+      ["monastery at Nelezino- in", "monastery at Nelezino⟦2@91⟧ in",
+        "p. 39, note 2: its mark read as `-`"],
+      ["called Nereditsa-;", "called Nereditsa⟦2@93⟧;",
+        "p. 41, note 2: its mark read as `-`"],
+      ["consulted with Murchufl,- took", "consulted with Murchufl,⟦2@97⟧ took",
+        "p. 45, note 2: its mark read as `-`"],
+      ["The wonderful Digitria- of", "The wonderful Digitria⟦2@99⟧ of",
+        "p. 47, note 2: its mark read as `-`"],
+      ["Markos of Rome,''", "Markos of Rome,⟦3@99⟧",
+        "p. 47, note 3: its mark read as `''`"],
+      ["build a fortification,- and", "build a fortification,⟦2@103⟧ and",
+        "p. 51, note 2: its mark read as `-`"],
+      ["the King's son-;", "the King's son⟦2@113⟧;",
+        "p. 61, note 2: its mark read as `-`"],
+      ["and they- having", "and they⟦2@121⟧ having",
+        "p. 69, note 2: its mark read as `-`"],
+      ["took much money- from", "took much money⟦2@124⟧ from",
+        "p. 72, note 2: its mark read as `-`"],
+      ["Give up the Volokr and", "Give up the Volok⟦2@125⟧ and",
+        "p. 73, note 2: its mark read as `r`"],
+      ["on Exaltation Day,- and kissed", "on Exaltation Day,⟦2@127⟧ and kissed",
+        "p. 75, note 2: its mark read as `-`"],
+      ["the Low country- fell", "the Low country⟦2@131⟧ fell",
+        "p. 79, note 2: its mark read as `-`"],
+      ["the Subol shore.- And", "the Subol shore.⟦2@139⟧ And",
+        "p. 87, note 2: its mark read as `-`"],
+      ["steward- named Eldega", "steward⟦2@142⟧ named Eldega",
+        "p. 90, note 2: its mark read as `-`"],
+      ["against Poltesk-,", "against Poltesk⟦2@152⟧,",
+        "p. 100, note 2: its mark read as `-`"],
+      ["the Narova to Rakovor/ and", "the Narova to Rakovor⟦1@153⟧ and",
+        "p. 101, note 1: its mark read as `/`"],
+      ["to deprive them- of", "to deprive them⟦2@155⟧ of",
+        "p. 103, note 2: its mark read as `-`"],
+      ["beat with their foreheadsto the Tsar", "beat with their foreheads⟦2@160⟧ to the Tsar",
+        "p. 108, note 2: its mark read as `-` at a line's end, which joined two words"],
+      ["of God at Dubenka,- by", "of God at Dubenka,⟦2@169⟧ by",
+        "p. 117, note 2: its mark read as `-`"],
+      ["St. loan- Ishkov", "St. loan⟦2@170⟧ Ishkov",
+        "p. 118, note 2: its mark read as `-`"],
+      ["a town of the 'Nemtsy-;", "a town of the Nemtsy⟦2@174⟧;",
+        "p. 122, note 2: its mark read as `-`, and a speck before the word as `‘`"],
+      ["Yurev of the Nemtsy- was", "Yurev of the Nemtsy⟦2@177⟧ was",
+        "p. 125, note 2: its mark read as `-`"],
+      ["raised the stone walP in", "raised the stone wall⟦1@180⟧ in",
+        "p. 128, note 1: the last l and the mark read as `P`"],
+      ["of St. Yuriraised the", "of St. Yuri⟦2@180⟧ raised the",
+        "p. 128, note 2: its mark lost and two lines run together"],
+      ["and in the schema}; and", "and in the schema⟦1@186⟧; and",
+        "p. 134, note 1: its mark read as `}`"],
+      ["\"A Nemetski- force", "\"A Nemetski⟦2@188⟧ force",
+        "p. 136, note 2: its mark read as `-`"],
+      ["brought masters'- from", "brought masters⟦2@189⟧ from",
+        "p. 137, note 2: its mark read as `’-`"],
+      ["in the Rugodivdistrict", "in the Rugodiv⟦2@191⟧ district",
+        "p. 139, note 2: its mark read as `-` at a line's end, which joined two words"],
+      ["Shelon and Luga- by assault", "Shelon and Luga⟦2@193⟧ by assault",
+        "p. 141, note 2: its mark read as `-`"],
+      ["A.M. 6860.\" The nobles", "A.M. 6860.⟦2@196⟧ The nobles",
+        "p. 144, note 2: its mark read as a quotation mark"],
+      ["the Gornichar- quarter", "the Gornichar⟦2@200⟧ quarter",
+        "p. 148, note 2: its mark read as `-`"],
+      ["monastery at Skovorodka/ on", "monastery at Skovorodka⟦1@202⟧ on",
+        "p. 150, note 1: its mark read as `/`"],
+      ["the Holy Martyr Popolit.''' They", "the Holy Martyr Popolit.⟦7@203⟧ They",
+        "p. 151, note 7: its mark read as `'''`"],
+      ["flowed backwards,- seven days", "flowed backwards,⟦2@207⟧ seven days",
+        "p. 155, note 2: its mark read as `-`"],
+      ["to their lord- Vladyka", "to their lord⟦2@209⟧ Vladyka",
+        "p. 157, note 2: its mark read as `-`"],
+      ["Volodimir and Yurev.-", "Volodimir and Yurev.⟦2@211⟧",
+        "p. 159, note 2: its mark read as `-`"],
+      ["the Korel town/ and half", "the Korel town⟦1@212⟧ and half",
+        "p. 160, note 1: its mark read as `/`"],
+      ["his mother Olena/ and", "his mother Olena,⟦1@216⟧ and",
+        "p. 164, note 1: the comma and the mark read as `/`"],
+      ["some A'emisy- pirates", "some Nemtsy⟦2@217⟧ pirates",
+        "p. 165, note 2: its mark read as `-`, and Nemtsy misread"],
+      ["the Lisitsa Hill- to", "the Lisitsa Hill⟦2@218⟧ to",
+        "p. 166, note 2: its mark read as `-`"],
+      ["two charters- of instruct", "two charters⟦2@219⟧ of instruct",
+        "p. 167, note 2: its mark read as `-`"],
+      ["the Exaltation- was burnt", "the Exaltation⟦2@221⟧ was burnt",
+        "p. 169, note 2: its mark read as `-`"],
+      ["beyond the Voloh}, Torzhok", "beyond the Volok⟦1@222⟧, Torzhok",
+        "p. 170, note 1: its mark read as `}`, and Volok misread"],
+      ["one day of Galich,- and", "one day of Galich,⟦2@223⟧ and",
+        "p. 171, note 2: its mark read as `-`"],
+      ["but Alfan- escaped", "but Alfan⟦2@224⟧ escaped",
+        "p. 172, note 2: its mark read as `-`"],
+      ["Vladyka of Selun,- and", "Vladyka of Selun,⟦2@225⟧ and",
+        "p. 173, note 2: its mark read as `-`"],
+      ["came from the lake- and broke", "came from the lake⟦2@229⟧ and broke",
+        "p. 177, note 2: its mark read as `-`"],
+      ["wall and the Krom- did", "wall and the Krom⟦2@230⟧ did",
+        "p. 178, note 2: its mark read as `-`"],
+      ["Archangel GavriP in", "Archangel Gavril⟦3@234⟧ in",
+        "p. 182, note 3: the last l and the mark read as `P`"],
+      ["the Carpenters’ quarter- the same", "the Carpenters’ quarter⟦2@235⟧ the same",
+        "p. 183, note 2: its mark read as `-`"],
+      ["Krasnaya Gorka- in", "Krasnaya Gorka⟦2@236⟧ in",
+        "p. 184, note 2: its mark read as `-`"],
+      ["Nikola in the KoreP country", "Nikola in the Korel⟦2@241⟧ country",
+        "p. 189, note 2: the last l and the mark read as `P`"],
+      ["A.M. 6940.- The Russian", "A.M. 6940.⟦2@245⟧ The Russian",
+        "p. 193, note 2: its mark read as `-`"],
+      ["wall of the Deiineis} and", "wall of the Detinets,⟦1@248⟧ and",
+        "p. 196, note 1: the comma and the mark read as `}`, and Detinets misread"],
+      ["Kasimir, Yagoilo's- son", "Kasimir, Yagoilo's⟦2@249⟧ son",
+        "p. 197, note 2: its mark read as `-`"],
+      ["the Murman Svei''- came", "the Murman Svei⟦1@255⟧ came",
+        "p. 203, note 1: its mark read as `’’-`"],
+      ["Dmitri of Selun} Georgi", "Dmitri of Selun,⟦1@264⟧ Georgi",
+        "p. 212, note 1: the comma and the mark read as `}`"],
+      ["the Nemtsy,\" in Khoruzhk", "the Nemtsy,⟦2@86⟧ in Khoruzhk",
+        "p. 34, note 2: its mark read as a quotation mark"],
+      /* ---------- WHAT THE OCR GOT WRONG IN THE PROSE AND THE NOTES ----------
+         Found by listing every word that neither this text elsewhere nor any other book on the shelf uses,
+         by word-diffing the first seventy pages against a second OCR (the Acrobat Capture text of a
+         different copy, University of Washington, 2000), and by reading the struck-through and italic
+         lines off the page. The scanned copy has pencil strokes through a dozen lines; the engine reads
+         this edition's italics (Knyaz, Vladyka, Posadnik, Igumen, Nemtsy) worst of all. */
+      ["Fedos, 7Mwg» of Pechersk", "Fedos, Igumen of Pechersk",
+        "the italic Igumen read as `7Mwg»` (p. 6)"],
+      ["This 3ear,", "This year,",
+        "`year` read as `3ear` (p. 11)"],
+      ["Smo lensk", "Smolensk",
+        "a space read inside Smolensk (p. 16)"],
+      ["his Dnishiiia they", "his Druzhina they",
+        "the italic Druzhina read as `Dnishiiia` (p. 23)"],
+      ["Sv3atoslav again with his fullliberty", "Svyatoslav again with his full liberty",
+        "`Svyatoslav` read as `Sv3atoslav`, and a space lost (p. 23)"],
+      ["The same yeox Roman", "The same year Roman",
+        "`year` read as `yeox` (p. 31)"],
+      ["by the side of the qjd one", "by the side of the old one",
+        "`old` read as `qjd` (p. 33)"],
+      ["all the Sfn'ars refused", "all the Boyars refused",
+        "the italic Boyars read as `Sfn'ars` (p. 46)"],
+      ["And Tsay Murchufl", "And Tsar Murchufl",
+        "`Tsar` read as `Tsay` (p. 47)"],
+      ["corpses in the mN|cet::plac2;jCnipIesTn the street", "corpses in the market-place, corpses in the street",
+        "a line struck through in pencil in the scanned copy, read as `mN|cet::plac2;jCnipIesTn` (p. 54)"],
+      ["Qavrilo Milyatinits", "Gavrilo Milyatinits",
+        "a G read as Q (p. 55)"],
+      ["the [riverj Kalaksha", "the [river] Kalaksha",
+        "a bracket read as `j` (p. 59)"],
+      ["forces of Ncn'gorod", "forces of Novgorod",
+        "`Novgorod` read as `Ncn'gorod` (p. 59)"],
+      ["And all assembed", "And all assembled",
+        "a dropped l (p. 60)"],
+      ["having retmned from", "having returned from",
+        "`ur` read as `m` (p. 63)"],
+      ["Gyurgi of NeSvezh", "Gyurgi of Nesvezh",
+        "a capital S read mid-word (p. 63)"],
+      ["to G3airgi:", "to Gyurgi:",
+        "`Gyurgi` read as `G3airgi` (p. 67)"],
+      ["in the L3mdin quarter", "in the Lyudin quarter",
+        "`Lyudin` read as `L3mdin` (p. 79)"],
+      ["his son VsevoloH with", "his son Vsevolod with",
+        "the last d read as H, under a pencil stroke (p. 82)"],
+      ["to Pleskovthat the Nemisy", "to Pleskov that the Nemtsy",
+        "a space lost and the italic Nemtsy misread (p. 86)"],
+      ["under us,\" for lul Pskov", "under us,\" for Pskov",
+        "a pencilled note in the margin read as `lul` (p. 86)"],
+      ["and its Tiuns- in-prison: \"PirvKnyaz Ol", "and its Tiuns in prison]. And Knyaz Ol",
+        "a line struck through in pencil, read as `Tiuns- in-prison: \"PirvKnyaz` (p. 86)"],
+      ["on May 4; arfd he", "on May 4; and he",
+        "`and` read as `arfd` (p. 87)"],
+      ["St. Irena's Day15y Vladyka", "St. Irena's Day, by Vladyka",
+        "an ink blot over `, by` (p. 87)"],
+      ["And then the Knyazvfent to", "And then the Knyaz went to",
+        "a space lost and `went` misread (p. 92)"],
+      ["Give us your munbers", "Give us your numbers",
+        "`numbers` read as `munbers` (p. 105)"],
+      ["they laid PosadnikMikha.il in", "they laid Posadnik Mikhail in",
+        "a space lost and a speck read inside Mikhail (p. 108)"],
+      ["the office of Tlvsyaskt they", "the office of Tysyatski they",
+        "the italic Tysyatski misread (p. 103)"],
+      ["and then agaia filled out", "and then again filled out",
+        "`again` read as `agaia` (p. 106)"],
+      ["The. Veliki KnyazT)rmix\\ going WithPosadnik Mikh", "The Veliki Knyaz Dmitri going with Posadnik Mikh",
+        "the italics run together and Dmitri misread (p. 108)"],
+      ["consecration byFeoktist,", "consecration by Feoktist,",
+        "a space lost before an italic word (p. 116)"],
+      ["Vladykaoi No", "Vladyka of No",
+        "`of` read as `oi` and run onto the italic Vladyka (p. 116)"],
+      ["The F/ziiMjyaz Mikhail", "The Veliki Knyaz Mikhail",
+        "the italic Veliki Knyaz misread (p. 116)"],
+      ["The F/Zjiwya Ivan", "The Veliki Knyaz Ivan",
+        "the italic Veliki Knyaz misread (p. 125)"],
+      ["came upon Torzdok", "came upon Torzhok",
+        "an h read as d (p. 136)"],
+      ["the king oiihe Sveiis coming", "the king of the Svei is coming",
+        "`of the` misread and a space lost (p. 139)"],
+      ["to asume the office", "to assume the office",
+        "a dropped s (p. 140)"],
+      ["and A'i?wf'/.yz merchants", "and Nemetski merchants",
+        "the italic Nemetski misread (p. 151)"],
+      ["Knyaz Grigori Ostafievicii,", "Knyaz Grigori Ostafievich,",
+        "`ch` read as `cii` (p. 168)"],
+      ["and the Posadnik,\\.]ieTysyatski,d,n6. the w'hole of Grea", "and the Posadnik, the Tysyatski, and the whole of Grea",
+        "the italics run together and misread (p. 169)"],
+      ["his displeasure, anji he", "his displeasure, and he",
+        "`and` read as `anji` (p. 170)"],
+      ["covenant-breaking Dyina.Voyevodas", "covenant-breaking Dvina Voyevodas",
+        "Dvina misread and run onto the italic word (p. 171)"],
+      ["KnyazViiovt Kestutievichof Lithuania", "Knyaz Vitovt Kestutievich of Lithuania",
+        "the italics run together and Vitovt misread (p. 172)"],
+      ["therewa.S a rloise m theome; and", "there was a noise in the dome; and",
+        "a line struck through in pencil (p. 179)"],
+      ["that w'orse would", "that worse would",
+        "a speck read as an apostrophe (p. 180)"],
+      ["[as their Vladykd\\, and", "[as their Vladyka], and",
+        "the italic Vladyka and the closing bracket misread (p. 207)"],
+      ["Veliki KnyazV.'iiW. Vasilievich", "Veliki Knyaz Vasili Vasilievich",
+        "the italic Knyaz and Vasili misread (p. 198)"],
+      ["the VelikiKnyazes of", "the Veliki Knyazes of",
+        "a space lost between two italic words (p. 208)"],
+      ["F/flri_yaEufemi, F/fl_ya of Gre", "Vladyka Eufemi, Vladyka of Gre",
+        "the italic Vladyka misread twice (p. 200)"],
+      ["the loly Archisraiegos'MilCiidal protect", "the Holy Archistrategos Mikhail protect",
+        "the italic Archistrategos and Mikhail misread (p. 200)"],
+      ["VladykalLniemi.VladykaoiGredJiovgovod,", "Vladyka Eufemi, Vladyka of Great Novgorod,",
+        "a line of italics and roman run together (p. 201)"],
+      ["Yurievichbecame Veliki", "Yurievich became Veliki",
+        "a space lost (p. 205)"],
+      ["the king Hodologonwr of Sodom", "the king Hodologomor of Sodom",
+        "the italic `mor` read as `nwr` (p. 215)"],
+      ["unrighteous backshders", "unrighteous backsliders",
+        "`li` read as `h` (p. 215)"],
+      ["Knyaz Yuri Vasilievich,iiTw'a; Andrei", "Knyaz Yuri Vasilievich, Knyaz Andrei",
+        "the italic Knyaz misread (p. 217)"],
+      ["who with mfen from", "who with men from",
+        "a speck read as `f` (p. 218)"],
+      ["Knyaz \\asili, died", "Knyaz Vasili, died",
+        "a V read as `\\` (p. 185)"],
+      ["Yemtsa and Kolmogor},", "Yemtsa and Kolmogory,",
+        "a y read as `}` (p. 185)"],
+      ["On that da} the", "On that day the",
+        "a y read as `}` (p. 184)"],
+      ["Then again the} began", "Then again they began",
+        "a y read as `}` (p. 91)"],
+      ["returned safel} to", "returned safely to",
+        "a y read as `}` (p. 139)"],
+      ["showed him the wa} and", "showed him the way, and",
+        "`y,` read as `}` (p. 108)"],
+      ["to their compan}:", "to their company:",
+        "a y read as `}` (p. 214)"],
+      ["heav} rain", "heavy rain",
+        "a y read as `}` (p. 219)"],
+      ["in the monaster} of", "in the monastery of",
+        "a y read as `}` (p. 34)"],
+      ["at the Lyub3anitsa", "at the Lyubyanitsa",
+        "a y read as `3` (p. 199)"],
+      ["from the countn. beyond", "from the country beyond",
+        "`ry` read as `n.` (p. 197)"],
+      ["the iJoars of the Dvina", "the Boyars of the Dvina",
+        "the italic Boyars misread (p. 169)"],
+      ["beyond the Fo/oA,⟦4@221⟧saying", "beyond the Volok,⟦4@221⟧ saying",
+        "the italic Volok misread and a space lost (p. 169)"],
+      ["people,⟦5@60⟧and", "people,⟦5@60⟧ and",
+        "a space lost after a footnote mark (p. 8)"],
+      ["Novgorod tv&niy poprishche", "Novgorod twenty poprishche",
+        "`twenty` read as `tv&niy` (p. 215)"],
+      ["Knyaz Yuri wentouftrom Volodimir", "Knyaz Yuri went out from Volodimir",
+        "a pencil stroke over the words (p. 82)"],
+      ["many gifts: bps nn mp], buffaloes", "many gifts: horses and camels, buffaloes",
+        "a line struck through in pencil (p. 65)"],
+      ["Vseslav, iwj'az of Polotsk", "Vseslav, Knyaz of Polotsk",
+        "the italic Knyaz misread (p. 7)"],
+      ["The same jear the men", "The same year the men",
+        "`year` read as `jear` (p. 26)"],
+      ["appointed F/«(ya of Novgorod", "appointed Vladyka of Novgorod",
+        "the italic Vladyka misread (p. 33)"],
+      ["Afonasi- Romanovich", "Afonasi⟦2@171⟧ Romanovich",
+        "p. 119, note 2 cited a fourth time: its mark read as `-`"],
+      ["St. Ilya in Kholni.", "St. Ilya in Kholm.",
+        "the italic m read as `ni` (p. 41)"],
+      ["as far as Khn, to", "as far as Klin, to",
+        "`li` read as `h` (p. 179)"],
+      ["and the Tsanisa Alexandra", "and the Tsaritsa Alexandra",
+        "the italic Tsaritsa misread (p. 57)"],
+      ["Moscow from Tsargi-ad from", "Moscow from Tsargrad from",
+        "`r` read as `i-` (p. 168)"],
+      ["Voyevodas Mikhali Danilovich", "Voyevodas Mikhail Danilovich",
+        "two letters transposed (p. 172)"],
+      ["where they liid themselves", "where they hid themselves",
+        "`h` read as `li` (p. 106)"],
+      ["to teU Great Novgorod", "to tell Great Novgorod",
+        "`ll` read as `U` (p. 218)"],
+      ["after having Iain down", "after having lain down",
+        "an l read as I (p. 152)"],
+      ["Ihe Knyaginya of", "The Knyaginya of",
+        "a T read as I (p. 88)"],
+      ["from another IMS. and", "from another MS. and",
+        "a speck read as I (note 1 on p. 2)"],
+      ["from ijyovfievos.", "from ἡγούμενος.",
+        "the Greek of note 9 on p. 5, retyped from the page"],
+      ["Bestnezdniki=a.va.pyvpoi;", "Bezmezdniki = ἀνάργυροι;",
+        "note 1 on p. 19: the italic Bezmezdniki and the Greek, retyped from the page"],
+      ["i.e. EvepyerTj^.", "i.e. Εὐεργέτης.",
+        "the Greek of note 2 on p. 46, retyped from the page"],
+      ["i.e. ets TTT/yds", "i.e. εἰς πηγάς.",
+        "the Greek of note 3 on p. 46, retyped from the page"],
+      ["OSrjyriTpia.", "Ὁδηγήτρια.",
+        "the Greek of note 2 on p. 47, retyped from the page"],
+      ["Po zuJm—per tooth.", "Po zubu—per tooth.",
+        "note 3 on p. 50: the italic zubu misread"],
+      ["Commander of a thousand {t\\>svacha=\\,QOO).", "Commander of a thousand (tysyacha = 1,000).",
+        "note 2 on p. 35, retyped from the page"],
+      ["Vysyekosha=^{).it.) cut him out.", "Vysyekosha = (lit.) cut him out.",
+        "note 3 on p. 5"],
+      ["wild animals {zver).", "wild animals (zver).",
+        "a bracket read as `{` (note 4 on p. 5)"],
+      ["Fo^O/%=Portage,", "Volok = Portage,",
+        "the italic Volok misread (note 2 on p. 6)"],
+      ["Fo/oA'= portage;", "Volok = portage;",
+        "the italic Volok misread (note 3 on p. 123)"],
+      ["i.e. \\Vliite-town.", "i.e. White-town.",
+        "note 1 on p. 23"],
+      ["cf. p. 0.", "cf. p. 6.",
+        "the figure 6 read as 0 (note 4 on p. 40)"],
+      ["Korahl.", "Korabl.",
+        "`b` read as `h` (note 2 on p. 85)"],
+      ["Council of Nicasa,", "Council of Nicaea,",
+        "the ae ligature read as `as` (note 3 on p. 116)"],
+      ["Greblva.", "Greblya.",
+        "a y read as v (note 1 on p. 118)"],
+      ["GoYod.", "Gorod.",
+        "an r read as Y (note 5 on p. 151)"],
+      ["Yuvev Nemetshi or Revel.", "Yurev Nemetski or Revel.",
+        "note 5 on p. 164"],
+      ["Pskov =rPleskov.", "Pskov = Pleskov.",
+        "a speck read as `r` (note 1 on p. 178)"],
+      ["Slohoda.", "Sloboda.",
+        "a b read as h (note 3 on p. 169)"],
+      ["to the siarostas", "to the starostas",
+        "the italic starostas misread (p. 2)"],
+      ["St. DsLniel-Stolpnik", "St. Daniel-Stolpnik",
+        "`Da` read as `DsL` (p. 36)"],
+      ["from Volo dimir,", "from Volodimir,",
+        "a space read inside Volodimir (p. 54)"],
+      ["gave it to TvxTdislav Mikhalkovits", "gave it to Tverdislav Mikhalkovits",
+        "`Tver` read as `TvxT` (p. 40)"],
+      ["Polovets kiirgan", "Polovets kurgan",
+        "the italic kurgan misread (p. 65)"],
+      ["the Knyaginya,'\\'hQ\\r daughter", "the Knyaginya, their daughter",
+        "`their` read as `'\\'hQ\\r` (p. 83)"],
+      ["there was mucl> evil", "there was much evil",
+        "`much` read as `mucl>` (p. 93)"],
+      ["his own Tiiin", "his own Tiun",
+        "the italic Tiun misread (p. 106)"],
+      ["his v/iath,", "his wrath,",
+        "`wrath` read as `v/iath` (p. 108)"],
+      ["and VasiH of Yaroslav", "and Vasili of Yaroslav",
+        "`li` read as `H` (p. 111)"],
+      ["Fedorovich, VasiH Borisovich", "Fedorovich, Vasili Borisovich",
+        "`li` read as `H` (p. 211)"],
+      ["his envoys re quiring", "his envoys requiring",
+        "a space read inside requiring (p. 214)"],
+      ["Knyaz Kost}'antin Belozerski", "Knyaz Kostyantin Belozerski",
+        "a y read as `}'` (p. 166)"],
+      ["came into conffict,", "came into conflict,",
+        "`fl` read as `ff` (p. 167)"],
+      ["the A rchistrategos of Khony", "the Archistrategos of Khony",
+        "a space read inside an italic word (p. 179)"],
+      ["the propert}' of the", "the property of the",
+        "a y read as `}'` (p. 181)"],
+      ["Mikhail Yurie vich put", "Mikhail Yurievich put",
+        "a space read inside Yurievich (p. 183)"],
+      ["sold the ariugs", "sold the artugs",
+        "a t read as i (p. 189)"],
+      ["acted unwisel}',", "acted unwisely,",
+        "a y read as `}'` (p. 197)"],
+      ["One rouble coniQ.\\ne6. 100", "One rouble contained 100",
+        "`contained` read as `coniQ.\\ne6.` (Appendix, p. 221)"],
+      ["A Verst or poprisftche is", "A Verst or poprishche is",
+        "`sh` read as `sft` (Appendix, p. 221)"],
+      ["Finnish, f ri^<^", "Finnish.",
+        "a word pencilled into the scanned copy after the printed note, read as `, f ri^<^` (note 6 on p. 8)"],
+      ["the title '■ ivnyaz\" is", "the title \"Knyaz\" is",
+        "the opening quotation mark and Knyaz misread (note 1 on p. 41)"],
+      ["Tartar olhcial,", "Tartar official,",
+        "the ffi ligature read as `lh` (note 4 on p. 103)"],
+      ["lit. duty, tariti.", "lit. duty, tariff.",
+        "the ff ligature read as `ti` (note 1 on p. 123)"],
+      ["£c. Gabriel.", "sc. Gabriel.",
+        "`sc.` read as `£c.` (note 3 on p. 182)"],
+      ["the lawless ones \"had already", "the lawless ones had already",
+        "a pencil stroke under the words read as a quotation mark (p. 83)"],
+      ["up to the threshold\"-⟦2@199⟧", "up to the threshold⟦2@199⟧",
+        "a speck before the footnote mark read as `\"-` (p. 147)"],
+      ["turned shoulder \"and fled", "turned shoulder and fled",
+        "a speck read as a quotation mark (p. 156)"],
+      ["Lithuanians and Poles,\" were slain", "Lithuanians and Poles,⟦7@232⟧ were slain",
+        "p. 180, note 7 cited a second time: its mark read as a quotation mark"],
+      ["at that time!—■ and he", "at that time!— and he",
+        "a speck read as `■` (p. 5)"],
+      ["died on May 3. {", "died on May 3.",
+        "a pencil stroke in the margin read as `{` (p. 6)"],
+      ["his nephew: \" and they drove", "his nephew:\" and they drove",
+        "the closing quotation mark after a colon, set off by a space (p. 12)"],
+      ["the autumn was rain}', from", "the autumn was rainy, from",
+        "a y read as `}'` (p. 18)"],
+      ["the spring they \\ let no man", "the spring they let no man",
+        "a speck read as `\\` (p. 23)"],
+      ["to the Hoi}'' Apostles", "to the Holy Apostles",
+        "`ly` read as `i}''` (p. 37)"],
+      ["stones and lar_ge pearl", "stones and large pearl",
+        "a speck read as `_` (p. 47)"],
+      ["but the}' call them", "but they call them",
+        "a y read as `}'` (p. 64)"],
+      ["gifts [of these} to the", "gifts [of these] to the",
+        "a bracket read as `}` (p. 65)"],
+      ["ones then\\ pushed on", "ones then pushed on",
+        "a speck read as `\\` (p. 82)"],
+      ["their horses, the}'\" seized", "their horses, they seized",
+        "a y read as `}'\"` (p. 91)"],
+      ["the Knyaz says: \" ' surrender me my enemies.' \" And", "the Knyaz says: \"'surrender me my enemies.'\" And",
+        "a quotation inside a quotation, its marks set off by spaces (p. 94)"],
+      ["they took T\\'er and", "they took Tver and",
+        "a v read as `\\'` (p. 99)"],
+      ["there was_.a terrifying", "there was a terrifying",
+        "a pencil stroke read as `_.` (p. 179)"],
+      ["the Holy Trinit}' at Kolmovo", "the Holy Trinity at Kolmovo",
+        "a y read as `}'` (p. 185)"],
+      ["in the Field, cr\\ang out", "in the Field, rang out",
+        "a speck read as `cr\\` (p. 200)"],
+      ["Receive my lieutenants into", "\"Receive my lieutenants into",
+        "the opening quotation mark, hung in the margin, which the engine did not read (p. 200)"],
+      ["and 2| of these equalled", "and 2½ of these equalled",
+        "the fraction ½ read as `|` (Appendix, p. 221)"],
+      ["was actually about \\, in the eleventh", "was actually about ⅓, in the eleventh",
+        "the fraction ⅓ read as `\\` (Appendix, p. 221)"],
+      ["centuries about i, and in the later", "centuries about ½, and in the later",
+        "the fraction ½ read as `i` (Appendix, p. 221)"],
+      ["centuries only a }, of alb. \" '", "centuries only a ¼, of a lb.",
+        "the fraction ¼ read as `}` and `a lb.` run together, with two specks (Appendix, p. 221)"],
+      ["weighing about \\\\h. and was", "weighing about ¼lb. and was",
+        "the fraction ¼ and lb. read as `\\\\h.` (Appendix, p. 221)"],
+      ["present day, or 2|d. One", "present day, or 2½d. One",
+        "the fraction ½ read as `|` (Appendix, p. 221)"],
+      ["four pochki {pochka,", "four pochki (pochka,",
+        "a bracket read as `{` (Appendix, p. 221)"],
+      ["equal to about 11| pecks.", "equal to about 11½ pecks.",
+        "the fraction ½ read as `|` (Appendix, p. 221)"],
+      ["Lyakhi = th.e Poles, Poland.", "Lyakhi = the Poles, Poland.",
+        "a speck read as a full stop (note 1 on p. 1)"],
+      ["at this time about \\ lb.; cf. Appendix.", "at this time about ¼ lb.; cf. Appendix.",
+        "the fraction ¼ read as `\\` (note 5 on p. 2)"],
+      ["is borrowed from another ^ text.", "is borrowed from another text.",
+        "a pencil mark in the margin read as `^` (note 1 on p. 106)"],
+      ["Volok Lamsk:\" Zavoloche \":=\"beyond the Volok,\"sc.", "Volok Lamsk: \"Zavoloche\" = \"beyond the Volok,\" sc.",
+        "the marks round an equals sign misread (note 3 on p. 123)"],
+      [",\\ platform thus called {s^«/= threshold, or porch)", "A platform thus called (seni = threshold, or porch)",
+        "note 7 on p. 123: `A` and the italic seni misread"],
+      ["One sazhen= \\\\ fathom.", "One sazhen = 1⅙ fathom.",
+        "the fraction 1⅙ read as `\\\\` (note 3 on p. 128)"],
+      ["Tsarevitsc^.", "Tsarevitsa.",
+        "an a read as `c^` (note 1 on p. 201)"],
+      ["\"the Terrible,\" {Grozny.)", "\"the Terrible,\" (Grozny.)",
+        "a bracket read as `{`"],
+      ["of the Posadnik-sh.\\Tp \\ will forgive", "of the Posadnik-ship, I will forgive",
+        "the italic Posadnik-ship and the pronoun I misread (p. 94)"],
+      ["his faults: L He has no care for the serfs; H. Why didst thou", "his faults: I. He has no care for the serfs; II. Why didst thou",
+        "the roman numerals I and II read as `L` and `H` (p. 14)"],
+      ["Pereyaslavl ? HL Thou didst", "Pereyaslavl ? III. Thou didst",
+        "the numeral III read as `HL` (p. 14)"],
+      ["dwelled; H. Kondoflandr;⟦2@100⟧ HI. the bhnd Duzh", "dwelled; II. Kondoflandr;⟦2@100⟧ III. the blind Duzh",
+        "the numerals II and III read as `H` and `HI` (p. 48)"],
+      ["the Igumen-shxp to Andrei", "the Igumen-ship to Andrei",
+        "the italic Igumen-ship misread (p. 119)"],
+      ["Ryazan, went to,..y5lodimir, a host", "Ryazan, went to Volodimir, a host",
+        "`Volodimir` read as `,..y5lodimir` (p. 81)"],
+      ["Zhidimont⟦3@248⟧Kestutievichoi Lithuania", "Zhidimont⟦3@248⟧ Kestutievich of Lithuania",
+        "a space lost and `of` run on as `oi` (p. 196)"],
+      ["Boris Matvej'evich Tyushtev", "Boris Matveyevich Tyushtev",
+        "a y read as `j'` (p. 207)"],
+      ["Ostroq.", "Ostrog.",
+        "a g read as q (note 2 on p. 67)"],
+      ["E. of Xovgorod.", "E. of Novgorod.",
+        "an N read as X (a note on p. 103)"],
+      ["terrible fight,, and", "terrible fight, and",
+        "a pencil mark in the margin read as a second comma (p. 2)"],
+      ["refuge for Christi;ins,", "refuge for Christians,",
+        "`a` read as `;i` (p. 87)"],
+      ["Knyaz Yaroslav ;⟦3@90⟧", "Knyaz Yaroslav;⟦3@90⟧",
+        "a space the page does not set (p. 38)"],
+      ["their bishops.and halted", "their bishops, and halted",
+        "a comma read as a full stop and the space lost"],
+      ["the Nemetski a.nd Korel", "the Nemetski and Korel",
+        "a speck read inside `and` (p. 132)"],
+      ["displeasure with me,, and", "displeasure with me, and",
+        "a speck read as a second comma"],
+      ["went to Volodimir,, and", "went to Volodimir, and",
+        "a speck read as a second comma"],
+      ["Monday, May 27,. in", "Monday, May 27, in",
+        "a speck read as a full stop"],
+      ["[a.d. 1471. A.M. 6979.", "[A.D. 1471. A.M. 6979.",
+        "the small capitals of the bracketed head read as lower case (p. 205)"],
+      ["on the Korel- villages", "on the Korel⟦2@241⟧ villages",
+        "p. 189, note 2 cited a second time: its mark read as `-`"],
+      ["in the threshold- in the House", "in the threshold⟦2@243⟧ in the House",
+        "p. 191, note 2: its mark read as `-`"],
+      ["beyond the Volok to- bless", "beyond the Volok to bless",
+        "a speck read as a hyphen (p. 204)"],
+      ["pp. ix, x, xi, etc-", "pp. ix, x, xi, etc.",
+        "a full stop read as a hyphen (note 2 on p. 6)"],
+      ["Kunas; cf- appendix.", "Kunas; cf. appendix.",
+        "a full stop read as a hyphen (note 2 on p. 37)"],
+      ["Pie my a.", "Plemya.",
+        "the italic plemya misread (note 1 on p. 38; the translators' list gives \"Clan = plemya (p. 38)\")"],
+      ["raised a wall- around", "raised a wall⟦2@119⟧ around", "p. 67, note 2: its mark read as `-`"],
+      ["Having received their Hberty", "Having received their liberty", "the li of liberty read as `H` (p. 219)"],
+    ],
+  },
+
   "anglo-saxon-chronicle": {
     title: "The Anglo-Saxon Chronicle",
     author: "Anonymous",
@@ -39634,6 +40469,376 @@ function chronicleJoin(a, b, BOOK, c) {
   return a.slice(0, -1) + b;
 }
 
+/* ============================================================
+   ANNALS READ OFF AN ABBYY OCR'S CHARACTER BOXES           (layout: "novgorod")
+   ============================================================
+   Nov 2026, adding the Chronicle of Novgorod — Robert Michell and Nevill Forbes's translation, Camden
+   Third Series vol. 25 (1914), pp. 1–221 of a 300-leaf Internet Archive scan. The third book read off an
+   Archive OCR and the first read off the ABBYY FineReader export (`_abbyy.gz`), which carries a box for
+   every CHARACTER and a baseline for every line — the `_djvu.xml` the Primary Chronicle reads has boxes
+   for words only. One reason, and it is the footnotes.
+
+   THE MARKS ARE THE PROBLEM, AND THEY ARE ONLY FINDABLE BY THEIR HEIGHT. The edition has about 700
+   footnotes, numbered from 1 on each page, and their marks are raised figures that the OCR reads as `^`
+   (most of them), `*`, `®`, `"`, `'`, a digit, or as nothing. Matched on the text, a mark is
+   indistinguishable from a closing quotation mark or an apostrophe, and a mark read as a letter cannot be
+   seen at all. Matched on the box, a mark is a glyph whose foot stands clear of the line's baseline — a
+   quarter of the line's capital height or more — which no letter, figure or stop of the body does. So a
+   CANDIDATE is a run of raised glyphs at a word's end, and what each candidate is was READ OFF THE PAGE
+   IMAGE (contact sheets of crops, every one labelled with its leaf and its order on the leaf) into the
+   entry's `marks` table: a note number, or the text the glyphs really are (an apostrophe, a quotation
+   mark, nothing). The note a mark points to is the note of that number at the foot of the same page,
+   since the numbering starts again on every page, and the same note is often cited twice there. A mark
+   the box test misses entirely is a `fixes` row writing `⟦k⟧` where the page sets it; the `⟦k⟧` is
+   resolved against the page the row's text falls on. Every note must be cited at least once, every
+   candidate must be in the table, and every table row must be used, or the run says so.
+
+   WHAT A LINE IS, in order: the RUNNING HEAD (the first line of the page when it holds "CHRONICLE OF
+   NOVGOROD" or is a bare page number); FOOTNOTES (from the first line, in the lower half of the page, set
+   in a smaller size than the page's body and followed only by lines of that size, to the end of the page:
+   a note opens on a line indented from the notes' own left edge, or on every line when none is); a
+   HEADING (centred, clear of both margins); or prose. A prose line opens a paragraph when it stands 25 to
+   200 px right of the local margin (the edge a quarter of the way up the left edges of the eight lines
+   either side, the pages being skewed) or when it starts with a year head. A line standing farther in
+   than 200 px is the second line of a year head: the edition sets the head in a column of its own and
+   hangs the first lines of the entry beside it, so that line continues the paragraph above.
+
+   THE ANNALS ARE THE TEXT AND THE SPANS ARE FOLIO'S. Each entry opens on its year twice over, "A.D. 1016.
+   A.M. 6524.", the year of our era and the year from the Creation, and nothing else divides the book —
+   no books, chapters or titles. About 430 entries, a good third of them a bare year with nothing beside
+   it, would make a contents list of 430 tabs, so the chapters are runs of years (`spans` on the entry,
+   each a [first, last] pair of the A.D. years), cut where an entry's head reaches the next span's first
+   year, as the Anglo-Saxon Chronicle is cut. The heads are walked for gaps and reversals on every run,
+   and a head whose two years do not differ by 5508 or 5509 is reported: the September and March years
+   both occur in this chronicle, so either difference is the chronicle's own. */
+const NOVGOROD_HEAD = /^\[?A\.\s?D\.\s?(\d{4})\.(?:\s+A\.\s?M\.\s?(\d{4})\.)?/;
+
+function novgorodPages(xml) {
+  const pages = [];
+  xml.split(/<page /).slice(1).forEach((p, idx) => {
+    const lines = [];
+    for (const lm of p.matchAll(/<line baseline="(\d+)" l="(\d+)" t="(\d+)" r="(\d+)" b="(\d+)">([\s\S]*?)<\/line>/g)) {
+      const base = +lm[1];
+      const chars = [];
+      for (const fm of lm[6].matchAll(/<formatting([^>]*)>([\s\S]*?)<\/formatting>/g)) {
+        const fsz = +((/fs="([\d.]+)"/.exec(fm[1]) || [0, 0])[1]);
+        for (const c of fm[2].matchAll(/<charParams l="(\d+)" t="(\d+)" r="(\d+)" b="(\d+)"[^>]*>([^<]*)<\/charParams>/g))
+          chars.push({ l: +c[1], t: +c[2], r: +c[3], b: +c[4], ch: chronicleEnt(c[5]) || " ", fs: fsz });
+      }
+      if (!chars.some((c) => c.ch.trim())) continue;
+      const fss = chars.filter((c) => c.ch.trim()).map((c) => c.fs).sort((a, b) => a - b);
+      /* The capital height, from the letters with ascenders and the figures, for the raised-glyph test. */
+      const caps = chars.filter((c) => /[A-Zbdhklt0-9]/.test(c.ch)).map((c) => base - c.t).sort((a, b) => a - b);
+      const ink = chars.filter((c) => c.ch.trim());
+      lines.push({ base: base, x0: ink[0].l, x1: ink[ink.length - 1].r, chars: chars,
+        fs: fss[fss.length >> 1], cap: caps.length ? caps[caps.length >> 1] : 40 });
+    }
+    lines.sort((a, b) => a.base - b.base);
+    /* ONE PRINTED LINE CAN ARRIVE AS SEVERAL: the engine boxes a column of year heads apart from the text
+       beside it ("A.D. 1027." / "A.M." / "6535."), and a quotation mark hung in the margin is a line of
+       its own whose baseline the engine sets high. Pieces on one baseline (within a capital's height for a
+       lone quotation mark) that do not overlap are joined, left to right, with a space. */
+    for (let i = 0; i < lines.length; i++) {
+      const qOnly = (l) => /^[\s"'‘’“”]+$/.test(l.chars.map((x) => x.ch).join(""));
+      for (let j = i + 1; j < lines.length && lines[j].base - lines[i].base < (qOnly(lines[i]) || qOnly(lines[j]) ? 1 : 0.4) * lines[i].cap; j++) {
+        const a = lines[i], b = lines[j];
+        if (b.x0 < a.x1 && a.x0 < b.x1) continue;
+        const [L, R] = a.x0 < b.x0 ? [a, b] : [b, a];
+        L.chars = L.chars.concat([{ l: L.x1, t: L.base, r: R.x0, b: L.base, ch: " ", fs: L.fs }], R.chars);
+        L.x1 = Math.max(L.x1, R.x1);
+        lines[i] = L; lines.splice(j, 1); j--;
+      }
+    }
+    pages.push({ leaf: idx, lines: lines });
+  });
+  return pages;
+}
+
+/* A line's text, with every candidate mark taken out and recorded. A glyph is RAISED when its foot stands
+   a quarter of the capital height above the baseline. Stops, hyphens and dashes are excluded (a hyphen
+   floats by its shape); a raised quotation mark or apostrophe is a candidate only directly after a letter
+   or figure and before a space, stop or the line's end — an apostrophe inside a word ("Yaroslav's") and a
+   quotation mark after a stop or a space are the text's own. */
+function novgorodLineText(l, leaf, cands) {
+  let s = "";
+  const cs = l.chars;
+  for (let j = 0; j < cs.length; j++) {
+    const c = cs[j];
+    const raised = (x) => x && x.ch.trim() && !/[-—–.,;:]/.test(x.ch) && x.b < l.base - 0.25 * l.cap;
+    if (!raised(c) && !/[*®^•°]/.test(c.ch)) { s += c.ch; continue; }
+    let k = j;
+    while (k + 1 < cs.length && (raised(cs[k + 1]) || /[*®^•°]/.test(cs[k + 1].ch))) k++;
+    const run = cs.slice(j, k + 1);
+    const glyphs = run.map((x) => x.ch).join("");
+    const before = s.slice(-1), after = (cs[k + 1] || { ch: " " }).ch;
+    const quoteOnly = /^["'‘’“”]+$/.test(glyphs);
+    if (quoteOnly && !(/[A-Za-z0-9\])?!]/.test(before) && /[\s.,;:)]/.test(after))) { s += glyphs; j = k; continue; }
+    const n = cands.filter((x) => x.leaf === leaf).length + 1;
+    cands.push({ leaf: leaf, k: n, glyphs: glyphs, box: [run[0].l, Math.min(...run.map((x) => x.t)), run[run.length - 1].r, l.base],
+      ctx: [Math.max(0, (cs[Math.max(0, j - 12)] || c).l), l.base - l.cap - 10] });
+    s += "⟦c" + leaf + "." + n + "⟧";
+    j = k;
+  }
+  return s.replace(/\s+/g, " ").trim();
+}
+
+function extractNovgorod(xml, BOOK, warn) {
+  const c = { dropped: [], heads: 0, notes: 0, marks: 0, cands: 0, indents: 0, hyphens: 0, kept: 0, pages: 0,
+    entries: 0, quotes: 0, transcribed: 0 };
+  const all = novgorodPages(xml);
+  const pages = all.filter((p) => p.leaf >= BOOK.leaves[0] && p.leaf <= BOOK.leaves[1]);
+  const stream = [], notes = {}, cands = [];
+  for (const p of pages) {
+    let ls = p.lines.slice();
+    if (!ls.length) continue;
+    c.pages++;
+    /* A PAGE THE ENGINE COULD NOT LAY OUT — a column of bare year heads beside a column of text, read
+       across and down at once — is transcribed from its image in the entry (`transcribed`), paragraphs
+       and notes, marks written ⟦k⟧. */
+    const tr = (BOOK.transcribed || {})[p.leaf];
+    if (tr) {
+      tr.paras.forEach((t, i) => stream.push({ t: t.replace(/⟦(\d+)⟧/g, "⟦$1@" + p.leaf + "⟧"), para: i > 0 || !tr.continues, head: false, leaf: p.leaf }));
+      notes[p.leaf] = tr.notes.slice();
+      c.notes += tr.notes.length; c.transcribed++;
+      continue;
+    }
+    /* The printer's signature at a gathering's first page ("B 2"), set at the foot under the notes. */
+    while (ls.length > 1 && /^[A-Z] ?\d?$/.test(ls[ls.length - 1].chars.map((x) => x.ch).join("").trim())) { c.dropped.push(p.leaf + ": " + ls.pop().chars.map((x) => x.ch).join("").trim()); }
+    const t0 = ls[0].chars.map((x) => x.ch).join("");
+    if (/CHRONICLE\s+O\S\s+NOVGOROD|^\W*\d{1,3}\W*$/i.test(t0) && ls[0].base < 300) { ls.shift(); c.heads++; }
+    /* The body's size is the most common size on the page; the notes are the run at the foot set smaller. */
+    const fss = ls.map((l) => l.fs);
+    const body = fss.slice().sort((a, b) => fss.filter((x) => x === b).length - fss.filter((x) => x === a).length || b - a)[0];
+    let fi = ls.findIndex((l, i) => i >= ls.length / 3 && l.fs < body && ls.slice(i).every((x) => x.fs < body || x.chars.length < 6));
+    /* The engine sometimes gives the notes the body's size (leaves 69, 74). Then they are the run after a
+       gap wider than the page's line pitch, set smaller than the body by its capitals and closer by its
+       pitch. */
+    if (fi < 0) {
+      const pt = ls.slice(1).map((l, i) => l.base - ls[i].base).sort((a, b) => a - b)[(ls.length - 1) >> 1] || 55;
+      const bc = ls.map((l) => l.cap).sort((a, b) => a - b)[ls.length >> 1];
+      fi = ls.findIndex((l, i) => i >= ls.length / 3 && ls.slice(i).every((x, j, r) => x.cap <= 0.9 * bc &&
+        (j === 0 || x.base - r[j - 1].base < 0.9 * pt)));
+    }
+    const pageNotes = [];
+    if (fi >= 0) {
+      /* Two short notes can share a line ("3 cf. p. 34.      4 Ten puds."): a gap of more than 40 px
+         before a mark (anything but a letter or a bracket) splits it, and the right half opens a note of its own. */
+      const nl = [];
+      for (const l of ls.slice(fi)) {
+        let start = 0;
+        for (let j = 1; j < l.chars.length; j++) {
+          const a = l.chars.slice(0, j).filter((x) => x.ch.trim()).pop(), b = l.chars[j];
+          if (a && b.ch.trim() && b.l - a.r > 40 && j > start && !/[A-Za-z(]/.test(b.ch) &&
+            l.chars.slice(start, j).map((x) => x.ch).join("").replace(/[^A-Za-z]/g, "").length >= 3) {
+            nl.push(Object.assign({}, l, { chars: l.chars.slice(start, j), x0: l.chars[start].l, split: start > 0 }));
+            start = j;
+          }
+        }
+        const rest = l.chars.slice(start);
+        /* a speck far right of a note's last word, and the printer's signature ("D 2", "12"), are dirt */
+        if (start && rest.map((x) => x.ch).join("").replace(/[^A-Za-z0-9]/g, "").length < 2) c.dropped.push(p.leaf + ": " + rest.map((x) => x.ch).join("").trim());
+        else if (!start && (rest[0].l > 1300 || /^\W*[A-Z] ?\d$/.test(rest.map((x) => x.ch).join("").trim())) && /^\W*(?:[A-Z] ?)?\d{0,2}\W*$/.test(rest.map((x) => x.ch).join("").trim())) c.dropped.push(p.leaf + ": " + rest.map((x) => x.ch).join("").trim());
+        else nl.push(start ? Object.assign({}, l, { chars: rest, x0: rest[0].l, split: true }) : l);
+      }
+      const nm = Math.min(...nl.map((l) => l.x0));
+      const indented = nl.some((l) => !l.split && l.x0 > nm + 25);
+      for (const l of nl) {
+        let t = l.chars.map((x) => x.ch).join("").replace(/\s+/g, " ").trim();
+        if (!indented || l.split || l.x0 > nm + 25 || !pageNotes.length) {
+          /* the note's own mark, a figure the OCR reads as anything: the first token, when it holds no letter
+             or is one character long */
+          const m = /^(\S+)\s+/.exec(t);
+          if (m && (!/[A-Za-z]/.test(m[1]) || m[1].length === 1)) t = t.slice(m[0].length);
+          /* or run onto the note's first word ("icf. p. 123.", "'In Novgorod.", "^Bestnezdniki") */
+          else if (/^(?:[^A-Za-z(“"]+|[A-Za-z](?=cf\.|i\.e\.))(?=[A-Za-z(“"])/.test(t)) t = t.replace(/^(?:[^A-Za-z(“"]+|[A-Za-z](?=cf\.|i\.e\.))/, "");
+          else warn("leaf " + p.leaf + ": a note opens on no mark the pass can see: " + t.slice(0, 40));
+          pageNotes.push(t);
+        } else pageNotes[pageNotes.length - 1] = chronicleJoin(pageNotes[pageNotes.length - 1], t, BOOK, c);
+      }
+      ls = ls.slice(0, fi);
+    }
+    notes[p.leaf] = pageNotes;
+    c.notes += pageNotes.length;
+    const right = Math.max(...ls.map((l) => l.x1));
+    const pitch = ls.slice(1).map((l, i) => l.base - ls[i].base).sort((a, b) => a - b)[(ls.length - 1) >> 1] || 55;
+    ls.forEach((l, i) => {
+      const near = ls.slice(Math.max(0, i - 8), i + 9).filter((x) => x !== l);
+      const xs = near.map((x) => x.x0).sort((a, b) => a - b);
+      const margin = xs.length ? xs[Math.floor(xs.length / 4)] : l.x0;
+      let t = novgorodLineText(l, p.leaf, cands);
+      /* a speck in the margin read as a letter or figure before a year head ("1 A.D. 1097.") */
+      t = t.replace(/^\S{1,2} (?=A\.\s?D\.\s?\d{4}\.)/, (w) => { c.dropped.push(p.leaf + ": " + w); return ""; });
+      if (!/[A-Za-z0-9]/.test(t)) { c.dropped.push(p.leaf + ": " + t); return; }
+      /* a head whose figures the engine misread ("A.D. 124L A.M. 6749.", "A.D, 1237.") still opens a
+         paragraph, and its figures are a `fixes` row */
+      const year = NOVGOROD_HEAD.test(t) || /^A\.\s?D[.,]\s?\S{3,6}\s+(?:[.\\]|A)\.?\s?M[.,]/.test(t) || /^A\.\s?D\.\s?\d{4}\.$/.test(t);
+      /* A line hung beside a year head is set far in, and its last line may stand short of the right
+         margin as well — so the hang is tested first, and only against the lines a head opened. */
+      const prev = stream[stream.length - 1];
+      const hang = !year && l.x0 - margin > 200 && prev && prev.hangOk;
+      /* A heading stands clear of both margins AND of the line above (the title on p. 1, the Appendix's);
+         a paragraph's short last line set off-centre by the engine's box does not. */
+      const gapAbove = i === 0 ? Infinity : l.base - ls[i - 1].base;
+      const head = !hang && !year && l.x0 - margin > 150 && right - l.x1 > 150 && ls.length > 1 && gapAbove > 1.6 * pitch;
+      const para = year || (!head && !hang && l.x0 - margin > 25);
+      if (para && !year) c.indents++;
+      stream.push({ t: t, para: para, head: head, leaf: p.leaf, hangOk: year || (hang && prev.hangOk),
+        box: [l.x0, l.base - l.cap - 12, l.x1, l.base + 14] });
+    });
+  }
+  c.cands = cands.length;
+
+  const paras = [];
+  for (const s of stream) {
+    const last = paras[paras.length - 1];
+    if (last && !s.para && !s.head && !last.head) { last.t = chronicleJoin(last.t, s.t, BOOK, c); last.leaves.push(s.leaf); continue; }
+    paras.push({ t: s.t, head: s.head, leaf: s.leaf, leaves: [s.leaf] });
+  }
+
+  /* A HEAD THE ENGINE RAN ONTO THE PARAGRAPH ABOVE (`splitBefore`: the bracketed record of 1471, which
+     the editors add after the chronicle proper) opens a paragraph of its own. */
+  for (const rx of BOOK.splitBefore || []) {
+    const i = paras.findIndex((p) => rx.test(p.t));
+    if (i < 0) { warn("splitBefore " + rx + " matched no paragraph"); continue; }
+    const p = paras[i], at = p.t.search(rx);
+    if (at <= 0) continue;
+    paras.splice(i + 1, 0, { t: p.t.slice(at), head: false, leaf: p.leaves[p.leaves.length - 1], leaves: [p.leaves[p.leaves.length - 1]] });
+    p.t = p.t.slice(0, at).trim();
+  }
+
+  /* The candidates, resolved from the table read off the page images. */
+  const table = BOOK.marks || {};
+  const used = {};
+  const resolve = (t) => t.replace(/⟦c(\d+)\.(\d+)⟧/g, (w, leaf, k) => {
+    const row = table[leaf];
+    const v = row ? row[+k - 1] : undefined;
+    if (v === undefined) { warn("candidate mark " + leaf + "." + k + " is not in the marks table"); return "⟦?⟧"; }
+    used[leaf] = Math.max(used[leaf] || 0, +k);
+    return typeof v === "number" ? "⟦" + v + "@" + leaf + "⟧" : v.replace(/⟦(\d+)⟧/g, "⟦$1@" + leaf + "⟧");
+  });
+  paras.forEach((p) => (p.t = resolve(p.t)));
+  for (const leaf of Object.keys(table)) {
+    const n = cands.filter((x) => x.leaf === +leaf).length;
+    if (table[leaf].length !== n) warn("the marks table holds " + table[leaf].length + " entries for leaf " + leaf + ", which has " + n + " candidates");
+  }
+
+  /* A fixes row may write a bare ⟦k⟧ for a mark the box test missed; it names note k of the page that
+     row's text stands on. Corrections run per paragraph, as a reader meets them. */
+  if (process.env.NOVGOROD_DUMP) fs.writeFileSync(process.env.NOVGOROD_DUMP + ".raw.txt", paras.map((p) => p.leaf + "| " + p.t).join("\n") + "\n" +
+    Object.keys(notes).map((lf) => notes[lf].map((n, i) => (i + 1) + "@" + lf + " " + n).join("\n")).filter(Boolean).join("\n"));
+  const fixed = correctRaw(paras.map((p) => p.t).join("\n")).split("\n");
+  if (fixed.length !== paras.length) throw new Error("a fixes row added or removed a paragraph break");
+  fixed.forEach((t, i) => {
+    const p = paras[i];
+    p.t = t.replace(/⟦(\d+)(?:@(\d+))?⟧/g, (w, k, leaf) => {
+      if (leaf) return w;
+      const at = p.leaves.find((lf) => (notes[lf] || []).length >= +k);
+      if (at === undefined) { warn("a bare mark ⟦" + k + "⟧ in a paragraph whose pages carry no note " + k); return w; }
+      if (new Set(p.leaves).size > 1 && p.leaves.filter((lf) => (notes[lf] || []).length >= +k).length > 1)
+        warn("a bare mark ⟦" + k + "⟧ in a paragraph across two pages that both carry a note " + k + "; write ⟦k@leaf⟧");
+      return "⟦" + k + "@" + at + "⟧";
+    });
+    p.t = novgorodQuotes(p.t, c);
+  });
+  const fixedNotes = {};
+  for (const leaf of Object.keys(notes)) fixedNotes[leaf] = notes[leaf].map((n) => novgorodQuotes(correctRaw(n), c));
+
+  if (process.env.NOVGOROD_DUMP) {
+    fs.writeFileSync(process.env.NOVGOROD_DUMP, paras.map((p) => (p.head ? "## " : "") + p.leaf + "| " + p.t).join("\n\n") +
+      "\n\nDROPPED\n" + c.dropped.join("\n") + "\n\nNOTES\n" +
+      Object.keys(fixedNotes).map((lf) => fixedNotes[lf].map((n, i) => (i + 1) + "@" + lf + " " + n).join("\n")).filter(Boolean).join("\n"));
+    fs.writeFileSync(process.env.NOVGOROD_DUMP + ".cands.json", JSON.stringify(cands));
+    fs.writeFileSync(process.env.NOVGOROD_DUMP + ".lines.json", JSON.stringify(stream.map((x) => ({ leaf: x.leaf, box: x.box, t: x.t }))));
+  }
+
+  const text = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const startAt = paras.findIndex((p) => BOOK.begin.test(p.t));
+  /* the annals end where the first appendix's heading stands */
+  const endAt = paras.findIndex((p, i) => i > startAt && p.head && BOOK.appendices[0].head.test(p.t)) - 1;
+  if (startAt < 0 || endAt < startAt) throw new Error("the translation's first or last paragraph is not where the entry says");
+
+  /* The year heads, walked; then the spans. */
+  const chapters = BOOK.spans.map((s) => ({ t: s[0] === s[1] ? String(s[0]) : s[0] + "–" + s[1], from: s[0], to: s[1], ps: [] }));
+  let ci = 0, lastAD = 0;
+  for (let i = startAt; i <= endAt; i++) {
+    const p = paras[i];
+    if (p.head) { if (i > startAt) warn("a centred line inside the annals: " + p.t.slice(0, 60)); continue; }
+    const m = NOVGOROD_HEAD.exec(p.t);
+    if (m) {
+      const ad = +m[1], am = +m[2];
+      c.entries++;
+      if (!m[2] && /^A\.\s?D\.\s?\d{4}\.\s+\S?\.?\s?M/.test(p.t)) warn("a year head whose A.M. figures the pattern cannot read, leaf " + p.leaf + ": " + p.t.slice(0, 40));
+      /* "A.D. 1446." stands once with no year of the Creation beside it, as printed (p. 204) */
+      if (m[2] && am - ad !== 5508 && am - ad !== 5509) warn("the head " + m[0] + " (leaf " + p.leaf + ") does not convert: A.M. − A.D. = " + (am - ad));
+      if (lastAD && ad !== lastAD + 1 && ad !== lastAD && !(BOOK.headRuns || []).includes(lastAD + "→" + ad)) warn("the heads run " + lastAD + " → " + ad + " at leaf " + p.leaf);
+      lastAD = ad;
+      while (ci + 1 < chapters.length && ad >= chapters[ci + 1].from) ci++;
+    } else if (/^A\.\s?D\./.test(p.t)) warn("a year head the pattern cannot read, leaf " + p.leaf + ": " + p.t.slice(0, 40));
+    chapters[ci].ps.push(p);
+  }
+  for (const a of BOOK.appendices || []) {
+    const hi = paras.findIndex((p, i) => i > endAt && a.head.test(p.t));
+    if (hi < 0) { warn("the appendix heading " + a.head + " is not in the scan's text"); continue; }
+    const ps = [];
+    for (let i = hi + 1; i < paras.length && !paras[i].head; i++) ps.push(paras[i]);
+    chapters.push({ t: a.title, ps: ps });
+  }
+
+  const cited = {};
+  const out = chapters.map((ch, i) => {
+    const seen = [], idx = {};
+    const body = ch.ps.map((p) => {
+      const h = text(p.t).replace(/⟦(\d+)@(\d+)⟧/g, (w, k, leaf) => {
+        const key = k + "@" + leaf;
+        const nt = (fixedNotes[leaf] || [])[+k - 1];
+        if (nt === undefined) { warn("a mark cites note " + key + ", which the page does not print"); return ""; }
+        cited[key] = (cited[key] || 0) + 1;
+        c.marks++;
+        if (!(key in idx)) { seen.push(text(nt)); idx[key] = seen.length; }
+        return '<sup class="fn" data-fn="' + idx[key] + '"></sup>';
+      });
+      return "<p>" + h.trim() + "</p>";
+    });
+    return { n: i + 1, t: ch.t, html: body.join("\n"), notes: seen };
+  });
+  for (const leaf of Object.keys(fixedNotes)) fixedNotes[leaf].forEach((n, i) => {
+    if (!cited[(i + 1) + "@" + leaf]) warn("footnote " + (i + 1) + "@" + leaf + " is never cited: " + n.slice(0, 50));
+  });
+  const left = out.map((x) => x.html).join(" ").match(/⟦[^⟧]*⟧|[\^*®•°]/g) || [];
+  if (left.length) warn(left.length + " stray mark(s) left in the text: " + [...new Set(left)].slice(0, 20).join(" "));
+  return { chapters: out, counts: c };
+}
+
+/* THE QUOTATION MARKS. The OCR gives straight marks, and the printer sets a space inside each pair
+   (`" We cannot look upon this violence,"`) — and often outside a closing one too (`his nephew: " and they
+   drove him out`), so a mark between two spaces is either. A mark is decided by its neighbours where they
+   decide it (a mark after a letter or a stop, or before a stop, closes; one at a paragraph's start, after a colon or
+   after an opening bracket opens),
+   and otherwise by the paragraph's own count: the marks alternate, open and close. A single mark between two
+   letters is an apostrophe; one after a space before a word opens a quotation inside a quotation, and any
+   other closes it. */
+function novgorodQuotes(t, c) {
+  let open = false;
+  t = t.replace(/"/g, (w, i, s) => {
+    c.quotes++;
+    const before = s.slice(0, i).replace(/ +$/, ""), after = s.slice(i + 1).replace(/^ +/, "");
+    const tight = s[i - 1] !== " " && i > 0, beforeEnd = !after || /^[,.;:!?)\]—]/.test(after);
+    let opens;
+    if (!before) opens = true;
+    else if (beforeEnd || (tight && /[A-Za-z0-9.,;:!?’')\]]$/.test(before))) opens = false;
+    else if (/[(\[:]$/.test(before)) opens = true;
+    else opens = !open;
+    open = opens;
+    return opens ? "\u0001" : "\u0002";
+  });
+  return t
+    .replace(/\u0001 ?/g, "“").replace(/ ?\u0002/g, "”")
+    .replace(/(?<=[A-Za-z])'(?=[A-Za-z])/g, "’")
+    .replace(/(^|[\s“(\[—])' ?(?=[A-Za-z0-9])/g, "$1‘")
+    .replace(/ ?'/g, "’")
+    .replace(/ ([,;:!?])(?=\s|$|[”’])/g, "$1");
+}
+
 /* A MediaWiki page's WIKITEXT, as the API serves it, with the revision it came from. Cached as served, so
    the revision id and timestamp are in the cache beside the text. The wiki answers a fast walk with a
    plain-text rate-limit notice, which fails the JSON parse and retries here — and for far longer than
@@ -40636,6 +41841,29 @@ async function fetchEnglish() {
       c.hyphens + " line-end hyphen(s) removed, " + c.kept + " kept");
     if (got.chapters.length !== BOOK.chapters.length)
       warnings.push("the scan gave " + got.chapters.length + " chapters where the entry declares " + BOOK.chapters.length);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.layout === "novgorod") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-abbyy.xml");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else {
+      raw = require("zlib").gunzipSync(await fetchBuffer(BOOK.url)).toString("utf8");
+      fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw);
+    }
+    const got = extractNovgorod(raw, BOOK, warn);
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " chapters (" + BOOK.spans.length + " spans holding " + c.entries +
+      " entries, " + (got.chapters.length - BOOK.spans.length) + " appendix) from " + c.pages + " pages; dropped " +
+      c.heads + " running head(s) and " + c.dropped.length + " line(s) of dirt; " + c.indents + " paragraph indent(s) read; " +
+      c.notes + " footnote(s), " + c.cands + " candidate mark(s), " + c.marks + " mark(s) placed; " + c.quotes +
+      " quotation mark(s) set; " + c.hyphens + " line-end hyphen(s) removed, " + c.kept + " kept");
     got.chapters.forEach((ch) => {
       if (ch.n < FROM || ch.n > TO) return;
       chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });

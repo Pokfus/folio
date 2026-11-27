@@ -1023,6 +1023,60 @@ function chronicleChecks() {
   return o;
 }
 
+/* THE CHRONICLE OF NOVGOROD (Nov 2026) — Michell and Forbes's 1914 translation, read off the Internet
+   Archive's ABBYY export, every footnote mark read off the page images. Its faults are the silent kind too:
+   a year head out of its run, a mark that resolves to nothing, a quotation mark the engine set twice, an
+   italic word it broke (Knyaz, Posadnik-ship, Nemtsy, Igumen), a pencil stroke read as letters. */
+function novgorodChecks() {
+  const f = path.join(ROOT, "books", "novgorod-chronicle.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === "novgorod-chronicle");
+  if (!b) return null;
+  const ch = b.chapters;
+  const all = ch.map((c) => c.html + " " + (c.notes || []).join(" ")).join("\n");
+  const o = { n: ch.length, titles: ch.map((c) => c.t), heads: 0, order: [], dead: 0, unref: 0, notes: 0, bal: [],
+    damaged: [], missing: [], intro: b.intro || "" };
+  let prev = 0;
+  const rerun = ["1356", "1432", "1446"];   // printed twice — see headRuns in the importer
+  ch.forEach((c) => {
+    for (const m of c.html.matchAll(/<p>\[?A\.D\. (\d{4})\./g)) {
+      o.heads++;
+      const y = +m[1];
+      if (y < prev && !(y === 1355 && prev === 1356)) o.order.push(prev + "→" + y);
+      if (y === prev && !rerun.includes(String(y)) && y !== 1016 && y !== 1355) o.order.push("twice " + y);
+      prev = y;
+    }
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, k) => { if (!ms.includes(k + 1)) o.unref++; });
+    ["p", "sup"].forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(c.t + " " + t + " " + open + "/" + shut);
+    });
+  });
+  [[/⟦|[|^{}\\■®•]/, "a mark placeholder or a speck"],
+   [/‘‘|’’|””|““|“\s/, "a doubled or stranded quotation mark"],
+   [/[A-Za-z]- [a-z]/, "a line-end hyphen left in"],
+   [/\bK(?:iiyaz|iyaz|ttyaz|tiyaz|nvaz)\b|Posadnik-s(?!hip)|\bNemisy\b|\bIgmnen|\bloan\b|Metropohtan|\bhfe\b|tliey/, "an italic or li/h misreading"],
+   [/A\.M\. 7708|A\.D\. nil|corpses in the mN/, "a misread head or a struck-through line"]]
+    .forEach(([rx, why]) => { if (rx.test(all)) o.damaged.push(why); });
+  [["A.D. 1200. A.M. 6708.", "the printer's misnumbered year, corrected"],
+   ["corpses in the market-place, corpses in the street", "a line struck through in pencil"],
+   ["the Holy Archistrategos Mikhail protect", "italics run together"],
+   ["Bezmezdniki = ἀνάργυροι", "the Greek of a note, retyped"],
+   ["One sazhen = 1⅙ fathom.", "a fraction in a note"],
+   ["[A.D. 1471. A.M. 6979.", "the editors' record of 1471"],
+   ["in the next, amen.”", "the last words of the annals"]]
+    .forEach(([s, why]) => { if (!all.includes(s)) o.missing.push(why); });
+  return o;
+}
+
 
 /* STRABO'S GEOGRAPHY, read off the two files that shipped. Its reader is the chaptered TEI reader's
    section path (teiBookSections in fetch-book.js), which no other book takes, so this sweep stands in
@@ -2202,6 +2256,24 @@ function aeneidChecks() {
         /Cross/.test(rpc.intro) && /misprints/.test(rpc.intro) && /not included/.test(rpc.intro), String(rpc.intro.length));
     } else {
       check("[primary-chronicle] the book is on disk", false, "missing books/russian-primary-chronicle.js");
+    }
+
+    /* THE CHRONICLE OF NOVGOROD — see novgorodChecks above. */
+    const nov = novgorodChecks();
+    if (nov) {
+      check("[novgorod-chronicle] ten spans of years and the Appendix", nov.n === 11 && nov.titles[0] === "1016–1149" &&
+        nov.titles[9] === "1471" && /^Appendix/.test(nov.titles[10]), nov.titles.join(", "));
+      check("[novgorod-chronicle] the year heads run in order, the printed repeats aside", nov.heads > 420 && nov.order.length === 0,
+        nov.heads + " heads; " + nov.order.join("; "));
+      check("[novgorod-chronicle] 663 notes, every marker resolves and every note is cited",
+        nov.notes === 663 && nov.dead === 0 && nov.unref === 0, nov.notes + " notes, " + nov.dead + " dead, " + nov.unref + " unref");
+      check("[novgorod-chronicle] every tag is closed", nov.bal.length === 0, nov.bal.join("; "));
+      check("[novgorod-chronicle] none of the OCR's faults survives", nov.damaged.length === 0, nov.damaged.join("; "));
+      check("[novgorod-chronicle] every string the OCR had wrong is repaired", nov.missing.length === 0, nov.missing.join("; "));
+      check("[novgorod-chronicle] the front matter names Shakhmatov, the misprint and what is left out",
+        /Shakhmatov/.test(nov.intro) && /7708/.test(nov.intro) && /not included/.test(nov.intro), String(nov.intro.length));
+    } else {
+      check("[novgorod-chronicle] the book is on disk", false, "missing books/novgorod-chronicle.js");
     }
 
     /* STRABO'S GEOGRAPHY — see straboChecks above for what each of these can see. */
