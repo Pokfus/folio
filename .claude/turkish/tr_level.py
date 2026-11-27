@@ -129,22 +129,25 @@ def describe(level, n, inv, stats, cards):
          if stats["phrases"] > 1 else "; the one two-word expression, which a list of single words cannot count, "
          "comes last") if stats["phrases"] else ""))
     # the examples show what the sentence says cannot be guessed: a stem that changes before the suffix
-    nouns = [c for c in cards if len(_row(c)) == 6 and "plural" in c["fields"]["Forms"]]
-    verbs = [c for c in cards if len(_row(c)) == 4 and "present" in c["fields"]["Forms"]]
+    nouns = [c for c in cards if len(_row(c)) == 8 and 'uc-fl">plural<' in c["fields"]["Forms"]]
+    verbs = [c for c in cards if len(_row(c)) == 7 and 'uc-fl">present<' in c["fields"]["Forms"]]
     noun = next((c for c in nouns if not _row(c)[1].startswith(c["fields"]["Word"])), nouns[0] if nouns else None)
     verb = next((c for c in verbs if not _row(c)[0].startswith(c["fields"]["Word"][:-3])), verbs[0] if verbs else None)
     morph = ["Turkish builds words by adding suffixes, and a suffix's vowel follows the vowels of the word "
              "(vowel harmony) while some stems change before it, so the card carries the forms that cannot be "
              "guessed, read from a dictionary rather than generated."]
     if stats["nouns"] and noun:
-        morph.append("%s nouns show their plural and five cases — %s: %s." % (
-            C(stats["nouns"]), noun["fields"]["Word"], ", ".join(_row(noun))))
+        morph.append("%s nouns show their plural, five cases and two possessed forms, \"my\" and \"his, her\" "
+                     "— %s: %s." % (C(stats["nouns"]), noun["fields"]["Word"], ", ".join(_row(noun))))
     if stats["verbs"] and verb:
         morph.append("%s verbs show the third person of the present, the aorist (the general present), the "
-                     "past and the future — %s: %s — the aorist's vowel being the one a learner cannot "
+                     "past and the future, then the negative of the present and the two commands, to sen and "
+                     "to siz — %s: %s — the aorist's vowel being the one a learner cannot "
                      "predict." % (C(stats["verbs"]), verb["fields"]["Word"], ", ".join(_row(verb))))
     if stats["pron"]:
-        morph.append("%s pronouns show their cases." % C(stats["pron"]))
+        morph.append("%s pronouns show their cases%s." % (C(stats["pron"]), (
+            ", and a plural that is no card of its own (o: onlar)"
+            if any('uc-fl">plural<' in c["fields"]["Forms"] and len(_row(c)) < 8 for c in cards) else "")))
     morph.append("Adjectives do not inflect and carry no forms.")
     s.extend(morph)
     have = n - stats["ex0"]

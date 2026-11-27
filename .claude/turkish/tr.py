@@ -93,6 +93,32 @@ def table_forms(entry, word=None):
     return out
 
 
+LEVEL_DECK = {"a1": "turkisha1", "a2": "turkisha2", "b1": "turkishb1", "b2": "turkishb2", "c1": "turkishc1"}
+
+
+def words_below(levels):
+    """The headwords the GENERATOR dealt to these levels (`a1` ...), read off the shipped decks.
+
+    The shipped decks are the generator's output with the record applied
+    (`.claude/decks/turkish-fixes.json`, `turkish-fix.js`): cards moved down from a higher level or from
+    the phrases, and cards no level had.  A level rebuilt alone must be dealt the list it was dealt before
+    anything moved, so a word the record ADDED to a deck is not counted as taught there, and a word the
+    record took OUT of a deck (a move's `from`) still is.  Without this a rebuilt A2 would treat `selam`,
+    now a card of A1, as taught below, drop it and fill the place with another word, unpinned."""
+    root = os.path.join(HERE, "..", "..", "decks")
+    rec_file = os.path.join(HERE, "..", "decks", "turkish-fixes.json")
+    add = json.load(open(rec_file, encoding="utf-8")).get("add", {}) if os.path.exists(rec_file) else {}
+    out = set()
+    for lv in levels:
+        deck_id = LEVEL_DECK[lv]
+        with open(os.path.join(root, "Turkish-%s.folio-deck.json" % lv.upper()), encoding="utf-8") as fh:
+            words = {c["fields"]["Word"] for c in json.load(fh)["cards"]}
+        words -= {r["word"] for r in add.get(deck_id, [])}
+        words |= {r["word"] for rows in add.values() for r in rows if r.get("from") == deck_id}
+        out |= words
+    return out
+
+
 def load_dict():
     with open(os.path.join(CACHE, "dict.json"), encoding="utf-8") as fh:
         return json.load(fh)

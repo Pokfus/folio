@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1401", released: "2026-11-27T00:00Z" };
+window.FOLIO_VERSION = { v: "1.1403", released: "2026-11-27T00:03Z" };
 
 window.CHANGELOG = [
   {
@@ -49,6 +49,7 @@ window.CHANGELOG = [
     d: "2026-11-26",
     t: "Learned means three days in a row, phrases after A1, cleaner banners",
     items: [
+      "Turkish gains a <b>Sounds and spelling</b> deck, and <b>Turkish A1</b> now opens with merhaba and teşekkür ederim, with 38 everyday words added and possessed forms on every noun.",
       "French gains a <b>Sounds and spelling</b> deck, and <b>DELF A1</b> now opens with bonjour, merci and s'il vous plaît, with 43 everyday words added.",
       "A card's three <b>learned dots</b> now empty on a wrong answer: learned means right on three separate days in a row.",
       "In every language, <b>phrases and idioms</b> wait in the default order until every A1 word has been introduced.",
@@ -68,7 +69,7 @@ window.CHANGELOG = [
       "New or redrawn atlas windows on 14 cards, several showing a <b>past year's borders</b> with a key; one reservations map simplified.",
       "A map window's region now takes its coastline and <b>islands</b> from the land itself instead of a hand-drawn edge.",
       "Ancient Greece answers show their <b>ancient Greek name</b> in the translation bubble on 595 cards.",
-      "Euclid's <i>Elements</i> joins the Library: Books I–VI, XI and XII in Todhunter's 1872 edition, quoted on one Greece card.",
+      "Euclid's <i>Elements</i> (Todhunter's 1872 edition) and Voltaire's <i>Candide</i>, with the French beside it, join the Library; one Greece card quotes Euclid.",
       "15 pictures added or changed across World History, Ancient Egypt, Greece, Rome, the United States, Russia and WW2.",
        "An updated language deck's <b>What\u2019s new</b> popup can now <b>remove the cards the update dropped</b> from your device.",
     ],
