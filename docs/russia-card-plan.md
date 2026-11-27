@@ -1723,6 +1723,58 @@ deportation count, the Soviet anti-religious arrests, Solovki prisoner numbers, 
 `check-cards.js` (report only) finds nothing new in this batch. The new locators carry no derived `places` yet, as with
 the last batch.
 
+
+### What carried this batch — `ru-901` to `ru-1000`
+
+The last hundred cards, in one session (2026-11-26/27): the last ten of `ru-society` and all of `ru-thought`,
+`ru-literature` and `ru-arts`. **The collection is complete: 1000 plan lines, 1000 cards.** Written as before by ten
+parallel passes of ten, each checked by a dry-run validator (`add-card.js --dry-run`, `add-glossary.js` in a sandbox
+copy) and imported serially. **Every line's SUBJECT stands, so the list below is unchanged**; where the answer term is
+not the line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-901 | Domostroy | ru-902 | Zhenotdel |
+| ru-903 | byt | ru-905 | shortage economy |
+| ru-915 | Nikolay Mikhaylovsky | ru-918 | Pan-Slavism |
+| ru-921 | Russian religious renaissance | ru-934 | Death of the Poet |
+| ru-952 | Tolstoyan movement | ru-955 | thick journal |
+| ru-956 | Silver Age | ru-968 | Russian wooden architecture |
+| ru-970 | Kazan Cathedral | ru-973 | Dmitry Levitzky |
+| ru-978 | Peter the Great Interrogating the Tsarevich Alexei | ru-980 | Palekh miniature |
+| ru-986 | Khrushchevka | ru-988 | Mayakovskaya |
+| ru-991 | Mighty Handful | ru-995 | Mariinsky Ballet |
+| ru-1000 | Soviet montage |  |  |
+
+**Same-collection steers**: *Narodniks* and its neighbours (`ru-468`–`473`) → Mikhaylovsky for populism as an ideology;
+*Moscow Metro* (`ru-781`) → Mayakovskaya for the metro as art; *Saint Petersburg* (`ru-782`) and Rastrelli (`ru-332`) →
+Kazan Cathedral for the city's neoclassicism; *Soviet women in World War II* (`ru-689`) → the Zhenotdel; the *Potemkin
+mutiny* (`ru-514`) → Soviet montage rather than *Battleship Potemkin*. **One deliberate twin**: `ru-933` answers
+*Bronze Horseman* (Pushkin's poem) beside `ru-315` (Falconet's statue), added with `--allow-twin`; every phrasing
+names the poem, its glossary term is `The_Bronze_Horseman_(poem)` with no alias, and its Wikipedia link was set by hand.
+
+**GLOSSARY**: 99 terms are new; `Nikolay_Karamzin` already existed. Keyed to the article title with the answer as an
+alias: `Westernizer`, `Russian_Religious_Renaissance`, `Old_East_Slavic_literature`, `Literary_realism` (Russian
+realism), `A_Hero_of_Our_Time`, `The_Government_Inspector` (case-sensitive), `Empire_style` (Russian Empire style),
+`Silver_Age_of_Russian_Poetry`, `Kazan_Cathedral,_Saint_Petersburg`, `The_Five_(composers)`, `Soviet_montage_theory`.
+`Thick_journal` is a section redirect, not an article.
+
+**WIKIPEDIA LINKS**: four set by hand (`ru-908`, `933`, `956`, `978`). No dedicated article: `ru-903`, `940`, `955`,
+`966`, `971`.
+
+**DATES**: 38 person templates (New Style, checked against the English Wikipedia infoboxes; Akhmatova's death place is
+Domodedovo; Levitan's birth reads "1860, disputed" after a 2023 archival study; the guessed career rows of Mussorgsky
+and Tchaikovsky were dropped). Dates inside the backgrounds stay Old Style where that is how they are cited (the
+*Cherry Orchard* premiere, Solovyov's lecture, the Pushkin duel), and the cards say so. **Sources** are again mostly
+Russian-language peer-reviewed articles on cyberleninka, each opened and cited ` [in Russian]`, with old translations
+and memoirs on archive.org and museum pages (Kizhi, Fabergé, Hillwood); Project Gutenberg, UNESCO and the Wikipedia
+API refused or rate-limited this session. `add-card.js`'s source bar by difficulty (1 → 9 … 4 → 6) moved a few
+difficulties (Pushkin and Gogol to 2, Malevich and Glinka to 3). **`check-cards.js` (report only) lists three new
+findings left standing**: two "scholar" hits that are a character and a historical actor (Sonya Marmeladova in
+`ru-947`, Prince Vyazemsky in `ru-930`) and `ru-969` citing the Kizhi museum in 3 of 8 sources. Locators were added for
+Kizhi, Kazan Cathedral, Moscow State University, Mayakovskaya, the Mariinsky Theatre and Palekh; they carry no
+derived `places` yet, as with the last two batches.
+
 ---
 
 # The list
