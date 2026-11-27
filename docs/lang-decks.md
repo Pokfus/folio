@@ -4094,6 +4094,14 @@ changed was the one that had been wrong all along.
   mis-tagged verb tables read by position, the shared pronoun table, the six frequency rules, `FORCE`,
   the descendant picker) are 📖 `docs/oldenglish-decks-plan.md`. The `l1` row is 0, so it sorts last; the hue
   is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
+  **Since the beginner pass (2026-11-27, the section "The Old English beginner pass" below)**: a rebuild is
+  `run.py --no-fetch`, `alphabet.py` (it reads Level 1's deck file), `node .claude/decks/oldenglish-fix.js`
+  (the pinned ids, the order, the end of each description), `oldenglish-order.js`, `oldenglish-fix.js` again;
+  Tatoeba's export is PINNED beside the scripts (`tatoeba-ang.tsv`: it is part of the corpus the band is
+  ranked on); a sentence is Ælfric's with Thorpe's translation and page (`thorpe.py`) or Tatoeba's with its
+  id; the alphabet's sounds are rows of Wikipedia's Help:IPA/Old English and its rules quoted phrases
+  (`alphabet.py --verify`), with eight reading rules of card type `oe-read`. The model is
+  `.claude/decks/README.md`, "The Old English decks".
 - `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
   collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
   `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swedish-A2.folio-deck.json`**
@@ -7080,6 +7088,209 @@ a sentence's words have been met and 478 of 1,544 sentences can be read whole (7
   390 px, no overflow, the accents and the final sigma rendered) were scratch scripts.
 - **`alphabet.py --verify` and `inserts.py --check` need the network or the cache and are not CI steps.**
 - **Byte-identity depends on live sources**: on 2026-11-27 kaikki and Tatoeba still gave the committed A1.
+
+## The Old English beginner pass (2026-11-27)
+
+On request, the audit the other shelves had been given, with one difference in the question: **the learner is
+a READER** — nobody speaks Old English — who follows the order the shelf recommends, the Alphabet and then
+Level 1, which is the last deck; the measure is how soon a page of real prose can be read. Every figure was
+measured on the two decks as shipped that morning, at the language default of ten new cards a day with both
+directions together, which is five words a day. The rules are in the `.claude/oldenglish/` entry above and in
+`.claude/decks/README.md` ("The Old English decks"); this section is the reasoning. The plan's §1 stands
+untouched: a level is a band of frequency, no speaker, the IPA, the Modern English descendant.
+
+**The generator's claim was tested first, and it was half true.** One fetch of the live sources (kaikki 140 MB;
+Project Gutenberg's main site answered 503 for maintenance all day, so the two books came from its mirror,
+where the files are the Latin-1 originals), then `--no-fetch`. The alphabet came out with the committed
+checksum. Level 1 did not: the same dictionary fields on every card, but **two words swapped at the band's
+edge, 278 notes in another place and 39 sentence fields changed** — because Tatoeba's Old English had grown
+from 745 translated sentences to 805 since 2026-11-09, and Tatoeba is BOTH part of the corpus the band is
+ranked on and the source of the sentences. Cut back to the sentences of that day (ids up to 14107058) the
+build gave the same 500 words with 9 notes in another place and 6 sentence fields changed, every one traced to
+a sentence edited since. So the code reproduces and one source moves; a band other levels are built on cannot
+move, and the export is now pinned in the repository (below). After the pass the two decks were rebuilt from
+an emptied cache, from the UTF-8 copies and from the Latin-1 mirror copies, with the record applied: the same
+bytes each time.
+
+### What the audit found, by what it costs a reader
+
+1. **The commonest forms Ælfric wrote were on no card.** Level 1's 500 lemmas own 79.5% of the 112,000 running
+   words of the corpus, but the forms PRINTED on its cards were 73.2%. The gap was the commonest words of
+   all: sē's card, note 1, showed one cell of its thirty (`table_html` cut a declined word's table at the first
+   row repeating the first row's tags, to drop an adjective's weak half, and a cell with two forms — sē, þē —
+   repeats at once): þām 1,357 tokens, þǣre 620, þæs 608, þone 571, in all 3.0% of every word of the corpus.
+   bēon had no table at all (the walk wanted a past, and its past is wesan's: biþ 528, bēoþ 272); gōd showed
+   its noun's eight cells (betera, sēlra repeat at once); hwā and hwæt none (declined by gender with no number);
+   twēġen its genders run together; and no adjective its weak declension (40 of 43 have one in Wiktionary:
+   se ēċa, þā hālgan, ælmihtigan). 4.3% of the corpus was in a card's own Wiktionary table and not printed.
+2. **The texts do not spell as the cards do, and nothing said so.** Wiktionary prints early West Saxon; Ælfric
+   wrote late. forþan (427 tokens) for forþon, būton for būtan, swilce, betwux, þisum (236) for þissum, sceolon
+   for sċulon, byrig: 2.5% of the corpus was a spelling Wiktionary files under a Level 1 word in an entry of its
+   own and no card showed. `men` (121) was counted for man "one", which has no plural.
+3. **The "real example sentences" were neither real nor cited.** 196 of 500 cards had one; of the 382 of four
+   words or more, 6 stand in Thorpe or Sweet — the rest are compositions by Tatoeba's contributors in the last
+   few years (24 about Tom, Mary or Þōmas; 30 in wynn). No card named a source, and the generator's header said
+   "most of them from Ælfric". In arrival order 57.3% of a sentence's words had been met as a form a card shows
+   (41.6% over the first fifty notes), 44 of 460 could be read whole, and 26.0% were on no card.
+4. **The alphabet deck taught the right things and could trace none of its comparisons.** It had þ and ð as one
+   sound, æ, ƿ, the macron as an editor's, ċ ġ sċ ċġ, h after a vowel, hw hl hn hr, f s þ between voiced
+   sounds, y, the diphthongs, double consonants and unstressed ġe-. Its source line named Sweet's *Primer*,
+   "Sounds", which says none of the comparisons it made: "like German See", "like German so", "as in British
+   hot but with rounder lips", "like Dutch g", "as in Italian or in bookcase", "a trilled or tapped r" (the
+   key: "The exact nature of the rhotic /r/ is unknown"), "the wh of Scottish which", i as "the i of sit"
+   (the key: f**ee**t), e as "the e of bet" (Spanish t**e**). Seven example glosses were typed by hand. It did
+   not say that Thorpe prints no macron and no dot (of the 728 Ælfric sentences now on the cards, none has
+   either, 598 print ð and 332 an acute), that ie is y in a late text (19 headwords), how the two kinds of
+   IPA bracket differ (291 headwords between slashes, 201 between brackets, 8 with none — and 9 slashed
+   words hide an f, s or þ that is said voiced), or where the stress falls when it is not first (87 headwords;
+   51 begin with ġe-). What Level 1 asks: 244 headwords carry a macron, 52 a ċ, 87 a ġ, 66 an f, s or þ between
+   voiced sounds. Level 1 prints ċ and ġ consistently, and no IPA disagreed with its headword's macrons or
+   dots (0 of 492).
+5. **Verbs: the position-read tables were right except where Wiktionary prints two.** Twenty verbs were
+   compared cell by cell with Wiktionary's rendered pages, whose cells carry their slot in a class
+   (`1|s|pres|ind-form-of`): 288 of 346 cells equal. Every misplaced form was in forsēon, rǣdan or āhebban,
+   whose pages have a second table (Anglian, or a weak conjugation): the walk read on, and the second table's
+   indicative plural stood in the subjunctive's cell (8 of Level 1's 136 verbs). Otherwise sound: 135 of 136
+   had present, past and subjunctive by person, the infinitive, 133 the inflected infinitive, 130 the
+   imperative, 128 the participle with ġe-; all 56 strong verbs their class and three principal parts.
+6. **Nouns were sound, bar the class.** 191 of 192 show gender, 190 a genitive, 185 a plural and the four cases
+   in both numbers; the mutated plurals (mann / menn, bōc / bēċ, fōt / fēt) are on the forms line. None named
+   its declension, though each Wiktionary table does.
+7. **Level 1 was dealt by frequency, which is right for a reader, with the small sets apart.** Day one was
+   sē · and · hē · wesan · on. hē was note 3, hit 25, hēo 32; wesan 4 and bēon 15; ēower 102 beside ūre 37;
+   the question words from 64 (hwæt) to 458 (hwæþer); the numbers from 34 (ān) to 462 (þūsend), with six
+   (rank 592), nine (614), ten (1,172) and eight (1,174) beyond the band; magan 36 and cunnan 252. The dual
+   (wit, unc) is on no card: ten tokens in the whole corpus. No days or months are carded.
+8. **The English → Old English card cannot be made hard, and one printed its answer.** The front is the
+   English field alone: no IPA, no descendant. But 125 of the 225 cards with a descendant lead with a gloss
+   that IS the descendant (hūs "house") and 28 have a gloss spelled as the headword (and, hand, word, gold):
+   that is the language, not a fault. swā's gloss said 'often doubled as "swā swā"'; þus carried a run-on
+   quotation ("thus#* late 9th century, translation of Bede's…"). No two notes share an English side; 9 pairs
+   share a first gloss.
+9. **Every id was a position**, in both decks. **The pace was stated nowhere**: the alphabet 9 days, Level 1
+   done on day 109.
+10. **Where the shelf ends.** A reader who has finished Level 1 meets, in every hundred words of Ælfric, 79
+    that are a form on a card (73 before), 12 that are forms of words beyond the level and 9 that are names
+    (Iohannes, Petrus) and spellings no Wiktionary entry matches. Of the 53 words of the Lord's Prayer in
+    the text Wikipedia prints, 5 are on no card (ġehālgod, tōbecume, ġeweorðe, dæġhwamlīċan, gyltendum); of the
+    first twelve sentences of Sweet's reading texts, 22 of 174 (25 before). Ælfric's *Colloquy* was not
+    measured: no open text of its Old English gloss was found.
+
+### What was built
+
+**In the generator** (`.claude/oldenglish/`; both decks rebuilt, and generator plus record proved three times
+to give the committed bytes). The same 500 words; no gloss order, IPA, descendant or id moved. Fields changed
+by a rule below: Examples on 477 cards, Forms 211, Table 62, English 3; all 500 ids as they were.
+
+- **`build_deck.halves`**: a declined word's strong and weak halves, found where the first cell's tags come
+  round AGAIN after other cells — sē has its thirty cells, gōd its own table — **and the weak declension shown**
+  (40 adjectives). **A word declined by gender without a number** (hwā, hwæt) and **in the plural only**
+  (twēġen / twā / tū).
+- **`extract.verb_table`**: stops at a second table's infinitive (8 verbs: the card shows the West Saxon
+  table), and tables a verb with no past (bēon). After it, twenty verbs again: 323 of 330 cells equal, the
+  seven being forms the page prints and the kaikki extract does not have (wesan's wese, wist, wesaþ); none in
+  a wrong cell.
+- **"also in the texts"** (`build_deck.also`): one line under the key forms, on 52 cards — a spelling is
+  printed only when two sources agree: Wiktionary files it under the word in an entry of its own (an
+  alternative form, or a form of it) AND the corpus prints it at least five times for that word, and no form
+  on the card is already that spelling under `oe.fold`. The spelling is Wiktionary's.
+- **A noun's declension** on its forms line (179 of 192: strong a-stem, weak, strong consonant stem), as its
+  Wiktionary table's template names it — not in the label, which is part of the English side: bearn and ċild
+  are both "child", and two labels differing by "a-stem" and "z-stem" would have passed for two questions.
+- **Ælfric's sentences, with Thorpe's own translation and page** (`thorpe.py`, `examples.py`). The
+  Gutenberg transcription keeps text and facing translation as the two cells of a table row. A pair is made
+  only where the two cells have the same number of paragraphs and a paragraph pair the same number of
+  sentences; a sentence pair also gives its clauses where both sides break at the same number of ; and :;
+  and every pair must pass an anchor check (at least 0.6 of the Old English words whose lemma is known have a
+  Wiktionary gloss word or descendant of that lemma in the English). 1,396 sentence and clause pairs pass;
+  52 were read, all correct. A card takes Ælfric's two best first, then the best of either source, "best" being four to
+  twelve words and the fewest words the reader has not met by rank. **Every sentence carries its
+  reference**: "Ælfric, Catholic Homilies I, ed. Thorpe (1844), p. 278" or "Tatoeba 1346715". Sentences on
+  477 cards (196), 728 of the 1,043 Ælfric's; met on arrival 71% (57.3%), on no card 18% (26.0%).
+- **Tatoeba pinned** (`tatoeba-ang.tsv`, 57 KB: id, Old English, the shortest translation; CC BY 2.0 FR).
+  `corpus.py` counts only the sentences the ranking was first counted on (`TATOEBA_CUT`); `examples.py` reads
+  the file. `run.py --snapshot-tatoeba` rewrites it, as a decision. `run.py` falls back to Gutenberg's mirror.
+- **`FORCE`**: `men` is mann's. **`.uc-eg`** hides a bracket that prints the card's own headword on the
+  English → Old English front (swā); a "compare Old Norse þat" is dropped; a quotation run into a gloss is
+  cut (þus).
+- **The alphabet sourced** (`alphabet.py`): every IPA symbol and English comparison is a row of Wikipedia's
+  Help:IPA/Old English (revision 1355663743), the letter given each symbol one its Examples cell prints in
+  bold; every rule a quoted phrase of that key's notes, of "Old English phonology" (1364038675) or of the
+  Orthography section of "Old English" (1388030632). `--verify` checks 51 comparisons and 30 phrases. The
+  41 notes keep their letters and ids; one added (⁊, which with ƿ and ᵹ is in Tatoeba's sentences; ꝥ is in no
+  source text and stays as a scribe's letter), and **eight reading rules** of card type `oe-read`, one card
+  each: the macron, the IPA line, ie against y, the dots, þ against ð, f s þ between voiced sounds, the stress,
+  Thorpe's acute. A quotation is hidden where the sound side is the question. Every example word is a Level 1
+  card with that card's IPA and first meaning; what two rules say about the cards themselves (a tie in a
+  diphthong, no macron or dot in an Ælfric sentence) is asserted against Level 1 on every run.
+
+**In a record** (`.claude/decks/oldenglish-fixes.json`, applied by `oldenglish-fix.js`, on the Greek model):
+
+- **Note ids pinned** (`oldenglish-ids.json`, 541 rows seeded from the shipped positions in a commit of its
+  own before anything moved; 550 now, none retired). In a browser, with the decks as shipped: a reader holding
+  the old Alphabet and Level 1 with 30 notes of each scheduled in BOTH directions pressed the two Updates and
+  kept all 120 schedules; all 541 old ids named the same word or letter in the device's store afterwards;
+  every note took the new file's fields (the sanitizer rewrites `&#x27;` and `&quot;` as the characters and
+  drops nothing); the alphabet gained its second card type; a note the shipped deck does not have (one was
+  planted in each) stayed on the device with its progress.
+- **An order** (`oldenglish-order.json`, computed by `oldenglish-order.js` from the pinned number, which is
+  the rank of 2026-11-09): frequency, with ONE rule — a small closed set arrives together where its commonest
+  member falls. Eight sets, 40 words: hē hēo hit hīe (notes 3 to 6), wesan bēon (7, 8), iċ þū wē ġē, the six
+  modal and preterite-present verbs, mīn þīn ūre ēower, seven question words (day 23), the numbers above one
+  (day 34), the four verbs with ne- built in. Day one is sē · and · hē · hēo · hit.
+- **The descriptions**: each ends with a paragraph the record rewrites on every run from the counts and from
+  `oldenglish-order.js`'s `facts` — the order, the pace, what a card shows, and on Level 1 where the shelf
+  ends. (What share of Ælfric the cards cover is the generator's figure, in the description's body.)
+- **CI**: `oldenglish-fix.js --check`, `oldenglish-order.js --check`, `check-oldenglish.js` (never a step
+  before; it now reads the pin, and wants a reference on every sentence). **Shared files touched**:
+  `checks.yml` (those three steps), `lang-decks.js` (regenerated), `changelog.js`.
+
+After it: the alphabet 50 notes / 92 cards, days 1 to 10; Level 1 500 notes, days 10 to 110.
+
+### What was decided against, and why
+
+- **Level 2.** Each level is asked for on its own. What it would take: `run.py --level l2` (ranks 501 to
+  1,000, whose words are another 6.1% of the corpus; 1,001 to 2,000 are 4.1%), every card read, and one thing
+  first — `select.py` cuts the band by rank and does not read `words_below`, so it relies on the ranking
+  standing still, which the pinned Tatoeba file now holds and a newer kaikki extract could still disturb. Level
+  2 joins `SHELF` in `oldenglish-fix.js` and is seeded into the pin from its first build.
+- **Adding six, eight, nine, ten, hwonne or the dual to Level 1.** A level is a band of frequency (§1): the
+  description says which level each belongs to.
+- **A hand-written head of greetings**, as the living languages were given. There is no conversation to
+  prepare for; the commonest words first is already the order that reaches a page soonest.
+- **Dropping Tatoeba's sentences.** They are short, mostly in the cards' own spelling, and the only sentences
+  62 cards have; the reference says what they are.
+- **Macrons and dots added to Ælfric's sentences**, or his spelling normalised. Marking length word by word
+  would guess; the reader of a real edition meets exactly this text, and three rule cards say how to read it.
+- **An IPA worked out for the 8 headwords with none**, or a phonetic line where Wiktionary gives only the
+  phonemic. The rule card says what the slashes hide.
+- **Grammar cards** (the cases, the declensions as patterns), as Latin's sounds deck has. The tables are on
+  the cards now; a pattern card would need a source quoted for each ending, and is a deck of its own.
+- **A leak fix for the 125 cards whose gloss is the descendant.** The gloss is the meaning.
+- **Widening `oe.fold`** (mann / man, eall / eal). It would move the ranking.
+- **Subdecks for the sets.** The app deals subdecks side by side.
+
+### Limits to know about
+
+- **The pairing of Ælfric's sentences is automatic.** 52 of the 1,396 pairs were read and were
+  right; the 728 on the cards passed the same check and were not read one by one. A clause pair begins in lower case and ends where
+  Thorpe's ; or : stood. Thorpe's English is of 1844 ("thou", "ghostly"), and "Jesus" where the text has
+  "se Hælend".
+- **96 words share a sentence with another card**, and 23 have none.
+- **"also in the texts" is only what Wiktionary files**: þǣra, micclum, þissere and worulde are common in
+  Ælfric, match no entry and are on no card.
+- **A verb whose page has two tables shows the first**; the second's forms reach the card only through the
+  line above (rǣdde, rǣddon).
+- **The sounds are a reconstruction**, and Wikipedia's key is one account of it: its comparisons are
+  approximate by its own notes, and the plain line above each quotation is this pass's paraphrase.
+- **Byte-identity depends on kaikki**, which is live: on 2026-11-27 it gave the committed Level 1. Project
+  Gutenberg's own UTF-8 copies were not reachable that day; the mirror's Latin-1 files gave the same decks as
+  their conversion.
+- **`alphabet.py --verify` needs the network or the cache and is not a CI step.**
+- **Not read card by card**: the alphabet, the head of Level 1, the eight sets and the cards named above
+  were; the rest is as generated, with the changed fields read as counts. The browser checks (the Update
+  press; ten card faces of each deck photographed front and back at 390 px, no overflow, þ ð æ ƿ, the macrons
+  and the dotted ċ ġ rendered in the site's font) were scratch scripts.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 

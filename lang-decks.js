@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 491 MB of decks. The file itself is fetched on Add. */
+   section without fetching 492 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -322,6 +322,6 @@ window.LANG_DECKS = [
   { lang: "Latin", file: "Latin-B2.folio-deck.json", id: "latinb2", title: "Latin B2 Upper Intermediate", sub: "1,499 words · both directions, as two cards per word", notes: 1499, cards: 2998, ex: 68, bytes: 5629609, rev: "5e9bf54bd20e" },
   { lang: "Latin", file: "Latin-C1.folio-deck.json", id: "latinc1", title: "Latin C1 Advanced", sub: "1,498 words · both directions, as two cards per word", notes: 1498, cards: 2996, ex: 48, bytes: 5283594, rev: "879e5a7bbc0b" },
   { lang: "Latin", file: "Latin-Phrases-and-Mottos.folio-deck.json", id: "laphrase", title: "Latin Phrases and Mottos", sub: "623 phrases · both directions, as two cards per phrase", notes: 623, cards: 1246, ex: 28, bytes: 267588, rev: "995de2459ac9" },
-  { lang: "Old English", file: "Old-English-Alphabet.folio-deck.json", id: "oeabc", title: "Old English Alphabet and Pronunciation", sub: "41 letters, sounds and spelling rules · both directions, as two cards per note", notes: 41, cards: 82, ex: 0, say: false, bytes: 20791, rev: "3d1c53cc27f9" },
-  { lang: "Old English", file: "Old-English-Level-1.folio-deck.json", id: "oel1", title: "Old English Level 1", sub: "The 500 commonest words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 39, say: false, bytes: 994161, rev: "942d7ada836a" },
+  { lang: "Old English", file: "Old-English-Alphabet.folio-deck.json", id: "oeabc", title: "Old English Alphabet and Pronunciation", sub: "42 letters and spellings · 8 reading rules", notes: 50, cards: 92, ex: 0, say: false, bytes: 34157, rev: "5d86477f9ae7" },
+  { lang: "Old English", file: "Old-English-Level-1.folio-deck.json", id: "oel1", title: "Old English Level 1", sub: "The 500 commonest words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 95, say: false, bytes: 1363292, rev: "032e8c943471" },
 ];
