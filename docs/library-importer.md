@@ -2972,3 +2972,17 @@ What it settled, each a quiet failure if missed:
   head is dropped (the tab names it), as are the running title and "END OF VOL. I.". Figures go with their captions,
   counted; page marks never fall inside a word in these files (measured), so they are removed with nothing in their place.
 
+## `prep: "mencius"` — chapter marks placed from a second witness (Nov 2026, Mencius)
+
+The Wikisource Mencius is the Analects' interleaved shape (each Chinese paragraph in a `wst-lang`
+element, then its English) with **no chapter numbers in either language**. `menciusPrep`, called from
+`bothColumns` before `extractInterleaved`, writes the marks that extractor already reads — 【N章】 in the
+Chinese, a small-caps "Chapter N." at the head of the English paragraph after it, and 【N節】 on every
+further Chinese paragraph so the Chinese column keeps its paragraph breaks. Where the chapters start is
+the table `MENCIUS_STARTS`, measured once by aligning the page's Chinese against Chinese Wikisource's
+孟子, which heads all 260 chapters of the standard division: every chapter start fell exactly on a
+paragraph boundary. Each row is `[paragraph index, first eight characters]`. The index places the mark
+and the characters check it, so a paragraph added or split upstream throws instead of shifting every
+later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
+by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
+entry's `fixes` convert the five the conversion missed.
