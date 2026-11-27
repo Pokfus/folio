@@ -1457,6 +1457,7 @@
     Iliad: "homer-iliad",
     Odyssey: "homer-odyssey",
     Epic_of_Gilgamesh: "epic-of-gilgamesh",
+    Book_of_the_Dead: "book-of-the-dead",
     // the four works Petrie's first series holds (Nov 2026)
     Westcar_Papyrus: "petrie-egyptian-tales",
     The_Eloquent_Peasant: "petrie-egyptian-tales",
@@ -13277,6 +13278,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding the Book of the Dead (anonymous, so keyed on its id), measured as the rows above (CIE76 over
+     L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-three light papers, cards and second papers; a sweep of the cube
+     at a step of 3, whose best stands 15.4 from its nearest). First placed at the aubergine #3F2148, which Petrie's
+     Egyptian Tales, merged the same day, took from the same sweep (2.4 apart), so measured again with it on the
+     shelf. THE EURIPIDES TEST: the books a reader takes up beside this one are the shelf's other Egyptian texts,
+     so they were held 40 or more off; the sweep's best then is this very dark olive, 44.1 from Petrie and 45.9 from
+     Ptahhotep (and 86.6 from Erman's red, merged later the same day), whose nearest are Bede 15.4, Boethius 16.7,
+     Hobbes 16.7 and Marx and Engels 17.3, none read beside it. It reads 9.58:1 on the tightest light paper. */
+  "book-of-the-dead": "#212406",
+  /* Nov 2026, adding Erman's Literature of the Ancient Egyptians, measured as the rows above (CIE76, L 12.3–47.8,
+     chroma 18–85, 6:1 or better on white; a sweep of the cube at a step of 3). The best-separated colour left is
+     this red at 17.5 from Malory, 31.0 from Aristophanes and 31.4 from the Primary Chronicle, none read beside
+     Erman; Ptahhotep, the other Egyptian book, stands far off in teal. */
+  "Adolf Erman": "#C9000C",
   /* Nov 2026, adding The Principles of Psychology, measured as the rows above (CIE76 over L 12.3–47.8, chroma
      18–85, 4.5:1 on all the light papers, cards and second papers, 22 or more from the fifteen light inks; a
      sweep of the cube at a step of 3, which tops out at 12.5 — the band is full). THE EURIPIDES TEST: held 25 or
@@ -13294,6 +13309,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
      46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
   "Sigmund Freud": "#844227",
+  /* Nov 2026, adding Conditioned Reflexes, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1
+     on all forty-three light papers and cards; a sweep of the cube at a step of 3, which tops out at 15.4 — the band
+     is full). THE EURIPIDES TEST: held 25 or more from the books read beside Pavlov (James, Freud, Darwin,
+     Descartes), the sweep's best olives stand 28 from Darwin, so this dark green, 15.3 from Boethius, its nearest,
+     not read beside Pavlov; Darwin stands 43.4 off, Freud 54.5, Descartes 68.5, James 96.0. It reads 9.03:1 on the
+     tightest light paper. */
+  "Ivan Pavlov": "#032D21",
+  /* Nov 2026, adding Thorndike's Animal Intelligence, measured as the rows above (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen light inks;
+     a sweep of the cube at a step of 3, which tops out at 13.2). THE EURIPIDES TEST: the sweep's joint best, a
+     violet at 13.2, stands 18.9 from William James, Thorndike's teacher, so this dusky mauve was taken: its
+     nearest are the Classic of Poetry and Plato 13.2 and Cassius Dio 13.4, none read beside Thorndike, while
+     Freud stands 36.7 off, Descartes 37.4, Darwin 41.9 and James 66.3. It reads 4.62:1 on the tightest light
+     paper. */
+  "Edward L. Thorndike": "#724560",
+  /* Nov 2026, adding Memory, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all
+     forty-five light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of the cube
+     at a step of 3). THE EURIPIDES TEST: first taken as a deep green, which Pavlov's row (merged the same day, the
+     book most read beside this one) left 20.3 away; held 25 or more from every psychologist and philosopher
+     Ebbinghaus is read beside, the sweep's best blues stand 25 from William James, so this deep magenta at 12.3 —
+     its nearest are Cervantes and Thucydides 12.3 and Wu Cheng'en 12.6, none read beside him, while Plato stands
+     27.0 off, Kant 37.5, Thorndike 37.8, Descartes 39.1, Freud 54.5, James 60.8, Darwin 65.1 and Pavlov 82.7. It
+     reads 4.85:1 on the tightest light paper. */
+  "Hermann Ebbinghaus": "#9C0066",
   /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
      (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
      purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
@@ -13321,6 +13360,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aristotle 16.4, Marcus Aurelius 17.6, Kalidasa 18.1 — and 26 from Confucius's walnut, which keeps the
      two Confucian books apart on the shelf. */
   "Mencius": "#006C78",
+  /* Nov 2026, adding the Communist Manifesto, swept over the cube at a step of 3 (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-three light papers and cards; nearest-ink distance against the shelf's 79 rows). The
+     sweep tops out at 15.4; THE EURIPIDES TEST passes over its first nine, which sit 15–17 from Hobbes or Jefferson,
+     both read beside a political tract, for this near-black green at 14.9: its nearest are Boethius 14.9, Kalidasa
+     16.9 and Jefferson 17.9, with Hobbes 25.5, Rousseau 41.2, Darwin 43.8 and Paine 78.9. It reads 9.37:1 on the
+     tightest light paper. */
+  "Karl Marx and Friedrich Engels": "#002A1E",
+  /* Nov 2026, adding Ancient Records of Egypt, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on
+     every light paper, card and second paper, 22 or more from the fifteen light inks; a sweep of the cube at a step
+     of 3, against the 85 colours placed, which tops out at 12.3). THE EURIPIDES TEST: held 25 or more from the books
+     read beside this one — Ptahhotep, Petrie's Egyptian Tales, the Book of the Dead, Erman, Herodotus, Diodorus,
+     Strabo, Plutarch and Gilgamesh — the best is this deep green, 12.3 from Chaucer, not a book read beside
+     Breasted. It reads 6.73:1 on the tightest light paper. (A plum first taken for this row stood 9.2 from Petrie's
+     tales, placed the same day.) */
+  "James Henry Breasted": "#06451E",
   /* Nov 2026, adding the Constitution, the Bill of Rights and Washington's Farewell Address, measured as the rows
      above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-three light papers, cards and second papers,
      22 or more from the fifteen light inks; a sweep of the cube at a step of 3, each row then counted as shelf for
@@ -17756,6 +17810,80 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Sarmatians", "Germany", "Turkey", "Greece"],
     },
     {
+      id: "book-of-the-dead",
+      title: "The Book of the Dead",
+      subtitle: "According to the Theban Recension",
+      author: "Anonymous",
+      /* The spells were copied into tombs from the start of the New Kingdom to the Roman conquest; the papyri
+         Budge translates from here are mostly of the New Kingdom (Nu, Ani, Nebseni), a few Ptolemaic (Lepsius's
+         Turin papyrus). `year` is the start of that span, the one number the shelf's sort needs. */
+      written: "c. 1550–50 BCE",
+      year: -1550,
+      translator: "E. A. Wallis Budge",
+      edition: "Egyptian Literature, The World's Great Classics, The Colonial Press, New York, 1901",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: Budge 1857–1934, printed 1901 — pre-1929 in the US,
+         life plus seventy cleared 2005, life plus a hundred runs to 2035. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The spells are some three thousand years old. E. A. Wallis Budge's " +
+        "translation was printed in this anthology in New York in 1901, so it is public domain in the United " +
+        "States as a work published before 1929, and he died in 1934, so it also cleared the translator's life " +
+        "plus seventy years in 2005. Where the term is life plus a hundred it remains in copyright until 2035. " +
+        "The anthology's introduction, by its series editor, and its other contents are not reproduced. (The " +
+        "modern translations by Raymond O. Faulkner and Thomas George Allen are in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Egyptian_Literature/The_Book_of_the_Dead",
+      /* THE PRINTED HEAD IS THE CHAPTER: 114 of them over scan pages 27–155, titled from the printed contents
+         page (six heads it omits take the wording of the head they repeat). Titles repeat where the anthology
+         gives another papyrus's version of a spell. No spell numbers are printed, and no original: see the
+         importer. */
+      chapterWord: "Chapter",
+      count: 114,
+      total: 114,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 114 chapters
+         (every `.ttip`, Nov 2026). Budge's ANT is a fish and his APE the god's sacred ape, not the animals; APEPI is
+         the serpent Apep, not the Hyksos king; the OVERSEER of the palace is an Egyptian title, not a plantation
+         overseer; the BUCKLE is the amulet, not Henry Thomas Buckle; HENNU is the god's sacred boat, not the high
+         steward; QEBH is the cool-water region, not King Qa'a; NOW, SUI, TOUCH and DOMINION are ordinary words;
+         RIGHT AND TRUTH is Maat, not the philosophical term; the EYE is the god's Eye, not the organ; the ALTAR is
+         Egyptian, not Greek; and Budge's PORCELAIN is faience. */
+      glossOff: ["Ant", "Ape", "Apepi", "Overseer", "Henry_Thomas_Buckle", "Henenu_(high_steward)", "Qa'a",
+        "National_Organization_for_Women", "Sui_dynasty", "Somatosensory_system", "Dominion", "Truth", "Human_eye",
+        "Greek_altar", "Porcelain"],
+    },
+    {
+      id: "erman-egyptian-literature",
+      title: "The Literature of the Ancient Egyptians",
+      subtitle: "Poems, Narratives, and Manuals of Instruction, from the Third and Second Millennia B.C.",
+      author: "Adolf Erman",
+      /* Erman's anthology is dated by its own publication (German 1923), not by the texts it translates, which
+         run from the Old Kingdom to the end of the New: it is a scholar's book, and its notes and dates are his. */
+      written: "1923",
+      year: 1923,
+      translator: "Aylward M. Blackman",
+      edition: "Methuen & Co., London, 1927 (from Die Literatur der Aegypter, Leipzig, 1923)",
+      /* A LIMIT TO STATE, ON THE TRANSLATION: US public domain as a 1927 publication; Blackman died in 1956, so
+         life-plus-seventy countries see it free only from 1 January 2027. Read off OCR of an open scan and checked
+         against four others — see .claude/fetch-book.js, layout "erman". */
+      rights:
+        "Public domain in the United States, with one limit. Adolf Erman wrote the book in German (Die Literatur der " +
+        "Aegypter, 1923) and died in 1937. Aylward M. Blackman's English translation was published in London in " +
+        "1927, so it is out of copyright in the United States as a work published before 1929. Blackman died in " +
+        "1956, so where copyright lasts for the author's life plus seventy years the translation remains protected " +
+        "until 1 January 2027. The text is read from the scan of the Digital Library of India, checked against four " +
+        "other scans of the same printing; the four plates of specimen writing and the hieroglyphic signs printed " +
+        "in the introduction's section on writing are not reproduced.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/in.ernet.dli.2015.532519",
+      chapterWord: "Chapter",
+      count: 74,
+      total: 74,
+      parts: [
+        { n: 1, label: "Prefaces and Introduction" },
+        { n: 2, label: "I. From the Oldest Poetry" },
+        { n: 3, label: "II. From the Older Period" },
+        { n: 4, label: "III. From the New Kingdom" },
+        { n: 5, label: "Explanatory Notes" },
+      ],
       id: "james-principles-of-psychology",
       title: "The Principles of Psychology",
       author: "William James",
@@ -17799,6 +17927,76 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOffIn: { Providence: [22], Ethics: [22], Logic: [23], London: [19] },
     },
     {
+      id: "pavlov-conditioned-reflexes",
+      title: "Conditioned Reflexes",
+      subtitle: "An Investigation of the Physiological Activity of the Cerebral Cortex",
+      author: "Ivan Pavlov",
+      written: "1926",
+      year: 1926,
+      translator: "G. V. Anrep",
+      edition: "Translated and edited by G. V. Anrep, Oxford University Press: Humphrey Milford, London, 1927",
+      /* A LIMITED licence: public domain in the US (1927) and wherever copyright runs life + 70 or less, since
+         Anrep died in 1955 — not yet where it runs longer. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where G. V. Anrep's translation was published in 1927. Ivan Pavlov " +
+        "died in 1936 and Anrep in 1955, so it is also out of copyright in countries where copyright lasts for " +
+        "the author's life plus seventy years or less. The text is the transcription in Classics in the History " +
+        "of Psychology (York University, Toronto), corrected against two scans of the 1927 printing; its tables, " +
+        "which that site gives as pictures of the page, were typed from those pictures.",
+      sourceName: "Classics in the History of Psychology",
+      sourceUrl: "http://psychclassics.yorku.ca/Pavlov/",
+      /* NO `origLang`: no Russian text of the 1927 Lectures is transcribed anywhere this importer reads. Twenty-four
+         sections — the twenty-three lectures and the Bibliography. No `parts`. */
+      chapterWord: "Lecture",
+      count: 24,
+      total: 24,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 24 sections
+         (every `.ttip`, 34 keys, Nov 2026). NAMESAKES: Pavlov's Speransky is the physiologist A. D. Speransky, not the
+         statesman; Max-Kohl's tone-variator is a maker's name, not the cosmetic. NAMES INSIDE NAMES and ordinary words:
+         the Military Medical Academy, Oxford University Press, Classics in the History of Psychology at York
+         University (Toronto, not the English city), the Archive of Biological Sciences, the Congress of Natural
+         Sciences, "Monographs on Animal Biology", "Necessary conditions" in Lecture II's summary, Dutch cheese, a
+         "Sound of bubbling water" in a table and Foursikov's paper "Water as a conditioned stimulus". */
+      glossOff: ["Mikhail_Speransky", "Kohl_(cosmetics)", "Academy", "University_of_Oxford", "Psychology", "York",
+        "Biology", "Natural_science", "Monograph", "Necessity_and_sufficiency", "Netherlands", "Sound", "Water"],
+    },
+    {
+      id: "darwin-expression-of-emotions",
+      title: "The Expression of the Emotions in Man and Animals",
+      author: "Charles Darwin",
+      written: "1872",
+      year: 1872,
+      /* NO `translator`: written in English, like the Origin of Species. */
+      edition: "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)",
+      /* No limit to state: printed in 1872, its author dead since 1882. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Charles Darwin published The Expression of the Emotions in Man and " +
+        "Animals in London in 1872 and died in 1882, so the book has never been in copyright anywhere " +
+        "since. The text is Project Gutenberg's transcription, from an 1899 reprint of the first edition.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/1227",
+      /* NO `origLang`: the book is English. Fifteen sections — Darwin's Introduction and his fourteen
+         chapters — so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each title
+         (the Origin of Species' arrangement). No `parts`: the book has none. */
+      chapterWord: "Section",
+      count: 15,
+      total: 15,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 15 sections
+         (every `.ttip`, 88 keys, Nov 2026). NAMESAKES: Darwin's Anubis is the baboon, not the god; his Christian is
+         Christian Gaika, a man; his Gloucester is Shakespeare's Duke, not the city; his Titus is Titus Andronicus, his
+         Wellington a lake in Victoria, his Wolf the artist Joseph Wolf, his 'Principles of Psychology' Spencer's (1855),
+         not James's, his 'Saturnalia' Macrobius's book, not the festival, and his Holland in I and XIII Sir Henry
+         Holland, not the country (the Dutch of the Introduction stay). ORDINARY WORDS and names inside names: Project
+         Gutenberg, the Ant-eater, the obliquity of the eyebrows, Bell's 'Anatomy and Philosophy of Expression', the
+         Merchant of Venice, an Industrial Settlement (a mission station), the Guinea coast (not the modern state), and
+         his Anglo-Saxons, Semitic races and Micronesians, which are peoples of his own day, not the kingdoms, the
+         language family or the modern country. */
+      glossOff: ["Anubis", "Christianity", "Gloucester", "Titus", "Wellington", "Wolf", "The_Principles_of_Psychology",
+        "Saturnalia", "Johannes_Gutenberg", "Ant", "Axial_tilt", "Philosophy", "Venice", "Settlement", "Guinea",
+        "Anglo-Saxon_England", "Semitic_languages", "Federated_States_of_Micronesia"],
+      glossOffIn: { Netherlands: [2, 14] },
+    },
+    {
       id: "freud-interpretation-of-dreams",
       title: "The Interpretation of Dreams",
       subtitle: "Die Traumdeutung",
@@ -17833,6 +18031,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Abraham", "Alfred_Jodl", "Maine", "Marcus_Antonius_Pallas", "Mora_(military_unit)", "Lyon",
         "St._Paul", "Jericho", "Anglo-Saxon_England", "Sexual_selection", "Israel", "Czech_Republic", "Turkey",
         "Sui_dynasty", "Evolution", "Taste", "Pathology", "Psychology"],
+    },
+    {
+      id: "thorndike-animal-intelligence",
+      title: "Animal Intelligence",
+      subtitle: "Experimental Studies",
+      author: "Edward L. Thorndike",
+      written: "1911",
+      year: 1911,
+      /* NO `translator`: written in English. */
+      edition: "The Macmillan Company, New York, 1911",
+      /* A LIMITED licence: public domain in the US (1911) and wherever copyright runs life + 70 or less, since
+         Thorndike died in 1949 — not where it runs longer. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where The Macmillan Company published the book in 1911. Edward L. " +
+        "Thorndike died in 1949, so it is also out of copyright in countries where copyright lasts for the " +
+        "author's life plus seventy years or less. The text is Project Gutenberg's transcription of the 1911 edition.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/69904",
+      /* NO `origLang`: the book is English. Eight sections — Thorndike's Preface and his seven chapters — so a
+         tab's number runs one ahead of the chapter's, whose Roman numeral opens each title (James's arrangement).
+         One volume, no `parts`. */
+      chapterWord: "Section",
+      count: 8,
+      total: 8,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 8 sections
+         (every `.ttip`, 27 keys, Nov 2026). NAMES OF BOXES: Thorndike's boxes are lettered, and "KKK" and "Delta"
+         are two of them. NAMESAKES: his Stanley is G. Stanley Hall and his John Smith a stock name for any one man.
+         WORDS OF TITLES AND ORDINARY WORDS: Project Gutenberg, the American Journal of Psychology, Lloyd Morgan's
+         'Introduction to Comparative Psychology', and "the unconscious distortion of the facts", which is not
+         Freud's unconscious. */
+      glossOff: ["Ku_Klux_Klan", "River_delta", "Stanley,_Falkland_Islands", "John_Smith_(explorer)",
+        "Johannes_Gutenberg", "Psychology", "Comparative_psychology", "Unconscious_mind"],
     },
     {
       id: "petrie-egyptian-tales",
@@ -18016,6 +18246,129 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          where he means divine Providence; MADISON the city in Wisconsin, on "Madison's draft"; and
          JOHANNES_GUTENBERG the printer, on "Project Gutenberg". */
       glossOff: ["General_Government", "Providence", "Madison", "Johannes_Gutenberg"],
+    },
+    {
+      id: "marx-communist-manifesto",
+      title: "The Communist Manifesto",
+      subtitle: "Manifesto of the Communist Party",
+      author: "Karl Marx and Friedrich Engels",
+      // written in German in January 1848 and published in London that February
+      written: "1848",
+      year: 1848,
+      // the title page: "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS"
+      translator: "Samuel Moore",
+      edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
+      /* NO LIMIT TO STATE: the translation was published in 1888 and this printing in 1910; Moore died in 1911,
+         Engels in 1895, Marx in 1883. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. Karl Marx and Friedrich Engels wrote the Manifesto in German and published it in London in " +
+        "1848. Samuel Moore's English translation, edited by Engels, was first published in 1888, and this printing of " +
+        "it was made in Chicago in 1910. Moore died in 1911, Engels in 1895 and Marx in 1883, so the translation is out " +
+        "of copyright everywhere. The text is the validated Wikisource transcription of the 1910 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Manifesto_of_the_Communist_Party",
+      /* NO `origLang`: the German is not set beside it. Five parts: Engels's preface of 1888 and the Manifesto's
+         four, the unnumbered opening ("A spectre is haunting Europe") at the head of Part I. No `parts`. */
+      chapterWord: "Part",
+      count: 5,
+      total: 5,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all five parts
+         (every `.ttip`, Nov 2026). NAMESAKES: Helen is Helen Macfarlane, the first translator, not Helen of Troy;
+         the Council is the General Council of the International; the Holy Water, the New Jerusalem and the Home
+         Colonies are figures and a scheme's name; "Philosophy of Action" is a book's title. 1848'S MAP: the German
+         lands and the partitioned Poland of Part IV are not the modern states (Common Sense's rule). */
+      glossOff: ["Helen_of_Troy", "Council", "Water", "Jerusalem", "Colony", "Philosophy", "Germany", "Poland"],
+    },
+    {
+      id: "ebbinghaus-memory",
+      title: "Memory",
+      subtitle: "A Contribution to Experimental Psychology",
+      author: "Hermann Ebbinghaus",
+      written: "1885",
+      year: 1885,
+      translator: "Henry A. Ruger and Clara E. Bussenius",
+      edition: "Teachers College, Columbia University, New York, 1913",
+      /* A LIMITED licence: public domain in the US (1913); the translators' dates of death are not established, so
+         nothing is claimed elsewhere. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where Henry A. Ruger and Clara E. Bussenius's translation was " +
+        "published in 1913. Hermann Ebbinghaus died in 1909; the translators' dates of death are not established " +
+        "here, so the translation is not claimed to be out of copyright elsewhere. The text is the proofread " +
+        "Wikisource transcription of the 1913 edition, from a scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Memory:_A_Contribution_to_Experimental_Psychology",
+      /* NO `origLang`: de.wikisource has no Über das Gedächtnis (looked for, Nov 2026). Nine chapters, with the
+         forty-two numbered sections as head lines inside them and the tables of results as tables. No `parts`. */
+      chapterWord: "Chapter",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 9 chapters
+         (every `.ttip`, 10 keys, Nov 2026): the series "designated with Roman numbers and the separate syllables
+         with Arabic" are numerals, not the language. */
+      glossOff: ["Arabic"],
+      id: "breasted-ancient-records",
+      title: "Ancient Records of Egypt",
+      subtitle: "Historical Documents from the Earliest Times to the Persian Conquest",
+      author: "James Henry Breasted",
+      /* The documents run from Snefru's Sinai inscriptions (conventionally c. 2600 BCE) to Amasis, the last king
+         before the Persian conquest of 525 BCE; `year` is the start, the single number the date sort needs. */
+      written: "c. 2600–525 BCE; translated 1906",
+      year: -2600,
+      edition:
+        "Ancient Records of Egypt: Historical Documents from the Earliest Times to the Persian Conquest, " +
+        "collected, edited and translated with commentary, 4 vols., University of Chicago Press, Chicago, 1906",
+      /* A LIMIT TO STATE, ON THE ONE MODERN LAYER: Breasted (1865–1935) published in 1906, so the text clears the
+         pre-1929 rule and cleared life plus seventy in 2006, not life plus a hundred (2036). THE FIRST BOOK ON THE
+         SHELF READ BY MACHINE FROM SCANS WITH NO TRANSCRIPTION ANYWHERE, and its front matter says so — see the
+         `breasted` layout in .claude/fetch-book.js for the scans and every measurement. */
+      rights:
+        "Public domain, with one limit. The documents are ancient; the modern layer is James Henry Breasted's " +
+        "translations, introductions and notes, published in Chicago in 1906, so it is out of copyright in the " +
+        "United States under the rule for works published before 1929. Breasted lived from 1865 to 1935, so it " +
+        "also cleared the author's life plus seventy years in 2006; where the term is life plus a hundred it " +
+        "remains in copyright until 2036. The text is read by machine from the Internet Archive's scans of the " +
+        "Getty Research Institute's copies of Volumes I–III and the Archive's own copy of Volume IV. The front " +
+        "matter, the figures and the index volume are not reproduced.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/ancientrecordsof01brea_0",
+      /* NO `origLang`: Breasted's English alone. The chapters are the reigns of his own table of contents and the
+         parts its dynasties; each part's note gives its volume and paragraphs, the citation the field uses. */
+      chapterWord: "Chapter",
+      count: 94,
+      total: 94,
+      parts: [
+        { n: 1, label: "Introduction", note: "Volume I, §§ 1–75" },
+        { n: 2, label: "The Palermo Stone: the First to the Fifth Dynasties", note: "Volume I, §§ 76–167" },
+        { n: 3, label: "The Third Dynasty", note: "Volume I, §§ 168–175" },
+        { n: 4, label: "The Fourth Dynasty", note: "Volume I, §§ 176–212" },
+        { n: 5, label: "The Fifth Dynasty", note: "Volume I, §§ 213–281" },
+        { n: 6, label: "The Sixth Dynasty", note: "Volume I, §§ 282–390" },
+        { n: 7, label: "The Ninth and Tenth Dynasties", note: "Volume I, §§ 391–414" },
+        { n: 8, label: "The Eleventh Dynasty", note: "Volume I, §§ 415–459" },
+        { n: 9, label: "The Twelfth Dynasty", note: "Volume I, §§ 460–750" },
+        { n: 10, label: "From the Thirteenth Dynasty to the Hyksos", note: "Volume I, §§ 751–787" },
+        { n: 11, label: "The Eighteenth Dynasty", note: "Volume II, §§ 1–1043" },
+        { n: 12, label: "The Nineteenth Dynasty", note: "Volume III, §§ 1–651" },
+        { n: 13, label: "The Twentieth Dynasty", note: "Volume IV, §§ 1–603" },
+        { n: 14, label: "The Twenty-First Dynasty", note: "Volume IV, §§ 604–692" },
+        { n: 15, label: "The Twenty-Second Dynasty", note: "Volume IV, §§ 693–792" },
+        { n: 16, label: "The Twenty-Third Dynasty", note: "Volume IV, §§ 793–883" },
+        { n: 17, label: "The Twenty-Fourth Dynasty", note: "Volume IV, §§ 884–884" },
+        { n: 18, label: "The Twenty-Fifth Dynasty", note: "Volume IV, §§ 885–934" },
+        { n: 19, label: "The Twenty-Sixth Dynasty", note: "Volume IV, §§ 935–1029" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 94 chapters (every `.ttip`, Nov
+         2026). Breasted's PALESTINE, LIBYANS, ETHIOPIANS (the Kushite kings), LEBANON (the mountains), JORDAN (the
+         river), SUDAN and SOMALI coast, GREEKS and TRIPOLIS (the Phoenician town) are ancient lands and peoples, not
+         the modern states; EYE is the king; TAO is Sekenenre-Tao's name, not the Chinese Way; GROVES are sacred
+         groves, not Leslie Groves; "Lord of TRUTH" and "lord of EARTH" are titles; the COUNCIL is a council of war,
+         the LIBYAN war Merneptah's, not Carthage's, and RAPHIA Sargon's battle of 720 BC, not Ptolemy's; YORK is New
+         York's obelisk. SEATTLE, SUI, ZEN, IOS, SERES, KANA, TELAMON, EUROPA, POLE and "The Valley" are the
+         machine's misreadings or a common word matching a name. */
+      glossOff: ["State_of_Palestine", "Libya", "Ethiopia", "Lebanon", "Jordan", "Sudan", "Somalia", "Greece", "Tripoli",
+        "Human_eye", "Tao", "Leslie_Groves", "Truth", "Earth", "Council", "Mercenary_War", "Battle_of_Raphia", "York",
+        "Seattle", "Sui_dynasty", "Zen", "Ios", "Seres", "Kana", "Battle_of_Telamon", "Europa_(moon)", "Polaris",
+        "The_Valley,_Anguilla"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27757,12 +28110,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "book-of-the-dead", n: 99, t: "The Negative Confession", p: 2,
+      text: "1. “Hail, thou whose strides are long, who comest forth from Annu (Heliopolis), I have not done iniquity. 2. “Hail, thou who art embraced by flame, who comest forth from Kher-āba, I have not robbed with violence. 3. “Hail, thou divine Nose (Fenti), who comest forth from Khemennu (Hermopolis), I have not done violence [to any man]. 4. “Hail, thou who eatest shades, who comest forth from the place where the Nile riseth, I have not committed theft. 5. “Hail, Neha-hau, who comest forth from Re-stau, I have not slain man or woman." },
+    { book: "erman-egyptian-literature", n: 69, t: "The Hymn to the Sun from El-Amarnah", p: 6,
+      text: "When it is dawn and thou risest in the horizon and shinest as the sun in the day, thou dispellest the darkness and sheddest thy beams. The Two Lands keep festival, awake, and stand on their feet, for thou hast raised them up. They wash their bodies, they take their garments, and their hands praise thine arising. The whole land, it doeth its work." },
     { book: "petrie-egyptian-tales", n: 5, t: "The Shipwrecked Sailor", p: 3,
       text: "\"Suddenly I heard a noise as of thunder, which I thought to be that of a wave of the sea. The trees shook, and the earth was moved. I uncovered my face, and I saw that a serpent drew near. He was thirty cubits long, and his beard greater than two cubits; his body was as overlayed with gold, and his colour as that of true lazuli. He coiled himself before me." },
     { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
     { book: "paine-common-sense", n: 2, t: "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution", p: 1,
       text: "Society in every state is a blessing, but government even in its best state is but a necessary evil; in its worst state an intolerable one." },
+    { book: "marx-communist-manifesto", n: 5, t: "IV. Position of the Communists in Relation to the Various Existing Opposition Parties", p: 10,
+      text: "The Communists disdain to conceal their views and aims. They openly declare that their ends can be attained only by the forcible overthrow of all existing social conditions. Let the ruling classes tremble at a Communistic revolution. The proletarians have nothing to lose but their chains. They have a world to win." },
     { book: "us-constitution", n: 1, t: "Preamble", p: 0,
       text: "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America." },
     { book: "us-bill-of-rights", n: 1, t: "Articles in Addition to, and Amendment of, the Constitution", p: 9,
@@ -27781,12 +28140,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
     { book: "freud-interpretation-of-dreams", n: 7, t: "VII. The Psychology of the Dream Activities", p: 160,
       text: "At any rate the interpretation of dreams is the via regia to a knowledge of the unconscious in the psychic life." },
+    { book: "ebbinghaus-memory", n: 7, t: "VII. Retention and Obliviscence as a Function of the Time", p: 1,
+      text: "All sorts of ideas, if left to themselves, are gradually forgotten. This fact is generally known." },
     { book: "douglass-narrative", n: 12, t: "Chapter X", p: 11,
       text: "This battle with Mr. Covey was the turning-point in my career as a slave. It rekindled the few expiring embers of freedom, and revived within me a sense of my own manhood. It recalled the departed self-confidence, and inspired me again with a determination to be free. The gratification afforded by the triumph was a full compensation for whatever else might follow, even death itself. He only can understand the deep satisfaction which I experienced, who has himself repelled by force the bloody arm of slavery. I felt as I never felt before. It was a glorious resurrection, from the tomb of slavery, to the heaven of freedom. My long-crushed spirit rose, cowardice departed, bold defiance took its place; and I now resolved that, however long I might remain a slave in form, the day had passed forever when I could be a slave in fact." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
+    { book: "darwin-expression-of-emotions", n: 15, t: "XIV. Concluding Remarks and Summary", p: 29,
+      text: "The movements of expression in the face and body, whatever their origin may have been, are in themselves of much importance for our welfare. They serve as the first means of communication between the mother and her infant; she smiles approval, and thus encourages her child on the right path, or frowns disapproval. We readily perceive sympathy in others by their expression; our sufferings are thus mitigated and our pleasures increased; and mutual good feeling is thus strengthened. The movements of expression give vividness and energy to our spoken words. They reveal the thoughts and intentions of others more truly than do words, which may be falsified." },
     { book: "james-principles-of-psychology", n: 10, t: "IX. The Stream of Thought", p: 43,
       text: "Consciousness, then, does not appear to itself chopped up in bits. Such words as 'chain' or 'train' do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A 'river' or a 'stream' are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life." },
+    { book: "pavlov-conditioned-reflexes", n: 1, t: "Lecture I", p: 30,
+      text: "So infinitely complex, so continuously in flux, are the conditions in the world around, that that complex animal system which is itself in living flux, and that system only, has a chance to establish dynamic equilibrium with the environment. Thus we see that the fundamental and the most general function of the hemispheres is that of reacting to signals presented by innumerable stimuli of interchangeable signification." },
+    { book: "thorndike-animal-intelligence", n: 3, t: "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals", p: 33,
+      text: "The cat that is clawing all over the box in her impulsive struggle will probably claw the string or loop or button so as to open the door. And gradually all the other non-successful impulses will be stamped out and the particular impulse leading to the successful act will be stamped in by the resulting pleasure, until, after many trials, the cat will, when put in the box, immediately claw the button or loop in a definite way." },
+    { book: "breasted-ancient-records", n: 58, t: "Reign of Merneptah", p: 100,
+      text: "The monument has attracted wide attention, because of the reference to Israel in the last section. This is the earliest mention of Israel known to us in literature, not excluding the Hebrew Scriptures themselves." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);

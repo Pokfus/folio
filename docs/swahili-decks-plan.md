@@ -6,6 +6,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
 **STATUS (2026-11-12): the set is complete — A1 to C1 and the phrases deck are built** (`.claude/swahili/`, §6–§11).
+**SINCE 2026-11-27 (the beginner pass, §12) the decks are what the generator AND a record make of them**: pinned
+note ids, 41 cards moved down to A1 and 5 added, an order, a sounds deck. Read §12 before trusting a count below.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -262,3 +264,28 @@ after every change below**.
   Wiktionary has separate entries (`kupiga busu` / `kupiga kisi` / `kupiga kimunju` "to kiss", the three ways of
   asking a price), each labelled "not X" by the shared-English rule; a few are Kenyan youth slang (`niko kadi`,
   `kupiga luku`) and are labelled so in their glosses.
+
+## 12. The beginner pass (2026-11-27)
+
+The audit and everything it built are in `docs/lang-decks.md`, "The Swahili beginner pass"; the files are in
+`.claude/decks/README.md`, "The Swahili decks". What it changes in this plan:
+
+- **§1 stands.** Decision 2 ("no script deck and no romanisation") is kept: `Swahili — Sounds and spelling`
+  (41 notes) is not a script deck. It says how 19 consonant spellings, the vowels and the stress are read —
+  each a row of Wikipedia's Help:IPA/Swahili at a pinned revision — and what a noun's class does to the words
+  around it, each rule quoted and shown with forms read off A1's cards.
+- **§3, the card.** `Forms` is now Wiktionary's own table: a verb's stem, present (`ninasoma · anasoma`),
+  the tails of its past, future and perfect (`-lisoma`, `-tasoma`, `-mesoma`), negative present and two
+  commands; an agreeing word's forms after FIVE class pairs (m-wa, m-mi, ji-ma, ki-vi, n); a noun's plural
+  even where it is the singular's spelling; a greeting's form to several people. The negative infinitive is
+  no longer shown. `kuwa na` has a row (six persons, `kuna`, `hakuna`).
+- **§4.** `-a`, "of", is still excluded from the frequency FILL (its count is five words), and is now an A1
+  card built by `inserts.py`. A sentence is matched only by the forms the card shows (`examples.forms_of`);
+  `-anza` is printed `kuanza` (`sw.HEAD_INF`).
+- **§6–§11.** The counts are the generator's. On the shelf: A1 546, A2 736, B1 997, B2 1,493, C1 1,499, the
+  phrases 267. **A card id is the note's pinned number** (`.claude/decks/swahili-ids.json`), no longer its
+  position, and A1 and the phrases are dealt in the order of `swahili-order.json`. "A re-run is
+  byte-identical" now means: the generator's six levels, then `inserts.py`, `swahili-fix.js`,
+  `swahili-order.js`, `swahili-fix.js`, `build-swahili-sounds.js`, `swahili-fix.js` give the committed files.
+- **§11.** `jina langu` is left out (a fragment of `jina langu ni`); 16 formulas moved to A1; the deck is
+  dealt by the lowest level that spells each phrase.

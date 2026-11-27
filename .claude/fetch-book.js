@@ -1076,6 +1076,133 @@ PTAH_KEYS.push("C");
 for (let i = 38; i <= 43; i++) PTAH_KEYS.push(String(i));
 PTAH_KEYS.push("D");
 
+/* THE BOOK OF THE DEAD's 114 chapters, as Budge's selection in Egyptian Literature (1901) prints them, in
+   order: one row per printed head (`{{h|…}}`) between scan pages 27 and 155. 108 are the printed contents
+   page's titles, in its order. SIX PRINTED CHAPTERS ARE NOT ON THE CONTENTS PAGE — a fourth "Preserving the
+   Heart" under "Of Preserving the Heart", the "Rubric" after the third "Preserving the Heart", a third
+   "Dominion Over Elements", a second "Of Drinking Water", a sixth "Coming Forth by Day" and a second
+   "Transformation into a Lotus" — and each is titled with the contents page's own wording of the head it
+   repeats, which is what the head prints. Several titles repeat because the printing repeats them over
+   different chapters (another papyrus's version of the same spell); the tab keeps the printed title rather
+   than numbering the repeats. `cutAtHeadings` checks each row against its head, so this cannot drift from
+   the text. Declared here because the BOOKS literal below reads it. */
+const BOTD_TITLES = [
+  "A Hymn to the Setting Sun",
+  "Hymn and Litany to Osiris",
+  "Hymn to Ra",
+  "Hymn to the Setting Sun",
+  "Hymn to the Setting Sun",
+  "The Chaplet of Victory",
+  "The Victory Over Enemies",
+  "Of Giving a Mouth to the Overseer",
+  "Of Giving a Mouth to Osiris Ani",
+  "Opening the Mouth of Osiris",
+  "Of Bringing Charms to Osiris",
+  "The Chapter of Memory",
+  "Of Giving a Heart to Osiris",
+  "Of Preserving the Heart",
+  "Of Preserving the Heart",
+  "Of Preserving the Heart",
+  "Of Preserving the Heart",  // not on the contents page
+  "The Heart of Carnelian",
+  "Preserving the Heart",
+  "Preserving the Heart",
+  "Preserving the Heart",
+  "Rubric",  // not on the contents page
+  "Beating Back the Crocodile",
+  "Beating Back the Crocodile",
+  "Repulsing Serpents",
+  "Against Snakes",
+  "Against Serpents",
+  "Driving Away Apshait",
+  "Driving Back the Merti",
+  "Living by Air",
+  "Living by Air",
+  "Driving Back Rerek",
+  "Repulsing the Eater of the Ass",
+  "Abolishing the Slaughterings",
+  "Abolishing the Slaughterings",
+  "Air and Water",
+  "Dominion Over Elements",
+  "Dominion Over Elements",
+  "Dominion Over Elements",  // not on the contents page
+  "Preservation of the Soul",
+  "Of Drinking Water",
+  "Of Drinking Water",  // not on the contents page
+  "Preservation from Scalding",
+  "On Coming Forth by Day",
+  "Chapter of Knowledge",
+  "Of Gaining Mastery Over Enemies",
+  "Victory Over Enemies",
+  "Coming Forth by Day",
+  "Opening the Underworld",
+  "Coming Forth by Day",
+  "Coming Forth by Day",
+  "Coming Forth by Day",
+  "Coming Forth by Day",
+  "Coming Forth by Day",  // not on the contents page
+  "Of Lifting Up the Feet",
+  "Of Journeying to Annu",
+  "Of Transformation",
+  "Of Performing Transformations",
+  "Of Transformation into a Hawk",
+  "Of Transformation into a Governor",
+  "Of Transformation into a God",
+  "Transformation into a Lotus",
+  "Transformation into a Lotus",  // not on the contents page
+  "Transformation into Ptah",
+  "Transformation into a Bennu Bird",
+  "Transformation into a Heron",
+  "Of the Living Soul",
+  "Of the Swallow",
+  "The Serpent Sata",
+  "Of the Crocodile",
+  "Soul and Body",
+  "Of Evil Recollections",
+  "Of Rescue",
+  "Of Opening the Tomb",
+  "Of Not Sailing to the East",
+  "Of the Ink-pot and Palette",
+  "Of Being Nigh unto Thoth",
+  "Of Being Nigh unto Thoth",
+  "Of Bringing a Boat Along in Heaven",
+  "Of Bringing the Makhent Boat",
+  "Of Entering the Boat of Ra",
+  "Of Protecting the Boat of Ra",
+  "Of Going into the Boat of Ra",
+  "Of Knowing the Souls of the East",
+  "Of Sekhet-Hetepet",
+  "Of Knowing the Souls of Pe",
+  "Of Knowing the Souls of Nekhen",
+  "Of Knowing the Souls of Khemennu",
+  "Of Coming Forth from Heaven",
+  "Of Knowing the Souls of Khemennu",
+  "Of Receiving Paths",
+  "Of Coming Forth from Re-Stau",
+  "Of Coming Forth from Re-Stau",
+  "Of Going About in the Underworld",
+  "Of Entering into the Great House",
+  "Of Entering the Presence",
+  "The Introduction to Maati",
+  "The Introduction to Maati",
+  "The Negative Confession",
+  "Address to the Gods of the Underworld",
+  "On the Four Apes",
+  "Of the Praise of the Gods",
+  "Adoration of the Gods of the Qerti",
+  "Hymn of Praise to Osiris",
+  "Of Making Perfect the Khu",
+  "Of Living Nigh unto Ra",
+  "Of Bringing Men Back to Earth",
+  "Of Making Perfect the Khu",
+  "Of Making Perfect the Khu",
+  "For the New Moon",
+  "Of Travelling in the Boat of Ra",
+  "Of Making Perfect the Khu",
+  "Sailing in the Great Boat",
+  "Of the Four Flames",
+];
+
 /* THE CLASSIC OF TEA's ten parts, in the order both columns divide the work. The English titles are the
    ones the digest prints over each part (the first is printed with a lower-case "the", a slip in the
    1935 page that is capitalised here and nowhere else); the Chinese are the names of the ten pages
@@ -21344,6 +21471,78 @@ const BOOKS = {
     // the shortest, the Literary Index, is about 12,000 characters of text
     minChars: 3000,
   },
+  "ebbinghaus-memory": {
+    title: "Memory",
+    subtitle: "A Contribution to Experimental Psychology",
+    author: "Hermann Ebbinghaus",
+    translator: "Henry A. Ruger and Clara E. Bussenius",
+    edition: "Teachers College, Columbia University, New York, 1913",
+    written: "1885",
+    year: 1885,
+    /* ---------- THE LICENCE ----------
+       Ebbinghaus died in 1909. The translation was published in New York in 1913, before 1929, so it is public
+       domain in the United States (Wikisource: PD-old for the original, PD-US for the translation). Henry Alford
+       Ruger's and Clara E. Bussenius's dates of death are not on their Wikisource author pages and are not
+       asserted here, so the rights box claims the United States only. The transcription is Wikisource's, of
+       `Memory (1913).djvu` (index marked validated; the pages fetched are quality 3 and 4, proofread and
+       validated). There is no German beside it: de.wikisource has no Über das Gedächtnis (looked for, Nov 2026). */
+    rights:
+      "Public domain in the United States, where Henry A. Ruger and Clara E. Bussenius's translation was " +
+      "published in 1913. Hermann Ebbinghaus died in 1909; the translators' dates of death are not established " +
+      "here, so the translation is not claimed to be out of copyright elsewhere. The text is the proofread " +
+      "Wikisource transcription of the 1913 edition, from a scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Memory:_A_Contribution_to_Experimental_Psychology",
+    /* THE FRONT MATTER — chapter 0. Every claim about the content was checked against this text (the 2,300
+       syllables, the 150 beats, seven syllables after one reading, the savings of 58.2, 44.2, 33.7 and 21.1 per
+       cent after 20 minutes, an hour, a day and 31 days, the two periods of tests); the life is the outline every
+       account gives. */
+    about: [
+      "<b>Memory</b> is the first experimental study of memory. Hermann Ebbinghaus set out to measure " +
+        "learning and forgetting as a physicist measures, under controlled conditions and in numbers, and he " +
+        "did it with himself as the only subject. His material was the <i>nonsense syllable</i>: about 2,300 " +
+        "syllables of a vowel between two consonants, drawn by chance into series of different lengths, so " +
+        "that no meaning or old association would help him. He read each series aloud at a fixed rate, 150 " +
+        "beats a minute, until he could recite it without error.",
+      "His measure of what remained of a thing apparently forgotten is the <i>saving</i>: learn a series, " +
+        "let time pass, learn it again, and the time saved in relearning shows how much of the first " +
+        "learning survived. Chapters I–IV argue that memory can be measured at all and set out the method " +
+        "and its errors. Chapter V finds that he could recite seven syllables after one reading, and that " +
+        "the work of learning rises steeply as a series grows longer. Chapter VI relates the saving to the " +
+        "number of earlier repetitions, and chapter VIII follows series relearned day after day. Chapter VII " +
+        "is the curve of forgetting: of the time spent learning, a saving of 58 per cent remained after " +
+        "twenty minutes, 44 after an hour, a third after a day and about a fifth after a month, a fall he " +
+        "fitted with a formula in the logarithm of the time. Chapter IX shows that learning a series also " +
+        "links each syllable to the ones after the next, and more weakly backwards.",
+      "Ebbinghaus was born in 1850 and took his doctorate in philosophy at Bonn. He made the tests in " +
+        "two periods, in 1879–80 and 1883–84, and published them in Leipzig in 1885 as <i>Über das " +
+        "Gedächtnis</i>, the book that made memory a subject of experiment. He taught at Berlin, Breslau and " +
+        "Halle, and died in 1909.",
+      "This is the English translation by Henry A. Ruger and Clara E. Bussenius, published by Teachers " +
+        "College, Columbia University, in 1913. The text here gives the nine chapters, with the book's " +
+        "forty-two numbered sections as headings, Ebbinghaus's footnotes in the notes under each chapter, " +
+        "and its tables of results as tables; where a figure was printed split at its decimal point to align " +
+        "a column, it is joined, and the formulas are written out on one line. Not included: the translators' " +
+        "introduction, the author's preface and the six figures (the curve of errors in chapter II and the " +
+        "curves in chapters IV and V), which the text describes.",
+    ],
+    chapterWord: "Chapter",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    page: (n) => "Memory: A Contribution to Experimental Psychology/Chapter " + n,
+    prep: "ebbinghaus",
+    titleOf: (n) => [null,
+      "I. Our Knowledge Concerning Memory",
+      "II. The Possibility of Enlarging Our Knowledge of Memory",
+      "III. The Method of Investigation",
+      "IV. The Utility of the Averages Obtained",
+      "V. Rapidity of Learning Series of Syllables as a Function of Their Length",
+      "VI. Retention as a Function of the Number of Repetitions",
+      "VII. Retention and Obliviscence as a Function of the Time",
+      "VIII. Retention as a Function of Repeated Learning",
+      "IX. Retention as a Function of the Order of Succession of the Members of the Series",
+    ][n],
+    minChars: 3000,
+  },
   "jerome-letters": {
     title: "The Letters of St. Jerome",
     subtitle: "Epistulae",
@@ -21744,6 +21943,301 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+  "book-of-the-dead": {
+    title: "The Book of the Dead",
+    subtitle: "According to the Theban Recension",
+    author: "Anonymous",
+    translator: "E. A. Wallis Budge",
+    edition: "Egyptian Literature, The World's Great Classics, The Colonial Press, New York, 1901",
+    written: "c. 1550–50 BCE",
+    year: -1550,
+    /* ---------- THE LICENCE — a LIMIT to state, and it falls on the translation ----------
+       The spells are three to three and a half thousand years old. E. A. Wallis Budge lived 27 July 1857 –
+       23 November 1934, and this printing is The Colonial Press's of 1901 (New York, the Index page's own
+       publisher and year; the scan's title leaf is an "Edition de Luxe" of the University Collection). So the
+       English is public domain in the United States as a pre-1929 publication, and cleared life plus seventy
+       on 1 January 2005; where the term is life plus a hundred it runs to 1 January 2035, and that is said.
+       Wikisource tags the work PD-US.
+
+       ---------- WHAT IS TAKEN ----------
+       Budge's selection as the anthology prints it: scan pages 27–155, 114 chapters, each with the bracketed
+       line under its head that names the papyrus it is translated from, and his 126 footnotes. Not taken: the
+       anthology's own title page and its "Special Introduction", which is by the series editor, not Budge;
+       and the rest of the volume (Egyptian Tales, the Tell Amarna Tablets, the cuneiform inscriptions), which
+       are other works. The Index is marked Progress=C (proofread, not validated): 28 of the 129 pages are
+       validated, the other 101 proofread once — which is why the import was diffed against two scans' OCR (the
+       `fixes` below).
+
+       WHY NOT THE WIKI'S PAGE "Papyrus of Ani (1913)": it is one unsourced e-text page, marked incomplete and
+       "text only from original", with no scan behind it. A transcription with a scan is the better witness.
+       And WHY NOT THE WIKI'S 110 SUBPAGES of this very section: see `cutAtHeadings`.
+
+       NO FACING ORIGINAL: the Egyptian is hieroglyphic or hieratic, on papyri that differ from one another
+       copy by copy; Budge's chapters are each translated from one named papyrus, and no open transcription
+       of those papyri is numbered the way this printing is — it prints no spell numbers on its heads at all.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are in copyright and are not used:
+       Raymond O. Faulkner's (1972, and in the edition of the Papyrus of Ani with Ogden Goelet, 1994) and
+       Thomas George Allen's (1974). */
+    rights:
+      "Public domain, with one limit. The spells are some three thousand years old. E. A. Wallis Budge's " +
+      "translation was printed in this anthology in New York in 1901, so it is public domain in the United " +
+      "States as a work published before 1929, and he died in 1934, so it also cleared the translator's life " +
+      "plus seventy years in 2005. Where the term is life plus a hundred it remains in copyright until 2035. " +
+      "The anthology's introduction, by its series editor, and its other contents are not reproduced. (The " +
+      "modern translations by Raymond O. Faulkner and Thomas George Allen are in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Egyptian_Literature/The_Book_of_the_Dead",
+    about: [
+      "<b>The Book of the Dead</b> is not one book. It is the modern name for a body of some two hundred " +
+        "spells that Egyptians had copied onto papyrus and laid in the tomb, from the beginning of the New " +
+        "Kingdom, around 1550 BCE, until around 50 BCE, to carry the dead safely through the underworld and " +
+        "into the life that followed. The Egyptians called these texts the <i>chapters of coming forth by " +
+        "day</i>. A buyer chose which spells to have, so no two copies are the same, and the longest run to " +
+        "many yards of papyrus, illustrated in colour.",
+      "The spells do practical work. Some give the dead person back a mouth to speak with, a heart to remember " +
+        "with, or air and water; some drive away crocodiles, serpents and beetles; some let him take the form " +
+        "of a hawk, a swallow, a lotus or a god; some are hymns to Ra the sun and to Osiris, the god of the dead " +
+        "and the dead man's model, whose name he takes (<i>Osiris Ani</i>). Many end in a <b>rubric</b>, the " +
+        "instruction written in red ink: the words are to be said over a scarab of green stone, or whoever " +
+        "knows the chapter shall come forth by day.",
+      "The most famous is the judgement. The dead man is led into the Hall of the Two Truths (Budge's " +
+        "<i>Maati</i>), his heart is weighed against the feather of Maat, and he recites the <b>Negative " +
+        "Confession</b> — forty-two declarations, one to each of forty-two judges, that he has not stolen, not " +
+        "killed, not lied, not caused anyone to weep. The heart spells come before it in this book because the " +
+        "heart is the witness that might speak against him.",
+      "The translator, <b>E. A. Wallis Budge</b> (1857–1934), was Keeper of Egyptian and Assyrian Antiquities " +
+        "at the British Museum and the most prolific popular Egyptologist of his age; he acquired the Papyrus " +
+        "of Ani, the most famous copy of all, for the museum in 1888. What is here is the selection of his " +
+        "translation printed in the anthology <i>Egyptian Literature</i> in 1901: 114 chapters, each headed by " +
+        "a line naming the papyrus it is translated from — most often the Papyrus of Nu, then those of Ani and " +
+        "of Nebseni, all of the New Kingdom, and a few from the late Turin papyrus that Karl Richard Lepsius " +
+        "published in 1842. A title repeats where the anthology gives another papyrus's version of the same " +
+        "spell, and the order is the anthology's, not the order of any one papyrus.",
+      "Budge's translation should be read as what it is: a Victorian scholar's version, in the English of the " +
+        "Authorised Version, of a language that was understood far less well then than now. His spellings of " +
+        "the gods and places are the old ones — <i>Tem</i> for Atum, <i>Tuat</i> for the Duat, <i>Khu</i> for " +
+        "the <i>akh</i>, the transfigured spirit, and <i>Sekhet-Aaru</i> for the Field of Reeds — and many of " +
+        "his readings have since been revised. The question marks in parentheses and the words in square " +
+        "brackets are his own: the brackets mark what he supplied to make sense of a damaged or terse line.",
+      "<b>The rubrics are set in italics.</b> The printing sets them in small capitals, and where the " +
+        "transcription records their case they keep it; where it does not, they are in capitals, as the page " +
+        "shows them. Not included: the anthology's introduction, by its series editor, and its other contents, " +
+        "the Egyptian tales and the cuneiform letters, which are separate works.",
+    ],
+    chapterWord: "Chapter",
+    chapters: BOTD_TITLES.map((_, i) => i + 1),
+    /* ONE PARSE, NOT 110 PAGES — see `cutAtHeadings` for why the wiki's per-chapter subpages cannot be
+       used. `page` names the title the text is rendered under (and the key it is held under for the run). */
+    page: () => "Egyptian Literature/The Book of the Dead",
+    parseText: '<pages index="Egyptian Literature (1901).djvu" from=27 to=155 />\n<references/>',
+    cutHeads: { skip: 1, titles: BOTD_TITLES },
+    smallcaps: "rubric",
+    /* THE TRANSCRIPTION'S OWN SLIPS, each read against the page image of the University of Toronto copy on
+       the Internet Archive (`egyptianliteratu00newyuoft`, leaf = scan page − 1) after a word diff of the
+       whole import against that copy's OCR and Harvard's (`egyptianliterat00unkngoog`). The diff's other
+       hits are the OCRs' own line-end hyphens. "foward" (p. 82, chapter 85) is the PRINTING's — both OCRs
+       read it — and is left. */
+    fixes: [
+      ["the neverresting stars", "the never-resting stars", "p. 3: hyphenated at the line end, and the book prints never-resting elsewhere"],
+      ["Saïte Recennsion", "Saïte Recension", "p. 5, note 1: the page reads Recension"],
+      ["a district inn the underworld", "a district in the underworld", "p. 5, note 2: the page reads in"],
+      ["unto the Eye of Tern,", "unto the Eye of Tem,", "p. 10: Tem (OCR's rn for m); the god is Tem throughout"],
+      ["who comest as Tern,", "who comest as Tem,", "p. 11: the page reads Tem"],
+      ["saith the god Tern,", "saith the god Tem,", "p. 33: the page reads Tem"],
+      ["for behold Tern has", "for behold Tem has", "p. 39: the page reads Tem"],
+      ["be dnii unguent", "be <i>ānti</i> unguent", "p. 83: the page reads ānti, in italic"],
+      ["the chancellor-inchief,", "the chancellor-in-chief,", "p. 124: hyphenated at the line end"],
+    ],
+    titleOf: (n) => BOTD_TITLES[n - 1],
+    minChars: 100,
+  },
+  "erman-egyptian-literature": {
+    title: "The Literature of the Ancient Egyptians",
+    subtitle: "Poems, Narratives, and Manuals of Instruction, from the Third and Second Millennia B.C.",
+    author: "Adolf Erman",
+    translator: "Aylward M. Blackman",
+    edition: "Methuen & Co., London, 1927 (from Die Literatur der Aegypter, Leipzig, 1923)",
+    written: "1923",
+    year: 1923,
+
+    /* ---------- THE LICENCE — a LIMIT to state, and it falls on the translation ----------
+       Erman's German appeared in 1923 and he died in 1937 (Wikisource's author page gives 1854–1937), so the
+       German is free on any reckoning up to life plus eighty. Blackman's English was published in London in
+       1927, so it is public domain in the United States as a pre-1929 publication — the shelf's ground. He
+       died in 1956, so where the term is life plus seventy it stays in copyright until 1 January 2027, and
+       that is said outright. The texts Erman translated are three and four thousand years old.
+       WHAT WAS LOOKED AT: English Wikisource indexes the 1927 scan with one page of 318 typed (Nov 2026);
+       Project Gutenberg has nothing. The Internet Archive holds seven open scans of the 1927 printing: the
+       Digital Library of India's, read here for its FineReader XML, and four Tesseract texts used as
+       witnesses (the layout's block, below, says how). The 1971 Harper Torchbook reprint adds W. K.
+       Simpson's introduction, which is in copyright, and is not used.
+       NO ORIGINAL BESIDE IT: Erman's translations are of dozens of papyri, ostraca and inscriptions, cited by
+       manuscript in his notes but with no line numbering a facing text could pair on. */
+    rights:
+      "Public domain in the United States, with one limit. Adolf Erman wrote the book in German (Die Literatur der " +
+      "Aegypter, 1923) and died in 1937. Aylward M. Blackman's English translation was published in London in " +
+      "1927, so it is out of copyright in the United States as a work published before 1929. Blackman died in " +
+      "1956, so where copyright lasts for the author's life plus seventy years the translation remains protected " +
+      "until 1 January 2027. The text is read from the scan of the Digital Library of India, checked against four " +
+      "other scans of the same printing; the four plates of specimen writing and the hieroglyphic signs printed " +
+      "in the introduction's section on writing are not reproduced.",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/in.ernet.dli.2015.532519",
+    url: "https://archive.org/download/in.ernet.dli.2015.532519/2015.532519.literature-of_abbyy.gz",
+    witnesses: [
+      "literatureofanci0000unse_q0r2", "literatureofanci0000adol_p1f5", "literatureofanci0000adol_j0d7", "literatureofanci0000adol",
+    ],
+    ownText: "https://archive.org/download/in.ernet.dli.2015.532519/2015.532519.literature-of_djvu.txt",
+    layout: "erman",
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 74 }, (_, i) => i + 1),
+    // leaves of the scan: the prefaces, the outline and introduction (not the contents, a blank, the four plates), the book
+    ermanLeaves: [7, 8, 9, 10, 11, 12, 13, ...Array.from({ length: 26 }, (_, i) => i + 21).filter((L) => ![24, 40, 41, 42, 43].includes(L)),
+      ...Array.from({ length: 318 }, (_, i) => i + 47)],
+    ermanBodyLeaf: 47,      // leaf 47 is p. 1
+    ermanFrontOffset: 2,    // leaf 7 is p. v
+    /* [title as the contents prints it, part, printed page, the number the heading carries, the heading,
+       (the section heading above it whose introduction opens this chapter)] */
+    ermanChapters: [
+      ["Translator’s Preface", 1, "v", "", /TRANSLATOR.S PREFACE/],
+      ["Author’s Preface", 1, "vii", "", /AUTHOR.S PREFACE/],
+      ["Outline of Egyptian History", 1, "xix", "", /OUTLINE OF EGYPTIAN HISTORY/],
+      ["The Development of the Literature", 1, "xxiii", "1.", /DEVELOPMENT OF THE LITERATURE/, /BY WAY OF INTRODUCTION/],
+      ["The Learned Scribes", 1, "xxvii", "2.", /LEARNED SCRIBES/],
+      ["Singers and Story-Tellers", 1, "xxviii", "3.", /SINGERS AND STORY/],
+      ["The Forms of the Poetry", 1, "xxx", "4.", /FORMS OF THE POETRY/],
+      ["Writing and Books", 1, "xxxv", "5.", /WRITING AND BOOKS/],
+      ["Our Understanding of Egyptian Texts", 1, "xlii", "6.", /OUR UNDERSTANDING/],
+      ["From the Pyramid Texts", 2, "1", "1.", /FROM THE PYRAMID TEXTS/, /THE LITERATURE OF THE ANCIENT EGYPTIANS/],
+      ["To the Crowns", 2, "10", "2.", /TO THE CROWNS/],
+      ["Morning Hymns", 2, "12", "3.", /MORNING HYMNS/],
+      ["The Story of Sinuhe", 3, "14", "1.", /STORY OF SINUHE/, /FROM THE OLDER PERIOD/],
+      ["The Story of the Shipwrecked Sailor", 3, "29", "2.", /SHIPWRECKED SAILOR/],
+      ["The Story of the Herdsman", 3, "35", "3.", /STORY OF THE HERDSMAN/],
+      ["King Kheops and the Magicians", 3, "36", "4.", /KHEOPS AND THE MAGICIANS/],
+      ["The Deliverance of Mankind", 3, "47", "5.", /DELIVERANCE OF MANKIND/],
+      ["The Founding of a Temple", 3, "49", "6.", /FOUNDING OF A TEMPLE/],
+      ["The War of King Kamose", 3, "52", "7.", /KING KAMOSE/],
+      ["The Instruction of Ptahhotep", 3, "54", "1.", /INSTRUCTION OF PTAHHOTEP/, /INSTRUCTIONS IN WISDOM/],
+      ["The Instruction for Kagemni", 3, "66", "2.", /INSTRUCTION FOR KAGEMNI/],
+      ["The Instruction of Duauf", 3, "67", "3.", /INSTRUCTION OF DUAUF/],
+      ["The Instruction of King Amenemhēt", 3, "72", "4.", /KING AMENEMHET/],
+      ["The Instruction for King Merikerē", 3, "75", "5.", /KING MERIKERE/],
+      ["The Instruction of Sehetepibrē", 3, "84", "6.", /INSTRUCTION OF SEHET/],
+      ["The Dispute with his Soul of One who is Tired of Life", 3, "86", "1.", /DISPUTE WITH HIS SOUL/, /MEDITATIONS AND COMPLAINTS/],
+      ["The Admonitions of a Prophet", 3, "92", "2.", /ADMONITIONS OF A PROPHET/],
+      ["The Complaint of Khekheperrē-sonbu", 3, "108", "3.", /KHEKHEPERRE/],
+      ["The Prophecy of Neferrohu", 3, "110", "4.", /PROPHECY OF NEFERROHU/],
+      ["The Complaints of the Peasant", 3, "116", "5.", /COMPLAINTS OF THE PEASANT/],
+      ["Songs of the Workers", 3, "131", "1.", /SONGS OF THE WORKERS/, /SECULAR POEMS/],
+      ["Songs at Banquets", 3, "132", "2.", /SONGS AT BANQUETS/],
+      ["Hymns to King Sesōstris III", 3, "134", "3.", /HYMNS TO KING SESOSTRIS/],
+      ["To Min-Horus", 3, "137", "1.", /TO MIN-HORUS/, /RELIGIOUS POEMS/],
+      ["To the Sun", 3, "138", "2.", /^2\. TO THE SUN$/],
+      ["To Thoth", 3, "140", "3.", /TO THOTH/],
+      ["Hymns to Osiris", 3, "140", "4.", /HYMNS TO OSIRIS/],
+      ["To the Nile", 3, "146", "5.", /TO THE NILE/],
+      ["The Tale of the Two Brothers", 4, "150", "1.", /TALE OF THE TWO BROTHERS/, /FROM THE NEW KINGDOM/],
+      ["The Enchanted Prince", 4, "161", "2.", /ENCHANTED PRINCE/],
+      ["King Apōphis and Sekenenrē", 4, "165", "3.", /APOPHIS AND SEKENENRE/],
+      ["The Capture of Joppa", 4, "167", "4.", /CAPTURE OF JOPPA/],
+      ["Concerning Astarte", 4, "169", "5.", /CONCERNING ASTARTE/],
+      ["A Ghost Story", 4, "170", "6.", /A GHOST STORY/],
+      ["Concerning a King and a Goddess", 4, "172", "7.", /KING AND A GODDESS/],
+      ["The Quarrel of the Body and the Head", 4, "173", "8.", /BODY AND THE HEAD/],
+      ["The Voyage of Unamūn", 4, "174", "9.", /VOYAGE OF UNAMUN/],
+      ["Exhortations and Warnings to Schoolboys", 4, "188", "1.", /EXHORTATIONS AND WARNINGS/, /SCHOOLS AND THEIR WRITINGS/],
+      ["Actual Letters as Models for Schoolboys", 4, "198", "2.", /ACTUAL LETTERS/],
+      ["Fictitious Model Letters", 4, "205", "3.", /FICTITIOUS MODEL LETTERS/],
+      ["Greetings to Teachers and Superiors", 4, "211", "4.", /GREETINGS TO TEACHERS/],
+      ["A Literary Controversy", 4, "214", "5.", /LITERARY CONTROVERSY/],
+      ["The Wisdom of Anii", 4, "234", "6.", /WISDOM OF ANII/],
+      ["Discourses of the Lovers: First Collection", 4, "243", "1.", /FIRST COLLECTION/, /LOVE SONGS/],
+      ["Discourses of the Lovers: Second Collection", 4, "244", "2.", /SECOND/],
+      ["The Maiden in the Meadow", 4, "246", "3.", /MAIDEN IN THE MEADOW/],
+      ["The Flowers in the Garden", 4, "248", "4.", /FLOWERS IN THE GARDEN/],
+      ["The Trees in the Garden", 4, "249", "5.", /TREES IN THE GARDEN/],
+      ["Songs of the Threshers", 4, "251", "1.", /SONGS OF THE THRESHERS/, /VARIOUS SONGS/],
+      ["Songs at Banquets", 4, "251", "2.", /SONGS AT BANQUETS/],
+      ["The Good Fortune of the Dead", 4, "253", "3.", /GOOD FORTUNE OF THE DEAD/],
+      ["The Victories of Thutmōsis III", 4, "254", "1.", /VICTORIES OF THUTMOSIS/, /POEMS TO THE KING/],
+      ["Hymn to Ramesses II", 4, "258", "2.", /HYMN TO RAMESSES/],
+      ["The Battle of Kadesh", 4, "261", "3.", /BATTLE OF KADESH/],
+      ["Poems on the City of Ramesses", 4, "270", "4.", /CITY OF RAMESSES/],
+      ["Poem on the Victory of Merneptah", 4, "274", "5.", /VICTORY OF MERNEPTAH/],
+      ["Shorter Poems", 4, "278", "6.", /SHORTER POEMS/],
+      ["The Great Hymn to Amūn", 4, "282", "1.", /GREAT HYMN TO AM/, /RELIGIOUS POEMS/],
+      ["The Hymn to the Sun from El-Amarnah", 4, "288", "2.", /HYMN TO THE SUN FROM/],
+      ["Prayer for the King in El-Amarnah", 4, "292", "3.", /PRAYER FOR THE KING/],
+      ["Poems on Thebes and its God", 4, "293", "4.", /POEMS ON THEBES/],
+      ["From the Prayers of One Unjustly Persecuted", 4, "302", "5.", /UNJUSTLY PERSECUTED/],
+      ["Shorter Hymns and Prayers", 4, "305", "6.", /SHORTER HYMNS AND PRAYERS/],
+      ["Explanatory Notes", 5, "313", "", /EXPLANATORY NOTES/],
+    ].map(([t, part, page, num, head, from]) => ({ t, part, page, num, head, from })),
+    /* Page xxxvi, transcribed from the scan: twelve hieroglyphic signs stand inline in its prose and scramble
+       the engine's reading order. The signs are left out and their transliterations kept, so "Thus [sign] ro
+       'mouth'" reads "Thus ro 'mouth'". */
+    ermanPages: {
+      "xxxvi": [
+        "longer used for special ones; and they became purely phonetic signs. Thus the swallow is used not only, as in the first instance, for <i>wr</i> “great,” but also to write the consonants <i>w</i> and <i>r</i> in words like <i>ḥwr, swr, wrś, wrryt,</i> etc. Thereby the writing obtained phonetic signs of two consonants.",
+        "Other peoples have also arrived thus far by a similar process, but the Egyptians now went one step further, and employed especially short words, which consisted of not more than one consonant, for the writing of this one consonant. Thus <i>ro</i> “mouth” was taken for <i>r,</i> <i>zt</i> “snake” (<i>-t</i> is the feminine termination) for <i>z,</i> <i>shy</i> “lake” for <i>sh.</i> The result was an alphabet of twenty-four consonants, which later on, upon Canaanite soil, became the prototype of our own.",
+        "With this alphabet were now written single short words, such as <i>r</i> “to,” <i>m</i> “in,” <i>iw</i> “be,” or grammatical endings were thereby expressed: <i>khpr.f</i> “he becomes.” What was no less important, it facilitated the reading of word-signs. In the case of the draughts-board, or the hoe, it was in itself possible to think of other words for draughts-board and hoe than <i>mn</i> and <i>mr</i>; but if their final consonants <i>n</i> and <i>r</i> were added to them, the reader saw at once that <i>mn</i> and <i>mr</i> were intended.",
+        "Several longer words also were only written with alphabetic signs, such, for example, as <i>byn</i> “bad” and <i>nht</i> “sycomore,” though the system remained on the whole a mixed one, consisting of word-signs in their original or transferred meaning, and of alphabetic signs tacked on to them.",
+        "In the course of further development yet a third element was introduced, the so-called determinative. To the single word one more sign was added, which guided the reader to its meaning; <i>nht</i> “the sycomore” received, <i>e.g.,</i> a tree, <i>nfr</i> “good” a papyrus roll to indicate the abstract, and so forth.",
+      ],
+    },
+    // [printed page, the text as read, the text as printed] — read off the page image; each must hit once
+    ermanFixes: [
+      ["xxxv", "swallow' ^=5 kt, of", "swallow <i>wr,</i> of"],     // a hieroglyph read as dirt before its transliteration
+      ["xxxv", "<i>khpr, “</i> to become", "<i>khpr,</i> “to become"],
+    ],
+    /* THE MACRONS AND ACCENTS no engine reads (see the layout's block). Built from where the Tesseract texts
+       mark a vowel and which vowel FineReader reads there; spot-read on the scan (Amenemhēt, Sesōstris,
+       Merikerē, Amenemōpe, Amūn, Harūn, Hyksōs, Apōphis, Thutmōsis). Whole words, case as given. */
+    ermanNames: {
+      Re: "Rē", Amunre: "Amunrē", Seth: "Sēth", Sethos: "Sēthos", Keb: "Kēb", Amenemhet: "Amenemhēt", Binere: "Binerē",
+      Usimare: "Usimarē", Sekenenre: "Sekenenrē", Merikere: "Merikerē", Userhet: "Userhēt", Nebre: "Nebrē",
+      Khekheperre: "Khekheperrē", Khakaure: "Khakaurē", Sehetepibre: "Sehetepibrē", Neferkheprure: "Neferkheprurē",
+      Nebkaure: "Nebkaurē", Khephren: "Khephrēn", Kheperkere: "Kheperkerē", Menkheperre: "Menkheperrē",
+      Hekmaatre: "Hekmaatrē", Nemaatre: "Nemaatrē", Sahure: "Sahurē", Baufre: "Baufrē",
+      Thoth: "Thōth", Amenemope: "Amenemōpe", Sesostris: "Sesōstris", Thutmosis: "Thutmōsis", Hyksos: "Hyksōs",
+      Amenophis: "Amenōphis", Kamose: "Kamōse", Apophis: "Apōphis", Troglodytes: "Trōglodytes", sboyet: "sbōyet",
+      Amun: "Amūn", Unamun: "Unamūn", Harun: "Harūn", Th5th: "Thōth", Hyks5s: "Hyksōs",
+      role: "rôle", roles: "rôles", naive: "naïve", naivete: "naïveté",
+      Golenischeff: "Golénischeff", Rouge: "Rougé", Devaud: "Dévaud", egyptiennes: "égyptiennes", regime: "régime",
+      archeologique: "archéologique",
+    },
+
+    about: [
+      "<b>The Literature of the Ancient Egyptians</b> is Adolf Erman's anthology of Egyptian writing from the third " +
+        "and second millennia BCE, translated and introduced for readers who are not Egyptologists. It runs from the " +
+        "Pyramid Texts carved inside the royal tombs of the Old Kingdom to the hymns, letters and poems of the late New " +
+        "Kingdom, and it stops there on purpose: Erman left out the demotic writings of the Greek and Roman periods, " +
+        "the medical and mathematical books, and all but a few of the religious texts and inscriptions.",
+      "Most of what has made Egyptian literature famous is here. <b>The Story of Sinuhe</b>, the courtier who flees " +
+        "Egypt and comes home in old age; <b>the Shipwrecked Sailor</b> and his serpent island; the magicians at the " +
+        "court of King Kheops; the instructions in wisdom of Ptahhotep and of King Amenemhēt; the <b>Dispute with his " +
+        "Soul of one who is tired of life</b>; the <b>Complaints of the Peasant</b>; the Tale of the Two Brothers; the " +
+        "<b>Voyage of Unamūn</b> to Byblos for cedar; the schoolbooks of the New Kingdom; love songs; the Battle of " +
+        "Kadesh; and the Hymn to the Sun from El-Amarnah.",
+      "The book is Erman's as well as the Egyptians'. His introductions and his notes run through it, and the printed " +
+        "page sets them apart from the translations in smaller type — here, in the smaller grey paragraphs. Read the " +
+        "short <b>Author's Preface</b> first: it says that <i>italics</i> in a translation mark a free rendering or an " +
+        "interpolation, that square brackets mark a restoration, that three dots stand for a single word that could not " +
+        "be translated, and that dashes stand for a longer passage that is missing.",
+      "Erman (1854–1937) was the Berlin Egyptologist whose work on the grammar of the language underlies much of the " +
+        "modern understanding of it, and he published this book in German in 1923 as <i>Die Literatur der Aegypter</i>. " +
+        "<b>Aylward M. Blackman</b>, of Oxford, made the English of 1927. His preface explains that the translations " +
+        "were made afresh from the Egyptian rather than from Erman's German, but follow Erman's interpretation, at " +
+        "Erman's request, almost without exception. Egyptology has moved a long way since: the dates in the Outline of " +
+        "Egyptian History are Erman's, and many of the passages he marked as doubtful are better understood now.",
+      "The text was read from a scan of the 1927 printing and checked against four other scans of it. The printed " +
+        "page numbers are kept as small figures in the text, because Erman's cross-references (\"see p. 38\") point to them. The four " +
+        "plates of specimen writing in the introduction and the hieroglyphs printed in its section on writing are not " +
+        "reproduced, and a few footnotes whose mark in the text could not be placed are kept in the notes without one.",
+    ],
+  },
   "james-principles-of-psychology": {
     title: "The Principles of Psychology",
     author: "William James",
@@ -21855,6 +22349,802 @@ const BOOKS = {
     parts: [
       { n: 1, label: "Volume I", from: 1, to: 17 },
       { n: 2, label: "Volume II", from: 18, to: 29 },
+    ],
+    minChars: 3000,
+  },
+
+  "pavlov-conditioned-reflexes": {
+    title: "Conditioned Reflexes",
+    subtitle: "An Investigation of the Physiological Activity of the Cerebral Cortex",
+    author: "Ivan Pavlov",
+    translator: "G. V. Anrep",
+    edition: "Translated and edited by G. V. Anrep, Oxford University Press: Humphrey Milford, London, 1927",
+    written: "1926",
+    year: 1926,
+    /* ---------- THE LICENCE ----------
+       Pavlov died in Leningrad in 1936. Anrep's translation was published by the Oxford University Press in
+       1927 — before 1931, so it is public domain in the United States (the Russian edition, from which it was
+       made, is of the same year). Anrep died in 1955, so the translation is out of copyright wherever copyright
+       runs for the translator's life plus seventy years or less; NOT yet where it runs longer — the rights box
+       says so rather than claiming the world.
+       THE SOURCE IS NOT WIKISOURCE, which has no copy (searched, Nov 2026), nor Project Gutenberg. It is the
+       transcription in Christopher D. Green's Classics in the History of Psychology (York University, Toronto),
+       posted 2000–2001: the twenty-three lectures and the Bibliography, one page each, Word 97 and Netscape HTML
+       in windows-1252. It was made from a scan and carries OCR slips ("hut also incapable" for "but"), so it is
+       corrected by `fixes`, every row witnessed by BOTH Internet Archive scans of the 1927 printing (items
+       `conditionedrefle0000ippa` and `conditioned-reflexes-an-investigation-of-the-physiological-activity-of-
+       the-cerebral-cortex`): a word-level alignment of the transcription against each scan's OCR, keeping only
+       the places where the two OCRs agree with each other and not with the transcription, then each read as a
+       sentence before it was written. Its 187 TABLES are pictures on that site (GIFs of the printed page), so
+       they were typed from those pictures into `.claude/book-tables/pavlov-conditioned-reflexes.json` and are
+       set as tables; the eleven pictures of brains and the dog's outline (Figs. 1–18) are left out. */
+    rights:
+      "Public domain in the United States, where G. V. Anrep's translation was published in 1927. Ivan Pavlov " +
+      "died in 1936 and Anrep in 1955, so it is also out of copyright in countries where copyright lasts for " +
+      "the author's life plus seventy years or less. The text is the transcription in Classics in the History " +
+      "of Psychology (York University, Toronto), corrected against two scans of the 1927 printing; its tables, " +
+      "which that site gives as pictures of the page, were typed from those pictures.",
+    sourceName: "Classics in the History of Psychology",
+    sourceUrl: "http://psychclassics.yorku.ca/Pavlov/",
+    layout: "york",
+    url: (n) => "http://psychclassics.yorku.ca/Pavlov/" + (n === 24 ? "bibliography.htm" : "lecture" + n + ".htm"),
+    tablesFile: "pavlov-conditioned-reflexes.json",
+    /* the pictures that are not tables: the drawings of the dog's brain (Figs. 8–14, 16–18) and the outline of a
+       dog marked with its places of stimulation (Fig. 15), which the site files under "table" names */
+    figures: ["table19-1.gif", "table19-2.gif", "table19-3.gif", "table19-4.gif", "table19-6.gif", "table19-8.gif",
+      "table20-2.gif", "table20-4.gif", "table20-6.gif", "table20-8.gif", "table21-1.gif"],
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every
+       quotation in it was found in this text, except Anrep's "expand, but in no sense to alter" and the audience
+       of "medical men and biologists", which are his preface and Pavlov's preface to the Russian edition, read
+       in the scans; the date of the flood is Lecture XVIII's own, the year the record's. */
+    about: [
+      "<b>Conditioned Reflexes</b> is Ivan Pavlov's account of a quarter of a century's experiments on the " +
+        "working of the brain. Its subject is the <i>conditioned reflex</i>: a dog that salivates when food is " +
+        "put in its mouth will, after the food has several times been given together with some other " +
+        "stimulus — the beats of a metronome, a tone, a touch on the skin — salivate at that stimulus alone. " +
+        "The inborn response Pavlov calls an <i>unconditioned</i> reflex, the learned one a <i>conditioned</i> " +
+        "reflex, and he argues that <i>the fundamental and the most general function of the hemispheres is " +
+        "that of reacting to signals</i>. By counting the drops of saliva the experimenter can measure the " +
+        "activity of the cerebral cortex objectively, without guessing at what the animal feels.",
+      "The lectures move from the method (I–II) to how conditioned reflexes are formed and how they are " +
+        "inhibited — by an extraneous stimulus, by extinction, by a conditioned inhibitor and by delay " +
+        "(III–VI). Lectures VII–XIV follow the cortex as it analyses and combines the stimuli that reach it, " +
+        "and trace how excitation and inhibition spread across it and give way to one another. Lectures XV " +
+        "and XVI argue that sleep is <i>internal inhibition which has become diffused</i> over the cortex, " +
+        "with the hypnotic stages between waking and sleep. Lectures XVII–XXI describe the types of nervous " +
+        "system in dogs and the disturbances produced in the cortex by overstrain and by surgery, including " +
+        "the dogs whose conditioned reflexes were upset by the flood in Petrograd of September 1924 (XVIII). Lecture XXII reviews the " +
+        "work and corrects some of its own earlier conclusions, and Lecture XXIII applies the results to " +
+        "man: to sleep, hypnosis and nervous illness.",
+      "Pavlov was born in Ryazan in 1849, the son of a priest, and trained in physiology in St Petersburg. " +
+        "His work on the digestive glands won him the Nobel Prize in Physiology or Medicine in 1904, and it " +
+        "was while measuring their secretions that he turned to the <i>psychic</i> salivation of dogs that " +
+        "had not yet been fed. The book began as lectures given at the Military Medical Academy in Petrograd " +
+        "in the spring of 1924 to <i>an audience of medical men and biologists</i>; Pavlov spent over " +
+        "eighteen months recasting them, and they were published in Russian and in this English translation " +
+        "in 1927. He died in Leningrad in 1936.",
+      "The translation is by G. V. Anrep, who had worked in Pavlov's laboratories and was by then a " +
+        "lecturer in physiology at Cambridge. Pavlov allowed him, he says in his preface, to <i>expand, but " +
+        "in no sense to alter</i>, the text for English and American readers. The many experimenters named in the text " +
+        "(<i>Dr. Frolov</i>, <i>Dr. Foursikov</i> and the rest) are Pavlov's collaborators, and the " +
+        "Bibliography at the end lists their papers.",
+      "The text here gives the twenty-three lectures and the Bibliography. Each lecture opens on Pavlov's own " +
+        "summary of its contents, in italics. The tables of experiments are set as tables, typed from " +
+        "pictures of the printed pages; a figure of 1.5 drops is printed with a raised point in the book and " +
+        "with a full stop here. The footnotes are in the notes under each lecture. Not included: the title " +
+        "page, the dedication, Anrep's preface, Pavlov's preface to the English edition and his preface to " +
+        "the Russian one, the contents, the index, and the figures — drawings of the apparatus, a chart and " +
+        "the drawings of dogs' brains in Lectures XIX–XXI — so where the text says <i>see Fig. 8</i> there " +
+        "is no figure to see.",
+    ],
+    chapterWord: "Lecture",
+    chapters: Array.from({ length: 24 }, (_, i) => i + 1),
+    titleOf: (n) => (n === 24 ? "Bibliography" : "Lecture " + toRoman(n)),
+    minChars: 3000,
+    /* THE CORRECTIONS. Every row is a place where BOTH scans' OCR agree with each other against the transcription
+       (the alignment described under THE LICENCE above), read as a sentence before it was written; the rest of
+       that alignment's hits — OCR noise shared by both, a spelling both print (Thorndyke, which the site marks
+       [sic]), the transcription's own ½ where the OCR reads "4" — were left alone. A few rows were found by eye
+       and checked in both OCRs the same way: the degree signs, the dashes typed as "-", the stray marks. */
+    fixes: [
+      ["Med. Sec.", "Med. Soc.",
+        "Bibliography: \"Med. Sec.\" for \"Med. Soc.\" (21 times) — both scans read \"Soc.\""],
+      ["duties hut also", "duties but also",
+        "L1: \"hut\" for \"but\" — both scans read \"duties but also\""],
+      ["of thc lower", "of the lower",
+        "L1: \"thc\" for \"the\" — both scans read \"of the lower\""],
+      ["the anial threw", "the animal threw",
+        "L1: \"anial\" for \"animal\" — both scans read \"the animal threw\""],
+      ["from thc very", "from the very",
+        "L1: \"thc\" for \"the\" — both scans read \"from the very\""],
+      ["the fundnmental reflexes", "the fundamental reflexes",
+        "L1: \"fundnmental\" for \"fundamental\" — both scans read \"the fundamental reflexes\""],
+      ["at lazst that", "at last that",
+        "L1: \"lazst\" for \"last\" — both scans read \"at last that\""],
+      ["innumerable of interchangeable", "innumerable stimuli of interchangeable",
+        "L1: \"stimuli\" missing — both scans read \"innumerable stimuli of interchangeable\""],
+      ["of thc duct", "of the duct",
+        "L2: \"thc\" for \"the\" — both scans read \"of the duct\""],
+      ["as s recording", "as a recording",
+        "L2: \"s\" for \"a\" — both scans read \"as a recording\""],
+      ["for considerable time", "for a considerable time",
+        "L2: \"a\" missing — both scans read \"for a considerable time\""],
+      ["accurately thc secretory", "accurately the secretory",
+        "L2: \"thc\" for \"the\" — both scans read \"accurately the secretory\""],
+      ["of thc effective", "of the effective",
+        "L2: \"thc\" for \"the\" — both scans read \"of the effective\""],
+      ["different modifcations and", "different modifications and",
+        "L2: \"modifcations\" for \"modifications\" — both scans read \"different modifications and\""],
+      ["of thc odour", "of the odour",
+        "L2: \"thc\" for \"the\" — both scans read \"of the odour\""],
+      ["is s record", "is a record",
+        "L2: \"s\" for \"a\" — both scans read \"is a record\""],
+      ["from s consideration", "from a consideration",
+        "L2: \"s\" for \"a\" — both scans read \"from a consideration\""],
+      ["Nevertheless, an the", "Nevertheless, on the",
+        "L2: \"an\" for \"on\" — both scans read \"Nevertheless, on the\""],
+      ["Drs. Zeljony, Foursikov", "Drs. Zeliony, Foursikov",
+        "L3: \"Zeljony\" for \"Zeliony\" — both scans read \"Drs. Zeliony, Foursikov\""],
+      ["by modifcations in", "by modifications in",
+        "L3: \"modifcations\" for \"modifications\" — both scans read \"by modifications in\""],
+      ["could bc obtained", "could be obtained",
+        "L3: \"bc\" for \"be\" — both scans read \"could be obtained\""],
+      ["or s small", "or a small",
+        "L3: \"s\" for \"a\" — both scans read \"or a small\""],
+      ["may he affected", "may be affected",
+        "L3: \"he\" for \"be\" — both scans read \"may be affected\""],
+      ["conditioned syimulus. The", "conditioned stimulus. The",
+        "L3: \"syimulus\" for \"stimulus\" — both scans read \"conditioned stimulus. The\""],
+      ["metronome. dl this", "metronome. In this",
+        "L3: \"dl\" for \"In\" — both scans read \"metronome. In this\""],
+      ["every hall-hour", "every half-hour",
+        "L3: \"hall\" for \"half\" — both scans read \"every half-hour\""],
+      ["underwent e series", "underwent a series",
+        "L3: \"e\" for \"a\" — both scans read \"underwent a series\""],
+      ["itself graduadly from", "itself gradually from",
+        "L3: \"graduadly\" for \"gradually\" — both scans read \"itself gradually from\""],
+      ["for urination had", "for micturition had",
+        "L3: \"urination\" for \"micturition\" — both scans read \"for micturition had\""],
+      ["in greeter or", "in greater or",
+        "L3: \"greeter\" for \"greater\" — both scans read \"in greater or\""],
+      ["stimulus rightly constant", "stimulus rigidly constant",
+        "L4: \"rightly\" for \"rigidly\" — both scans read \"stimulus rigidly constant\""],
+      ["of 8 natural", "of a natural",
+        "L4: \"8\" for \"a\" — both scans read \"of a natural\""],
+      ["a salivatry secretion", "a salivary secretion",
+        "L4: \"salivatry\" for \"salivary\" — both scans read \"a salivary secretion\""],
+      ["the secondatry extinction", "the secondary extinction",
+        "L4: \"secondatry\" for \"secondary\" — both scans read \"the secondary extinction\""],
+      ["experiment which the", "experiment with the",
+        "L4: \"which\" for \"with\" — both scans read \"experiment with the\""],
+      ["the ease of", "the case of",
+        "L4: \"ease\" for \"case\" — both scans read \"the case of\""],
+      ["historical consideration. Since", "historical considerations. Since",
+        "L5: \"consideration\" for \"considerations\" — both scans read \"historical considerations. Since\""],
+      ["conditioned stimulus of the metronome was applied", "conditioned stimulus of a metronome was applied",
+        "L5: \"the\" for \"a\" — both scans read \"conditioned stimulus of a metronome was applied\""],
+      ["trace loft in", "trace left in",
+        "L5: \"loft\" for \"left\" — both scans read \"trace left in\""],
+      ["the fist few", "the first few",
+        "L5: \"fist\" for \"first\" — both scans read \"the first few\""],
+      ["such cases:</p>\n<p>A", "such case:</p>\n<p>A",
+        "L5: \"cases\" for \"case\" — both scans read \"such case: ¶ A\""],
+      ["Dr. Poursikov].</p>\n<p>Finally", "Dr. Foursikov].</p>\n<p>Finally",
+        "L5: \"Poursikov\" for \"Foursikov\" — both scans read \"Dr. Foursikov]. ¶ Finally\""],
+      ["inhibitory combinations we", "inhibitory combination we",
+        "L5: \"combinations\" for \"combination\" — both scans read \"inhibitory combination we\""],
+      ["to s conditioned", "to a conditioned",
+        "L5: \"s\" for \"a\" — both scans read \"to a conditioned\""],
+      ["of tho positive", "of the positive",
+        "L5: \"tho\" for \"the\" — both scans read \"of the positive\""],
+      ["give s smaller", "give a smaller",
+        "L6: \"s\" for \"a\" — both scans read \"give a smaller\""],
+      ["not through the", "not throughout the",
+        "L6: \"through\" for \"throughout\" — both scans read \"not throughout the\""],
+      ["active pages. This", "active phase. This",
+        "L6: \"pages\" for \"phase\" — both scans read \"active phase. This\""],
+      ["carried out in the", "carried out on the",
+        "L6: \"in\" for \"on\" — both scans read \"carried out on the\""],
+      ["manner, if the conditioned", "manner, if a conditioned",
+        "L6: \"the\" for \"a\" — both scans read \"manner, if a conditioned\""],
+      ["new line is", "new lines is",
+        "L7: \"line\" for \"lines\" — both scans read \"new lines is\""],
+      ["find s method", "find a method",
+        "L7: \"s\" for \"a\" — both scans read \"find a method\""],
+      ["to s definite", "to a definite",
+        "L7: \"s\" for \"a\" — both scans read \"to a definite\""],
+      ["conditioned stimuli. On", "conditioned stimulus. On",
+        "L7: \"stimuli\" for \"stimulus\" — both scans read \"conditioned stimulus. On\""],
+      ["however, thc initial", "however, the initial",
+        "L7: \"thc\" for \"the\" — both scans read \"however, the initial\""],
+      ["light recent experiments", "light in recent experiments",
+        "L7: \"in\" missing — both scans read \"light in recent experiments\""],
+      ["4:6, 5", "4:5, 5",
+        "L7: \"6\" for \"5\" — both scans read \"4:5, 5\""],
+      ["provide s reliable", "provide a reliable",
+        "L8: \"s\" for \"a\" — both scans read \"provide a reliable\""],
+      ["in s first", "in a first",
+        "L8: \"s\" for \"a\" — both scans read \"in a first\""],
+      ["to s luminous", "to a luminous",
+        "L8: \"s\" for \"a\" — both scans read \"to a luminous\""],
+      ["to he quite", "to be quite",
+        "L8: \"he\" for \"be\" — both scans read \"to be quite\""],
+      ["the thud interval", "the third interval",
+        "L8: \"thud\" for \"third\" — both scans read \"the third interval\""],
+      ["compound because fully", "compound became fully",
+        "L8: \"because\" for \"became\" — both scans read \"compound became fully\""],
+      ["intensities, very weak", "intensities, a very weak",
+        "L8: \"a\" missing — both scans read \"intensities, a very weak\""],
+      ["required great deal", "required a great deal",
+        "L8: \"a\" missing — both scans read \"required a great deal\""],
+      ["in s different", "in a different",
+        "L8: \"s\" for \"a\" — both scans read \"in a different\""],
+      ["fixed its somewhere", "fixed as somewhere",
+        "L8: \"its\" for \"as\" — both scans read \"fixed as somewhere\""],
+      ["the initial generalization of the", "the initial generalisation of the",
+        "L9: \"generalization\" for \"generalisation\" — both scans read \"the initial generalisation of the\""],
+      ["of thc positive", "of the positive",
+        "L9: \"thc\" for \"the\" — both scans read \"of the positive\""],
+      ["4, which is the", "4, which in the",
+        "L9: \"is\" for \"in\" — both scans read \"4, which in the\""],
+      ["in thc course", "in the course",
+        "L9: \"thc\" for \"the\" — both scans read \"in the course\""],
+      ["crowded meeting of", "crowded meetings of",
+        "L9: \"meeting\" for \"meetings\" — both scans read \"crowded meetings of\""],
+      ["by corresponding shortening", "by a corresponding shortening",
+        "L9: \"a\" missing — both scans read \"by a corresponding shortening\""],
+      ["which bas been", "which has been",
+        "L9: \"bas\" for \"has\" — both scans read \"which has been\""],
+      ["the akin. While", "the skin. While",
+        "L9: \"akin\" for \"skin\" — both scans read \"the skin. While\""],
+      ["minutes, or the most", "minutes, or at the most",
+        "L9: \"at\" missing — both scans read \"minutes, or at the most\""],
+      ["form if internal", "form of internal",
+        "L9: \"if\" for \"of\" — both scans read \"form of internal\""],
+      ["of s period", "of a period",
+        "L9: \"s\" for \"a\" — both scans read \"of a period\""],
+      ["undergoes s gradual", "undergoes a gradual",
+        "L9: \"s\" for \"a\" — both scans read \"undergoes a gradual\""],
+      ["Ivanov-Smolensby on", "Ivanov-Smolensky on",
+        "L9: \"Smolensby\" for \"Smolensky\" — both scans read \"Ivanov-Smolensky on\""],
+      ["to metronome (<i>M", "to a metronome (<i>M",
+        "L10: \"a\" missing — both scans read \"to a metronome (<i>M\""],
+      ["of thc skin", "of the skin",
+        "L10: \"thc\" for \"the\" — both scans read \"of the skin\""],
+      ["from thc place", "from the place",
+        "L10: \"thc\" for \"the\" — both scans read \"from the place\""],
+      ["elicited s drops", "elicited 8 drops",
+        "L10: \"s\" for \"8\" — both scans read \"elicited 8 drops\""],
+      ["conditions thc process", "conditions the process",
+        "L10: \"thc\" for \"the\" — both scans read \"conditions the process\""],
+      ["that of place", "that at place",
+        "L10: \"of\" for \"at\" — both scans read \"that at place\""],
+      ["it then on", "it than on",
+        "L10: \"then\" for \"than\" — both scans read \"it than on\""],
+      ["and if is", "and it is",
+        "L10: \"if\" for \"it\" — both scans read \"and it is\""],
+      ["such confusion between", "such a confusion between",
+        "L10: \"a\" missing — both scans read \"such a confusion between\""],
+      ["representation is the", "representation in the",
+        "L10: \"is\" for \"in\" — both scans read \"representation in the\""],
+      ["further if spreads", "further it spreads",
+        "L10: \"if\" for \"it\" — both scans read \"further it spreads\""],
+      ["of <i>increases</i> excitability", "of <i>increased</i> excitability",
+        "L11: \"increases\" for \"increased\" — both scans read \"of <i>increased</i> excitability\""],
+      ["induction \"new condition", "induction \"a new condition",
+        "L11: \"a\" missing — both scans read \"induction \"a new condition\""],
+      ["100 beets per", "100 beats per",
+        "L11: \"beets\" for \"beats\" — both scans read \"100 beats per\""],
+      ["period if was", "period it was",
+        "L11: \"if\" for \"it\" — both scans read \"period it was\""],
+      ["differentiation, as soon", "differentiation, so soon",
+        "L11: \"as\" for \"so\" — both scans read \"differentiation, so soon\""],
+      ["acted a$ the", "acted as the",
+        "L11: \"a\" for \"as\" — both scans read \"acted as the\""],
+      ["with ah the", "with all the",
+        "L12: \"ah\" for \"all\" — both scans read \"with all the\""],
+      ["the pieces were", "the places were",
+        "L12: \"pieces\" for \"places\" — both scans read \"the places were\""],
+      ["three fables for", "three tables for",
+        "L12: \"fables\" for \"tables\" — both scans read \"three tables for\""],
+      ["3 min. are", "3 mins. are",
+        "L12: \"min\" for \"mins\" — both scans read \"3 mins. are\""],
+      ["the fetal inhibitory", "the total inhibitory",
+        "L12: \"fetal\" for \"total\" — both scans read \"the total inhibitory\""],
+      ["The moat natural", "The most natural",
+        "L12: \"moat\" for \"most\" — both scans read \"The most natural\""],
+      ["No. o on", "No. 0 on",
+        "L12: \"o\" for \"0\" — both scans read \"No. 0 on\""],
+      ["tested, ifs normal", "tested, its normal",
+        "L12: \"ifs\" for \"its\" — both scans read \"tested, its normal\""],
+      ["the akin corresponds", "the skin corresponds",
+        "L12: \"akin\" for \"skin\" — both scans read \"the skin corresponds\""],
+      ["of inquirer.</p>\n<p>The", "of the inquirer.</p>\n<p>The",
+        "L13: \"the\" missing — both scans read \"of the inquirer. ¶ The\""],
+      ["to the unconditioned reflex. The", "to the same unconditioned reflex. The",
+        "L13: \"same\" missing — both scans read \"to the same unconditioned reflex. The\""],
+      ["a stimulation of", "a tactile stimulation of",
+        "L13: \"tactile\" missing — both scans read \"a tactile stimulation of\""],
+      ["were inhibitory conditioned", "were used as inhibitory conditioned",
+        "L13: \"used as\" missing — both scans read \"were used as inhibitory conditioned\""],
+      ["stimulations the places", "stimulations of the places",
+        "L13: \"of\" missing — both scans read \"stimulations of the places\""],
+      ["effect of different points", "effect of the different points",
+        "L13: \"the\" missing — both scans read \"effect of the different points\""],
+      ["to he made", "to be made",
+        "L13: \"he\" for \"be\" — both scans read \"to be made\""],
+      ["between positive c", "between the positive c",
+        "L13: \"the\" missing — both scans read \"between the positive c\""],
+      ["gradually resume excitatory", "gradually reassume excitatory",
+        "L13: \"resume\" for \"reassume\" — both scans read \"gradually reassume excitatory\""],
+      ["needed. indicates that", "needed. This indicates that",
+        "L13: \"this\" missing — both scans read \"needed. This indicates that\""],
+      ["inhibitory effect as before", "inhibitory after-effect as before",
+        "L13: \"effect\" for \"aftereffect\" — both scans read \"inhibitory after-effect as before\""],
+      ["cessation the tone", "cessation of the tone",
+        "L13: \"of\" missing — both scans read \"cessation of the tone\""],
+      ["time its termination", "time after its termination",
+        "L13: \"after\" missing — both scans read \"time after its termination\""],
+      ["of 258 d", "of 256 d",
+        "L13: \"258\" for \"256\" — both scans read \"of 256 d\""],
+      ["diminution I the", "diminution in the",
+        "L13: \"I\" for \"in\" — both scans read \"diminution in the\""],
+      ["interval time from", "interval of time from",
+        "L14: \"of\" missing — both scans read \"interval of time from\""],
+      ["onset secretion—is", "onset of the secretion—is",
+        "L14: \"of the\" missing — both scans read \"onset of the secretion—is\""],
+      ["the of weakening", "the degree of weakening",
+        "L14: \"degree\" missing — both scans read \"the degree of weakening\""],
+      ["maximal constant and strength", "maximal and constant strength",
+        "L14: \"and\" missing — both scans read \"maximal and constant strength\""],
+      ["of extreme importance", "of the extreme importance",
+        "L14: \"the\" missing — both scans read \"of the extreme importance\""],
+      ["in condition of", "in the condition of",
+        "L14: \"the\" missing — both scans read \"in the condition of\""],
+      ["quicker greater the", "quicker the greater the",
+        "L14: \"the\" missing — both scans read \"quicker the greater the\""],
+      ["have just described is", "have just been described is",
+        "L14: \"been\" missing — both scans read \"have just been described is\""],
+      ["saw conditioned reflexes", "saw that conditioned reflexes",
+        "L14: \"that\" missing — both scans read \"saw that conditioned reflexes\""],
+      ["Dr. Solovaichik gives", "Dr. Soloveichik gives",
+        "L14: \"Solovaichik\" for \"Soloveichik\" — both scans read \"Dr. Soloveichik gives\""],
+      ["reinforcement, so on", "reinforcement, and so on",
+        "L14: \"and\" missing — both scans read \"reinforcement, and so on\""],
+      ["differentiation conditioned inhibition", "differentiation and conditioned inhibition",
+        "L14: \"and\" missing — both scans read \"differentiation and conditioned inhibition\""],
+      ["their role of", "their rôle of",
+        "L15: \"role\" for \"rôle\" — both scans read \"their rôle of\""],
+      ["sleep closely coincides", "sleep so closely coincides",
+        "L15: \"so\" missing — both scans read \"sleep so closely coincides\""],
+      ["mosaic the cortex", "mosaic of the cortex",
+        "L15: \"of\" missing — both scans read \"mosaic of the cortex\""],
+      ["first be accompanied", "first to be accompanied",
+        "L15: \"to\" missing — both scans read \"first to be accompanied\""],
+      ["ecto-sylviusanterior</i> (see", "ecto-sylvius anterior</i> (see",
+        "L15: \"sylviusanterior\" for \"sylvius anterior\" — both scans read \"ecto-sylvius anterior</i> (see\""],
+      ["in form of", "in the form of",
+        "L15: \"the\" missing — both scans read \"in the form of\""],
+      ["Dr. Poursikov, brings", "Dr. Foursikov, brings",
+        "L15: \"Poursikov\" for \"Foursikov\" — both scans read \"Dr. Foursikov, brings\""],
+      ["which many exceptionally", "which had many exceptionally",
+        "L16: \"had\" missing — both scans read \"which had many exceptionally\""],
+      ["weak one to", "weak tone to",
+        "L16: \"one\" for \"tone\" — both scans read \"weak tone to\""],
+      ["secretory is absent", "secretory effect is absent",
+        "L16: \"effect\" missing — both scans read \"secretory effect is absent\""],
+      ["distributed interned inhibition", "distributed internal inhibition",
+        "L16: \"interned\" for \"internal\" — both scans read \"distributed internal inhibition\""],
+      ["functional interferences.</i></p>\n<p>We", "functional interference.</i></p>\n<p>We",
+        "L17: \"interferences\" for \"interference\" — both scans read \"functional interference.</i> ¶ We\""],
+      ["other eases the", "other cases the",
+        "L17: \"eases\" for \"cases\" — both scans read \"other cases the\""],
+      ["movement—the immediately", "movement—they immediately",
+        "L17: \"the\" for \"they\" — both scans read \"movement—they immediately\""],
+      ["type \"melancholic.\" I", "type of \"melancholic.\" I",
+        "L17: \"of\" missing — both scans read \"type of \"melancholic.\" I\""],
+      ["to reset to", "to react to",
+        "L17: \"reset\" for \"react\" — both scans read \"to react to\""],
+      ["the plaid calm", "the placid calm",
+        "L17: \"plaid\" for \"placid\" — both scans read \"the placid calm\""],
+      ["and unconditioned stimuli", "and the unconditioned stimuli",
+        "L17: \"the\" missing — both scans read \"and the unconditioned stimuli\""],
+      ["of conditioned stimulus by", "of the conditioned stimulus by",
+        "L17: \"the\" missing — both scans read \"of the conditioned stimulus by\""],
+      ["animal becomes quite", "animal became quite",
+        "L17: \"becomes\" for \"became\" — both scans read \"animal became quite\""],
+      ["forms internal inhibition", "forms of internal inhibition",
+        "L17: \"of\" missing — both scans read \"forms of internal inhibition\""],
+      ["over inhibition. Such", "over into inhibition. Such",
+        "L18: \"into\" missing — both scans read \"over into inhibition. Such\""],
+      ["excitation inhibition.</p>\n<p>Besides", "excitation and inhibition.</p>\n<p>Besides",
+        "L18: \"and\" missing — both scans read \"excitation and inhibition. ¶ Besides\""],
+      ["at a quarter", "at about a quarter",
+        "L18: \"about\" missing — both scans read \"at about a quarter\""],
+      ["storm, the breaking", "storm, amid the breaking",
+        "L18: \"amid\" missing — both scans read \"storm, amid the breaking\""],
+      ["in groups from", "in little groups from",
+        "L18: \"little\" missing — both scans read \"in little groups from\""],
+      ["the hood constantly", "the flood constantly",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood constantly\""],
+      ["the door. Under", "the floor. Under",
+        "L18: \"door\" for \"floor\" — both scans read \"the floor. Under\""],
+      ["the hood were", "the flood were",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood were\""],
+      ["of ah the", "of all the",
+        "L18: \"ah\" for \"all\" — both scans read \"of all the\""],
+      ["the hood, as", "the flood, as",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood, as\""],
+      ["the hood this", "the flood this",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood this\""],
+      ["Dr. Zavadskyl the", "Dr. Zavadsky the",
+        "L19: \"Zavadskyl\" for \"Zavadsky\" — both scans read \"Dr. Zavadsky the\""],
+      ["of soar tissue", "of scar tissue",
+        "L19: \"soar\" for \"scar\" — both scans read \"of scar tissue\""],
+      ["Dr. Erofeeva]. One", "Dr. Eroféeva]. One",
+        "L19: \"Erofeeva\" for \"Eroféeva\" — both scans read \"Dr. Eroféeva]. One\""],
+      ["that ally sound", "that any sound",
+        "L19: \"ally\" for \"any\" — both scans read \"that any sound\""],
+      ["see Pig. 9", "see Fig. 9",
+        "L19: \"Pig\" for \"Fig\" — both scans read \"see Fig. 9\""],
+      ["these faces it", "these facts it",
+        "L20: \"faces\" for \"facts\" — both scans read \"these facts it\""],
+      ["Dr. Krasnogorskyl it", "Dr. Krasnogorsky it",
+        "L20: \"Krasnogorskyl\" for \"Krasnogorsky\" — both scans read \"Dr. Krasnogorsky it\""],
+      ["by Il. Munk", "by H. Munk",
+        "L20: \"Il\" for \"H\" — both scans read \"by H. Munk\""],
+      ["Foursikov end Bikov", "Foursikov and Bikov",
+        "L20: \"end\" for \"and\" — both scans read \"Foursikov and Bikov\""],
+      ["sulcus presylvius</i> down", "sulcus praesylvius</i> down",
+        "L20: \"presylvius\" for \"praesylvius\" — both scans read \"sulcus praesylvius</i> down\""],
+      ["that al our", "that all our",
+        "L20: \"al\" for \"all\" — both scans read \"that all our\""],
+      ["in case of", "in the case of",
+        "L21: \"the\" missing — both scans read \"in the case of\""],
+      ["absent, altough the", "absent, although the",
+        "L21: \"altough\" for \"although\" — both scans read \"absent, although the\""],
+      ["dog suriving for", "dog surviving for",
+        "L21: \"suriving\" for \"surviving\" — both scans read \"dog surviving for\""],
+      ["walking amd running", "walking and running",
+        "L21: \"amd\" for \"and\" — both scans read \"walking and running\""],
+      ["to a stimuli", "to tactile stimuli",
+        "L21: \"a\" for \"tactile\" — both scans read \"to tactile stimuli\""],
+      ["that, afterer two", "that, after two",
+        "L21: \"afterer\" for \"after\" — both scans read \"that, after two\""],
+      ["of acid the dog", "of acid to the dog",
+        "L21: \"to\" missing — both scans read \"of acid to the dog\""],
+      ["experiments this reflex", "experiments with this reflex",
+        "L21: \"with\" missing — both scans read \"experiments with this reflex\""],
+      ["a die-inhibition", "a dis-inhibition",
+        "L21: \"die\" for \"dis\" — both scans read \"a dis-inhibition\""],
+      ["smell mentioned neither", "smell functioned neither",
+        "L21: \"mentioned\" for \"functioned\" — both scans read \"smell functioned neither\""],
+      ["the <i>gyus postcruciatus", "the <i>gyrus postcruciatus",
+        "L21: \"gyus\" for \"gyrus\" — both scans read \"the <i>gyrus postcruciatus\""],
+      ["were definitely atrophied", "were very definitely atrophied",
+        "L21: \"very\" missing — both scans read \"were very definitely atrophied\""],
+      ["areas diminished and", "areas being diminished and",
+        "L21: \"being\" missing — both scans read \"areas being diminished and\""],
+      ["to even the slightest changes in these", "to even the minutest changes in these",
+        "L22: \"slightest\" for \"minutest\" — both scans read \"to even the minutest changes in these\""],
+      ["the following observations, which", "the two following observations, which",
+        "L22: \"two\" missing — both scans read \"the two following observations, which\""],
+      ["the renditions which", "the conditions which",
+        "L22: \"renditions\" for \"conditions\" — both scans read \"the conditions which\""],
+      ["the week stimulus", "the weak stimulus",
+        "L22: \"week\" for \"weak\" — both scans read \"the weak stimulus\""],
+      ["Dr. Poursikov not", "Dr. Foursikov not",
+        "L22: \"Poursikov\" for \"Foursikov\" — both scans read \"Dr. Foursikov not\""],
+      ["preparation these lectures", "preparation of these lectures",
+        "L22: \"of\" missing — both scans read \"preparation of these lectures\""],
+      ["establishment extinguished conditioned", "establishment of extinguished conditioned",
+        "L22: \"of\" missing — both scans read \"establishment of extinguished conditioned\""],
+      ["had over intervened", "had ever intervened",
+        "L22: \"over\" for \"ever\" — both scans read \"had ever intervened\""],
+      ["diminish end finally", "diminish and finally",
+        "L22: \"end\" for \"and\" — both scans read \"diminish and finally\""],
+      ["discoordinate it well", "discoordinate a well",
+        "L23: \"it\" for \"a\" — both scans read \"discoordinate a well\""],
+      ["normal excitabiiity and", "normal excitability and",
+        "L23: \"excitabiiity\" for \"excitability\" — both scans read \"normal excitability and\""],
+      ["surrounded, may crushed", "surrounded, nay crushed",
+        "L23: \"may\" for \"nay\" — both scans read \"surrounded, nay crushed\""],
+      ["of Round-proof", "of sound-proof",
+        "LBibliography: \"Round\" for \"sound\" — both scans read \"of sound-proof\""],
+      ["form or dis", "form of dis",
+        "LBibliography: \"or\" for \"of\" — both scans read \"form of dis\""],
+      ["Zeliony, C. P", "Zeliony, G. P",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Zeliony, G. P\""],
+      ["10) Corn, E", "10) Gorn, E",
+        "LBibliography: \"Corn\" for \"Gorn\" — both scans read \"10) Gorn, E\""],
+      ["Thesis, Petrogad, 1911", "Thesis, Petrograd, 1911",
+        "LBibliography: \"Petrogad\" for \"Petrograd\" — both scans read \"Thesis, Petrograd, 1911\""],
+      ["A. SeeIVD (7", "A. See IVD (7",
+        "LBibliography: \"SeeIVD\" for \"See IVD\" — both scans read \"A. See IVD (7\""],
+      ["Ten-Gate, J", "Ten-Cate, J",
+        "LBibliography: \"Gate\" for \"Cate\" — both scans read \"Ten-Cate, J\""],
+      ["Vindelband, 0.A", "Vindelband, O.A",
+        "LBibliography: \"0\" for \"O\" — both scans read \"Vindelband, O.A\""],
+      ["I.X. See", "I.S. See",
+        "LBibliography: \"X\" for \"S\" — both scans read \"I.S. See\""],
+      ["Physiol. Sec., 1924", "Physiol. Soc., 1924",
+        "LBibliography: \"Sec\" for \"Soc\" — both scans read \"Physiol. Soc., 1924\""],
+      ["Snegirev, C.V", "Snegirev, G.V",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Snegirev, G.V\""],
+      ["5) Corn, E", "5) Gorn, E",
+        "LBibliography: \"Corn\" for \"Gorn\" — both scans read \"5) Gorn, E\""],
+      ["Anrep, C.V", "Anrep, G.V",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Anrep, G.V\""],
+      ["D.X. See", "D.S. See",
+        "LBibliography: \"X\" for \"S\" — both scans read \"D.S. See\""],
+      ["Frolov, C.P", "Frolov, G.P",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Frolov, G.P\""],
+      ["Chebotareva, 0.M", "Chebotareva, O.M",
+        "LBibliography: \"0\" for \"O\" — both scans read \"Chebotareva, O.M\""],
+      ["8) Ousievich, M", "8) Ousiévich, M",
+        "LBibliography: \"Ousievich\" for \"Ousiévich\" — both scans read \"8) Ousiévich, M\""],
+      ["A.C. \"Irradiation", "A.G. \"Irradiation",
+        "LBibliography: \"C\" for \"G\" — both scans read \"A.G. \"Irradiation\""],
+      ["Articles, 6, 15", "Articles, 5, 15",
+        "LBibliography: \"6\" for \"5\" — both scans read \"Articles, 5, 15\""],
+      ["5-8, 1925", "5-6, 1925",
+        "LBibliography: \"8\" for \"6\" — both scans read \"5-6, 1925\""],
+      ["and Eurmnan, M", "and Eurman, M",
+        "LBibliography: \"Eurmnan\" for \"Eurman\" — both scans read \"and Eurman, M\""],
+      ["4-6, 1926", "4-5, 1926",
+        "LBibliography: \"6\" for \"5\" — both scans read \"4-5, 1926\""],
+      ["conditioned relieves.\" Pavlov", "conditioned reflexes.\" Pavlov",
+        "LBibliography: \"relieves\" for \"reflexes\" — both scans read \"conditioned reflexes.\" Pavlov\""],
+      ["BILATERAL SYNERCETIC ACTIVITY", "BILATERAL SYNERGETIC ACTIVITY",
+        "LBibliography: \"SYNERCETIC\" for \"SYNERGETIC\" — both scans read \"BILATERAL SYNERGETIC ACTIVITY\""],
+      ["Med. Xoc. in", "Med. Soc. in",
+        "LBibliography: \"Xoc\" for \"Soc\" — both scans read \"Med. Soc. in\""],
+      ["11) Poursikov, D", "11) Foursikov, D",
+        "LBibliography: \"Poursikov\" for \"Foursikov\" — both scans read \"11) Foursikov, D\""],
+      ["See 111(12", "See III(12",
+        "LBibliography: \"111\" for \"III\" — both scans read \"See III(12\""],
+      ["1) Kruishkovsky, N", "1) Krjishkovsky, N",
+        "LBibliography: \"Kruishkovsky\" for \"Krjishkovsky\" — both scans read \"1) Krjishkovsky, N\""],
+      ["der Hundin wahrend der", "der Hündin während der",
+        "LBibliography: \"Hundin\" for \"Hündin\" — both scans read \"der Hündin während der\""],
+      ["7) Andrkev, L", "7) Andréev, L",
+        "LBibliography: \"Andrkev\" for \"Andréev\" — both scans read \"7) Andréev, L\""],
+      ["<p>Fig. 15.—O and Roman figures:—Numbers of the places stimulated. Arabic figures:—Conditioned reflex in drops of saliva (1 drop= 0.01 c.c.). The figures to the right and left of the Roman figures were obtained by stimulation of the right and left sides of the animal respectively. the tactile reflex was established on the left side at place O. The fig. shows the spontaneous bilateral formation of accessory reflexes. Note that the strength of the reflexes at corresponding points is identical on both sides of the animal. The reflex which was established at place O was a short-trace reflex.</p>\n", "",
+        "L20: the caption of Fig. 15, the outline of a dog, which the site types beside the picture; the picture is left out, so its key goes with it"],
+      ["Neurologischcs Celtralblatt", "Neurologisches Centralblatt",
+        "L1, note 2: two letters misread — both scans read \"Neurologisches Central-\""],
+      ["<i>Arckiv für", "<i>Archiv für",
+        "L1, note 3: \"Arckiv\" — both scans read \"Archiv für\""],
+      ["Grosskirnrinde", "Grosshirnrinde",
+        "L1, note 5: \"k\" for \"h\" — both scans read \"Grosshirnrinde\""],
+      ["Action of</i> the <i>Nervous", "Action of the Nervous",
+        "L1, note 7: the title's italic broken round \"the\" by the site's markup"],
+      ["Mendeléef's", "Mendeléeff's",
+        "L2, note 1: both scans read \"Mendeléeff's\" (as the index does)"],
+      ["Unterschungsmethode", "Untersuchungsmethode",
+        "L8, note 1: a letter lost — the scans read \"Untersuchungsmethode\""],
+      ["Schläfanlappens", "Schläfenlappens",
+        "L19, note 1: \"a\" for \"e\" — both scans read \"Schl(a)fenlappens\""],
+      ["Sitzungsber, der", "Sitzungsber. der",
+        "L19, note 1: a comma for the point — both scans read \"Sitzungsber. der\""],
+      ["stimuli at 5\"C. and at 440C.", "stimuli at 5°C. and at 44°C.",
+        "L6: the degree sign misread as \" and 0 — both scans read \"5°C. and at 44°C.\""],
+      ["stimuli at 0·50C. and at 50\"C.", "stimuli at 0.5°C. and at 50°C.",
+        "L6: the degree sign misread as 0 and \" — both scans read \"0·5°C. and at 50°C.\" (the point set as a full stop, as elsewhere here)"],
+      ["of a l% extract", "of a 1% extract",
+        "L4: \"l\" for \"1\" — both scans read \"a 1% extract\""],
+      ["administered at 15th second", "administered at the 15th second",
+        "L13: \"the\" missing — both scans read \"at the 15th second\""],
+      ["demarcation of: neighbouring", "demarcation of neighbouring",
+        "L13: a stray colon — both scans read \"demarcation of neighbouring\""],
+      ["substances -consists", "substances—consists",
+        "L2: a dash typed as \"-\" — the scans print a dash"],
+      ["less time-a fact", "less time—a fact",
+        "L3: a dash typed as \"-\" — both scans read \"time—a fact\""],
+      ["appearance -of a", "appearance of a",
+        "a stray hyphen — both scans read \"appearance of a\""],
+      ["conditioned -reflex", "conditioned reflex",
+        "a stray hyphen — the scans read \"conditioned reflex\""],
+      ["metatarso -phalangeal", "metatarso-phalangeal",
+        "a stray space — both scans read \"metatarso-phalangeal\""],
+      ["remotest hint -f those", "remotest hint—of those",
+        "a dash and a letter lost — both scans read \"hint—of those\""],
+    ],
+  },
+
+  "thorndike-animal-intelligence": {
+    title: "Animal Intelligence",
+    subtitle: "Experimental Studies",
+    author: "Edward L. Thorndike",
+    /* NO `translator`: written in English. */
+    edition: "The Macmillan Company, New York, 1911",
+    written: "1911",
+    year: 1911,
+    /* ---------- THE LICENCE ----------
+       Published in New York in June 1911 (the copyright page: "Copyright, 1911, By THE MACMILLAN COMPANY"),
+       before 1931, so public domain in the United States. Thorndike died in 1949, so the book is also out of
+       copyright wherever copyright lasts for the author's life plus seventy years or less (from 2020) — NOT
+       where it runs longer, and the rights box says so rather than claiming the world. THE SOURCE IS PROJECT
+       GUTENBERG (ebook 69904, a proofread transcription of the 1911 printing): Wikisource has no copy (searched,
+       Nov 2026). When gutenberg.org was down for maintenance (Nov 2026) the file was read from its pglaf
+       mirror, `gutenberg.pglaf.org/6/9/9/0/69904/69904-h/69904-h.htm` — the same file `urls` names. */
+    rights:
+      "Public domain in the United States, where The Macmillan Company published the book in 1911. Edward L. " +
+      "Thorndike died in 1949, so it is also out of copyright in countries where copyright lasts for the " +
+      "author's life plus seventy years or less. The text is Project Gutenberg's transcription of the 1911 edition.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/69904",
+    urls: ["https://www.gutenberg.org/files/69904/69904-h/69904-h.htm"],
+    layout: "pgchapters",
+    /* the file's own heads are reshaped into James's form first — see `thorndikePrep` */
+    prep: "thorndike",
+    chapterHead: /<h5 id="CHAPTER_([IVX]+)">/,
+    front: [{ n: 1, vol: 1, anchor: 'id="PREFACE"' }],
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every quotation in
+       it was found in this text; where each chapter first appeared is the book's own notes (1, 4, 18, 21, 22,
+       46); the life is the record's. */
+    about: [
+      "<b>Animal Intelligence</b> collects the experiments with which Edward L. Thorndike began the laboratory " +
+        "study of animal learning. Its centre is his doctoral study of 1898, in which hungry cats — <i>or " +
+        "rather kittens</i> — dogs and chicks were shut in small boxes whose doors opened only when the animal " +
+        "pulled a loop, pressed a lever or turned a button, and the time each took to get out was recorded, " +
+        "trial after trial. The cat claws and squeezes at random until a movement happens to open the door; " +
+        "over many trials <i>all the other non-successful impulses will be stamped out and the particular " +
+        "impulse leading to the successful act will be stamped in by the resulting pleasure</i>.",
+      "Chapter I asks what it means to study behaviour rather than consciousness. Chapter II is the 1898 " +
+        "study itself, <i>Animal Intelligence; an Experimental Study of the Associative Processes in " +
+        "Animals</i>: the apparatus, the cats, dogs and chicks, and its tests of whether animals reason or " +
+        "learn by imitation, which find that they do neither. Chapters III and IV are shorter papers on the " +
+        "instincts of young chicks and on the psychology of fishes; chapter V, <i>The Mental Life of the " +
+        "Monkeys</i>, repeats the methods with <i>three South American monkeys of the genus Cebus</i>. " +
+        "Chapter VI, written for this volume, states the general laws, and chapter VII, <i>The Evolution of the " +
+        "Human Intellect</i>, argues that man's mind differs from the animals' in degree and not in kind: " +
+        "<i>not as a demigod from another planet, but as a king from the same race</i>.",
+      "The experiments were aimed at the <i>anecdote school</i> of animal psychology, which inferred reasoning " +
+        "from stories of clever pets. Thorndike quotes George Romanes's examples at length and answers that " +
+        "the anecdotes are <i>on pretty much the same level as the anecdotes of thought-transference</i>: what " +
+        "is reported is the one remarkable success, never the many failures. In chapter VI the results become " +
+        "the <i>Law of Effect</i> — responses <i>accompanied or closely followed by satisfaction to the " +
+        "animal</i> are more firmly connected with the situation, those followed by discomfort less — and the " +
+        "<i>Law of Exercise</i>, under which a connection grows stronger the more often it is made.",
+      "Thorndike was born in Massachusetts in 1874. He studied under William James at Harvard and took his " +
+        "doctorate at Columbia in 1898; the study was printed that year as a monograph supplement to the " +
+        "<i>Psychological Review</i>, and the other papers followed between 1899 and 1901. By 1911 he was at " +
+        "Teachers College, Columbia University, and his Preface leaves the old texts unaltered while owning " +
+        "that <i>what one writes at the age of twenty-three is likely to irritate oneself a dozen years " +
+        "later</i>. He became one of the founders of educational psychology and died in 1949.",
+      "The text here is the book as Thorndike printed it in 1911, in its own American spelling. It is given " +
+        "in its own order: the Preface and the seven chapters, so a tab's number runs one ahead of the " +
+        "chapter's, whose Roman numeral opens each title. The head lines inside a chapter are Thorndike's own, " +
+        "and so are the tables. His footnotes are kept under each chapter. The book's figures — drawings of " +
+        "the boxes and the curves of the animals' times — are not reproduced, so where Thorndike writes " +
+        "<i>see Fig. 1</i> there is no figure to see. Not included: the title page, the contents, the index " +
+        "and the publisher's advertisements.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Preface",
+      "I. The Study of Consciousness and the Study of Behavior",
+      "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals",
+      "III. The Instinctive Reactions of Young Chicks",
+      "IV. A Note on the Psychology of Fishes",
+      "V. The Mental Life of the Monkeys; an Experimental Study",
+      "VI. Laws and Hypotheses for Behavior",
+      "VII. The Evolution of the Human Intellect",
+    ][n],
+    /* the Preface is about 1,900 characters */
+    minChars: 1500,
+  },
+
+  "darwin-expression-of-emotions": {
+    title: "The Expression of the Emotions in Man and Animals",
+    author: "Charles Darwin",
+    /* NO `translator`: written in English, as the Origin of Species was. */
+    edition: "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)",
+    written: "1872",
+    year: 1872,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Darwin published the book in London in 1872 and died in 1882, so there is no copyright in it
+       anywhere. THE SOURCE IS PROJECT GUTENBERG (ebook 1227), not Wikisource: Wikisource has no
+       transcription of the book (Nov 2026 — the Author page's link is red). Gutenberg's title page reads
+       "New York, D. Appleton and Company, 1899", a reprint of the first edition's text: it carries none of
+       the notes Francis Darwin added to the second edition of 1890, and its readings were checked against
+       the Internet Archive's scan of the 1872 Murray printing (`expressionofemot1872darw`), which is the
+       witness for every row of `fixes` below. Fetched from Gutenberg's own mirror, gutenberg.pglaf.org,
+       which serves the same files as www.gutenberg.org at the same paths. */
+    rights:
+      "Public domain worldwide. Charles Darwin published The Expression of the Emotions in Man and " +
+      "Animals in London in 1872 and died in 1882, so the book has never been in copyright anywhere " +
+      "since. The text is Project Gutenberg's transcription, from an 1899 reprint of the first edition.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/1227",
+    url: "https://gutenberg.pglaf.org/1/2/2/1227/1227-h/1227-h.htm",
+    layout: "pglinknote",
+    pgAnchors: ["link2H_INTR"].concat(Array.from({ length: 14 }, (_, i) => "link2HCH" + String(i + 1).padStart(4, "0"))),
+    pgSkip: ["link2H_4_0003"],
+    pgNotes: "link2H_FOOT",
+    pgArgument: true,
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every
+       quotation in it was found in this text; the dates are the record's. */
+    about: [
+      "<b>The Expression of the Emotions in Man and Animals</b> asks why we look the way we do when we " +
+        "feel something: why a grieving person's eyebrows slant, why an angry dog bares its teeth, why we " +
+        "blush with shame and shrug when we cannot help. Charles Darwin's answer is that expressions have " +
+        "a history. Most of them, he argues, began as movements that were once of use, and became habits " +
+        "that are inherited; and many of the same expressions are found in every human race and, in part, " +
+        "in other animals — evidence that we share a common descent with them.",
+      "He explains them by <i>three Principles</i>, set out in the first three chapters: <i>the principle " +
+        "of serviceable associated Habits</i>, by which a movement once useful is repeated whenever the same " +
+        "state of mind returns, even when it is of no use; <i>the principle of Antithesis</i>, by which an " +
+        "opposite state of mind brings opposite movements — a friendly dog's whole body is the reverse of a " +
+        "hostile one's; and the direct action of the excited nervous system on the body, as in trembling. " +
+        "Chapters IV and V describe the expressions of animals, and the rest those of man: suffering and " +
+        "weeping, grief, joy and love, reflection and ill-temper, hatred and anger, disdain and disgust, " +
+        "surprise and fear, and blushing (VI–XIII). The last chapter sums up.",
+      "Darwin first took notes on expression in 1838, and he meant to treat the subject in <i>The Descent " +
+        "of Man</i> (1871); it grew into a book of its own, published by John Murray in 1872. He gathered " +
+        "his evidence widely. In 1867 he circulated a list of printed queries — <i>Is astonishment expressed " +
+        "by the eyes and mouth being opened wide, and by the eyebrows being raised?</i> — and received " +
+        "<i>thirty-six answers from different observers</i> in many parts of the world, several of them " +
+        "missionaries. He watched his own children and the animals at the Zoological Gardens, and he " +
+        "showed photographs, without a word of explanation, to people and asked them what emotion they " +
+        "saw.",
+      "The book is one of the first scientific works illustrated with photographs. Some of its plates " +
+        "come from the French physician Duchenne, who made the muscles of a man's face contract with " +
+        "electricity and photographed the result; others were taken for Darwin by the photographer Oscar " +
+        "Rejlander. Darwin died in 1882, and his son Francis edited a second edition in 1890. The book's " +
+        "claim that some facial expressions are the same in every culture was taken up again by " +
+        "psychologists in the twentieth century, and it is still argued over.",
+      "The text here is the first edition's, in its own spelling. It is given in the book's own order: the " +
+        "Introduction and the fourteen chapters, so a tab's number runs one ahead of the chapter's, whose " +
+        "Roman numeral opens each title. The italic lines that open each chapter are Darwin's own summary " +
+        "of its contents, printed under the chapter heading. His footnotes are kept under each chapter. The " +
+        "book's figures and its seven plates of photographs are not reproduced, so where Darwin writes " +
+        "<i>see fig. 5</i> or <i>Plate I.</i> there is no picture to see. Not included: the title page, the " +
+        "contents and the list of illustrations, and the index.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Introduction",
+      "I. General Principles of Expression",
+      "II. General Principles of Expression — continued",
+      "III. General Principles of Expression — concluded",
+      "IV. Means of Expression in Animals",
+      "V. Special Expressions of Animals",
+      "VI. Special Expressions of Man: Suffering and Weeping",
+      "VII. Low Spirits, Anxiety, Grief, Dejection, Despair",
+      "VIII. Joy, High Spirits, Love, Tender Feelings, Devotion",
+      "IX. Reflection — Meditation — Ill-temper — Sulkiness — Determination",
+      "X. Hatred and Anger",
+      "XI. Disdain — Contempt — Disgust — Guilt — Pride, etc. — Helplessness — Patience — Affirmation and Negation",
+      "XII. Surprise — Astonishment — Fear — Horror",
+      "XIII. Self-attention — Shame — Shyness — Modesty: Blushing",
+      "XIV. Concluding Remarks and Summary",
+    ][n],
+    /* Each row read against the Internet Archive's scan of the 1872 Murray printing (see the licence note). */
+    fixes: [
+      ["Professors Donders of Utrecht", "Professor Donders of Utrecht", "Introduction: 1872 reads “Professor”"],
+      ["the first edition, and in the third edition", "the first edition, and in 1844 the third edition", "Introduction: the year of Bell's third edition, which the transcription moved into note 3"],
+      ["&amp;c. 1792. 1844", "&amp;c. 1792.", "Introduction, note 3: the stray year that belongs in the text (row above)"],
+      ["from Herde\u2019s well-known", "from Henle\u2019s well-known", "Introduction: Henle's Handbuch, misread"],
+      ["as it appeirs to me", "as it appears to me", "Introduction: a misprint in the transcription"],
+      ["always lowers its bead", "always lowers its head", "I: a misread letter"],
+      ["hostile frame of mind be walks", "hostile frame of mind he walks", "II: a misread letter"],
+      ["species of Alacacus", "species of Macacus", "V: the genus, misread"],
+      ["partially cheeked by", "partially checked by", "VII: a misread letter"],
+      ["Ducheinne takes", "Duchenne takes", "XII, a note: the name, misspelt"],
+      ["Physiologi-cum", "Physiologicum", "VII, a note: the printer's line-end hyphen kept mid-line"],
+      ["regarde dons", "regarde dans", "IX, a note: Gratiolet's French, misread"],
+      ["p. 53. p. 53.{sic}", "p. 53.", "V, a note: the page typed twice and marked by the transcriber"],
+      ["full acount,{sic}", "full account,", "a note: the transcriber's {sic} on its own misspelling"],
+      ["both emotions and-sensations", "both emotions and sensations", "I, note 1: a hyphen typed for a space"],
+      ["lower parts of the checks downwards", "lower parts of the cheeks downwards", "XII: a misread letter"],
+      ["observed by Brehin with", "observed by Brehm with", "V: the naturalist's name, misread"],
+      ["Dr. Mandsley has", "Dr. Maudsley has", "VIII, a note: the name, misread"],
+      ["{footnote continues:} ", "", "I, a note: the transcriber's mark where the note runs onto the next page"],
     ],
     minChars: 3000,
   },
@@ -22200,6 +23490,312 @@ const BOOKS = {
     // the FINIS printed inside the text and the Addition's two tables — see painePrep
     prep: "paine",
   },
+  "marx-communist-manifesto": {
+    title: "The Communist Manifesto",
+    // the title page's own words (djvu p. 5)
+    subtitle: "Manifesto of the Communist Party",
+    author: "Karl Marx and Friedrich Engels",
+    /* Moore's translation, "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS" (the title
+       page). Samuel Moore, 1838–1911, by his Wikipedia article; Engels's preface names him as the translator. */
+    translator: "Samuel Moore",
+    edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
+    written: "1848",
+    year: 1848,
+    /* ---------- THE LICENCE ----------
+       Marx and Engels wrote the Manifesto in German; it was published in London in February 1848. Moore's English
+       translation appeared in 1888 and this printing of it is Kerr's of 1910 — both before 1929, so public domain in
+       the United States. Moore died in 1911, Engels (who edited it and wrote the preface and notes) in 1895, Marx in
+       1883: past life plus a hundred everywhere. The Index (`Manifesto of the Communist Party.djvu`) is VALIDATED
+       (`Progress=T`, November 2013).
+       ---------- WHAT IS TAKEN ----------
+       Five parts: Engels's preface of 1888, and the Manifesto's four numbered parts, each a wiki page. The opening
+       ("A spectre is haunting Europe" … "the following manifesto"), which the printing sets on its own page after the
+       preface under the work's title, stands before Part I and is set at the head of Part I's tab, Part I's own head
+       kept below it (see manifestoPrep: it also carries Engels's note on "bourgeoisie"). The cover, the title page and
+       Kerr's five pages of advertisements are not taken. Engels's footnotes come with the text. */
+    rights:
+      "Public domain. Karl Marx and Friedrich Engels wrote the Manifesto in German and published it in London in " +
+      "1848. Samuel Moore's English translation, edited by Engels, was first published in 1888, and this printing of " +
+      "it was made in Chicago in 1910. Moore died in 1911, Engels in 1895 and Marx in 1883, so the translation is out " +
+      "of copyright everywhere. The text is the validated Wikisource transcription of the 1910 printing.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Manifesto_of_the_Communist_Party",
+    /* THE FRONT MATTER — chapter 0. Each fact is one the printing's own preface states (the League, the congress of
+       November 1847, the German manuscript of January 1848, the press a few weeks before the February revolution,
+       Helen Macfarlane's translation of 1850, Moore and Capital) or the record (the authors' dates, Moore's). */
+    about: [
+      "<b>The Communist Manifesto</b> is the pamphlet in which Karl Marx and Friedrich Engels set out, in a few " +
+        "dozen pages, the programme of the communist movement and the view of history behind it. It was written for " +
+        "the <b>Communist League</b>, a small association of workers that was, as Engels says in the preface here, " +
+        "first exclusively German and unavoidably a secret society. At a congress of the League in London in " +
+        "November 1847 the two were asked to draw up its programme. They wrote it in German in January 1848, and it " +
+        "went to the printer in London a few weeks before the revolution that broke out in Paris on 24 February.",
+      "Its opening is among the most quoted sentences ever written: <i>A spectre is haunting Europe — the spectre " +
+        "of Communism.</i> Part I, <i>Bourgeois and Proletarians</i>, argues that the history of all society is the " +
+        "history of class struggles, and describes how the modern bourgeoisie, the owners of capital, has remade " +
+        "the world in its own image and created in the proletariat, the class of wage-workers, the force that will " +
+        "overthrow it. Part II answers the objections to communism and lists the measures the workers would take on " +
+        "winning power. Part III criticises the other socialisms of the day, and Part IV sets out where communists " +
+        "stand towards the opposition parties of each country. It ends on its call: <i>Working men of all " +
+        "countries, unite!</i>",
+      "Karl Marx (1818–1883) was born in Trier, in the Prussian Rhineland, and was then a journalist living in " +
+        "exile in Brussels. Friedrich Engels (1820–1895), the son of a textile manufacturer, had worked in his " +
+        "family's firm in Manchester and had written on the condition of the English working class. Both were " +
+        "driven from the Continent after the revolutions of 1848 failed and settled in England, where Marx wrote " +
+        "<i>Capital</i> and Engels supported him. The Manifesto was little read at first; in the preface, Engels " +
+        "traces how it came to be printed in many languages and read by the working-class movement across the " +
+        "world.",
+      "The translation is by <b>Samuel Moore</b>, an English lawyer and a friend of both authors, who had " +
+        "translated most of the first volume of <i>Capital</i>. It was published in London in 1888, five years " +
+        "after Marx's death, and Engels revised it with him, wrote the preface and added the notes, which explain " +
+        "the Manifesto's historical allusions and correct what time had overtaken. This is that translation, the " +
+        "one most English readers have known. The first English translation, by Helen Macfarlane, had appeared in " +
+        "1850.",
+      "The text here is a reprint published in Chicago in 1910 by <b>Charles H. Kerr &amp; Company</b>, a socialist " +
+        "publishing house, priced at five cents. The book has five parts: Engels's preface, dated London, 30 " +
+        "January 1888, and the Manifesto's four, so each part's number in the bar runs one ahead of its own " +
+        "numeral. The Manifesto's opening paragraphs, which stand before Part I " +
+        "without a number, are set at the head of Part I. The footnotes are Engels's; where he names a book, this " +
+        "American printing gives its own Chicago edition. The text comes from " +
+        "Wikisource, where it has been proofread twice against the scan.",
+    ],
+    page: (n) => n === 1 ? "Manifesto of the Communist Party"
+      : n === 2 ? ["Manifesto of the Communist Party", "Manifesto of the Communist Party/1"]
+      : "Manifesto of the Communist Party/" + (n - 1),
+    chapterWord: "Part",
+    // the wiki's section heads, which transcribe the printed ones in its own case
+    titleOf: (n) => ["Preface",
+      "I. Bourgeois and Proletarians",
+      "II. Proletarians and Communists",
+      "III. Socialist and Communist Literature",
+      "IV. Position of the Communists in Relation to the Various Existing Opposition Parties"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+    // the base page cut in two, the cover and advertisements dropped, the centred heads — see manifestoPrep
+    prep: "manifesto",
+  },
+  "breasted-ancient-records": {
+    title: "Ancient Records of Egypt",
+    subtitle: "Historical Documents from the Earliest Times to the Persian Conquest",
+    author: "James Henry Breasted",
+    edition:
+      "Ancient Records of Egypt: Historical Documents from the Earliest Times to the Persian Conquest, " +
+      "collected, edited and translated with commentary, 4 vols., University of Chicago Press, Chicago, 1906",
+    /* The documents span Egyptian history from the Fourth Dynasty (Snefru's Sinai inscriptions, conventionally
+       c. 2600 BCE) to Amasis, the last king before the Persian conquest of 525 BCE. `year` is the start, the
+       single number the shelf's date sort needs; the span is in `written`. The dates are today's conventional
+       ones, NOT Breasted's: his own table (Vol. I, §§ 58–75) puts Menes at 3400 BC and the Fourth Dynasty at
+       2900, some three centuries above the dates used now, and the front matter says so. */
+    written: "c. 2600–525 BCE; translated 1906",
+    year: -2600,
+
+    /* ---------- THE LICENCE — one modern layer, and a limit to state ----------
+       The inscriptions are ancient. The modern layer is Breasted's: the translations, the introductions and the
+       notes, published by the University of Chicago Press in four volumes in 1906 (the copyright pages read
+       "Published February 1906", March, May and July; the index volume followed in February 1907). Breasted
+       lived 27 August 1865 – 2 December 1935 (Wikipedia's infobox; Wikisource's Author page tags him PD/US with
+       a death year of 1935). So the text is public domain in the United States on the pre-1929 publication
+       rule, cleared life plus seventy in 2006, and stays in copyright until 2036 where the term is life plus a
+       hundred.
+
+       WHAT IS TAKEN. Volumes I–IV whole, from the first § of each to its last: the introduction (documentary
+       sources, chronology, the chronological table) and every document with Breasted's commentary and notes.
+       NOT TAKEN: the front matter (preface, the table of contents of all four volumes, the list of figures,
+       the explanation of signs), the figures themselves (plans and drawings of reliefs; the Library is text
+       only) and Volume V, the indices, whose page references point into a printing this reader does not keep.
+
+       THE SOURCE IS A MACHINE READING, NOT A TRANSCRIPTION — see the `breasted` layout's comment for the scans
+       and why these four, and the front matter for what a reader should expect. */
+    rights:
+      "Public domain, with one limit. The documents are ancient; the modern layer is James Henry Breasted's " +
+      "translations, introductions and notes, published in Chicago in 1906, so it is out of copyright in the " +
+      "United States under the rule for works published before 1929. Breasted lived from 1865 to 1935, so it " +
+      "also cleared the author's life plus seventy years in 2006; where the term is life plus a hundred it " +
+      "remains in copyright until 2036. The text is read by machine from the Internet Archive's scans of the " +
+      "Getty Research Institute's copies of Volumes I–III and the Archive's own copy of Volume IV. The front " +
+      "matter, the figures and the index volume are not reproduced.",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/ancientrecordsof01brea_0",
+
+    /* THE FRONT MATTER — chapter 0. Every fact about Breasted and the edition is a matter of record; the
+       limitations are measured on this text by the importer, whose counts are printed on every run. */
+    about: [
+      "<b>Ancient Records of Egypt</b> is James Henry Breasted's English translation of every Egyptian " +
+        "historical document known to him, from the earliest times to the Persian conquest of 525 BCE, each " +
+        "with an introduction and notes. It runs from the Palermo Stone's annals of the first kings to the " +
+        "stelae of the last pharaohs before Cambyses, and between them are most of the texts any history of " +
+        "ancient Egypt still quotes: the autobiographies of Uni and Harkhuf, the annals of Thutmose III and " +
+        "the battle of Megiddo, Hatshepsut's expedition to Punt, the boundary stelae of Ikhnaton's new city, " +
+        "Ramses II's battle of Kadesh and his treaty with the Hittites, Merneptah's hymn of victory, the great " +
+        "Papyrus Harris, the trial of the conspirators against Ramses III, the report of Wenamon and the " +
+        "victory stela of Piankhi.",
+      "Breasted, born in Illinois in 1865, studied Egyptology at Berlin and became the first American to " +
+        "take a doctorate in the subject. He spent his career at the University of Chicago, where in 1919 he " +
+        "founded the Oriental Institute. The four volumes of documents appeared in 1906, with a volume of " +
+        "indices in 1907, and they were the first attempt to put the whole historical record of Egypt into " +
+        "one language and one numbered sequence. That sequence is still how the texts are cited: a reference " +
+        "like \"BAR II, 312\" means this work, Volume II, paragraph 312, and the paragraph numbers are kept " +
+        "here as the section marks in the margin. Each volume numbers its paragraphs afresh.",
+      "It is also a book of 1906, and reads like one. The names are spelt as Breasted spelt them, so " +
+        "Akhenaten is Ikhnaton, Horemheb is Harmhab, Wenamun is Wenamon and Piye is Piankhi. His chronology " +
+        "is higher than the one used today: he dates Menes to 3400 BC and the Fourth Dynasty to 2900, where " +
+        "most historians now put them some three centuries later. Many of his readings have been improved " +
+        "since. Read the commentary as the judgement of its time, and the translations as the work of the scholar who made the field " +
+        "readable in English.",
+      "Breasted's own signs are kept. Half-brackets ⌈ ⌉ enclose words whose translation he thought " +
+        "uncertain; square brackets enclose restorations; runs of dashes stand for words lost in the " +
+        "original, roughly one dash to a word. The small numbers he printed through the translations, marking " +
+        "the lines of the original monument, are not reproduced, and neither are the special signs of his " +
+        "transliterations, which the scans do not preserve; his italics are lost as well.",
+      "No one has ever transcribed this book. What you are reading was taken by a program from the " +
+        "Internet Archive's machine reading of four scanned volumes, and it has not been proofread by a " +
+        "person, so expect the scanner's slips: a misread letter, a figure for a letter, a word run into " +
+        "the next. Breasted lettered his notes afresh on every printed page, and the program matched each " +
+        "note to its mark by that sequence; where it could not find the mark, about one note in fourteen, " +
+        "the note is attached at the end of the text of its own page. The tables — the Palermo Stone, the " +
+        "chronological table, Papyrus Harris's lists of gifts — come through least well, as rows of " +
+        "figures that have lost their columns.",
+    ],
+
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 94 }, (_, i) => i + 1),
+    titleOf: (n) => BOOKS["breasted-ancient-records"].plan[n - 1][2],
+    // the shortest reigns run to a single paragraph (Menkuhor, §263)
+    minChars: 400,
+    layout: "breasted",
+    /* The four scans, each the Archive's character-level OCR, and the leaves the text occupies. The fourth is
+       a Tesseract reading whose word confidences mean something, so its figure pages are filtered (see the
+       layout's comment); the first three are FineReader readings, where that filter removed real lines. */
+    volumes: [
+      { url: "https://archive.org/download/ancientrecordsof01brea_0/ancientrecordsof01brea_0_chocr.html.gz", fromLeaf: 47, toLeaf: 390 },
+      { url: "https://archive.org/download/ancientrecordsof02brea_0/ancientrecordsof02brea_0_chocr.html.gz", fromLeaf: 33, toLeaf: 460 },
+      { url: "https://archive.org/download/ancientrecordsof03brea_0/ancientrecordsof03brea_0_chocr.html.gz", fromLeaf: 35, toLeaf: 313 },
+      { url: "https://archive.org/download/ancientrecordsof0004jame_k7s1/ancientrecordsof0004jame_k7s1_chocr.html.gz", fromLeaf: 33, toLeaf: 552, noiseFilter: true },
+    ],
+    /* The parts are the top-level heads of Breasted's table of contents (Vol. I, pp. xix–xlii, which lists
+       all four volumes); the chapters are its reigns. */
+    parts: [
+      { n: 1, label: "Introduction", from: 1, to: 3 },
+      { n: 2, label: "The Palermo Stone: the First to the Fifth Dynasties", from: 4, to: 4 },
+      { n: 3, label: "The Third Dynasty", from: 5, to: 5 },
+      { n: 4, label: "The Fourth Dynasty", from: 6, to: 8 },
+      { n: 5, label: "The Fifth Dynasty", from: 9, to: 14 },
+      { n: 6, label: "The Sixth Dynasty", from: 15, to: 20 },
+      { n: 7, label: "The Ninth and Tenth Dynasties", from: 21, to: 21 },
+      { n: 8, label: "The Eleventh Dynasty", from: 22, to: 23 },
+      { n: 9, label: "The Twelfth Dynasty", from: 24, to: 30 },
+      { n: 10, label: "From the Thirteenth Dynasty to the Hyksos", from: 31, to: 34 },
+      { n: 11, label: "The Eighteenth Dynasty", from: 35, to: 50 },
+      { n: 12, label: "The Nineteenth Dynasty", from: 51, to: 59 },
+      { n: 13, label: "The Twentieth Dynasty", from: 60, to: 69 },
+      { n: 14, label: "The Twenty-First Dynasty", from: 70, to: 73 },
+      { n: 15, label: "The Twenty-Second Dynasty", from: 74, to: 82 },
+      { n: 16, label: "The Twenty-Third Dynasty", from: 83, to: 84 },
+      { n: 17, label: "The Twenty-Fourth Dynasty", from: 85, to: 85 },
+      { n: 18, label: "The Twenty-Fifth Dynasty", from: 86, to: 89 },
+      { n: 19, label: "The Twenty-Sixth Dynasty", from: 90, to: 94 },
+    ],
+    /* [volume, the § the chapter opens on, its title, and — where the machine misread that § — Breasted's
+       heading to cut at instead]. Transcribed from the table of contents; the four longest reigns (Thutmose III
+       and Hatshepsut, Thutmose III, Ramses II, Ramses III) are cut again at the documents it lists, each part
+       titled by the reign and its first document. Osorkon III's single paragraph (IV, 795) stays under its
+       dynasty's head, as do the eleventh-dynasty reigns of a paragraph or two (I, 421–433). */
+    plan: [
+      [1, 1, "The Documentary Sources of Egyptian History"],
+      [1, 38, "Chronology"],
+      [1, 58, "Chronological Table"],
+      [1, 76, "The Palermo Stone"],
+      [1, 168, "Reign of Snefru"],
+      [1, 176, "Reign of Khufu"],
+      [1, 188, "Reign of Khafre"],
+      [1, 210, "Reign of Menkure"],
+      [1, 213, "Reign of Userkaf"],
+      [1, 236, "Reign of Sahure"],
+      [1, 242, "Reign of Neferirkere"],
+      [1, 250, "Reign of Nuserre"],
+      [1, 263, "Reign of Menkuhor"],
+      [1, 264, "Reign of Dedkere-Isesi"],
+      [1, 282, "Reign of Teti"],
+      [1, 295, "Reign of Pepi I"],
+      [1, 316, "Reign of Mernere"],
+      [1, 337, "Reign of Pepi II"],
+      [1, 386, "Reign of Ity"],
+      [1, 388, "Reign of Imhotep"],
+      [1, 391, "The Ninth and Tenth Dynasties: Inscriptions of Siut"],
+      [1, 415, "The Eleventh Dynasty"],
+      [1, 434, "Reign of Nibtowere-Mentuhotep IV"],
+      [1, 460, "Chronology of the Twelfth Dynasty", "CHRONOLOGY OF THE TWELFTH"],
+      [1, 463, "Reign of Amenemhet I"],
+      [1, 498, "Reign of Sesostris I"],
+      [1, 594, "Reign of Amenemhet II"],
+      [1, 614, "Reign of Sesostris II"],
+      [1, 640, "Reign of Sesostris III"],
+      [1, 749, "Reign of Amenemhet IV"],
+      [1, 751, "Reign of Sekhemre-Khutowe"],
+      [1, 753, "Reign of Neferhotep"],
+      [1, 773, "Reign of Nubkheprure-Intef"],
+      [1, 781, "Reign of Khenzer"],
+      [2, 1, "Reign of Ahmose I"],
+      [2, 38, "Reign of Amenhotep I"],
+      [2, 54, "Reign of Thutmose I"],
+      [2, 115, "Reign of Thutmose II"],
+      [2, 128, "Reign of Thutmose III and Hatshepsut"],
+      [2, 246, "Thutmose III and Hatshepsut: The Punt Reliefs"],
+      [2, 296, "Thutmose III and Hatshepsut: Inscription of the Speos Artemidos"],
+      [2, 391, "Reign of Thutmose III: The Annals"],
+      [2, 541, "Thutmose III: Feasts and Offerings from the Conquests"],
+      [2, 663, "Thutmose III: Tomb of Rekhmire"],
+      [2, 780, "Reign of Amenhotep II"],
+      [2, 810, "Reign of Thutmose IV"],
+      [2, 841, "Reign of Amenhotep III"],
+      [2, 932, "Reign of Ikhnaton"],
+      [2, 1019, "Reign of Tutenkhamon"],
+      [2, 1042, "Reign of Eye"],
+      [3, 1, "Reign of Harmhab"],
+      [3, 74, "Reign of Ramses I"],
+      [3, 80, "Reign of Seti I"],
+      [3, 251, "Reign of Ramses II"],
+      [3, 294, "Ramses II: The Asiatic War"],
+      [3, 392, "Ramses II: Relations of Egypt with the Hittites after the War"],
+      [3, 492, "Ramses II: Building Inscriptions"],
+      [3, 569, "Reign of Merneptah"],
+      [3, 639, "Reign of Siptah"],
+      [4, 1, "Reign of Ramses III"],
+      [4, 59, "Ramses III: Northern War, Year 8"],
+      [4, 151, "Ramses III: Papyrus Harris"],
+      [4, 416, "Ramses III: Records of the Harem Conspiracy"],
+      [4, 457, "Reign of Ramses IV"],
+      [4, 473, "Reign of Ramses V"],
+      [4, 474, "Reign of Ramses VI"],
+      [4, 484, "Reign of Ramses VII"],
+      [4, 486, "Reign of Ramses IX"],
+      [4, 557, "Reign of Ramses XII"],
+      [4, 604, "The Twenty-First Dynasty"],
+      [4, 608, "Reign of Hrihor"],
+      [4, 627, "Reign of Nesubenebded"],
+      [4, 631, "Reign of the High Priest and King Paynozem I"],
+      [4, 693, "The Twenty-Second Dynasty"],
+      [4, 699, "Reign of Sheshonk I"],
+      [4, 729, "Reign of Osorkon I"],
+      [4, 738, "Reign of Takelot I"],
+      [4, 742, "Reign of Osorkon II"],
+      [4, 752, "Reign of Takelot II"],
+      [4, 756, "Reign of Sheshonk III"],
+      [4, 778, "Reign of Pemou"],
+      [4, 782, "Reign of Sheshonk IV"],
+      [4, 793, "The Twenty-Third Dynasty"],
+      [4, 796, "Reign of Piankhi"],
+      [4, 884, "Reign of Bocchoris"],
+      [4, 885, "The Twenty-Fifth Dynasty"],
+      [4, 889, "Reign of Shabaka"],
+      [4, 892, "Reign of Taharka"],
+      [4, 919, "Reign of Tanutamon"],
+      [4, 935, "Reign of Psamtik I"],
+      [4, 974, "Reign of Necho"],
+      [4, 981, "Reign of Psamtik II"],
+      [4, 984, "Reign of Apries"],
+      [4, 996, "Reign of Amasis (Ahmose II)"],
+    ],
+  },
 };
 
 /* ---------- args ---------- */
@@ -22263,6 +23859,34 @@ async function api(page, host) {
     }
   }
   throw new Error("could not fetch " + page + ": " + last);
+}
+
+/* WIKITEXT PARSED ON THE SERVER, for a book whose printed text has no one wiki page that carries it whole
+   (Nov 2026, adding the Book of the Dead). `action=parse` with `text=` renders what it is given under the
+   `title` given, so `<pages index=… from=… to=…/>` returns the run of proofread scan pages as one page in
+   the legacy markup `api` returns — the same extractors read it. Sent as a POST (the text can be long);
+   the API's rate-limit notice has no index.php fallback here, since index.php cannot render arbitrary
+   text, so the backoff is longer instead. */
+async function apiText(text, title, host) {
+  const url = "https://" + (host || "en.wikisource.org") + "/w/api.php";
+  const body = new URLSearchParams({ action: "parse", format: "json", formatversion: "2", prop: "text",
+    contentmodel: "wikitext", title: title || "Sandbox", text });
+  let last = "";
+  for (let a = 0; a < 8; a++) {
+    try {
+      const r = await fetch(url, { method: "POST", body,
+        headers: { "User-Agent": UA, Accept: "application/json" } });
+      const txt = await r.text();
+      if (/^You are making too many requests/.test(txt)) throw new Error("rate limited");
+      const d = JSON.parse(txt);
+      if (d.error) throw new Error(d.error.info || "api error");
+      return d.parse.text;
+    } catch (e) {
+      last = e.message;
+      await sleep(5000 + a * 8000);
+    }
+  }
+  throw new Error("could not parse " + (title || "text") + ": " + last);
 }
 
 /* A plain HTTPS fetch with the same backoff as `api`, for an original that does not live on a wiki.
@@ -25208,6 +26832,125 @@ function liftChapterFence(html) {
     (m, t) => '<p class="bk-head">' + t.trim() + "</p>");
 }
 
+/* ---------- ONE RUN OF SCAN PAGES, CUT AT ITS PRINTED HEADINGS (Nov 2026, the Book of the Dead) ----------
+   `cutHeads: { skip, titles }` → `cutAtHeadings(h, k, BOOK, warn)`, applied to the page `parseText` renders
+   before anything else reads it, like `cut`. Budge's selection in Egyptian Literature (1901) runs on
+   without a break from scan page 27 to 155, and every chapter opens on a `{{h|…}}` head — a `wst-heading`
+   div in the markup — usually with a `{{sh|…}}` line under it naming the papyrus the chapter is read from.
+   The wiki's own subpages cannot be used to cut it: four of the 110 transclude section names the scan
+   pages do not carry (one returns nothing at all), four printed chapters have no subpage, and two subpages
+   carry two chapters each — so the PRINTED HEADS are the only complete division.
+   The heads are COUNTED against `titles` and each is checked to carry its title's words — a missing or
+   extra head THROWS, since a fall-back would silently join two chapters or shift every title by one.
+   The first `skip` heads are the section's own title page. Part k runs from the end of head k to the
+   start of head k+1 (or the end of the transclusion); the head itself goes, since the tab carries the
+   title, but a note marker set on the head is kept at the top of the part rather than lost with it. The
+   reference list is appended, as `between` and `cut` do, and the caller keeps only the notes the part's
+   own markers open. */
+function cutAtHeadings(h, k, BOOK, warn) {
+  const { skip, titles } = BOOK.cutHeads;
+  const start = h.indexOf('<div class="prp-pages-output"');
+  if (start < 0) throw new Error("cutHeads: no transclusion in the parse");
+  const refAt = h.search(/<div class="reflist|<ol class="references"/);
+  const end = refAt > start ? refAt : h.length;
+  const words = (x) => x.replace(/<sup[\s\S]*?<\/sup>/g, "").replace(/<[^>]+>/g, " ")
+    .replace(/&#\d+;|&\w+;/g, " ").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase().replace(/[^A-Z]+/g, " ").trim().split(" ").filter(Boolean);
+  const heads = [];
+  const rx = /<div class="wst-heading"[^>]*>/g;
+  let m;
+  while ((m = rx.exec(h)) && m.index < end) {
+    if (m.index < start) continue;
+    const e = blockEnd(h, m.index, "div");
+    if (e < 0) throw new Error("cutHeads: an unbalanced heading at " + m.index);
+    heads.push({ at: m.index, end: e, html: h.slice(m.index, e) });
+    rx.lastIndex = e;
+  }
+  if (heads.length !== skip + titles.length)
+    throw new Error("cutHeads: " + heads.length + " heads, expected " + (skip + titles.length));
+  titles.forEach((t, i) => {
+    const hw = new Set(words(heads[skip + i].html));
+    // "On the Four Apes" on the contents page heads "OF THE FOUR APES" in the text
+    const miss = words(t).filter((w) => !hw.has(w) && !/^(?:ON|OF|THE)$/.test(w));
+    if (miss.length) throw new Error("cutHeads: head " + (i + 1) + " does not carry \"" + t + "\" (" + miss.join(" ") + ")");
+  });
+  if (k < 1 || k > titles.length) throw new Error("cutHeads: no part " + k);
+  const hd = heads[skip + k - 1];
+  const to = k < titles.length ? heads[skip + k].at : end;
+  const marks = (hd.html.match(/<sup[^>]*class="reference"[\s\S]*?<\/sup>/g) || []).join("");
+  if (marks) warn("a note marker on the printed head is kept at the top of the chapter");
+  let body = h.slice(hd.end, to);
+  /* A HEAD IS SET INSIDE THE PARAGRAPH FLOW: MediaWiki opens the last paragraph of a chapter before the
+     page break and closes it only after the next chapter's head, so a part cut at that head ends on an
+     unclosed <p> — and the wrapping pass then splits its last sentence off at the first inline tag (20
+     chapters, measured). Close it here; the stray </p> the next part opens with is discarded by stripTags
+     as a closer it never saw opened. */
+  const opens = (body.match(/<p\b/g) || []).length, closes = (body.match(/<\/p>/g) || []).length;
+  if (opens > closes) body += "</p>".repeat(opens - closes);
+  /* …and where the wikitext had no blank line before the chapter's last paragraph, MediaWiki gives it no
+     <p> at all: it runs bare from the last block to the head. The generic wrapping pass wraps a bare run
+     only up to its first inline tag (an italic word, a note marker), which splits the paragraph, so the
+     trailing run is wrapped whole here, inline tags and all. */
+  const lastBlock = Math.max(body.lastIndexOf("</p>"), body.lastIndexOf("</div>"), body.lastIndexOf("</blockquote>"));
+  const tail = lastBlock >= 0 ? body.slice(body.indexOf(">", lastBlock) + 1) : body;
+  if (tail.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>|<link[^>]*>|<[^>]+>|&#32;|&#160;|&#8203;|\s/g, "").length &&
+      !/<(?:p|div|blockquote|ul|ol|table)\b/.test(tail))
+    body = body.slice(0, body.length - tail.length) + "<p>" + tail + "</p>";
+  // the marker goes on the part's first line (the source line under the head), not on a line of its own
+  if (marks) { const p = body.indexOf("</p>"); body = p >= 0 ? body.slice(0, p) + marks + body.slice(p) : "<p>" + marks + "</p>" + body; }
+  /* THE RUBRICS — the spell's instructions, written in red on the papyrus — are set in SMALL CAPITALS, which
+     arrive as `<span class="smallcaps">`, a style the reader has no rule for and the tag stripper would
+     drop. `smallcaps: "rubric"` makes each one italic, so a rubric stays visibly apart from the spell (the
+     Analects' precedent). And where the transcription typed a rubric ALL IN LOWER CASE — which on the wiki
+     still displays as small capitals — the case is not recoverable from it, so the run is set in capitals,
+     which is what the printed page shows; every other run keeps the case the transcription gave it. A run
+     set with `{{asc}}` — all small capitals — is capitals whatever case it was typed in. */
+  if (BOOK.smallcaps === "rubric") {
+    const caps = (x) => x.split(/(<sup[\s\S]*?<\/sup>|<[^>]+>|&#?\w+;)/).map((y, i) => i % 2 ? y : y.toUpperCase()).join("");
+    /* `{{asc/s}}` … `{{asc/e}}` — all small capitals round WHOLE PARAGRAPHS, opened on one scan page and
+       closed on the next (three rubrics, each inside one chapter): a div with an inline style, which the
+       generic div pass would set as a quotation. Each paragraph becomes an italic one in capitals and the
+       div goes. */
+    for (let guard = 0; guard < 20; guard++) {
+      const d = /<div style="font-variant:\s*all-small-caps;?">/.exec(body);
+      if (!d) break;
+      const e = blockEnd(body, d.index, "div");
+      if (e < 0) { warn("an unclosed all-small-caps block"); break; }
+      const inner = body.slice(d.index + d[0].length, e - "</div>".length)
+        .replace(/<\/?i>/g, "")
+        .replace(/<p>([\s\S]*?)<\/p>/g, (m, x) => "<p><i>" + caps(x).trim() + "</i></p>");
+      body = body.slice(0, d.index) + inner + body.slice(e);
+      SMALLCAPS_UPPER++;
+    }
+    let low = 0, out = "", from = 0;
+    // `{{sc}}` and `{{asc}}` ("all small caps", whose every letter prints as a small capital)
+    const OPEN = /<span class="(smallcaps|wst-asc)"[^>]*>/g;
+    let m;
+    // balanced, because a rubric can carry a note marker whose brackets are spans of their own
+    while ((m = OPEN.exec(body))) {
+      const e = blockEnd(body, m.index, "span");
+      if (e < 0) { warn("an unbalanced small-capital span"); break; }
+      let inner = body.slice(m.index + m[0].length, e - "</span>".length);
+      // an italic word inside a rubric (khu) is already set apart by the rubric's own italic
+      inner = inner.replace(/<\/?i>/g, "");
+      const plain = inner.replace(/<sup[\s\S]*?<\/sup>/g, "").replace(/<[^>]+>/g, "").replace(/&#?\w+;/g, "");
+      if (m[1] === "wst-asc" || !/\p{Lu}/u.test(plain)) {
+        low++;
+        // capitals outside tags and entities, and never inside a note marker
+        inner = caps(inner);
+      }
+      out += body.slice(from, m.index) + "<i>" + inner + "</i>";
+      from = e;
+      OPEN.lastIndex = e;
+    }
+    body = out + body.slice(from);
+    if (low) SMALLCAPS_UPPER += low;
+  }
+  const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
+  return '<div class="prp-pages-output">' + body + "</div>" + (refs ? "\n" + refs[0] : "");
+}
+let SMALLCAPS_UPPER = 0;
+
 /* ---------- THE CRITIQUE OF PURE REASON: Meiklejohn's headings and tables (Nov 2026) ----------
    `prep: "kant"`, run on the RAW page (every page of a multi-page section) before the notes are gathered
    and before cleanBody, then `kantFinish` on the assembled section. Two things the 1855 transcription does
@@ -25351,6 +27094,323 @@ function painePrep(h, warn) {
   if (finis || tables) console.log("  paine: " + finis + " FINIS dropped, " + tables + " table(s) kept");
   return h;
 }
+/* ---------- EBBINGHAUS: tables, formulas and the numbered sections of Memory (Nov 2026) ----------
+   `prep: "ebbinghaus"`, run on the RAW page like `painePrep`. Ruger and Bussenius's Memory (1913) is a
+   report of experiments, and the generic passes lose its evidence without throwing:
+   · THE TABLES ARE THE RESULTS (72 of them, 27 in chapter IX alone): stripTags unwraps each into a loose run
+     of figures, one to a line, every column lost. Each is rebuilt as a `bk-table` (the Treaty of Versailles'
+     class), stashed through cleanBody in the treaty's stash and put back after it. A row whose cells carry the
+     printed double rule above them is the head row (`th`); a colspan is kept; a dotted leader cell (chapter
+     IX's schematic of a series, I(1) I(2) I(3) …… I(16)) becomes "……". A table's CAPTION is the printed
+     legend above it ("I. 19 minutes. 12 tests. Learning and relearning at the time A."), so it is set as the
+     paragraph before the table. A footnote marker inside a cell is resolved here, by the same note ids
+     cleanBody uses, since cleanBody never sees the cell.
+   · THE FORMULAS are MathML (the forgetting curve b = 100k / ((log t)^c + k) in chapter VII, √n in IV). The
+     tag stripper keeps their characters and drops their structure, so "b=100 k(log⁡t)c+k" was all that was
+     left. Each is written out on one line in the reader's tags: a fraction as (numerator)/(denominator), each
+     side bracketed unless it is one symbol, a power as <sup>, a root as √, a variable in italic.
+   · THE SUBSCRIPTS (P.E.<sub>m</sub>, the probable error of the mean; M<sub>o</sub>) — `sub` is not in
+     ALLOWED, and "P.E.m" reads as an abbreviation. Carried through as a placeholder and put back.
+   · THE NUMBERED SECTIONS (1–42, by which the book is cited) are centred italic heads, and every centred block
+     becomes a quotation. Each is set as a `bk-head` line; the chapter's own head above the first (the running
+     title "MEMORY", "CHAPTER VII" and its title in capitals) goes, the tab naming the chapter.
+   · THE DEFINITIONS OF THE SYMBOLS (chapter VII's "L the time of first learning…") are hanging-indented
+     divs, which would also become quotations; each is a paragraph.
+   · A SECOND FOOTNOTE LIST: a note numbered in its own group ("[* 1]", on a table's column head in VII and a
+     table in IX) is printed in a list of its own, which notesOf does not read, so its marker opened nothing.
+     Its items are moved into the main list, where their ids resolve as any other note's. */
+const EBB_HEAD = "@@EBH@@", EBB_SUB = "@@EBS@@", EBB_SUBEND = "@@EBZ@@";
+const EBB = { padding: 0, decimals: 0, runs: 0, figures: 0, tables: 0, captions: 0, maths: 0, subs: 0, heads: 0, chapterHeads: 0, defs: 0, groupNotes: 0 };
+// one MathML fragment, written out as a line of the reader's inline markup
+function ebbMath(xml, warn) {
+  const toks = xml.replace(/<annotation[\s\S]*?<\/annotation>/g, "").match(/<\/?[a-zA-Z]+[^>]*>|[^<]+/g) || [];
+  let i = 0;
+  function node() {
+    const t = toks[i++];
+    const m = /^<([a-zA-Z]+)([^>]*?)(\/?)>$/.exec(t);
+    if (!m) return { tag: "#text", text: t, kids: [] };
+    const n = { tag: m[1], attrs: m[2], kids: [] };
+    if (m[3]) return n;
+    while (i < toks.length && !/^<\//.test(toks[i])) n.kids.push(node());
+    i++;
+    return n;
+  }
+  const root = node();
+  // U+2061, FUNCTION APPLICATION, is the invisible operator between "log" and "t": a space, or "logt"
+  const txt = (s) => s.replace(/&nbsp;|&#160;|\u00a0/g, " ").replace(/\u2061|&#x2061;|&#8289;/g, " ").replace(/\s+/g, " ");
+  const flat = (n) => n.tag === "#text" ? [n] : ["mrow", "mstyle", "semantics", "math"].includes(n.tag)
+    ? n.kids.flatMap(flat) : [n];
+  const atom = (n) => { const f = flat(n).filter((x) => !(x.tag === "#text" && !x.text.trim()) && !(x.tag === "mtext" && !txt(r(x)).trim()));
+    return f.length === 1 && ["mi", "mn", "msup"].includes(f[0].tag); };
+  function r(n) {
+    switch (n.tag) {
+      case "#text": return txt(n.text);
+      case "mi": {
+        const s = n.kids.map(r).join("");
+        return s.length === 1 && !/mathvariant="normal"/.test(n.attrs) ? "<i>" + s + "</i>" : s;
+      }
+      case "mn": case "mtext": return n.kids.map(r).join("");
+      case "mo": {
+        const s = n.kids.map(r).join("");
+        if (!s.trim()) return s ? " " : "";
+        return /^[=+−\-×]$/.test(s.trim()) ? " " + s.trim() + " " : s.trim();
+      }
+      case "mfrac": {
+        const side = (k) => atom(k) ? r(k).trim() : "(" + r(k).trim() + ")";
+        return side(n.kids[0]) + "/" + side(n.kids[1]);
+      }
+      case "msup": return r(n.kids[0]).trim() + "<sup>" + r(n.kids[1]).trim() + "</sup>";
+      case "msqrt": { const s = n.kids.map(r).join("").trim(); return "√" + (n.kids.length === 1 && atom(n.kids[0]) ? s : "(" + s + ")"); }
+      case "math": case "mrow": case "mstyle": case "semantics": return n.kids.map(r).join("");
+      default: warn("a MathML element ebbMath does not know: <" + n.tag + ">"); return n.kids.map(r).join("");
+    }
+  }
+  return r(root).replace(/\s+/g, " ").replace(/\( /g, "(").replace(/ \)/g, ")").trim();
+}
+/* A NUMBER SPLIT AT ITS DECIMAL POINT: 21 of the tables set the decimals in a column of their own, so the figures
+   align on the point (89 | .5, 11 | . for "11."), and a header spans the pair. Read cell by cell that is two
+   numbers. A column is a decimal column when every cell of the body starting in it is a point and digits, or a
+   point alone, or empty, and at least one has digits; it is folded into the column before it — ".5" appended,
+   a bare "." dropped — and every cell spanning both columns loses one from its colspan. Worked on a grid, so a
+   rowspan above a row keeps its columns, and from the right so the indices hold. */
+function ebbDecimals(rows, warn) {
+  const grid = () => {
+    const occ = [];
+    rows.forEach((r, i) => {
+      let col = 0;
+      r.forEach((c) => {
+        while (occ[i] && occ[i][col]) col++;
+        c.col = col;
+        c.cs = +((c.span.match(/colspan="(\d+)"/) || [0, 1])[1]);
+        const rs = +((c.span.match(/rowspan="(\d+)"/) || [0, 1])[1]);
+        for (let a = 0; a < rs; a++) for (let b = 0; b < c.cs; b++) (occ[i + a] = occ[i + a] || [])[col + b] = c;
+        col += c.cs;
+      });
+    });
+    return occ;
+  };
+  for (let guard = 0; guard < 40; guard++) {
+    const occ = grid();
+    const width = Math.max(...occ.map((r) => (r ? r.length : 0)));
+    let j = -1;
+    for (let k = width - 1; k > 0 && j < 0; k--) {
+      const own = rows.map((r, i) => (occ[i] || [])[k]).filter((c, i) => c && !c.th && c.col === k && c.cs === 1 && rows[i].includes(c));
+      if (!own.length || !own.some((c) => /^\.\d+$/.test(c.html))) continue;
+      if (!own.every((c) => /^\.\d*$/.test(c.html) || !c.html)) continue;
+      j = k;
+    }
+    if (j < 0) return;
+    EBB.decimals++;
+    rows.forEach((r, i) => {
+      const c = (occ[i] || [])[j];
+      if (!c || !r.includes(c)) return;
+      if (c.col < j || c.cs > 1) { c.span = c.span.replace(/colspan="(\d+)"/, (m, n) => +n - 1 > 1 ? 'colspan="' + (n - 1) + '"' : "").trim(); return; }
+      const d = occ[i][j - 1];
+      if (!d || !r.includes(d) || d.col + d.cs - 1 !== j - 1) {
+        if (c.html) warn("a decimal with no figure before it: " + c.html);
+        r.splice(r.indexOf(c), 1);
+        return;
+      }
+      if (c.html && c.html !== ".") d.html += c.html;
+      r.splice(r.indexOf(c), 1);
+    });
+  }
+  warn("ebbDecimals did not settle");
+}
+function ebbinghausPrep(h, warn) {
+  // the group list's items into the main list
+  const grouped = [];
+  h = h.replace(/<ol class="references" data-mw-group="[^"]*">([\s\S]*?)<\/ol>/g, (m, items) => {
+    EBB.groupNotes += (items.match(/<li id="cite/g) || []).length;
+    grouped.push(items);
+    return "";
+  });
+  if (grouped.length) {
+    if (!/<ol class="references">/.test(h)) warn("a grouped note list with no main list to join");
+    h = h.replace(/(<ol class="references">[\s\S]*?)(<\/ol>)/, (m, a, b) => a + grouped.join("") + b);
+  }
+  const ids = notesOf(h).ids;
+  const sub = (s) => s.replace(/<sub\b[^>]*>([\s\S]*?)<\/sub>/g, (m, x) => { EBB.subs++; return EBB_SUB + x + EBB_SUBEND; });
+  const maths = (s) => s.replace(/<math\b[\s\S]*?<\/math>/g, (m) => { EBB.maths++; return ebbMath(m, warn); });
+  h = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link\b[^>]*>/g, "");
+  h = maths(h);
+  /* THE FIGURES (Ebbinghaus's curve of errors in II, his curves of learning in IV and V) — the Library sets no
+     pictures. Five of the six stand in a centred block in the MIDDLE of a sentence ("how often a [Fig. 1]
+     deviation of a certain value occurs"), so the block goes whole and the sentence closes over it; left to
+     `dropFigures`, the empty block split the paragraph and the run after it lost its paragraph. */
+  h = h.replace(/(?:<div class="wst-center[^"]*">\s*)?(?:<span class="anchor" id="[^"]*"><\/span>\s*)?<figure\b[\s\S]*?<\/figure>(?:\s*<\/div>)?/g,
+    (m) => { if (/^<div/.test(m) !== /<\/div>$/.test(m)) warn("a figure half inside a centred block"); EBB.figures++; return ""; });
+  /* A PARAGRAPH THAT OPENS A PAGE AFTER A </p>, with no <p> of its own (four: the wikitext's page joins). The
+     generic loose-run pass wraps such a run only up to its first italic ("the vertical line <i>m n</i>"),
+     leaving the rest outside every paragraph, so each is wrapped here, whole: to its own stray </p> where
+     there is one, else to the next block. */
+  h = h.replace(/<\/p>\n(?=[^<\s])/g, (m, at, all) => {
+    const rest = all.slice(at + m.length);
+    const nx = /<\/p>|<(?:p|div|table)\b/.exec(rest);
+    EBB.runs++;
+    return "</p>\n<p>" + (nx && nx[0] !== "</p>" ? "\u0008" : "");
+  });
+  h = h.replace(/<p>\u0008([\s\S]*?)(?=<(?:p|div|table)\b)/g, (m, x) => "<p>" + x.replace(/\s+$/, "") + "</p>\n");
+  // a cell's or a caption's contents: inline markup only, the markers resolved, the subscripts real
+  const inline = (c) => {
+    let x = c.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+      const k = ids.indexOf(tgt.replace(/&#95;/g, "_"));
+      if (k < 0) warn("a table's footnote marker points at no note: " + tgt);
+      return k < 0 ? "" : "\u0006" + (k + 1) + "\u0007";
+    });
+    x = x.replace(/<span class="pagenum[\s\S]*?<\/span><\/span>/g, "")
+      // alignment padding: a "½" set in transparent ink so 2 lines up under 2½ — not text
+      .replace(/<span style="color: ?transparent;?">[^<]*<\/span>/g, () => { EBB.padding++; return ""; })
+      .replace(/<span class="wst-gap[^"]*"[^>]*><\/span>/g, " ")
+      .replace(/<sub\b[^>]*>([\s\S]*?)<\/sub>/g, (m, y) => { EBB.subs++; return "\u0002" + y + "\u0003"; })
+      .replace(/<br\s*\/?>/g, "\u0001")
+      .replace(/<(\/?)(i|b|sup)\b[^>]*>/g, "\u0004$1$2\u0004")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&#160;|&nbsp;|&#32;/g, " ").replace(/\s+/g, " ")
+      .replace(/\u0004(\/?)(i|b|sup)\u0004/g, "<$1$2>")
+      .replace(/\s*\u0001\s*/g, "<br>").replace(/\u0002/g, "<sub>").replace(/\u0003/g, "</sub>")
+      .replace(/\u0006(\d+)\u0007/g, '<sup class="fn" data-fn="$1"></sup>');
+    return x.replace(/^(?:<br>)+|(?:<br>)+$/g, "").trim();
+  };
+  h = h.replace(/<table\b[^>]*>([\s\S]*?)<\/table>/g, (m, inner) => {
+    EBB.tables++;
+    let cap = "";
+    inner = inner.replace(/<caption\b[^>]*>([\s\S]*?)<\/caption>/, (mm, c) => { cap = inline(c); return ""; });
+    const rows = (inner.match(/<tr\b[\s\S]*?<\/tr>/g) || []).map((tr) =>
+      [...tr.matchAll(/<(t[dh])\b([^>]*)>([\s\S]*?)<\/\1>/g)].map((c) => {
+        let html = inline(c[3]);
+        if (!html && /dotted/.test(c[2])) html = "……";
+        return { th: c[1] === "th" || /border-top:\s*4px double/.test(c[2]),
+          span: (c[2].match(/\b(?:col|row)span="\d+"/g) || []).join(" "), html };
+      }));
+    if (!rows.length) { warn("a table with no rows"); return ""; }
+    ebbDecimals(rows, warn);
+    const html = '<div class="bk-table"><table>' + rows.map((r) => "<tr>" + r.map((c) => {
+      const tag = c.th ? "th" : "td";
+      return "<" + tag + (c.span ? " " + c.span : "") + ">" + c.html + "</" + tag + ">";
+    }).join("") + "</tr>").join("") + "</table></div>";
+    TREATY_STASH.push(html);
+    if (cap) EBB.captions++;
+    return (cap ? "<p>" + cap.replace(/<\/?sub>/g, (t) => t[1] === "/" ? EBB_SUBEND : EBB_SUB) + "</p>" : "") +
+      "<p>" + TREATY_TABLE + (TREATY_STASH.length - 1) + "@@</p>";
+  });
+  if (/<\/?t(?:able|r|d|h)\b/.test(h)) warn("table markup left over after ebbinghausPrep");
+  h = sub(h);
+  // the centred heads: the chapter's own head goes, each numbered section is a head line
+  h = h.replace(/<div class="mw-heading[^"]*">[\s\S]*?<\/div>/g, "");
+  h = h.replace(/<div class="wst-center[^"]*">([\s\S]*?)<\/div>/g, (m, inner) => {
+    inner = inner.replace(/<span id="[^"]*" title="Anchor:[^"]*" class="wst-anchor">([\s\S]*?)<\/span>/g, "$1")
+      // the em space after "Section 19." — a character from api.php, an entity from the index.php fallback
+      .replace(/\u2003|&#8195;|&emsp;/g, " ");
+    // chapter IX's display of a series reversed, centred mid-sentence: a line of the paragraph, not a quotation
+    if (/^\s*<p>I\(16\)/.test(inner)) { EBB.lines = (EBB.lines || 0) + 1; return inner; }
+    const secs = [...inner.matchAll(/<i>\s*(Section \d+\.[\s\S]*?)\s*<\/i>/g)].map((x) => x[1].replace(/\s+/g, " "));
+    const text = inner.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    if (/^(?:MEMORY )?CHAPTER [IVX]+\b/.test(text)) {
+      EBB.chapterHeads++;
+      EBB.heads += secs.length;
+      return secs.map((s) => "<p>" + EBB_HEAD + "<i>" + s + "</i></p>").join("\n");
+    }
+    if (secs.length === 1 && /^Section \d+\./.test(text)) { EBB.heads++; return "<p>" + EBB_HEAD + "<i>" + secs[0] + "</i></p>"; }
+    return m;
+  });
+  // the definitions of the symbols, hanging-indented
+  h = h.replace(/<div class="tiInherit" style="text-indent:-2em; margin-left:2em;">([\s\S]*?)<\/div>/g,
+    (m, x) => { EBB.defs++; return "<p>" + x + "</p>"; });
+  return h;
+}
+// put back what ebbinghausPrep carried through cleanBody
+function ebbinghausFinish(html) {
+  return html.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k])
+    .replace(new RegExp("<p>" + EBB_HEAD, "g"), '<p class="bk-head">')
+    .replace(new RegExp(EBB_SUB, "g"), "<sub>").replace(new RegExp(EBB_SUBEND, "g"), "</sub>")
+    .replace(/<p>(?:\s|<br>)*<\/p>\s*/g, "")
+    // the transcription's blank line at the head of a paragraph after a table or a formula
+    .replace(/<p><br>\n?/g, "<p>");
+}
+
+/* ---------- THE COMMUNIST MANIFESTO: one base page, two parts, and centred heads (Nov 2026) ----------
+   `prep: "manifesto"` → `manifestoPrep(h, page, warn)` on every raw page before the notes are gathered and before
+   cleanBody, then `manifestoFinish` on the assembled part. Two things about the Kerr transcription of Moore's
+   translation that the generic passes get silently wrong:
+   · THE BASE PAGE IS FIVE TRANSCLUSIONS AND AN ADVERTISEMENT BOX. `Manifesto of the Communist Party` transcludes the
+     paper cover (djvu 3), the title page (5), Engels's preface of 1888 (7–14), its two-note reference list, and the
+     first page of the Manifesto itself (15, "A spectre is haunting Europe" — the opening that stands before Part I),
+     then five pages of Kerr's advertisements in a collapsed box. cleanBody would take everything from the first
+     wrapper on: the cover's price and imprint as quotations, the preface, the opening and the publisher's list as
+     one part. So the page is cut by its own scan-page indexes: Part 1 (the Preface) from the wrapper holding the
+     `Preface` anchor to the wrapper of djvu page 15, which keeps the preface's note list; the opening from that
+     wrapper to the advertisement box. A missing landmark THROWS — a fall-back to the whole page would ship the cover
+     and the advertisements as text.
+   · EVERY HEAD IS A CENTRED BLOCK, which the generic div pass turns into a quotation. The FIRST centred block of a
+     page is the part's printed head, which the tab already names, and it goes — except where it carries a
+     footnote marker (Part I's, whose note explains "bourgeoisie" and "proletariat"), where it is kept as a heading
+     so the note keeps its anchor; that also marks where Part I begins below the opening, which is set at the head
+     of Part I's tab as Rousseau's preambles are (see cutAtChapterHeads). Every later centred block — Part III's
+     subheads, and the one `wst-block-center` that sets "1. Reactionary Socialism. / a. Feudal Socialism." — is a
+     heading: fenced here and lifted to one `bk-head` paragraph by manifestoFinish, its lines kept as `<br>`.
+     Engels's signature (a `wst-right` div) is unwrapped to a paragraph rather than left to become a quotation.
+   Gated on `prep === "manifesto"`, so inert on every other book. */
+const MANIFESTO_HEAD = "@@MNH@@";
+const MANIFESTO = { heads: 0, dropped: 0, lifted: 0 };
+function manifestoPrep(h, page, warn) {
+  const wraps = [];
+  for (let i = -1; (i = h.indexOf('<div class="prp-pages-output"', i + 1)) >= 0;) wraps.push(i);
+  const wrapOf = (at) => { let w = -1; for (const x of wraps) if (x <= at) w = x; return w; };
+  if (!/\//.test(page)) {
+    const pre = h.indexOf('<span class="anchor" id="Preface"');
+    const p15 = h.indexOf('data-page-index="15"');
+    const ads = h.indexOf('<div class="mw-collapsible', p15);
+    if (pre < 0 || p15 < 0 || ads < 0 || !(pre < p15 && p15 < ads))
+      throw new Error("manifesto: the base page's landmarks moved (Preface " + pre + ", page 15 " + p15 + ", box " + ads + ")");
+    const a = wrapOf(pre), b = wrapOf(p15);
+    if (a < 0 || b <= a) throw new Error("manifesto: the Preface and page 15 are not in two transclusions");
+    h = MANIFESTO_BASE_PART === "preface" ? h.slice(a, b) : h.slice(b, ads);
+  }
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  let first = true;
+  for (let guard = 0, at = 0; guard < 200; guard++) {
+    const rx = /<div class="(?:wst-center|wst-block-center|wst-right)\b[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(h);
+    if (!m) break;
+    const end = blockEnd(h, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = h.slice(m.index + m[0].length, end - "</div>".length);
+    let out;
+    if (/wst-right/.test(m[0])) out = inner;
+    else if (textOf(inner).length > 200) {
+      warn('a centred block is not a heading and was kept as text: "' + textOf(inner).slice(0, 60) + '"');
+      out = inner;
+    } else if (first && !/<sup\b[^>]*class="reference"/.test(inner)) {
+      MANIFESTO.dropped++;
+      out = "";
+    } else {
+      const x = inner.replace(/<style[\s\S]*?<\/style>|<link\b[^>]*>/g, "")
+        .replace(/<\/?(?:p|div)\b[^>]*>/g, "<br>").replace(/<br\s*\/?>/g, "<br>")
+        .replace(/(?:\s*<br>\s*)+/g, "<br>").replace(/^(?:\s*<br>)+|(?:<br>\s*)+$/g, "").trim();
+      MANIFESTO.heads++;
+      out = "<p>" + MANIFESTO_HEAD + x + MANIFESTO_HEAD + "</p>";
+    }
+    if (!/wst-right/.test(m[0])) first = false;
+    h = h.slice(0, m.index) + out + h.slice(end);
+    at = m.index + out.length;
+  }
+  return h;
+}
+let MANIFESTO_BASE_PART = "preface";
+function manifestoFinish(html, warn) {
+  let out = html.replace(new RegExp("<p>\\s*" + MANIFESTO_HEAD + "([\\s\\S]*?)" + MANIFESTO_HEAD + "\\s*</p>", "g"),
+    (m, x) => { MANIFESTO.lifted++; return '<p class="bk-head">' + x.trim() + "</p>"; });
+  out = out.replace(new RegExp(MANIFESTO_HEAD + "([\\s\\S]*?)" + MANIFESTO_HEAD, "g"),
+    (m, x) => { warn("a heading fence outside its own paragraph: " + x.slice(0, 60)); return x; });
+  // the scan pages' spacer lines: a paragraph of nothing but line breaks, and breaks closing a paragraph
+  out = out.replace(/\n?<p>(?:\s|<br>)*<\/p>/g, "").replace(/(?:\s*<br>)+\s*<\/p>/g, "</p>")
+    .replace(/<p class="bk-head">(?:\s*<br>)+/g, '<p class="bk-head">');
+  return out;
+}
+
 const KANT_HEAD = "@@KNH@@", KANT_STARS = "@@KNA@@";
 function kantPrep(h, warn) {
   let b = h;
@@ -34884,6 +36944,902 @@ function extractPgChapters(vols, BOOK, warn) {
   return { chapters: out, counts: c };
 }
 
+/* ============================================================
+   A TRANSCRIPTION IN CLASSICS IN THE HISTORY OF PSYCHOLOGY, ONE PAGE PER LECTURE     (layout: "york")
+   ============================================================
+   Nov 2026, adding Pavlov's Conditioned Reflexes — the first book from Christopher D. Green's site at York
+   University. Twenty-four pages (`BOOK.url(n)`, the last the Bibliography), each cached as `en-<n>.html`.
+   What it settled, each a quiet failure if missed:
+   · THE PAGES ARE windows-1252, read as bytes and decoded as such (`fetchBuffer`): read as UTF-8 every ½, °
+     and é became a replacement character, and nothing threw.
+   · THE MARKUP IS NOT NESTED, so `stripTags` cannot be used: Word 97 writes `<B><P>LECTURE I</P></B>` and
+     `<I><P>…</P></I>`, an inline element wrapped round block ones, and a stack-based pass then drops the
+     closers it cannot match (paragraphs run together, or the italic runs on). `yorkFlat` reads the page as a
+     flat run instead — every <p>, <center>, <div>, <h…> or <hr> is a paragraph break, and <i> / <b> are
+     STATES, closed at each break and reopened after it — so every paragraph it returns is balanced.
+   · WHERE A LECTURE BEGINS: just after its "LECTURE IV" head, which the tab names; Lecture XIV's page has
+     no head, so it begins after the page's header ("Posted …"), and the Bibliography after the editor's note.
+     Each lecture's first paragraph is Pavlov's summary of it, set in italics whole (the transcription
+     italicises it with its small words roman, which is Word's damage, not the book's).
+   · THE EDITOR'S INSERTIONS GO: his page numbers "[p. 34]" (some across a line break), the "[sic]" he adds,
+     and the square brackets he puts round a reference number — the note marker is set without them.
+   · THE TABLES ARE PICTURES on this site: each <img> is looked up in `BOOK.tablesFile` (typed from the
+     pictures) and set as a `bk-table`, its caption lines above it and its notes below; a picture named in
+     `BOOK.figures`, or any `fig…` picture, is left out and counted. A picture found in neither THROWS.
+   · THE CORRECTIONS (`fixes`, through `correctRaw`) run on the flattened paragraphs, before the tables are
+     put back, so a row is written against the prose a reader sees with its whitespace collapsed. */
+function yorkDecode(s) {
+  const named = { nbsp: " ", quot: '"', eacute: "é", ocirc: "ô", uuml: "ü", ouml: "ö", auml: "ä", aelig: "æ",
+    deg: "°", egrave: "è", agrave: "à", ccedil: "ç", amp: "&amp;", lt: "&lt;", gt: "&gt;" };
+  return s.replace(/&([a-zA-Z]+);/g, (w, k) => (k in named ? named[k] : w))
+    .replace(/&#(\d+);/g, (w, d) => String.fromCharCode(+d));
+}
+function yorkFlat(s) {
+  const paras = [];
+  let cur = "", it = false, bd = false, center = false;
+  const open = () => (it ? "<i>" : "") + (bd ? "<b>" : "");
+  const brk = (nextCenter) => {
+    paras.push({ html: cur + (bd ? "</b>" : "") + (it ? "</i>" : ""), center: center });
+    cur = open();
+    center = nextCenter;
+  };
+  const rx = /<(\/?)([a-zA-Z0-9]+)([^>]*)>/g;
+  let pos = 0, m;
+  while ((m = rx.exec(s))) {
+    cur += s.slice(pos, m.index);
+    pos = rx.lastIndex;
+    const close = !!m[1], name = m[2].toLowerCase(), attrs = m[3];
+    if (/^(p|div|h[1-6]|hr|blockquote|table|tr|td)$/.test(name)) brk(!close && /align\s*=\s*["']?center/i.test(attrs));
+    else if (name === "center") brk(!close);
+    /* a change of either state closes both and reopens what is still on, always <i> outside <b>, so Word's
+       crossed tags (`<B> <I></B></I>`) can never come out crossed */
+    else if (/^(i|em|b|strong)$/.test(name)) {
+      const was = (bd ? "</b>" : "") + (it ? "</i>" : "");
+      if (name === "i" || name === "em") it = !close; else bd = !close;
+      cur += was + open();
+    }
+    else if (name === "br") cur += " ";
+  }
+  cur += s.slice(pos);
+  brk(false);
+  return paras.map((p) => {
+    let h = yorkDecode(p.html).replace(/\s+/g, " ");
+    for (let k = 0; k < 3; k++)
+      h = h.replace(/<(i|b)>(\s*)<\/\1>/g, "$2").replace(/<\/(i|b)>(\s*)<\1>/g, "$2");
+    h = h.replace(/<(i|b)>(\s+)/g, "$2<$1>").replace(/(\s+)<\/(i|b)>/g, "</$2>$1");
+    return { html: h.trim(), center: p.center };
+  }).filter((p) => p.html && !/^(?:<\/?[ib]>|\s)*$/.test(p.html));
+}
+function yorkTable(t, file) {
+  const e = (x) => String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const cell = (c, tag) => (typeof c === "string" ? "<" + tag + ">" + e(c) + "</" + tag + ">"
+    : "<" + tag + ' colspan="' + c.span + '">' + e(c.t) + "</" + tag + ">");
+  let h = (t.above || []).map((x) => '<p class="bk-head">' + e(x) + "</p>").join("\n");
+  if (t.rows && t.rows.length) {
+    h += (h ? "\n" : "") + '<div class="bk-table"><table>' +
+      (t.header || []).map((r) => "<tr>" + r.map((c) => cell(c, "th")).join("") + "</tr>").join("") +
+      t.rows.map((r) => "<tr>" + r.map((c) => cell(c, "td")).join("") + "</tr>").join("") + "</table></div>";
+  } else if (!(t.below || []).length) throw new Error("the table " + file + " is empty");
+  h += (t.below || []).map((x) => "\n<p>" + e(x) + "</p>").join("");
+  return h;
+}
+function extractYork(raw, n, BOOK, tables, warn, c) {
+  let s = raw.replace(/\r\n?/g, "\n").replace(/<head\b[\s\S]*?<\/head>/i, "")
+    .replace(/<!--[\s\S]*?-->/g, "").replace(/<!\[[^\]]*\]>/g, "");
+  /* where the text begins */
+  const head = /LECTURE(?:\s|<\/?b>|&nbsp;|<\/?font[^>]*>)*[IVXL]+\b/.exec(s);
+  if (head) s = s.slice(head.index + head[0].length);
+  else {
+    const ends = [...s.matchAll(/Posted [A-Za-z]+ \d{4}|-cdg-\s*(?:<\/i>)?\s*\]/gi)].map((x) => x.index + x[0].length);
+    if (!ends.length) throw new Error("lecture page " + n + ": no head and no header to begin after");
+    s = s.slice(Math.max(...ends));
+  }
+  /* the notes */
+  const notes = {};
+  const fh = />\s*Footnotes?\s*</i.exec(s);
+  if (fh) {
+    const tail = s.slice(fh.index + 1);
+    s = s.slice(0, fh.index + 1);
+    const parts = tail.split(/<a name="f(\d+)"[^>]*>\s*<\/a>/i);
+    for (let k = 1; k < parts.length; k += 2) {
+      const t = yorkFlat(parts[k + 1]).map((p) => p.html).join(" ").replace(/^\]?\s*\[?\s*\d+\s*\]\s*/, "")
+        .replace(/\[<i>sic<\/i>\]|\[sic\]/g, "").trim();
+      notes[parts[k]] = correctRaw(t.replace(/\s*(?:<i>)?--(?:<\/i>)?\s*/g, "—"));
+      c.notes++;
+    }
+  }
+  /* the markers, without the editor's brackets */
+  const anchored = new Set();
+  s = s.replace(/(?:\[\s*|\(\s*)?(?:<sup>\s*)?<a href="#f(\d+)"[^>]*>[^<]*<\/a>(?:\s*<\/sup>)?(?:\s*\]|\s*\))?/gi, (w, k) => {
+    c.marks++;
+    anchored.add(k);
+    return "@@FN" + k + "@@";
+  });
+  /* one marker the site set as plain text, "(1898),[12]": a bare [N] whose note no link reaches */
+  s = s.replace(/\[(\d{1,2})\]/g, (w, k) => {
+    if (notes[k] === undefined || anchored.has(k)) return w;
+    c.marks++;
+    c.bare++;
+    anchored.add(k);
+    return "@@FN" + k + "@@";
+  });
+  /* the editor's insertions */
+  c.pages += (s.match(/\[p\.\s*\d+\s*\]/g) || []).length;
+  s = s.replace(/\s*\[p\.\s*\d+\s*\]/g, " ");
+  c.sic += (s.match(/\[\s*(?:<i>)?\s*sic\s*(?:<\/i>)?\s*\]/gi) || []).length;
+  s = s.replace(/\[\s*(?:<i>)?\s*sic\s*(?:<\/i>)?\s*\]/gi, "");
+  /* the pictures: a table becomes a placeholder paragraph */
+  const stash = [];
+  s = s.replace(/<img\b[^>]*src="([^"]+)"[^>]*>/gi, (w, f) => {
+    if (/^fig/i.test(f) || (BOOK.figures || []).includes(f)) { c.figures++; return " "; }
+    if (!tables[f]) throw new Error("lecture page " + n + ": a picture " + f + " that is neither a typed table nor a figure");
+    stash.push(yorkTable(tables[f], f));
+    c.tables++;
+    return "<p>@@YT" + (stash.length - 1) + "@@<p>";
+  });
+  let paras = yorkFlat(s);
+  if (n === 24 && /^(?:<b>)?BIBLIOGRAPHY(?:<\/b>)?$/.test(paras[0].html)) paras.shift();
+  if (n < 24) {
+    /* the summary: italic whole */
+    paras[0] = { html: "<i>" + paras[0].html.replace(/<\/?i>/g, "") + "</i>", center: false };
+    c.summaries++;
+  }
+  let h = paras.map((p) => {
+    if (/^@@YT\d+@@$/.test(p.html)) return p.html;
+    if (/@@YT/.test(p.html)) warn("lecture " + n + ": a table placeholder inside a paragraph: " + p.html.slice(0, 60));
+    if (p.center && n === 24) { c.heads++; return '<p class="bk-head">' + p.html + "</p>"; }
+    if (p.center && /@@FN/.test(p.html) === false && p.html.length < 120 && !/[.:]$/.test(p.html.replace(/<[^>]+>/g, ""))) {
+      warn("lecture " + n + ": a short centred line kept as a paragraph: " + p.html);
+    }
+    return "<p>" + p.html + "</p>";
+  }).join("\n");
+  /* the site types the printed dash as "--" (the page closes it up: "nervous activity—varying") */
+  c.dashes += (h.match(/--/g) || []).length;
+  h = h.replace(/\s*--\s*/g, "—");
+  h = correctRaw(h);
+  /* the notes, renumbered from 1 in citing order */
+  const seen = [], map = {};
+  h = h.replace(/\s*@@FN(\d+)@@/g, (w, k) => {
+    if (!map[k]) {
+      if (notes[k] === undefined) { warn("lecture " + n + " cites a note " + k + " that is not printed"); return ""; }
+      seen.push(notes[k]); map[k] = seen.length;
+    }
+    return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+  });
+  const orphan = Object.keys(notes).filter((k) => !map[k]);
+  if (orphan.length) warn("lecture " + n + ": note(s) " + orphan.join(", ") + " printed but never cited");
+  h = h.replace(/@@YT(\d+)@@/g, (w, i) => stash[+i]).replace(/<p>(<p class="bk-head">|<div class="bk-table">)/g, "$1");
+  h = h.replace(/<p>((?:<p class="bk-head">[\s\S]*?<\/p>\n?)*<div class="bk-table">[\s\S]*?<\/div>(?:\n<p>[\s\S]*?<\/p>)*)<\/p>/g, "$1");
+  if (/@@/.test(h)) warn("lecture " + n + ": a placeholder was left in the text");
+  return { n: n, html: h, notes: seen };
+}
+
+/* `prep: "thorndike"` — Nov 2026, adding Thorndike's Animal Intelligence (Gutenberg ebook 69904). The same
+   reader as James's, but the transcriber set this file differently in five ways, and each is put into the
+   shape `extractPgChapters` reads BEFORE it runs, so the reader itself is unchanged:
+   · the division rule is `<hr class="chap x-ebookmaker-drop">` (the reader matches `<hr class="chap"…`
+     only with nothing between the class's quotes);
+   · ALL the notes stand in one FOOTNOTES division after chapter VII, numbered 1–46 across the book, and
+     their anchors are bare (`Footnote_12`, not `Footnote_12_12`). Each note is moved to the foot of the
+     division holding its FIRST marker, in James's anchor form, and the markers are rewritten to match;
+     a note cited twice (two table cells cite 34, two 40: 48 markers for 46 notes) stays one note, as the reader already handles;
+   · a chapter's head is ONE `<h2>` — "CHAPTER IV<br>" and the title, a note sometimes on the title. It
+     becomes James's pair, an `<h5>` numeral (which `chapterHead` finds) and an `<h4>` title (dropped as
+     the tab names it, kept as a head line where it carries a note); the Preface's `<h2>` an `<h4>`;
+   · the heads INSIDE a chapter are `<h3>`, `<h4>` and `<h5>` (sections, subsections, "Table 4"), which
+     the reader drops or holds as James's numeral lines — so they are moved to `<h6>`, a head it keeps;
+     and the running title over chapter I (`<h1>ANIMAL INTELLIGENCE</h1>`) goes; a figure's class carries
+     its width (`figcenter illowp48`), so it is cut to the bare class the reader drops with its caption;
+     and a `<ul>` (ages, a schedule) becomes one paragraph, an item to a line;
+   · a table is a bare `<table>` (wrapped in the `<div class="center">` the reader stashes), and a
+     quotation a `<div class="blockquote">` (made a `<blockquote>`). Every count is checked, so a change
+     upstream throws rather than shifting a note into the wrong chapter. */
+function thorndikePrep(h, warn) {
+  const count = (rx) => (h.match(rx) || []).length;
+  const want = (what, n, rx) => { const k = count(rx); if (k !== n) throw new Error("thorndike: expected " + n + " " + what + ", found " + k); };
+  want("division rules", 13, /<hr class="chap x-ebookmaker-drop">/g);
+  h = h.replace(/<hr class="chap x-ebookmaker-drop">/g, '<hr class="chap">');
+  /* the notes, out of their own division */
+  const fs0 = h.indexOf('<div class="footnotes">');
+  if (fs0 < 0) throw new Error("thorndike: no FOOTNOTES division");
+  const fs1 = pgDivEnd(h, fs0);
+  const notes = [];
+  pgTakeDivs(h.slice(fs0, fs1), "footnote", (blk) => {
+    const k = /<a id="Footnote_(\d+)" href="#FNanchor_\d+" class="label">\[\d+\]<\/a>\s*/.exec(blk);
+    if (!k) throw new Error("thorndike: a note without its label: " + blk.slice(0, 80));
+    notes.push({ n: +k[1], html: blk.replace(k[0], '<a id="Footnote_' + k[1] + "_" + k[1] + '"></a><a href="#FNanchor_' +
+      k[1] + "_" + k[1] + '"><span class="label">[' + k[1] + "]</span></a>") });
+    return "";
+  });
+  if (notes.length !== 46 || notes.some((x, i) => x.n !== i + 1)) throw new Error("thorndike: the notes do not run 1–46");
+  h = h.slice(0, fs0) + h.slice(fs1);
+  want("note markers", 48, /<a (?:id="FNanchor_\d+" )?href="#Footnote_\d+" class="fnanchor">\[\d+\]<\/a>/g);
+  h = h.replace(/<a (?:id="FNanchor_\d+" )?href="#Footnote_(\d+)" class="fnanchor">\[\d+\]<\/a>/g,
+    (w, k) => '<a href="#Footnote_' + k + "_" + k + '" class="fnanchor">[' + k + "]</a>");
+  /* each note to the foot of the division its first marker stands in */
+  const ins = new Map();
+  for (const x of notes) {
+    const at = h.indexOf('href="#Footnote_' + x.n + "_" + x.n + '"');
+    if (at < 0) throw new Error("thorndike: note " + x.n + " is never cited");
+    const hr = h.indexOf('<hr class="chap">', at);
+    if (hr < 0) throw new Error("thorndike: no rule after note " + x.n + "'s marker");
+    ins.set(hr, (ins.get(hr) || "") + "\n" + x.html + "\n");
+  }
+  [...ins.keys()].sort((a, b) => b - a).forEach((at) => { h = h.slice(0, at) + ins.get(at) + h.slice(at); });
+  /* the heads */
+  want("running titles", 1, /<h1>ANIMAL INTELLIGENCE<\/h1>/g);
+  h = h.replace(/<h1>ANIMAL INTELLIGENCE<\/h1>/, "");
+  h = h.replace(/<(\/?)h[345]\b/g, "<$1h6");
+  want("chapter heads", 7, /<h2 class="nobreak" id="CHAPTER_[IVX]+">/g);
+  h = h.replace(/<h2 class="nobreak" id="CHAPTER_([IVX]+)">CHAPTER \1<br>\s*<span class="smcap">([\s\S]*?)<\/span>([\s\S]*?)<\/h2>/g,
+    (w, r, t, fn) => '<h5 id="CHAPTER_' + r + '">CHAPTER ' + r + ".</h5>\n<h4>" + t.replace(/\s+/g, " ") + fn + "</h4>");
+  want("rewritten chapter heads", 7, /<h5 id="CHAPTER_[IVX]+">/g);
+  h = h.replace(/<h2 class="nobreak" id="PREFACE">PREFACE<\/h2>/, '<h4 id="PREFACE">PREFACE</h4>');
+  /* figures: the class carries a width (`figcenter illowp48`), which the reader's exact match would miss */
+  want("figures", 30, /<div class="figcenter illowp\d+"/g);
+  h = h.replace(/<div class="figcenter illowp\d+"/g, '<div class="figcenter"');
+  /* a list (ages, a schedule, a chain of S's) is one paragraph, an item to a line: unwrapped by the tag
+     strip its items would run together into one sentence outside every paragraph */
+  want("lists", 7, /<ul>/g);
+  h = h.replace(/<ul>([\s\S]*?)<\/ul>/g, (w, b) =>
+    "<p>" + [...b.matchAll(/<li>([\s\S]*?)<\/li>/g)].map((m) => m[1].trim()).join("<br>") + "</p>");
+  /* tables and quotations */
+  h = h.replace(/<table\b[\s\S]*?<\/table>/g, (t) => '<div class="center">' + t + "</div>");
+  h = pgTakeDivs(h, "blockquote", (b) => "<blockquote>" + b.replace(/^<div[^>]*>/, "").replace(/<\/div>\s*$/, "") + "</blockquote>");
+  return h;
+}
+
+/* ============================================================
+   A GUTENBERG HTML EDITION WITH ITS NOTES COLLECTED AT THE END     (layout: "pglinknote")
+   ============================================================
+   Nov 2026, adding Darwin's The Expression of the Emotions in Man and Animals (Gutenberg ebook 1227).
+   The older Gutenberg HTML shape, not the one `pgchapters` reads: each printed division is a
+   `<div class="chapter">` headed by an `<h2>` carrying an anchor (`link2H_INTR`, `link2HCH0001` …),
+   and EVERY NOTE OF THE BOOK stands in one last division (`link2H_FOOT`), keyed `linknote-N`, with
+   the markers in the text `<a href="#linknote-N" …>[N]</a>`. The transcriber numbers the notes per
+   chapter with a hundreds offset (1–22, 101–120, 201–203 …), so a chapter's notes are found by its own
+   markers, never by the number. What it does, each a quiet failure if missed:
+   · THE DIVISIONS ARE NAMED BY ANCHOR (`BOOK.pgAnchors`, in reading order, section n = index + 1), and
+     every `<div class="chapter">` must be one of them, `BOOK.pgSkip` (the half-title) or the notes —
+     an unknown division is reported, never dropped in silence. A chapter's `<h2>` must read
+     "CHAPTER <its numeral>.", checked as a run.
+   · THE NOTES: each opens on "N (return)" and wraps its text in square brackets; both are taken off,
+     and a note without them is reported. A note of several paragraphs (a long quotation in one) is
+     joined with `<br><br>`. Each chapter keeps the notes its markers cite, renumbered from 1 in citing
+     order; a marker with no note, or a note no marker cites, is reported.
+   · THE CHAPTER'S ARGUMENT — the small-type list of its topics under each chapter head, the first
+     paragraph of every chapter but the Introduction — is set as a `bk-head` line, as the Origin of
+     Species' are (`BOOK.pgArgument`).
+   · THE FIGURES go with their anchors and their captions (the transcription sets a caption as a
+     paragraph "{illust. caption = …}", one of them carrying a scrap of the sentence above it, one
+     never closing its brace), counted — the Library sets no pictures.
+   · VERSE (`<p class="poem">`) becomes a quotation block with its lines kept; the thematic rules and
+     every link and anchor go. */
+function extractPgLinknote(h, BOOK, warn) {
+  const c = { notes: 0, marks: 0, figures: 0, captions: 0, verse: 0, heads: 0, breaks: 0 };
+  const s0 = h.indexOf("*** START OF"), e0 = h.indexOf("*** END OF");
+  if (s0 < 0 || e0 < 0) throw new Error("the edition lacks Gutenberg's START and END lines");
+  /* The typographic entities, written as the characters every other book carries (`&amp;` stays). */
+  const ENT = { mdash: "\u2014", rsquo: "\u2019", lsquo: "\u2018", ldquo: "\u201c", rdquo: "\u201d" };
+  const body = h.slice(s0, e0).replace(/&(mdash|rsquo|lsquo|ldquo|rdquo);/g, (w, k) => ENT[k]);
+  const segs = {};
+  let notesSeg = null;
+  for (const m of body.matchAll(/<div class="chapter"[^>]*>/g)) {
+    const end = pgDivEnd(body, m.index);
+    if (end < 0) throw new Error("an unclosed chapter division near offset " + m.index);
+    const seg = body.slice(m.index, end);
+    const a = /<h2\b[^>]*>\s*<a name="([^"]+)"/.exec(seg);
+    const id = a && a[1];
+    if (id === BOOK.pgNotes) notesSeg = seg;
+    else if (BOOK.pgAnchors.includes(id)) segs[id] = seg;
+    else if (!(BOOK.pgSkip || []).includes(id))
+      warn("a division the entry does not name (" + id + "): " + pgFlat(seg).slice(0, 80));
+  }
+  if (!notesSeg) throw new Error("the notes division " + BOOK.pgNotes + " is not in the edition");
+
+  /* the notes, keyed by the transcriber's number */
+  const notes = {};
+  const parts = notesSeg.split(/<p>\s*<a name="linknote-(\d+)"[^>]*>\s*(?:<!--[^>]*-->)?\s*<\/a>\s*<\/p>/);
+  for (let i = 1; i < parts.length; i += 2) {
+    const k = parts[i];
+    let t = parts[i + 1].replace(/<\/div>(?:<!--[^>]*-->)?\s*$/, "");
+    const paras = [...t.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((m) => m[1]);
+    if (!paras.length) { warn("note " + k + " came back empty"); continue; }
+    const head = /^\s*(\d+) \(<a [^>]*>return<\/a>\)<br\s*\/?>\s*\[\s*/.exec(paras[0]);
+    if (!head || head[1] !== k) warn("note " + k + " does not open on its number and a bracket: " + pgFlat(paras[0]).slice(0, 60));
+    else paras[0] = paras[0].slice(head[0].length);
+    const last = paras.length - 1;
+    if (!/\]\s*$/.test(paras[last])) warn("note " + k + " does not close on a bracket: " + pgFlat(paras[last]).slice(-60));
+    else paras[last] = paras[last].replace(/\s*\]\s*$/, "");
+    const rest = pgFlat(t.replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, ""));
+    if (rest) warn("note " + k + " has text outside its paragraphs: " + rest.slice(0, 60));
+    notes[k] = paras.map((p) => pgFlat(p.replace(/<\/?a\b[^>]*>/g, ""))).filter(Boolean).join("<br><br>");
+    c.notes++;
+  }
+  const cited = new Set();
+
+  const out = BOOK.pgAnchors.map((id, i) => {
+    const n = i + 1;
+    let s = segs[id];
+    if (!s) throw new Error("the division " + id + " (section " + n + ") is not in the edition");
+    /* the head: checked, then dropped — the tab names the chapter */
+    const hd = /<h2\b[^>]*>([\s\S]*?)<\/h2>/.exec(s);
+    const htext = pgFlat(hd[1].replace(/<\/?a\b[^>]*>/g, "")).replace(/<br>/g, " ");
+    if (n > 1 && !new RegExp("^CHAPTER " + toRoman(n - 1) + "\\.").test(htext))
+      warn("section " + n + " is headed " + JSON.stringify(htext.slice(0, 40)));
+    s = s.slice(hd.index + hd[0].length).replace(/<\/div>(?:<!--[^>]*-->)?\s*$/, "");
+    /* the figures, their anchors and their captions */
+    s = s.replace(/<p>\s*<a name="linkimage-\d+"[^>]*>\s*(?:<!--[^>]*-->)?\s*<\/a>\s*<\/p>/g, "");
+    s = pgTakeDivs(s, "fig", () => { c.figures++; return ""; });
+    s = s.replace(/<p>\s*\{illust\. caption =[\s\S]*?<\/p>/g, () => { c.captions++; return ""; });
+    if (/<img\b|\{illust/.test(s)) warn("section " + n + ": a picture or caption left in the text");
+    /* the markers, before any link is unwrapped */
+    s = s.replace(/<a\s+href="#linknote-(\d+)"[^>]*>\s*\[\d+\]\s*<\/a>/g, (w, k) => {
+      c.marks++; return '<sup class="fn" data-fn="' + k + '"></sup>';
+    });
+    if (/linknote/.test(s)) warn("section " + n + ": a note marker was not recognised");
+    c.breaks += (s.match(/<hr\b[^>]*>/g) || []).length;
+    s = s.replace(/<hr\b[^>]*>/g, "").replace(/<\/?a\b[^>]*>/g, "");
+    /* the argument under the chapter head */
+    if (BOOK.pgArgument && n > 1) {
+      let done = false;
+      s = s.replace(/<p\b[^>]*>/, (w) => { done = true; c.heads++; return "<p>@@PGH"; });
+      if (!done) warn("section " + n + ": no argument under the head");
+    }
+    /* verse */
+    s = s.replace(/<p class="poem">([\s\S]*?)<\/p>/g, (w, x) => { c.verse++; return "<blockquote><p>" + x + "</p></blockquote>"; });
+
+    s = stripTags(s.replace(/&nbsp;/g, " "));
+    s = s.replace(/\s+/g, " ").replace(/\s*<br>\s*/g, "<br>");
+    s = s.replace(/<p>(?:\s|<br>)*/g, "<p>").replace(/(?:\s|<br>)*<\/p>/g, "</p>").replace(/<p><\/p>/g, "");
+    s = s.replace(/\s*(<\/?(?:p|blockquote)\b[^>]*>)\s*/g, "$1");
+    s = s.replace(/(<\/p>|<\/blockquote>)(?=<)/g, "$1\n").replace(/(<blockquote>)(?=<p)/g, "$1\n").trim();
+    s = s.replace(/<p>@@PGH\s*/g, '<p class="bk-head">');
+    if (/@@PG/.test(s)) warn("section " + n + ": a placeholder was left in the text");
+    const loose = s.replace(/<p\b[^>]*>[\s\S]*?<\/p>|<\/?blockquote>/g, "").trim();
+    if (loose) warn("section " + n + ": text outside every paragraph: " + loose.slice(0, 80));
+
+    const seen = [], map = {};
+    s = s.replace(/<sup class="fn" data-fn="([^"]+)"><\/sup>/g, (w, k) => {
+      if (!map[k]) {
+        if (notes[k] === undefined) { warn("section " + n + " cites a note " + k + " that is not printed"); return ""; }
+        if (cited.has(k)) warn("note " + k + " is cited from two sections");
+        cited.add(k);
+        seen.push(notes[k]); map[k] = seen.length;
+      }
+      return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+    });
+    return { n, html: s, notes: seen };
+  });
+  const orphan = Object.keys(notes).filter((k) => !cited.has(k));
+  if (orphan.length) warn("note(s) " + orphan.join(", ") + " printed but never cited");
+  return { chapters: out, counts: c };
+}
+
+/* ============================================================
+   A SCHOLAR'S CORPUS READ OFF THE SCANS' GLYPH BOXES              (layout: "breasted")
+   ============================================================
+   Nov 2026, adding James Henry Breasted's Ancient Records of Egypt (Chicago, 1906). Four volumes, some
+   1,700 printed pages, and no transcription anywhere: English Wikisource has the Vol. I scan unproofread
+   (two pages made) and nothing else. So the text is read off the Internet Archive's character-level OCR
+   (`_chocr.html`), one file per volume, and every structural decision is taken from WHERE each glyph
+   stands on the page rather than from what the machine thought it was. What was measured and decided:
+
+   · THE SCANS WERE CHOSEN FOR COMPLETENESS FIRST. The best-read copy (`BreastedJ.H.AncientRecords…`, a
+     compiled PDF of all five volumes) is missing pages: Vol. II §§ 178–233 are gone with a block of other
+     pages duplicated in their place, and Vols. I and IV drift by 15 and 34 pages. Its 2026 re-OCR
+     (`ancient-records-of-egypt-volume-4`) is the same scan. Cornell's 2007 copies are complete but read
+     by FineReader 8 ("Hke" for like, "oj" for of, the note letters as junk). The Getty Research
+     Institute's 2015 scans (Vols. I–III) and the Archive's own 2026 scan of Vol. IV are complete by
+     their detected page numbers and read as well as the compiled PDF.
+   · SIZE IS MEASURED AGAINST THE PRINTED MEASURE, never in pixels. The four scans are at three
+     resolutions; an x-height divided by the column width is the same in all of them and falls in three
+     clean clusters: about 13 (the notes, 8-point), 16 (the translations, 10-point) and 19 (Breasted's
+     introductions, 12-point) thousandths. The notes are the trailing run of small rows at a page's foot.
+   · A RAISED GLYPH IS FOUND BY ITS BOTTOM, against the row's own baseline (the median bottom of its
+     x-height letters). That one test finds Breasted's three superscripts — the note letters, the line
+     numbers of the original, and his half-brackets ⌈ ⌉, which the machine reads as a raised r (or f, t)
+     and a raised 1 (or l, i, !). A raised run of figures is a line number and is dropped; a raised r
+     before a word and a raised 1 after one become ⌈ and ⌉. A raised glyph INSIDE a word is the
+     machine's noise and is kept as read. A figure that merely looks small is NOT a line number: this
+     printing uses old-style figures, so 0, 1 and 2 are x-height on the baseline — a first version that
+     dropped small figures deleted the digits of real section numbers (604 read as 64).
+   · THE NOTES ARE LETTERED a, b, c… AFRESH ON EVERY PAGE, and that is what anchors them. The page's notes
+     are split (a note opens on an indented row, or at a far segment where two short notes share a row,
+     beginning with its mark), the body's candidate marks are gathered (raised letters, raised symbols the
+     machine read for a letter, a letter glued after punctuation, a letter glued before a capital), and a
+     monotone alignment of the two sequences picks the best placement, an exact letter scoring above a
+     wildcard and a note left unplaced costing more than either. A note the alignment cannot place is
+     anchored at the end of its own page's text, so it is never lost and never moves to another page.
+     A raised quotation mark is a candidate only at a word's end, never inside one ("day's").
+   · A WORD THE CONVERSION GLUED TO ITS NEIGHBOUR is split where its glyphs stand apart (more than 0.55 of
+     an x-height): the hyphenated line breaks came through as "pre-sentedmay".
+   · THE SECTIONS ARE BREASTED'S § NUMBERS, the citation every later scholar uses ("II, 312"). A paragraph
+     opening on a number is a section when the number moves the volume's count forward by 1–60, so a
+     year or a list item is not taken; the period may be read as * - , : ’ ”. Each volume restarts at 1.
+   · THE CHAPTERS ARE THE REIGNS of Breasted's own table of contents, with the dynasties as parts, cut at
+     the § each opens on; the four longest reigns are cut again at his document headings. Where the
+     machine misread the number, the cut falls at his heading instead ("REIGN OF TAHARKA").
+   · A FIGURE PAGE READ AS TEXT is dropped only in the Tesseract volume, where the word confidences mean
+     something: a row under 50% confidence with no figure in it and few real words. Applied to the
+     FineReader volumes it removed real transliteration lines, so it is not. */
+
+const brEnt = (s) => s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+  .replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+const brMedian = (a) => { if (!a.length) return 0; const s = a.slice().sort((x, y) => x - y); return s[s.length >> 1]; };
+const brNorm = (w) => w.toLowerCase().replace(/[^a-z]/g, "");
+const BR_XCH = /[acemnorsuvwxz]/;
+const BR_NOTE_MAX = 14.3; // thousandths of the measure: the notes' x-height is about 13, the translations' 16
+const BR_LET = "abcdefghijklmnopqrstuvwxyz";
+
+/* One page of character hOCR → lines → words → glyphs. Both flavours: FineReader-derived and Tesseract. */
+function brParsePage(p) {
+  const lines = [];
+  const re = /<span class="(ocr_line|ocr_caption|ocr_textfloat|ocr_header|ocrx_word|ocrx_cinfo)"[^>]*title="([^"]*)"[^>]*>([^<]*)/g;
+  let m, L = null, W = null;
+  while ((m = re.exec(p))) {
+    const cls = m[1], t = m[2];
+    const bb = t.match(/(?:bbox|x_bboxes) (\d+) (\d+) (\d+) (\d+)/);
+    if (!bb) continue;
+    const box = { l: +bb[1], t: +bb[2], r: +bb[3], b: +bb[4] };
+    if (cls === "ocrx_word") {
+      if (!L) continue;
+      W = Object.assign(box, { conf: +((t.match(/x_wconf (\d+)/) || [0, 0])[1]), chars: [], s: "" });
+      L.words.push(W);
+    } else if (cls === "ocrx_cinfo") {
+      if (!W) continue;
+      const ch = brEnt(m[3]);
+      if (!ch.trim()) continue;
+      W.chars.push(Object.assign(box, { ch }));
+      W.s += ch;
+    } else {
+      L = Object.assign(box, { words: [] });
+      lines.push(L);
+      W = null;
+    }
+  }
+  return lines.filter((l) => l.words.length);
+}
+
+/* Lines → printed rows (segments that overlap vertically), with baseline, x-height and raised glyphs. */
+function brRows(lines) {
+  const segs = lines.slice().sort((a, b) => a.t - b.t || a.l - b.l);
+  const rows = [];
+  for (const s of segs) {
+    const mid = (s.t + s.b) / 2;
+    let row = rows.find((r) => mid > r.t && mid < r.b);
+    if (!row) { row = { t: s.t, b: s.b, segs: [] }; rows.push(row); }
+    row.segs.push(s);
+    row.t = Math.min(row.t, s.t); row.b = Math.max(row.b, s.b);
+  }
+  rows.sort((a, b) => a.t - b.t);
+  for (const r of rows) {
+    r.segs.sort((a, b) => a.l - b.l);
+    const words = [].concat(...r.segs.map((s) => s.words)).sort((a, b) => a.l - b.l);
+    const all = [].concat(...words.map((w) => w.chars));
+    const xh0 = brMedian(all.filter((c) => BR_XCH.test(c.ch)).map((c) => c.b - c.t)) || (r.b - r.t) * 0.4;
+    // a word the conversion glued to its neighbour ("sentedmay"): split where the glyphs stand apart
+    r.words = [];
+    for (const w of words) {
+      let cur = null;
+      w.chars.forEach((c, i) => {
+        if (!cur || c.l - w.chars[i - 1].r > xh0 * 0.55) {
+          cur = { l: c.l, t: w.t, r: c.r, b: w.b, conf: w.conf, chars: [], s: "" };
+          r.words.push(cur);
+        }
+        cur.chars.push(c); cur.s += c.ch; cur.r = c.r;
+      });
+    }
+    r.l = r.words[0].l; r.r = Math.max(...r.words.map((w) => w.r));
+    const xs = all.filter((c) => BR_XCH.test(c.ch));
+    r.base = brMedian(xs.map((c) => c.b));
+    r.xh = xs.length >= 3 ? brMedian(xs.map((c) => c.b - c.t)) : 0;
+    if (xs.length < 3) r.base = brMedian(all.map((c) => c.b));
+    for (const w of r.words) for (const c of w.chars)
+      c.up = r.xh > 0 && (c.b - c.t) < r.xh * 1.25 && (
+        (/[A-Za-z0-9*®©°^]/.test(c.ch) && r.base - c.b > r.xh * 0.42) ||
+        // a superscript the machine read as punctuation: as tall as a small letter, and lifted
+        (/[?!'‘’]/.test(c.ch) && r.base - c.b > r.xh * 0.35 && c.b - c.t > r.xh * 0.5 && c.b - c.t < r.xh));
+    r.text = r.words.map((w) => w.s).join(" ");
+  }
+  return rows;
+}
+
+function brMeasure(pages) {
+  const ms = [];
+  for (let i = 0; i < pages.length; i += 3) {
+    const rows = brRows(brParsePage(pages[i]));
+    if (rows.length < 15) continue;
+    const rs = rows.map((r) => r.r);
+    const left = brMedian(rows.map((r) => r.l)), right = Math.max(...rs.filter((x) => x < brMedian(rs) * 1.08));
+    ms.push(right - left);
+  }
+  return brMedian(ms);
+}
+
+function brGeom(rows, measure) {
+  const ls = rows.filter((r) => r.r - r.l > measure * 0.7).map((r) => r.l);
+  return ls.length ? brMedian(ls) : brMedian(rows.map((r) => r.l));
+}
+
+/* A page's rows → running head, body rows, note rows; indents in thousandths of the measure. */
+function brClassify(rows, measure, opts, counts) {
+  const res = { head: null, body: [], notes: [] };
+  if (!rows.length) return res;
+  const U = measure / 1000;
+  rows.forEach((r) => { r.size = r.xh / U; });
+  let i = 0;
+  const top = rows[0];
+  const toks = top.text.trim().split(/\s+/);
+  const numTok = (t) => t && t.length <= 4 && /\d/.test(t);
+  // the running head carries a page number or a [§ mark — a reign title ending in "I" does not count
+  if (/§\s*[\dIilOS]|[\[|(]\s*[§$]\s*[\dIilOS]|^\s*\$\s*\d/.test(top.text) || numTok(toks[0]) || numTok(toks[toks.length - 1])) {
+    res.head = top.text; i = 1;
+    while (rows[i] && rows[i].t < top.b + (top.b - top.t) * 0.6 && /§|^\[|^[\dIilO]+$/.test(rows[i].text.trim())) i++;
+  }
+  let body = rows.slice(i).filter((r) => !(r.text.trim().length <= 5 && /^[\dIilOXxv|]+$/.test(r.text.trim())));
+  if (opts.noiseFilter) body = body.filter((r) => {
+    const cs = r.words.map((w) => w.conf).sort((a, b) => a - b);
+    const mc = cs[cs.length >> 1];
+    if (mc >= 60) return true;
+    const ws = r.words.map((w) => brNorm(w.s)).filter((w) => w.length >= 3);
+    const real = ws.filter((w) => (opts.vocab[w] || 0) >= 3).length;
+    const lens = r.words.map((w) => w.s.length).sort((a, b) => a - b);
+    const confetti = r.words.length >= 5 && lens[lens.length >> 1] <= 2 && !/\d/.test(r.text) && real <= Math.max(1, ws.length * 0.3);
+    const keep = !confetti && (ws.length < 3 || /\d/.test(r.text) || mc >= 50 || real / ws.length >= 0.25);
+    if (!keep) counts.figureRows++;
+    return keep;
+  });
+  // the notes: walk up from the foot while the rows are small type (a stray short or unsized row is let through)
+  let k = body.length;
+  const small = (r) => r.size > 0 && r.size < BR_NOTE_MAX;
+  const short = (r) => r.r - r.l < measure * 0.5;
+  while (k > 0 && (small(body[k - 1]) || ((body[k - 1].size === 0 || short(body[k - 1])) && [2, 3, 4].some((d) => k >= d && small(body[k - d]))))) k--;
+  res.body = body.slice(0, k);
+  res.notes = body.slice(k);
+  if (res.notes.length) {
+    const nl = Math.min(...res.notes.map((r) => r.l));
+    res.notes.forEach((r) => (r.ind = (r.l - nl) / U));
+  }
+  if (res.body.length) {
+    const left = brGeom(res.body, measure);
+    res.body.forEach((r) => {
+      r.ind = (r.l - left) / U;
+      r.rgap = (left + measure - r.r) / U;
+      r.centred = r.ind > 40 && r.rgap > 40 && Math.abs(r.ind - r.rgap) < 80;
+    });
+  }
+  return res;
+}
+
+/* A word → pieces: [{k:"t"}] plain and [{k:"up"}] raised, in order. */
+function brPieces(w) {
+  const out = [];
+  for (const c of w.chars) {
+    const k = c.up ? "up" : "t";
+    const last = out[out.length - 1];
+    if (last && last.k === k) last.s += c.ch; else out.push({ k, s: c.ch });
+  }
+  return out;
+}
+
+function brJoin(a, b) {
+  if (/[a-z]-\s*$/.test(a) && /^\s*[a-z]/.test(b)) return a.replace(/-\s*$/, "") + b.replace(/^\s+/, "");
+  if (/-\s*$/.test(a)) return a.replace(/\s+$/, "") + b.replace(/^\s+/, "");
+  return a.replace(/\s*$/, " ") + b.replace(/^\s+/, "");
+}
+
+/* The note rows → notes. A note opens on an indented row, or at a far segment, beginning with its mark. */
+function brPageNotes(pg) {
+  const out = [];
+  const markAt = (ps) => {
+    if (!ps.length || !ps[0].s) return null;
+    if (ps[0].k === "up" && /^[a-zA-Z*®©^]/.test(ps[0].s)) return { raised: true };
+    if (/^[a-z*®©^](?=[A-Z“"‘'(\[§\d])/.test(ps[0].s)) return { cut: 1 };
+    if (/^[a-z]$/.test(ps[0].s) && ps[1] && ps[1].k === "sp" && ps[2] && /^[A-Z“"‘(\[§\d]/.test(ps[2].s)) return { cut: 1 };
+    return null;
+  };
+  pg.notes.forEach((r) => {
+    const segs = [];
+    let cur = null;
+    r.words.forEach((w) => {
+      if (!cur || w.l - cur.r > (r.b - r.t) * 2.2) { cur = { r: w.r, words: [] }; segs.push(cur); }
+      cur.words.push(w); cur.r = w.r;
+    });
+    segs.forEach((sg, si) => {
+      const ps = [].concat(...sg.words.map((w, i) => (i ? [{ k: "sp", s: " " }] : []).concat(brPieces(w))));
+      const mk = markAt(ps);
+      let text = ps.map((p) => (p.k === "up" ? "\u0001" + p.s + "\u0002" : p.s)).join("");
+      if (mk && (si > 0 || r.ind > 25)) {
+        text = mk.raised ? text.replace(/^\u0001[^\u0002]*\u0002\s*/, "") : text.slice(mk.cut).replace(/^\s+/, "");
+        out.push({ text });
+      } else if (out.length) out[out.length - 1].text = brJoin(out[out.length - 1].text, text);
+      else out.push({ text, cont: true });
+    });
+  });
+  // raised glyphs inside a note are kept as read: a note has no marks of its own to place
+  out.forEach((n) => (n.text = n.text.replace(/[\u0001\u0002]/g, "").replace(/\s+/g, " ").trim()));
+  return out;
+}
+
+/* A body word's candidate marks, with scores for the alignment. */
+function brCandidates(ps, vocab) {
+  const c = [];
+  ps.forEach((p, i) => {
+    if (p.k !== "up") return;
+    if (/^\d+$/.test(p.s) && !(p.s === "0" && i === ps.length - 1)) return; // a line number
+    const before = ps.slice(0, i).map((q) => q.s).join(""), after = ps.slice(i + 1).map((q) => q.s).join("");
+    const bracketish = (/^[rft]$/.test(p.s) && /^[A-Za-z]/.test(after)) || (/^[1li!]$/.test(p.s) && /[A-Za-z]$/.test(before));
+    if (/^['‘’]+$/.test(p.s) && (after || !/[A-Za-z.,;:!?)\]]$/.test(before))) return; // an apostrophe or an opening quote
+    if (/^[a-z]/.test(p.s)) c.push({ letter: p.s[0], pi: i, score: bracketish ? 3 : 6 });
+    if (/^[a-zA-Z*®©°^0?!'‘’]/.test(p.s) && !bracketish) c.push({ letter: "?", pi: i, score: 2.5 });
+  });
+  const last = ps[ps.length - 1];
+  if (last && last.k === "t") {
+    let m;
+    if ((m = last.s.match(/[A-Za-z][.,;:!?’”"')\]]+([a-z])$/))) c.push({ letter: m[1], pi: ps.length - 1, tail: 1, score: 4 });
+    else if ((m = last.s.match(/^(.*[A-Za-z]{2,})([a-z])$/)) && ps.length === 1) {
+      const fs = vocab[brNorm(m[1])] || 0, ff = vocab[brNorm(last.s)] || 0;
+      if (fs >= 3 && ff * 4 < fs) c.push({ letter: m[2], pi: ps.length - 1, tail: 1, score: ff ? 1.5 : 3 });
+    }
+  }
+  if (ps.length === 1 && ps[0].k === "t" && /^[b-z]$/.test(ps[0].s)) c.push({ letter: ps[0].s, pi: 0, lone: 1, score: 3 });
+  if (ps[0] && ps[0].k === "t" && /^[a-z](?=[A-Z“"‘(])/.test(ps[0].s)) c.push({ letter: ps[0].s[0], pi: 0, head: 1, score: 4 });
+  return c;
+}
+
+/* The page's letters against its candidates: a monotone alignment, one candidate per glyph run. */
+function brAlign(tokens, n) {
+  const C = [];
+  tokens.forEach((t, ti) => t.cands.forEach((c) => C.push(Object.assign({ ti }, c))));
+  const m = C.length;
+  const first = C.map((c, j) => { let k = j; while (k > 0 && C[k - 1].ti === c.ti && C[k - 1].pi === c.pi) k--; return k; });
+  const dp = Array.from({ length: n + 1 }, () => new Float64Array(m + 1).fill(-1e9));
+  const bt = Array.from({ length: n + 1 }, () => new Int32Array(m + 1).fill(-1));
+  for (let j = 0; j <= m; j++) dp[0][j] = 0;
+  for (let i = 1; i <= n; i++) {
+    dp[i][0] = dp[i - 1][0] - 3; bt[i][0] = -2;
+    for (let j = 1; j <= m; j++) {
+      let best = dp[i][j - 1], b = -1;
+      if (dp[i - 1][j] - 3 > best) { best = dp[i - 1][j] - 3; b = -2; }
+      const c = C[j - 1];
+      if (c.letter === BR_LET[i - 1] || c.letter === "?") {
+        const v = dp[i - 1][first[j - 1]] + c.score;
+        if (v > best) { best = v; b = j - 1; }
+      }
+      dp[i][j] = best; bt[i][j] = b;
+    }
+  }
+  const assign = new Array(n).fill(null);
+  let i = n, j = m;
+  while (i > 0) {
+    const b = bt[i][j];
+    if (j === 0 || b === -2) { i--; continue; }
+    if (b === -1) { j--; continue; }
+    assign[i - 1] = C[b]; i--; j = first[b];
+  }
+  return assign;
+}
+
+/* A volume's pages → blocks (paragraphs and heads) holding placed marks, and the notes. */
+function brBuildVolume(pages, opts, counts) {
+  const blocks = [], notes = [];
+  let cur = null;
+  for (let leaf = opts.fromLeaf; leaf <= opts.toLeaf && leaf < pages.length; leaf++) {
+    const pg = brClassify(brRows(brParsePage(pages[leaf])), opts.measure, opts, counts);
+    if (!pg.body.length && !pg.notes.length) continue;
+    counts.pages++;
+    const pn = brPageNotes(pg);
+    const tokens = [];
+    pg.body.forEach((r, ri) => {
+      const prev = ri ? pg.body[ri - 1] : null;
+      const prevEnds = !prev || prev.rgap > 30 || /[.:;!?"”)\]]\s*$/.test(prev.text);
+      const letters = r.text.replace(/[^A-Za-z]/g, "");
+      const caps = letters.length >= 6 && letters.replace(/[^A-Z]/g, "").length / letters.length > 0.85 &&
+        r.text.length < 70 && !/^\d/.test(r.text.trim());
+      if (r.centred || (caps && r.ind > 10)) { cur = { kind: "h", toks: [] }; blocks.push(cur); }
+      else if ((r.ind > 25 && prevEnds) || !cur || cur.kind === "h") { cur = { kind: "p", toks: [] }; blocks.push(cur); }
+      else cur.toks.push({ br: true });
+      r.words.forEach((w) => {
+        const ps = brPieces(w);
+        const tok = { ps, cands: brCandidates(ps, opts.vocab) };
+        cur.toks.push(tok);
+        tokens.push(tok);
+      });
+    });
+    if (pn.length && pn[0].cont) {
+      if (notes.length) notes[notes.length - 1] = brJoin(notes[notes.length - 1], pn[0].text);
+      pn.shift();
+    }
+    const assign = brAlign(tokens, pn.length);
+    pn.forEach((nt, k) => {
+      const id = notes.length;
+      notes.push(nt.text);
+      counts.notes++;
+      const a = assign[k];
+      if (a) { counts.anchored++; (tokens[a.ti].marks = tokens[a.ti].marks || []).push({ id, pi: a.pi, tail: a.tail, head: a.head, lone: a.lone }); }
+      else { counts.footAnchored++; if (cur) cur.toks.push({ ps: [], marks: [{ id, pi: -1 }] }); }
+    });
+  }
+  return { blocks, notes };
+}
+
+/* A block → text with \u0001id\u0002 marks; unused raised glyphs become half-brackets, or go. */
+function brBlockText(b, counts) {
+  let s = "";
+  b.toks.forEach((t) => {
+    if (t.br) { if (/[a-z]-$/.test(s)) s = s.slice(0, -1) + "\u0004"; else s += " "; return; }
+    const used = {};
+    (t.marks || []).forEach((m) => (used[m.pi] = m));
+    let w = "";
+    t.ps.forEach((p, i) => {
+      const m = used[i];
+      if (m) {
+        const mk = "\u0001" + m.id + "\u0002";
+        if (m.lone) w += mk;
+        else if (m.tail) w += p.s.slice(0, -1) + mk;
+        else if (m.head) w += mk + p.s.slice(1);
+        else w += mk;
+        return;
+      }
+      if (p.k === "t") { w += p.s; return; }
+      const before = t.ps.slice(0, i).map((q) => q.s).join(""), after = t.ps.slice(i + 1).map((q) => q.s).join("");
+      const atStart = !/[A-Za-z0-9]/.test(before) && /^[A-Za-z]/.test(after);
+      const atEnd = /[A-Za-z]$/.test(before) && !/[A-Za-z0-9]/.test(after);
+      const alone = !/[A-Za-z0-9]/.test(before + after);
+      if (/^(?=.*\d)[\dIlO]+$/.test(p.s) || (/^[li1I]$/.test(p.s) && atStart)) { counts.lineNumbers++; return; }
+      if ((atStart || alone) && /^[rft]$/.test(p.s)) { w += "⌈"; counts.halfBrackets++; return; }
+      if ((atEnd || alone) && /^[1li!]$/.test(p.s)) { w += "⌉"; counts.halfBrackets++; return; }
+      if (/[A-Za-z]$/.test(before) && /^[A-Za-z]/.test(after)) { w += p.s; return; } // inside a word: kept as read
+      if (/^['‘’“”"]+$/.test(p.s)) { w += p.s; return; } // a quotation mark, lifted as quotation marks are
+      counts.raisedDropped++;
+    });
+    (t.marks || []).filter((m) => m.pi === -1).forEach((m) => (w += "\u0001" + m.id + "\u0002"));
+    if (s && !/[\s\u0004]$/.test(s)) s += " ";
+    s += w;
+  });
+  return s;
+}
+
+/* The repairs every page needs, each counted. All are narrow: each is keyed on a shape the machine
+   produces and the printing never does. */
+function brClean(s, vocab, counts) {
+  // a hyphen at a line's end: dropped where the two halves make a word found elsewhere, kept for a compound
+  s = s.replace(/([A-Za-z]+)\u0004([A-Za-z]+)/g, (m, a, b) => {
+    if ((vocab[brNorm(a + b)] || 0) > 0 && /^[a-z]/.test(b)) { counts.dehyphenated++; return a + b; }
+    counts.hyphensKept++; return a + "-" + b;
+  });
+  s = s.replace(/\u0004/g, "").replace(/[ \t]+/g, " ");
+  // the italic "of" the machine reads as oj, o}, 0}, o)
+  s = s.replace(/(^|[\s(])[o0][j}\)](?=[\s,.;:]|$)/g, (m, a) => { counts.italicOf++; return a + "of"; });
+  /* a brace: never in the printing — the machine's reading of an italic parenthesis, "{Zeitschrift … 36)" (it also
+     looks like a CSS rule set to the Library suite's leak guard) */
+  s = s.replace(/[{}]/g, (m) => { counts.braces++; return m === "{" ? "(" : ")"; });
+  // a regnal numeral read as "Ill": Thutmose Ill
+  s = s.replace(/\b([A-Z][a-z]+) Ill\b/g, (m, a) => { counts.regnalIll++; return a + " III"; });
+  // a line reference with figures for letters: "§ 274, 1. 3" is l. 3, "(11. 11, 12" is ll.
+  s = s.replace(/(§\s*\d+[a-z]?,\s*)1\.\s(?=\d)/g, (m, a) => { counts.lineRefs++; return a + "l. "; });
+  s = s.replace(/(^|[\s(,;])11\.\s(?=\d+\s*[-–—]\s*\d)/g, (m, a) => { counts.lineRefs++; return a + "ll. "; });
+  s = s.replace(/([(,;]\s?)(1|11)\.\s(?=\d+(?:\s*[-–]\s*\d+)?\s*[,;)]|\d+\s*ff?\.)/g, (m, a, b) => { counts.lineRefs++; return a + (b === "1" ? "l. " : "ll. "); });
+  // a section reference with a letter for a figure ("§§ 4o8") and "ff." read as "fT."
+  s = s.replace(/(§§?\s?)([\doOlI]{2,4})(?=[\s,.;)\]-])/g, (m, a, n) => {
+    if (!/\d/.test(n) || /^\d+$/.test(n)) return m;
+    counts.sectionRefs++; return a + n.replace(/[oO]/g, "0").replace(/[lI]/g, "1");
+  });
+  s = s.replace(/(\d\s)f[fT]\./g, (m, a) => { counts.ffs++; return a + "ff."; });
+  // a year in the old-style figures the machine reads as letters, in the tables above all: "i98o-i935", "2ooo"
+  s = s.replace(/(^|[\s(\-–])([\dioO]{4})(?=[\s,.;)\-–]|$)/g, (m, a, n) => {
+    if (/^\d+$/.test(n) || (n.match(/\d/g) || []).length < 2) return m;
+    counts.oldStyleFigures++; return a + n.replace(/i/g, "1").replace(/[oO]/g, "0");
+  });
+  /* a line number the scan printed too low to measure as raised, glued to the word it precedes: "34Taanach",
+     "47They". Never an ordinal ("18th", "3d") and never a single letter ("53a" is a paragraph's sub-part) */
+  s = s.replace(/(^|[\s\[(“"‘⌈])(\d{1,3})(?!(?:st|nd|rd|th|d)\b)(?=[A-Za-z][a-z])/g, (m, a) => { counts.gluedLineNumbers++; return a; });
+  /* Breasted's sign for uncertain words, ⌈ — ⌉ ("r — 1 represents one uncertain word", his key), read unraised as a
+     lone r, a run of dashes and a lone 1 */
+  s = s.replace(/(^|[\s\[(])r(\s?[—–-]+(?:\s[—–-]+)*\s?)[1l](?=[\s,.;:)\]]|$)/g, (m, a, d) => { counts.uncertainSigns++; return a + "\u2308" + d.trim() + "\u2309"; });
+  // the machine's reading of a raised mark it could not place, glued to a word's front: "^a consultation", "*Aruna"
+  s = s.replace(/(^|[\s\[(“"‘])[*^]+(?=[A-Za-z])/g, (m, a) => { counts.strayMarks++; return a; });
+  // spacing inside quotation marks and before punctuation
+  s = s.replace(/(^|[\s(\[])(["“‘]) +(?=[A-Za-z\[⌈])/g, "$1$2");
+  s = s.replace(/ +([,;:.!?])(?=\s|$)/g, "$1");
+  return s.trim();
+}
+
+/* One volume's hOCR → html blocks with § numbers, and its notes. */
+function brVolume(html, vol, vocab, counts) {
+  const pages = html.split('<div class="ocr_page"').slice(1);
+  const measure = brMeasure(pages);
+  const r = brBuildVolume(pages, Object.assign({ measure, vocab }, vol), counts);
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let last = 0;
+  const out = [];
+  r.blocks.forEach((b) => {
+    const t = brClean(brBlockText(b, counts), vocab, counts);
+    if (!t) return;
+    let h = esc(t);
+    if (b.kind === "h") { out.push({ kind: "h", html: '<p class="bk-head">' + h + "</p>" }); return; }
+    // a section number as read: "312.", "2 .", "594*", "773-", and at a volume's head "i." for 1
+    const m = t.match(/^([\dIilOoS]{1,4})([A-H])?\s?[.*\-,:’”]\s/);
+    let sec = null, num = null;
+    if (m && (/\d/.test(m[1]) || last === 0)) {
+      const n = +m[1].replace(/[Iil]/g, "1").replace(/[Oo]/g, "0").replace(/S/g, "5");
+      if (n > last && n <= last + 60) {
+        sec = n + (m[2] || ""); num = n; last = n; counts.sections++;
+        h = h.replace(/^[\dIilOoS]{1,4}[A-H]?\s?[.*\-,:’”]\s*/, "");
+      }
+    }
+    out.push({ kind: "p", num, html: "<p>" + (sec ? '<span class="bk-n" data-n="' + sec + '">' + sec + "</span> " : "") + h + "</p>" });
+  });
+  // the notes take the same repairs as the text (they have no line breaks left to rejoin)
+  return { blocks: out, notes: r.notes.map((n) => esc(brClean(n, vocab, counts))) };
+}
+
+/* A volume's blocks → its chapters, cut at the § each opens on (or at Breasted's heading). */
+function brCut(v, blocks, notes, plan, counts, warn) {
+  const plain = (h) => h.replace(/<[^>]+>/g, "").replace(/\u0001\d+\u0002/g, "");
+  const mine = plan.filter((c) => c.v === v);
+  let prev = 0;
+  const starts = [];
+  mine.forEach((c) => {
+    let i = blocks.findIndex((b, k) => k >= prev && b.num === c.from);
+    if (i < 0) {
+      const head = (c.head || c.t.replace(/^Reign of /, "REIGN OF ")).toUpperCase();
+      const re = new RegExp(head.replace(/[.*+?^${}()|[\]\\]/g, "\\function partOf(n) {") + "(?![A-Z])");
+      i = blocks.findIndex((b, k) => k >= prev && re.test(plain(b.html)));
+      if (i >= 0) {
+        const b = blocks[i];
+        if (b.kind === "p" && plain(b.html).search(re) > 0) {
+          // the heading ran into the paragraph above it: split the block where the heading begins
+          const at = b.html.lastIndexOf(head.split(" ")[0]);
+          if (at > 3) {
+            blocks.splice(i, 1, { kind: "p", html: b.html.slice(0, at).replace(/\s+$/, "") + "</p>" },
+              { kind: "h", html: '<p class="bk-head">' + b.html.slice(at) });
+            i++;
+          }
+        }
+        counts.cutAtHeading++;
+      } else {
+        warn("Vol. " + v + ": no § " + c.from + " and no heading for " + c.t + "; cut at the next section");
+        i = blocks.findIndex((b, k) => k >= prev && b.num && b.num > c.from);
+      }
+    }
+    while (i > prev && blocks[i - 1].kind === "h") i--;
+    starts.push(i);
+    prev = i + 1;
+  });
+  return mine.map((c, k) => {
+    const a = k === 0 ? 0 : starts[k], b = k + 1 < mine.length ? starts[k + 1] : blocks.length;
+    const ids = [];
+    const html = blocks.slice(a, b).map((x) => x.html).join("\n")
+      .replace(/\u0001(\d+)\u0002/g, (m, id) => { ids.push(+id); return '<sup class="fn" data-fn="' + ids.length + '"></sup>'; });
+    return { n: c.n, t: c.t, html, notes: ids.map((id) => notes[id] || "") };
+  });
+}
+
+function extractBreasted(htmls, book, warn) {
+  const counts = { pages: 0, notes: 0, anchored: 0, footAnchored: 0, lineNumbers: 0, halfBrackets: 0, raisedDropped: 0,
+    figureRows: 0, sections: 0, dehyphenated: 0, hyphensKept: 0, italicOf: 0, regnalIll: 0, lineRefs: 0, sectionRefs: 0,
+    ffs: 0, oldStyleFigures: 0, gluedLineNumbers: 0, strayMarks: 0, uncertainSigns: 0, braces: 0, cutAtHeading: 0 };
+  // the vocabulary every "is this a word?" test asks: the words of all four volumes as read
+  const vocab = {};
+  htmls.forEach((h) => {
+    const re = /class="ocrx_word"[^>]*>([\s\S]*?)<\/span>\s*<\/span>/g;
+    let m;
+    while ((m = re.exec(h))) {
+      const w = brNorm(brEnt(m[1].replace(/<[^>]+>/g, "")));
+      if (w) vocab[w] = (vocab[w] || 0) + 1;
+    }
+  });
+  const chapters = [];
+  htmls.forEach((h, i) => {
+    const v = i + 1;
+    const r = brVolume(h, book.volumes[i], vocab, counts);
+    brCut(v, r.blocks, r.notes, book.breastedChapters, counts, warn).forEach((c) => chapters.push(c));
+  });
+  return { chapters, counts };
+}
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -35229,6 +38185,853 @@ function extractChajing(raw, BOOK, warn) {
   if (left) warn(left + " stray ⟦, an opening bracket before a letter (an aspirate the rule missed) or “Digitized” left in the English");
   return { chapters: chapters, counts: c };
 }
+
+/* ============================================================
+   A SCHOLAR'S ANTHOLOGY READ OFF A FINEREADER XML, CHECKED AGAINST FOUR OTHER SCANS     (layout: "erman")
+   ============================================================
+   Nov 2026, adding Erman's The Literature of the Ancient Egyptians (Blackman's translation, Methuen, 1927).
+   Wikisource has the scan indexed and one page of 318 typed, so the text is read off OCR — and this book
+   is the first on the shelf whose OCR has to carry TYPOGRAPHY the meaning depends on, which is why the
+   source is the Digital Library of India scan's ABBYY FineReader XML (`_abbyy.gz`) and not a `_djvu.txt`:
+
+   · ITALIC IS AN APPARATUS. Erman's preface: "I have indicated free renderings of passages and other
+     interpolations by italics." FineReader marks italic per run (`italic="true"`); Tesseract does not.
+   · THREE SIZES OF TYPE: the ancient text, Erman's commentary between and inside the texts (smaller), the
+     footnotes (smaller again). FineReader's own `fs` is unreliable on this scan; the classes are measured —
+     the median line pitch of a paragraph (text 47–50 px, commentary 43–45, notes 39–42) and, for a
+     one-line paragraph, the mean x-height of its letters against the leaves around it (`classify`). The
+     commentary is set `bk-small` so a reader can tell Erman's voice from the Egyptian's.
+   · RAISED MARKS: FineReader marks superscripts, so a note mark is a run, not a guess. Its DIGIT is often
+     wrong (1 for 4, s for 8, * for 2), so marks are matched to the page's notes by `alignMarks` — a
+     monotone path scored against the digits read, where a note may be cited twice, a symbol riding with a
+     digit is dirt, and a note no mark reaches costs most, since the printed page cites every note it has.
+
+   THE FOOTNOTES are numbered per page; a note opens where its line is indented past the notes' margin, at
+   a raised mark mid-line, or (when the page is a note short and its marks read as a clean run) where a
+   sentence ends on a stray mark ("harm. * Or possibly"), or where two of the Tesseract scans open a
+   paragraph. A heading of a text carries its note on the title; when the count says a mark is missing and
+   the page has one such heading without one, the mark goes there. A note that no mark reaches is KEPT, in
+   its place in the chapter's list, with no marker in the text — where the mark stood is what is not known.
+   The run prints how many of each; the residue is the next session's, page by page against the scan.
+
+   THE VOTE. Four Tesseract texts of other scans of the same printing (Methuen and Dutton, 1927) are aligned
+   page by page (Myers, `myersPairs`) and a word FineReader misread changes only where three of the four read
+   the same other word: a non-word into a word of the shelf's English or of this scan's own text, a word
+   only into one twenty times commoner and at most two letters away ("m" into "in", "skv" into "sky",
+   never "Amun" into "Amin" — Tesseract reads the macron-ū as "i"). Never a word with an accent, never a
+   number, never a change of length past one letter. The decisions are FROZEN in
+   `.claude/erman-readings.json` ([page, word index on the page, read, voted]) so a re-run is reproducible
+   whatever else the shelf gains; `--revote` recomputes them from the cache.
+
+   WHAT NO OCR READS, restored by table: Erman's transcription puts a MACRON on long vowels — Rē, Amūn,
+   Thōth, Amenemhēt, Sesōstris — which both engines drop. FineReader keeps the right base vowel and
+   Tesseract reads the marked one as "é" (or "i" for ū), so a name's macron position is Tesseract's and its
+   letter FineReader's; the table `ermanNames` was built that way and spot-read against the page images.
+   French names and words keep their own accents (Golénischeff, Rougé); "rôle", "naïve" as printed; the
+   ligature æ (Archæology, formulæ, Græco, primæval) by rule.
+
+   LEFT OUT, and said so in the rights box: the four plates of specimen writing (pp. xxxviii–xli), and the
+   hieroglyphic signs printed inline on pp. xxxv–xxxvi, whose transliterations stay. Page xxxvi is
+   transcribed by hand from the scan (`ermanPages`) because the signs scramble the engine's reading order.
+   The publisher's advertisements, the contents and the title leaves are not the book.
+
+   Printed page numbers are kept as `bk-n` markers: Erman's own cross-references ("see p. 38") and the
+   Outline's page lists point at them. */
+const ERMAN = (function () {
+const XL = new Set("acemnorsuvwxz");
+function decode(s) {
+  return s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+}
+function parseAbbyy(xml) {
+  const pages = [];
+  const pageRe = /<page\b[^>]*>([\s\S]*?)<\/page>/g;
+  let pm;
+  while ((pm = pageRe.exec(xml))) {
+    const pars = [];
+    const parRe = /<par\b([^>]*)>([\s\S]*?)<\/par>/g;
+    let pr;
+    while ((pr = parRe.exec(pm[1]))) {
+      const a = {};
+      pr[1].replace(/(\w+)="([^"]*)"/g, (_, k, v) => (a[k] = v));
+      const lines = [];
+      const lineRe = /<line\b([^>]*)>([\s\S]*?)<\/line>/g;
+      let lr;
+      while ((lr = lineRe.exec(pr[2]))) {
+        const la = {};
+        lr[1].replace(/(\w+)="([^"]*)"/g, (_, k, v) => (la[k] = +v));
+        const runs = [], hs = [];
+        const fRe = /<formatting\b([^>]*)>([\s\S]*?)<\/formatting>/g;
+        let fr;
+        while ((fr = fRe.exec(lr[2]))) {
+          const fa = {};
+          fr[1].replace(/(\w+)="([^"]*)"/g, (_, k, v) => (fa[k] = v));
+          let t = "";
+          const cRe = /<charParams\b[^>]*?\bt="(\d+)"[^>]*?\bb="(\d+)"[^>]*>([^<]*)<\/charParams>/g;
+          let cr;
+          while ((cr = cRe.exec(fr[2]))) {
+            const ch = decode(cr[3]);
+            t += ch;
+            if (XL.has(ch) && fa.superscript !== "true") hs.push(+cr[2] - +cr[1]);
+          }
+          runs.push({ i: fa.italic === "true", sup: fa.superscript === "true", sc: fa.smallcaps === "true", t });
+        }
+        lines.push({ l: la.l, t: la.t, r: la.r, b: la.b, runs, hs });
+      }
+      if (lines.length) pars.push({ a, lines });
+    }
+    pages.push(pars);
+  }
+  return pages;
+}
+const median = (a) => { if (!a.length) return 0; const s = a.slice().sort((x, y) => x - y); return s[s.length >> 1]; };
+const parText = (p) => p.lines.map((l) => l.runs.map((r) => r.t).join("")).join(" ").replace(/\s+/g, " ").trim();
+
+const HEADS = /EGYPTIAN LITERATURE|FROM THE OLDEST POETRY|FROM THE OLDER PERIOD|FROM THE NEW KINGDOM|BY WAY OF INTRODUCTION|OUTLINE OF EGYPTIAN HISTORY|AUTHOR.S PREFACE|TRANSLATOR.S PREFACE|EXPLANATORY NOTES/;
+const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+/* page classification: returns {body:[par...], notes:[par...], furniture:[text]} with each par tagged kind */
+function classify(P, L, prevOpen) {
+  const pars = P[L];
+  const out = { body: [], notes: [], furn: [] };
+  // the page's type level: 80th percentile of par x-heights over the leaves around it
+  const sample = [];
+  for (let k = L - 3; k <= L + 3; k++) for (const p of P[k] || []) {
+    const hs = p.lines.flatMap((l) => l.hs);
+    if (hs.length >= 12) { const m = mean(hs); for (let j = 0; j < hs.length; j += 10) sample.push(m); }
+  }
+  sample.sort((a, b) => a - b);
+  const T = sample[Math.floor(sample.length * 0.8)] || 20;
+  const kept = [];
+  pars.forEach((p, j) => {
+    const t = parText(p), top = p.lines[0].t;
+    if (j < 3 && top < 280 && ((HEADS.test(t.toUpperCase()) && t.length < 40) || /^[\dIVXLivxlj1|.,'‘’ ]{1,8}$/.test(t) || t.replace(/\W/g, "").length <= 4)) { out.furn.push(t); return; }
+    if (p.lines.length === 1 && top > 2150 && t.replace(/\s/g, "").length <= 4) { out.furn.push(t); return; }
+    const hs = p.lines.flatMap((l) => l.hs);
+    const r = hs.length >= 4 ? mean(hs) / T : 0;
+    let size;
+    if (p.lines.length >= 2) {
+      const d = []; for (let k = 1; k < p.lines.length; k++) d.push(p.lines[k].t - p.lines[k - 1].t);
+      const pitch = median(d);
+      size = pitch <= 42.5 ? "note" : pitch <= 46 ? "small" : pitch <= 60 ? "text" : null;
+      if (size === null) size = r && r < 0.855 ? "note" : r && r < 0.935 ? "small" : "text";
+    } else size = r === 0 ? "text?" : r < 0.855 ? "note" : r < 0.935 ? "small" : "text";
+    kept.push({ ...p, size, r, leaf: L });
+  });
+  // THE NOTES: the trailing run of note-size paragraphs (a short line too small to measure may sit among them),
+  // opening on a paragraph that begins with a mark, or on one that finishes the last note of the page before
+  let k = kept.length;
+  const noteish = (p) => p.size === "note" || (p.r > 0 && p.r < (p.lines.length === 1 ? 0.93 : 0.875)) || (p.size === "text?" && parText(p).length < 60);
+  while (k > 0 && noteish(kept[k - 1])) k--;
+  let f = -1;
+  for (let j = k; j < kept.length; j++) {
+    const p = kept[j];
+    if (p.size === "text?" && !startsWithMark(p)) continue;
+    if (startsWithMark(p) || (j === k && prevOpen && p.size === "note")) { f = j; break; }
+  }
+  if (f < 0) f = kept.length;
+  out.notes = kept.slice(f);
+  out.body = kept.slice(0, f).map((p) => (p.size === "note" ? { ...p, size: "small", wasNote: true } : p));
+  return out;
+}
+function startsWithMark(p) {
+  if (isHeading(p)) return false;
+  const r0 = p.lines[0].runs.find((r) => r.t.trim());
+  if (!r0) return false;
+  if (r0.sup) return true;
+  return /^\W{0,2}(\d{1,2}|[*•'‘’!sSJIi$®°])\s?[^\s]/.test(parText(p)) && /^\W{0,2}(\d{1,2}|[*•'‘’!sSJIi$®°])/.test(parText(p)) && !/^[A-Z][a-z]/.test(parText(p));
+}
+
+/* ---------- runs → inline html with mark placeholders ---------- */
+const escH = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// a superscript in the body: digits (and the shapes this OCR gives a raised digit) are a note mark;
+// a raised LETTER inside a word is the OCR's mistake about a baseline and is text
+function lineHtml(line, ctx) {
+  let out = "";
+  line.runs.forEach((r, j) => {
+    let t = r.t;
+    if (r.sup) {
+      const prev = j > 0 ? line.runs[j - 1].t : "", next = j + 1 < line.runs.length ? line.runs[j + 1].t : "";
+      if (/^[a-z]{1,2}$/.test(t.trim()) && /[A-Za-z]$/.test(prev) && /^[a-z]/.test(next)) { out += t; return; }
+      const m = t.replace(/\s+/g, " ").trim();
+      if (!m) { out += t; return; }
+      // one raised run can hold two marks ("3 4"): each is its own
+      // a stray symbol riding with a digit in one raised run is dirt, not a second mark
+      let xs = m.split(" ");
+      if (xs.length > 1 && xs.some((x) => /^\d+$/.test(x))) xs = xs.filter((x) => /^\d+$/.test(x));
+      xs.forEach((x) => { out += "\u0001" + x + "\u0002"; });
+      return;
+    }
+    t = escH(t);
+    out += r.i ? "<i>" + t + "</i>" : t;
+  });
+  return out;
+}
+
+function roman(n) {
+  const t = [[50, "l"], [40, "xl"], [10, "x"], [9, "ix"], [5, "v"], [4, "iv"], [1, "i"]];
+  let s = ""; for (const [v, r] of t) while (n >= v) { s += r; n -= v; } return s;
+}
+
+function buildPages(P, opts, warn) {
+  const pages = [];
+  let prevOpen = false;
+  for (const L of opts.leaves) {
+    const c = classify(P, L, prevOpen);
+    const page = L >= opts.bodyLeaf ? String(L - opts.bodyLeaf + 1) : roman(L - opts.frontOffset);
+    // ---- notes ----
+    // A NOTE OPENS where its line is indented past the notes' margin, or at a raised mark mid-line.
+    const notes = [];
+    let cont = "";
+    const nl = c.notes.flatMap((p) => p.lines);
+    const margin = nl.length ? Math.min(...nl.map((l) => l.l)) : 0;
+    const add = (h) => { if (notes.length) notes[notes.length - 1].html += h; else cont += h; };
+    nl.forEach((line, li) => {
+      const indented = line.l > margin + 25;
+      let started = false;
+      line.runs.forEach((r, ri) => {
+        const before = line.runs.slice(0, ri).map((x) => x.t).join("");
+        if (r.sup && /\S/.test(r.t)) { notes.push({ read: r.t.trim(), html: "", kind: "sup" }); started = true; return; }
+        let t = r.t;
+        if (!started && indented && !/\S/.test(before) && /\S/.test(t)) {
+          started = true;
+          let m = t.match(/^\s*(\W{0,2}?)(\d)1\.e\./);
+          if (m) { notes.push({ read: m[2], html: "", kind: "line" }); t = "I.e." + t.slice(m[0].length); }
+          else if ((m = t.match(/^\s*(\d{1,2}|[^\sA-Za-z(\[]{1,2})\s*(?=[A-Z(“‘"\[]|[a-z]\.)/))) { notes.push({ read: m[1], html: "", kind: "line" }); t = t.slice(m[0].length); }
+          else if (li > 0 || notes.length || !prevOpen) notes.push({ read: "?", html: "", kind: "?" });
+        }
+        t = escH(t);
+        add(r.i ? "<i>" + t + "</i>" : t);
+      });
+      add("\n");
+    });
+    const last = c.notes.length ? parText(c.notes[c.notes.length - 1]) : "";
+    prevOpen = c.notes.length > 0 && !/[.?!”)\]]\s*$/.test(last);
+    pages.push({ L, page, body: c.body, notes, cont, furn: c.furn });
+  }
+  return pages;
+}
+
+/* ---------- the four Tesseract texts as witnesses to where a note begins ---------- */
+const norm = (s) => s.toLowerCase().replace(/<[^>]+>/g, " ").replace(/\u0001[^\u0002]*\u0002/g, " ").replace(/[^a-z0-9]+/g, " ").trim();
+function witnessPages(txt) {
+  // page number → the text from its running head to the next
+  const lines = txt.split("\n");
+  const pages = {};
+  let cur = null, buf = [];
+  const flush = () => { if (cur != null) pages[cur] = (pages[cur] || "") + buf.join("\n"); buf = []; };
+  for (const ln of lines) {
+    let m = ln.match(/^\s*(\d{1,3}) +EGYPTIAN LITERATURE\s*$/) || ln.match(/^\s*(?:FROM THE (?:OLDEST POETRY|OLDER PERIOD|NEW KINGDOM)|EXPLANATORY NOTES|BY WAY OF INTRODUCTION) +(\d{1,3})\s*$/);
+    if (m) { flush(); cur = +m[1]; continue; }
+    buf.push(ln);
+  }
+  flush();
+  return pages;
+}
+
+/* word starts in an html string: [{w, at}] where `at` is the char offset of the word in the html */
+function wordsAt(html) {
+  const out = [];
+  let i = 0, inTag = false, cur = "", start = -1;
+  const push = () => { if (cur) out.push({ w: cur, at: start }); cur = ""; start = -1; };
+  for (; i < html.length; i++) {
+    const ch = html[i];
+    if (inTag) { if (ch === ">") inTag = false; continue; }
+    if (ch === "<") { inTag = true; continue; }
+    if (ch === "&") { const e = html.indexOf(";", i); if (e > i && e - i < 7) { push(); i = e; continue; } }
+    const lc = ch.toLowerCase();
+    if (/[a-z0-9]/.test(lc)) { if (!cur) start = i; cur += lc; } else push();
+  }
+  push();
+  return out;
+}
+
+/* ---------- marks → notes, by alignment ----------
+   The marks on a page are read in order and each points at one of the page's notes. The digits this
+   OCR reads off a raised mark are right most of the time and wrong often enough (1 for 4, * for 2, s for 8)
+   that taking them at their word would send a reader to the wrong note; taking them purely by order
+   fails wherever one note is cited twice. So the two are reconciled: a monotone path through the notes,
+   each mark either the next note or the same one again, scored against the digit read. */
+function alignMarks(reads, N) {
+  // each mark goes to a note (j) or is dropped as dirt (0); notes run forward, a note may be cited again,
+  // and a note no mark reaches costs dearly, since the printed page cites every note it carries
+  const K = reads.length;
+  if (!K || !N) return { map: reads.map(() => 0), cost: K || N ? 99 : 0 };
+  const dig = reads.map((r) => (/^\d{1,2}$/.test(r) ? +r : null));
+  const INF = 1e9, SKIP = 5, STAY = 2.5, STAYEQ = 0.4, MIS = 1.5, UNK = 0.8;
+  const drop = (i) => (dig[i] == null ? 1.2 : 4);
+  const cAt = (i, j) => (dig[i] === j ? 0 : dig[i] == null ? UNK : MIS);
+  // state: last note used (0 = none yet)
+  let f = new Array(N + 1).fill(INF); f[0] = 0;
+  const bps = [];
+  for (let i = 0; i < K; i++) {
+    const g = new Array(N + 1).fill(INF), bp = new Array(N + 1).fill(null);
+    for (let p = 0; p <= N; p++) {
+      if (f[p] >= INF) continue;
+      // drop this mark
+      if (f[p] + drop(i) < g[p]) { g[p] = f[p] + drop(i); bp[p] = { p, j: 0 }; }
+      for (let j = Math.max(p, 1); j <= N; j++) {
+        const step = j === p ? (dig[i] === j ? STAYEQ : STAY) : SKIP * (j - p - 1);
+        const v = f[p] + step + cAt(i, j);
+        if (v < g[j]) { g[j] = v; bp[j] = { p, j }; }
+      }
+    }
+    f = g; bps.push(bp);
+  }
+  let best = INF, bj = 0;
+  for (let j = 0; j <= N; j++) { const v = f[j] + SKIP * (N - j); if (v < best) { best = v; bj = j; } }
+  const map = new Array(K);
+  for (let i = K - 1, j = bj; i >= 0; i--) { const b = bps[i][j]; map[i] = b.j; j = b.p; }
+  return { map, cost: best };
+}
+
+/* ---------- the body: paragraphs, headings, and the page they start on ---------- */
+function isHeading(par) {
+  const runs = par.lines.flatMap((l) => l.runs);
+  let up = 0, letters = 0;
+  for (const r of runs) {
+    if (r.sup) continue;
+    for (const ch of r.t) if (/[A-Za-z]/.test(ch)) { letters++; if (r.sc || /[A-Z]/.test(ch)) up++; }
+  }
+  if (par.lines.length > 3 || letters < 3) return false;
+  return up / letters >= 0.75;
+}
+// the vocabulary that settles a hyphen at a line end
+function hyphenVocab(texts) {
+  const hy = new Map(), pl = new Map();
+  for (const t of texts) {
+    for (const line of t.split("\n")) {
+      const ws = line.trim().split(/\s+/);
+      ws.forEach((w, k) => {
+        if (k === ws.length - 1 && /-$/.test(w)) return;          // a line-end hyphen says nothing
+        const c = w.toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, "");
+        if (!c) return;
+        if (/^[a-z]+(-[a-z]+)+$/.test(c)) hy.set(c, (hy.get(c) || 0) + 1);
+        else if (/^[a-z]+$/.test(c)) pl.set(c, (pl.get(c) || 0) + 1);
+      });
+    }
+  }
+  return { hy, pl };
+}
+/* A HYPHEN AT A LINE END is kept where the five texts print the compound with it mid-line more often than
+   closed up, or where both halves are words and the closed-up form occurs nowhere ("caste-consciousness",
+   "libation-tables" — closed up they read as words that do not exist); otherwise the word is joined. */
+function keepHyphen(vocab, a, b) {
+  const hy = vocab.hy.get(a + "-" + b) || 0, pl = vocab.pl.get(a + b) || 0;
+  if (hy > pl) return true;
+  return pl === 0 && a.length >= 3 && b.length >= 3 && (vocab.pl.get(a) || 0) >= 2 && (vocab.pl.get(b) || 0) >= 2;
+}
+function joinLines(htmls, vocab, stats) {
+  let out = "";
+  htmls.forEach((h, k) => {
+    if (k === 0) { out = h; return; }
+    const m = out.match(/([A-Za-z]+)-(<\/i>)?\s*$/);
+    const n = h.replace(/^\s*(<i>)?/, "").match(/^([a-z]+)/);
+    if (m && n) {
+      const a = m[1].toLowerCase(), b = n[1];
+      const keep = keepHyphen(vocab, a, b);
+      if (keep) { out = out.replace(/\s*$/, ""); stats.kept++; }
+      else { out = out.replace(/-(<\/i>)?\s*$/, "$1"); stats.joined++; }
+      out += h.replace(/^\s+/, "");
+      return;
+    }
+    if (/[—–]\s*$/.test(out) || /^\s*[—–]/.test(h)) { out = out.replace(/\s*$/, "") + h.replace(/^\s+/, ""); return; }
+    out = out.replace(/\s*$/, "") + " " + h.replace(/^\s+/, "");
+  });
+  return out.replace(/<\/i>(\s*)<i>/g, "$1");
+}
+function buildBlocks(pages, vocab, stats) {
+  const blocks = [];
+  for (const pg of pages) {
+    const pageR = Math.max(0, ...pg.body.flatMap((p) => p.lines.map((l) => l.r)));
+    pg.body.forEach((p, j) => {
+      // A VERSE LINE inside a paragraph: the prose is justified to the measure, so a line that stops short
+      // of it and is followed by one opening on a capital ends a line of the poem
+      const short = (l) => l.r < pageR - 120;
+      const parts = [];
+      p.lines.forEach((l, k) => {
+        const h = lineHtml(l);
+        if (k > 0 && short(p.lines[k - 1]) && /^\s*(<i>)?[“‘(\[]?[A-Z]/.test(h)) { stats.verse = (stats.verse || 0) + 1; parts.push("<br>"); }
+        parts.push(h);
+      });
+      const segs = parts.join("\u0003").split("\u0003<br>\u0003").map((x) => x.split("\u0003"));
+      const html = segs.map((ls) => joinLines(ls, vocab, stats)).join("<br>");
+      const a = p.a;
+      blocks.push({
+        page: pg.page, L: pg.L, html, size: p.size,
+        head: isHeading(p), center: a.align === "Center",
+        indent: +(a.startIndent || 0) > 0, left: +(a.leftIndent || 0),
+        lines: p.lines.length, firstOnPage: j === 0, text: parText(p),
+        // the last line stops short of the measure: the paragraph (or the verse) ends here, not at the page
+        endsShort: p.lines[p.lines.length - 1].r < pageR - 120,
+      });
+    });
+  }
+  return blocks;
+}
+
+/* ---------- Myers diff on token arrays: returns pairs [i, j] of equal tokens ---------- */
+function myersPairs(a, b) {
+  const n = a.length, m = b.length, max = n + m;
+  const v = new Map([[1, 0]]);
+  const trace = [];
+  outer: for (let d = 0; d <= max; d++) {
+    trace.push(new Map(v));
+    for (let k = -d; k <= d; k += 2) {
+      let x = (k === -d || (k !== d && (v.get(k - 1) ?? -1) < (v.get(k + 1) ?? -1))) ? (v.get(k + 1) ?? 0) : (v.get(k - 1) ?? 0) + 1;
+      let y = x - k;
+      while (x < n && y < m && a[x] === b[y]) { x++; y++; }
+      v.set(k, x);
+      if (x >= n && y >= m) break outer;
+    }
+    if (d > 4000) return null;
+  }
+  // backtrack
+  const pairs = [];
+  let x = n, y = m;
+  for (let d = trace.length - 1; d >= 0 && (x > 0 || y > 0); d--) {
+    const vv = trace[d], k = x - y;
+    const prevK = (k === -d || (k !== d && (vv.get(k - 1) ?? -1) < (vv.get(k + 1) ?? -1))) ? k + 1 : k - 1;
+    const px = vv.get(prevK) ?? 0, py = px - prevK;
+    while (x > px && y > py) { x--; y--; pairs.push([x, y]); }
+    if (d > 0) { x = px; y = py; }
+  }
+  return pairs.reverse();
+}
+
+/* ---------- the vote ---------- */
+const fold = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+function witnessTokens(seg) {
+  // dehyphenate a line-end break, then tokenise as wordsAt does, keeping each token's surface
+  const t = seg.replace(/([A-Za-z])-\s*\n\s*([a-z])/g, "$1$2");
+  const out = [];
+  const re = /\S+/g; let m;
+  while ((m = re.exec(t))) {
+    const surf = m[0];
+    const parts = fold(surf).split(/[^a-z0-9]+/).filter(Boolean);
+    const core = surf.replace(/^[^A-Za-z0-9À-ɏ]+|[^A-Za-z0-9À-ɏ]+$/g, "");
+    parts.forEach((p) => out.push({ w: p, surf: parts.length === 1 ? core : null }));
+  }
+  return out;
+}
+function voteReadings(units, wits, vocab, stats) {
+  const readings = [];
+  // units: [{page, get(), set(html)}] — every html string of one printed page
+  const byPage = new Map();
+  units.forEach((u) => { if (!byPage.has(u.page)) byPage.set(u.page, []); byPage.get(u.page).push(u); });
+  for (const [page, us] of byPage) {
+    const n = +page;
+    if (!n) continue;
+    const toks = [];
+    us.forEach((u, ui) => wordsAt(u.get()).forEach((w) => toks.push({ ...w, ui })));
+    const A = toks.map((t) => fold(t.w));
+    const votes = toks.map(() => []);
+    for (const wp of wits) {
+      const seg = [n - 1, n, n + 1].map((q) => wp[q] || "").join("\n");
+      const B = witnessTokens(seg);
+      const pairs = myersPairs(A, B.map((x) => x.w));
+      if (!pairs) continue;
+      let pa = -1, pb = -1;
+      const gap = (ia, ib) => {
+        const la = ia - pa - 1, lb = ib - pb - 1;
+        if (la > 0 && la === lb && la <= 3) for (let k = 1; k <= la; k++) votes[pa + k].push(B[pb + k]);
+      };
+      for (const [ia, ib] of pairs) { gap(ia, ib); votes[ia].push(null); pa = ia; pb = ib; }
+    }
+    toks.forEach((t, i) => {
+      const vs = votes[i].filter((x) => x);
+      if (vs.length < 3) return;
+      const count = new Map();
+      vs.forEach((x) => count.set(x.w, (count.get(x.w) || 0) + 1));
+      const [best, c] = [...count.entries()].sort((p, q) => q[1] - p[1])[0];
+      if (c < 3 || best === A[i]) return;
+      const sample = vs.find((x) => x.w === best && x.surf);
+      if (!sample) return;
+      const surf = sample.surf;
+      if (/[^\x00-\x7F]/.test(surf) || !/^[A-Za-z]+$/.test(surf)) { stats.refusedShape++; return; }
+      if (/^\d+$/.test(t.w)) { stats.refusedShape++; return; }
+      // A NON-WORD is corrected into a word (the English of the shelf, or this scan's own text); a WORD only
+      // into one far commoner, at most two letters away — "m" into "in", "skv" into "sky", never "Amun" into "Amin"
+      if (/ology$/.test(best)) { stats.refusedShape++; return; }        // Archæology: the ligature table's
+      if (A[i].length < 2 || best.length < 2 || Math.abs(A[i].length - best.length) >= 2) { stats.refusedShape++; return; }
+      const F = (w) => (vocab.shelf.get(w) || 0) + 20 * (vocab.own.get(w) || 0);
+      const known = (w) => (vocab.shelf.get(w) || 0) >= 3 || (vocab.own.get(w) || 0) >= 3;
+      const dist = editDistance(A[i], best);
+      if (dist > Math.max(2, Math.ceil(best.length / 3))) { stats.refusedFar++; return; }
+      if (!known(best)) { stats.refusedVocab++; return; }
+      if (known(A[i]) && !(dist <= 2 && F(best) >= 20 * F(A[i]))) { stats.refusedWord++; if (stats.rw) stats.rw.push(A[i] + '>' + best); return; }
+      readings.push([page, i, t.w, surf]);
+    });
+  }
+  return readings;
+}
+/* apply frozen readings: [page, word index on the page, the word as read, the word voted] */
+function applyReadings(units, readings, stats, log) {
+  const byPage = new Map();
+  units.forEach((u) => { if (!byPage.has(u.page)) byPage.set(u.page, []); byPage.get(u.page).push(u); });
+  const want = new Map();
+  readings.forEach((r) => { if (!want.has(r[0])) want.set(r[0], []); want.get(r[0]).push(r); });
+  for (const [page, rs] of want) {
+    const us = byPage.get(page) || [];
+    const toks = [];
+    us.forEach((u, ui) => wordsAt(u.get()).forEach((w) => toks.push({ ...w, ui })));
+    rs.map((r) => ({ r, t: toks[r[1]] })).sort((x, y) => (x.t && y.t ? (y.t.ui - x.t.ui) || (y.t.at - x.t.at) : 0)).forEach(({ r, t }) => {
+      if (!t || t.w !== r[2]) { stats.stale++; return; }
+      const u = us[t.ui], h = u.get();
+      const seg = h.slice(t.at, t.at + t.w.length);
+      if (seg.toLowerCase() !== t.w) { stats.skipped++; return; }
+      let to = r[3];
+      if ((seg.match(/[A-Z]/g) || []).length >= 2) to = to.toUpperCase();
+      else if (/^[A-Z][a-z]/.test(seg) || (/^[A-Z]/.test(seg) && seg[0].toLowerCase() !== to[0].toLowerCase() && /^[A-Z]/.test(to))) to = to[0].toUpperCase() + to.slice(1).toLowerCase();
+      else if (/^[a-z]/.test(seg) && seg[0] === to[0].toLowerCase()) to = to.toLowerCase();
+      else if (/^[a-z]/.test(seg) && /^[A-Z]/.test(to) && to.slice(1) === to.slice(1).toLowerCase()) { /* a capital the OCR lost */ }
+      else to = to.toLowerCase();
+      u.set(h.slice(0, t.at) + to + h.slice(t.at + t.w.length));
+      stats.changed++;
+      if (log) log.push(page + ": " + seg + " → " + to);
+    });
+  }
+}
+
+function editDistance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+
+/* ---------- chapters ---------- */
+const MK = /\u0001([^\u0002]*)\u0002/g;
+function headText(h, proper) {
+  // a heading set in capitals or small capitals, in the case a sentence would give it
+  let t = h.replace(MK, "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+  // the engine reads a heading's "1." as "i." or "x.", its "2." as "a." or "z."
+  t = t.replace(/^[ix]\.\s/, "1. ").replace(/^[az]\.\s/, "2. ").replace(/^;\.\s/, "5. ");
+  const letters = t.replace(/[^A-Za-z]/g, "");
+  const upper = letters.replace(/[^A-Z]/g, "").length;
+  if (letters.length && upper / letters.length > 0.6) {
+    const lead = (t.match(/^((?:[IVX]+|[A-F]|\d+(?:-\d+)?)\.\s+|\([a-z]\)\s+|\[)*/) || [""])[0];
+    let body = t.slice(lead.length), first = true;
+    const titled = /^([IVX]+|[A-F])\.\s/.test(lead);   // a part or a section: title case, as the contents prints it
+    body = body.replace(/[A-Za-z][A-Za-z’']*/g, (w) => {
+      const lw = w.toLowerCase();
+      let o = /^(ii|iii|iv|vi|vii|viii)$/.test(lw) ? w.toUpperCase() : proper.has(lw) ? proper.get(lw) : lw;
+      if (titled && !/^(of|the|and|in|to|a|an|from|for|on|at)$/.test(lw)) o = o[0].toUpperCase() + o.slice(1);
+      if (first) { o = o[0].toUpperCase() + o.slice(1); first = false; }
+      return o;
+    });
+    t = lead + body;
+  }
+  return t;
+}
+/* typography the printer's convention and the OCR's spacing put into the text, not words */
+function tidy(h) {
+  return h
+    .replace(/‘‘/g, "“").replace(/’’/g, "”")
+    .replace(/\s+([;:?!])/g, "$1")
+    .replace(/([“‘(\[])\s+/g, "$1")
+    .replace(/\s+”/g, "”")
+    .replace(/(\S)\s+’(?=[\s,.;:!?)\]]|$)/g, "$1’")
+    .replace(/\s+([,.])(?=\s|$|<)/g, "$1")
+    .replace(/—-+|-+—|(\w)--(?=\w)/g, (m, w) => (w || "") + "—")
+    .replace(/\s+(<sup class="fn")/g, "$1")
+    .replace(/\bb\.\s?c\./g, "B.C.").replace(/\ba\.\s?d\./g, "A.D.")
+    .replace(/\s{2,}/g, " ");
+}
+function assemble(pages, blocks, BOOK, warn, opts) {
+  const counts = { chapters: 0, joins: 0, heads: 0, small: 0, marks: 0, notes: 0, uncited: 0, pageMarks: 0 };
+  // which note each mark on a page points at
+  const pageNotes = new Map(pages.map((p) => [p.page, p]));
+  const marksByPage = new Map();
+  blocks.forEach((b) => { (b.html.match(MK) || []).forEach((m) => { if (!marksByPage.has(b.page)) marksByPage.set(b.page, []); marksByPage.get(b.page).push(m.slice(1, -1)); }); });
+  // TWO REPAIRS BEFORE THE ALIGNMENT, each where the count of marks and the count of notes disagree by one
+  // and the marks read as a clean run: a mark the engine set on the line as a plain figure, and a note
+  // that shares its line with the one before it.
+  const fixes = { bareMarks: 0, splits: 0 };
+  for (const pg of pages) {
+    const reads = marksByPage.get(pg.page) || [];
+    const ints = reads.map((r) => (/^\d{1,2}$/.test(r) ? +r : null));
+    const N = pg.notes.length;
+    const missing = [];
+    for (let k = 1; k <= N; k++) if (!ints.includes(k)) missing.push(k);
+    if (N && reads.length === N - 1) {
+      // a heading of a text carries its note on the title, and the engine lost the mark there more often than anywhere
+      const hs = blocks.filter((b) => b.page === pg.page && b.head && /^(\d+|[ivx]+)\.\s/i.test(b.text) && !/\u0001/.test(b.html));
+      if (hs.length === 1) {
+        hs[0].html = hs[0].html.replace(/[\s■•*\-]*$/, "") + "\u0001?\u0002";
+        const r2 = [];
+        blocks.filter((b) => b.page === pg.page).forEach((b) => (b.html.match(MK) || []).forEach((x) => r2.push(x.slice(1, -1))));
+        marksByPage.set(pg.page, r2);
+        fixes.headMarks = (fixes.headMarks || 0) + 1;
+        continue;
+      }
+    }
+    if (N && missing.length === 1 && reads.length === N - 1) {
+      const k = missing[0];
+      const bs = blocks.filter((b) => b.page === pg.page);
+      let done = false;
+      for (const b of bs) {
+        if (done) break;
+        const re = new RegExp("([a-z.,;:!?”’)\\]])( ?)" + k + "(?=[\\s.,;:!?)]|$)", "g");
+        let m;
+        while ((m = re.exec(b.html))) {
+          const before = b.html.slice(Math.max(0, m.index - 14), m.index + 1);
+          if (/(year|Utterance|p\.|pp\.|No\.|chapter|Dynasty|of|the|and|cubits?|day|month)\s*\S?$/i.test(before)) continue;
+          if (/\d$/.test(b.html.slice(0, m.index + 1))) continue;
+          b.html = b.html.slice(0, m.index + 1) + "\u0001" + k + "\u0002" + b.html.slice(m.index + m[0].length);
+          fixes.bareMarks++; done = true; break;
+        }
+      }
+      if (done) {
+        const r2 = [];
+        bs.forEach((b) => (b.html.match(MK) || []).forEach((x) => r2.push(x.slice(1, -1))));
+        marksByPage.set(pg.page, r2);
+      }
+    }
+    // a note the witnesses open where this scan runs it on from the one before (a page short of notes only)
+    const digits = ints.filter((x) => x != null).length;
+    if (N && digits > N && opts && opts.wits) {
+      const opens = new Set();
+      opts.wits.forEach((wp) => {
+        const seg = wp[+pg.page] || "";
+        for (const para of seg.split(/\n\s*\n/)) {
+          const t = para.replace(/\s+/g, " ").trim();
+          const m = t.match(/^(\S{1,3}) (?=[A-Z“‘(\[])/);
+          if (!m) continue;
+          const w = norm(t.slice(m[0].length)).split(" ").slice(0, 4);
+          if (w.length === 4) opens.add(w.join(" "));
+        }
+      });
+      for (let j = 0; j < pg.notes.length && pg.notes.length < digits; j++) {
+        const W = wordsAt(pg.notes[j].html);
+        for (let k = 3; k + 4 <= W.length; k++) {
+          const key = W.slice(k, k + 4).map((x) => fold(x.w)).join(" ");
+          if (!opens.has(key)) continue;
+          let at = W[k].at, h = pg.notes[j].html;
+          // the mark before the word stays behind as dirt: cut it off the end of the first half
+          let left = h.slice(0, at).replace(/\s*(?:<i>)?(\d{1,2}|[^\sA-Za-z<]{1,2})?(?:<\/i>)?\s*$/, "");
+          pg.notes.splice(j + 1, 0, { read: "w", kind: "wit", html: h.slice(at) });
+          pg.notes[j].html = left;
+          fixes.witSplits = (fixes.witSplits || 0) + 1;
+          break;
+        }
+      }
+    }
+    if (N && reads.length === N + 1 && ints.every((x, i) => x === i + 1)) {
+      const CUT = /([.?!”)\]]\s?)(?:<i>)?(\d{1,2}|[*•'‘’!$®°§"“\-])(?:<\/i>)?\s(?=(?:<i>)?[A-Z(“‘])/;
+      for (let j = 0; j < pg.notes.length; j++) {
+        const m = pg.notes[j].html.match(CUT);
+        if (!m) continue;
+        const at = m.index + m[1].length;
+        pg.notes.splice(j + 1, 0, { read: m[2], kind: "mid", html: pg.notes[j].html.slice(m.index + m[0].length) });
+        pg.notes[j].html = pg.notes[j].html.slice(0, at);
+        fixes.splits++;
+        break;
+      }
+    }
+  }
+  counts.bareMarks = fixes.bareMarks; counts.noteSplits = fixes.splits; counts.headMarks = fixes.headMarks || 0; counts.witSplits = fixes.witSplits || 0;
+  const mapByPage = new Map();
+  for (const [pg, reads] of marksByPage) {
+    const N = (pageNotes.get(pg) || { notes: [] }).notes.length;
+    const al = alignMarks(reads, N);
+    mapByPage.set(pg, { map: al.map, cost: al.cost, i: 0, N });
+    if (al.cost >= 3) warn("p. " + pg + ": the marks [" + reads.join(",") + "] fit " + N + " note(s) badly (cost " + al.cost.toFixed(1) + ")");
+  }
+  // the chapter each block belongs to
+  const chs = BOOK.ermanChapters;
+  // a chapter opens at its own heading — or at the section heading above it (II. FROM THE OLDER PERIOD,
+  // A. NARRATIVES), whose introduction belongs to the first text of the section rather than the last of the one before
+  const cut = chs.map(() => -1);
+  let from = 0;
+  const near = (b, pg) => { const a = +b.page || 0, c = +pg || 0; return a && c ? Math.abs(a - c) <= 1 : b.page === pg; };
+  chs.forEach((c, k) => {
+    let at = -1;
+    for (let i = from; i < blocks.length; i++) if (blocks[i].head && near(blocks[i], String(c.page)) && c.head.test(blocks[i].text)) { at = i; break; }
+    if (at < 0) return;
+    let start = at;
+    if (c.from) for (let i = at; i >= from; i--) if (blocks[i].head && c.from.test(blocks[i].text)) { start = i; break; }
+    cut[k] = start;
+    from = at + 1;
+  });
+  cut.forEach((x, k) => { if (x < 0) throw new Error("chapter " + (k + 1) + " (" + chs[k].t + "): no heading on p. " + chs[k].page); });
+  // the words this book capitalises in running text, so a heading set in capitals can be given its case
+  const proper = new Map();
+  {
+    const cap = new Map(), low = new Map();
+    for (const b of blocks) {
+      if (b.head) continue;
+      const t = b.html.replace(/<[^>]+>/g, " ").replace(MK, " ");
+      const re = /(^|[^.?!:;“‘(\s]\s+)([A-Za-z][a-z’']+)/g; let m;
+      while ((m = re.exec(t))) { const w = m[2], lw = w.toLowerCase(); if (/^[A-Z]/.test(w)) cap.set(lw, (cap.get(lw) || 0) + 1); else low.set(lw, (low.get(lw) || 0) + 1); }
+    }
+    for (const [w, c] of cap) if (c >= 2 && c > 2 * (low.get(w) || 0)) proper.set(w, w[0].toUpperCase() + w.slice(1));
+  }
+  const out = [], cited = new Set();
+  for (let k = 0; k < chs.length; k++) {
+    const c = chs[k];
+    const end = k + 1 < chs.length ? cut[k + 1] : blocks.length;
+    const bs = blocks.slice(cut[k], end);
+    const paras = [];  // {cls, html}
+    let lastPage = null, prev = null;
+    const notes = [], noteNo = new Map();
+    const own = bs.findIndex((b) => b.head && c.head.test(b.text));
+    bs.forEach((b, j) => {
+      let h = b.html;
+      // marks → this chapter's note numbers
+      h = h.replace(MK, (m, read) => {
+        const mp = mapByPage.get(b.page);
+        if (!mp) return "";
+        const idx = mp.map[mp.i++];
+        if (!idx) { counts.dropped = (counts.dropped || 0) + 1; return ""; }
+        const pn = pageNotes.get(b.page);
+        if (!pn || !pn.notes[idx - 1]) { warn("p. " + b.page + ": mark " + read + " has no note"); return ""; }
+        const key = b.page + "#" + idx;
+        if (!noteNo.has(key)) { notes.push(key); noteNo.set(key, notes.length); }
+        cited.add(key);
+        counts.marks++;
+        return '<sup class="fn" data-fn="' + noteNo.get(key) + '"></sup>';
+      });
+      // the printed page this block opens, as a marker the reader can cite by
+      const pm = b.page !== lastPage ? '<span class="bk-n" data-n="' + b.page + '">' + b.page + "</span>" : "";
+      if (pm) counts.pageMarks++;
+      lastPage = b.page;
+      if (b.head) {
+        // the chapter's own heading goes unless it carries a note or a section heading came before it
+        if (j === own && own === 0 && !/data-fn/.test(h)) { if (pm) paras.push({ cls: "", html: pm, onlyMark: true }); prev = null; return; }
+        const ht = j === own ? (c.num ? c.num + " " : "") + c.t : headText(h, proper);
+        paras.push({ cls: "bk-head", html: pm + ht + (h.match(/<sup[^>]*><\/sup>/g) || []).join("") });
+        counts.heads++; prev = null; return;
+      }
+      const cls = b.size === "small" ? "bk-small" : "";
+      const cont = prev && !b.indent && !b.center && prev.cls === cls && (b.firstOnPage || /^\s*(<i>)?[a-z]/.test(h)) &&
+        !(b.firstOnPage && prev.endsShort && /^\s*(<span[^>]*>[^<]*<\/span>)?\s*(<i>)?[“‘(\[]?[A-Z]/.test(h));
+      if (cont) {
+        const last = paras[paras.length - 1];
+        const m = last.html.match(/([A-Za-z]+)-(<\/i>)?\s*$/), n2 = h.match(/^\s*(<i>)?([a-z]+)/);
+        if (m && n2) {
+          last.html = last.html.replace(/-(<\/i>)?\s*$/, "$1");
+          // the page marker after the word the break divided
+          last.html += h.replace(/^(\s*(?:<i>)?[a-z]+[^\s<]*)/, "$1" + (pm ? " " + pm : ""));
+        } else last.html = last.html.replace(/\s*$/, "") + (/[—–]$/.test(last.html) ? "" : " ") + pm + h.replace(/^\s+/, "");
+        last.endsShort = b.endsShort;
+        counts.joins++;
+        return;
+      }
+      if (cls) counts.small++;
+      const p = { cls, html: pm + h, endsShort: b.endsShort };
+      paras.push(p); prev = p;
+    });
+    // a page's marker standing alone (the dropped heading) moves onto the paragraph after it
+    for (let j = 0; j + 1 < paras.length; j++) if (paras[j].onlyMark) { paras[j + 1].html = paras[j].html + paras[j + 1].html; paras.splice(j, 1); j--; }
+    const html = paras.map((p) => "<p" + (p.cls ? ' class="' + p.cls + '"' : "") + ">" + tidy(p.html.replace(/\s+/g, " ").trim()) + "</p>").join("\n");
+    out.push({ n: k + 1, t: c.t, p: c.part, html, keys: notes, pages: [...new Set(bs.map((b) => b.page))] });
+    counts.notes += notes.length;
+  }
+  // A NOTE NO MARK REACHED is still the book's: it goes into the chapter its page's other notes went to, in
+  // its place among them, with no marker in the text (where the mark stood is exactly what is not known)
+  for (const pn of pages) pn.notes.forEach((nt, i) => {
+    const key = pn.page + "#" + (i + 1);
+    if (cited.has(key)) return;
+    counts.uncited++;
+    warn("p. " + pn.page + ": note " + (i + 1) + " is cited by no mark: " + nt.html.replace(/<[^>]+>/g, "").slice(0, 60));
+    let ch = out.find((c) => c.keys.some((x) => x.startsWith(pn.page + "#"))) || out.find((c) => c.pages.includes(pn.page));
+    if (!ch) return;
+    let at = ch.keys.findIndex((x) => x.startsWith(pn.page + "#") && +x.split("#")[1] > i + 1);
+    if (at < 0) { at = -1; ch.keys.forEach((x, j) => { if (x.startsWith(pn.page + "#")) at = j + 1; }); if (at < 0) at = ch.keys.length; }
+    ch.keys.splice(at, 0, key);
+  });
+  for (const ch of out) {
+    // the markers were numbered by first citation; the list now has the unmarked notes in it too
+    const oldNo = new Map(), newNo = new Map();
+    let n = 0;
+    ch.html.replace(/data-fn="(\d+)"/g, (m, d) => m);
+    ch.keys.forEach((key, j) => newNo.set(key, j + 1));
+    // recover each marker's key from its first-citation number
+    const cites = [];
+    ch.html.replace(/data-fn="(\d+)"/g, (m, d) => { cites.push(+d); return m; });
+    const firstKeys = ch.keys.filter((key) => cited.has(key));
+    ch.html = ch.html.replace(/data-fn="(\d+)"/g, (m, d) => 'data-fn="' + newNo.get(firstKeys[+d - 1]) + '"');
+    ch.notes = ch.keys.map((key) => {
+      const [pg, i] = key.split("#");
+      let h = pageNotes.get(pg).notes[+i - 1].html;
+      h = h.replace(/([A-Za-z]+)-(<\/i>)?\s*\n\s*(<i>)?([a-z]+)/g, (m, a, ci, oi, b) => {
+        const keep = keepHyphen(opts.vocab, a.toLowerCase(), b.toLowerCase());
+        return a + (keep ? "-" : "") + (ci || "") + (oi || "") + b;
+      });
+      return tidy(h.replace(/<\/i>(\s*)<i>/g, "$1").replace(/\s+/g, " ").trim());
+    });
+    delete ch.keys; delete ch.pages;
+  }
+  counts.chapters = out.length;
+  return { chapters: out, counts };
+}
+
+/* ---------- the whole book ---------- */
+// outside tags only: a replacement never reaches inside an attribute
+function textOnly(h, fn) { return h.split(/(<[^>]+>)/).map((x, i) => (i % 2 ? x : fn(x))).join(""); }
+function extractErman(xml, witTexts, ownText, BOOK, warn, opts) {
+  const P = parseAbbyy(xml);
+  const wits = witTexts.map(witnessPages);
+  const vocab = hyphenVocab([...witTexts, ownText]);
+  const pages = buildPages(P, { leaves: BOOK.ermanLeaves, bodyLeaf: BOOK.ermanBodyLeaf, frontOffset: BOOK.ermanFrontOffset }, warn);
+  // a note that runs over the page: its tail joins the last note of the page before
+  for (let i = 1; i < pages.length; i++) if (pages[i].cont.trim()) {
+    const pv = pages[i - 1];
+    if (pv.notes.length) pv.notes[pv.notes.length - 1].html += " " + pages[i].cont;
+    else warn("p. " + pages[i].page + ": a note's tail with no note before it: " + pages[i].cont.slice(0, 50));
+  }
+  const st = { kept: 0, joined: 0 };
+  let blocks = buildBlocks(pages, vocab, st);
+  // A PAGE TRANSCRIBED BY HAND from the scan, where hieroglyphs inline in the prose defeat the engine
+  for (const [pg, paras] of Object.entries(BOOK.ermanPages || {})) {
+    const at = blocks.findIndex((b) => b.page === pg);
+    const n = blocks.filter((b) => b.page === pg).length;
+    if (at < 0) throw new Error("ermanPages: no page " + pg);
+    const repl = paras.map((h, j) => ({ page: pg, L: blocks[at].L, html: h, size: "text", head: false, center: false, indent: j > 0, left: 0, lines: 1, firstOnPage: j === 0, text: h.replace(/<[^>]+>/g, "") }));
+    blocks.splice(at, n, ...repl);
+  }
+  // fixes read off the page image, each asserted to hit exactly once
+  for (const [pg, from, to] of BOOK.ermanFixes || []) {
+    const hits = blocks.filter((b) => b.page === pg && b.html.includes(from));
+    const nh = pages.filter((p) => p.page === pg).flatMap((p) => p.notes).filter((x) => x.html.includes(from));
+    if (hits.length + nh.length !== 1) { warn("fix on p. " + pg + " matched " + (hits.length + nh.length) + " times: " + from); continue; }
+    if (hits.length) hits[0].html = hits[0].html.replace(from, to); else nh[0].html = nh[0].html.replace(from, to);
+  }
+  // THE VOTE, frozen: four other scans of the same printing settle a word this engine misread
+  const units = [];
+  blocks.forEach((b) => units.push({ page: b.page, get: () => b.html, set: (h) => { b.html = h; } }));
+  pages.forEach((pg) => pg.notes.forEach((nt) => units.push({ page: pg.page, get: () => nt.html, set: (h) => { nt.html = h; } })));
+  const vs = { changed: 0, stale: 0, skipped: 0, refusedShape: 0, refusedVocab: 0, refusedWord: 0, refusedFar: 0 };
+  let readings = opts.readings;
+  if (!readings) {
+    vocab.shelf = opts.shelfVocab;
+    vocab.own = new Map();
+    for (const w of ownText.toLowerCase().match(/[a-z]+/g) || []) vocab.own.set(w, (vocab.own.get(w) || 0) + 1);
+    readings = voteReadings(units, wits, vocab, vs);
+  }
+  applyReadings(units, readings, vs);
+  // the printed page's diacritics, which neither engine reads, and its ligatures
+  const names = BOOK.ermanNames || {};
+  const keys = Object.keys(names).sort((a, b) => b.length - a.length);
+  const nameRe = new RegExp("(^|[^A-Za-zÀ-ɏ])(" + keys.join("|") + ")(?![A-Za-zÀ-ɏ])", "g");
+  let nameHits = 0;
+  const fix = (h) => textOnly(h, (x) => x
+    .replace(nameRe, (m, pre, w) => { nameHits++; return pre + names[w]; })
+    .replace(/Arch(?:ae|æ|ce|cz|ca|a|e)ology/g, "Archæology").replace(/\bformul(?:se|ae|ce)\b/g, "formulæ")
+    .replace(/\bGr(?:z|ae|ce)eco/g, "Græco").replace(/\bprim(?:a|ae|ce)eval/g, "primæval")
+    .replace(/\bw['’]([a-z])/g, "w$1").replace(/\bu['’](?=(?:ait|as|ere|hen|hich|hile|ith|ho)\b)/g, "w")
+    .replace(/\bw\^as\b/g, "was").replace(/\bUr\^eus/g, "Uræus").replace(/([a-z,.])\^(?=[A-Za-z])/g, "$1 "));
+  blocks.forEach((b) => { b.html = fix(b.html); });
+  pages.forEach((pg) => pg.notes.forEach((nt) => { nt.html = fix(nt.html); }));
+  const got = assemble(pages, blocks, BOOK, warn, { wits, vocab });
+  got.counts.hyphensJoined = st.joined; got.counts.hyphensKept = st.kept;
+  got.counts.vote = vs; got.counts.names = nameHits;
+  got.readings = readings;
+  return got;
+}
+
+return { extractErman };
+})();
 
 /* ============================================================
    AN ANNALISTIC TEXT READ OFF A SCAN'S WORD COORDINATES     (layout: "chronicle")
@@ -36232,6 +40035,45 @@ async function fetchEnglish() {
     });
     return writeEnglish(chapters, warnings);
   }
+  /* ANCIENT RECORDS OF EGYPT — four scanned volumes read off their glyph boxes; see the block above
+     extractBreasted. Each volume's character OCR is cached gzipped as served, so --from/--to cost nothing and
+     a re-extract needs no network. */
+  if (BOOK.layout === "breasted") {
+    const warn = (m) => warnings.push(m);
+    const zlib = require("zlib");
+    const htmls = [];
+    for (let v = 0; v < BOOK.volumes.length; v++) {
+      const cf = path.join(CACHE, "vol" + (v + 1) + ".chocr.html.gz");
+      let buf;
+      if (!FORCE && fs.existsSync(cf)) buf = fs.readFileSync(cf);
+      else {
+        buf = await fetchBuffer(BOOK.volumes[v].url);
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, buf);
+        await sleep(500);
+      }
+      htmls.push(zlib.gunzipSync(buf).toString("utf8"));
+    }
+    const plan = BOOK.plan.map((r, i) => ({ n: i + 1, v: r[0], from: r[1], t: r[2], head: r[3] }));
+    const g = extractBreasted(htmls, Object.assign({}, BOOK, { breastedChapters: plan }), warn);
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " chapters from " + c.pages + " pages, " + c.sections + " sections (§); " +
+      c.notes + " notes, " + c.anchored + " placed on their mark and " + c.footAnchored + " at the end of their page's text (" +
+      (100 * c.anchored / Math.max(1, c.notes)).toFixed(1) + "% placed)");
+    console.log("  " + c.lineNumbers + " line numbers dropped, " + c.halfBrackets + " half-brackets restored, " +
+      c.raisedDropped + " other raised glyphs dropped, " + c.figureRows + " figure rows dropped (Vol. IV); " +
+      c.dehyphenated + " words rejoined at a line's end, " + c.hyphensKept + " compound hyphens kept");
+    console.log("  repairs: " + c.italicOf + " italic \"of\", " + c.regnalIll + " \"Ill\" for III, " + c.lineRefs +
+      " line references, " + c.sectionRefs + " § references, " + c.ffs + " \"ff.\", " + c.oldStyleFigures +
+      " old-style years, " + c.gluedLineNumbers + " line numbers glued to a word, " + c.strayMarks + " stray marks, " + c.uncertainSigns + " ⌈—⌉ signs, " + c.braces + " braces; " + c.cutAtHeading + " chapter(s) cut at Breasted's heading where the § was unreadable");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
   /* THE TRAVELS OF MARCO POLO — the first book here printed in TWO Gutenberg files. Both are
      cached whole and read as one, because the chapters run continuously from one into the other and
      Book Second is split across the join: a count taken per file is a count of half a book. See the
@@ -36271,8 +40113,61 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* A TRANSCRIPTION IN CLASSICS IN THE HISTORY OF PSYCHOLOGY — see the block above extractYork. */
+  if (BOOK.layout === "york") {
+    const warn = (m) => warnings.push(m);
+    const tables = JSON.parse(fs.readFileSync(path.join(__dirname, "book-tables", BOOK.tablesFile), "utf8"));
+    const used = new Set();
+    const c = { notes: 0, marks: 0, bare: 0, dashes: 0, pages: 0, sic: 0, figures: 0, tables: 0, heads: 0, summaries: 0 };
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, "en-" + n + ".html");
+      let raw;
+      if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+      else {
+        raw = new TextDecoder("windows-1252").decode(await fetchBuffer(BOOK.url(n)));
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, raw);
+        await sleep(500);
+      }
+      for (const m of raw.matchAll(/<img\b[^>]*src="([^"]+)"/gi)) used.add(m[1]);
+      const ch = extractYork(raw, n, BOOK, tables, warn, c);
+      if (n < FROM || n > TO) continue;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: 1, html: ch.html, notes: ch.notes });
+    }
+    const unused = Object.keys(tables).filter((f) => !used.has(f));
+    if (unused.length) warn("typed table(s) no page shows: " + unused.join(", "));
+    console.log("  " + c.tables + " table(s) set from the typed file, " + c.figures + " figure(s) left out, " +
+      c.summaries + " summaries in italics, " + c.heads + " Bibliography head(s), " + c.notes + " notes (" +
+      c.marks + " markers, " + c.bare + " of them plain text), " + c.pages + " page number(s) and " + c.sic + " [sic] of the site's editor removed, " + c.dashes + " \"--\" set as a dash");
+    return writeEnglish(chapters, warnings);
+  }
+
   /* A GUTENBERG HTML EDITION IN ONE FILE PER VOLUME, cut at its own chapter heads — see the block
      above extractPgChapters. Cached as Polo's two volumes are. */
+  /* A GUTENBERG HTML EDITION WITH ITS NOTES COLLECTED AT THE END — see the block above
+     extractPgLinknote. One file, cached whole as `en-page.html`. */
+  if (BOOK.layout === "pglinknote") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = correctGot(extractPgLinknote(raw.replace(/\r\n?/g, "\n"), BOOK, warn));
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers), " +
+      c.heads + " chapter argument(s) set as head lines, " + c.verse + " verse block(s), " + c.figures +
+      " figure(s) and " + c.captions + " caption(s) left out, " + c.breaks + " rule(s) removed");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "pgchapters") {
     const warn = (m) => warnings.push(m);
     const vols = [];
@@ -36287,7 +40182,8 @@ async function fetchEnglish() {
         await sleep(500);
       }
     }
-    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n")), BOOK, warn));
+    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n"))
+      .map((x) => (BOOK.prep === "thorndike" ? thorndikePrep(x, warn) : x)), BOOK, warn));
     const c = g.counts;
     console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers, " +
       c.headNotes + " on a chapter head, " + c.noteTables + " table(s) in a note set one row to a line), " +
@@ -36358,6 +40254,55 @@ async function fetchEnglish() {
       if (b.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
       chapters.push({ n: b.n, t: titles[b.n] || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* ERMAN'S LITERATURE OF THE ANCIENT EGYPTIANS — the FineReader XML of one scan, the plain text of four
+     others as witnesses. Everything cached under book-cache/<id>/, so a re-extract needs no network. The
+     vote's decisions are read from .claude/erman-readings.json; --revote recomputes and rewrites them. */
+  if (BOOK.layout === "erman") {
+    const warn = (m) => warnings.push(m);
+    const zlib = require("zlib");
+    const get = async (file, url, gz) => {
+      const cf = path.join(CACHE, file);
+      if (!FORCE && fs.existsSync(cf)) return fs.readFileSync(cf, "utf8");
+      const t = gz ? zlib.gunzipSync(await fetchBuffer(url)).toString("utf8") : await fetchText(url);
+      fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, t);
+      return t;
+    };
+    const xml = await get("dli_abbyy.xml", BOOK.url, true);
+    const own = await get("dli.txt", BOOK.ownText);
+    const wit = [];
+    for (const w of BOOK.witnesses) wit.push(await get(w + ".txt", "https://archive.org/download/" + w + "/" + w + "_djvu.txt"));
+    const RF = path.join(__dirname, "erman-readings.json");
+    let readings = null, shelfVocab = null;
+    if (!argv.includes("--revote") && fs.existsSync(RF)) readings = JSON.parse(fs.readFileSync(RF, "utf8")).readings;
+    else {
+      // the shelf's English: every word of every English book file, three times or more
+      shelfVocab = new Map();
+      for (const f of fs.readdirSync(path.join(ROOT, "books"))) {
+        if (!/^[a-z0-9-]+\.js$/.test(f) || f === id + ".js") continue;
+        const t = fs.readFileSync(path.join(ROOT, "books", f), "utf8").replace(/<[^>]+>/g, " ").toLowerCase();
+        for (const w of t.match(/[a-z]+/g) || []) shelfVocab.set(w, (shelfVocab.get(w) || 0) + 1);
+      }
+      for (const [w, c] of shelfVocab) if (c < 3) shelfVocab.delete(w);
+    }
+    const got = ERMAN.extractErman(xml, wit, own, BOOK, warn, { readings, shelfVocab });
+    if (!readings) {
+      fs.writeFileSync(RF, JSON.stringify({ note: "Frozen OCR readings for erman-egyptian-literature: [printed page, word index on the page, as FineReader read it, as three or four of the four Tesseract witnesses read it]. Written by .claude/fetch-book.js erman-egyptian-literature --revote.", readings: got.readings }, null, 0).replace(/\],\[/g, "],\n["));
+      console.log("  wrote " + got.readings.length + " reading(s) to .claude/erman-readings.json");
+    }
+    const c = got.counts;
+    console.log("  " + c.chapters + " chapters; " + c.joins + " paragraph(s) joined across a page or a split, " + c.heads +
+      " heading(s), " + c.small + " paragraph(s) of commentary in small type, " + c.pageMarks + " printed page mark(s); " +
+      c.marks + " note mark(s) into " + c.notes + " note(s) — " + c.uncited + " note(s) no mark reached (kept, unmarked), " +
+      (c.dropped || 0) + " raised dirt dropped, " + c.headMarks + " mark(s) restored on a heading, " + (c.noteSplits + c.witSplits) +
+      " note(s) split off the one before; " + c.vote.changed + " word(s) corrected by the vote (" + c.vote.stale + " stale); " +
+      c.names + " name(s) given their macrons; " + c.hyphensJoined + " line-end hyphen(s) removed, " + c.hyphensKept + " kept");
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }
@@ -36861,7 +40806,10 @@ async function fetchEnglish() {
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
     /* A page cut into several parts is fetched once and kept for the run (see `cut`). */
     let h = (BOOK.cut || BOOK.prep === "cotus") ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await api(pageNames[0]))
+      : BOOK.parseText ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await apiText(BOOK.parseText, pageNames[0]))
       : await api(pageNames[0]);
+    /* ONE RUN OF SCAN PAGES, SEVERAL CHAPTERS (Nov 2026, the Book of the Dead): see `cutAtHeadings`. */
+    if (BOOK.cutHeads) h = cutAtHeadings(h, n, BOOK, warn);
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     /* ONE PAGE PER BOOK, CUT AT ITS CHAPTER HEADS (Nov 2026, The Social Contract): see `cutAtChapterHeads`. */
@@ -36879,6 +40827,8 @@ async function fetchEnglish() {
     if (BOOK.prep === "paine") h = painePrep(h, warn);
     if (BOOK.prep === "cotus") h = cotusPrep(h, n, warn);
     if (BOOK.prep === "rights") h = rightsPrep(h, warn);
+    if (BOOK.prep === "ebbinghaus") h = ebbinghausPrep(h, warn);
+    if (BOOK.prep === "manifesto") { MANIFESTO_BASE_PART = n === 1 ? "preface" : "opening"; h = manifestoPrep(h, pageNames[0], warn); }
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -36940,6 +40890,7 @@ async function fetchEnglish() {
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       // the tables painePrep stashed, put back after the tag stripper, which keeps no table tags
       if (BOOK.prep === "paine") html = html.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k]);
+      if (BOOK.prep === "ebbinghaus") html = ebbinghausFinish(html);
       if (keep) html = pruneNotes(html, keep);
       if (BOOK.prep === "leviathan") {
         const got = liftSidenotes(html, warn);
@@ -36948,8 +40899,8 @@ async function fetchEnglish() {
       /* A PART CUT OUT OF A LONGER PAGE carries the page's WHOLE note list — the Theses' page numbers
          its notes 1–84 straight through the introduction and four documents — so only the notes this
          part's own markers open are kept, renumbered from 1 by pruneNotes. */
-      if (BOOK.cut) html = liftChapterFence(html);
-      if (BOOK.between || BOOK.cut) {
+      if (BOOK.cut || BOOK.cutHeads) html = liftChapterFence(html);
+      if (BOOK.between || BOOK.cut || BOOK.cutHeads) {
         const used = [...new Set([...html.matchAll(/<sup class="fn" data-fn="(\d+)"><\/sup>/g)].map((m) => +m[1]))]
           .sort((x, y) => x - y);
         notes = used.map((u) => notes[u - 1]);
@@ -36978,6 +40929,7 @@ async function fetchEnglish() {
         let eh = await api(extra);
         if (BOOK.prep === "kant") eh = kantPrep(eh, warn);
         if (BOOK.prep === "euclid") eh = euclidPrep(eh, warn);
+        if (BOOK.prep === "manifesto") eh = manifestoPrep(eh, extra, warn);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -36998,6 +40950,7 @@ async function fetchEnglish() {
         const got = kantNestedNotes(html, notes, warn);
         html = got.html; notes = got.notes;
       }
+      if (BOOK.prep === "manifesto") html = manifestoFinish(html, warn);
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
       /* AN APPARATUS THE EDITION DOES NOT HAVE (Aug 2026, adding Le Morte d'Arthur — the first wiki
@@ -37410,6 +41363,7 @@ function writeEnglish(chapters, warnings) {
     (text.length / 1024).toFixed(0) + " KB, " +
     got.chapters.reduce((a, c) => a + (c.notes ? c.notes.length : 0), 0) + " notes. Re-parsed OK."
   );
+  if (SMALLCAPS_UPPER) console.log("  " + SMALLCAPS_UPPER + " small-capital run(s) typed in lower case or set all small caps, now in capitals (see `smallcaps`)");
   /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
      quietest failure this script has: it does not throw, it does not shorten the text and it does not
      look wrong on the page — it simply leaves that chapter with nothing to cite and nothing to pair. */
@@ -37446,6 +41400,7 @@ function writeEnglish(chapters, warnings) {
       if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
     }
   }
+  if (BOOK.prep === "ebbinghaus") console.log("  ebbinghaus: " + JSON.stringify(EBB));
   if (BOOK.dropFigures) {
     console.log("  " + FIGS_DROPPED + " figure(s) dropped");
     if (!FIGS_DROPPED) warnings.push("dropFigures is declared and no figure was found");
@@ -37549,6 +41504,9 @@ function writeEnglish(chapters, warnings) {
   if (KANT.heads || KANT.lifted)
     console.log("  " + KANT.heads + " heading block(s) fenced, " + KANT.lifted + " lifted, " + KANT.tables + " table(s) read as blocks, " + KANT.stars + " asterisk row(s), " + KANT.nested + " note(s) inside a note spliced" +
       (KANT.heads === KANT.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
+  if (MANIFESTO.heads || MANIFESTO.dropped)
+    console.log("  " + MANIFESTO.dropped + " printed head(s) dropped, " + MANIFESTO.heads + " heading block(s) fenced, " +
+      MANIFESTO.lifted + " lifted" + (MANIFESTO.heads === MANIFESTO.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
   if (SIDENOTES.fenced || SIDENOTES.lifted)
     console.log("  " + SIDENOTES.fenced + " marginal note(s) fenced, " + SIDENOTES.lifted + " lifted" +
       (SIDENOTES.fenced === SIDENOTES.lifted ? "" : " — MISMATCH, a note was lost or doubled"));
