@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
+  matter (chapter 0 — see the Library bullet). Currently eighty:
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -165,6 +165,22 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `petrie-egyptian-tales` (~99 KB, **6 tabs**, one per tale as the contents page lists them — `chapterWord: "Tale"`,
+  **no notes**, no original). W. M. Flinders Petrie's *Egyptian Tales, First Series* (Methuen): the three Westcar
+  Papyrus "Tales of the Magicians", the Peasant and the Workman (the Eloquent Peasant), the Shipwrecked Sailor and the
+  Adventures of Sanehat (Sinuhe). **Asked for as the 1895 book; what ships is the 1899 SECOND edition**, because the one
+  transcription — Project Gutenberg #7386 — is of it; en.wikisource does not carry the book. Fetched from the Internet
+  Archive's mirror of the ebook (`egyptiantalestra07386gut`) because Gutenberg was down that day. Read word by word
+  against the IA OCR of both printings (1895 `egyptiantalestr01petrgoog`, 1899 `egyptiantalestr00elligoog`): 25
+  `fixes` rows, each where the two printings agree against the transcription (two where only the 1895 scan is
+  legible). Layout `egtales` (new): cut at the contents page's heads; seven plate-caption lines (`EGTALES_CAPTIONS`,
+  every one in the 1899 List of Illustrations) and two transcriber's "[Page N]" marks dropped; one verse block (the
+  peasant's song); Petrie's **Remarks** — his whole apparatus — kept at each tale's foot under a `bk-head`. Public
+  domain (published 1895/1899; Petrie d. 1942, Griffith d. 1934; life plus a hundred runs to 2043). Anonymous, so
+  coloured on its id, `#422448` (16.5 from the Song of Roland). `GLOSS_BOOK` maps the four glossary terms of its works
+  (Westcar_Papyrus, The_Eloquent_Peasant, Tale_of_the_Shipwrecked_Sailor, Story_of_Sinuhe) to it. Excerpt: the
+  serpent's coming, the Shipwrecked Sailor. Not included: the introduction (it introduces both series), the index,
+  Tristram Ellis's illustrations.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
