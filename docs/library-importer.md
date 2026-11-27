@@ -2921,6 +2921,49 @@ the Contrat never prints).
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
 
+## `parseText` + `cutHeads` — one run of scan pages, cut at its printed heads (Nov 2026, the Book of the Dead)
+
+`parseText: '<pages index="…" from=A to=B />\n<references/>'` renders that wikitext under the title `page(n)` returns
+(`apiText`: `action=parse` with `text=`, POSTed, held in `CUT_PAGES` for the run — one request for the whole book).
+`cutHeads: { skip, titles }` → `cutAtHeadings(h, n, BOOK, warn)` cuts it at every `wst-heading` div (`{{h|…}}`): the
+heads are COUNTED against `skip + titles.length` and each must carry its title's words (ON/OF/THE excepted) — a missing
+or extra head THROWS. Use it where a section's wiki subpages transclude named sections that do not match the scan pages
+(Budge's anthology: four broken, four missing, two doubled). Three traps the cut handles, none of which throws:
+- **A head sits inside the paragraph flow**: the chapter's last paragraph is left with an unclosed `<p>`, or with none
+  at all where the wikitext had no blank line, and the generic wrapping pass wraps a bare run only to its first inline
+  tag, splitting the sentence. The cut closes the paragraph and wraps the trailing run whole (32 chapters, measured by
+  counting text outside every `<p>`).
+- **A note marker on a head** is moved onto the part's first line (chapter 101's note on its title).
+- **`smallcaps: "rubric"`**: `{{sc}}` (`span.smallcaps`) becomes italic; a run with no capital letter, every `{{asc}}`
+  (`span.wst-asc`) and every `{{asc/s}}…{{asc/e}}` block (`div style="font-variant:all-small-caps"`, opened in one
+  page's body and closed in the next) is set in capitals, the case the transcription did not record. Matched balanced
+  (`blockEnd`), because a rubric can hold a note marker whose brackets are spans.
+
+Re-run after touching: `node .claude/fetch-book.js book-of-the-dead --force` (one parse request), then check 114
+chapters, 126 notes, nothing outside a `<p>` or blockquote, and `node .claude/book-audit.js`.
+
+## The `erman` layout — an anthology read off FineReader XML, checked against four Tesseract scans (Nov 2026, Erman)
+
+`layout: "erman"` → the `ERMAN` namespace in fetch-book.js (`extractErman` and the functions above it). The block
+comment there is the full account; what is worth carrying to the next OCR book:
+
+- **Prefer an ABBYY (`_abbyy.gz`) OCR when the typography carries meaning.** It marks italic, small capitals and
+  superscript per run; Tesseract's `_djvu.txt`/`_djvu.xml` mark none of them. Look for it in the item's file list
+  (`archive.org/metadata/<id>`) — older and DLI items have one.
+- **Measure type size, do not read it.** FineReader's `fs` is unreliable; a paragraph's median line pitch (text
+  47–50 px, commentary 43–45, notes 39–42 here) and its letters' x-height against the leaves around it separate
+  the three sizes. A one-line paragraph has no pitch — classify it by x-height, and let a short line at the foot
+  of a page belong to the notes around it.
+- **A raised mark's digit is a vote, not a fact.** Match marks to a page's notes by a monotone alignment scored
+  on the digits read (`alignMarks`): a note may be cited twice, a stray symbol in a raised run is dirt, and an
+  uncited note costs most. Keep a note no mark reaches, unmarked, in its place — never guess its anchor.
+- **Freeze an OCR vote.** The decisions depend on the shelf's vocabulary, which grows; writing them to a JSON
+  file (`.claude/erman-readings.json`, `--revote` to recompute) keeps a re-run byte-identical. A change to the
+  extraction that moves words shifts the indices: the run reports `stale` readings — revote then.
+- **Tesseract reads a macron as an acute (ē, ō → é) or drops it (ū → i).** With FineReader keeping the base vowel,
+  the two together locate every macron; restore by a reviewed table, never by letting the vote touch an accent.
+- Re-run after touching: `node .claude/fetch-book.js erman-egyptian-literature` (cache only, ~2 s), then
+  `node .claude/book-audit.js` and `node .claude/test-library.js`.
 ## The `egtales` layout — a plain-text Gutenberg file cut at its contents heads (Nov 2026, Petrie's Egyptian Tales)
 
 Don Quixote's plain-text path with a closed vocabulary of capital lines: every all-capital line alone in a block must be
@@ -2986,6 +3029,195 @@ and the characters check it, so a paragraph added or split upstream throws inste
 later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
+
+## `layout: "ocrvote"` — a book read off several OCRs of one printing, voted word by word (Nov 2026, the Xunzi and the Mozi)
+
+For a book with **no transcription anywhere**. The engine is its own file, `.claude/ocr-vote.js` (zero deps; a
+`kind: "pdf"` witness needs poppler's `pdftotext`), called from the one `ocrvote` branch; the entry's `ocr` block lists
+the witnesses (`url`, `kind`, the first and last leaf of the text, per-witness `opt`), `starts` (the primary's leaf on
+which each chapter opens — it must open on a head, or the run throws), `never` (tokens the dictionary knows that are
+only ever misreadings in this book, "Ms" for "his") and the text options (`aspiration`, `curly`). The witnesses are cached
+as `w<k>.djvu.xml` / `w<k>.pdf` + `w<k>.bbox.html`. The header of the file walks the five steps; what each settled:
+- **Read the page by GEOMETRY, never by the text file.** A DLI `_djvu.txt` interleaves Dubs's side-glosses into the
+  prose line by line ("examine your- cultivation,"). With boxes, the column's edges are the most populated cluster of
+  row ends and starts; a word starting at or past the right edge is margin (the glosses stand 19 px off the text), and
+  the column width in PIXELS, measured over the full pages, overrides a page whose left edge the glosses dragged.
+- **A page that is mostly footnote has the notes' size as its commonest row height** (a chapter opening with a long
+  note): the book's body height is the floor, the notes cannot begin above the last pair of full-size rows, and a
+  small row in capitals is a section head, not the notes. Each of the three was a silent loss of a page's first lines.
+- **The primary owns the layout; the others only vote on words.** Two weaker scans agreeing on a footnote they both
+  misfiled as text inserted a whole note into the Xunzi; an insertion where the primary has nothing is now limited to
+  five words, while a run of four or more the primary has and both others lack is dropped (that is how the primary's
+  own leaks go). A replacement is placed at the position it replaces, never after the token before it — placed after,
+  a chapter's first word went to the end of the chapter before.
+- **Join detached punctuation to its word BEFORE aligning** (the PDF's text layer sets "says :" and "far - sighted"),
+  or a separate ";" is voted away against a witness that attached it. Single-confusion repairs (`mkFixer`) try the
+  rules in order of frequency and take the first that makes exactly one word.
+- **A figure in brackets is an enumeration**, "(1) When …": the footnote-figure rule had eaten twelve of them.
+- **Quotes**: a ‘‘ is an opening double quote, not a mark; a straight " (the PDF) is paired within its paragraph,
+  respecting curly ones already there; 34 Mozi paragraphs end with a quote open, which is mostly a quotation running on.
+- **A row of asterisks** (three to nine short tokens spread across the column, one of them a star) is the printer's
+  omission mark and is kept as `* * * * *` — stripped with the footnote marks, it would hide where Dubs left text out.
+- **The dictionary is PINNED** (`DICT_SHELF`, the 87 English books of Nov 2026 plus the other ocrvote book): read off
+  the live shelf, a re-run after a merge that brought books with OCR noise of their own turned "Yu" into "Yh".
+Re-run after touching: `node .claude/fetch-book.js xunzi` and `node .claude/fetch-book.js mozi` (cached; the output
+should be byte-identical to the committed files), check that every `refix`
+fired, "20 chapters; 4 head(s)" / "36 chapters", "18 row(s) of asterisks", and `node .claude/book-audit.js`.
+
+
+## `prep: "ebbinghaus"` — a report of experiments: tables, formulas, numbered sections (Nov 2026, Ebbinghaus's Memory)
+
+`ebbinghausPrep`, run on the raw page like `painePrep`, with `ebbinghausFinish` after cleanBody. Each of these is a quiet
+failure of the generic passes on a scientific report, and each is counted on every run (`EBB`):
+- **Tables are kept** as `bk-table`s through the treaty's stash; a cell with the printed double rule above it is a `th`;
+  the `<caption>` (the printed legend, "I. 19 minutes. 12 tests. …") is set as the paragraph before the table; a
+  footnote marker inside a cell is resolved here by the same note ids cleanBody uses, since cleanBody never sees it;
+  alignment padding (`color: transparent` — a "½" so 2 lines up under 2½) is dropped, or ±2 P.E. reads ±2½.
+- **A figure split at its decimal point** (89 | .5, set so the column aligns on the point) is joined by `ebbDecimals`,
+  which works on a colspan/rowspan grid: a column whose body cells are all ".digits", "." or empty is folded into the
+  one before, and a header spanning both loses one from its colspan.
+- **MathML** is written out by `ebbMath`: a fraction as (num)/(den), a side bracketed unless one symbol; `msup` as
+  `<sup>`; `msqrt` as √; a one-letter `mi` in italic. U+2061 (function application, often `&#x2061;`) is a SPACE, or
+  "log t" prints "logt". An unknown element is warned about.
+- **`sub` is not in ALLOWED**, so a subscript (P.E.<sub>m</sub>) is carried as a placeholder and put back.
+- **A figure in a centred block mid-sentence** goes with its block, so the sentence closes over it; `dropFigures`
+  would leave the empty block splitting the paragraph. **A paragraph opening a page after a `</p>`** with no `<p>`
+  is wrapped whole here, since the generic loose-run pass stops at its first `<i>`.
+- **A grouped note list** (`<ol class="references" data-mw-group="*">`, markers "[* 1]") is not read by `notesOf`;
+  its items are moved into the main list so their markers resolve.
+
+## `layout: "york"` — a transcription in Classics in the History of Psychology, its tables typed from pictures (Nov 2026, Conditioned Reflexes)
+
+`BOOK.url(n)` names one page per lecture (the last the Bibliography), each cached as `en-<n>.html`. What it settled:
+- **windows-1252, read as bytes** (`fetchBuffer` + `TextDecoder`): as UTF-8 every ½, ° and é became U+FFFD.
+- **The Word 97 markup is not nested** (`<B><P>…</P></B>`, `<I><P>…</P></I>`, `<B> <I></B></I>`), so `stripTags`'
+  stack drops closers and runs paragraphs together. `yorkFlat` reads the page flat: every `<p>`/`<center>`/`<div>`/`<h…>`/
+  `<hr>` breaks a paragraph, and `<i>`/`<b>` are states closed at each break and on each change, always `<i>` outside
+  `<b>`, so nothing comes out crossed (book-audit's TAGS check caught the first version).
+- **Where a lecture begins**: after its "LECTURE IV" head; Lecture XIV has none, so after "Posted …"; the Bibliography
+  after the editor's note. The first paragraph (Pavlov's summary) is set italic whole.
+- **The site editor's insertions go**: "[p. 34]" (some across a line break), "[sic]", the brackets round a reference
+  number; one marker is plain text ("(1898),[12]") and is taken only when no link reached that note. "--" becomes "—".
+- **Tables are pictures**: each `<img>` is looked up in `BOOK.tablesFile` (`.claude/book-tables/`, typed from the
+  GIFs) and set as `bk-table` (caption lines above as `bk-head`, notes below as paragraphs); `BOOK.figures` and `fig…`
+  pictures are dropped and counted; a picture in neither THROWS, and a typed table no page shows is warned about.
+- `fixes` run (through `correctRaw`) on the flattened paragraphs and on each note, before the tables go back in.
+
+Re-run after touching: `node .claude/fetch-book.js pavlov-conditioned-reflexes` (cached; `--force` refetches 24 pages),
+check "187 table(s) set", "16 figure(s) left out", "17 notes (17 markers, 1 of them plain text)", every `fix applied 1x`
+but "Med. Sec." (21x), then `node .claude/book-audit.js`.
+
+## `prep: "thorndike"` — a Gutenberg file reshaped into the `pgchapters` form (Nov 2026, Animal Intelligence)
+
+Thorndike's book (Gutenberg ebook 69904) is the `pgchapters` case in one file, set by a different transcriber, so
+`thorndikePrep` (called in the `pgchapters` branch before `extractPgChapters`) rewrites it into the form James's
+files have and the reader is untouched. Each rewrite is counted and throws on a mismatch, so a change upstream
+cannot quietly move a note into the wrong chapter:
+- **The rule is `<hr class="chap x-ebookmaker-drop">`**, which the reader's `<hr class="chap"…` does not match.
+- **All the notes stand in one FOOTNOTES division after the last chapter**, numbered 1–46 across the book, with bare
+  anchors (`Footnote_12`). Each goes to the foot of the division holding its FIRST marker, in James's anchor form
+  (`Footnote_12_12`, the `label` span); 48 markers for 46 notes, two notes being cited by two table cells each.
+- **A chapter head is one `<h2>`** ("CHAPTER IV<br>" + the title + sometimes a note): it becomes an `<h5>` numeral
+  (`chapterHead` finds it) and an `<h4>` title, which the reader drops, or keeps as a head line when it carries a note.
+- **The inner heads are `<h3>`–`<h5>`**, which the reader drops or holds as James's numeral lines, so they move to
+  `<h6>`; the running title `<h1>` over chapter I goes.
+- **A figure's class carries its width** (`figcenter illowp48`), cut to the bare class the reader drops; **a table is
+  bare**, wrapped in the `<div class="center">` the reader stashes; **a quotation is `<div class="blockquote">`**, made a
+  `<blockquote>`; **a `<ul>`** (the kittens' ages, a schedule) becomes one paragraph, an item to a line — unwrapped by
+  the tag strip its items ran together outside every paragraph.
+
+## `prep: "manifesto"` — a base page holding a preface, an opening and advertisements (Nov 2026, the Communist Manifesto)
+
+`manifestoPrep(h, page, warn)` runs on every raw page (the first and each extra of a `page(n)` array) before `notesOf`
+and `cleanBody`; `manifestoFinish` runs on the assembled part. The base page `Manifesto of the Communist Party`
+transcludes the cover, the title page, Engels's preface, its note list and djvu page 15 (the unnumbered opening), then
+a collapsed box of advertisements; `cleanBody` alone would take all of it as one part. So the base page is cut by its
+landmarks: the preface from the wrapper holding the `Preface` anchor to the wrapper of `data-page-index="15"`, the
+opening from there to the `mw-collapsible` box — a missing or out-of-order landmark THROWS. Every `wst-center` (and
+the one `wst-block-center`) is a head: the first on a page is the printed part head and is dropped, unless it carries
+a note marker (Part I's), and every other is fenced and lifted to one `bk-head` with its lines as `<br>`; a block over
+200 characters is kept as text and warned. Engels's `wst-right` signature is unwrapped to a paragraph.
+
+Re-run after touching: `node .claude/fetch-book.js marx-communist-manifesto --force` (six fetches), check "5 printed
+head(s) dropped, 6 heading block(s) fenced, 6 lifted" and 10 notes, then `node .claude/book-audit.js`.
+
+## `layout: "pglinknote"` — a Gutenberg HTML edition with every note at the end (Nov 2026, The Expression of the Emotions)
+
+The OLDER Gutenberg HTML shape (ebook 1227), which `pgchapters` cannot read: each printed division is a
+`<div class="chapter">` under an `<h2>` carrying an anchor (`link2H_INTR`, `link2HCH0001` …), and every note of the
+book stands in one closing division (`link2H_FOOT`) as `linknote-N`, cited by `<a href="#linknote-N">[N]</a>`.
+`extractPgLinknote` reads one file (`url`, cached as `en-page.html`). The entry names the divisions by anchor in
+reading order (`pgAnchors`, section n = index + 1), the half-title to skip (`pgSkip`) and the notes' anchor
+(`pgNotes`); `pgArgument: true` sets the first paragraph of every chapter after the first section as a `bk-head`
+line (Darwin's argument, as the Origin's). What it settled, each a quiet failure if missed:
+- **The note numbers carry a hundreds offset per chapter** (1–22, 101–120, 201–203 …), so a chapter's notes are the
+  ones its markers cite, renumbered from 1 — never a range of numbers. A note cited from two sections, a marker with
+  no note and a note nothing cites are all reported.
+- **A note opens on "N (return)" and wraps its text in square brackets**; both are taken off, and a note without them
+  is reported rather than trimmed blindly. A note of several paragraphs (Galton's letter in I) is joined with `<br><br>`.
+- **Every `<div class="chapter">` must be named** (an anchor, the skip list or the notes); an unknown one is reported,
+  and a chapter's `<h2>` must read "CHAPTER <its numeral>.", checked as a run.
+- **A caption is a paragraph "{illust. caption = …}"**, one of them carrying a scrap of the sentence above it and one
+  never closing its brace, so the whole paragraph goes with its figure, counted.
+- **The typographic entities** (`&mdash;`, `&lsquo;` … ) are written as characters before anything else, so `fixes`
+  rows are written with the real characters; `&amp;` stays.
+
+## The `breasted` layout — a scholar's corpus read off the scans' glyph boxes (Nov 2026, Ancient Records of Egypt)
+
+`extractBreasted` and the `br*` functions above it. The first book with **no transcription anywhere**: English
+Wikisource has Vol. I's scan unproofread (two pages) and nothing else, so the text is read from the Internet Archive's
+character-level OCR (`_chocr.html.gz`, one per volume, cached gzipped as served). Everything structural is decided by
+WHERE a glyph stands, not by what the machine read; the layout's own comment has the measurements. What to carry:
+
+- **Choose the scan for completeness before quality, and prove it.** The best-read copy (a compiled PDF of all five
+  volumes) is missing Vol. II §§ 178–233 with other pages duplicated in their place, and Vols. I and IV drift by 15 and
+  34 pages; its 2026 re-OCR is the same scan. Found by checking the detected page numbers (`_page_numbers.json`) and the
+  run of § numbers. The Getty copies (Vols. I–III) and the Archive's own 2026 scan of Vol. IV are complete.
+- **Measure size against the printed measure, never in pixels**: x-height ÷ column width gives three clean clusters
+  (notes ≈ 13, translations ≈ 16, introductions ≈ 19 thousandths) across scans at three resolutions.
+- **A raised glyph is found by its bottom against the row's baseline** — the note letters, the line numbers and the
+  half-brackets (raised r … raised 1 → ⌈ … ⌉). **Never by size alone**: this printing has old-style figures, so 0, 1 and
+  2 are x-height, and a rule that dropped small figures deleted digits from real § numbers (604 read as 64).
+- **The notes are lettered afresh on every page, and that anchors them**: a monotone alignment of the page's letters
+  against its candidate marks (raised letters, symbols read for a letter, a letter glued after punctuation or before a
+  capital). An unplaced note is attached at the end of its own page's text — never lost, never moved off its page. The
+  run prints the placed share (92.8% at first import).
+- **A raised quotation mark is a mark only at a word's end** ("day's" put a note inside a word until it was not).
+- **The FineReader conversions glue the word after a hyphenated line break to the next** ("pre-sentedmay"): split words
+  where glyphs stand more than 0.55 x-height apart.
+- **The notes take the same repairs as the text**, braces included: the printing has none, the machine reads an italic
+  parenthesis as one, and a `{ … : … }` in a note trips the Library suite's stylesheet-leak guard.
+- **The figure-page filter runs on the Tesseract volume only** (`noiseFilter`): on the FineReader volumes the word
+  confidence is low on every transliteration line, and the same filter dropped real text.
+- **The chapters are the plan's reigns, cut at the § each opens on**; where the § was unreadable the cut falls at
+  Breasted's heading (the plan's fourth column, or "REIGN OF …" from the title). A reign title ending in a Roman numeral
+  ("REIGN OF SHESHONK I") was taken for a running head until a head's page number had to contain a figure.
+
+Re-run after touching: `node .claude/fetch-book.js breasted-ancient-records` (cached; `--force` refetches ~43 MB) and
+check "94 chapters", "5416 notes … 92.8% placed", "3065 sections", "6 chapter(s) cut at Breasted's heading" and no
+warning; then `node .claude/test-library.js`.
+
+## `prep: "cotus"`, `prep: "rights"` and `layout: "pgslice"` — the Constitution, the Bill of Rights and the Farewell Address (Nov 2026)
+
+`prep: "cotus"` (`cotusPrep`) cuts the Constitution's one page into the Preamble and seven Articles at the template's
+`<h2>` ids, which are checked as a run (`COTUS_IDS`) — a missing or reordered heading THROWS. The page is fetched once
+for all eight parts (the `CUT_PAGES` memo). A Section's head is a `<dt>`, which the `treaty` block pass would read as a
+plain paragraph, so it becomes a centred block (a bold `bk-head`). `cotusSigners` rebuilds the foot of the last sheet,
+whose MathML braces and nested tables the treaty pass ran into one paragraph; it insists on 12 states and 39 names.
+
+`prep: "rights"` (`rightsPrep`) sets the Bill of Rights' twelve article rows as a centred label over a paragraph. **The
+API escapes underscores in class names** (`article&#95;title`, as the treaty's `&#95;&#95;ditto`), so a pattern on a
+class must allow both spellings; the first run found 0 rows for that reason.
+
+`layout: "pgslice"` (`extractPgSlice`) reads ONE Gutenberg HTML file (`url`, decoded with `charset`, cached as
+`en-page.html`) and keeps the stretch from `start` (a regex on the piece's own heading, dropped, which must match once)
+to the end of the paragraph `end` matches. Named entities are written as characters from `PG_ENTITIES` and an unknown
+one is reported; `<p class="r">` lines become plain paragraphs. One part.
+
+Re-run after touching: `node .claude/fetch-book.js us-constitution --force` (check "12 states, 39 signatures" and 25
+section heads over Articles I–IV), `node .claude/fetch-book.js us-bill-of-rights --force` (13 headings),
+`node .claude/fetch-book.js washington-farewell-address --force` (51 paragraphs, 2 set to the right), then
+`node .claude/book-audit.js`.
 
 ## The `novgorod` layout — annals read off an ABBYY export's character boxes (Nov 2026, the Chronicle of Novgorod)
 

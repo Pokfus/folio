@@ -57,8 +57,11 @@
   margin-top: 8px;
   font-size: 15px;
 }
-.uc-fi + .uc-fi {
-  margin-left: 14px;
+/* A cell stays whole: since the beginner pass (Nov 2026) a verb's row is seven cells, and on a phone
+   `-tasoma` broke after its hyphen and a label was left at the end of a line without its form. */
+.uc-fi {
+  display: inline-block;
+  margin: 0 7px;
 }
 .uc-fl {
   margin-right: 6px;
