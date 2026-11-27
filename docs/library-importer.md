@@ -6,6 +6,15 @@ every rule here was paid for by a silent failure.
 
 `node .claude/fetch-book.js <id> [--from=N] [--to=N] [--force] [--only-original] [--skip-original]`
 
+**Since the audit of Nov 2026 a run does two more things by itself** (`library-audit.md` §2 and §6): the last
+step of `writeEnglish` is `.claude/book-emend.js`'s `finish()` — the emendation table, the house form
+(title-case chapter titles, no stop after a title, `--` as a dash) and the book's `emended` / `glossOff` /
+`glossOffIn` lines — and when the import is done it runs `node .claude/book-checks.js <id>`, whose report is
+the last thing printed and whose gates fail the run. `--no-checks` skips that; `--fast-checks` drops its two
+slow steps. A run that applies every emendation and does not land on the digest in
+`.claude/book-emend.lock.json` says the import no longer reproduces the audited text: read the diff before
+sealing it with `book-emend.js --apply <id>`.
+
 - `.claude/fetch-book.js` — the importer that writes those files, from Wikisource. Standalone Node helper,
   zero deps, resumable (per-chapter cache in `.claude/book-cache/`, gitignored), safe to re-run:
   `node .claude/fetch-book.js seneca-letters [--from=N] [--to=N] [--force] [--only-original] [--skip-original]`.

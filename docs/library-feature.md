@@ -1117,6 +1117,17 @@ the highlights.**
     implies a starting state**: the two surfaces using it now differ there, a gloss popup still opening
     shut. Its being shut was also why every marker jump had to expand the fold first, which is exactly
     the case `openFootnote` used to get wrong (next bullet but one).
+  · **THREE MORE PASSES OVER A PAINTED CHAPTER (Nov 2026, the Library audit — `library-audit.md` §2–§3).**
+    After the linker and `linkProperNounsOnly`: **`unlinkLaterTerms`** drops a link whose glossary term is
+    dated more than ten years after the book's last year (`bookLastYear`; `glossUntil` on a row overrides)
+    and, for a book that ends before 1500, any modern nation-state entry (`GLOSS_MODERN_STATES`, generated);
+    the front matter is exempt from both, and its licence boxes (`.bk-rights`) are not glossed at all.
+    **`bookGlossOff`** now adds the book's own `glossOff` / `glossOffIn` (in the lazy file, from
+    `.claude/book-gloss-off.json`) to the row's hand list. **`bookQuoteTree`** then curls quotation marks in
+    the English prose and the notes, a block at a time and one character for one — a reader's highlights are
+    offsets into the chapter's text, so no pass over a book may change its length. Guards:
+    `test-book-gloss-rules.js`, `test-book-quotes.js`. The About page prints `emended: N` from the book's
+    file ("N slips of the scan or the press have been corrected in this text").
   · **`linkProperNounsOnly` — a book links only what the prose CAPITALISES.** Folio's glossary is a glossary
     of prehistory, palaeoanthropology, geography and heads of state; run unrestricted over Roman philosophy
     it links the right proper nouns (Greece, Sicily, Syria, Egypt, Hesiod) and then four words that mean
