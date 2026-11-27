@@ -2986,3 +2986,25 @@ and the characters check it, so a paragraph added or split upstream throws inste
 later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
+
+## `prep: "ebbinghaus"` — a report of experiments: tables, formulas, numbered sections (Nov 2026, Ebbinghaus's Memory)
+
+`ebbinghausPrep`, run on the raw page like `painePrep`, with `ebbinghausFinish` after cleanBody. Each of these is a quiet
+failure of the generic passes on a scientific report, and each is counted on every run (`EBB`):
+- **Tables are kept** as `bk-table`s through the treaty's stash; a cell with the printed double rule above it is a `th`;
+  the `<caption>` (the printed legend, "I. 19 minutes. 12 tests. …") is set as the paragraph before the table; a
+  footnote marker inside a cell is resolved here by the same note ids cleanBody uses, since cleanBody never sees it;
+  alignment padding (`color: transparent` — a "½" so 2 lines up under 2½) is dropped, or ±2 P.E. reads ±2½.
+- **A figure split at its decimal point** (89 | .5, set so the column aligns on the point) is joined by `ebbDecimals`,
+  which works on a colspan/rowspan grid: a column whose body cells are all ".digits", "." or empty is folded into the
+  one before, and a header spanning both loses one from its colspan.
+- **MathML** is written out by `ebbMath`: a fraction as (num)/(den), a side bracketed unless one symbol; `msup` as
+  `<sup>`; `msqrt` as √; a one-letter `mi` in italic. U+2061 (function application, often `&#x2061;`) is a SPACE, or
+  "log t" prints "logt". An unknown element is warned about.
+- **`sub` is not in ALLOWED**, so a subscript (P.E.<sub>m</sub>) is carried as a placeholder and put back.
+- **A figure in a centred block mid-sentence** goes with its block, so the sentence closes over it; `dropFigures`
+  would leave the empty block splitting the paragraph. **A paragraph opening a page after a `</p>`** with no `<p>`
+  is wrapped whole here, since the generic loose-run pass stops at its first `<i>`.
+- **A grouped note list** (`<ol class="references" data-mw-group="*">`, markers "[* 1]") is not read by `notesOf`;
+  its items are moved into the main list so their markers resolve.
+

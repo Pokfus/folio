@@ -13294,6 +13294,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
      46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
   "Sigmund Freud": "#844227",
+  /* Nov 2026, adding Memory, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all
+     forty-five light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of the cube
+     at a step of 3, which tops out at 13.2). THE EURIPIDES TEST: the sweep's best, #45007E at 13.2, stands 18.9
+     from a philosopher Ebbinghaus is read beside; held 45 or more from every psychologist and philosopher he is
+     read beside, the best is this deep green at 12.8 — its nearest are Boethius 12.8, the Book of Documents 13.1
+     and Chaucer 13.3, none read beside him, while Darwin stands 45.7 off, Aristotle 50.1, Freud 57.7, Plato 72.9,
+     Descartes 75.4, Kant 89.2 and James 114.2. It reads 7.04:1 on the tightest light paper. */
+  "Hermann Ebbinghaus": "#00421B",
   /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
      (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
      purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
@@ -17921,6 +17929,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
       glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
         "House_of_Commons_of_the_United_Kingdom"],
+    },
+    {
+      id: "ebbinghaus-memory",
+      title: "Memory",
+      subtitle: "A Contribution to Experimental Psychology",
+      author: "Hermann Ebbinghaus",
+      written: "1885",
+      year: 1885,
+      translator: "Henry A. Ruger and Clara E. Bussenius",
+      edition: "Teachers College, Columbia University, New York, 1913",
+      /* A LIMITED licence: public domain in the US (1913); the translators' dates of death are not established, so
+         nothing is claimed elsewhere. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where Henry A. Ruger and Clara E. Bussenius's translation was " +
+        "published in 1913. Hermann Ebbinghaus died in 1909; the translators' dates of death are not established " +
+        "here, so the translation is not claimed to be out of copyright elsewhere. The text is the proofread " +
+        "Wikisource transcription of the 1913 edition, from a scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Memory:_A_Contribution_to_Experimental_Psychology",
+      /* NO `origLang`: de.wikisource has no Über das Gedächtnis (looked for, Nov 2026). Nine chapters, with the
+         forty-two numbered sections as head lines inside them and the tables of results as tables. No `parts`. */
+      chapterWord: "Chapter",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 9 chapters
+         (every `.ttip`, 10 keys, Nov 2026): the series "designated with Roman numbers and the separate syllables
+         with Arabic" are numerals, not the language. */
+      glossOff: ["Arabic"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27680,6 +27716,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
     { book: "freud-interpretation-of-dreams", n: 7, t: "VII. The Psychology of the Dream Activities", p: 160,
       text: "At any rate the interpretation of dreams is the via regia to a knowledge of the unconscious in the psychic life." },
+    { book: "ebbinghaus-memory", n: 7, t: "VII. Retention and Obliviscence as a Function of the Time", p: 1,
+      text: "All sorts of ideas, if left to themselves, are gradually forgotten. This fact is generally known." },
     { book: "douglass-narrative", n: 12, t: "Chapter X", p: 11,
       text: "This battle with Mr. Covey was the turning-point in my career as a slave. It rekindled the few expiring embers of freedom, and revived within me a sense of my own manhood. It recalled the departed self-confidence, and inspired me again with a determination to be free. The gratification afforded by the triumph was a full compensation for whatever else might follow, even death itself. He only can understand the deep satisfaction which I experienced, who has himself repelled by force the bloody arm of slavery. I felt as I never felt before. It was a glorious resurrection, from the tomb of slavery, to the heaven of freedom. My long-crushed spirit rose, cowardice departed, bold defiance took its place; and I now resolved that, however long I might remain a slave in form, the day had passed forever when I could be a slave in fact." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
