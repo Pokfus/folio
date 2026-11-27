@@ -27,7 +27,7 @@ desktop designs in `mockups/library-desktop-redesigns/`. Not part of the site.
   part's name** (the importer's entries had no `parts`, so every chapter shipped `p: 1`).
 - **The texts are of three qualities, and the shelf did not say which is which.** About 50 books are
   proofed transcriptions with a handful of slips each (48 have twelve rows or fewer). About 35 carry a steady
-  rate of scan or keying slips. About 15 are uncorrected OCR that reads with a stumble every page or so (§4). 5,916 corrections are now
+  rate of scan or keying slips. About 15 are uncorrected OCR that reads with a stumble every page or so (§4). 6,465 corrections are now
   applied across 87 books (§2); the reviewers estimate several thousand more in the fifteen.
 - **The reader drew about 8,500 wrong glossary links** of 48,136: a namesake (Titus the legate → the
   emperor), a term dated after the book (the Summa's Trinity → the nuclear test of 1945, seventy-two times),
@@ -63,7 +63,9 @@ desktop designs in `mockups/library-desktop-redesigns/`. Not part of the site.
 - **An entry is a row or a rule, applied in order.** A row is `{ ch, in, from, to, kind, why }`. A rule is
   `{ re, to, in, n, kind, why }` — a fault that repeats by pattern: Livy's 630 line-break hyphens
   (`obliter- ated`), the Summa's 961 link serials (`([4311]Q[13]`), Strabo's capital X read as a digit
-  (`3anthus`), Euclid's italic *be* read as *he* (all 60), the Aeneid's `Iong` and `0 Sibyl`.
+  (`3anthus`), Euclid's italic *be* read as *he* (all 60), the Aeneid's `Iong` and `0 Sibyl`, and in
+  Breasted's first three volumes the half-brackets read as a bullet and a raised 1 (531, the two shapes
+  the reviewer measured with no false hit) and the running heads of the printed page.
 - **The lock.** `.claude/book-emend.lock.json` holds a digest of each book's chapters as the tool last left
   them. A later entry may rewrite words an earlier entry's `to` contained, so "is `to` still there?" cannot
   be the test of whether an entry is in; the digest is. A fresh import runs every entry from the first and
@@ -82,7 +84,7 @@ desktop designs in `mockups/library-desktop-redesigns/`. Not part of the site.
 - **Cards that quote a corrected passage were updated** (17, Greece, Rome and World History), and the
   home page's `HOME_EXCERPTS` (six stale titles, one corrected name). Both are gates now (§6).
 
-Corrections by kind: scan misreading 2,414 · stray apparatus 1,065 · typo 815 · line-break hyphen 792 ·
+Corrections by kind: scan misreading 2,945 · stray apparatus 1,083 · typo 815 · line-break hyphen 792 ·
 run-together 306 · split word 190 · wrong word 145 · doubled word 96 · garbage 93.
 
 ## 3. The glossary links
@@ -128,7 +130,7 @@ measured rate and the classes for each.
 
 | book | what it is | the reviewer's estimate of what remains |
 |---|---|---|
-| `breasted-ancient-records` | read off the Internet Archive's character OCR; no transcription exists | ~40% of paragraphs carry a stumble; ~2,100 half-brackets misread; 150 garbage paragraphs; fixable by rule in the importer (the classes and regexes are written down) |
+| `breasted-ancient-records` | read off the Internet Archive's character OCR; no transcription exists | ~40% of paragraphs carried a stumble before the rules; ~1,550 half-brackets still misread (the shapes with false hits, and all of Vol. IV); 150 garbage paragraphs; 19 chapters end on the next one's heading — the classes and regexes are written down |
 | `journey-to-the-west` | OCR of Richard's 1913 edition | several hundred after 540 rows; unreadable tables in ch58 and ch98 |
 | `strabo-geography` | OCR of the Bohn translation | 400–600 after 262; the notes' Greek is garbled by rule |
 | `rigveda` | unproofed scan | unknown: `he`/`be`, `cat`/`eat` class; three hymns are wrong or missing (1.179, 10.86, 10.34) |
@@ -225,7 +227,20 @@ Asked for ("several other suggestions for changes or improvements"). In rough or
 12. **Count openings as well as readers**, if the Popularity order should reward a book people keep
     returning to (schema block 20; the order would use it where it exists and fall back to `reads`).
 
-## 8. Left as found, on purpose
+## 8. The glossary list, the card quotations, the six designs
+
+- **`library-glossary-candidates.md`** — the names the books use that the glossary lacks, read and sorted from
+  one run of `node .claude/book-gloss-candidates.js --top=900`: the entries worth writing (people, places,
+  peoples and states, gods and heroes, works, institutions), the forms that only need an alias on an entry
+  that exists, and the classes deliberately left out. `--book=<id>` prints what one book adds.
+- **`library-card-quotes.md`** — where a history or science card could quote a shelved book
+  (`node .claude/find-card-quotes.js`): about 1,300 cards whose own sources already cite a book on the shelf
+  and carry no quotation. Places to look, never passages.
+- **`mockups/library-desktop-redesigns/index.html`** — six desktop designs for the Library page in one
+  interactive file (keys 1–6, D for day and night): Reading room, Stacks, Time river, Catalogue, Traditions,
+  Desk. `make-data.js` regenerates its data from the live catalogue. The owner chooses; nothing is built yet.
+
+## 9. Left as found, on purpose
 
 - `test-library.js`: one failure, "…and short with it" (tile height ≤ 120 px) — it fails identically
   without this work: long titles wrap to a second line.

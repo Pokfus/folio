@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1431", released: "2026-11-27T21:56Z" };
+window.FOLIO_VERSION = { v: "1.1432", released: "2026-11-27T22:06Z" };
 
 window.CHANGELOG = [
   {
@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "Twenty-one books join the Library, among them <b>The Tempest</b>, the <b>Communist Manifesto</b>, the US <b>Constitution</b>, the <b>Xunzi</b> and <b>The Chronicle of Novgorod</b>.",
       "Five texts that had dropped off the Library shelf are back: the <b>Res Gestae</b>, <b>Jerome's Letters</b>, Erman's Egyptian literature, Douglass's <b>Narrative</b> and Ebbinghaus's <b>Memory</b>.",
       "The Library can be sorted by <b>popularity</b>, and its date order files a work written over centuries at its earliest year.",
-      "<b>About 5,900 slips of the scan or the press are corrected across 87 Library texts</b>, and each corrected text says how many on its About page.",
+      "<b>About 6,400 slips of the scan or the press are corrected across 87 Library texts</b>, and each corrected text says how many on its About page.",
       "Seventeen card quotations in the Greece, Rome and World History collections now read as the corrected Library texts do.",
       "Library texts share one set of curled quotation marks, chapter titles in title case and true dashes, whatever their transcription used.",
       "<b>About 8,500 wrong glossary links are gone from the Library</b>: a namesake, a term dated after the book, an ancient land's modern country.",

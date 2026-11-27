@@ -146,7 +146,7 @@ function emendRow(c, row) {
 /* A RULE is an entry with `re` in place of `ch`/`from`: a fault that repeats by a pattern no row
    could list sensibly — Livy's 600 line-break hyphens are rows (each needs a dictionary to know the
    word), but the Summa's 889 link serials "([4311]Q[13]" and the Song of Roland's 128 page-break
-   marks are one expression each. `{ re, flags, to, in: "text"|"note"|"both", n, kind, why }`; `n` is
+   marks are one expression each. `{ re, flags, to, in: "text"|"note"|"both", ch | chs: [from, to], n, kind, why }`; `n` is
    how many times it fired when it was written, which is what it adds to the book's `emended` count.
    A rule must be IDEMPOTENT (what it writes it does not match), so applying it twice is applying it
    once; it has no "applied" test of its own, which is one reason for the lock below. */
@@ -156,6 +156,7 @@ function emendRule(chapters, rule) {
   const where = rule.in || "both";
   for (const c of chapters) {
     if (rule.ch != null && String(c.n) !== String(rule.ch)) continue;
+    if (rule.chs && (c.n < rule.chs[0] || c.n > rule.chs[1])) continue;          // a range of chapters: Breasted's first three volumes were read by another engine than his fourth
     if (where !== "note") c.html = sub(c.html);
     if (where !== "text" && c.notes) c.notes = c.notes.map(sub);
   }

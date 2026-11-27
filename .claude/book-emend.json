@@ -346,7 +346,12 @@
   {"ch":68,"in":"note","from":"“house of tne","to":"“house of the","kind":"scan misreading","why":"non-word 'tne'"},
   {"ch":69,"in":"note","from":"s umm oning","to":"summoning","kind":"split word","why":"word split in three"},
   {"ch":88,"in":"note","from":"of pr eservation,","to":"of preservation,","kind":"split word","why":"word split in two"},
-  {"ch":90,"in":"note","from":"Petrie, Hzstory, TID","to":"Petrie, History, TID","kind":"scan misreading","why":"non-word"}
+  {"ch":90,"in":"note","from":"Petrie, Hzstory, TID","to":"Petrie, History, TID","kind":"scan misreading","why":"non-word"},
+  {"re":"<p class=\"bk-head\">(?:\\d{1,3} )?[A-Z]+(?:[- ][A-Z]+)* DYNASTY: [A-Z ]+\\[[§$8S]?[^<]{0,6}</p>\\n?","to":"","n":11,"kind":"stray apparatus","why":"a running head of the printed page set as a heading of its own (11 when written)"},
+  {"re":"(?:\\b\\d{1,3} )?[A-Z]+(?:[- ][A-Z]+)* (?:DYNASTY|DYN\\.|DYNASTIES):? ?[A-Z][A-Z .&]*?\\[[§$8S]? ?\\d*","to":"","n":4,"kind":"stray apparatus","why":"a running head of the printed page, in the prose (4 when written)"},
+  {"re":"[§$] ?\\d+[a-z]?\\] [A-Z][A-Z’' .,-]{5,}?\\d{2,3}","to":"","n":3,"kind":"stray apparatus","why":"a running head of the printed page, in the prose (3 when written)"},
+  {"re":"(^|[\\s\\[(“\"‘—])[•■]['’\"^]?(?=[A-Za-z\\[—])","to":"$1⌈","chs":[1,59],"n":131,"kind":"scan misreading","why":"Breasted's opening half-bracket read as a bullet (Vols. I–III; the reviewer found none false in 133) (131 when written)"},
+  {"re":"(?<=[A-Za-z][,.;]?)1{1,2}(?=[\\s,.;:)\\]—-]|$)","to":"⌉","chs":[1,59],"n":400,"kind":"scan misreading","why":"Breasted's closing half-bracket read as a raised 1 glued to the word (Vols. I–III; none false in 400) (400 when written)"}
  ],
  "caesar-gallic-war": [
   {"ch":1,"in":"text","from":"danger of a11 equal","to":"danger of all equal","kind":"scan misreading","why":"digits 11 for the letters ll"},
