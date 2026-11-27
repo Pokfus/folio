@@ -41,6 +41,10 @@ const check = (label, ok, detail) => {
 
 const PHONE = { width: 390, height: 844 };
 const DESK = { width: 1280, height: 900 };
+/* THE TIMELINE SHELF AT ITS WIDEST (Nov 2026). From 1100px the Library page is the Reading room, a
+   different page with a suite of its own (test-library-room.js); the banners this file's section 2 reads
+   are the page below that width, two to a row from 1025px. */
+const SHELF = { width: 1080, height: 900 };
 
 /* Read the SHIPPED book files and look for Wikisource's own stylesheet in them. Done in Node, over
    every chapter of every book, rather than in the page over whichever chapter happens to be open —
@@ -1329,7 +1333,7 @@ function aeneidChecks() {
   let bookHref = "";
   {
     asked.length = 0;
-    const page = await browser.newPage({ viewport: DESK });
+    const page = await browser.newPage({ viewport: SHELF });
     await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1200);
@@ -1929,8 +1933,11 @@ function aeneidChecks() {
          use and 1,023 of the hymns are plain text; a reader that stops recognising one returns those
          hymns as a single unnumbered block, which throws nothing, shortens nothing and looks like a
          hymn. Only the count moves. */
-      check("[rigveda] 10,503 verses of Griffith and 10,542 of the Sanskrit",
-        rv.enV === 10503 && rv.saV === 10542, `en ${rv.enV} sa ${rv.saV}`);
+      /* 10,504 since the Library audit of Nov 2026: 8.93's stanza 29 had its numeral read as "2§" and
+         .claude/book-emend.json restores it, so that hymn now pairs too (the three figures below moved
+         with it: 103 of 103, 1,003, and twenty-five by name). */
+      check("[rigveda] 10,504 verses of Griffith and 10,542 of the Sanskrit",
+        rv.enV === 10504 && rv.saV === 10542, `en ${rv.enV} sa ${rv.saV}`);
       check("...not one hymn without verse numbers", !rv.empty.length,
         JSON.stringify(rv.empty.slice(0, 6)));
       check("...every hymn's verses ascending, with no duplicate, on both sides",
@@ -1945,17 +1952,18 @@ function aeneidChecks() {
          beside hymns that are not theirs — with both columns complete, every mandala the right length
          and nothing thrown. Mandala 8's own pairing rate is what sees it: 102 of its 103 hymns pair
          exactly under the right map, and a handful would under the wrong one. */
-      check("[rigveda] mandala 8 pairs on 102 of its 103 hymns — the Valakhilya map holds",
-        rv.m8 === 103 && rv.m8pairs === 102, `${rv.m8pairs} of ${rv.m8}`);
-      check("[rigveda] 1,002 of the 1,028 hymns pair on every verse number",
-        rv.pairs === 1002, String(rv.pairs));
+      check("[rigveda] mandala 8 pairs on all 103 of its hymns — the Valakhilya map holds",
+        rv.m8 === 103 && rv.m8pairs === 103, `${rv.m8pairs} of ${rv.m8}`);
+      check("[rigveda] 1,003 of the 1,028 hymns pair on every verse number",
+        rv.pairs === 1003, String(rv.pairs));
       /* AND THE 26 THAT DO NOT ARE ASSERTED BY NAME, which is what tells a documented divergence from
          a hymn the extractor has just started losing: six are the metre whose half-verses the two
          traditions count differently, three are the passages Griffith put into Latin and this
-         transcription dropped, and seventeen are a single lost numeral apiece. */
-      check("...and the twenty-six that do not are the known twenty-six",
+         transcription dropped, and sixteen are a single lost numeral apiece (seventeen until the audit
+         of Nov 2026 restored 8.93's). */
+      check("...and the twenty-five that do not are the known twenty-five",
         rv.unpaired.join(" ") === "1.65 1.66 1.67 1.68 1.69 1.70 1.91 1.95 1.105 1.116 1.117 " +
-          "1.128 1.174 1.179 5.44 5.55 8.93 9.7 9.73 9.89 10.42 10.48 10.61 10.86 10.97 10.132",
+          "1.128 1.174 1.179 5.44 5.55 9.7 9.73 9.89 10.42 10.48 10.61 10.86 10.97 10.132",
         rv.unpaired.join(" "));
 
       /* SAYANA'S COMMENTARY IS ON EVERY SANSKRIT PAGE at ten times the length of the text. A leak
@@ -2115,8 +2123,10 @@ function aeneidChecks() {
          in the source verbatim, with no tag near it. Asserted as exactly one so that a regression in the
          space rule (which would return 13) fails here, and so that the survivor cannot later be read as
          that rule having broken. */
-      check("[aeneid] no words welded by a stripped tag, bar the source's own 'the.dead'",
-        ae.welds.length === 1 && /the\.dead/.test(ae.welds[0]), JSON.stringify(ae.welds.slice(0, 5)));
+      /* …and since the Library audit of Nov 2026 that one is an emendation (.claude/book-emend.json, "the dead
+         employ"), so the count is none. */
+      check("[aeneid] no words welded by a stripped tag (the source's own 'the.dead' is emended)",
+        ae.welds.length === 0, JSON.stringify(ae.welds.slice(0, 5)));
       check("[aeneid] no <choice> printing both of its readings", !ae.doubled.length, JSON.stringify(ae.doubled));
     } else {
       check("[aeneid] both halves of the book are on disk", false, "missing books/virgil-aeneid*.js");
@@ -2775,10 +2785,11 @@ function aeneidChecks() {
     // back to the shelf
     await page.evaluate(() => document.querySelector("#bkBack").click());
     await page.waitForTimeout(600);
-    const backToShelf = await page.evaluate(() => ({ hash: location.hash, tiles: document.querySelectorAll(".book-tile").length }));
+    // this page is 1280 wide, so the shelf it returns to is the Reading room's rows
+    const backToShelf = await page.evaluate(() => ({ hash: location.hash, tiles: document.querySelectorAll(".book-tile, .lr-row").length }));
     check("the back link returns to the shelf", /library/.test(backToShelf.hash) && backToShelf.tiles > 0, JSON.stringify(backToShelf));
 
-    const resumed = await page.evaluate(() => (document.querySelector(".bk-tile-resume") || {}).textContent || "");
+    const resumed = await page.evaluate(() => (document.querySelector('.bk-tile-resume, .lr-row[data-book="seneca-letters"] .lb-st-on') || {}).textContent || "");
     check("...and the tile now says where the reader got to", /letter\s+40/i.test(resumed), resumed);
     await page.close();
   }

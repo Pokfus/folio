@@ -1258,3 +1258,41 @@ create policy "rate as yourself"
   with check (user_id = auth.uid()
               and exists (select 1 from public.user_decks d
                             where d.id = deck_ratings.deck_id and d.status in ('published','unlisted') and d.owner <> auth.uid()));
+
+-- ============================================================================================
+-- 20) HOW MANY TIMES A LIBRARY BOOK HAS BEEN OPENED  (run once)
+-- ============================================================================================
+-- Nov 2026, on request: "Library texts should also be sortable by popularity (how many times users have
+-- opened them)" and then, of the first build, which ordered by section 16's `reads`: "Popularity should
+-- count openings instead of readers."  So `book_stats` gains a second counter beside the first.  They
+-- answer different questions and both are kept: `reads` is how many PEOPLE have read a book (once each,
+-- after a minute with it open, recorded in the reader's own progress so a second device does not count
+-- again); `opens` is how often it is reached for.
+--
+-- AN OPENING IS THROTTLED BY THE CLIENT, at most once an hour per book per device (`bookOpenCount` in
+-- app.js), so a reload or a re-render is not an opening and coming back tomorrow is.  The server adds
+-- one and can do nothing else; as with section 16 there is no per-reader row, so nothing here can say
+-- who opened what, and a hostile caller can inflate a count and learn nothing.
+--
+-- UNTIL THIS BLOCK IS RUN the site is unaffected: the select of `opens` is refused, `_bookOpensOff`
+-- latches, the Popularity order falls back to `reads` and says so in a sentence under the sort control.
+
+alter table public.book_stats add column if not exists opens int not null default 0;
+
+create or replace function public.bump_book_open(b text)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if coalesce(b, '') !~ '^[a-z0-9][a-z0-9-]{1,48}$' then return; end if;
+  insert into public.book_stats as t (book, opens, updated_at)
+  values (b, 1, now())
+  on conflict (book) do update
+    set opens = t.opens + 1,
+        updated_at = now();
+end $$;
+
+revoke all on function public.bump_book_open(text) from public;
+grant execute on function public.bump_book_open(text) to anon, authenticated;

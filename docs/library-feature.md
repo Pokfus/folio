@@ -1026,6 +1026,25 @@ the highlights.**
       not in `S` — this one is a PREFERENCE: `S.settings.bookSort` / `bookSortRev`, device-local like the
       theme, read back through a whitelist so a retired key falls back rather than leaving the shelf
       sorted by nothing.
+    · **POPULARITY, AND THE EARLIEST DATE** (Nov 2026, on request). A fifth row, `popular`
+      ("Popularity", Most opened first / Least opened first). **It counts OPENINGS, not readers** (on
+      request, the same month): `book_stats.opens`, bumped by the RPC `bump_book_open` (schema
+      **section 20**) from `bookOpenCount(id)` in `PAGES.book` — at most once an hour per book per
+      device (`BOOK_OPEN_GAP`, kept in `localStorage` under `folio_book_opened_v1`), so a reload or a
+      chapter turn is the same visit. Under this order a banner prints "opened N times" in place of its
+      read count (`bookFigureHTML`), so the order and the figure beside it are one fact. `reads` — a
+      reader counted once after a minute with the book open (`bookReadMaybeCount`) — is unchanged and
+      is what every other order prints. The figures land after the shelf paints, so `sorted` is a
+      `let` re-made in the `bookStatsLoad()` callback (`sortNow`); books nobody has opened tie at zero
+      and fall to title order. **Three databases, three sentences**: with `opens` the order is by
+      openings; on a project that has section 16 and not 20 (the select of `opens` answers 400,
+      `_bookOpensOff` latches) it is by readers and `#bkSortNote` says so; where there are no figures
+      at all (a dev origin, no section 16) it says the shelf is in title order — never a silent
+      fallback. **The Date order files a work at the EARLIEST year its `written` states**: a
+      range's `year` is its early end (the Ramayana's "c. 500 BCE – 200 CE" is −500, not the −300
+      midpoint it had), a single century's key lies inside that century. 22 rows moved; the rule is
+      held by `node .claude/check-library.js` (the `year` check) and `.claude/test-library-sort.js`
+      guards both orders. Re-run that suite after touching `BOOK_SORTS`, the comparator, or a `year`.
     · **A SEARCH BOX beside the sort** (`bookQuery` / `bookFold` / `bookMatches` / `shelfHTML` / `#bkFilter`
       / `.lib-search`, Aug 2026, on request). It matches TITLE, AUTHOR and the year written — the three
       things the banner itself shows, so a reader can always see why a book matched — folding diacritics
@@ -1104,6 +1123,17 @@ the highlights.**
     implies a starting state**: the two surfaces using it now differ there, a gloss popup still opening
     shut. Its being shut was also why every marker jump had to expand the fold first, which is exactly
     the case `openFootnote` used to get wrong (next bullet but one).
+  · **THREE MORE PASSES OVER A PAINTED CHAPTER (Nov 2026, the Library audit — `library-audit.md` §2–§3).**
+    After the linker and `linkProperNounsOnly`: **`unlinkLaterTerms`** drops a link whose glossary term is
+    dated more than ten years after the book's last year (`bookLastYear`; `glossUntil` on a row overrides)
+    and, for a book that ends before 1500, any modern nation-state entry (`GLOSS_MODERN_STATES`, generated);
+    the front matter is exempt from both, and its licence boxes (`.bk-rights`) are not glossed at all.
+    **`bookGlossOff`** now adds the book's own `glossOff` / `glossOffIn` (in the lazy file, from
+    `.claude/book-gloss-off.json`) to the row's hand list. **`bookQuoteTree`** then curls quotation marks in
+    the English prose and the notes, a block at a time and one character for one — a reader's highlights are
+    offsets into the chapter's text, so no pass over a book may change its length. Guards:
+    `test-book-gloss-rules.js`, `test-book-quotes.js`. The About page prints `emended: N` from the book's
+    file ("N slips of the scan or the press have been corrected in this text").
   · **`linkProperNounsOnly` — a book links only what the prose CAPITALISES.** Folio's glossary is a glossary
     of prehistory, palaeoanthropology, geography and heads of state; run unrestricted over Roman philosophy
     it links the right proper nouns (Greece, Sicily, Syria, Egypt, Hesiod) and then four words that mean
@@ -1204,3 +1234,82 @@ the only tint. Everything else on the banner (spine, author, title, date, length
 chip, reads, resume line, star), the hold menu, the search, the sort, the favourites split and the
 read-count repaint are unchanged. `test-library.js`'s one-per-row assertion at desktop became two.
 
+
+## The Reading room and the Desk (Nov 2026)
+
+Chosen, on request, from the six desktop designs in `docs/mockups/library-desktop-redesigns/`: **design 1
+(the Reading room) for a desktop**, and **the top of design 6 (the Desk) added to the phone and tablet page**.
+`PAGES.library` draws one or the other by the width of the window — `libWide()`, the media query
+`LIB_WIDE_MQ` `(min-width:1100px)`, which `styles.css` repeats for the page's width; the two must agree.
+A window that crosses the seam re-renders the page once (`_libMqOff`).
+
+**What both share.** The page head, the tools row (search, count, sort, direction, "?"), the sort and its
+sentence, the favourites split, the read-count repaint in place (`repaint`, set by whichever layout is
+drawn; the search and the stats callback call it — never `render()`), and the small pieces: `bookState`,
+`bookLenText`, `bookWhere`, `bookAgo`, `bookStateHTML`, `bookOrigHTML`, `bookBarHTML`, the `lb-` classes.
+A book's colour reaches anything that is not a banner through the class `bk-tint` (the banner's own
+`--bk-accent` / `--bk-ink` derivation, night and OKLCh included), with `--tile` inline.
+
+**Finished.** `bookState(b)` is `new` (no record), `done` or `on`. Done is the foot of the last chapter:
+`markPos` in `PAGES.book` passes `fin` to `setReadingPos` when the reader is on the last chapter and the
+window is within 48px of the document's end, and the record keeps `fin: 1` (it rides in `S.reading`, so it
+syncs). `y` cannot say it — the place is measured a third of the way down the window, so the end of a short
+chapter reads about 0.35. A reader who has gone back to an earlier chapter is `on` again.
+
+### The Reading room (1100px and wider)
+
+`.lib-room` is three columns: the rail (`#lrRail`), the shelf (`.lr-main`: head, tools, `#bkShelf.lr-list`)
+and the pane (`#lrDet`). The rail and the pane are sticky under the top bar and scroll on their own.
+
+- **The rail filters by five facets** (`BOOK_FACETS`): Reading (in progress / unread / finished),
+  Tradition, Form, Original text, Length. Tradition and form are **declared on each catalogue row**
+  (`tradition`, `form`), one each, from `BOOK_TRADITIONS` and `BOOK_FORMS`; `check-library.js` fails a row
+  without them or with a value not on the lists. Inside one facet the rows are alternatives; across facets
+  all must hold (`bookFacetPass`). Each row prints the number of texts it WOULD show — counted with every
+  other facet applied and its own left out — and a row that would show nothing is dimmed, not removed. The
+  choice is module-level (`bookFacets`), like the search query: kept while the reader moves about, gone on
+  reload. **The filters apply only on this page** (`hitsFor`): the narrow page has no rail, and a shelf
+  narrowed by a control that is not on screen has books missing for no visible reason.
+- **A row** (`.lr-row`, `data-book`) is the text's title, author and date, its state, length, figure and
+  original chip, and a star. Its one control is `.lr-pick`, a real button over its words, in the tab
+  order like every control on the site (`test-a11y.js` holds every button to it; the selected row's carries
+  `aria-current`); the arrows are the quick way through the list. Favourites keep their section at the top
+  (`.lr-gh`).
+- **A click selects, a double click or Enter opens.** The selection is `bookSel` (module-level); the pane
+  shows it: author, title, subtitle, Written, Translator, Length, Original, Shelved (tradition · form),
+  Readers and Opened where the database gives them, where the reader is and when they were last there, and
+  the one button that opens the text ("Start reading", "Continue reading · Book 9", "Read again"). The
+  pane never shows a text the filters have hidden. ↑ ↓ move the selection from anywhere on the page that
+  is not a field (the listener is on the document, because a key with nothing focused never reaches the
+  list; `_libKeyOff` takes it off when the page is gone).
+- **Hover previews** a row in the pane after 140ms and puts the selection back 320ms after the pointer
+  leaves the list; a pointer that arrives IN the pane while it previews has chosen that text, which becomes
+  the selection — the highlighted row and the pane's button never name two books.
+- **Right-click is this page's long press**: the same sheet (`openBookMenu`) a held banner raises. The
+  row's star and the pane's star toggle in place.
+- The first-visit strip and the "?" card say this page's own second tip (`LIB_HELP_WIDE`).
+
+### The Desk over the shelf (below 1100px)
+
+The timeline shelf is the page it was. Between the tools and the shelf stands `#bkDesk.lib-desk`:
+
+- **On your desk** (`.ld-hero`): the in-progress text last read — "read today / 3 days ago", author, title,
+  subtitle, date, length, original chip, the percentage read as a large figure, a strip of one segment to
+  a chapter (filled behind the reader, half-filled where they are; a plain bar past 150 chapters), the
+  place in words ("Book 9 of 24"), the translator, a star, share, and **Continue reading**.
+- **Also on your desk** (`.ld-also`): the other texts in progress, most recent first (four, then "and N
+  more in progress, on the shelf below"), each a button that opens its text; under them the finished ones
+  by title. With nothing else in progress and something finished the box is headed "Finished".
+- **Four figures** (`.ld-figs`): texts on the shelf, with the original beside the English, traditions, of
+  your books in progress. Four in a row from 760px, two by two on a phone.
+- The hero and the list stand side by side from 760px and one under the other below it. A reader who has
+  opened nothing sees the four figures alone.
+- **It steps aside while a search is typed** (`desk.hidden`), so the answer is directly under the box and
+  the box never moves. Every book on the desk is still in the shelf below.
+
+**Tests.** `.claude/test-library-room.js` (both pages: layout, selection, keyboard, facets and their counts,
+star, right-click, the seam, the desk at tablet and phone width, a reader who has opened nothing, and
+`fin`). `test-library.js` section 2 reads the timeline shelf at 1080px (`SHELF`), as does
+`test-library-sort.js`. **Re-run after touching** `PAGES.library`, `BOOK_FACETS`, `bookState`,
+`bookFacetPass`, `setReadingPos`'s `fin`, `LIB_WIDE_MQ`, a row's `tradition` / `form`, or any `lr-` /
+`ld-` / `lb-` rule: `test-library-room.js`.
