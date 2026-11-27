@@ -1457,6 +1457,7 @@
     Iliad: "homer-iliad",
     Odyssey: "homer-odyssey",
     Epic_of_Gilgamesh: "epic-of-gilgamesh",
+    Book_of_the_Dead: "book-of-the-dead",
     // the four works Petrie's first series holds (Nov 2026)
     Westcar_Papyrus: "petrie-egyptian-tales",
     The_Eloquent_Peasant: "petrie-egyptian-tales",
@@ -13277,6 +13278,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding the Book of the Dead (anonymous, so keyed on its id), measured as the rows above (CIE76 over
+     L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-three light papers, cards and second papers; a sweep of the cube
+     at a step of 3, whose best stands 15.4 from its nearest). First placed at the aubergine #3F2148, which Petrie's
+     Egyptian Tales, merged the same day, took from the same sweep (2.4 apart), so measured again with it on the
+     shelf. THE EURIPIDES TEST: the books a reader takes up beside this one are the shelf's other Egyptian texts,
+     so they were held 40 or more off; the sweep's best then is this very dark olive, 44.1 from Petrie and 45.9 from
+     Ptahhotep (and 86.6 from Erman's red, merged later the same day), whose nearest are Bede 15.4, Boethius 16.7,
+     Hobbes 16.7 and Marx and Engels 17.3, none read beside it. It reads 9.58:1 on the tightest light paper. */
+  "book-of-the-dead": "#212406",
   /* Nov 2026, adding Erman's Literature of the Ancient Egyptians, measured as the rows above (CIE76, L 12.3–47.8,
      chroma 18–85, 6:1 or better on white; a sweep of the cube at a step of 3). The best-separated colour left is
      this red at 17.5 from Malory, 31.0 from Aristophanes and 31.4 from the Primary Chronicle, none read beside
@@ -17763,6 +17773,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "book-of-the-dead",
+      title: "The Book of the Dead",
+      subtitle: "According to the Theban Recension",
+      author: "Anonymous",
+      /* The spells were copied into tombs from the start of the New Kingdom to the Roman conquest; the papyri
+         Budge translates from here are mostly of the New Kingdom (Nu, Ani, Nebseni), a few Ptolemaic (Lepsius's
+         Turin papyrus). `year` is the start of that span, the one number the shelf's sort needs. */
+      written: "c. 1550–50 BCE",
+      year: -1550,
+      translator: "E. A. Wallis Budge",
+      edition: "Egyptian Literature, The World's Great Classics, The Colonial Press, New York, 1901",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: Budge 1857–1934, printed 1901 — pre-1929 in the US,
+         life plus seventy cleared 2005, life plus a hundred runs to 2035. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The spells are some three thousand years old. E. A. Wallis Budge's " +
+        "translation was printed in this anthology in New York in 1901, so it is public domain in the United " +
+        "States as a work published before 1929, and he died in 1934, so it also cleared the translator's life " +
+        "plus seventy years in 2005. Where the term is life plus a hundred it remains in copyright until 2035. " +
+        "The anthology's introduction, by its series editor, and its other contents are not reproduced. (The " +
+        "modern translations by Raymond O. Faulkner and Thomas George Allen are in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Egyptian_Literature/The_Book_of_the_Dead",
+      /* THE PRINTED HEAD IS THE CHAPTER: 114 of them over scan pages 27–155, titled from the printed contents
+         page (six heads it omits take the wording of the head they repeat). Titles repeat where the anthology
+         gives another papyrus's version of a spell. No spell numbers are printed, and no original: see the
+         importer. */
+      chapterWord: "Chapter",
+      count: 114,
+      total: 114,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 114 chapters
+         (every `.ttip`, Nov 2026). Budge's ANT is a fish and his APE the god's sacred ape, not the animals; APEPI is
+         the serpent Apep, not the Hyksos king; the OVERSEER of the palace is an Egyptian title, not a plantation
+         overseer; the BUCKLE is the amulet, not Henry Thomas Buckle; HENNU is the god's sacred boat, not the high
+         steward; QEBH is the cool-water region, not King Qa'a; NOW, SUI, TOUCH and DOMINION are ordinary words;
+         RIGHT AND TRUTH is Maat, not the philosophical term; the EYE is the god's Eye, not the organ; the ALTAR is
+         Egyptian, not Greek; and Budge's PORCELAIN is faience. */
+      glossOff: ["Ant", "Ape", "Apepi", "Overseer", "Henry_Thomas_Buckle", "Henenu_(high_steward)", "Qa'a",
+        "National_Organization_for_Women", "Sui_dynasty", "Somatosensory_system", "Dominion", "Truth", "Human_eye",
+        "Greek_altar", "Porcelain"],
     },
     {
       id: "erman-egyptian-literature",
@@ -27815,6 +27866,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "book-of-the-dead", n: 99, t: "The Negative Confession", p: 2,
+      text: "1. “Hail, thou whose strides are long, who comest forth from Annu (Heliopolis), I have not done iniquity. 2. “Hail, thou who art embraced by flame, who comest forth from Kher-āba, I have not robbed with violence. 3. “Hail, thou divine Nose (Fenti), who comest forth from Khemennu (Hermopolis), I have not done violence [to any man]. 4. “Hail, thou who eatest shades, who comest forth from the place where the Nile riseth, I have not committed theft. 5. “Hail, Neha-hau, who comest forth from Re-stau, I have not slain man or woman." },
     { book: "erman-egyptian-literature", n: 69, t: "The Hymn to the Sun from El-Amarnah", p: 6,
       text: "When it is dawn and thou risest in the horizon and shinest as the sun in the day, thou dispellest the darkness and sheddest thy beams. The Two Lands keep festival, awake, and stand on their feet, for thou hast raised them up. They wash their bodies, they take their garments, and their hands praise thine arising. The whole land, it doeth its work." },
     { book: "petrie-egyptian-tales", n: 5, t: "The Shipwrecked Sailor", p: 3,

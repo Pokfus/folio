@@ -1076,6 +1076,133 @@ PTAH_KEYS.push("C");
 for (let i = 38; i <= 43; i++) PTAH_KEYS.push(String(i));
 PTAH_KEYS.push("D");
 
+/* THE BOOK OF THE DEAD's 114 chapters, as Budge's selection in Egyptian Literature (1901) prints them, in
+   order: one row per printed head (`{{h|…}}`) between scan pages 27 and 155. 108 are the printed contents
+   page's titles, in its order. SIX PRINTED CHAPTERS ARE NOT ON THE CONTENTS PAGE — a fourth "Preserving the
+   Heart" under "Of Preserving the Heart", the "Rubric" after the third "Preserving the Heart", a third
+   "Dominion Over Elements", a second "Of Drinking Water", a sixth "Coming Forth by Day" and a second
+   "Transformation into a Lotus" — and each is titled with the contents page's own wording of the head it
+   repeats, which is what the head prints. Several titles repeat because the printing repeats them over
+   different chapters (another papyrus's version of the same spell); the tab keeps the printed title rather
+   than numbering the repeats. `cutAtHeadings` checks each row against its head, so this cannot drift from
+   the text. Declared here because the BOOKS literal below reads it. */
+const BOTD_TITLES = [
+  "A Hymn to the Setting Sun",
+  "Hymn and Litany to Osiris",
+  "Hymn to Ra",
+  "Hymn to the Setting Sun",
+  "Hymn to the Setting Sun",
+  "The Chaplet of Victory",
+  "The Victory Over Enemies",
+  "Of Giving a Mouth to the Overseer",
+  "Of Giving a Mouth to Osiris Ani",
+  "Opening the Mouth of Osiris",
+  "Of Bringing Charms to Osiris",
+  "The Chapter of Memory",
+  "Of Giving a Heart to Osiris",
+  "Of Preserving the Heart",
+  "Of Preserving the Heart",
+  "Of Preserving the Heart",
+  "Of Preserving the Heart",  // not on the contents page
+  "The Heart of Carnelian",
+  "Preserving the Heart",
+  "Preserving the Heart",
+  "Preserving the Heart",
+  "Rubric",  // not on the contents page
+  "Beating Back the Crocodile",
+  "Beating Back the Crocodile",
+  "Repulsing Serpents",
+  "Against Snakes",
+  "Against Serpents",
+  "Driving Away Apshait",
+  "Driving Back the Merti",
+  "Living by Air",
+  "Living by Air",
+  "Driving Back Rerek",
+  "Repulsing the Eater of the Ass",
+  "Abolishing the Slaughterings",
+  "Abolishing the Slaughterings",
+  "Air and Water",
+  "Dominion Over Elements",
+  "Dominion Over Elements",
+  "Dominion Over Elements",  // not on the contents page
+  "Preservation of the Soul",
+  "Of Drinking Water",
+  "Of Drinking Water",  // not on the contents page
+  "Preservation from Scalding",
+  "On Coming Forth by Day",
+  "Chapter of Knowledge",
+  "Of Gaining Mastery Over Enemies",
+  "Victory Over Enemies",
+  "Coming Forth by Day",
+  "Opening the Underworld",
+  "Coming Forth by Day",
+  "Coming Forth by Day",
+  "Coming Forth by Day",
+  "Coming Forth by Day",
+  "Coming Forth by Day",  // not on the contents page
+  "Of Lifting Up the Feet",
+  "Of Journeying to Annu",
+  "Of Transformation",
+  "Of Performing Transformations",
+  "Of Transformation into a Hawk",
+  "Of Transformation into a Governor",
+  "Of Transformation into a God",
+  "Transformation into a Lotus",
+  "Transformation into a Lotus",  // not on the contents page
+  "Transformation into Ptah",
+  "Transformation into a Bennu Bird",
+  "Transformation into a Heron",
+  "Of the Living Soul",
+  "Of the Swallow",
+  "The Serpent Sata",
+  "Of the Crocodile",
+  "Soul and Body",
+  "Of Evil Recollections",
+  "Of Rescue",
+  "Of Opening the Tomb",
+  "Of Not Sailing to the East",
+  "Of the Ink-pot and Palette",
+  "Of Being Nigh unto Thoth",
+  "Of Being Nigh unto Thoth",
+  "Of Bringing a Boat Along in Heaven",
+  "Of Bringing the Makhent Boat",
+  "Of Entering the Boat of Ra",
+  "Of Protecting the Boat of Ra",
+  "Of Going into the Boat of Ra",
+  "Of Knowing the Souls of the East",
+  "Of Sekhet-Hetepet",
+  "Of Knowing the Souls of Pe",
+  "Of Knowing the Souls of Nekhen",
+  "Of Knowing the Souls of Khemennu",
+  "Of Coming Forth from Heaven",
+  "Of Knowing the Souls of Khemennu",
+  "Of Receiving Paths",
+  "Of Coming Forth from Re-Stau",
+  "Of Coming Forth from Re-Stau",
+  "Of Going About in the Underworld",
+  "Of Entering into the Great House",
+  "Of Entering the Presence",
+  "The Introduction to Maati",
+  "The Introduction to Maati",
+  "The Negative Confession",
+  "Address to the Gods of the Underworld",
+  "On the Four Apes",
+  "Of the Praise of the Gods",
+  "Adoration of the Gods of the Qerti",
+  "Hymn of Praise to Osiris",
+  "Of Making Perfect the Khu",
+  "Of Living Nigh unto Ra",
+  "Of Bringing Men Back to Earth",
+  "Of Making Perfect the Khu",
+  "Of Making Perfect the Khu",
+  "For the New Moon",
+  "Of Travelling in the Boat of Ra",
+  "Of Making Perfect the Khu",
+  "Sailing in the Great Boat",
+  "Of the Four Flames",
+];
+
 /* THE CLASSIC OF TEA's ten parts, in the order both columns divide the work. The English titles are the
    ones the digest prints over each part (the first is printed with a lower-case "the", a slip in the
    1935 page that is capitalised here and nowhere else); the Chinese are the names of the ten pages
@@ -21522,6 +21649,115 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+  "book-of-the-dead": {
+    title: "The Book of the Dead",
+    subtitle: "According to the Theban Recension",
+    author: "Anonymous",
+    translator: "E. A. Wallis Budge",
+    edition: "Egyptian Literature, The World's Great Classics, The Colonial Press, New York, 1901",
+    written: "c. 1550–50 BCE",
+    year: -1550,
+    /* ---------- THE LICENCE — a LIMIT to state, and it falls on the translation ----------
+       The spells are three to three and a half thousand years old. E. A. Wallis Budge lived 27 July 1857 –
+       23 November 1934, and this printing is The Colonial Press's of 1901 (New York, the Index page's own
+       publisher and year; the scan's title leaf is an "Edition de Luxe" of the University Collection). So the
+       English is public domain in the United States as a pre-1929 publication, and cleared life plus seventy
+       on 1 January 2005; where the term is life plus a hundred it runs to 1 January 2035, and that is said.
+       Wikisource tags the work PD-US.
+
+       ---------- WHAT IS TAKEN ----------
+       Budge's selection as the anthology prints it: scan pages 27–155, 114 chapters, each with the bracketed
+       line under its head that names the papyrus it is translated from, and his 126 footnotes. Not taken: the
+       anthology's own title page and its "Special Introduction", which is by the series editor, not Budge;
+       and the rest of the volume (Egyptian Tales, the Tell Amarna Tablets, the cuneiform inscriptions), which
+       are other works. The Index is marked Progress=C (proofread, not validated): 28 of the 129 pages are
+       validated, the other 101 proofread once — which is why the import was diffed against two scans' OCR (the
+       `fixes` below).
+
+       WHY NOT THE WIKI'S PAGE "Papyrus of Ani (1913)": it is one unsourced e-text page, marked incomplete and
+       "text only from original", with no scan behind it. A transcription with a scan is the better witness.
+       And WHY NOT THE WIKI'S 110 SUBPAGES of this very section: see `cutAtHeadings`.
+
+       NO FACING ORIGINAL: the Egyptian is hieroglyphic or hieratic, on papyri that differ from one another
+       copy by copy; Budge's chapters are each translated from one named papyrus, and no open transcription
+       of those papyri is numbered the way this printing is — it prints no spell numbers on its heads at all.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are in copyright and are not used:
+       Raymond O. Faulkner's (1972, and in the edition of the Papyrus of Ani with Ogden Goelet, 1994) and
+       Thomas George Allen's (1974). */
+    rights:
+      "Public domain, with one limit. The spells are some three thousand years old. E. A. Wallis Budge's " +
+      "translation was printed in this anthology in New York in 1901, so it is public domain in the United " +
+      "States as a work published before 1929, and he died in 1934, so it also cleared the translator's life " +
+      "plus seventy years in 2005. Where the term is life plus a hundred it remains in copyright until 2035. " +
+      "The anthology's introduction, by its series editor, and its other contents are not reproduced. (The " +
+      "modern translations by Raymond O. Faulkner and Thomas George Allen are in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Egyptian_Literature/The_Book_of_the_Dead",
+    about: [
+      "<b>The Book of the Dead</b> is not one book. It is the modern name for a body of some two hundred " +
+        "spells that Egyptians had copied onto papyrus and laid in the tomb, from the beginning of the New " +
+        "Kingdom, around 1550 BCE, until around 50 BCE, to carry the dead safely through the underworld and " +
+        "into the life that followed. The Egyptians called these texts the <i>chapters of coming forth by " +
+        "day</i>. A buyer chose which spells to have, so no two copies are the same, and the longest run to " +
+        "many yards of papyrus, illustrated in colour.",
+      "The spells do practical work. Some give the dead person back a mouth to speak with, a heart to remember " +
+        "with, or air and water; some drive away crocodiles, serpents and beetles; some let him take the form " +
+        "of a hawk, a swallow, a lotus or a god; some are hymns to Ra the sun and to Osiris, the god of the dead " +
+        "and the dead man's model, whose name he takes (<i>Osiris Ani</i>). Many end in a <b>rubric</b>, the " +
+        "instruction written in red ink: the words are to be said over a scarab of green stone, or whoever " +
+        "knows the chapter shall come forth by day.",
+      "The most famous is the judgement. The dead man is led into the Hall of the Two Truths (Budge's " +
+        "<i>Maati</i>), his heart is weighed against the feather of Maat, and he recites the <b>Negative " +
+        "Confession</b> — forty-two declarations, one to each of forty-two judges, that he has not stolen, not " +
+        "killed, not lied, not caused anyone to weep. The heart spells come before it in this book because the " +
+        "heart is the witness that might speak against him.",
+      "The translator, <b>E. A. Wallis Budge</b> (1857–1934), was Keeper of Egyptian and Assyrian Antiquities " +
+        "at the British Museum and the most prolific popular Egyptologist of his age; he acquired the Papyrus " +
+        "of Ani, the most famous copy of all, for the museum in 1888. What is here is the selection of his " +
+        "translation printed in the anthology <i>Egyptian Literature</i> in 1901: 114 chapters, each headed by " +
+        "a line naming the papyrus it is translated from — most often the Papyrus of Nu, then those of Ani and " +
+        "of Nebseni, all of the New Kingdom, and a few from the late Turin papyrus that Karl Richard Lepsius " +
+        "published in 1842. A title repeats where the anthology gives another papyrus's version of the same " +
+        "spell, and the order is the anthology's, not the order of any one papyrus.",
+      "Budge's translation should be read as what it is: a Victorian scholar's version, in the English of the " +
+        "Authorised Version, of a language that was understood far less well then than now. His spellings of " +
+        "the gods and places are the old ones — <i>Tem</i> for Atum, <i>Tuat</i> for the Duat, <i>Khu</i> for " +
+        "the <i>akh</i>, the transfigured spirit, and <i>Sekhet-Aaru</i> for the Field of Reeds — and many of " +
+        "his readings have since been revised. The question marks in parentheses and the words in square " +
+        "brackets are his own: the brackets mark what he supplied to make sense of a damaged or terse line.",
+      "<b>The rubrics are set in italics.</b> The printing sets them in small capitals, and where the " +
+        "transcription records their case they keep it; where it does not, they are in capitals, as the page " +
+        "shows them. Not included: the anthology's introduction, by its series editor, and its other contents, " +
+        "the Egyptian tales and the cuneiform letters, which are separate works.",
+    ],
+    chapterWord: "Chapter",
+    chapters: BOTD_TITLES.map((_, i) => i + 1),
+    /* ONE PARSE, NOT 110 PAGES — see `cutAtHeadings` for why the wiki's per-chapter subpages cannot be
+       used. `page` names the title the text is rendered under (and the key it is held under for the run). */
+    page: () => "Egyptian Literature/The Book of the Dead",
+    parseText: '<pages index="Egyptian Literature (1901).djvu" from=27 to=155 />\n<references/>',
+    cutHeads: { skip: 1, titles: BOTD_TITLES },
+    smallcaps: "rubric",
+    /* THE TRANSCRIPTION'S OWN SLIPS, each read against the page image of the University of Toronto copy on
+       the Internet Archive (`egyptianliteratu00newyuoft`, leaf = scan page − 1) after a word diff of the
+       whole import against that copy's OCR and Harvard's (`egyptianliterat00unkngoog`). The diff's other
+       hits are the OCRs' own line-end hyphens. "foward" (p. 82, chapter 85) is the PRINTING's — both OCRs
+       read it — and is left. */
+    fixes: [
+      ["the neverresting stars", "the never-resting stars", "p. 3: hyphenated at the line end, and the book prints never-resting elsewhere"],
+      ["Saïte Recennsion", "Saïte Recension", "p. 5, note 1: the page reads Recension"],
+      ["a district inn the underworld", "a district in the underworld", "p. 5, note 2: the page reads in"],
+      ["unto the Eye of Tern,", "unto the Eye of Tem,", "p. 10: Tem (OCR's rn for m); the god is Tem throughout"],
+      ["who comest as Tern,", "who comest as Tem,", "p. 11: the page reads Tem"],
+      ["saith the god Tern,", "saith the god Tem,", "p. 33: the page reads Tem"],
+      ["for behold Tern has", "for behold Tem has", "p. 39: the page reads Tem"],
+      ["be dnii unguent", "be <i>ānti</i> unguent", "p. 83: the page reads ānti, in italic"],
+      ["the chancellor-inchief,", "the chancellor-in-chief,", "p. 124: hyphenated at the line end"],
+    ],
+    titleOf: (n) => BOTD_TITLES[n - 1],
+    minChars: 100,
+  },
   "erman-egyptian-literature": {
     title: "The Literature of the Ancient Egyptians",
     subtitle: "Poems, Narratives, and Manuals of Instruction, from the Third and Second Millennia B.C.",
@@ -22506,6 +22742,34 @@ async function api(page, host) {
     }
   }
   throw new Error("could not fetch " + page + ": " + last);
+}
+
+/* WIKITEXT PARSED ON THE SERVER, for a book whose printed text has no one wiki page that carries it whole
+   (Nov 2026, adding the Book of the Dead). `action=parse` with `text=` renders what it is given under the
+   `title` given, so `<pages index=… from=… to=…/>` returns the run of proofread scan pages as one page in
+   the legacy markup `api` returns — the same extractors read it. Sent as a POST (the text can be long);
+   the API's rate-limit notice has no index.php fallback here, since index.php cannot render arbitrary
+   text, so the backoff is longer instead. */
+async function apiText(text, title, host) {
+  const url = "https://" + (host || "en.wikisource.org") + "/w/api.php";
+  const body = new URLSearchParams({ action: "parse", format: "json", formatversion: "2", prop: "text",
+    contentmodel: "wikitext", title: title || "Sandbox", text });
+  let last = "";
+  for (let a = 0; a < 8; a++) {
+    try {
+      const r = await fetch(url, { method: "POST", body,
+        headers: { "User-Agent": UA, Accept: "application/json" } });
+      const txt = await r.text();
+      if (/^You are making too many requests/.test(txt)) throw new Error("rate limited");
+      const d = JSON.parse(txt);
+      if (d.error) throw new Error(d.error.info || "api error");
+      return d.parse.text;
+    } catch (e) {
+      last = e.message;
+      await sleep(5000 + a * 8000);
+    }
+  }
+  throw new Error("could not parse " + (title || "text") + ": " + last);
 }
 
 /* A plain HTTPS fetch with the same backoff as `api`, for an original that does not live on a wiki.
@@ -25450,6 +25714,125 @@ function liftChapterFence(html) {
   return html.replace(new RegExp("<p>\\s*" + CUT_FENCE[0] + "([^<]*)" + CUT_FENCE[1] + "\\s*</p>", "g"),
     (m, t) => '<p class="bk-head">' + t.trim() + "</p>");
 }
+
+/* ---------- ONE RUN OF SCAN PAGES, CUT AT ITS PRINTED HEADINGS (Nov 2026, the Book of the Dead) ----------
+   `cutHeads: { skip, titles }` → `cutAtHeadings(h, k, BOOK, warn)`, applied to the page `parseText` renders
+   before anything else reads it, like `cut`. Budge's selection in Egyptian Literature (1901) runs on
+   without a break from scan page 27 to 155, and every chapter opens on a `{{h|…}}` head — a `wst-heading`
+   div in the markup — usually with a `{{sh|…}}` line under it naming the papyrus the chapter is read from.
+   The wiki's own subpages cannot be used to cut it: four of the 110 transclude section names the scan
+   pages do not carry (one returns nothing at all), four printed chapters have no subpage, and two subpages
+   carry two chapters each — so the PRINTED HEADS are the only complete division.
+   The heads are COUNTED against `titles` and each is checked to carry its title's words — a missing or
+   extra head THROWS, since a fall-back would silently join two chapters or shift every title by one.
+   The first `skip` heads are the section's own title page. Part k runs from the end of head k to the
+   start of head k+1 (or the end of the transclusion); the head itself goes, since the tab carries the
+   title, but a note marker set on the head is kept at the top of the part rather than lost with it. The
+   reference list is appended, as `between` and `cut` do, and the caller keeps only the notes the part's
+   own markers open. */
+function cutAtHeadings(h, k, BOOK, warn) {
+  const { skip, titles } = BOOK.cutHeads;
+  const start = h.indexOf('<div class="prp-pages-output"');
+  if (start < 0) throw new Error("cutHeads: no transclusion in the parse");
+  const refAt = h.search(/<div class="reflist|<ol class="references"/);
+  const end = refAt > start ? refAt : h.length;
+  const words = (x) => x.replace(/<sup[\s\S]*?<\/sup>/g, "").replace(/<[^>]+>/g, " ")
+    .replace(/&#\d+;|&\w+;/g, " ").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase().replace(/[^A-Z]+/g, " ").trim().split(" ").filter(Boolean);
+  const heads = [];
+  const rx = /<div class="wst-heading"[^>]*>/g;
+  let m;
+  while ((m = rx.exec(h)) && m.index < end) {
+    if (m.index < start) continue;
+    const e = blockEnd(h, m.index, "div");
+    if (e < 0) throw new Error("cutHeads: an unbalanced heading at " + m.index);
+    heads.push({ at: m.index, end: e, html: h.slice(m.index, e) });
+    rx.lastIndex = e;
+  }
+  if (heads.length !== skip + titles.length)
+    throw new Error("cutHeads: " + heads.length + " heads, expected " + (skip + titles.length));
+  titles.forEach((t, i) => {
+    const hw = new Set(words(heads[skip + i].html));
+    // "On the Four Apes" on the contents page heads "OF THE FOUR APES" in the text
+    const miss = words(t).filter((w) => !hw.has(w) && !/^(?:ON|OF|THE)$/.test(w));
+    if (miss.length) throw new Error("cutHeads: head " + (i + 1) + " does not carry \"" + t + "\" (" + miss.join(" ") + ")");
+  });
+  if (k < 1 || k > titles.length) throw new Error("cutHeads: no part " + k);
+  const hd = heads[skip + k - 1];
+  const to = k < titles.length ? heads[skip + k].at : end;
+  const marks = (hd.html.match(/<sup[^>]*class="reference"[\s\S]*?<\/sup>/g) || []).join("");
+  if (marks) warn("a note marker on the printed head is kept at the top of the chapter");
+  let body = h.slice(hd.end, to);
+  /* A HEAD IS SET INSIDE THE PARAGRAPH FLOW: MediaWiki opens the last paragraph of a chapter before the
+     page break and closes it only after the next chapter's head, so a part cut at that head ends on an
+     unclosed <p> — and the wrapping pass then splits its last sentence off at the first inline tag (20
+     chapters, measured). Close it here; the stray </p> the next part opens with is discarded by stripTags
+     as a closer it never saw opened. */
+  const opens = (body.match(/<p\b/g) || []).length, closes = (body.match(/<\/p>/g) || []).length;
+  if (opens > closes) body += "</p>".repeat(opens - closes);
+  /* …and where the wikitext had no blank line before the chapter's last paragraph, MediaWiki gives it no
+     <p> at all: it runs bare from the last block to the head. The generic wrapping pass wraps a bare run
+     only up to its first inline tag (an italic word, a note marker), which splits the paragraph, so the
+     trailing run is wrapped whole here, inline tags and all. */
+  const lastBlock = Math.max(body.lastIndexOf("</p>"), body.lastIndexOf("</div>"), body.lastIndexOf("</blockquote>"));
+  const tail = lastBlock >= 0 ? body.slice(body.indexOf(">", lastBlock) + 1) : body;
+  if (tail.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>|<link[^>]*>|<[^>]+>|&#32;|&#160;|&#8203;|\s/g, "").length &&
+      !/<(?:p|div|blockquote|ul|ol|table)\b/.test(tail))
+    body = body.slice(0, body.length - tail.length) + "<p>" + tail + "</p>";
+  // the marker goes on the part's first line (the source line under the head), not on a line of its own
+  if (marks) { const p = body.indexOf("</p>"); body = p >= 0 ? body.slice(0, p) + marks + body.slice(p) : "<p>" + marks + "</p>" + body; }
+  /* THE RUBRICS — the spell's instructions, written in red on the papyrus — are set in SMALL CAPITALS, which
+     arrive as `<span class="smallcaps">`, a style the reader has no rule for and the tag stripper would
+     drop. `smallcaps: "rubric"` makes each one italic, so a rubric stays visibly apart from the spell (the
+     Analects' precedent). And where the transcription typed a rubric ALL IN LOWER CASE — which on the wiki
+     still displays as small capitals — the case is not recoverable from it, so the run is set in capitals,
+     which is what the printed page shows; every other run keeps the case the transcription gave it. A run
+     set with `{{asc}}` — all small capitals — is capitals whatever case it was typed in. */
+  if (BOOK.smallcaps === "rubric") {
+    const caps = (x) => x.split(/(<sup[\s\S]*?<\/sup>|<[^>]+>|&#?\w+;)/).map((y, i) => i % 2 ? y : y.toUpperCase()).join("");
+    /* `{{asc/s}}` … `{{asc/e}}` — all small capitals round WHOLE PARAGRAPHS, opened on one scan page and
+       closed on the next (three rubrics, each inside one chapter): a div with an inline style, which the
+       generic div pass would set as a quotation. Each paragraph becomes an italic one in capitals and the
+       div goes. */
+    for (let guard = 0; guard < 20; guard++) {
+      const d = /<div style="font-variant:\s*all-small-caps;?">/.exec(body);
+      if (!d) break;
+      const e = blockEnd(body, d.index, "div");
+      if (e < 0) { warn("an unclosed all-small-caps block"); break; }
+      const inner = body.slice(d.index + d[0].length, e - "</div>".length)
+        .replace(/<\/?i>/g, "")
+        .replace(/<p>([\s\S]*?)<\/p>/g, (m, x) => "<p><i>" + caps(x).trim() + "</i></p>");
+      body = body.slice(0, d.index) + inner + body.slice(e);
+      SMALLCAPS_UPPER++;
+    }
+    let low = 0, out = "", from = 0;
+    // `{{sc}}` and `{{asc}}` ("all small caps", whose every letter prints as a small capital)
+    const OPEN = /<span class="(smallcaps|wst-asc)"[^>]*>/g;
+    let m;
+    // balanced, because a rubric can carry a note marker whose brackets are spans of their own
+    while ((m = OPEN.exec(body))) {
+      const e = blockEnd(body, m.index, "span");
+      if (e < 0) { warn("an unbalanced small-capital span"); break; }
+      let inner = body.slice(m.index + m[0].length, e - "</span>".length);
+      // an italic word inside a rubric (khu) is already set apart by the rubric's own italic
+      inner = inner.replace(/<\/?i>/g, "");
+      const plain = inner.replace(/<sup[\s\S]*?<\/sup>/g, "").replace(/<[^>]+>/g, "").replace(/&#?\w+;/g, "");
+      if (m[1] === "wst-asc" || !/\p{Lu}/u.test(plain)) {
+        low++;
+        // capitals outside tags and entities, and never inside a note marker
+        inner = caps(inner);
+      }
+      out += body.slice(from, m.index) + "<i>" + inner + "</i>";
+      from = e;
+      OPEN.lastIndex = e;
+    }
+    body = out + body.slice(from);
+    if (low) SMALLCAPS_UPPER += low;
+  }
+  const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
+  return '<div class="prp-pages-output">' + body + "</div>" + (refs ? "\n" + refs[0] : "");
+}
+let SMALLCAPS_UPPER = 0;
 
 /* ---------- THE CRITIQUE OF PURE REASON: Meiklejohn's headings and tables (Nov 2026) ----------
    `prep: "kant"`, run on the RAW page (every page of a multi-page section) before the notes are gathered
@@ -38153,7 +38536,10 @@ async function fetchEnglish() {
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
     /* A page cut into several parts is fetched once and kept for the run (see `cut`). */
     let h = BOOK.cut ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await api(pageNames[0]))
+      : BOOK.parseText ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await apiText(BOOK.parseText, pageNames[0]))
       : await api(pageNames[0]);
+    /* ONE RUN OF SCAN PAGES, SEVERAL CHAPTERS (Nov 2026, the Book of the Dead): see `cutAtHeadings`. */
+    if (BOOK.cutHeads) h = cutAtHeadings(h, n, BOOK, warn);
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     /* ONE PAGE PER BOOK, CUT AT ITS CHAPTER HEADS (Nov 2026, The Social Contract): see `cutAtChapterHeads`. */
@@ -38239,8 +38625,8 @@ async function fetchEnglish() {
       /* A PART CUT OUT OF A LONGER PAGE carries the page's WHOLE note list — the Theses' page numbers
          its notes 1–84 straight through the introduction and four documents — so only the notes this
          part's own markers open are kept, renumbered from 1 by pruneNotes. */
-      if (BOOK.cut) html = liftChapterFence(html);
-      if (BOOK.between || BOOK.cut) {
+      if (BOOK.cut || BOOK.cutHeads) html = liftChapterFence(html);
+      if (BOOK.between || BOOK.cut || BOOK.cutHeads) {
         const used = [...new Set([...html.matchAll(/<sup class="fn" data-fn="(\d+)"><\/sup>/g)].map((m) => +m[1]))]
           .sort((x, y) => x - y);
         notes = used.map((u) => notes[u - 1]);
@@ -38703,6 +39089,7 @@ function writeEnglish(chapters, warnings) {
     (text.length / 1024).toFixed(0) + " KB, " +
     got.chapters.reduce((a, c) => a + (c.notes ? c.notes.length : 0), 0) + " notes. Re-parsed OK."
   );
+  if (SMALLCAPS_UPPER) console.log("  " + SMALLCAPS_UPPER + " small-capital run(s) typed in lower case or set all small caps, now in capitals (see `smallcaps`)");
   /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
      quietest failure this script has: it does not throw, it does not shorten the text and it does not
      look wrong on the page — it simply leaves that chapter with nothing to cite and nothing to pair. */
