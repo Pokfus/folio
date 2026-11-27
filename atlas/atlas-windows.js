@@ -1173,10 +1173,11 @@
           </div>
         </div>
         <div class="data-loading fi2-loading" id="fi2Loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>
+        <div class="data-loading fi2-loading fi2-veil" id="fi2Veil" role="status" aria-live="polite" hidden><span class="dl-globe" aria-hidden="true"></span><strong id="fi2VeilMsg"></strong></div>
       </div>`;
-    const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), loadEl = root.querySelector("#fi2Loading");
+    const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), loadEl = root.querySelector("#fi2Loading"), veilEl = root.querySelector("#fi2Veil"), veilMsg = root.querySelector("#fi2VeilMsg");
     let shareGrid = [];   // one mark a round for the shared result: "1" first try, "2" second, "0" missed
-    let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null, named = null;   // named: an area round's other states, named after the reveal (stateNames); shown: an area round's rings, drawn by the window on the still renderer
+    let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null, named = null, waiting = false, veilT = 0, veilGiveUp = 0;   // waiting: the round's map is not drawn yet (veil); named: an area round's other states, named after the reveal (stateNames); shown: an area round's rings, drawn by the window on the still renderer
     const reduced = () => prefersReducedMotion();
     const MAXY2 = new Date().getFullYear();
     const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards"), ensureData("atlas2prose"), ensureData("atlas2findit"), ensureData("atlas2countries"), ensureData("atlas2places")];   // atlas2places: a world map card's country is its places (cardMapKeys, 2026-11-15)
@@ -1186,7 +1187,7 @@
       if (!ok.every(Boolean) || !window.AtlasEmbed) { fail(); return; }
       return window.AtlasEmbed.ensure({ host: {}, needHistory: "full" }).then((hub) => {
         if (!root.isConnected) return; if (!hub) { fail(); return; }
-        hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { names: () => namedNow.slice(), panel: (r) => revealPanel(r), win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
+        hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { waiting: () => waiting, names: () => namedNow.slice(), panel: (r) => revealPanel(r), win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
         if (!rounds.length) { route("map"); return; }
         loadEl.hidden = true;
         win = window.AtlasEmbed.view(board, {
@@ -1194,6 +1195,7 @@
           spec: () => specNow(),
           draw: (st, api, ctx) => overlay(st, api, ctx),
           onTap: (e) => tapAt(e),
+          onPaint: (st, api) => { if (waiting && api.settled) endWait(); },
           minDrag: 6,
         });
         win.setHome(15, 20, 1); win.setView(15, 20, 1);
@@ -1283,12 +1285,23 @@
       qEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fi2Year(r.shown) : (r.kind === "point" && r.cap ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(fi2Name(r.n)) + "</b>") + " on today's map";
       cart.textContent = r.kind === "area" ? "FULL ATLAS · " + fi2Year(r.shown) : "TODAY";
       fbEl.hidden = true; nextEl.hidden = true;
-      if (r.kind === "area") fly(r.lon, r.lat, 1.6); else fly(15, 20, 1);
+      fly(15, 20, 1);   // every round starts on the whole earth: flying to an area round's state gave the answer away (Nov 2026, on request)
+      startWait(r.kind === "area" ? "Drawing the world of " + fi2Year(r.shown) + "…" : "Drawing today’s map…");
       win.schedule();
     }
+    /* THE ROUND'S MAP IS VEILED UNTIL IT IS DRAWN (Nov 2026, on request: the borders of a past year took seconds to replace today's, with nothing to say so). Until the window reports `settled` for the round's
+       spec (the year's history meshed, the tiles in) a veil with a sentence covers the board and a tap is ignored; it shows only after 150 ms (a quick settle never flashes) and lifts after 20 s whatever happens.
+       The still renderer draws no history and is never veiled. */
+    function startWait(msg) {
+      endWait(); if (!win || (hubRef && hubRef.canvas2d)) return;
+      waiting = true; veilMsg.textContent = msg;
+      veilT = setTimeout(() => { veilT = 0; if (waiting && !disposed) veilEl.hidden = false; }, 150);
+      veilGiveUp = setTimeout(() => { veilGiveUp = 0; endWait(); }, 20000);
+    }
+    function endWait() { waiting = false; if (veilT) clearTimeout(veilT); if (veilGiveUp) clearTimeout(veilGiveUp); veilT = veilGiveUp = 0; if (veilEl) veilEl.hidden = true; }
     const targetIds = (r) => { if (r.kind === "entity") { const L = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.layers.world; const t = L && L[r.n]; return t ? [t[0]] : []; } if (r.kind === "area" && r.slugs && !(hubRef && hubRef.canvas2d)) return r.slugs.map((s) => "pol:" + s); return []; };   // the still renderer draws no history: an area round is scored on, and drawn from, its rings
     function tapAt(e) {
-      const r = roundNow(); if (!r || over || lock || !hubRef) return;
+      const r = roundNow(); if (!r || over || lock || waiting || !hubRef) return;
       const rect = board.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top, spec = Object.assign({ w: rect.width, h: rect.height, lon: win.st.lon, lat: win.st.lat, zoom: win.st.zoom }, specNow());
       const ll = hubRef.lonLatAt(spec, x, y); if (!ll) return;   // the sky
       const ids = hubRef.idsAt(spec, x, y);
@@ -1299,7 +1312,7 @@
       if (r.kind === "entity" && country) marks.push({ ids: [country], tint: TINT.pick, pick: true });
       else if (r.kind === "area") { const s = ids.filter((id) => /^(pol|ext):/.test(id)); if (s.length) marks.push({ ids: s, tint: TINT.pick, pick: true }); }
       pickPin = marks.some((m) => m.pick) ? null : [ll[0], ll[1]];   // only the picked place is lit: a region where there is one under the tap, else the marker (a place round; a tap on no state of the year; an area round on the still renderer, which has no states to light)
-      confirmEl.textContent = "Guess"; confirmEl.hidden = false; clearEl.hidden = false; sfx("click"); win.flash();   // the fill at once; the outline and glow follow within a few frames
+      confirmEl.textContent = "Guess"; confirmEl.hidden = false; clearEl.hidden = false; sfx("click"); win.schedule();   // one full frame: the fill, its outline and its glow arrive together (Nov 2026, on request: a fast fills-only frame first left the outline a beat behind)
     }
     function edgeKm(rings, lon, lat) { let best = Infinity; for (const ring of rings) for (const q of ring) { const d = fi2Hav(lon, lat, q[0], q[1]); if (d < best) best = d; } return best; }
     function commit() {
