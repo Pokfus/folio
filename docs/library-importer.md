@@ -2986,3 +2986,25 @@ and the characters check it, so a paragraph added or split upstream throws inste
 later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
+
+## `layout: "york"` — a transcription in Classics in the History of Psychology, its tables typed from pictures (Nov 2026, Conditioned Reflexes)
+
+`BOOK.url(n)` names one page per lecture (the last the Bibliography), each cached as `en-<n>.html`. What it settled:
+- **windows-1252, read as bytes** (`fetchBuffer` + `TextDecoder`): as UTF-8 every ½, ° and é became U+FFFD.
+- **The Word 97 markup is not nested** (`<B><P>…</P></B>`, `<I><P>…</P></I>`, `<B> <I></B></I>`), so `stripTags`'
+  stack drops closers and runs paragraphs together. `yorkFlat` reads the page flat: every `<p>`/`<center>`/`<div>`/`<h…>`/
+  `<hr>` breaks a paragraph, and `<i>`/`<b>` are states closed at each break and on each change, always `<i>` outside
+  `<b>`, so nothing comes out crossed (book-audit's TAGS check caught the first version).
+- **Where a lecture begins**: after its "LECTURE IV" head; Lecture XIV has none, so after "Posted …"; the Bibliography
+  after the editor's note. The first paragraph (Pavlov's summary) is set italic whole.
+- **The site editor's insertions go**: "[p. 34]" (some across a line break), "[sic]", the brackets round a reference
+  number; one marker is plain text ("(1898),[12]") and is taken only when no link reached that note. "--" becomes "—".
+- **Tables are pictures**: each `<img>` is looked up in `BOOK.tablesFile` (`.claude/book-tables/`, typed from the
+  GIFs) and set as `bk-table` (caption lines above as `bk-head`, notes below as paragraphs); `BOOK.figures` and `fig…`
+  pictures are dropped and counted; a picture in neither THROWS, and a typed table no page shows is warned about.
+- `fixes` run (through `correctRaw`) on the flattened paragraphs and on each note, before the tables go back in.
+
+Re-run after touching: `node .claude/fetch-book.js pavlov-conditioned-reflexes` (cached; `--force` refetches 24 pages),
+check "187 table(s) set", "16 figure(s) left out", "17 notes (17 markers, 1 of them plain text)", every `fix applied 1x`
+but "Med. Sec." (21x), then `node .claude/book-audit.js`.
+

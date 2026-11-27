@@ -13294,6 +13294,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
      46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
   "Sigmund Freud": "#844227",
+  /* Nov 2026, adding Conditioned Reflexes, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1
+     on all forty-three light papers and cards; a sweep of the cube at a step of 3, which tops out at 15.4 — the band
+     is full). THE EURIPIDES TEST: held 25 or more from the books read beside Pavlov (James, Freud, Darwin,
+     Descartes), the sweep's best olives stand 28 from Darwin, so this dark green, 15.3 from Boethius, its nearest,
+     not read beside Pavlov; Darwin stands 43.4 off, Freud 54.5, Descartes 68.5, James 96.0. It reads 9.03:1 on the
+     tightest light paper. */
+  "Ivan Pavlov": "#032D21",
   /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
      (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
      purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
@@ -17786,6 +17793,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Academy", "Convergent_evolution", "Diffusion", "Concord", "Rhône", "Philosophy", "Socii",
         "Gnaeus_Marcius_Coriolanus", "Evolutionary_psychology", "Transcendentalism"],
       glossOffIn: { Providence: [22], Ethics: [22], Logic: [23], London: [19] },
+    },
+    {
+      id: "pavlov-conditioned-reflexes",
+      title: "Conditioned Reflexes",
+      subtitle: "An Investigation of the Physiological Activity of the Cerebral Cortex",
+      author: "Ivan Pavlov",
+      written: "1926",
+      year: 1926,
+      translator: "G. V. Anrep",
+      edition: "Translated and edited by G. V. Anrep, Oxford University Press: Humphrey Milford, London, 1927",
+      /* A LIMITED licence: public domain in the US (1927) and wherever copyright runs life + 70 or less, since
+         Anrep died in 1955 — not yet where it runs longer. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where G. V. Anrep's translation was published in 1927. Ivan Pavlov " +
+        "died in 1936 and Anrep in 1955, so it is also out of copyright in countries where copyright lasts for " +
+        "the author's life plus seventy years or less. The text is the transcription in Classics in the History " +
+        "of Psychology (York University, Toronto), corrected against two scans of the 1927 printing; its tables, " +
+        "which that site gives as pictures of the page, were typed from those pictures.",
+      sourceName: "Classics in the History of Psychology",
+      sourceUrl: "http://psychclassics.yorku.ca/Pavlov/",
+      /* NO `origLang`: no Russian text of the 1927 Lectures is transcribed anywhere this importer reads. Twenty-four
+         sections — the twenty-three lectures and the Bibliography. No `parts`. */
+      chapterWord: "Lecture",
+      count: 24,
+      total: 24,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 24 sections
+         (every `.ttip`, 34 keys, Nov 2026). NAMESAKES: Pavlov's Speransky is the physiologist A. D. Speransky, not the
+         statesman; Max-Kohl's tone-variator is a maker's name, not the cosmetic. NAMES INSIDE NAMES and ordinary words:
+         the Military Medical Academy, Oxford University Press, Classics in the History of Psychology at York
+         University (Toronto, not the English city), the Archive of Biological Sciences, the Congress of Natural
+         Sciences, "Monographs on Animal Biology", "Necessary conditions" in Lecture II's summary, Dutch cheese, a
+         "Sound of bubbling water" in a table and Foursikov's paper "Water as a conditioned stimulus". */
+      glossOff: ["Mikhail_Speransky", "Kohl_(cosmetics)", "Academy", "University_of_Oxford", "Psychology", "York",
+        "Biology", "Natural_science", "Monograph", "Necessity_and_sufficiency", "Netherlands", "Sound", "Water"],
     },
     {
       id: "freud-interpretation-of-dreams",
@@ -27686,6 +27727,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
     { book: "james-principles-of-psychology", n: 10, t: "IX. The Stream of Thought", p: 43,
       text: "Consciousness, then, does not appear to itself chopped up in bits. Such words as 'chain' or 'train' do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A 'river' or a 'stream' are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life." },
+    { book: "pavlov-conditioned-reflexes", n: 1, t: "Lecture I", p: 30,
+      text: "So infinitely complex, so continuously in flux, are the conditions in the world around, that that complex animal system which is itself in living flux, and that system only, has a chance to establish dynamic equilibrium with the environment. Thus we see that the fundamental and the most general function of the hemispheres is that of reacting to signals presented by innumerable stimuli of interchangeable signification." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
