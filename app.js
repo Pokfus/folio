@@ -13272,6 +13272,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding the Narrative of the Life of Frederick Douglass, measured as the rows above (CIE76 over
+     L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the
+     fifteen light inks; a sweep of the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: held 25
+     or more from Jefferson's Declaration and the King James Bible, the two books read beside this one, the
+     sweep's best still stands: this dark olive green, 14.0 from Lucretius, 14.5 from Petronius and 14.7 from
+     Aesop, none read beside Douglass; Jefferson stands 25.9 off, Darwin 36.8, Rousseau 41.9, the King James
+     Bible 96.6. It reads 4.69:1 on the tightest light paper. */
+  "Frederick Douglass": "#3F5A24",
   /* Nov 2026, adding Common Sense, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all
      forty-three distinct light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of
      the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: the sweep's best sit 13.7–14.0 from
@@ -17659,6 +17667,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Sarmatians", "Germany", "Turkey", "Greece"],
     },
     {
+      id: "douglass-narrative",
+      title: "Narrative of the Life of Frederick Douglass",
+      subtitle: "An American Slave, Written by Himself",
+      author: "Frederick Douglass",
+      written: "1845",
+      year: 1845,
+      /* NO `translator`: written in English. */
+      edition: "The first edition, the Anti-Slavery Office, Boston, 1845",
+      /* No limit to state: printed in 1845, its author dead since 1895, Garrison since 1879, Phillips since 1884.
+         See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Frederick Douglass published his Narrative in Boston in 1845 and died in " +
+        "1895; William Lloyd Garrison, who wrote its Preface, died in 1879, and Wendell Phillips, who wrote " +
+        "its prefatory Letter, in 1884. The text is the validated Wikisource transcription of the first " +
+        "edition, from a scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Narrative_of_the_Life_of_Frederick_Douglass,_an_American_Slave",
+      /* NO `origLang`: the book is English. Fourteen sections — Garrison's Preface, Phillips's Letter, Douglass's
+         eleven chapters and his Appendix — so a tab's number runs two ahead of the chapter's (the front matter
+         says so). No `parts`. */
+      chapterWord: "Section",
+      count: 14,
+      total: 14,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 14 sections
+         (every `.ttip`, Nov 2026). NAMESAKES: Lucretia is Lucretia Auld, not the Roman; Noah is Noah Willis, an
+         overseer; Austin is Austin Gore and Austin Woolfolk, not the Texan city; Augustus is one of Douglass's own
+         given names; Stanley is the name he travelled under, not the Falklands' capital; the Richmond is the
+         steamboat John W. Richmond and the Cat the schooner Wild Cat; Mr. Waters owns a wharf. ORDINARY WORDS AND
+         FIGURES: Providence is divine; the Italics are a copybook's lettering; "Spartan-like" simplicity is a
+         figure; Israel is the ark's, biblical; the West India experiment is British emancipation in the Caribbean,
+         not India. What stays is right in place: Maryland, Baltimore, the Chesapeake, Garrison, the Liberator
+         and Newport. */
+      glossOff: ["Lucretia", "Noah", "Austin", "Augustus", "Stanley,_Falkland_Islands", "Richmond", "Cat", "Water",
+        "Providence", "Italic_peoples", "Sparta", "Israel", "India"],
       id: "paine-common-sense",
       title: "Common Sense",
       subtitle: "Addressed to the Inhabitants of America",
@@ -27440,6 +27482,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
     { book: "quran", n: 1, t: "The Opening", p: 1,
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
+    { book: "douglass-narrative", n: 12, t: "Chapter X", p: 11,
+      text: "This battle with Mr. Covey was the turning-point in my career as a slave. It rekindled the few expiring embers of freedom, and revived within me a sense of my own manhood. It recalled the departed self-confidence, and inspired me again with a determination to be free. The gratification afforded by the triumph was a full compensation for whatever else might follow, even death itself. He only can understand the deep satisfaction which I experienced, who has himself repelled by force the bloody arm of slavery. I felt as I never felt before. It was a glorious resurrection, from the tomb of slavery, to the heaven of freedom. My long-crushed spirit rose, cowardice departed, bold defiance took its place; and I now resolved that, however long I might remain a slave in form, the day had passed forever when I could be a slave in fact." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
   ];

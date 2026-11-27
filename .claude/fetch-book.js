@@ -21150,6 +21150,121 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+  "douglass-narrative": {
+    title: "Narrative of the Life of Frederick Douglass",
+    // the title page's full title, after the short one every reader knows it by
+    subtitle: "An American Slave, Written by Himself",
+    author: "Frederick Douglass",
+    /* NO `translator`: written in English. */
+    edition: "The first edition, the Anti-Slavery Office, Boston, 1845",
+    written: "1845",
+    year: 1845,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Douglass published the Narrative in Boston in 1845 and died in 1895; William Lloyd Garrison, whose
+       Preface opens it, died in 1879 and Wendell Phillips, whose Letter follows, in 1884. So there is no
+       copyright in any of it anywhere. The transcription is Wikisource's, of the scan
+       `Narrative of the Life of Frederick Douglass, an American Slave.djvu` (Index: Publisher "The
+       Anti-Slavery Office", Boston, 1845, LCCN 14003386, Progress=T), and VALIDATED page by page: every page
+       of the fourteen fetched carries `data-page-quality="4"`. Its four footnotes are Douglass's own. One reading was checked and KEPT: the
+       Appendix's "Shalt I not visit for these things?" (book-scan.js offers "Shall", as Jeremiah 5:9 has it)
+       is what the 1845 printing reads — the Internet Archive's OCR of `narrativeoflifeo1845doug`, a BYU copy
+       of this edition, reads "Shalt" too. Douglass's misquotation stands. */
+    rights:
+      "Public domain worldwide. Frederick Douglass published his Narrative in Boston in 1845 and died in " +
+      "1895; William Lloyd Garrison, who wrote its Preface, died in 1879, and Wendell Phillips, who wrote " +
+      "its prefatory Letter, in 1884. The text is the validated Wikisource transcription of the first " +
+      "edition, from a scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Narrative_of_the_Life_of_Frederick_Douglass,_an_American_Slave",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every fact in
+       it about the book was read off this text (the age reckoned from 1835, the names Bailey, Johnson and
+       Douglass, the third of September 1838, the certificate of 15 September, Nantucket on 11 August 1841,
+       the withheld means of escape, the Appendix's own explanation, Whittier named in chapter VIII); the
+       later life is the part every account of him agrees on. */
+    about: [
+      "<b>Narrative of the Life of Frederick Douglass, an American Slave, Written by Himself</b> is the " +
+        "story of Douglass's life in slavery and his first years of freedom, told by himself. It begins on a plantation " +
+        "in Talbot County, Maryland, where he was born a slave and never learned his own age — he reckoned " +
+        "it from hearing his master say, in 1835, that he was about seventeen. It ends in Massachusetts, " +
+        "where in August 1841, three years after his escape, he rose at an anti-slavery convention on " +
+        "Nantucket and spoke for the first time to a white audience. Between the two it shows slavery from " +
+        "inside: the separation of children from their mothers, the whip, hunger and cold, the selling of " +
+        "families, and the religion of the slaveholders who did these things.",
+      "The book opens with two documents by white abolitionists vouching for it: a Preface by William " +
+        "Lloyd Garrison, who heard Douglass speak at Nantucket, and a Letter from Wendell Phillips, who " +
+        "warns him that in publishing his name and his master's he puts his freedom at risk. Then come " +
+        "Douglass's eleven chapters. The first six cover his childhood on Colonel Edward Lloyd's " +
+        "plantation and his move to Baltimore, where his new mistress, Sophia Auld, began to teach him " +
+        "his letters until her husband forbade it; in his words, <i>from that moment, I understood the " +
+        "pathway from slavery to freedom</i>. Chapter VII tells how he taught himself to read and write " +
+        "anyway. Chapter X, the longest, is his year with Edward Covey, a farmer hired to break him, and " +
+        "the fight in which he resisted: <i>You have seen how a man was made a slave; you shall see how a " +
+        "slave was made a man.</i> Chapter XI is his escape and his first years of freedom. An Appendix " +
+        "explains that what he wrote against religion was meant for the <i>slaveholding religion of this " +
+        "land</i>, not the Christianity of Christ.",
+      "Douglass was born Frederick Bailey, his mother's surname. On 3 September 1838 he escaped from " +
+        "Baltimore and reached New York, but the Narrative deliberately does not say how, so as not to " +
+        "close the route to others. Within two weeks he married Anna Murray, a free woman who had " +
+        "followed him north, and the couple settled in New Bedford, Massachusetts. There he gave up the " +
+        "name Johnson, which he had taken in New York, for <i>Douglass</i>, from Walter Scott's poem " +
+        "<i>The Lady of the Lake</i>. He became a speaker for the Massachusetts Anti-Slavery Society, " +
+        "and this book, published in Boston in 1845, was partly an answer to audiences who doubted that " +
+        "so able a speaker could ever have been a slave.",
+      "The book was a success, and naming his owners made him a target for recapture. He spent the " +
+        "next two years lecturing in Ireland and Britain, where supporters raised the money to buy his " +
+        "legal freedom in 1846. Back in the United States he founded his own anti-slavery newspaper, " +
+        "<i>The North Star</i>, in 1847, and became one of the best-known Americans of his century: an " +
+        "abolitionist, a campaigner for women's rights and, after the Civil War, a federal official and " +
+        "the United States' minister to Haiti. He told his story " +
+        "twice more, in <i>My Bondage and My Freedom</i> (1855) and <i>Life and Times of Frederick " +
+        "Douglass</i> (1881). He died in Washington, D.C., in 1895.",
+      "The text here is the first edition, published by the Anti-Slavery Office in Boston in 1845, in " +
+        "its own spelling (<i>calk</i>, <i>favorable</i>). It is given in the book's own order: the " +
+        "Preface, the Letter, the eleven chapters and the Appendix, so a tab's number runs two ahead of " +
+        "the chapter's. The four footnotes are Douglass's own. The verses in chapter VIII are by John " +
+        "Greenleaf Whittier, whom Douglass names; the Appendix quotes two more poems, the second a parody " +
+        "of a hymn, each verse ending on <i>heavenly union</i>. The book's language about race is that " +
+        "of 1845, including a slur that Douglass quotes from the mouths of slaveholders. Not included: the " +
+        "title page and the engraved portrait facing it.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 14 }, (_, i) => i + 1),
+    page: (n) => "Narrative of the Life of Frederick Douglass, an American Slave/" +
+      (n === 1 ? "Preface by William Lloyd Garrison" : n === 2 ? "Letter from Wendell Phillips" :
+       n === 14 ? "Appendix" : "Chapter " + (n - 2)),
+    /* The book prints its chapters with a numeral and nothing else; titles are transcribed, never composed. */
+    titleOf: (n) => n === 1 ? "Preface, by William Lloyd Garrison" : n === 2 ? "Letter from Wendell Phillips"
+      : n === 14 ? "Appendix" : "Chapter " + toRoman(n - 2),
+    minChars: 3000,
+    /* The printed heads, which the tab already says: the Preface's and the Letter's, the half-title over
+       chapter I, each centred "CHAPTER IV.", the Appendix's; and the "THE END." under the Appendix. */
+    dropHeads: [/^PREFACE\.$/, /^LETTER FROM WENDELL PHILLIPS, ESQ\.$/,
+      /^NARRATIVE OF THE LIFE OF FREDERICK DOUGLASS\. CHAPTER I\.$/, /^CHAPTER [IVX]+\.$/, /^APPENDIX\.$/],
+    dropTail: [/^THE END\.$/],
+    dropBlankParas: true,
+    reFixes: [
+      /* RIGHT-ALIGNED LINES — a letter's closing and signature, the Letter's date line, and the signatures
+         of the pass in chapter X and the marriage certificate in chapter XI — arrive as blocks, i.e.
+         blockquotes, which would read as quotations. Set as plain lines: two rows, the opening tag where
+         its block holds one of these lines and nothing else, then the closing tag after such a line. */
+      [/<blockquote>\n(?=<p>(?:WM\. LLOYD GARRISON\.|WENDELL PHILLIPS\.|FREDERICK DOUGLASS\.|God speed the day!|Till then, and ever,|Yours truly,|Boston, <i>April<\/i> 22, 1845\.|"William Hamilton,|"Near St\. Michael's, in Talbot county, Maryland\."|"James W\. C\. Pennington\.)<\/p>\n<\/blockquote>)/g, "",
+       "a right-aligned closing, date or signature: unwrap it (the opening tag)"],
+      [/(?<=(?:^|\n)<p>(?:WM\. LLOYD GARRISON\.|WENDELL PHILLIPS\.|FREDERICK DOUGLASS\.|God speed the day!|Till then, and ever,|Yours truly,|Boston, <i>April<\/i> 22, 1845\.|"William Hamilton,|"Near St\. Michael's, in Talbot county, Maryland\."|"James W\. C\. Pennington\.)<\/p>)\n<\/blockquote>/g, "",
+       "a right-aligned closing, date or signature: unwrap it (the closing tag)"],
+      /* The two INDENTED lines (wikitext `:`) under a signature — the Preface's place and date, the
+         Letter's addressee — survive the tag strip as bare runs outside every paragraph. */
+      [/<\/p>\nBoston, <i>May<\/i> 1, 1845\.(?=\s*$)/g, "</p>\n<p>Boston, <i>May</i> 1, 1845.</p>",
+       "the Preface: its place and date, split by the small capitals of Boston"],
+      [/<\/p>\nFrederick Douglass\.\s*$/g, "</p>\n<p>Frederick Douglass.</p>", "the Letter: its addressee, a bare run"],
+      /* The Great House Farm song (chapter II): its second line is indented under the first, and arrives
+         as a blockquote inside the blockquote. One quotation, two lines. */
+      [/<p>"I am going away to the Great House Farm!<\/p>\n<blockquote>\n<p>O, yea! O, yea! O!"<\/p>\n<\/blockquote>/g,
+       '<p>"I am going away to the Great House Farm!<br>\nO, yea! O, yea! O!"</p>', "II: the song's indented second line"],
+      /* The Appendix's parody: its title and its verses in one quotation, as printed. */
+      [/"A PARODY\.<\/p>\n<\/blockquote>\n<blockquote>\n/g, '"A PARODY.</p>\n', "Appendix: the parody's title joined to its verses"],
+    ],
+  },
   "paine-common-sense": {
     title: "Common Sense",
     // the title page's own words (djvu p. 9)
