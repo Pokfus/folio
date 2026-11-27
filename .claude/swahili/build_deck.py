@@ -14,8 +14,10 @@ WHAT A CARD CARRIES:
     `-angu`), since neither is ever said bare;
   · the meanings, grouped by part of speech, a noun's CLASS in its label
     (class 7/8, ki-vi) -- every adjective, verb and possessive agrees with it;
-  · one line of key forms: a noun's plural, a verb's stem and negative
-    infinitive, an adjective's forms with the three commonest classes;
+  · a row of forms, every one a cell of Wiktionary's own table (the beginner pass,
+    Nov 2026): a noun's plural, also where it is the singular's spelling; a verb's
+    stem, its present, the tails of its past, future and perfect, its negative
+    present and its two commands; an agreeing word's forms after five class pairs;
   · up to three Tatoeba sentences, the word picked out, with a speaker.
 
 The speaker reads the `Word` field.
@@ -357,11 +359,16 @@ def desc(entries, n):
             "lower levels are too small to rank words this rare") +
         ", a word having to be common in both. The cards are dealt by "
         "that frequency, so the words you meet most often come first. "
-        "Verbs are shown as their infinitive (kusoma, to read) with their stem (-soma), which "
-        "every tense is built on, and their negative infinitive; adjectives and possessives as "
-        "their stem (-zuri, -angu) with the forms they take after three of the noun classes. "
+        "Verbs are shown as their infinitive (kusoma, to read) with their stem (-soma) and the "
+        "cells of the dictionary's own table: the present for I and for he or she (ninasoma, "
+        "anasoma), the past, the future and the perfect as the dictionary prints them, to go "
+        "behind a subject prefix (-lisoma, -tasoma, -mesoma), the negative present (sisomi, "
+        "hasomi) and the two commands (soma, someni). Adjectives, possessives, demonstratives and "
+        "the numbers that agree are shown as their stem (-zuri, -angu) with the forms they take "
+        "after each of the five pairs of noun classes (m-wa, m-mi, ji-ma, ki-vi, n). "
         f"The {nouns} nouns show their class, which every adjective, verb and possessive agrees "
-        f"with, and their plural; there are {verbs} verbs. " + EX_NOTE + ", with the word picked "
+        f"with, and their plural, also where it is spelled as the singular (nyumba, plural "
+        f"nyumba); there are {verbs} verbs. " + EX_NOTE + ", with the word picked "
         "out in colour and a speaker beside the sentence and the headword. Sources. Level: the "
         "Common European Framework of Reference (Council of Europe), global scale. Meanings, "
         "noun classes and forms: English Wiktionary, via the kaikki.org extraction (CC BY-SA "

@@ -8,11 +8,13 @@ Reads `selected-<level>.json`, `lex.json` and the Tatoeba exports
 CC BY 2.0 FR) and writes `examples-<level>.json`: word key -> up to three
 [Swahili, English, [matched tokens]] triples.
 
-A sentence matches a word when one of its tokens is the word, one of its listed
-forms (a plural, an infinitive, an adjective's agreeing form), or -- for a verb
--- a token the verb parser reads as prefix + the verb's stem (`nilisoma`,
-`hatutasoma`: `sw.VerbParser`).  A multi-word entry matches its words in
-sequence.  The choice is deterministic: the headword's own spelling first, then
+A sentence matches a word when one of its tokens is the word, one of the forms
+its CARD shows (a plural, an infinitive, a command, an agreeing form of the five
+class pairs), or -- for a verb -- a token the verb parser reads as prefix + the
+verb's stem (`nilisoma`, `hatutasoma`: `sw.VerbParser`); never a spelling that is
+another card's own headword (`forms_of`, the beginner pass of Nov 2026).  A
+multi-word entry matches its words in sequence; `-wa na`, to have, by the cells
+of its table (`nina`, `hana`, `kuna`).  The choice is deterministic: the headword's own spelling first, then
 sentences of four to ten words, then the shorter, then the lower sentence id --
 so a re-run is byte-identical.  A sentence with several English translations
 takes the shortest.  Each sentence is used at most once per deck.

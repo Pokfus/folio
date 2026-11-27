@@ -427,6 +427,22 @@ jobs:
       - name: check-greek (pinned ids, no pointer glosses, no answer on its own question, known forms labels, balanced markup)
         if: ${{ !cancelled() }}
         run: node .claude/greek/check-greek.js
+      # The Swahili decks (2026-11-27, the Swahili beginner pass): swahili-fixes.json (the cards moved down to A1,
+      # the cards added, the note dropped, the end of each description), swahili-order.json and the pinned ids,
+      # over the six decks of card type `swahili` and the sounds deck (`swsound`). All four read only the
+      # repository: no cache, no network, no browser. check-swahili.js was in no workflow before this.
+      - name: swahili-fix --check (the Swahili decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/swahili-fix.js --check
+      - name: swahili-order --check (the Swahili order file is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/swahili-order.js --check
+      - name: build-swahili-sounds --check (the Swahili sounds deck is what its table and Swahili A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-swahili-sounds.js --check
+      - name: check-swahili (no word on two decks, pinned ids, no pointer glosses, known forms labels, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/swahili/check-swahili.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.

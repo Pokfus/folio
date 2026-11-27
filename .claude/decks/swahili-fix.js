@@ -1,30 +1,29 @@
 #!/usr/bin/env node
 "use strict";
 /*
-  swahili-fix.js — THE ONE WAY A TURKISH DECK IS HAND-EDITED, ORDERED AND NUMBERED (Nov 2026, the Swahili
+  swahili-fix.js — THE ONE WAY A SWAHILI DECK IS HAND-EDITED, ORDERED AND NUMBERED (Nov 2026, the Swahili
   beginner pass — docs/lang-decks.md, "The Swahili beginner pass"). Standalone Node helper, zero deps. Not
-  part of the site. The Urdu model (urdu-fix.js), which it was copied from.
+  part of the site. The Turkish model (turkish-fix.js), which it was copied from.
 
     node .claude/decks/swahili-fix.js [--check] [--verbose]
     node .claude/decks/swahili-fix.js --seed-ids   # write swahili-ids.json from the decks as they stand (refused once it exists)
 
   WHY IT EXISTS. The six Swahili word decks ARE rebuilt by a generator (`.claude/swahili/run.py`), and a
-  re-run reproduces them — proved on 2026-11-26 with every source fetched fresh: three sentences and eleven
-  positions of 4,776 notes differed, each traced to Tatoeba's export having moved. But the generator deals a
-  level by frequency and numbers every card by its position, so a card that is moved, added or re-ordered
+  re-run reproduces them — proved on 2026-11-27 with every source fetched fresh: four files byte for byte,
+  and one sentence field each of A1 and A2 (Tatoeba's export had gained sentences). But the generator deals
+  a level by frequency and numbered every card by its position, so a card that is moved, added or re-ordered
   by hand had nowhere to be recorded and would have changed the id of every card after it. A reader's
   progress is keyed by card id. So: what the GENERATOR can do (a forms row it did not read, a sentence
   matched to the wrong word) is fixed in the generator, and what is a decision about ONE card or ONE order
   is here, applied after it.
 
-  THE ORDER OF A REBUILD:   python3 .claude/swahili/run.py --level <a1|a2|b1|b2|c1|phr>  (each level that
-  changed; after a change to the generator, all six, in that order)  →  python3 .claude/swahili/inserts.py
-  (rebuilds the fields of the cards the record ADDS, with the generator's own code)  →
-  node .claude/decks/swahili-fix.js  →  node .claude/decks/swahili-order.js  →
-  node .claude/decks/swahili-fix.js  →  node .claude/decks/build-swahili-sounds.js  →
-  node .claude/decks/swahili-fix.js  →  node .claude/build-lang-decks.js.   The generator reads the record
-  too (`tr.words_below`, `phrases.taught`), so a level rebuilt alone is dealt the same list it was dealt
-  before a card was moved out of it.
+  THE ORDER OF A REBUILD:   python3 .claude/swahili/run.py --level <a1|a2|b1|b2|c1|phr> --no-fetch  (after a
+  change to the generator, all six, in that order)  →  python3 .claude/swahili/inserts.py  (rebuilds the
+  fields of the cards the record ADDS, with the generator's own code)  →  node .claude/decks/swahili-fix.js
+  →  node .claude/decks/swahili-order.js  →  node .claude/decks/swahili-fix.js  →
+  node .claude/decks/build-swahili-sounds.js  →  node .claude/decks/swahili-fix.js  →
+  node .claude/build-lang-decks.js.   The generator reads the record too (`swahili_level.words_below`), so a
+  level rebuilt alone is dealt the same list it was dealt before a card was moved out of it.
 
   WHICH DECKS. Every deck in `decks/` whose card type is `swahili` (A1, A2, B1, B2, C1 and the phrases) or
   `swsound` (the sounds deck, which `build-swahili-sounds.js` writes: held to its pin and counted on the
@@ -34,37 +33,47 @@
 
   `swahili-fixes.json`, the record.
     `add`   `{ <deck id>: [row, …] }` — a card the generator did not deal to that deck. A row carries `word`
-        (the headword, the pin's key), `id` (the number in its card id: above every number the generator has
-        dealt to that deck, so a rebuild cannot mint it) and `why`. It is one of two things:
+        (the card's `Word` field, the pin's key), `id` (the number in its card id: above every number the
+        generator has dealt to that deck, so a rebuild cannot mint it) and `why`. It is one of two things:
           · a MOVE, with `from` (the deck id the generator deals it to). The note is taken out of that deck
             as the generator wrote it and put here, whole — never copied into this file, so a generator fix
-            reaches it. Its old number goes to `_retired` in the pin: a reader who already holds the old
+            reaches it. The label the generator gave it against its old neighbours (`, not habari yako`) is
+            taken off. Its old number goes to `_retired` in the pin: a reader who already holds the old
             card keeps it, with its schedule, and meets the word again here.
           · an INSERT, with `fields` (the card's five fields) and `src`, where every part came from.
             `python3 .claude/swahili/inserts.py` writes `fields` with the generator's own code, from the
             same cache; nothing in them is typed by hand.
-    `decks` `{ <deck id>: { subtitle?, descSub?, tail? } }`. `subtitle` is a template. `descSub` is
+    `drop`  `{ <deck id>: [{ word, why, see }] }` — a note the generator no longer deals (`select.EXCLUDE`):
+        its number is retired. The row RECORDS a generator fix; it fails while the generator still deals
+        the note.
+    `decks` `{ <deck id>: { subtitle?, descSub?, hints?, tail? } }`. `subtitle` is a template. `descSub` is
         `[find, replace]` pairs over the generator's description, each satisfied if it matched or if its
-        replacement already stands. `hints` is `{ word: other word }`: the label `not <other word>` on the
-        first part-of-speech line of a card's English side (the generator's own label for two notes of one
-        deck with the same English, for cards the record brought together). `tail` is a paragraph that ENDS the description, beginning with the
-        words THE BEGINNER PASS: on every run whatever stands from those words on is cut and the tail is
-        written again, so its figures are always recounted. Placeholders, in `subtitle` and `tail`:
-        {notes} {cards} {days} (the deck, at five notes a day), {from} {to} (the days it occupies when the
-        shelf is taken in order: sounds, A1, A2, B1, B2, C1, phrases), {shelfNotes} {shelfDays}
-        {shelfYears}, {<deck id>.notes|days|from|to} for another deck, {n:<headword>} and {day:<headword>}
-        (where a card stands in THIS deck and the day of the deck it arrives on), {added} {left} (the
-        record's cards this deck gained and lost), and for the phrases {phrases} {idioms} {proverbs}.
+        replacement already stands. `hints` is `{ word: [other words] }`: the label `not <the others, as
+        printed>` on the first part-of-speech line of a card's English side, for cards of one deck with one
+        English side that the record brought together; a label that would print a word of the card's own
+        answer is refused, and two notes of a deck left with one English side fail the run. `tail` is a
+        paragraph that ENDS the description, beginning with the words THE BEGINNER PASS: on every run
+        whatever stands from those words on is cut and the tail is written again, so its figures are always
+        recounted. Placeholders, in `subtitle` and `tail`: {notes} {cards} {days} (the deck, at five notes a
+        day), {from} {to} (the days it occupies when the shelf is taken in order: sounds, A1, A2, B1, B2,
+        C1, phrases), {shelfNotes} {shelfDays} {shelfYears}, {<deck id>.notes|days|from|to} for another
+        deck, {n:<word>} and {day:<word>} (where a card stands in THIS deck and the day of the deck it
+        arrives on), {added} {left} (the record's cards this deck gained and lost), {head} (the hand-written
+        head of A1) and {tierA1} … {tierC1} {tierNone} (the phrases by the lowest level that spells them:
+        swahili-order.json's `_stats`).
 
   `swahili-ids.json`, the pin: deck id → key → the number in the note's id (`u_<deck id>_<number>`; the
-    English → Swahili card is that id plus `~2`, which the app adds). The key is the headword (`Word`), and
-    for the sounds deck the row's `key`. NEVER DELETE OR RENUMBER A ROW. A note that leaves a deck has its
-    row moved to `_retired`. APPLIED: a deck the generator has just numbered by position is numbered back.
+    English → Swahili card is that id plus `~2`, which the app adds). The key is the card's `Word`, and for
+    the sounds deck the row's `key`. NEVER DELETE OR RENUMBER A ROW. A note that leaves a deck has its row
+    moved to `_retired`. APPLIED: a deck the generator has just numbered by position is numbered back.
+    Seeded on 2026-11-27 from the six decks as shipped (5,534 rows, each equal to its position). ONE KEY WAS
+    RENAMED BY HAND that day, its number kept: A1's 43 is `kuanza`, the verb its card always was, where the
+    generator printed `kwanza` (`sw.HEAD_INF`).
 
-  `swahili-order.json`, the order: deck id → every key, in the order the deck is dealt. Written by
-    `swahili-order.js`; a list that is not exactly the deck's keys is refused. A deck with no entry keeps
-    the order of its PINNED NUMBERS (the generator's frequency order as first shipped — Tatoeba's counts
-    move, and the phrases' own order with them), with the record's added cards after it.
+  `swahili-order.json`, the order: deck id → every key, in the order the deck is dealt, and `_stats`.
+    Written by `swahili-order.js`; a list that is not exactly the deck's keys is refused. A deck with no
+    entry keeps the order of its PINNED NUMBERS (the generator's frequency order as first shipped), with
+    the record's added cards after it.
 
   --check changes nothing and exits 1 if a deck is not what the record, the pin and the order make of it,
   or if the pin would change. It is a CI step.
@@ -267,10 +276,22 @@ for (const id of SHELF) {
 for (const id of Object.keys(REC.decks || {})) {
   const hints = REC.decks[id].hints || {};
   for (const w of Object.keys(hints)) {
-    const c = D[id].deck.cards.find((x) => x.fields.Word === w), o = D[id].deck.cards.find((x) => x.fields.Word === hints[w]);
-    if (!c || !o) { fail("decks." + id + ".hints: " + w + " or " + hints[w] + " is not a card of the deck"); continue; }
-    const label = ", not " + hints[w];
-    c.fields.English = c.fields.English.replace(/<div class="uc-pos">([^<]*)<\/div>/, (m, pos) => (pos.endsWith(label) ? m : '<div class="uc-pos">' + pos + label + "</div>"));
+    const c = D[id].deck.cards.find((x) => x.fields.Word === w), others = [].concat(hints[w]).map((o) => D[id].deck.cards.find((x) => x.fields.Word === o));
+    if (!c || others.some((o) => !o)) { fail("decks." + id + ".hints: " + w + " or " + hints[w] + " is not a card of the deck"); continue; }
+    // the other cards as they are PRINTED (`-wili`, not `wili`), and never a word of this card's own answer
+    const names = others.map((o) => strip(o.fields.Swahili)), mine = new Set(strip(c.fields.Swahili).toLowerCase().split(/[^a-z']+/).filter(Boolean));
+    for (const nm of names) for (const t of nm.toLowerCase().split(/[^a-z']+/)) if (mine.has(t)) fail("decks." + id + ".hints: the label of " + w + " would print " + t + ", a word of its own answer, on the English → Swahili question");
+    const label = ", not " + names.join(", ");
+    c.fields.English = c.fields.English.replace(/<div class="uc-pos">([^<]*)<\/div>/, (m, pos) => (pos.endsWith(label) ? m : '<div class="uc-pos">' + pos.replace(/, not .*$/, "") + label + "</div>"));
+  }
+}
+// no two notes of a deck with one English side: the English → Swahili card would have two answers
+for (const id of SHELF) {
+  if (id === SOUNDS) continue;
+  const seen = new Map();
+  for (const c of D[id].deck.cards) {
+    if (seen.has(c.fields.English)) fail(D[id].file + ": " + c.fields.Word + " and " + seen.get(c.fields.English) + " have the same English side — a `hints` row tells them apart");
+    seen.set(c.fields.English, c.fields.Word);
   }
 }
 
@@ -291,6 +312,10 @@ function render(t, id) {
   const v = Object.assign({}, shelf, count[id]);
   for (const other of SHELF) for (const k of ["notes", "days", "from", "to"]) v[other + "." + k] = count[other][k];
   v.added = (addedTo[id] || new Set()).size; v.left = (leftFrom[id] || new Set()).size;
+  // what only swahili-order.js can count: the head of A1, and the phrases by the lowest level that spells them
+  const st = ORD._stats || {};
+  v.head = st.head || 0;
+  ["tierA1", "tierA2", "tierB1", "tierB2", "tierC1", "tierNone"].forEach((k, i) => { v[k] = (st.phraseTiers || [])[i] || 0; });
   const at = (w) => { const i = D[id].deck.cards.findIndex((c) => keyOf(c) === w); if (i < 0) die("decks." + id + ": the description names " + w + ", which is not a card of the deck"); return i + 1; };
   return t.replace(/\{(n|day):([^}]+)\}/g, (m, what, w) => num(what === "n" ? at(w) : Math.ceil(at(w) / PER_DAY)))
     .replace(/\{([\w.]+)\}/g, (m, k) => {
