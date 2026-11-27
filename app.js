@@ -13375,6 +13375,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Breasted. It reads 6.73:1 on the tightest light paper. (A plum first taken for this row stood 9.2 from Petrie's
      tales, placed the same day.) */
   "James Henry Breasted": "#06451E",
+  /* Nov 2026, adding the Constitution, the Bill of Rights and Washington's Farewell Address, measured as the rows
+     above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-three light papers, cards and second papers,
+     22 or more from the fifteen light inks; a sweep of the cube at a step of 3, each row then counted as shelf for
+     the next). The shelf now tops out at 13.1–13.2 anywhere: a violet 13.2 from Magna Carta and the King James
+     Bible, a mauve-brown 13.2 from the Classic of Poetry and Plato, and a navy 13.1 from Herodotus. The three
+     read beside one another and beside Jefferson and Paine, and stand well apart from both: Jefferson's
+     Declaration 95.0, 50.9 and 74.8 off, Paine 65.2, 38.5 and 71.5. They read 8.14, 4.62 and 7.40:1 on the
+     tightest light paper. */
+  "The Constitutional Convention": "#45007E",
+  "The First Congress of the United States": "#724560",
+  "George Washington": "#002D84",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -18151,6 +18162,90 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
       glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
         "House_of_Commons_of_the_United_Kingdom"],
+    },    {
+      id: "us-constitution",
+      title: "The Constitution of the United States",
+      subtitle: "Signed in Convention at Philadelphia, September 17, 1787",
+      /* A CONVENTION, NOT AN AUTHOR — Wikisource heads it "the Federal Convention of 1787". Keyed in
+         BOOK_AUTHOR_COLOR by this string, as the Treaty of Versailles is by its parties. */
+      author: "The Constitutional Convention",
+      written: "1787",
+      year: 1787,
+      /* NO `translator` — written in English, so the rights box names the document instead. */
+      edition: "The engrossed parchment signed at Philadelphia on 17 September 1787, in the National Archives",
+      /* A LIMIT ON NOTHING: a government's document of 1787, transcribed from its scan and validated on
+         Wikisource. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. The Constitution was signed in 1787 and is a work of the government of the United " +
+        "States, so it has never been in copyright anywhere. The text is the validated Wikisource " +
+        "transcription of the engrossed parchment, from the National Archives' scan of its four sheets.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Constitution_of_the_United_States_of_America",
+      /* NO `origLang`: the English is the original. Eight parts: the Preamble and the seven Articles, the
+         signers under the seventh. The text as signed — none of the twenty-seven amendments. */
+      chapterWord: "Part",
+      count: 8,
+      total: 8,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all eight parts (every
+         `.ttip`, Nov 2026). PROVIDENCE and PLANTATIONS fire on "Rhode-Island and Providence Plantations", the
+         state, not the city or the Southern estates; YORK on "New-York" (the English city); NEW_YORK_CITY on the
+         signers' "New York", which is the state's delegation; WATER (the compound) on "Captures on Land and
+         Water". */
+      glossOff: ["Providence", "Plantations_in_the_American_South", "York", "New_York_City", "Water"],
+    },
+    {
+      id: "us-bill-of-rights",
+      title: "The Bill of Rights",
+      subtitle: "Articles in Addition to, and Amendment of, the Constitution, 1789",
+      /* NO ONE AUTHOR: Madison drafted, both houses rewrote; a joint resolution of the First Congress. */
+      author: "The First Congress of the United States",
+      written: "1789",
+      year: 1789,
+      edition: "The engrossed joint resolution of 25 September 1789, the federal government's copy, in the National Archives",
+      /* A LIMIT ON NOTHING: an act of Congress of 1789, transcribed from its scan and validated. */
+      rights:
+        "Public domain. The Bill of Rights was passed by Congress in 1789 and is a work of the government of " +
+        "the United States, so it has never been in copyright anywhere. The text is the validated Wikisource " +
+        "transcription of the engrossed copy in the National Archives.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/United_States_Bill_of_Rights",
+      /* One part: the resolution as sent to the states, TWELVE articles — the third to the twelfth became
+         the First to Tenth Amendments; the front matter says which is which. */
+      chapterWord: "Part",
+      count: 1,
+      total: 1,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page (every `.ttip`, Nov 2026): AUGUSTUS
+         (the emperor) on Frederick Augustus Muhlenberg; YORK (the English city) on "the City of New-York". */
+      glossOff: ["Augustus", "York"],
+    },
+    {
+      id: "washington-farewell-address",
+      title: "Washington's Farewell Address",
+      subtitle: "To the People of the United States, 1796",
+      author: "George Washington",
+      written: "1796",
+      year: 1796,
+      edition:
+        "A Compilation of the Messages and Papers of the Presidents, ed. James D. Richardson, vol. I, " +
+        "published by authority of Congress, 1902",
+      /* A LIMIT ON NOTHING: published 1902 (the pre-1929 rule), Richardson d. 1914. NOT Wikisource, whose
+         Address has no scan and names no printing — see .claude/fetch-book.js. */
+      rights:
+        "Public domain. Washington published the Farewell Address in 1796, so the work itself has never been " +
+        "in copyright. The text is Project Gutenberg's transcription of James D. Richardson's edition, in its " +
+        "printing of 1902, which is out of copyright in the United States under the rule for works published " +
+        "before 1929; Richardson died in 1914, so it is out of copyright everywhere else as well.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/11314",
+      /* NO `origLang`. Printed in one piece, so one part. */
+      chapterWord: "Part",
+      count: 1,
+      total: 1,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page (every `.ttip`, Nov 2026): GENERAL
+         GOVERNMENT is occupied Poland's, where Washington means the federal government; PROVIDENCE the city,
+         where he means divine Providence; MADISON the city in Wisconsin, on "Madison's draft"; and
+         JOHANNES_GUTENBERG the printer, on "Project Gutenberg". */
+      glossOff: ["General_Government", "Providence", "Madison", "Johannes_Gutenberg"],
     },
     {
       id: "marx-communist-manifesto",
@@ -28027,6 +28122,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Society in every state is a blessing, but government even in its best state is but a necessary evil; in its worst state an intolerable one." },
     { book: "marx-communist-manifesto", n: 5, t: "IV. Position of the Communists in Relation to the Various Existing Opposition Parties", p: 10,
       text: "The Communists disdain to conceal their views and aims. They openly declare that their ends can be attained only by the forcible overthrow of all existing social conditions. Let the ruling classes tremble at a Communistic revolution. The proletarians have nothing to lose but their chains. They have a world to win." },
+    { book: "us-constitution", n: 1, t: "Preamble", p: 0,
+      text: "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America." },
+    { book: "us-bill-of-rights", n: 1, t: "Articles in Addition to, and Amendment of, the Constitution", p: 9,
+      text: "Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press; or the right of the people peaceably to assemble, and to petition the Government for a redress of grievances." },
+    { book: "washington-farewell-address", n: 1, t: "Farewell Address", p: 38,
+      text: "It is our true policy to steer clear of permanent alliances with any portion of the foreign world, so far, I mean, as we are now at liberty to do it; for let me not be understood as capable of patronizing infidelity to existing engagements." },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,
       text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,

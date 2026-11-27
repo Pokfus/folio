@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently ninety-four (counted off `books/`, Nov 2026):
+  matter (chapter 0 — see the Library bullet). Currently ninety-eight (counted off `books/`, Nov 2026):
   `pavlov-conditioned-reflexes` (~1 MB, **24 sections** — the twenty-three lectures and the Bibliography, `chapterWord:
   "Lecture"`, titles "Lecture I"… via `titleOf`; **17 notes**; no original). **From Classics in the History of Psychology**
   (Christopher D. Green, York University, 2000–01), the only transcription: neither Wikisource nor Gutenberg has the book
@@ -359,6 +359,31 @@ book added later will meet the same traps.
   Kalidasa nearest; Jefferson 17.9, Hobbes 25.5). `glossOff`: 8 keys — see the comment on the app.js entry. Excerpt:
   "The proletarians have nothing to lose but their chains", Part IV. Not included: the cover, the title page and the
   advertisements.
+  `us-constitution` (~32 KB, **8 parts** — the Preamble and Articles I–VII, `chapterWord: "Part"` — **no notes**, no
+  original). The engrossed parchment of 17 September 1787, transcribed on Wikisource from the National Archives' scan
+  (Index:COTUS (1787 Edition).pdf, NAID 1667751), every page validated (Aug 2012): the Constitution AS SIGNED, none of
+  the twenty-seven amendments, the parchment's spelling (chuse, defence, Independance). One page, cut by **`prep:
+  "cotus"`** at its `<h2>` ids (`Pre`, `aI` … `aVII`, checked in order); a Section's `<dt>` head becomes a centred
+  block so the `treaty` block pass sets it as a bold `bk-head`; `cotusSigners` rebuilds the foot of the last sheet
+  (the note on the four corrected words, the closing formula, Washington, one paragraph per state, then William
+  Jackson's attestation — set last because `joinBrokenParas` joins "…Secretary" to "done in Convention…"); 12 states
+  and 39 signatures or it throws. `minChars: 150` (the Preamble is one sentence). No `fixes`. Colour `#45007E`.
+  `glossOff`: 5 keys. Excerpt: the Preamble. `check-cutoff.js` lists Part 8 (it ends on the unpunctuated
+  attestation, as the parchment does).
+  `us-bill-of-rights` (~9 KB, **1 part**, no notes, no original). The engrossed joint resolution of 25 September 1789,
+  the federal government's copy (NAID 1408042), validated on Wikisource: TWELVE articles, kept as sent to the states
+  (the third to the twelfth are the First to Tenth Amendments, the second the Twenty-seventh, the first never
+  ratified — the front matter says so). **`prep: "rights"`** turns each `article_title` row (the class arrives as
+  `article&#95;title` through the API) into a centred label over its clause, then the `treaty` pass. Colour
+  `#724560`. `glossOff`: 2 keys. Excerpt: article the third.
+  `washington-farewell-address` (~40 KB, **1 part**, no notes, no original). NOT Wikisource: its Address has no scan,
+  names no printing and has been hand-edited since 2006; the one scanned printing there is abridged. The text is
+  Richardson's *Compilation of the Messages and Papers of the Presidents*, vol. I, in Project Gutenberg's proofread
+  transcription (ebook 11314), whose title page reads "Published by authority of Congress, 1902 / Copyright 1897" —
+  so the edition line names the 1902 printing. gutenberg.org refuses this host; the file is read from the Internet
+  Archive's mirror of the ebook. New **`layout: "pgslice"`** (one Gutenberg HTML file, Latin-1, cut from the
+  Address's `<h2>` to the signature). Colour `#002D84`. `glossOff`: 4 keys. Excerpt: "steer clear of permanent
+  alliances".
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
