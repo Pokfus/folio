@@ -186,19 +186,19 @@ LETTERS = [
     ('Ω ω', 'o', A('o'), 'ώρα'),
     # two letters, one sound
     ('ου', 'ou', A('u'), 'δουλειά'),
-    ('αι', 'ai', A('e') + ' · two letters, the sound of ε', 'και'),
-    ('ει', 'ei', A('i') + ' · two letters, the sound of ι', 'είμαι'),
-    ('οι', 'oi', A('i') + ' · two letters, the sound of ι', 'οικογένεια'),
-    ('υι', 'yi', A('i') + ' · two letters, the sound of ι', 'υιοθετώ'),
-    ('αυ', 'av · af', '[av], or [af]: the υ is ' + A('v') + ', or ' + A('f') + quoted(Q_AV), 'αύριο'),
-    ('ευ', 'ev · ef', '[ev], or [ef]: the υ is ' + A('v') + ', or ' + A('f') + quoted(Q_AV),
+    ('αι', 'ai', A('e') + ' · two letters, one sound', 'και'),
+    ('ει', 'ei', A('i') + ' · two letters, one sound', 'είμαι'),
+    ('οι', 'oi', A('i') + ' · two letters, one sound', 'οικογένεια'),
+    ('υι', 'yi', A('i') + ' · two letters, one sound', 'υιοθετώ'),
+    ('αυ', 'av · af', '[av], or [af]: the second letter is ' + A('v') + ', or ' + A('f') + quoted(Q_AV), 'αύριο'),
+    ('ευ', 'ev · ef', '[ev], or [ef]: the second letter is ' + A('v') + ', or ' + A('f') + quoted(Q_AV),
      'ευχαριστώ'),
     ('μπ', 'b · mp', A('b') + ', or [mb] inside a word' + quoted(Q_NASAL), 'μπίρα'),
     ('ντ', 'nt', A('d') + ', or [nd] inside a word' + quoted(Q_NASAL) + quoted(Q_INITIAL),
      'ντομάτα'),
     ('γκ', 'gk', A('ɡ') + '; ' + A('ɟ', 'before e and i sounds') + quoted(Q_GK), 'γκρίζος'),
     ('γγ', 'ng', '[ŋɡ]: ' + A('ŋ') + ' and ' + A('ɡ') + quoted(Q_NG), 'αγγλικά'),
-    ('γχ', 'nch', 'the γ is ' + A('ŋ') + ', then χ' + quoted(Q_GCH), 'συγχωρώ'),
+    ('γχ', 'nch', A('ŋ') + ', then ' + A('x') + quoted(Q_GCH), 'συγχωρώ'),
     ('τσ', 'ts', A('t͡s'), 'τσάι'),
     ('τζ', 'tz', A('d͡z'), 'τζάμι'),
     # the signs
@@ -331,6 +331,10 @@ CSS = """.card {
 }
 .uc-rm {
   font-weight: 600;
+}
+/* a quotation names the spelling it is about: not shown where the sound side is the QUESTION */
+.uc-ask + .uc-field .uc-q {
+  display: none;
 }
 .uc-q {
   display: block;
@@ -528,9 +532,9 @@ def main():
         }, 'type': TYPE_ID})
     sounds = [c['fields']['Sound'] for c in cards]
     assert len(set(sounds)) == len(cards), 'two letters share a sound side: the reverse card is unanswerable'
-    for c in cards:      # the reverse card's question must not print its own answer
-        letters = [x for x in html.unescape(c['fields']['Letter']).split() if len(c['fields']['Letter']) < 9]
-        front = re.sub(r'<span class="uc-q">.*?</span>', '', c['fields']['Sound'])
+    for c in cards:      # the reverse card's question must not print its own answer, or a letter of it
+        letters = [x for x in html.unescape(c['fields']['Letter']) if x != ' ']
+        front = re.sub(r'<span class="uc-q">.*?</span>', '', c['fields']['Sound'])   # hidden there (CSS)
         assert not any(x in html.unescape(re.sub(r'<[^>]+>', '', front)) for x in letters), \
             f'{c["fields"]["Letter"]}: its sound side prints the letter outside a quotation'
     shown_at = {html.unescape(c['fields']['Letter']): i for i, c in enumerate(cards)}

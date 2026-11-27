@@ -43,7 +43,7 @@ for (const f of files) {
     }
     if (alphabet) {
       const front = strip(dec(F.Sound.replace(/<span class="uc-q">.*?<\/span>/g, "")));
-      if (key.length < 9 && key.split(" ").some((x) => front.includes(x))) bad(f + ": " + key + " prints itself on its sound side");
+      if ([...key].some((x) => x !== " " && front.includes(x))) bad(f + ": " + key + " prints itself on its sound side");
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);
       return;
