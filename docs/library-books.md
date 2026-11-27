@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently eighty-six:
+  matter (chapter 0 — see the Library bullet). Currently eighty-seven:
   `james-principles-of-psychology` (~3.3 MB, **29 sections** — James's Preface and his twenty-eight chapters, so a tab
   runs one ahead of the chapter; `chapterWord: "Section"`, titles from the contents pages via `titleOf`, the two printed
   volumes as the `parts` — **1,193 notes**, James's own, renumbered per chapter; no original, the book being English).
@@ -185,6 +185,21 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `thorndike-animal-intelligence` (~515 KB, **8 sections** — Thorndike's Preface and his seven chapters, so a tab runs
+  one ahead of the chapter; `chapterWord: "Section"`, titles via `titleOf` from the chapter heads (VI is "Laws and
+  Hypotheses *for* Behavior" on its head, "of" in the contents; the head is used) — **46 notes**, Thorndike's own,
+  renumbered per chapter; no original). **From Project Gutenberg** (ebook 69904, the 1911 Macmillan edition);
+  Wikisource has no copy (Nov 2026). Gutenberg was down for maintenance, so the file was read from the pglaf mirror
+  (`gutenberg.pglaf.org/6/9/9/0/69904/69904-h/`), the same file `urls` names. Read by `pgchapters` after
+  `prep: "thorndike"` reshapes the file into James's form (`docs/library-importer.md`, "`prep: "thorndike"`"): the
+  notes moved from the book's one FOOTNOTES division to the foot of the chapter that cites them, the one-`<h2>` chapter
+  heads split into numeral and title, the inner heads moved to `<h6>`, bare tables wrapped, lists made one paragraph.
+  Five chapter heads carry a note (where the chapter first appeared) and keep their title as a `bk-head` line. **29
+  figures left out** with their captions (the front matter says so), 22 tables kept, 65 head lines. **A LIMITED
+  LICENCE**, said in the rights box: public domain in the US (1911) and wherever copyright runs life + 70 or less
+  (Thorndike d. 1949). Colour `#724560` (13.2: the Classic of Poetry and Plato nearest; James 66.3, Freud 36.7, Darwin
+  41.9 — the sweep's joint-best violet stood 18.9 from James). `glossOff`: 8 keys (two box names, KKK and Delta; Stanley
+  Hall; a stock John Smith; titles) — see the comment on the app.js entry. Excerpt: the cat in the box, chapter II.
   `freud-interpretation-of-dreams` (~1.2 MB, **8 chapters**, `chapterWord: "Chapter"` — Freud's seven and his Literary
   Index — **182 notes**, Freud's and Brill's; **no original**: de.wikisource has no Die Traumdeutung, and Brill
   translated the third edition, 1911). A. A. Brill's first English translation, Macmillan, New York, 1913, validated on

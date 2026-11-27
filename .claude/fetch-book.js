@@ -21637,6 +21637,91 @@ const BOOKS = {
     minChars: 3000,
   },
 
+  "thorndike-animal-intelligence": {
+    title: "Animal Intelligence",
+    subtitle: "Experimental Studies",
+    author: "Edward L. Thorndike",
+    /* NO `translator`: written in English. */
+    edition: "The Macmillan Company, New York, 1911",
+    written: "1911",
+    year: 1911,
+    /* ---------- THE LICENCE ----------
+       Published in New York in June 1911 (the copyright page: "Copyright, 1911, By THE MACMILLAN COMPANY"),
+       before 1931, so public domain in the United States. Thorndike died in 1949, so the book is also out of
+       copyright wherever copyright lasts for the author's life plus seventy years or less (from 2020) — NOT
+       where it runs longer, and the rights box says so rather than claiming the world. THE SOURCE IS PROJECT
+       GUTENBERG (ebook 69904, a proofread transcription of the 1911 printing): Wikisource has no copy (searched,
+       Nov 2026). When gutenberg.org was down for maintenance (Nov 2026) the file was read from its pglaf
+       mirror, `gutenberg.pglaf.org/6/9/9/0/69904/69904-h/69904-h.htm` — the same file `urls` names. */
+    rights:
+      "Public domain in the United States, where The Macmillan Company published the book in 1911. Edward L. " +
+      "Thorndike died in 1949, so it is also out of copyright in countries where copyright lasts for the " +
+      "author's life plus seventy years or less. The text is Project Gutenberg's transcription of the 1911 edition.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/69904",
+    urls: ["https://www.gutenberg.org/files/69904/69904-h/69904-h.htm"],
+    layout: "pgchapters",
+    /* the file's own heads are reshaped into James's form first — see `thorndikePrep` */
+    prep: "thorndike",
+    chapterHead: /<h5 id="CHAPTER_([IVX]+)">/,
+    front: [{ n: 1, vol: 1, anchor: 'id="PREFACE"' }],
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every quotation in
+       it was found in this text; where each chapter first appeared is the book's own notes (1, 4, 18, 21, 22,
+       46); the life is the record's. */
+    about: [
+      "<b>Animal Intelligence</b> collects the experiments with which Edward L. Thorndike began the laboratory " +
+        "study of animal learning. Its centre is his doctoral study of 1898, in which hungry cats — <i>or " +
+        "rather kittens</i> — dogs and chicks were shut in small boxes whose doors opened only when the animal " +
+        "pulled a loop, pressed a lever or turned a button, and the time each took to get out was recorded, " +
+        "trial after trial. The cat claws and squeezes at random until a movement happens to open the door; " +
+        "over many trials <i>all the other non-successful impulses will be stamped out and the particular " +
+        "impulse leading to the successful act will be stamped in by the resulting pleasure</i>.",
+      "Chapter I asks what it means to study behaviour rather than consciousness. Chapter II is the 1898 " +
+        "study itself, <i>Animal Intelligence; an Experimental Study of the Associative Processes in " +
+        "Animals</i>: the apparatus, the cats, dogs and chicks, and its tests of whether animals reason or " +
+        "learn by imitation, which find that they do neither. Chapters III and IV are shorter papers on the " +
+        "instincts of young chicks and on the psychology of fishes; chapter V, <i>The Mental Life of the " +
+        "Monkeys</i>, repeats the methods with <i>three South American monkeys of the genus Cebus</i>. " +
+        "Chapter VI, written for this volume, states the general laws, and chapter VII, <i>The Evolution of the " +
+        "Human Intellect</i>, argues that man's mind differs from the animals' in degree and not in kind: " +
+        "<i>not as a demigod from another planet, but as a king from the same race</i>.",
+      "The experiments were aimed at the <i>anecdote school</i> of animal psychology, which inferred reasoning " +
+        "from stories of clever pets. Thorndike quotes George Romanes's examples at length and answers that " +
+        "the anecdotes are <i>on pretty much the same level as the anecdotes of thought-transference</i>: what " +
+        "is reported is the one remarkable success, never the many failures. In chapter VI the results become " +
+        "the <i>Law of Effect</i> — responses <i>accompanied or closely followed by satisfaction to the " +
+        "animal</i> are more firmly connected with the situation, those followed by discomfort less — and the " +
+        "<i>Law of Exercise</i>, under which a connection grows stronger the more often it is made.",
+      "Thorndike was born in Massachusetts in 1874. He studied under William James at Harvard and took his " +
+        "doctorate at Columbia in 1898; the study was printed that year as a monograph supplement to the " +
+        "<i>Psychological Review</i>, and the other papers followed between 1899 and 1901. By 1911 he was at " +
+        "Teachers College, Columbia University, and his Preface leaves the old texts unaltered while owning " +
+        "that <i>what one writes at the age of twenty-three is likely to irritate oneself a dozen years " +
+        "later</i>. He became one of the founders of educational psychology and died in 1949.",
+      "The text here is the book as Thorndike printed it in 1911, in its own American spelling. It is given " +
+        "in its own order: the Preface and the seven chapters, so a tab's number runs one ahead of the " +
+        "chapter's, whose Roman numeral opens each title. The head lines inside a chapter are Thorndike's own, " +
+        "and so are the tables. His footnotes are kept under each chapter. The book's figures — drawings of " +
+        "the boxes and the curves of the animals' times — are not reproduced, so where Thorndike writes " +
+        "<i>see Fig. 1</i> there is no figure to see. Not included: the title page, the contents, the index " +
+        "and the publisher's advertisements.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Preface",
+      "I. The Study of Consciousness and the Study of Behavior",
+      "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals",
+      "III. The Instinctive Reactions of Young Chicks",
+      "IV. A Note on the Psychology of Fishes",
+      "V. The Mental Life of the Monkeys; an Experimental Study",
+      "VI. Laws and Hypotheses for Behavior",
+      "VII. The Evolution of the Human Intellect",
+    ][n],
+    /* the Preface is about 1,900 characters */
+    minChars: 1500,
+  },
+
   "petrie-egyptian-tales": {
     title: "Egyptian Tales",
     subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
@@ -34527,6 +34612,81 @@ function extractPgChapters(vols, BOOK, warn) {
   return { chapters: out, counts: c };
 }
 
+/* `prep: "thorndike"` — Nov 2026, adding Thorndike's Animal Intelligence (Gutenberg ebook 69904). The same
+   reader as James's, but the transcriber set this file differently in five ways, and each is put into the
+   shape `extractPgChapters` reads BEFORE it runs, so the reader itself is unchanged:
+   · the division rule is `<hr class="chap x-ebookmaker-drop">` (the reader matches `<hr class="chap"…`
+     only with nothing between the class's quotes);
+   · ALL the notes stand in one FOOTNOTES division after chapter VII, numbered 1–46 across the book, and
+     their anchors are bare (`Footnote_12`, not `Footnote_12_12`). Each note is moved to the foot of the
+     division holding its FIRST marker, in James's anchor form, and the markers are rewritten to match;
+     a note cited twice (two table cells cite 34, two 40: 48 markers for 46 notes) stays one note, as the reader already handles;
+   · a chapter's head is ONE `<h2>` — "CHAPTER IV<br>" and the title, a note sometimes on the title. It
+     becomes James's pair, an `<h5>` numeral (which `chapterHead` finds) and an `<h4>` title (dropped as
+     the tab names it, kept as a head line where it carries a note); the Preface's `<h2>` an `<h4>`;
+   · the heads INSIDE a chapter are `<h3>`, `<h4>` and `<h5>` (sections, subsections, "Table 4"), which
+     the reader drops or holds as James's numeral lines — so they are moved to `<h6>`, a head it keeps;
+     and the running title over chapter I (`<h1>ANIMAL INTELLIGENCE</h1>`) goes; a figure's class carries
+     its width (`figcenter illowp48`), so it is cut to the bare class the reader drops with its caption;
+     and a `<ul>` (ages, a schedule) becomes one paragraph, an item to a line;
+   · a table is a bare `<table>` (wrapped in the `<div class="center">` the reader stashes), and a
+     quotation a `<div class="blockquote">` (made a `<blockquote>`). Every count is checked, so a change
+     upstream throws rather than shifting a note into the wrong chapter. */
+function thorndikePrep(h, warn) {
+  const count = (rx) => (h.match(rx) || []).length;
+  const want = (what, n, rx) => { const k = count(rx); if (k !== n) throw new Error("thorndike: expected " + n + " " + what + ", found " + k); };
+  want("division rules", 13, /<hr class="chap x-ebookmaker-drop">/g);
+  h = h.replace(/<hr class="chap x-ebookmaker-drop">/g, '<hr class="chap">');
+  /* the notes, out of their own division */
+  const fs0 = h.indexOf('<div class="footnotes">');
+  if (fs0 < 0) throw new Error("thorndike: no FOOTNOTES division");
+  const fs1 = pgDivEnd(h, fs0);
+  const notes = [];
+  pgTakeDivs(h.slice(fs0, fs1), "footnote", (blk) => {
+    const k = /<a id="Footnote_(\d+)" href="#FNanchor_\d+" class="label">\[\d+\]<\/a>\s*/.exec(blk);
+    if (!k) throw new Error("thorndike: a note without its label: " + blk.slice(0, 80));
+    notes.push({ n: +k[1], html: blk.replace(k[0], '<a id="Footnote_' + k[1] + "_" + k[1] + '"></a><a href="#FNanchor_' +
+      k[1] + "_" + k[1] + '"><span class="label">[' + k[1] + "]</span></a>") });
+    return "";
+  });
+  if (notes.length !== 46 || notes.some((x, i) => x.n !== i + 1)) throw new Error("thorndike: the notes do not run 1–46");
+  h = h.slice(0, fs0) + h.slice(fs1);
+  want("note markers", 48, /<a (?:id="FNanchor_\d+" )?href="#Footnote_\d+" class="fnanchor">\[\d+\]<\/a>/g);
+  h = h.replace(/<a (?:id="FNanchor_\d+" )?href="#Footnote_(\d+)" class="fnanchor">\[\d+\]<\/a>/g,
+    (w, k) => '<a href="#Footnote_' + k + "_" + k + '" class="fnanchor">[' + k + "]</a>");
+  /* each note to the foot of the division its first marker stands in */
+  const ins = new Map();
+  for (const x of notes) {
+    const at = h.indexOf('href="#Footnote_' + x.n + "_" + x.n + '"');
+    if (at < 0) throw new Error("thorndike: note " + x.n + " is never cited");
+    const hr = h.indexOf('<hr class="chap">', at);
+    if (hr < 0) throw new Error("thorndike: no rule after note " + x.n + "'s marker");
+    ins.set(hr, (ins.get(hr) || "") + "\n" + x.html + "\n");
+  }
+  [...ins.keys()].sort((a, b) => b - a).forEach((at) => { h = h.slice(0, at) + ins.get(at) + h.slice(at); });
+  /* the heads */
+  want("running titles", 1, /<h1>ANIMAL INTELLIGENCE<\/h1>/g);
+  h = h.replace(/<h1>ANIMAL INTELLIGENCE<\/h1>/, "");
+  h = h.replace(/<(\/?)h[345]\b/g, "<$1h6");
+  want("chapter heads", 7, /<h2 class="nobreak" id="CHAPTER_[IVX]+">/g);
+  h = h.replace(/<h2 class="nobreak" id="CHAPTER_([IVX]+)">CHAPTER \1<br>\s*<span class="smcap">([\s\S]*?)<\/span>([\s\S]*?)<\/h2>/g,
+    (w, r, t, fn) => '<h5 id="CHAPTER_' + r + '">CHAPTER ' + r + ".</h5>\n<h4>" + t.replace(/\s+/g, " ") + fn + "</h4>");
+  want("rewritten chapter heads", 7, /<h5 id="CHAPTER_[IVX]+">/g);
+  h = h.replace(/<h2 class="nobreak" id="PREFACE">PREFACE<\/h2>/, '<h4 id="PREFACE">PREFACE</h4>');
+  /* figures: the class carries a width (`figcenter illowp48`), which the reader's exact match would miss */
+  want("figures", 30, /<div class="figcenter illowp\d+"/g);
+  h = h.replace(/<div class="figcenter illowp\d+"/g, '<div class="figcenter"');
+  /* a list (ages, a schedule, a chain of S's) is one paragraph, an item to a line: unwrapped by the tag
+     strip its items would run together into one sentence outside every paragraph */
+  want("lists", 7, /<ul>/g);
+  h = h.replace(/<ul>([\s\S]*?)<\/ul>/g, (w, b) =>
+    "<p>" + [...b.matchAll(/<li>([\s\S]*?)<\/li>/g)].map((m) => m[1].trim()).join("<br>") + "</p>");
+  /* tables and quotations */
+  h = h.replace(/<table\b[\s\S]*?<\/table>/g, (t) => '<div class="center">' + t + "</div>");
+  h = pgTakeDivs(h, "blockquote", (b) => "<blockquote>" + b.replace(/^<div[^>]*>/, "").replace(/<\/div>\s*$/, "") + "</blockquote>");
+  return h;
+}
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -35930,7 +36090,8 @@ async function fetchEnglish() {
         await sleep(500);
       }
     }
-    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n")), BOOK, warn));
+    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n"))
+      .map((x) => (BOOK.prep === "thorndike" ? thorndikePrep(x, warn) : x)), BOOK, warn));
     const c = g.counts;
     console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers, " +
       c.headNotes + " on a chapter head, " + c.noteTables + " table(s) in a note set one row to a line), " +

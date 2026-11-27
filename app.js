@@ -13294,6 +13294,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
      46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
   "Sigmund Freud": "#844227",
+  /* Nov 2026, adding Thorndike's Animal Intelligence, measured as the rows above (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen light inks;
+     a sweep of the cube at a step of 3, which tops out at 13.2). THE EURIPIDES TEST: the sweep's joint best, a
+     violet at 13.2, stands 18.9 from William James, Thorndike's teacher, so this dusky mauve was taken: its
+     nearest are the Classic of Poetry and Plato 13.2 and Cassius Dio 13.4, none read beside Thorndike, while
+     Freud stands 36.7 off, Descartes 37.4, Darwin 41.9 and James 66.3. It reads 4.62:1 on the tightest light
+     paper. */
+  "Edward L. Thorndike": "#724560",
   /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
      (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
      purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
@@ -17822,6 +17830,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Abraham", "Alfred_Jodl", "Maine", "Marcus_Antonius_Pallas", "Mora_(military_unit)", "Lyon",
         "St._Paul", "Jericho", "Anglo-Saxon_England", "Sexual_selection", "Israel", "Czech_Republic", "Turkey",
         "Sui_dynasty", "Evolution", "Taste", "Pathology", "Psychology"],
+    },
+    {
+      id: "thorndike-animal-intelligence",
+      title: "Animal Intelligence",
+      subtitle: "Experimental Studies",
+      author: "Edward L. Thorndike",
+      written: "1911",
+      year: 1911,
+      /* NO `translator`: written in English. */
+      edition: "The Macmillan Company, New York, 1911",
+      /* A LIMITED licence: public domain in the US (1911) and wherever copyright runs life + 70 or less, since
+         Thorndike died in 1949 — not where it runs longer. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where The Macmillan Company published the book in 1911. Edward L. " +
+        "Thorndike died in 1949, so it is also out of copyright in countries where copyright lasts for the " +
+        "author's life plus seventy years or less. The text is Project Gutenberg's transcription of the 1911 edition.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/69904",
+      /* NO `origLang`: the book is English. Eight sections — Thorndike's Preface and his seven chapters — so a
+         tab's number runs one ahead of the chapter's, whose Roman numeral opens each title (James's arrangement).
+         One volume, no `parts`. */
+      chapterWord: "Section",
+      count: 8,
+      total: 8,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 8 sections
+         (every `.ttip`, 27 keys, Nov 2026). NAMES OF BOXES: Thorndike's boxes are lettered, and "KKK" and "Delta"
+         are two of them. NAMESAKES: his Stanley is G. Stanley Hall and his John Smith a stock name for any one man.
+         WORDS OF TITLES AND ORDINARY WORDS: Project Gutenberg, the American Journal of Psychology, Lloyd Morgan's
+         'Introduction to Comparative Psychology', and "the unconscious distortion of the facts", which is not
+         Freud's unconscious. */
+      glossOff: ["Ku_Klux_Klan", "River_delta", "Stanley,_Falkland_Islands", "John_Smith_(explorer)",
+        "Johannes_Gutenberg", "Psychology", "Comparative_psychology", "Unconscious_mind"],
     },
     {
       id: "petrie-egyptian-tales",
@@ -27686,6 +27726,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
     { book: "james-principles-of-psychology", n: 10, t: "IX. The Stream of Thought", p: 43,
       text: "Consciousness, then, does not appear to itself chopped up in bits. Such words as 'chain' or 'train' do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A 'river' or a 'stream' are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life." },
+    { book: "thorndike-animal-intelligence", n: 3, t: "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals", p: 33,
+      text: "The cat that is clawing all over the box in her impulsive struggle will probably claw the string or loop or button so as to open the door. And gradually all the other non-successful impulses will be stamped out and the particular impulse leading to the successful act will be stamped in by the resulting pleasure, until, after many trials, the cat will, when put in the box, immediately claw the button or loop in a definite way." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
