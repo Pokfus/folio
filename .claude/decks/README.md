@@ -450,6 +450,49 @@ To add a letter or a rule to the sounds deck: a row of `turkish-sounds.json` who
 quoted (`sounds.py --verify`), `sounds.py --fill`, `build-turkish-sounds.js`.
 
 
+## The Latin decks: the generator, the record, the pinned ids, the order and the sounds deck (Nov 2026)
+
+Seven decks: A1, A2, B1, B2 and C1 (card type `latin`), the phrases and mottos (`latinphrase`) and the sounds
+deck (`lasound`). As with Urdu and Turkish, **the generator (`.claude/latin/`, Python, a 1.4 GB cache)
+reproduces the five level decks** — proved before the pass with every source fetched fresh
+(`docs/lang-decks.md`, "The Latin beginner pass": the same 5,250 words, every dictionary field equal; 26
+sentence fields and 133 positions differed, each traced to Tatoeba's export having moved). So a fault the
+generator can fix is fixed THERE, and the record holds only what is a decision about one card or one order:
+which cards are added, which move down, the order, the end of each description. **A word is ONE NOTE with
+two card templates**, so the pin is of note ids (a card id is the note id, plus `~2` for English → Latin).
+The key is the headword AS PRINTED, macrons and all (`Latin`).
+
+    node latin-fix.js --check               # the decks are what the record, the pin and the order make of them
+    node latin-order.js --check             # the order file is what its rules give
+    node build-latin-sounds.js --check      # the sounds deck is what its table and Latin A1 give
+    node ../latin/check-latin.js            # no word on two decks, pinned ids, known forms labels, balanced markup
+    python3 ../latin/inserts.py --check     # the record's added cards are what the generator's code builds (needs the cache; not in CI)
+    python3 ../latin/sounds.py --verify     # every cell and quotation of the sounds table is in its pinned Wikipedia revision (not in CI)
+
+| file | what it is |
+|---|---|
+| `latin-fixes.json` | the record. `add`: deck id → rows, each `word`, `id` and `why`, and either `from` (a MOVE: the generator deals the card to that deck; `latin-fix.js` takes it out of there whole) or `fields` and `src` (an INSERT: a card no deck had). **`add` is written by `../latin/inserts.py`, never by hand** — its lists are at the top of that script. `drop`: a note that leaves a deck because another deck carries it as a card of another type (two phrases A1 now holds as Wiktionary's entries). `decks`: each deck's `subtitle` template, `descSub` pairs, `hints` (a reverse-card label, `not <the other word>`) and `tail`, the paragraph that ends its description and is recounted on every run. |
+| `latin-ids.json` | deck id → headword (for the sounds deck, the row's `key`) → the number in the note's id. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` by the move's or the drop's own row. APPLIED, so a deck the generator has just numbered by position is numbered back. Seeded on 2026-11-27 from the six decks as shipped (5,875 rows, each equal to its position). |
+| `latin-order.json` | deck id → every headword in the order the deck is dealt (A1, A2, the phrases), and `_stats`, the figures a description states that only `latin-order.js` can count. Written by `latin-order.js`; a list that is not exactly the deck's headwords is refused. A deck with no entry (B1, B2, C1) is dealt in the order of its pinned numbers, the record's cards last. |
+| `latin-order.js` | how that file is computed, from the PINNED NUMBER (the generator's order as first shipped) and never from the file's own order: A1's hand-written head of 115, the closed sets at stated note numbers; A2 with the Roman calendar last; the phrases by reading level. A card the record added to A1 or A2 that is named nowhere is an error. `--report` prints where everything fell. |
+| `latin-fix.js` | applies all three, in this order: the moves and inserts, the drops, the dup check, the ids, the order, the hints, the subtitles and descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. Holds the sounds deck to its pin and counts it on the shelf; never writes it. |
+| `latin-sounds.json` | the sounds table: each sound a row of the key of Wikipedia's Help:IPA/Latin, the classical value first and the Church one beside it; each note and rule a quoted run of one of four pages at the revisions it names; each example word's two transcriptions the English Wiktionary's (written by `../latin/sounds.py --fill`). A row's `key` is what its id is pinned to. An ending card's table is not stored: `tableFrom` names A1 cards and `blocks` the blocks of their tables. |
+| `build-latin-sounds.js` | writes `Latin-Sounds-and-Spelling` (card type `lasound`). **Reads no live source**: the table and the shipped A1 deck. |
+| `../latin/inserts.py` | builds the `add` rows: checks every move against the pin, and builds an insert's eight fields with `build_deck.py`'s own functions from the Wiktionary entry (`extract.entry`), its sentences found in Tatoeba by its own stricter matcher. |
+
+`latin-fix.js` finds its decks by CARD TYPE. **A rebuild**, after any change to the generator:
+`python3 ../latin/run.py --level a1 --no-fetch` … `a2`, `b1`, `b2`, `c1` (all five, in that order: a moved
+card lives in the deck it came from until `latin-fix.js` moves it, and is not stored in the record; `phr`
+only when `phrases.py` changed, and expect its order to move with Wikipedia's pageviews), `../latin/inserts.py`,
+`latin-fix.js`, `latin-order.js`, `latin-fix.js` again, `build-latin-sounds.js`, `latin-fix.js` a third time
+(the sounds deck's days are in every tail), `node .claude/build-lang-decks.js`. `latin_level.words_below`
+reads the record, so each level is dealt the list it was dealt before anything moved. Without `--no-fetch`
+the run refetches nothing it already has; with an empty cache Tatoeba's export of the day is fetched and a
+few sentences will differ. To add a card no deck has: a row of `INSERTS` at the END of its list in
+`inserts.py` (the Wiktionary page and the part of speech; the English Wiktionary must have a live entry),
+then name it in the head or a set of `latin-order.js` if it lands in A1, or in `A2_TAIL`. To move a word
+down: a row of `MOVES`. To add a letter or a rule to the sounds deck: a row of `latin-sounds.json` whose
+cells and sentences are quoted (`sounds.py --verify`), `sounds.py --fill`, `build-latin-sounds.js`.
 ## The Greek decks: the generator, the record, the pinned ids, the order and the sourced alphabet (Nov 2026)
 
 Two decks: the alphabet (card type `el-abc`, with ten reading rules of card type `el-read`) and A1 (card type

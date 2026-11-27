@@ -1,0 +1,622 @@
+{
+ "add": {
+  "latina1": [
+   {
+    "word": "mālō",
+    "id": 501,
+    "from": "latina2",
+    "why": "the third of volō, nōlō, mālō; A2's note 211"
+   },
+   {
+    "word": "nihil",
+    "id": 502,
+    "fields": {
+     "Latin": "nihil",
+     "Parts": "",
+     "Key": "nihil",
+     "Word": "nihil",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">pronoun</div><div class=\"uc-gl\">nothing</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">at all, in nothing, in no respect</div></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">also</span>nīl</span></div>",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">forms</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">nihil</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">nihil</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Nihil a te posco.\"></span><b>Nihil</b> a te posco.</div><div class=\"uc-exe\">I ask you for nothing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Nihil de me scis.\"></span><b>Nihil</b> de me scis.</div><div class=\"uc-exe\">You know nothing about me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Nihil sum sine te.\"></span><b>Nihil</b> sum sine te.</div><div class=\"uc-exe\">I am nothing without you.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `nihil`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 55 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it a noun and Wiktionary a pronoun"
+   },
+   {
+    "word": "alius",
+    "id": 503,
+    "fields": {
+     "Latin": "alius",
+     "Parts": "<span class=\"uc-ppw\">alius, alia, aliud</span>",
+     "Key": "alius",
+     "Word": "alius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><ol class=\"uc-gls\"><li>other; another; any other</li><li>else</li><li>different</li></ol></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">alius · alia · aliud</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">alterius</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">aliī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">alium · aliam · aliud</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">aliō · aliā · aliō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">alie · alia · aliud</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">aliī · aliae · alia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">aliōrum · aliārum · aliōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">aliīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">aliōs · aliās · alia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">aliīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">aliī · aliae · alia</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Qui alius ibi erit?\"></span>Qui <b>alius</b> ibi erit?</div><div class=\"uc-exe\">Who else is going to be there?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Alius error hic est.\"></span><b>Alius</b> error hic est.</div><div class=\"uc-exe\">There is another mistake here...</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Hic est mundus alius.\"></span>Hic est mundus <b>alius</b>.</div><div class=\"uc-exe\">This is another world.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `alius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 37 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it an adjective and Wiktionary a determiner"
+   },
+   {
+    "word": "alter",
+    "id": 504,
+    "fields": {
+     "Latin": "alter",
+     "Parts": "<span class=\"uc-ppw\">alter, altera, alterum</span>",
+     "Key": "alter",
+     "Word": "alter",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><ol class=\"uc-gls\"><li>the other; the second</li><li>the one ... the other</li></ol></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">alter · altera · alterum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">alterius</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">alterī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">alterum · alteram · alterum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">alterō · alterā · alterō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">alter · altera · alterum</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">alterī · alterae · altera</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">alterōrum · alterārum · alterōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">alterīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">alterōs · alterās · altera</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">alterīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">alterī · alterae · altera</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Alter est ruber, alter albus.\"></span><b>Alter</b> est ruber, <b>alter</b> albus.</div><div class=\"uc-exe\">One is red and the other is white.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Alter Iapo, alter Italus est.\"></span><b>Alter</b> Iapo, <b>alter</b> Italus est.</div><div class=\"uc-exe\">One is Japanese and the other is Italian.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Alter novus, alter vetus est.\"></span><b>Alter</b> novus, <b>alter</b> vetus est.</div><div class=\"uc-exe\">One is new, the other is old.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `alter`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 148 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it an adjective and Wiktionary a determiner"
+   },
+   {
+    "word": "ūllus",
+    "id": 505,
+    "fields": {
+     "Latin": "ūllus",
+     "Parts": "<span class=\"uc-ppw\">ūllus, ūlla, ūllum</span>",
+     "Key": "ullus",
+     "Word": "ullus",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><div class=\"uc-gl\">any</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">ūllus · ūlla · ūllum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">ūllius</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">ūllī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">ūllum · ūllam · ūllum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">ūllō · ūllā · ūllō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">ūlle · ūlla · ūllum</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">ūllī · ūllae · ūlla</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">ūllōrum · ūllārum · ūllōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">ūllīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">ūllōs · ūllās · ūlla</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">ūllīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">ūllī · ūllae · ūlla</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Non capiunt ullos hostilia pectora somnos.\"></span>Non capiunt <b>ullos</b> hostilia pectora somnos.</div><div class=\"uc-exe\">Enemies don&#x27;t sleep.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sine ulla spe milites in oppidum redierunt.\"></span>Sine <b>ulla</b> spe milites in oppidum redierunt.</div><div class=\"uc-exe\">The soldiers went back to the town without any hope.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ast alii subeunt, nec saxa nec ullum / telorum interea cessat genus.\"></span>Ast alii subeunt, nec saxa nec <b>ullum</b> / telorum interea cessat genus.</div><div class=\"uc-exe\">But anon new foes / come swarming up, while ever and again / fast fall the showers of stones, and thick the javelins rain.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `ullus`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 178 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it an adjective and Wiktionary a determiner"
+   },
+   {
+    "word": "uterque",
+    "id": 506,
+    "fields": {
+     "Latin": "uterque",
+     "Parts": "<span class=\"uc-ppw\">uterque, utraque, utrumque</span>",
+     "Key": "uterque",
+     "Word": "uterque",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">pronoun</div><div class=\"uc-gl\">each (of two), either, both</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">uterque · utraque · utrumque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">utriusque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">utrīque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">utrumque · utramque · utrumque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">utrōque · utrāque · utrōque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">uterque · utraque · utrumque</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">utrīque · utraeque · utraque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">utrōrumque · utrārumque · utrōrumque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">utrīsque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">utrōsque · utrāsque · utraque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">utrīsque</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">utrīque · utraeque · utraque</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Uterque puer surdus est.\"></span><b>Uterque</b> puer surdus est.</div><div class=\"uc-exe\">Both children are deaf.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Uterque nostrum eas odit.\"></span><b>Uterque</b> nostrum eas odit.</div><div class=\"uc-exe\">We all hate them.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Uterque puer punitus est.\"></span><b>Uterque</b> puer punitus est.</div><div class=\"uc-exe\">Both children were punished.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `uterque`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 243 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list files it under conjunctions and Wiktionary as a pronoun"
+   },
+   {
+    "word": "tot",
+    "id": 507,
+    "fields": {
+     "Latin": "tot",
+     "Parts": "",
+     "Key": "tot",
+     "Word": "tot",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><div class=\"uc-gl\">so many</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Cūr tot sartāginēs habēs?\"></span>Cūr <b>tot</b> sartāginēs habēs?</div><div class=\"uc-exe\">Why have you got so many pans?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Cūr tot sartāginēs habētis?\"></span>Cūr <b>tot</b> sartāginēs habētis?</div><div class=\"uc-exe\">Why have you got so many pans?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Quot homines tot sententiae.\"></span>Quot homines <b>tot</b> sententiae.</div><div class=\"uc-exe\">There are as many different opinions as there are people.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `tot`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 259 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it an adverb and Wiktionary a determiner"
+   },
+   {
+    "word": "quā",
+    "id": 508,
+    "fields": {
+     "Latin": "quā",
+     "Parts": "",
+     "Key": "qua",
+     "Word": "qua",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adverb</div><ol class=\"uc-gls\"><li>where (on which side; at or in which place; in what direction; by what way)</li><li>as (in the capacity or character of)</li><li>how (in what way; by what method; to what degree or extent)</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `qua`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 336 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it a pronoun and Wiktionary an adverb"
+   },
+   {
+    "word": "ecce",
+    "id": 509,
+    "fields": {
+     "Latin": "ecce",
+     "Parts": "",
+     "Key": "ecce",
+     "Word": "ecce",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><ol class=\"uc-gls\"><li>see!, look!, behold!, points out something with emphasis</li><li>here!, or here am/are/is!</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ecce feles in culina.\"></span><b>Ecce</b> feles in culina.</div><div class=\"uc-exe\">Look! The cat&#x27;s in the kitchen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ecce eum. Videsne eum?\"></span><b>Ecce</b> eum. Videsne eum?</div><div class=\"uc-exe\">There he is. Do you see him?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ecce raedam meam novam.\"></span><b>Ecce</b> raedam meam novam.</div><div class=\"uc-exe\">Look at my new car.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `ecce`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 643 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it an adverb and Wiktionary an interjection; six words of A1's own sentences"
+   },
+   {
+    "word": "-que",
+    "id": 510,
+    "fields": {
+     "Latin": "-que",
+     "Parts": "",
+     "Key": "-que",
+     "Word": "que",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">conjunction</div><ol class=\"uc-gls\"><li>and, coordinating conjunction</li><li>introducing an explanatory clause</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Nocte dieque opus facit.\"></span>Nocte <b>dieque</b> opus facit.</div><div class=\"uc-exe\">She is working night and day.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Valeas beneque tibi sit.\"></span>Valeas <b>beneque</b> tibi sit.</div><div class=\"uc-exe\">Goodbye and good luck.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Canem sexque feles habet.\"></span>Canem <b>sexque</b> feles habet.</div><div class=\"uc-exe\">He has a dog and six cats.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `-que`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 4 of the DCC Latin Core Vocabulary and on no card: extract.py leaves out an enclitic"
+   },
+   {
+    "word": "-ne",
+    "id": 511,
+    "fields": {
+     "Latin": "-ne",
+     "Parts": "",
+     "Key": "-ne",
+     "Word": "ne",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">particle</div><ol class=\"uc-gls\"><li>Added to the end of a word (usually the first word in a phrase) in a polar question.</li><li>… or … (introduces the first of multiple alternatives in a direct or indirect question, followed by an before the second or following alternative)</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Visne cum iis ire?\"></span><b>Visne</b> cum iis ire?</div><div class=\"uc-exe\">Do you want to go with them?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mea suntne an tua?\"></span>Mea <b>suntne</b> an tua?</div><div class=\"uc-exe\">Are they mine or yours?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Visne ad oram ire?\"></span><b>Visne</b> ad oram ire?</div><div class=\"uc-exe\">Would you like to go to the seaside?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `-ne`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "the question particle, on 24 words of A1's sentences (estne, vīsne, esne) and on no card: an enclitic"
+   },
+   {
+    "word": "-ve",
+    "id": 512,
+    "fields": {
+     "Latin": "-ve",
+     "Parts": "",
+     "Key": "-ue",
+     "Word": "ve",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">conjunction</div><ol class=\"uc-gls\"><li>or, leaving the choice free between two things or among several</li><li>and, with the same meaning as -que</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Alii novemve decem horas requirunt.\"></span>Alii <b>novemve</b> decem horas requirunt.</div><div class=\"uc-exe\">Other people need nine or ten hours of sleep.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Habesne fratres sororesve?\"></span>Habesne fratres <b>sororesve</b>?</div><div class=\"uc-exe\">Do you have any brothers or sisters?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Hunc ego sopitum somno super alta Cythera / aut super Idalium sacrata sede recondam, / ne qua scire dolos mediusve occurrere possit&quot;.\"></span>&quot;Hunc ego sopitum somno super alta Cythera / aut super Idalium sacrata sede recondam, / ne qua scire dolos <b>mediusve</b> occurrere possit&quot;.</div><div class=\"uc-exe\">&quot;Him on Idalia, lulled into a dream, / will I secrete, or on the sacred height / of lone Cythera, lest he learn the scheme, / or by his sudden presence mar the sleight.&quot;</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `-ve`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 307 of the DCC Latin Core Vocabulary and on no card: an enclitic"
+   },
+   {
+    "word": "grātiās agō",
+    "id": 513,
+    "fields": {
+     "Latin": "grātiās agō",
+     "Parts": "<span class=\"uc-ppw\">grātiās agō, grātiās agere, grātiās ēgī, grātiās āctum</span><span class=\"uc-cls\">third conjugation</span>",
+     "Key": "gratias ago",
+     "Word": "gratias ago",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><div class=\"uc-gl\">to give thanks, to thank (+dat.)</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">present</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">grātiās agō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās agis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">he, she, it</span><span class=\"uc-cj-f\">grātiās agit</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">grātiās agimus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās agitis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">grātiās agunt</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">imperfect</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">grātiās agēbam</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās agēbās</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">he, she, it</span><span class=\"uc-cj-f\">grātiās agēbat</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">grātiās agēbāmus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās agēbātis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">grātiās agēbant</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">future</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">grātiās agam</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās agēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">he, she, it</span><span class=\"uc-cj-f\">grātiās aget</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">grātiās agēmus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās agētis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">grātiās agent</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">perfect</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">grātiās ēgī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās ēgistī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">he, she, it</span><span class=\"uc-cj-f\">grātiās ēgit</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">grātiās ēgimus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās ēgistis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">grātiās ēgērunt</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">pluperfect</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">grātiās ēgeram</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās ēgerās</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">he, she, it</span><span class=\"uc-cj-f\">grātiās ēgerat</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">grātiās ēgerāmus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās ēgerātis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">grātiās ēgerant</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">present subjunctive</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">I</span><span class=\"uc-cj-f\">grātiās agam</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās agās</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">he, she, it</span><span class=\"uc-cj-f\">grātiās agat</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">we</span><span class=\"uc-cj-f\">grātiās agāmus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās agātis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">they</span><span class=\"uc-cj-f\">grātiās agant</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">imperative</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you</span><span class=\"uc-cj-f\">grātiās age</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">you (pl.)</span><span class=\"uc-cj-f\">grātiās agite</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">infinitives and participles</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">present infinitive</span><span class=\"uc-cj-f\">grātiās agere</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">perfect infinitive</span><span class=\"uc-cj-f\">grātiās ēgisse</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">present participle</span><span class=\"uc-cj-f\">grātiās agēns</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">perfect participle</span><span class=\"uc-cj-f\">grātiae āctae</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">future participle</span><span class=\"uc-cj-f\">grātiās āctūrus</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Multas gratias vobis ago!\"></span>Multas <b>gratias</b> vobis <b>ago</b>!</div><div class=\"uc-exe\">Thank you very much!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"grātiās maximās tibi agō.\"></span><b>grātiās</b> maximās tibi <b>agō</b>.</div><div class=\"uc-exe\">Thank you very much.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Gratias tibi ago; id odi.\"></span><b>Gratias</b> tibi <b>ago</b>; id odi.</div><div class=\"uc-exe\">Thanks, I hate it.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `gratias ago`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a formula of a first exchange, which Wiktionary files as a verb of two words; no stage read it"
+   },
+   {
+    "word": "quid agis",
+    "id": 514,
+    "fields": {
+     "Latin": "quid agis",
+     "Parts": "",
+     "Key": "quid agis",
+     "Word": "quid agis",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>what&#x27;s up?, how are you?, how do you do?</li><li>what are you doing (there)?, what are you up to?</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Valeo. Quid agis tu?\"></span>Valeo. <b>Quid</b> <b>agis</b> tu?</div><div class=\"uc-exe\">I&#x27;m fine. How about you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, amice! Quid agis?\"></span>Salve, amice! <b>Quid</b> <b>agis</b>?</div><div class=\"uc-exe\">Hey, buddy. How are you doing?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, magister! Quid agis?\"></span>Salve, magister! <b>Quid</b> <b>agis</b>?</div><div class=\"uc-exe\">Hello teacher. How are you doing?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `quid agis`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a formula of a first exchange, which Wiktionary files as a phrase; no stage read it. It was the phrases deck's note 417 in Wikipedia's wording (\"What are you doing?\"), which the record drops"
+   },
+   {
+    "word": "ut valēs",
+    "id": 515,
+    "fields": {
+     "Latin": "ut valēs",
+     "Parts": "",
+     "Key": "ut uales",
+     "Word": "ut vales",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">how are you? how&#x27;s it going?</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Ut vales?&quot; &quot;Non male.&quot;\"></span>&quot;<b>Ut</b> <b>vales</b>?&quot; &quot;Non male.&quot;</div><div class=\"uc-exe\">&quot;How are you doing?&quot; &quot;Not bad.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, amice! Ut vales?\"></span>Salve, amice! <b>Ut</b> <b>vales</b>?</div><div class=\"uc-exe\">Hey, buddy. How are you doing?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, Ioannes! Ut vales?\"></span>Salve, Ioannes! <b>Ut</b> <b>vales</b>?</div><div class=\"uc-exe\">Hello, John! How are you?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `ut vales`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a formula of a first exchange, which Wiktionary files as an interjection of two words; no stage read it"
+   },
+   {
+    "word": "ita vērō",
+    "id": 516,
+    "fields": {
+     "Latin": "ita vērō",
+     "Parts": "",
+     "Key": "ita uero",
+     "Word": "ita vero",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">yes</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ita vero.\"></span><b>Ita</b> <b>vero</b>.</div><div class=\"uc-exe\">Yes.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `ita vero`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a formula of a first exchange, which Wiktionary files as a phrase; no stage read it"
+   },
+   {
+    "word": "amābō tē",
+    "id": 517,
+    "fields": {
+     "Latin": "amābō tē",
+     "Parts": "",
+     "Key": "amabo te",
+     "Word": "amabo te",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">please (asking for a favor)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Adde sensum, amabo te.\"></span>Adde sensum, <b>amabo</b> <b>te</b>.</div><div class=\"uc-exe\">Add a sentence, please.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Adde periodum, amabo te.\"></span>Adde periodum, <b>amabo</b> <b>te</b>.</div><div class=\"uc-exe\">Add a sentence, please.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Loquere lentius, amabo te.\"></span>Loquere lentius, <b>amabo</b> <b>te</b>.</div><div class=\"uc-exe\">Please speak more slowly.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `amabo te`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a formula of a first exchange, which Wiktionary files as a phrase; no stage read it"
+   }
+  ],
+  "latina2": [
+   {
+    "word": "kalendae",
+    "id": 751,
+    "from": "latinc1",
+    "why": "the first day of a Roman month: a date cannot be read without it; C1's note 408"
+   },
+   {
+    "word": "nōnae",
+    "id": 752,
+    "from": "latinc1",
+    "why": "the nones; C1's note 1485"
+   },
+   {
+    "word": "īdūs",
+    "id": 753,
+    "from": "latinb2",
+    "why": "the ides; B2's note 1269"
+   },
+   {
+    "word": "adversus",
+    "id": 754,
+    "fields": {
+     "Latin": "adversus",
+     "Parts": "",
+     "Key": "aduersus",
+     "Word": "adversus",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">preposition, with the accusative</div><ol class=\"uc-gls\"><li>facing, opposite</li><li>towards</li><li>against</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Cur cameli odium adversus equos gerunt?\"></span>Cur cameli odium <b>adversus</b> equos gerunt?</div><div class=\"uc-exe\">Why do camels hate horses?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dixitque Cain ad Abel fratrem suum: “Egrediamur foras”. Cumque essent in agro, consurrexit Cain adversus Abel fratrem suum et interfecit eum.\"></span>Dixitque Cain ad Abel fratrem suum: “Egrediamur foras”. Cumque essent in agro, consurrexit Cain <b>adversus</b> Abel fratrem suum et interfecit eum.</div><div class=\"uc-exe\">And Cain said to Abel his brother: Let us go forth abroad. And when they were in the field, Cain rose up against his brother Abel, and slew him.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sed et ibi iurgium fuit pastorum Geraræ adversus pastores Isaac dicentium: “Nostra est aqua!” Quam ob rem nomen putei vocavit Esec (id est Iurgium), quia iurgati sunt cum eo.\"></span>Sed et ibi iurgium fuit pastorum Geraræ <b>adversus</b> pastores Isaac dicentium: “Nostra est aqua!” Quam ob rem nomen putei vocavit Esec (id est Iurgium), quia iurgati sunt cum eo.</div><div class=\"uc-exe\">But there also the herdsmen of Gerara strove against the herdsmen of Isaac, saying: It is our water. Wherefore he called the name of the well, on occasion of that which had happened, Calumny.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `adversus`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 460 of the DCC Latin Core Vocabulary and on no card: select.py drops it because Wiktionary files the adjective as a participle of advertō"
+   },
+   {
+    "word": "falsus",
+    "id": 755,
+    "fields": {
+     "Latin": "falsus",
+     "Parts": "<span class=\"uc-ppw\">falsus, falsa, falsum</span>",
+     "Key": "falsus",
+     "Word": "falsus",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">participle</div><ol class=\"uc-gls\"><li>false, untrue</li><li>deceived, tricked, cheated, disappointed, having been deceived</li><li>mistaken, having been mistaken, having deceived myself</li></ol></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">falsus · falsa · falsum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">falsī · falsae · falsī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">falsō · falsae · falsō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">falsum · falsam · falsum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">falsō · falsā · falsō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">false · falsa · falsum</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">falsī · falsae · falsa</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">falsōrum · falsārum · falsōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">falsīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">falsōs · falsās · falsa</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">falsīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">falsī · falsae · falsa</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Haec sententia falsa est.\"></span>Haec sententia <b>falsa</b> est.</div><div class=\"uc-exe\">This sentence is false.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"In locis falsis petivimus.\"></span>In locis <b>falsis</b> petivimus.</div><div class=\"uc-exe\">We&#x27;ve been looking in the wrong places.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ea quae dixisti falsa sunt.\"></span>Ea quae dixisti <b>falsa</b> sunt.</div><div class=\"uc-exe\">What you said was false.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `falsus`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 633 of the DCC Latin Core Vocabulary and on no card: select.py drops it because Wiktionary files it as a participle"
+   },
+   {
+    "word": "praesēns",
+    "id": 756,
+    "fields": {
+     "Latin": "praesēns",
+     "Parts": "<span class=\"uc-ppw\">praesēns, gen. praesentis</span>",
+     "Key": "praesens",
+     "Word": "praesens",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">participle</div><ol class=\"uc-gls\"><li>present, immediate, at hand, existing</li><li>prompt</li><li>propitious</li></ol></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">praesēns</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">praesentis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">praesentī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">praesentem · praesēns (n.)</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">praesente</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">praesēns</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">praesentēs · praesentia (n.)</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">praesentium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">praesentibus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">praesentēs · praesentia (n.)</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">praesentibus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">praesentēs · praesentia (n.)</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Conventum est de pretio, pecunia numeratur praesens.\"></span>Conventum est de pretio, pecunia numeratur <b>praesens</b>.</div><div class=\"uc-exe\">We agree the price, and the money is paid straight away.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Generatione autem quarta revertentur huc; necdum enim completæ sunt iniquitates Amorhæorum usque ad præsens tempus.\"></span>Generatione autem quarta revertentur huc; necdum enim completæ sunt iniquitates Amorhæorum usque ad <b>præsens</b> tempus.</div><div class=\"uc-exe\">But in the fourth generation they shall return hither: for as yet the iniquities of the Amorrhites are not at the full until this present time.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Laetus in praesens animus quod ultra est oderit curare et amara lento temperet risu. Nihil est ab omni parte beatum.\"></span>Laetus in <b>praesens</b> animus quod ultra est oderit curare et amara lento temperet risu. Nihil est ab omni parte beatum.</div><div class=\"uc-exe\">Joyful let the soul be in the present, let it disdain to trouble about what is beyond and temper bitterness with a laugh. Nothing is blessed forever.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `praesens`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 822 of the DCC Latin Core Vocabulary and on no card: select.py drops it because Wiktionary files it as a participle"
+   },
+   {
+    "word": "rēctus",
+    "id": 757,
+    "fields": {
+     "Latin": "rēctus",
+     "Parts": "<span class=\"uc-ppw\">rēctus, rēcta, rēctum</span>",
+     "Key": "rectus",
+     "Word": "rectus",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">participle</div><ol class=\"uc-gls\"><li>led straight along, drawn in a straight line, straight, upright.</li><li>right, correct, proper, appropriate, befitting.</li><li>morally right, correct, lawful, just, virtuous, noble, good, proper, honest.</li></ol></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">rēctus · rēcta · rēctum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">rēctī · rēctae · rēctī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">rēctō · rēctae · rēctō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">rēctum · rēctam · rēctum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">rēctō · rēctā · rēctō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">rēcte · rēcta · rēctum</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">rēctī · rēctae · rēcta</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">rēctōrum · rēctārum · rēctōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">rēctīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">rēctōs · rēctās · rēcta</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">rēctīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">rēctī · rēctae · rēcta</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Secta semper recta est.\"></span>Secta semper <b>recta</b> est.</div><div class=\"uc-exe\">The Party is always right.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Non est recta via dolendi.\"></span>Non est <b>recta</b> via dolendi.</div><div class=\"uc-exe\">There&#x27;s no right way to grieve.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Estne haec sententia recta?\"></span>Estne haec sententia <b>recta</b>?</div><div class=\"uc-exe\">Is this sentence correct?</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `rectus`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 823 of the DCC Latin Core Vocabulary and on no card: select.py drops it because Wiktionary files it as a participle"
+   },
+   {
+    "word": "Iānuārius",
+    "id": 758,
+    "fields": {
+     "Latin": "Iānuārius",
+     "Parts": "<span class=\"uc-ppw\">Iānuārius, Iānuāria, Iānuārium</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "ianuarius",
+     "Word": "Ianuarius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of January</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Iānuārius · Iānuāria · Iānuārium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Iānuāriī · Iānuāriae · Iānuāriī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Iānuāriō · Iānuāriae · Iānuāriō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Iānuārium · Iānuāriam · Iānuārium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Iānuāriō · Iānuāriā · Iānuāriō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Iānuārie · Iānuāria · Iānuārium</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Iānuāriī · Iānuāriae · Iānuāria</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Iānuāriōrum · Iānuāriārum · Iānuāriōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Iānuāriīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Iānuāriōs · Iānuāriās · Iānuāria</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Iānuāriīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Iānuāriī · Iānuāriae · Iānuāria</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ianuarius mensis meus est.\"></span><b>Ianuarius</b> mensis meus est.</div><div class=\"uc-exe\">January is my month.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mensis Ianuarius primus anni est.\"></span>Mensis <b>Ianuarius</b> primus anni est.</div><div class=\"uc-exe\">January is the first month of the year.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ianuarius est primus mensis calendarii.\"></span><b>Ianuarius</b> est primus mensis calendarii.</div><div class=\"uc-exe\">January is the first month of the calendar.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Ianuarius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Februārius",
+    "id": 759,
+    "fields": {
+     "Latin": "Februārius",
+     "Parts": "<span class=\"uc-ppw\">Februārius, Februāria, Februārium</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "februarius",
+     "Word": "Februarius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of February</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Februārius · Februāria · Februārium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Februāriī · Februāriae · Februāriī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Februāriō · Februāriae · Februāriō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Februārium · Februāriam · Februārium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Februāriō · Februāriā · Februāriō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Februārie · Februāria · Februārium</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Februāriī · Februāriae · Februāria</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Februāriōrum · Februāriārum · Februāriōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Februāriīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Februāriōs · Februāriās · Februāria</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Februāriīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Februāriī · Februāriae · Februāria</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Quot diēs habet mēnsis Februārius?\"></span>Quot diēs habet mēnsis <b>Februārius</b>?</div><div class=\"uc-exe\">How many days are in February?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Februarius mensis triginta dies non habet.\"></span><b>Februarius</b> mensis triginta dies non habet.</div><div class=\"uc-exe\">February does not have thirty days.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ianuarius, Februarius, Martius, Aprilis, Maius, Iunius, Iulius, Augustus, September, October, November, December sunt duodecim menses anni.\"></span>Ianuarius, <b>Februarius</b>, Martius, Aprilis, Maius, Iunius, Iulius, Augustus, September, October, November, December sunt duodecim menses anni.</div><div class=\"uc-exe\">January, February, March, April, May, June, July, August, September, October, November and December are the twelve months of the year.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Februarius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Mārtius",
+    "id": 760,
+    "fields": {
+     "Latin": "Mārtius",
+     "Parts": "<span class=\"uc-ppw\">Mārtius, Mārtia, Mārtium</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "martius",
+     "Word": "Martius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of or pertaining to the month of March, of March</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Mārtius · Mārtia · Mārtium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Mārtiī · Mārtiae · Mārtiī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Mārtiō · Mārtiae · Mārtiō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Mārtium · Mārtiam · Mārtium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Mārtiō · Mārtiā · Mārtiō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Mārtie · Mārtia · Mārtium</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Mārtiī · Mārtiae · Mārtia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Mārtiōrum · Mārtiārum · Mārtiōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Mārtiīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Mārtiōs · Mārtiās · Mārtia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Mārtiīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Mārtiī · Mārtiae · Mārtia</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mensis Martius tertius anni est.\"></span>Mensis <b>Martius</b> tertius anni est.</div><div class=\"uc-exe\">March is the third month of the year.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dies Sancti Patricii mense Martio celebratur.\"></span>Dies Sancti Patricii mense <b>Martio</b> celebratur.</div><div class=\"uc-exe\">Saint Patrick&#x27;s Day is celebrated in March.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Martio Didymus triginta annos natus erit.\"></span>Mense <b>Martio</b> Didymus triginta annos natus erit.</div><div class=\"uc-exe\">Tom will be thirty in March.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Martius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Aprīlis",
+    "id": 761,
+    "fields": {
+     "Latin": "Aprīlis",
+     "Parts": "<span class=\"uc-ppw\">Aprīlis, Aprīle</span><span class=\"uc-cls\">third-declension two-termination adjective</span>",
+     "Key": "aprilis",
+     "Word": "Aprilis",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">Of April.</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Aprīlis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Aprīlis</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Aprīlī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Aprīlem</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Aprīlī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Aprīlis</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Kalendis Aprilis hodie est.\"></span>Kalendis <b>Aprilis</b> hodie est.</div><div class=\"uc-exe\">Today is the first of April.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mensis Ianuarius primus anni est; Aprilis, quartus; November, undecimus; December, duodecimus.\"></span>Mensis Ianuarius primus anni est; <b>Aprilis</b>, quartus; November, undecimus; December, duodecimus.</div><div class=\"uc-exe\">January is the first month of the year, April is the fourth, November is the eleventh, and December is the twelfth.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Titanic submersa est viginti minutis post secundam horam antemeridianam Lunae diei, die quinto decimo mensis Aprilis.\"></span>Titanic submersa est viginti minutis post secundam horam antemeridianam Lunae diei, die quinto decimo mensis <b>Aprilis</b>.</div><div class=\"uc-exe\">The Titanic sank at 02:20 on Monday, April 15th.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Aprilis`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Maius",
+    "id": 762,
+    "fields": {
+     "Latin": "Maius",
+     "Parts": "<span class=\"uc-ppw\">Maius, Maia, Maium</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "maius",
+     "Word": "Maius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of May</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Maius · Maia · Maium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Maiī · Maiae · Maiī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Maiō · Maiae · Maiō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Maium · Maiam · Maium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Maiō · Maiā · Maiō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Maie · Maia · Maium</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Maiī · Maiae · Maia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Maiōrum · Maiārum · Maiōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Maiīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Maiōs · Maiās · Maia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Maiīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Maiī · Maiae · Maia</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Maio nata sum.\"></span>Mense <b>Maio</b> nata sum.</div><div class=\"uc-exe\">I was born in May.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Maio natus sum.\"></span>Mense <b>Maio</b> natus sum.</div><div class=\"uc-exe\">I was born in May.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Maio ad Sinas ibit.\"></span>Mense <b>Maio</b> ad Sinas ibit.</div><div class=\"uc-exe\">He goes to China in May.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Maius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Iūnius",
+    "id": 763,
+    "fields": {
+     "Latin": "Iūnius",
+     "Parts": "<span class=\"uc-ppw\">Iūnius, Iūnia, Iūnium</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "iunius",
+     "Word": "Iunius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of June</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Iūnius · Iūnia · Iūnium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Iūniī · Iūniae · Iūniī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Iūniō · Iūniae · Iūniō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Iūnium · Iūniam · Iūnium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Iūniō · Iūniā · Iūniō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Iūnie · Iūnia · Iūnium</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Iūniī · Iūniae · Iūnia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Iūniōrum · Iūniārum · Iūniōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Iūniīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Iūniōs · Iūniās · Iūnia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Iūniīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Iūniī · Iūniae · Iūnia</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Proficiscemur tertio die ante idus Iunias.\"></span>Proficiscemur tertio die ante idus <b>Iunias</b>.</div><div class=\"uc-exe\">We are leaving on the eleventh of June.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Iunio theatrum cinematographicum paucis diebus clausum est futurum.\"></span>Mense <b>Iunio</b> theatrum cinematographicum paucis diebus clausum est futurum.</div><div class=\"uc-exe\">In June, the movie theater is going to be closed for a few days.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Iunius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Iūlius",
+    "id": 764,
+    "fields": {
+     "Latin": "Iūlius",
+     "Parts": "<span class=\"uc-ppw\">Iūlius, Iūlia, Iūlium</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "iulius",
+     "Word": "Iulius",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">Of July, the fifth month of the Roman calendar.</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Iūlius · Iūlia · Iūlium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Iūliī · Iūliae · Iūliī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Iūliō · Iūliae · Iūliō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Iūlium · Iūliam · Iūlium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Iūliō · Iūliā · Iūliō</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Iūlie · Iūlia · Iūlium</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural, m. · f. · n.</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Iūliī · Iūliae · Iūlia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Iūliōrum · Iūliārum · Iūliōrum</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Iūliīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Iūliōs · Iūliās · Iūlia</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Iūliīs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Iūliī · Iūliae · Iūlia</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Quando natas?&quot; &quot;Mense Iulio nato.&quot;\"></span>&quot;Quando natas?&quot; &quot;Mense <b>Iulio</b> nato.&quot;</div><div class=\"uc-exe\">&quot;When do you swim?&quot; &quot;I swim in July.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Iulio in hoc flumine natare periculosum est.\"></span>Mense <b>Iulio</b> in hoc flumine natare periculosum est.</div><div class=\"uc-exe\">This river is dangerous to swim in July.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"In principio mensis Iulii Londinium profectus est.\"></span>In principio mensis <b>Iulii</b> Londinium profectus est.</div><div class=\"uc-exe\">He left for London in the beginning of July.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Iulius`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Augustus",
+    "id": 765,
+    "fields": {
+     "Latin": "Augustus",
+     "Parts": "<span class=\"uc-ppw\">Augustus, Augusta, Augustum</span><span class=\"uc-cls\">first and second declension adjective</span>",
+     "Key": "augustus",
+     "Word": "Augustus",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of August, the sixth month of the Roman calendar</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `Augustus`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "September",
+    "id": 766,
+    "fields": {
+     "Latin": "September",
+     "Parts": "<span class=\"uc-ppw\">September, Septembris</span><span class=\"uc-cls\">third-declension three-termination adjective</span>",
+     "Key": "september",
+     "Word": "September",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of September</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">September</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Septembris</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Septembrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Septembrem</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Septembrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">September</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Septembrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Septembrium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Septembribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Septembrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Septembribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Septembrēs</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Septembri sedecim annos nata ero.\"></span>Mense <b>Septembri</b> sedecim annos nata ero.</div><div class=\"uc-exe\">I&#x27;ll be sixteen in September.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Septembri sedecim annos natus ero.\"></span>Mense <b>Septembri</b> sedecim annos natus ero.</div><div class=\"uc-exe\">I&#x27;ll be sixteen in September.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Septembri scholae in Europa incipiunt.\"></span>Mense <b>Septembri</b> scholae in Europa incipiunt.</div><div class=\"uc-exe\">School starts in September in Europe.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `September`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "Octōber",
+    "id": 767,
+    "fields": {
+     "Latin": "Octōber",
+     "Parts": "<span class=\"uc-ppw\">Octōber, Octōbris</span><span class=\"uc-cls\">third-declension three-termination adjective</span>",
+     "Key": "october",
+     "Word": "October",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of October</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Octōber</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Octōbris</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Octōbrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Octōbrem</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Octōbrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Octōber</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Octōbrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Octōbrium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Octōbribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Octōbrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Octōbribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Octōbrēs</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Instat mensis October.\"></span>Instat mensis <b>October</b>.</div><div class=\"uc-exe\">It&#x27;s almost October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Octobri nata sum.\"></span>Mense <b>Octobri</b> nata sum.</div><div class=\"uc-exe\">I was born in October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mense Octobri natus sum.\"></span>Mense <b>Octobri</b> natus sum.</div><div class=\"uc-exe\">I was born in October.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `October`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "November",
+    "id": 768,
+    "fields": {
+     "Latin": "November",
+     "Parts": "<span class=\"uc-ppw\">November, Novembris</span><span class=\"uc-cls\">third-declension three-termination adjective</span>",
+     "Key": "nouember",
+     "Word": "November",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of November</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">November</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Novembris</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Novembrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Novembrem</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Novembrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">November</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Novembrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Novembrium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Novembribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Novembrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Novembribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Novembrēs</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Natalis mea mense Novembri est.\"></span>Natalis mea mense <b>Novembri</b> est.</div><div class=\"uc-exe\">My birthday is in November.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Die vicesimo secundo mensis Novembris, anni MCMXLVIII nata sum.\"></span>Die vicesimo secundo mensis <b>Novembris</b>, anni MCMXLVIII nata sum.</div><div class=\"uc-exe\">I was born on the 22 of November 1948.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Die vicesimo secundo mensis Novembris, anni MCMXLVIII natus sum.\"></span>Die vicesimo secundo mensis <b>Novembris</b>, anni MCMXLVIII natus sum.</div><div class=\"uc-exe\">I was born on the 22 of November 1948.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `November`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   },
+   {
+    "word": "December",
+    "id": 769,
+    "fields": {
+     "Latin": "December",
+     "Parts": "<span class=\"uc-ppw\">December, Decembris</span><span class=\"uc-cls\">third-declension three-termination adjective</span>",
+     "Key": "december",
+     "Word": "December",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">of December</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">December</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Decembris</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Decembrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Decembrem</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Decembrī</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">December</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">Decembrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">Decembrium</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">Decembribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">Decembrēs</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">ablative</span><span class=\"uc-cj-f\">Decembribus</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">vocative</span><span class=\"uc-cj-f\">Decembrēs</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"December unum et triginta dies habet.\"></span><b>December</b> unum et triginta dies habet.</div><div class=\"uc-exe\">December has thirty-one days.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"December noctes longas et dies breves habet.\"></span><b>December</b> noctes longas et dies breves habet.</div><div class=\"uc-exe\">December has long nights and short days.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mēnsis December incipit.\"></span>Mēnsis <b>December</b> incipit.</div><div class=\"uc-exe\">The month of December begins.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `December`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "a month: Wiktionary's headword is a capital, which extract.py does not read"
+   }
+  ],
+  "latinb1": [
+   {
+    "word": "quasi",
+    "id": 1001,
+    "fields": {
+     "Latin": "quasi",
+     "Parts": "",
+     "Key": "quasi",
+     "Word": "quasi",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">conjunction</div><div class=\"uc-gl\">almost as if; like; as it were</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ille se gerit, quasi rex sit.\"></span>Ille se gerit, <b>quasi</b> rex sit.</div><div class=\"uc-exe\">He acts like he&#x27;s a king.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Annon quasi aestatem sentias?\"></span>Annon <b>quasi</b> aestatem sentias?</div><div class=\"uc-exe\">Feeling like summer?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dilectus eius quasi simius videtur.\"></span>Dilectus eius <b>quasi</b> simius videtur.</div><div class=\"uc-exe\">Her boyfriend looks like a monkey.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the headword, the dictionary entry, the senses and the table of the entry `quasi`; sentences: Tatoeba (CC BY 2.0 FR), chosen by inserts.py",
+    "why": "rank 938 of the DCC Latin Core Vocabulary and on no card: select.py drops it because the list calls it an adverb and Wiktionary a conjunction"
+   }
+  ]
+ },
+ "drop": {
+  "laphrase": [
+   {
+    "word": "quid agis",
+    "why": "Latin A1 now carries it as Wiktionary's entry (\"what's up?, how are you?\"), with sentences; this was Wikipedia's row (\"What are you doing?\"), the deck's note 417",
+    "see": "latina1/quid agis"
+   },
+   {
+    "word": "ita vero",
+    "why": "Latin A1 now carries it as Wiktionary's entry (\"yes\"), with its macron; this was Wikipedia's row (\"thus indeed\"), the deck's note 430",
+    "see": "latina1/ita vērō"
+   }
+  ]
+ },
+ "decks": {
+  "latina1": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "hints": {
+    "-que": "et",
+    "-ve": "aut",
+    "ut valēs": "quid agis",
+    "amābō tē": "quaesō"
+   },
+   "tail": "THE BEGINNER PASS (November 2026). Start with Latin — Sounds and spelling ({lasounds.notes} cards, days {lasounds.from} to {lasounds.to}), which says how a word is read, what a macron is and how the endings work; this deck follows it on days {from} to {to}, at Folio's default of ten new cards a day, which is five words, since each word is two cards. It now holds {notes} words: {added} were added by hand to the 500 described above. Sixteen are cards no Latin deck had, each built from its Wiktionary entry: seven words of the Core Vocabulary that the build had dropped without a word, because the list and the dictionary name their part of speech differently (nihil, alius, alter, ūllus, uterque, tot, quā); ecce; the three enclitics, which are written on the end of another word (-que, -ne, -ve: estne, vīsne); and five formulas of a first exchange (grātiās agō, quid agis, ut valēs, ita vērō, amābō tē). mālō came down from A2 to stand with volō and nōlō. THE ORDER is no longer the frequency list from the first card. The first {n:quīdam} words are a start written by hand: salvē and valē on day {day:salvē}, yes and no on day {day:minimē}, how are you, thank you and please by day {day:amābō tē}; then the pronouns, the question particles and the enclitics, fourteen prepositions (days {day:in} to {day:apud}), fifteen verbs (days {day:habeō} to {day:sciō}: the irregular ones and one model of each conjugation), the question words, one to ten (days {day:ūnus} and {day:decem}), and one model noun of each declension (puella, servus, bellum, rēx, manus, diēs: days {day:puella} and {day:diēs}). The frequency order follows, with eleven to a thousand and first to third from note {n:ūndecim}, yesterday, today and tomorrow from note {n:heri} and the colours from note {n:albus}. WHAT A CARD SHOWS: under the headword its dictionary entry and, in small capitals, its declension or conjugation. A verb marked suppletive changes its stem (ferō, ferre, tulī, lātum); one marked deponent has passive forms and an active meaning. The English → Latin card asks for the headword: its principal parts or its genitive, and its macrons, are on the back, so say them too. A shorter form that the Core Vocabulary lists is on its word's card (ab: ā, abs; ex: ē; atque: ac; nihil: nīl). THE SPEAKER is an Italian voice reading the word without its macrons: it gives the Church pronunciation (c before e or i as the ch of change, g as in giant, v as in vest, no long vowels), never the classical one the macrons describe (c as in scar, g as in gear, v as the w of west). Latin — Sounds and spelling gives both for every letter. NOT ON ANY CARD, the dictionary having no entry to build one from: nōmen mihi est, which is three A1 cards (nōmen, ego, sum), and salvēte, the greeting to several people (valē's card shows valēte). The Latin shelf, taken in order — Sounds and spelling, A1, A2, B1, B2, C1, the phrases — is {shelfNotes} notes: {shelfDays} days at that pace, {shelfYears} years."
+  },
+  "latina2": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (November 2026). Days {from} to {to} of the shelf, at Folio's default of ten new cards a day, which is five words, since each word is two cards. The deck now holds {notes} words: mālō went down to A1, and {added} cards were added to the 750 described above. Four are words of the Core Vocabulary that the build had dropped because the dictionary files them as participles or under another part of speech (adversus, falsus, praesēns, rēctus). The other fifteen are THE ROMAN CALENDAR, the deck's last cards (notes {n:kalendae} to {notes}): kalendae, nōnae and īdūs, which were cards of C1 and B2, and the twelve months, which no deck had. A month is an adjective in Latin (Kalendae Iānuāriae, the first of January), and each card is the dictionary's adjective with its three genders. WHAT A CARD SHOWS: under the headword its dictionary entry and, in small capitals, its declension or conjugation. A verb marked suppletive changes its stem (ferō, ferre, tulī, lātum); one marked deponent has passive forms and an active meaning. The English → Latin card asks for the headword: its principal parts or its genitive, and its macrons, are on the back, so say them too. THE SPEAKER is an Italian voice reading the word without its macrons: it gives the Church pronunciation (c before e or i as the ch of change, g as in giant, v as in vest, no long vowels), never the classical one the macrons describe (c as in scar, g as in gear, v as the w of west). Latin — Sounds and spelling gives both for every letter. The Latin shelf, taken in order — Sounds and spelling, A1, A2, B1, B2, C1, the phrases — is {shelfNotes} notes: {shelfDays} days at that pace, {shelfYears} years."
+  },
+  "latinb1": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (November 2026). Days {from} to {to} of the shelf, at Folio's default of ten new cards a day, which is five words, since each word is two cards. One card was added to the 1,000 described above: quasi, a word of the Core Vocabulary that the build had dropped because the list calls it an adverb and the dictionary a conjunction; it is the last card. WHAT A CARD SHOWS: under the headword its dictionary entry and, in small capitals, its declension or conjugation. A verb marked suppletive changes its stem (ferō, ferre, tulī, lātum); one marked deponent has passive forms and an active meaning. The English → Latin card asks for the headword: its principal parts or its genitive, and its macrons, are on the back, so say them too. THE SPEAKER is an Italian voice reading the word without its macrons: it gives the Church pronunciation (c before e or i as the ch of change, g as in giant, v as in vest, no long vowels), never the classical one the macrons describe (c as in scar, g as in gear, v as the w of west). Latin — Sounds and spelling gives both for every letter. The Latin shelf, taken in order — Sounds and spelling, A1, A2, B1, B2, C1, the phrases — is {shelfNotes} notes: {shelfDays} days at that pace, {shelfYears} years."
+  },
+  "latinb2": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (November 2026). Days {from} to {to} of the shelf, at Folio's default of ten new cards a day, which is five words, since each word is two cards. {notes} words: īdūs went down to A2, with the rest of the Roman calendar. WHAT THIS LEVEL IS: the Core Vocabulary's thousand words are spent below it, so apart from the vocabulary written for its scope every word here is ranked by Folio's own count over the classical authors named above, and by nothing published. The count is honest about how common these words are: half of them occur fewer than 29 times in a million words of those texts (A1: 464, A2: 152, B1: 85). Tatoeba, which supplies the sentences, has none for about a third of them. WHAT A CARD SHOWS: under the headword its dictionary entry and, in small capitals, its declension or conjugation. A verb marked suppletive changes its stem (ferō, ferre, tulī, lātum); one marked deponent has passive forms and an active meaning. The English → Latin card asks for the headword: its principal parts or its genitive, and its macrons, are on the back, so say them too. THE SPEAKER is an Italian voice reading the word without its macrons: it gives the Church pronunciation (c before e or i as the ch of change, g as in giant, v as in vest, no long vowels), never the classical one the macrons describe (c as in scar, g as in gear, v as the w of west). Latin — Sounds and spelling gives both for every letter. The Latin shelf, taken in order — Sounds and spelling, A1, A2, B1, B2, C1, the phrases — is {shelfNotes} notes: {shelfDays} days at that pace, {shelfYears} years."
+  },
+  "latinc1": {
+   "subtitle": "{notes} words · both directions, as two cards per word",
+   "tail": "THE BEGINNER PASS (November 2026). Days {from} to {to} of the shelf, at Folio's default of ten new cards a day, which is five words, since each word is two cards. {notes} words: kalendae and nōnae went down to A2, with the rest of the Roman calendar. WHAT THIS LEVEL IS: as B2, a count of the classical authors named above and no published list; half of its words occur fewer than 12 times in a million words of those texts, and Tatoeba has no sentence for about half of them, so the card is the word, its dictionary entry and its table. WHAT A CARD SHOWS: under the headword its dictionary entry and, in small capitals, its declension or conjugation. A verb marked suppletive changes its stem (ferō, ferre, tulī, lātum); one marked deponent has passive forms and an active meaning. The English → Latin card asks for the headword: its principal parts or its genitive, and its macrons, are on the back, so say them too. THE SPEAKER is an Italian voice reading the word without its macrons: it gives the Church pronunciation (c before e or i as the ch of change, g as in giant, v as in vest, no long vowels), never the classical one the macrons describe (c as in scar, g as in gear, v as the w of west). Latin — Sounds and spelling gives both for every letter. The Latin shelf, taken in order — Sounds and spelling, A1, A2, B1, B2, C1, the phrases — is {shelfNotes} notes: {shelfDays} days at that pace, {shelfYears} years."
+  },
+  "laphrase": {
+   "subtitle": "{notes} phrases · both directions, as two cards per phrase",
+   "descSub": [
+    [
+     "625 Latin phrases, sayings and mottos",
+     "{notes} Latin phrases, sayings and mottos"
+    ],
+    [
+     "The phrases with an article come first, ordered by how often that article was read over two months of 2026, so carpe diem comes long before a phrase of canon law; the rest follow by how often they appear in the Tatoeba corpus and in the classical authors.",
+     "They are dealt by reading level, which the end of this description explains; inside a level the phrases with an article come first, ordered by how often that article was read over two months of 2026, so carpe diem comes long before a phrase of canon law, and the rest follow by how often they appear in the Tatoeba corpus and in the classical authors."
+    ],
+    [
+     "Example sentences from Tatoeba come with 177 of the 625 phrases, three apiece for 27, with the phrase picked out in colour.",
+     "Example sentences from Tatoeba come with {withEx} of the {notes} phrases, three apiece for {withEx3}, with the phrase picked out in colour."
+    ]
+   ],
+   "tail": "THE BEGINNER PASS (November 2026). THE ORDER is now a reading order: the deck no longer opens with Magna Carta and lingua franca, which English has kept and Latin A1 cannot spell. First come the {byA1} phrases spelled entirely with forms that a card of Latin A1 shows (habeas corpus, anno Domini, cogito, ergo sum, veni, vidi, vici), then the {byA2} that need A2 as well, then {byB1} for B1, {byB2} for B2 and {byC1} for C1; the last {byNone} use a word or a form that no level card shows — names, medieval and legal Latin, rarer forms. A form counts only if a card prints it, in its headword, its dictionary entry or its table. NO MACRONS: the phrases are spelled as the source spells them, and the level decks print the same words with their macrons, so a phrase's long vowels are on the cards of its words. Two phrases left for Latin A1, which now carries them as the dictionary's entries with sentences: quid agis and ita vero. The deck is days {from} to {to} of the shelf, at Folio's default of ten new cards a day, which is five words, since each word is two cards; the first group can be read beside A1. THE SPEAKER is an Italian voice reading the word without its macrons: it gives the Church pronunciation (c before e or i as the ch of change, g as in giant, v as in vest, no long vowels), never the classical one the macrons describe (c as in scar, g as in gear, v as the w of west). Latin — Sounds and spelling gives both for every letter. The Latin shelf, taken in order — Sounds and spelling, A1, A2, B1, B2, C1, the phrases — is {shelfNotes} notes: {shelfDays} days at that pace, {shelfYears} years."
+  }
+ }
+}

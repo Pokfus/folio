@@ -399,6 +399,22 @@ jobs:
       - name: check-turkish (no word on two decks, pinned ids, no pointer glosses, known forms labels, balanced markup)
         if: ${{ !cancelled() }}
         run: node .claude/turkish/check-turkish.js
+      # The Latin decks (2026-11-27, the Latin beginner pass): latin-fixes.json (the cards added and moved, the two
+      # phrase notes dropped, the end of each description), latin-order.json and the pinned ids, over the five
+      # level decks (card type `latin`), the phrases (`latinphrase`) and the sounds deck (`lasound`). All four read
+      # only the repository: no cache, no network, no browser. check-latin.js was in no workflow before this.
+      - name: latin-fix --check (the Latin decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/latin-fix.js --check
+      - name: latin-order --check (the Latin order file is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/latin-order.js --check
+      - name: build-latin-sounds --check (the Latin sounds deck is what its table and Latin A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-latin-sounds.js --check
+      - name: check-latin (no word on two decks, pinned ids, no pointer glosses, known forms labels, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/latin/check-latin.js
       # The Greek decks (2026-11-27, the Greek beginner pass): greek-fixes.json (the cards A1 gains, the end of
       # each description), greek-order.json (A1's order and the figures the descriptions state) and the pinned
       # ids, over the two decks of card type `greek` and `el-abc`. All three read only the repository.

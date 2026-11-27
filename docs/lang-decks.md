@@ -3850,6 +3850,13 @@ changed was the one that had been wrong all along.
   subtitles, and spoken in an Italian voice (`it-IT`). The macron decides homographs; the plan, the sources and
   every finding are 📖 `docs/latin-decks-plan.md`. The `l1` row is 0 (no native speakers; sorts last); the hue
   is measured, `#75543F` (re-swept at the merge: Greek had taken the first sweep's `#6F69D2`).
+  **Since the beginner pass (2026-11-27, the section "The Latin beginner pass" below)** the shelf is seven decks:
+  `Latin — Sounds and spelling` first (38 notes, `build-latin-sounds.js`), and the levels carry a record
+  (`.claude/decks/latin-fixes.json`: 33 cards added, 4 moved, an order, a description tail), pinned ids
+  (`latin-ids.json`) and an order (`latin-order.json`). The generator still reproduces the five levels; after any
+  change to it run the whole chain in `.claude/decks/README.md` ("The Latin decks"), never a level alone.
+  `inserts.py` builds the record's cards with the generator's code; `sounds.py --verify` checks the sounds table
+  against its pinned Wikipedia revisions.
 - `.claude/thai/` — the generator behind the Thai decks (Nov 2026, on request: "Add a Thai language
   collection"; Hindi's three answers taken as the defaults). **Built: the alphabet, `decks/Thai-Alphabet.folio-deck.json`**
   (92 notes), **A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2,
@@ -6680,6 +6687,204 @@ can be read whole (94 of 1,493); over the first fifty notes 50% and 20 of 149 (3
 - **The whole shelf is 4,807 notes: 963 days at the default pace, 2.6 years.**
 
 
+## The Latin beginner pass (2026-11-27)
+
+On request, the audit the Spanish, German, Russian, Urdu and Turkish decks had been given: **what does a
+learner with no Latin meet, in the order the shelf itself recommends** — A1 to C1, then the phrases? Every
+figure was measured on the six decks as shipped that morning, at the language default of ten new cards a
+day with both directions together, which is five words a day. The rules are in the `.claude/latin/` entry
+above and in `.claude/decks/README.md` ("The Latin decks"); this section is the reasoning. The plan's §1
+stands untouched: CEFR as a scope only, principal parts, macrons, full tables, the phrases deck, and §3's
+Italian voice.
+
+**The generator's claim was proved first**: one fetch of the live sources (kaikki 1.25 GB, the DCC list,
+Tatoeba's three exports, the 149 Latin Library pages), all five levels built, then `--no-fetch` again.
+The second run equalled the first byte for byte. Against the committed files: the same 5,250 words on the
+same levels, every dictionary field and every description but B2's equal; **26 sentence fields and the
+position of 133 notes differed**, every one of the 133 a word outside the DCC list, which Tatoeba's count
+orders, and Tatoeba's export had moved in the fortnight since. So the code is reproducible and one source
+is live: a fault the generator can fix IS fixed in the generator, and only a decision about one card or
+one order is in a record — the Urdu and Turkish arrangement. The phrases deck was NOT rebuilt: its order
+is Wikipedia's pageviews on the day it was fetched, and the pin now holds that order.
+
+### What the audit found, by what it costs a beginner
+
+1. **Nothing said how a word is read, and the speaker and the spelling describe two different
+   pronunciations.** 241 of A1's 500 headwords carry a macron; the descriptions call it "the marks over a
+   long vowel" and stop. No card or description gave the stress rule (about 95 of the 120 A1 headwords of
+   three syllables or more are stressed on the antepenult, which only the rule tells), or that c and g
+   are always hard, or what v, ae, oe, qu, a consonant i or a doubled letter is. The speaker is an
+   Italian voice reading the word without its macrons — the Church pronunciation — while the macrons
+   are the classical one: 138 of the 500 contain a letter the two read differently (v 60, c before a
+   front vowel 29, h 16, g before a front vowel 16, ae and oe 11, ti before a vowel 8, gn 6, sc 4). One
+   clause of each description said so ("rather than the classical one"); nothing said what differs.
+2. **Thirteen words of the Core Vocabulary were cards of no deck, and nobody knew.** `select.py` admits a
+   DCC word only through a Wiktionary entry of the DCC's part of speech — the guard written for `ā`, the
+   letter — and the two sources disagree on `alius` (rank 37), `nihil` (55), `alter` (148), `ūllus` (178),
+   `uterque` (243), `tot` (259), `quā` (336), `adversus` (460), `falsus` (633), `ecce` (643), `praesēns`
+   (822), `rēctus` (823) and `quasi` (938); the run prints no line for a word it drops this way. The
+   enclitics are left out as affixes: `-que` is rank 4 of the list, `-ve` 307, and `-ne` is on 24 words of
+   A1's own sentences (`estne`, `vīsne`). `ā` and `ē` were on no card either (19 and 13 words of A1's
+   sentences): `ab` showed no other form, and it was note 415, because the list files "ā ab abs" under ā.
+3. **The words of a first exchange were the last cards of A1, or nowhere.** `salvē` was note 496 of 500,
+   `valē` 499, `avē` 500 (day 100); `quaesō` 418, `minimē` 454. `grātiās agō`, `ita vērō`, `amābō tē` and
+   `ut valēs` were on no deck, though Wiktionary has an entry for each; `quid agis` was the phrases deck's
+   note 417 in Wikipedia's wording ("What are you doing?"), day 1,134. The description promised
+   "greetings and politeness" first among its topics.
+4. **A1 was dealt by the DCC rank and the closed sets were scattered.** Day one was et · sum · quī · in ·
+   nōn. One to ten ran from note 48 (ūnus) to 486 (novem); the question words from 85 (ubi) to 434
+   (nōnne), quis at 203; vōs was 123 and vester 271; the prepositions from 4 to 485. mālō was A2's note
+   211, apart from volō and nōlō. The months were on no deck (the plan's §7: their headwords are
+   capitals), kalendae was C1's note 408, nōnae C1's 1,485 and īdūs B2's 1,269: days 600 to 1,050.
+5. **The dictionary form was sound, with three faults.** All 212 A1 nouns show genitive, gender and
+   declension; 90 of 102 verbs four principal parts and the other 12 are deponent or defective by nature;
+   52 of 53 adjectives their endings; the seven deponents are flagged twice. But `trēs` showed a
+   nominative, an accusative and a vocative and no `trium` or `tribus` (a table row with no gender tag was
+   dropped: 11 cards on the five levels); `ferō, ferre, tulī, lātum` and its compounds read "third
+   conjugation" and nothing more (36 verbs whose head line says suppletive); and nothing teaches the
+   endings as patterns — every table is one word's.
+6. **The reverse card was mostly sound.** No two notes share an English side; 4, 2, 3, 6 and 11 groups
+   share a first gloss. But `hic`'s card printed "adverb, hīc" as the label over "here" — on the English
+   → Latin front — and 14 cards had a parenthesis that named the answer ("either... or... (seu...
+   seu...)", "wolf (Canis lupus)"). The front asks for the headword; the principal parts and the macrons
+   are on the back, and nothing said to say them.
+7. **Example sentences**: 4 words at the median (67 at most), three on 499 of A1's 500 cards. On arrival
+   64% of a sentence's words had been met as a form some card shows, and 304 of 1,497 sentences could be
+   read whole (the first fifty notes: 47%, 1 of 150); 24% of the words in A1's sentences are forms no A1
+   card shows and 10.5% are on no card of any level. 63 are about Tom or Mary. A2 has sentences on 740 of
+   750 cards, B1 874 of 1,000, B2 1,017 of 1,500, C1 714 of 1,500.
+8. **The pace was stated nowhere**: A1 to day 100, A2 to 250, B1 to 450, B2 to 750, C1 to 1,050, the
+   phrases to 1,175; 5,875 notes, 3.2 years.
+9. **The levels are honest about what they are, with one bad sentence.** No headword is a card of a lower
+   level (25, 26, 15 and 8 are a FORM a lower card shows: `lātus` beside `ferō`). The median of a level's
+   words in the classical count is 464, 152, 85, 29 and 11 per million. B2's and C1's descriptions read
+   "Of the others, 0 are the last words of the … Core Vocabulary".
+10. **The phrases** opened with Magna Carta, habeas corpus, anno Domini, memento mori, lingua franca: the
+    order of Wikipedia's readers. 157 of 625 are spelled entirely with forms an A1 card shows and 212 use a
+    word or form no level shows. None carries a macron, which the description says and the source
+    explains (§11).
+11. **Card ids were positions**, on all six decks.
+
+### What was built
+
+**In the generator** (`.claude/latin/`; all five levels rebuilt, then each rebuilt ALONE over the decks
+with the record applied, in the order C1, A2, B2, B1, A1: every file equal to the first run):
+
+- **A table row whose form has no gender tag** (`gendered`): `trium`, `tribus`, and the same on
+  `quisquam`, `complūrēs`, `ūnusquisque` and the hundreds — 11 cards.
+- **The shorter form on its word's card** (`forms_line`, `dcc_variants`): `ab` also `ā`, `abs`; `ex` also
+  `ē`; `atque` also `ac`; `ut` also `utī`; `deinde` also `dein`. Two sources must agree — Wiktionary's
+  head line calls it an alternative AND the DCC list names it; the first alone printed the Old Latin
+  `quei` on `quī` and `at` on `ad`. **An interjection's plural** (`valē`: `valēte`).
+- **A second headword is under the word, not over its meaning**: `hīc` is a Forms row of `hic`, and the
+  English side no longer names it. **A parenthesis that names the headword is dropped** (`unname`): 14
+  cards. A gloss that IS the word, because English borrowed it (forum, villa), is left.
+- **`suppletive` stays in the class line** (`short_class`): 36 verbs.
+- **The description of a level the DCC list gives nothing** (`ORDER_SPENT`: B2 and C1).
+- **`latin_level.words_below` reads the record**, and `extract.entry` / `extract.glosses` are the entry
+  builder shared with `inserts.py` (a refactor: `lex.json` and `classical.json` were re-extracted and
+  have the checksums they had).
+
+**In a record** (`.claude/decks/latin-fixes.json`, applied by `latin-fix.js`, on the Turkish model):
+
+- **Note ids pinned** (`latin-ids.json`, 5,875 rows seeded from the shipped positions and checked equal)
+  in a commit of its own, before anything moved. Checked in a browser with the decks as shipped: a reader
+  holding the old A1 and the old phrases, with 25 notes of each studied in BOTH directions, took the two
+  Updates ("17 new cards, 30 cards corrected"; "2 cards dropped from the list (kept here, with their
+  progress)") and kept all 100 schedules on the same words; every one of the 1,125 old note ids still
+  named its word, and the two notes the phrases file dropped stayed on the device.
+- **33 cards added**, their fields built by `inserts.py` with the generator's own code from the Wiktionary
+  entry (the list names a page and a part of speech; the macrons are the entry's). To A1: `nihil`,
+  `alius`, `alter`, `ūllus`, `uterque`, `tot`, `quā`, `ecce`, `-que`, `-ne`, `-ve`, `grātiās agō`,
+  `quid agis`, `ut valēs`, `ita vērō`, `amābō tē`. To A2: `adversus`, `falsus`, `praesēns`, `rēctus` and
+  the twelve months (the adjective entry, the sense that names the month). To B1: `quasi`.
+- **4 cards moved down** (a move is a row, never a copy): `mālō` from A2 to A1; `kalendae` and `nōnae`
+  from C1 and `īdūs` from B2 to A2. **2 phrase notes dropped** (`drop`, a row kind this record adds: the
+  phrases deck's card is of another type, so the A1 card is an insert and the phrase card is retired):
+  `quid agis` and `ita vero`. No headword is carded twice on the shelf.
+- **An order** (`latin-order.json`, computed by `latin-order.js` from the pinned number): A1's first 115
+  notes by hand — hello and goodbye, to be, I and you, not, and, yes and no on days 1 and 2; how are you,
+  thank you and please by day 5; the pronouns and possessives; -ne, num, nōnne, -que; fourteen
+  prepositions (days 10 to 12); fifteen verbs with one model of each conjugation (days 13 to 15); the
+  question words; one to ten (days 18 and 19); one model noun of each declension (days 20 and 21) — then
+  the pinned order with eleven to a thousand and first to third from note 121, yesterday, today and
+  tomorrow from 151, the colours from 201. A2 ends with the calendar, in the order of the year. The
+  phrases by the lowest level whose cards show every word's form: 165 by A1, then 117, 83, 45, 22, and 191
+  no level spells.
+- **The descriptions**: each ends with a paragraph the record rewrites and recounts on every run — what
+  was added and why, the order, the pace, what a card shows, what the speaker reads, and on B2 and C1
+  what the level is ranked by. Four reverse-card hints in A1 (`-que` not et, `-ve` not aut, `ut valēs` not
+  quid agis, `amābō tē` not quaesō).
+
+**`Latin — Sounds and spelling`** (38 notes, one card each, card type `lasound`; `build-latin-sounds.js`
+from `latin-sounds.json`): five rules (the two pronunciations, the macron, the stress, a doubled
+consonant, a vowel and m at the end of a word), eight vowels and diphthongs, twelve consonants, and
+thirteen patterns of endings — the cases, the five declensions, the four principal parts, the
+conjugations, a deponent. **The classical value is first and the Church value beside it**: each is a row
+of the key of Wikipedia's Help:IPA/Latin (revision 1385934515), placed by the column its letter stands in
+there, and `sounds.py --verify` PARSES THE KEY'S ROWS and passes a cell only where one row has that IPA,
+that column and that English approximation; every note and rule is a quoted run of the key's notes, of
+"Latin phonology and orthography" (1381667996), "Latin declension" (1385002572) or "Latin conjugation"
+(1367838080). 83 cells and quotations; it was seen to fail on a changed approximation, a changed column
+and a changed sentence. Every example word is an A1 card with its speaker and BOTH of Wiktionary's
+transcriptions, the one tagged Classical Latin and the one noted modern Italianate Ecclesiastical
+(`sounds.py --fill`, 113 words), and an ending card's table is copied from the A1 card it names. The
+description says what the speaker reads: the Church line, never the classical one.
+
+**CI**: `latin-fix.js --check`, `latin-order.js --check`, `build-latin-sounds.js --check` and
+`check-latin.js` (which was in no workflow, and now reads the pin).
+
+After it: the sounds deck 38 notes, A1 517, A2 768, B1 1,001, B2 1,499, C1 1,498, the phrases 623; 5,944
+notes, 1,188 days. In A1 66% of a sentence's words have been met on arrival (64%) and 325 of 1,543
+sentences can be read whole (304 of 1,497); 9.6% of the words are on no card (10.5%).
+
+### What was decided against, and why
+
+- **Changing `speechLang`**, the plan's §3. No device was found with a Latin voice; the deck now says
+  what the Italian one reads.
+- **Fixing `select.py`'s part-of-speech guard.** It would deal A1 thirteen more words and push thirteen
+  out of every level below it, each to a new id on another deck. The thirteen are in the record, on the
+  level their rank belongs to, and `inserts.py` says why.
+- **Macrons on the phrases.** The source prints none; marking them word by word from the level cards
+  would guess at every ablative (the plan's §11). The description says where the long vowels are.
+- **Moving the numbers and ordinals of A2 down, or the days' words.** A2's scope names them; A1 keeps
+  one to twelve, twenty, fifty, a hundred, a thousand and first to third, now together.
+- **Cards for `salvēte`, `nōmen mihi est`, `quod` "because" and `mīlia`.** Wiktionary files the first as
+  a form of salveō, has no entry for the second, files the conjunction under `quī`'s neuter (the card
+  shows the form, not the sense) and gives `mīlle` no plural on its head line; a meaning is never typed.
+  A1's description lists the first two.
+- **A full passive and the other subjunctives on a verb's table.** The plan's table is five indicative
+  tenses, the present subjunctive, the imperative, the infinitives and participles, active; 23% of the
+  words in A1's sentences are forms no A1 card shows, and most are other words, not other tenses.
+- **Sentences from classical authors, or shorter ones for the head.** Tatoeba is the only open source of
+  translated sentences; the head's are as long as the rest.
+- **A grammar deck apart.** The thirteen ending cards are in the sounds deck, each a quotation and an A1
+  card's own table; the adjectives' and pronouns' declensions and the uses of the cases have no card.
+- **Subdecks for the sets.** The app deals subdecks side by side.
+- **Hints above A1**, and for the loans that name themselves (`labor`, `honor`, `forum`).
+
+### Limits to know about
+
+- **The sentences are Tatoeba's of the day of the build**: a rebuild on another day moves a few, and the
+  order of the words outside the DCC list is held by the pin, not by the generator.
+- **The phrases deck was not rebuilt or re-proved**; `phrases.py` is as it was.
+- **`sounds.py --verify`, `sounds.py --fill` and `inserts.py --check` need the cache or the network and
+  are not CI steps.**
+- **The Italian voice was not heard**: what it does with a stress or a long vowel is described from the
+  Church pronunciation's rules, and the sounds deck says its stress was not checked.
+- **An added card's sentences are found by spelling**: `quā` has none rather than a relative pronoun's,
+  `Augustus` none rather than the emperor's; `tot` has two that differ by one word.
+- **A month is the dictionary's adjective**, so its English side reads "of January".
+- **`-ne`'s meaning is Wiktionary's description** ("Added to the end of a word … in a polar question"),
+  and `faciō` reads suppletive because its passive is `fīō`: the tag is the dictionary's.
+- **A reader who already holds A2, B2, C1 or the phrases keeps the cards that moved** and meets them
+  again where they now are.
+- **Rebuilding one level needs the levels its moved cards came from** rebuilt with it: a moved card is not
+  stored in the record.
+- **The head's sentences were not replaced**: over A1's first fifty notes 47% of a sentence's words have
+  been met, 5 of 148 sentences whole.
+- **Not read card by card**: the 37 added and moved cards, the head and the sounds deck were; the other
+  5,870 are as generated, with the changed fields read as a diff.
 ## The Greek beginner pass (2026-11-27)
 
 On request, the audit the other shelves had been given: **what does a learner with no Greek and no Greek

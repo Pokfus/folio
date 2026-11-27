@@ -4,15 +4,21 @@
    a word taught on two levels (`Key`), a card defined by a pointer rather than English ("alternative form of
    …", "scribal abbreviation of …"), a letter's name standing in for a word (`ā`, `ex`), a noun or verb with no
    dictionary entry (principal parts, or genitive and gender), a speaker text that is not the headword without
-   its marks, a forms label the generator does not write, unbalanced HTML, an id out of sequence, two notes
-   sharing an English side (the reverse card would have two answers), a type not spoken in the Italian voice. */
+   its marks, a forms label the generator does not write, unbalanced HTML, an id that is not the note's PINNED
+   number (`.claude/decks/latin-ids.json`, since the beginner pass of Nov 2026: the ids were positions before
+   it, and a card that moves must keep its own), two notes sharing an English side (the reverse card would have
+   two answers), a type not spoken in the Italian voice. The sounds deck (card type `lasound`) is checked for
+   its voice and its pinned ids only: `build-latin-sounds.js --check` is its own check.
+   A level headword is lower-case Latin, with two exceptions the record's added cards brought: an enclitic's
+   hyphen (`-que`, spoken without it) and a month's capital (`Iānuārius`). */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const LABELS = new Set(["comparative", "superlative", "adverb"]);
+const LABELS = new Set(["comparative", "superlative", "adverb", "also", "plural"]);
 const POINTER = /^(?:alternative|obsolete|archaic|syncopated|contracted|scribal abbreviation|abbreviation) (?:form|spelling|of)\b|^(?:inflection|form) of \S+$|name of the (?:Latin[- ]script )?letter/i;
-const LATIN = /^[a-zà-ɏ̀-ͯ ]+$/;
+const LATIN = /^(?:-|[A-Z])?[a-zà-ɏ̀-ͯ ]+$/;
+const PIN = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "decks", "latin-ids.json"), "utf8"));
 // THE PHRASES DECK (Latin-Phrases-and-Mottos) spells a phrase as Wikipedia's list does: capitals for names,
 // punctuation, several words; its cards carry no dictionary entry, forms or table.
 const PHRASE = /^[A-Za-zà-ɏ̀-ͯ][A-Za-zà-ɏ̀-ͯ ,;:.!?'’&#x;0-9-]*$/;
@@ -29,11 +35,23 @@ for (const f of files) {
     if (t.speechLang !== "it-IT") bad(f + ": type " + t.id + " speaks " + t.speechLang + ", not it-IT");
   const sides = new Map();
   const phr = /Phrases/.test(f);
+  const pin = PIN[id] || {}, ids = new Set();
+  if (d.meta.types.lasound) {
+    for (const c of d.cards) {
+      if (c.id !== "u_" + id + "_" + pin[c.key]) bad(f + ": " + c.key + " has id " + c.id + ", pinned to " + pin[c.key]);
+      if (ids.has(c.id)) bad(f + ": two notes with the id " + c.id);
+      ids.add(c.id);
+    }
+    console.log("ok    " + f + ": " + d.cards.length + " notes, one card each");
+    continue;
+  }
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Latin;
-    if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
+    if (c.id !== "u_" + id + "_" + pin[w]) bad(f + ": " + w + " has id " + c.id + ", pinned to " + pin[w]);
+    if (ids.has(c.id)) bad(f + ": two notes with the id " + c.id);
+    ids.add(c.id);
     if (!(phr ? PHRASE : LATIN).test(w || "")) bad(f + ": card " + (i + 1) + " headword is not " + (phr ? "a plain Latin phrase: " : "lower-case Latin: ") + w);
-    if (phr ? F.Word !== bare(w).replace(/&#x27;/g, "'").replace(/&amp;/g, "&") : F.Word !== bare(w)) bad(f + ": " + w + " is spoken as " + F.Word);
+    if (phr ? F.Word !== bare(w).replace(/&#x27;/g, "'").replace(/&amp;/g, "&") : F.Word !== bare(w).replace(/^-/, "")) bad(f + ": " + w + " is spoken as " + F.Word);
     if (phr && F.Key.split(" ").length < 2) bad(f + ": " + w + " is a single word, not a phrase");
     if (!F.Key) bad(f + ": " + w + " has no Key");
     if (seen.has(F.Key)) bad(f + ": " + w + " is already taught in " + seen.get(F.Key));

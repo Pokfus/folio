@@ -31,8 +31,8 @@ spoken Latin.  The plan says so, and so does the deck's description.
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from la import fold, macronless, kept, ALSO
-from latin_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, FOR, load_lex
+from la import fold, macronless, kept, ALSO, tokens
+from latin_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, FOR, load_lex, words_below
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'latin'
@@ -90,6 +90,8 @@ LEAD = {
     'mināx': 'threatening',   # first listed: "projecting; overhanging"
     # read off C1 (2026-11-12)
     'mūsculus': 'muscle',     # first listed: "a companion of the whale"
+    # the record's added cards (`inserts.py`, the beginner pass, Nov 2026)
+    'falsus': 'untrue',       # first listed: "deceived, tricked, cheated"; the fifth is "false, untrue"
 }
 
 # THE ONE PART OF SPEECH a card keeps, where Wiktionary files an unrelated sense under
@@ -145,6 +147,19 @@ def shorten(t):
     return t[:cut] if cut else t
 
 
+def unname(t, word):
+    """A gloss without the parenthesis that NAMES THE HEADWORD (the beginner pass, Nov 2026):
+    "either... or... (seu... seu...)", "wolf (Canis lupus)", "the one ... the other (alter ...
+    alter)".  The English side is the front of the English -> Latin card, and the parenthesis
+    was its answer.  Only a whole parenthesis is dropped: a gloss that IS the word, because
+    English borrowed it (`forum`, `villa`, `consul`), is left as Wiktionary has it."""
+    k = fold(word)
+    if not k:
+        return t
+    drop = lambda m: '' if k in {fold(x) for x in tokens(m.group(0))} else m.group(0)
+    return re.sub(r'\s*\([^()]*\)', drop, t).strip()
+
+
 # ---- the dictionary entry ---------------------------------------------------------------
 def hd(e, *need, skip=()):
     """The first head-line form carrying every tag in `need` (and none in `skip`)."""
@@ -170,8 +185,12 @@ def short_class(e):
     no gerund"."""
     c = re.sub(r'\s*\(.*?\)', '', e['cls'])
     c = c.replace('first/second-declension', 'first and second declension')
+    # `suppletive` is kept too (the beginner pass, Nov 2026): it is Wiktionary's own flag on
+    # the verbs whose stems change (`ferō, ferre, tulī, lātum`: "third conjugation,
+    # suppletive"), which were otherwise labelled as if they were regular
     keep = [p.strip() for p in c.split(',')
-            if re.search(r'declension|conjugation', p) or p.strip() in ('deponent', 'semi-deponent')]
+            if re.search(r'declension|conjugation', p)
+            or p.strip() in ('deponent', 'semi-deponent', 'suppletive')]
     return ', '.join(keep)
 
 
@@ -219,15 +238,57 @@ def parts_html(e):
     return out
 
 
-def forms_line(e):
-    if e['pos'] not in ('adj', 'adv'):
-        return ''
+# A SHORTER OR OTHER SPELLING OF A WORD, shown on its card (the beginner pass, Nov 2026):
+# `ab` is also `ā` and `abs`, `ex` also `ē`, `atque` also `ac`, `nihil` also `nīl`.  A1's
+# sentences held `a` 19 times and `e` 13, and no card showed either.  TWO SOURCES MUST AGREE:
+# Wiktionary's head line gives the form as an "alternative" (which alone would also print the
+# Old Latin `quei` on `quī`, the scribe's `cũ` on `cum` and `at` on `ad`), AND the DCC list
+# names it -- in the word's own row ("ā ab abs", "ex, ē", "nihil, nīl") or in a row of its own
+# that points here ("ac ... → atque").  A variant that is a card of its own (`seu`, of `sīve`)
+# is not repeated.
+def dcc_variants(path='dcc-core.csv'):
+    """fold(word) -> the folds of the other spellings the DCC list gives it."""
+    import csv
+    out = {}
+    for r in csv.DictReader(open(path, encoding='utf-8')):
+        toks = [fold(t) for t in re.split(r'[\s,/:]+', r['Headword'].strip())
+                if t and not t.startswith('-')]
+        for t in toks:
+            out.setdefault(t, set()).update(x for x in toks if x != t)
+        m = re.search(r'→\s*(\S+)\s*$', r['Definition'])
+        if m and toks:
+            out.setdefault(fold(m.group(1)), set()).add(toks[0])
+    return out
+
+
+def fi(label, form):
+    return f'<span class="uc-fi"><span class="uc-fl">{label}</span>{E(form)}</span>'
+
+
+def forms_line(e, extra=(), also=()):
     bits = []
-    for label, tag in (('comparative', 'comparative'), ('superlative', 'superlative'),
-                       ('adverb', 'adverb')):
-        x = hd(e, tag)
+    if e['pos'] in ('adj', 'adv'):
+        for label, tag in (('comparative', 'comparative'), ('superlative', 'superlative'),
+                           ('adverb', 'adverb')):
+            x = hd(e, tag)
+            if x:
+                bits.append(fi(label, x))
+    alt = list(dict.fromkeys(
+        h['f'] for h in e['head'] if 'alternative' in h['t'] and fold(h['f']) in also
+        # not the genitive, which the DCC row also prints (`bōs bovis`) and Wiktionary also
+        # gives as a later nominative
+        and h['f'] != e['canon'] and h['f'] != hd(e, 'genitive')))
+    if alt:
+        bits.append(fi('also', ', '.join(alt)))
+    # an interjection said to several people (`valē`: `valēte`), Wiktionary's "plural"
+    if e['pos'] == 'intj':
+        x = hd(e, 'plural')
         if x:
-            bits.append(f'<span class="uc-fi"><span class="uc-fl">{label}</span>{E(x)}</span>')
+            bits.append(fi('plural', x))
+    # A SECOND HEADWORD THE CARD TEACHES (`la.ALSO`: `hīc` "here" on `hic`) is printed HERE,
+    # under its part of speech, and no longer in the label over its meaning: that label is on
+    # the English -> Latin front, where it named the answer
+    bits += [fi(label, w) for label, w in extra]
     return f'<div class="uc-forms">{"".join(bits)}</div>' if bits else ''
 
 
@@ -236,8 +297,6 @@ def english(ents, word=''):
     parts, shown = [], set()
     for e in ents:
         label = POS_NAME.get(e['pos'], e['pos'])
-        if word and e['canon'] != word:          # a second headword (`ALSO`): `hīc` on `hic`
-            label += ', ' + e['canon']
         if e['pos'] == 'noun' and e['gender'] in GENDER:
             label += ', ' + GENDER[e['gender']]
         if e['pos'] == 'noun' and e['pl']:
@@ -256,7 +315,7 @@ def english(ents, word=''):
         for g in e['glosses']:
             if g['weak'] and gl:
                 continue
-            t = re.sub(r'\s*[:;,]\s*$', '', g['g'])
+            t = re.sub(r'\s*[:;,]\s*$', '', unname(g['g'], word))
             if not t or NOT_A_MEANING.search(t) or (gl and fold(t).startswith(fold(word) + ' ')):
                 continue
             if t.lower() not in seen:
@@ -301,6 +360,11 @@ def block(head, rows):
 
 def gendered(e, case, num):
     forms = [cell(e, case, g, num) for g in ('masculine', 'feminine', 'neuter')]
+    if not any(forms):
+        # ONE FORM FOR ALL THREE GENDERS, which Wiktionary's table tags with no gender at all
+        # (`trēs`: `trium`, `tribus`).  The row was dropped, so the card of "three" showed a
+        # nominative, an accusative and a vocative and nothing else (the beginner pass, Nov 2026)
+        return cell(e, case, num, skip=('masculine', 'feminine', 'neuter'))
     if not all(forms):
         return ''
     if forms[0] == forms[1] == forms[2]:
@@ -405,8 +469,11 @@ def entries_for(r, lex):
     return out[:3]
 
 
-def build(rows, lex, exs):
+def build(rows, lex, exs, taken=None):
     cards, entries = [], []
+    dccv = dcc_variants()
+    # the cards of this level and of the levels below: a variant that is one is not repeated
+    taken = (taken if taken is not None else words_below()) | {r['key'] for r in rows}
     for r in rows:
         ents = entries_for(r, lex)
         if not ents:
@@ -421,7 +488,9 @@ def build(rows, lex, exs):
             'Key': r['key'],
             'Word': macronless(word),
             'English': english(ents, word),
-            'Forms': forms_line(main),
+            'Forms': forms_line(main, [(POS_NAME.get(e['pos'], e['pos']), e['canon'])
+                                       for e in ents if e['canon'] != word],
+                                dccv.get(r['key'], set()) - taken),
             'Table': table_html(tab),
             'Examples': examples_html(ex),
         }})
@@ -446,6 +515,15 @@ ORDER_CORPUS = (
     "and Quintilian, Plautus, Catullus, Lucretius, Virgil, Horace, Propertius, Ovid and Juvenal. "
     "The cards are dealt in that order, the Core Vocabulary's words first, then the rest by how "
     "often they appear in those texts. ")
+# B2 and C1: the list is spent, and the sentence above read "Of the others, 0 are the last
+# words of ..." (the beginner pass, Nov 2026)
+ORDER_SPENT = (
+    "The other {cls} are the commonest words beyond the Dickinson College Commentaries Latin "
+    "Core Vocabulary, the thousand commonest words of classical Latin, which the levels below "
+    "have used up: they come from a count made for "
+    "Folio over classical texts — Caesar, Cicero, Sallust, Livy, Nepos, Seneca, Pliny, Tacitus "
+    "and Quintilian, Plautus, Catullus, Lucretius, Virgil, Horace, Propertius, Ovid and Juvenal — "
+    "and the cards are dealt by how often they appear in those texts. ")
 CORPUS_SOURCE = (
     "Frequency beyond that list: a count of word forms over 149 pages of those authors in The "
     "Latin Library (thelatinlibrary.com), each form credited to its Wiktionary headword. ")
@@ -474,6 +552,7 @@ def desc(entries, n):
         f"{from_inv} of the {n} words come from a vocabulary written for that scope, in the words of "
         f"Roman life: {SC['topics']}. "
         + (ORDER_DCC.format(rest=n - from_inv) if not from_cls else
+           ORDER_SPENT.format(cls=from_cls) if n == from_inv + from_cls else
            ORDER_CORPUS.format(dcc=n - from_inv - from_cls, cls=from_cls)) +
         "Every headword is printed with its macrons, the marks over a long vowel (amō, rēgīna), and "
         "with its dictionary entry beneath it: a verb's principal parts (amō, amāre, amāvī, amātum), "
