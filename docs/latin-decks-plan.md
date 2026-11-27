@@ -7,6 +7,8 @@ file says otherwise. Asked for on 2026-11-09: "Add a Latin language collection."
 
 **STATUS (2026-11-12): all six decks are built** — the five levels A1 to C1 and the phrases and mottos deck (`.claude/latin/`, §6–§11). Only Phase 4, a combined file, is left.
 
+**SINCE 2026-11-27 (the beginner pass, §12)** the shelf is seven decks and the six above carry a record, pinned ids and an order: read §12 and `.claude/decks/README.md` ("The Latin decks") before rebuilding anything.
+
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
 it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
@@ -282,3 +284,26 @@ brackets and parentheses are dropped (`gutta cavat lapidem [non vi sed saepe cad
 **Known, left.** The list's translations are often literal ("to/at the man") and the note carries the
 sense; a few notes are long-winded. Phrases differing by a word are separate cards (`ad astra`, `ad astra
 per aspera`, `per aspera ad astra`). Most phrases have no Tatoeba sentence.
+
+## 12. As built (2026-11-27): the beginner pass
+
+The audit and its reasoning are in `docs/lang-decks.md`, "The Latin beginner pass"; the files are in
+`.claude/decks/README.md`, "The Latin decks". What it changes in THIS plan:
+
+- **§1 stands.** CEFR as a scope only, principal parts, macrons, full tables, the phrases deck. The sizes
+  are no longer round: A1 517, A2 768, B1 1,001, B2 1,499, C1 1,498, the phrases 623, and a seventh deck,
+  `Latin — Sounds and spelling` (38), is first on the shelf.
+- **§3 stands** (`it-IT`), and the decks now say what the voice reads: the Church pronunciation, never
+  the classical one the macrons describe. The sounds deck gives both for every letter.
+- **§4's "THE DCC ROW MUST BE THE LEMMA" has thirteen casualties**, which that section did not know: a DCC
+  word whose part of speech Wiktionary names differently is dropped without a line. They are cards now,
+  through the record (`inserts.py`); the guard itself is unchanged, so a NEW level built from scratch would
+  drop them again — check `select.py`'s output against the DCC list before building one.
+- **§6's "a re-run is byte-identical"** is true of the code and not of the day: Tatoeba's export is live.
+  The pin (`latin-ids.json`) is what holds an id and an order now.
+- **§7's "the months are not taught"** is over: they are A2's last cards, with kalendae, nōnae and īdūs,
+  and `check-latin.js` allows a month's capital and an enclitic's hyphen.
+- **§11's order** (Wikipedia's readers) is now the order INSIDE a reading level.
+- **The generator's fixes** are in the section named above: the ungendered table row, the DCC's shorter
+  forms, `hīc` off the English side, the parenthesis that named the answer, `suppletive`, the description
+  of a level the list gives nothing.
