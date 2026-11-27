@@ -1457,6 +1457,11 @@
     Iliad: "homer-iliad",
     Odyssey: "homer-odyssey",
     Epic_of_Gilgamesh: "epic-of-gilgamesh",
+    // the four works Petrie's first series holds (Nov 2026)
+    Westcar_Papyrus: "petrie-egyptian-tales",
+    The_Eloquent_Peasant: "petrie-egyptian-tales",
+    Tale_of_the_Shipwrecked_Sailor: "petrie-egyptian-tales",
+    Story_of_Sinuhe: "petrie-egyptian-tales",
   };
   function glossBook(key) {
     if (!key || isDeckGlossKey(key)) return null;
@@ -13272,6 +13277,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
+     (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
+     purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
+     tales. Ptahhotep, the shelf's other Egyptian book, stands far off in blue. */
+  "petrie-egyptian-tales": "#422448",
   /* Nov 2026, adding the Narrative of the Life of Frederick Douglass, measured as the rows above (CIE76 over
      L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the
      fifteen light inks; a sweep of the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: held 25
@@ -17665,6 +17675,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "petrie-egyptian-tales",
+      title: "Egyptian Tales",
+      subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
+      author: "Anonymous",
+      /* The papyri are Middle Kingdom or a little later (the Westcar copy is the latest); Petrie set the tales
+         in the Fourth to the Twelfth Dynasty, which the subtitle keeps as his. `year` is the date sort's one
+         number; the prose carries the range. */
+      written: "c. 2000–1600 BCE (the papyri)",
+      year: -1900,
+      translator: "W. M. Flinders Petrie",
+      edition: "Egyptian Tales, Translated from the Papyri, First Series, ed. W. M. Flinders Petrie, " +
+        "Methuen, London, second edition, 1899 (first published 1895)",
+      /* The only transcription is Project Gutenberg's #7386, which is the 1899 second edition; it was read
+         against scans of both the 1895 and the 1899 printings. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. The tales are about four thousand years old. W. M. Flinders Petrie published this " +
+        "translation in London in 1895, and the second edition used here in 1899, so it is out of copyright " +
+        "in the United States as a work published before 1929; Petrie died in 1942 and F. Ll. Griffith, who " +
+        "revised the translations, in 1934, so it has also been out of copyright for the translator's life " +
+        "plus seventy years since 2013. Where the term is life plus a hundred it remains in copyright until " +
+        "2043. Petrie's introduction, the index and Tristram Ellis's illustrations are not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/7386",
+      // one tab per tale, as the contents page lists them; Petrie's Remarks at the foot of each
+      chapterWord: "Tale",
+      count: 6,
+      total: 6,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all six tabs (every `.ttip`,
+         Nov 2026). GUTENBERG is Project Gutenberg, not the printer; SENMUT is the land the sailors pass ("the land
+         of Senmut"), not Hatshepsut's steward; PALESTINE is the ancient hill country, not the modern state; Petrie's
+         ETHIOPIAN temple is Kushite, not modern Ethiopia's; and KHEPER is the first part of the king's name
+         Kheper-ka-ra, not the god. */
+      glossOff: ["Johannes_Gutenberg", "Senenmut", "State_of_Palestine", "Ethiopia", "Khepri"],
     },
     {
       id: "douglass-narrative",
@@ -27468,6 +27513,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "petrie-egyptian-tales", n: 5, t: "The Shipwrecked Sailor", p: 3,
+      text: "\"Suddenly I heard a noise as of thunder, which I thought to be that of a wave of the sea. The trees shook, and the earth was moved. I uncovered my face, and I saw that a serpent drew near. He was thirty cubits long, and his beard greater than two cubits; his body was as overlayed with gold, and his colour as that of true lazuli. He coiled himself before me." },
     { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
     { book: "paine-common-sense", n: 2, t: "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution", p: 1,

@@ -21150,6 +21150,137 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+
+  "petrie-egyptian-tales": {
+    title: "Egyptian Tales",
+    subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
+    author: "Anonymous",
+    translator: "W. M. Flinders Petrie",
+    edition: "Egyptian Tales, Translated from the Papyri, First Series, ed. W. M. Flinders Petrie, " +
+      "Methuen, London, second edition, 1899 (first published 1895)",
+    written: "c. 2000–1600 BCE (the papyri)",
+    year: -1900,
+
+    /* ---------- THE LICENCE, and the edition — which is the 1899 SECOND edition, not 1895 ----------
+       Asked for as "Petrie, Egyptian Tales (1895)". English Wikisource does not carry the book (Author:
+       William Matthew Flinders Petrie lists no Egyptian Tales; the only Petrie tales there are the
+       selection in Egyptian Literature, 1901, which is not this volume). The one transcription is Project
+       Gutenberg's #7386, and its own title page reads SECOND EDITION, LONDON, 1899 — so that is what is
+       shipped and what `edition` says. It was compared word by word against the Internet Archive's OCR of
+       BOTH printings — `egyptiantalestr01petrgoog` (Methuen 1895, the first edition) and
+       `egyptiantalestr00elligoog` (Methuen 1899, second edition) — and the two printings agree with each
+       other everywhere the transcription was found wrong, so the text read is the 1895 text as well.
+
+       Petrie lived 1853–1942 (the Internet Archive's catalogue record of #7386 gives both years), and
+       F. Ll. Griffith, whom the introduction credits with revising the translations, 1862–1934. Published
+       1895 and 1899: public domain in the United States as pre-1929 publications, and past life plus
+       seventy everywhere since 2013; where the term is life plus a hundred it runs to 2043.
+
+       GUTENBERG WAS DOWN FOR MAINTENANCE when this was imported (27 Nov 2026), so `url` is the Internet
+       Archive's mirror of the same ebook (`egyptiantalestra07386gut`, file egpt110.txt, "Edition: 10"),
+       while `sourceUrl` names the ebook itself.
+
+       WHAT IS NOT TAKEN: Petrie's introduction (it introduces both series — it speaks of Anpu and Bata
+       and of Setnau, who are in the second), the index, and Tristram Ellis's illustrations. Each plate
+       left a caption line in the transcription ("THE FAREWELL", "GOING TO WAWAT", a dynasty under some),
+       which reads in the flow exactly like a section head, and they are not: the 1899 List of
+       Illustrations names every one of them. Dropped by EGTALES_CAPTIONS, counted. Petrie's REMARKS after
+       each tale ARE taken — he prints no notes on the page ("Not even numbers are intruded to refer to
+       notes"), the remarks are his whole apparatus, and they stay where he put them, at each tale's foot. */
+    rights:
+      "Public domain. The tales are about four thousand years old. W. M. Flinders Petrie published this " +
+      "translation in London in 1895, and the second edition used here in 1899, so it is out of copyright " +
+      "in the United States as a work published before 1929; Petrie died in 1942 and F. Ll. Griffith, who " +
+      "revised the translations, in 1934, so it has also been out of copyright for the translator's life " +
+      "plus seventy years since 2013. Where the term is life plus a hundred it remains in copyright until " +
+      "2043. Petrie's introduction, the index and Tristram Ellis's illustrations are not reproduced.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/7386",
+    url: "https://archive.org/download/egyptiantalestra07386gut/egpt110.txt",
+
+    layout: "egtales",
+    chapterWord: "Tale",
+    chapters: [1, 2, 3, 4, 5, 6],
+    // the contents page's own titles; the first three are the Tales of the Magicians, nested under it there
+    titleOf: (n) => [
+      "Tales of the Magicians: Khafra's Tale",
+      "Tales of the Magicians: Baufra's Tale",
+      "Tales of the Magicians: Hordedef's Tale",
+      "The Peasant and the Workman",
+      "The Shipwrecked Sailor",
+      "The Adventures of Sanehat",
+    ][n - 1],
+    // Baufra's tale, the shortest, is about 3,900 characters
+    minChars: 2500,
+
+    /* EVERY ROW READ AGAINST BOTH PRINTINGS (see the licence note): the transcription is an OCR, and these
+       are the places where it disagrees with the 1895 and the 1899 scans while they agree with each other.
+       Two (`truth But`, `very self I`) lose a full stop the 1895 scan prints and the 1899 OCR does not read
+       either way. Petrie's own spellings are left — "fascimile" stands in both printings. */
+    fixes: [
+      ["from the Jake", "from the lake", "l read as J; both printings read lake"],
+      ["royal sou Bau", "royal son Bau", "n read as u; both printings read son"],
+      ["Let there he given", "Let there be given", "b read as h; both printings read be"],
+      ["earliest tale or the", "earliest tale of the", "both printings read of"],
+      ["or the children about whom", "of the children about whom", "both printings read of"],
+      ["The tales or the magicians", "The tales of the magicians", "the 1895 printing reads of"],
+      ["black aind blue", "black and blue", "a stray i; both printings read and"],
+      ["Hasten I bring", "Hasten! bring", "! read as I; both printings read Hasten!"],
+      ["came the Sskhti", "came the Sekhti", "e read as s; both printings read Sekhti"],
+      ["Meruitensa then sa^; d unto", "Meruitensa then said unto", "i read as ^;; both printings read said"],
+      ["My Lord Steward-Destroying", "My Lord Steward—Destroying", "both printings print a dash"],
+      ["of thy complaints\" He", "of thy complaints.\" He", "both printings print the stop"],
+      ["accumulate daring the", "accumulate during the", "both printings read during"],
+      ["Belt Jibrin", "Beit Jibrin", "both printings read Beit"],
+      ["ascription of righting", "ascription of fighting", "both printings read fighting"],
+      ["Docs not the eye", "Does not the eye", "the 1899 printing reads Does"],
+      ["in properly and descent", "in property and descent", "both printings read property"],
+      ["ringers; then go and", "fingers; then go and", "the 1895 printing reads fingers"],
+      ["it may-give", "it may give", "a line break taken for a hyphen; the printings break may / give"],
+      ["pre-monu-mental", "pre-monumental", "a line-end hyphen kept; the printings break pre-monu- / mental"],
+      ["Sehote-pabra", "Sehotepabra", "a line-end hyphen kept; the tale itself prints Sehotepabra"],
+      ["Userte-sen", "Usertesen", "a line-end hyphen kept; the book prints Usertesen throughout"],
+      ["knoweth their truth But", "knoweth their truth. But", "the 1895 printing prints the stop"],
+      ["to my very self I was", "to my very self. I was", "the 1895 printing prints the stop"],
+      ["ceased also..", "ceased also.", "a doubled stop; both printings print one"],
+    ],
+
+    about: [
+      "These are four of the oldest stories in the world, translated from Egyptian papyri by " +
+        "<b>W. M. Flinders Petrie</b>, the archaeologist who did more than anyone to turn the digging up " +
+        "of Egypt into a science, with the help of the philologist F. Ll. Griffith. The volume came out in " +
+        "1895 as the first of two series; this is its second edition of 1899. Petrie wanted ordinary " +
+        "readers to have them, and he says so: he smoothed some idioms, softened a few plain words, and " +
+        "kept his scholarship out of the way until each tale was over.",
+      "<b>The Tales of the Magicians</b> (tabs 1–3) come from the papyrus now called the <b>Westcar " +
+        "Papyrus</b>, in Berlin. King Khufu, the builder of the Great Pyramid, asks his sons for tales of " +
+        "wonders, and each tells one: a wax crocodile that comes alive to punish an adulterer, a lake " +
+        "folded in half to find a girl's lost jewel, and an old magician who can rejoin a severed head " +
+        "and who foretells the birth of three children who will one day be kings. The beginning of the " +
+        "papyrus is lost, and so is its end; the last tale stops in the middle.",
+      "<b>The Peasant and the Workman</b> (tab 4) is the tale usually called the <b>Eloquent Peasant</b>: " +
+        "a man robbed on the road appeals for justice so well that the king has him kept talking, and " +
+        "his speeches written down, before righting the wrong. <b>The Shipwrecked Sailor</b> (tab 5) is " +
+        "a sailor's account of being cast up on an island ruled by a vast, kindly serpent. <b>The " +
+        "Adventures of Sanehat</b> (tab 6) is the story known today as <b>Sinuhe</b> — a courtier who " +
+        "flees Egypt when the king dies, makes a life among the peoples of Syria and Palestine, fights a " +
+        "champion, and in old age is called home by the new king to be buried as an Egyptian. Scribes " +
+        "went on copying it for centuries.",
+      "Petrie's spellings are those of the 1890s, and some names have changed since. His Sanehat is " +
+        "Sinuhe; his Usertesen is the king now written Senusret; his Sehotepabra is Amenemhat I; the " +
+        "Sekhti and the Hemti are simply “the peasant” and “the workman”. His dates " +
+        "have changed too. He put the Tales of the Magicians in the Fourth Dynasty and the peasant in the " +
+        "Ninth, the times in which they are set; the papyri themselves are all Middle Kingdom or a little " +
+        "later, and that is where most scholars now place the stories as well.",
+      "Each tale ends with Petrie's <b>Remarks</b>, which are his notes: where the papyrus is, who had " +
+        "translated it, and what its details say about life in Egypt. They are kept where he put them, " +
+        "at the foot of each tale (for the three Tales of the Magicians, after the third). What is " +
+        "<b>not</b> here is his introduction, which introduces both series at once, the index, and " +
+        "Tristram Ellis's illustrations. The text is Project Gutenberg's transcription, read against " +
+        "scans of the 1895 and 1899 printings, and twenty-five slips in it were corrected where both " +
+        "printings, or the one legible scan, read otherwise.",
+    ],
+  },
   "douglass-narrative": {
     title: "Narrative of the Life of Frederick Douglass",
     // the title page's full title, after the short one every reader knows it by
@@ -27818,6 +27949,66 @@ function extractQuixote(text, book, warn) {
     out.chapters.push({ n: i + 1, html: html.join("\n") });
   });
   return out;
+}
+/* ---------- PETRIE'S EGYPTIAN TALES — one plain-text Gutenberg file, cut at the contents page's heads ----------
+   (Nov 2026; `layout: "egtales"`.) Don Quixote's path with three things of its own:
+   · THE CUTS ARE THE CONTENTS PAGE'S OWN HEADS, alone on a line with blank lines round them, and EVERY
+     all-capital line in the body must be one of them, a REMARKS head or a known plate caption — anything
+     else is warned about rather than printed, since a caption read as prose is a loose capital line in a
+     tale and a head read as a caption is a tale lost.
+   · THE PLATE CAPTIONS (EGTALES_CAPTIONS) look exactly like section heads and are not: every one is in
+     the 1899 List of Illustrations. Dropped and counted.
+   · ONE INDENTED BLOCK, the peasant's song to the steward, is set as verse; two "[Page N]" marks the
+     transcriber left in the Remarks (where the printing has a marginal asterisk) are dropped, counted.
+   The Remarks are kept as Petrie printed them, under a `bk-head`, at the foot of the tale they follow. */
+const EGTALES_HEADS = {
+  "TALES OF THE MAGICIANS": 1, "KHAFRA'S TALE": 1, "BAUFRA'S TALE": 2, "HORDEDEF'S TALE": 3,
+  "THE PEASANT AND THE WORKMAN": 4, "THE SHIPWRECKED SAILOR": 5, "THE ADVENTURES OF SANEHAT": 6,
+};
+const EGTALES_CAPTIONS = ["IN THE SEKHET HEMAT", "IXTH DYNASTY", "GOING TO WAWAT", "XIITH DYNASTY",
+  "THE FAREWELL", "THE FLIGHT"];
+function extractEgtales(text, book, warn) {
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let t = text.replace(/\r\n?/g, "\n");
+  const end = t.indexOf("\nEnd of the Project Gutenberg");
+  if (end < 0) warn("the Gutenberg end line was not found");
+  // the body starts at the SECOND "INTRODUCTION" line (the first is the contents page's)
+  const intro = [...t.matchAll(/\nINTRODUCTION\n/g)];
+  if (intro.length !== 2) warn(intro.length + " INTRODUCTION lines, not 2");
+  t = t.slice(intro.length ? intro[intro.length - 1].index : 0, end > 0 ? end : t.length);
+  const c = { captions: 0, pages: 0, verse: 0, paras: 0, remarks: 0, italics: 0 };
+  t = t.replace(/\[Page \d+\] /g, () => { c.pages++; return ""; });
+
+  const out = {};
+  let cur = 0;
+  for (const blk of t.split(/\n[^\S\n]*\n/)) {
+    const ls = blk.split("\n").filter((l) => l.trim());
+    if (!ls.length) continue;
+    const one = ls.length === 1 ? ls[0].trim() : null;
+    if (one && !/[a-z]/.test(one)) {
+      if (one === "INTRODUCTION") { cur = 0; continue; }
+      if (EGTALES_CAPTIONS.includes(one)) { c.captions++; continue; }
+      if (one in EGTALES_HEADS) { cur = EGTALES_HEADS[one]; out[cur] = out[cur] || []; continue; }
+      if (one === "REMARKS" && cur) { c.remarks++; out[cur].push('<p class="bk-head">Remarks</p>'); continue; }
+      warn("an all-capital line that is no head and no known caption: " + one);
+      continue;
+    }
+    if (!cur) continue;                                          // Petrie's introduction
+    const fmt = (s) => esc(s).replace(/--/g, "—").replace(/ {2,}/g, " ")
+      .replace(/_([^_]+)_/g, (m, x) => { c.italics++; return "<i>" + x + "</i>"; });
+    if (ls.every((l) => /^ {2}\S/.test(l))) {
+      c.verse++;
+      out[cur].push("<blockquote><p>" + ls.map((l) => fmt(l.trim())).join("<br>") + "</p></blockquote>");
+    } else {
+      c.paras++;
+      out[cur].push("<p>" + fmt(ls.map((l) => l.trim()).join(" ")) + "</p>");
+    }
+  }
+  if (c.remarks !== 4) warn(c.remarks + " REMARKS heads, not 4");
+  const chapters = Object.keys(out).map(Number).sort((a, b) => a - b)
+    .map((n) => ({ n: n, html: out[n].join("\n") }));
+  chapters.forEach((ch) => { if (/_/.test(ch.html)) warn("tale " + ch.n + " still carries an underscore"); });
+  return { chapters: chapters, counts: c };
 }
 function extractJourney(text, book, warn) {
   const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -35245,6 +35436,29 @@ async function fetchEnglish() {
     console.log("  " + got.italics + " italic passage(s) read off the transcription's underscores" +
       (got.underscored.length ? ", and " + got.underscored.length +
         " chapter(s) left carrying one: " + got.underscored.join(", ") : ""));
+    return writeEnglish(chapters, warnings);
+  }
+  /* PETRIE'S EGYPTIAN TALES — one plain-text file, cached whole; see the block above extractEgtales. */
+  if (BOOK.layout === "egtales") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
+    const got = extractEgtales(raw, BOOK, warn);
+    const c = got.counts;
+    if (got.chapters.length !== BOOK.chapters.length)
+      warn("the transcription yields " + got.chapters.length + " tales; the entry expects " + BOOK.chapters.length);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: [] });
+    });
+    console.log("  " + chapters.length + " tales, " + c.paras + " paragraphs, " + c.verse + " verse block(s), " +
+      c.remarks + " Remarks heads, " + c.italics + " italic passage(s); dropped " + c.captions +
+      " plate caption(s) and " + c.pages + " [Page N] mark(s)");
     return writeEnglish(chapters, warnings);
   }
   /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One

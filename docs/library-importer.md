@@ -2921,6 +2921,22 @@ the Contrat never prints).
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
 
+## The `egtales` layout — a plain-text Gutenberg file cut at its contents heads (Nov 2026, Petrie's Egyptian Tales)
+
+Don Quixote's plain-text path with a closed vocabulary of capital lines: every all-capital line alone in a block must be
+a tale head (`EGTALES_HEADS`), a REMARKS head (a `bk-head` in the tale it follows) or a plate caption
+(`EGTALES_CAPTIONS`, dropped); anything else is warned about, never printed. The captions ("THE FAREWELL", "THE
+FLIGHT", "GOING TO WAWAT", a dynasty line under some) read exactly like section heads — the 1899 List of Illustrations
+is what says they are not. A block whose every line is indented two spaces is verse. The witness for the 25 `fixes` is
+a word-level alignment of the transcription against the IA OCR of BOTH printings, keeping only the places where the two
+OCRs agree with each other and not with the transcription (45 hits, most of them OCR noise shared by both), then
+a one-witness pass over words the transcription prints once or twice; every row was read in the scan's text before it
+was written.
+
+Re-run after touching: `node .claude/fetch-book.js petrie-egyptian-tales` (cached; `--force` refetches one file), check
+"6 tales, 147 paragraphs, 1 verse block(s), 4 Remarks heads", "dropped 7 plate caption(s) and 2 [Page N] mark(s)", and
+every `fix applied 1x`.
+
 ## `cutHeads` and `prep: "paine"` — titled heads and a pamphlet's tables (Nov 2026, Common Sense)
 
 `cutHeads: [rx, …]` makes `cut` find its heads by TEXT instead of by a "CHAPTER II" numeral: one pattern per head, in
@@ -2935,4 +2951,3 @@ with no figure is the header, and `colspan` is kept. Gated per book.
 
 Re-run after touching: `node .claude/fetch-book.js paine-common-sense --force` (three fetches), check "1 FINIS dropped"
 on Part 5 and "1 FINIS dropped, 2 table(s) kept" on Part 6, and `node .claude/book-audit.js`.
-
