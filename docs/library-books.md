@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
+  matter (chapter 0 — see the Library bullet). Currently eighty-one:
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -165,6 +165,19 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `douglass-narrative` (~224 KB, **14 sections** — Garrison's Preface, Phillips's Letter, chapters I–XI and the
+  Appendix, so a tab runs two ahead of the chapter; `chapterWord: "Section"` — **4 notes**, Douglass's own; no original).
+  The first edition, the Anti-Slavery Office, Boston, 1845, validated on Wikisource (Index `Progress=T`, every page
+  quality 4). Public domain worldwide (Douglass d. 1895, Garrison 1879, Phillips 1884). Generic extractor: `dropHeads`
+  takes the Preface's, the Letter's, the half-title over chapter I, each "CHAPTER IV." and the Appendix's heads,
+  `dropTail` the "THE END."; `reFixes` unwrap the right-aligned closings and signatures (Garrison, Phillips, Douglass,
+  the pass in X, the certificate in XI) that arrive as blockquotes, wrap the two indented date/addressee lines that
+  arrive as bare runs, join the Great House Farm song's indented second line and the Appendix parody's title to its
+  verses. Chapter titles are the bare numerals the book prints (`titleOf`). book-scan.js's one real question,
+  "Shalt I not visit" in the Appendix, is the printing's (the IA OCR of `narrativeoflifeo1845doug` agrees): kept.
+  Colour `#3F5A24` (14.0: Lucretius, Petronius, Aesop nearest; Jefferson 25.9). `glossOff`: 13 keys — see the comment on
+  the app.js entry. Excerpt: the turning-point paragraph after the fight with Covey, chapter X. Not included: the title
+  page and the frontispiece portrait.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
