@@ -1,0 +1,933 @@
+{
+ "_": "swahili-sounds.json — the table behind decks/Swahili-Sounds-and-Spelling.folio-deck.json, read by build-swahili-sounds.js. NOTHING IN IT IS COMPOSED. A sound's `cells` are the three cells of the row of the key of Wikipedia's Help:IPA/Swahili that carries its `sym`, at the revision in `sources.ipa` — the symbol, the example word with its transcription and meaning, the English approximation with the letters the key prints in bold — and `note` the footnote that row carries; they are written by `python3 .claude/swahili/sounds.py --fill`, never by hand. A `says` is a list of quotations, each a run of consecutive words of the page named beside it in `src` (ipa: the key's notes; swahili: the article 'Swahili', its sections Phonology, Orthography and Agreement; grammar: 'Swahili grammar'; time: 'Date and time notation in Africa'), with a cut marked […]. A rule's table of forms is not stored: `grid` names Swahili A1 cards and the cells of their Forms rows, which build-swahili-sounds.js reads off the deck, so a rule shows only forms a card shows. `ipa` is the English Wiktionary's own transcription of each Swahili A1 headword that has one (the first its entry gives), written by `--fill` from the kaikki.org extraction; `re` is the spelling a sound's A1 examples are found by, in the order A1 deals them (a nasal's only inside a word: at the start of a word the m or n of mb, nd, nj, nz, mv may be a syllable of its own, which the spelling does not show); the stress has `ipaRe` instead, a transcription of three syllables or more. `python3 .claude/swahili/sounds.py --verify` fetches the four revisions and checks every cell and quotation. A row's `key` is what its card id is pinned to in swahili-ids.json (deck swsounds): never change one.",
+ "sources": {
+  "ipa": {
+   "title": "Help:IPA/Swahili",
+   "url": "https://en.wikipedia.org/wiki/Help:IPA/Swahili",
+   "revid": 1265646459,
+   "date": "2024-12-27"
+  },
+  "swahili": {
+   "title": "Swahili",
+   "url": "https://en.wikipedia.org/wiki/Swahili",
+   "revid": 1387179866,
+   "date": "2026-11-22"
+  },
+  "grammar": {
+   "title": "Swahili grammar",
+   "url": "https://en.wikipedia.org/wiki/Swahili_grammar",
+   "revid": 1387011184,
+   "date": "2026-11-22"
+  },
+  "time": {
+   "title": "Date and time notation in Africa",
+   "url": "https://en.wikipedia.org/wiki/Date_and_time_notation_in_Africa",
+   "revid": 1339899124,
+   "date": "2026-02-22"
+  },
+  "wiktionary": {
+   "title": "English Wiktionary, via the kaikki.org extraction",
+   "url": "https://kaikki.org/dictionary/Swahili/",
+   "fetched": "2026-11-27"
+  }
+ },
+ "sounds": [
+  {
+   "key": "vowel:a",
+   "show": "a",
+   "kind": "vowel",
+   "sym": "ɑ",
+   "re": "a",
+   "says": [
+    "Standard Swahili has five vowel phonemes: /ɑ/, /ɛ/, /i/, /ɔ/, and /u/. According to Ellen Contini-Morava, vowels are never reduced, regardless of stress."
+   ],
+   "src": [
+    "swahili"
+   ],
+   "cells": {
+    "word": "baba",
+    "wordB": "b<b>a</b>b<b>a</b>",
+    "ipa": "[ˈɓɑɓɑ]",
+    "gloss": "father",
+    "like": "f<b>a</b>ther",
+    "note": ""
+   }
+  },
+  {
+   "key": "vowel:e",
+   "show": "e",
+   "kind": "vowel",
+   "sym": "ɛ",
+   "re": "e",
+   "cells": {
+    "word": "ndege",
+    "wordB": "nd<b>e</b>g<b>e</b>",
+    "ipa": "[ˈⁿdɛɠɛ]",
+    "gloss": "bird",
+    "like": "l<b>e</b>t",
+    "note": ""
+   }
+  },
+  {
+   "key": "vowel:i",
+   "show": "i",
+   "kind": "vowel",
+   "sym": "i",
+   "re": "i",
+   "cells": {
+    "word": "Kiswahili",
+    "wordB": "K<b>i</b>swah<b>i</b>l<b>i</b>",
+    "ipa": "[kiswɑˈhili]",
+    "gloss": "Swahili (language)",
+    "like": "m<b>ea</b>t",
+    "note": ""
+   }
+  },
+  {
+   "key": "vowel:o",
+   "show": "o",
+   "kind": "vowel",
+   "sym": "ɔ",
+   "re": "o",
+   "cells": {
+    "word": "mtoto",
+    "wordB": "mt<b>o</b>t<b>o</b>",
+    "ipa": "[m̩ˈtɔtɔ]",
+    "gloss": "child",
+    "like": "<b>o</b>ff",
+    "note": ""
+   }
+  },
+  {
+   "key": "vowel:u",
+   "show": "u",
+   "kind": "vowel",
+   "sym": "u",
+   "re": "u",
+   "cells": {
+    "word": "uhuru",
+    "wordB": "<b>u</b>h<b>u</b>r<b>u</b>",
+    "ipa": "[uˈhuɾu]",
+    "gloss": "freedom",
+    "like": "f<b>oo</b>l",
+    "note": ""
+   }
+  },
+  {
+   "key": "vowel:long",
+   "show": "aa · ee · ii · oo · uu",
+   "kind": "doubled vowel",
+   "sym": "ː",
+   "re": "aa|ee|ii|oo|uu",
+   "says": [
+    "Long vowels in Swahili are written as doubled vowels (for example, kondoo, \"sheep\")"
+   ],
+   "src": [
+    "swahili"
+   ],
+   "cells": {
+    "word": "kondoo",
+    "wordB": "kondo<b>o</b>",
+    "ipa": "[kɔˈⁿdɔː]",
+    "gloss": "sheep",
+    "like": "vowel length",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:stress",
+   "show": "ˈ",
+   "kind": "stress",
+   "sym": "ˈ",
+   "re": "",
+   "cells": {
+    "word": "safari",
+    "wordB": "safari",
+    "ipa": "[sɑˈfɑri]",
+    "gloss": "journey",
+    "like": "stress",
+    "note": "Stress usually falls on the penultimate syllable of a word."
+   },
+   "ipaRe": "\\..*\\."
+  },
+  {
+   "key": "sound:ch",
+   "show": "ch",
+   "kind": "consonant",
+   "sym": "tʃ",
+   "re": "ch",
+   "says": [
+    "There are a few digraphs for native sounds, ch, sh, ng' and ny; q and x are not used, c is not used apart from the digraph ch, unassimilated English loans and, occasionally, as a substitute for k in advertisements."
+   ],
+   "src": [
+    "swahili"
+   ],
+   "cells": {
+    "word": "chumba",
+    "wordB": "<b>ch</b>umba",
+    "ipa": "[ˈtʃuᵐbɑ]",
+    "gloss": "room",
+    "like": "<b>ch</b>ase",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:sh",
+   "show": "sh",
+   "kind": "consonant",
+   "sym": "ʃ",
+   "re": "sh",
+   "cells": {
+    "word": "shamba",
+    "wordB": "<b>sh</b>amba",
+    "ipa": "[ˈʃɑᵐbɑ]",
+    "gloss": "farm, field",
+    "like": "<b>sh</b>ell",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:ny",
+   "show": "ny",
+   "kind": "consonant",
+   "sym": "ɲ",
+   "re": "ny",
+   "cells": {
+    "word": "nyoka",
+    "wordB": "<b>ny</b>oka",
+    "ipa": "[ˈɲɔkɑ]",
+    "gloss": "snake",
+    "like": "ca<b>ny</b>on",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:ng'",
+   "show": "ng'",
+   "kind": "consonant",
+   "sym": "ŋ",
+   "re": "ng'",
+   "cells": {
+    "word": "ng'ombe",
+    "wordB": "<b>ng'</b>ombe",
+    "ipa": "[ˈŋɔᵐbɛ]",
+    "gloss": "cow, ox",
+    "like": "si<b>ng</b>",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:ng",
+   "show": "ng",
+   "kind": "consonant",
+   "sym": "ᵑɡ",
+   "re": "(?<!^)ng(?!')",
+   "cells": {
+    "word": "ngoma",
+    "wordB": "<b>ng</b>oma",
+    "ipa": "[ˈᵑɡɔmɑ]",
+    "gloss": "drum",
+    "like": "fi<b>ng</b>er",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:g",
+   "show": "g",
+   "kind": "consonant",
+   "sym": "ɠ",
+   "re": "(?<!n)g(?!h)",
+   "cells": {
+    "word": "gani",
+    "wordB": "<b>g</b>ani",
+    "ipa": "[ˈɠɑni]",
+    "gloss": "what, of which",
+    "like": "<b>g</b>a<b>g</b>",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:j",
+   "show": "j",
+   "kind": "consonant",
+   "sym": "ʄ ~ dʒ",
+   "re": "(?<!n)j",
+   "cells": {
+    "word": "maji",
+    "wordB": "ma<b>j</b>i",
+    "ipa": "[ˈmɑʄi ~ ˈmɑdʒi]",
+    "gloss": "water",
+    "like": "<b>j</b>ab",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:r",
+   "show": "r",
+   "kind": "consonant",
+   "sym": "r",
+   "re": "r",
+   "cells": {
+    "word": "rafiki",
+    "wordB": "<b>r</b>afiki",
+    "ipa": "[rɑˈfiki]",
+    "gloss": "friend",
+    "like": "N. Am. and Australian a<b>t</b>om",
+    "note": "Swahili /r/ is either a short trill [r] or more commonly a flap [ɾ] in many areas. The distinction between /l/ and /r/ is a recent one, and many speakers have only a single sound, often an alveolar lateral flap [ɺ]"
+   }
+  },
+  {
+   "key": "sound:dh",
+   "show": "dh",
+   "kind": "consonant",
+   "sym": "ð",
+   "re": "dh",
+   "says": [
+    "There are also several digraphs for Arabic sounds, which many speakers outside of ethnic Swahili areas have trouble differentiating."
+   ],
+   "src": [
+    "swahili"
+   ],
+   "cells": {
+    "word": "dhambi",
+    "wordB": "<b>dh</b>ambi",
+    "ipa": "[ˈðɑᵐbi]",
+    "gloss": "sin, offence",
+    "like": "<b>th</b>at",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:th",
+   "show": "th",
+   "kind": "consonant",
+   "sym": "θ",
+   "re": "th",
+   "cells": {
+    "word": "thelathini",
+    "wordB": "<b>th</b>ela<b>th</b>ini",
+    "ipa": "[θɛlɑˈθini]",
+    "gloss": "thirty",
+    "like": "<b>th</b>ink",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:gh",
+   "show": "gh",
+   "kind": "consonant",
+   "sym": "ɣ",
+   "re": "gh",
+   "cells": {
+    "word": "ghali",
+    "wordB": "<b>gh</b>ali",
+    "ipa": "[ˈɣɑli]",
+    "gloss": "expensive",
+    "like": "Scottish lo<b>ch</b> but voiced",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:kh",
+   "show": "kh",
+   "kind": "consonant",
+   "sym": "x",
+   "re": "kh",
+   "says": [
+    "[x] exists in free variation with h, and is only distinguished by some speakers."
+   ],
+   "src": [
+    "swahili"
+   ],
+   "cells": {
+    "word": "subulkheri",
+    "wordB": "subul<b>kh</b>eri",
+    "ipa": "[suɓulˈxɛri]",
+    "gloss": "good morning",
+    "like": "Scottish lo<b>ch</b>",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:m",
+   "show": "m before a consonant",
+   "kind": "consonant",
+   "sym": "m̩",
+   "re": "^m(?![aeiouwbv])",
+   "says": [
+    "This m- before a consonant is always syllabic /m̩/, even when the following consonant is b or v, as in mvulana \"boy\" [m̩.vu.ˈlɑ(ː).nɑ]. The mw- before a vowel, however, is not syllabic, as in mwalimu \"teacher\" [mwɑ.ˈli(ː).mu]."
+   ],
+   "src": [
+    "grammar"
+   ],
+   "cells": {
+    "word": "mtoto",
+    "wordB": "<b>m</b>toto",
+    "ipa": "[m̩ˈtɔtɔ]",
+    "gloss": "child",
+    "like": "rhyth<b>m</b>",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:n",
+   "show": "n before a consonant",
+   "kind": "consonant",
+   "sym": "n̩",
+   "re": "^n(?![aeioudgjyz'])",
+   "cells": {
+    "word": "nchi",
+    "wordB": "<b>n</b>chi",
+    "ipa": "[ˈn̩tʃi]",
+    "gloss": "country",
+    "like": "eve<b>n</b> (syllabic nasal)",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:mb",
+   "show": "mb",
+   "kind": "consonant",
+   "sym": "ᵐb",
+   "re": "(?<!^)mb",
+   "says": [
+    "Multiple studies favour classifying prenasalization as consonant clusters, not as separate phonemes."
+   ],
+   "src": [
+    "swahili"
+   ],
+   "cells": {
+    "word": "mbali",
+    "wordB": "<b>mb</b>ali",
+    "ipa": "[ˈᵐbɑli]",
+    "gloss": "far",
+    "like": "cla<b>mb</b>er",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:nd",
+   "show": "nd",
+   "kind": "consonant",
+   "sym": "ⁿd",
+   "re": "(?<!^)nd",
+   "cells": {
+    "word": "muhindi",
+    "wordB": "muhi<b>nd</b>i",
+    "ipa": "[muˈhiⁿdi]",
+    "gloss": "corn, maize",
+    "like": "ha<b>nd</b>y",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:nj",
+   "show": "nj",
+   "kind": "consonant",
+   "sym": "ⁿdʒ",
+   "re": "(?<!^)nj",
+   "cells": {
+    "word": "injili",
+    "wordB": "i<b>nj</b>ili",
+    "ipa": "[iˈⁿdʒili]",
+    "gloss": "gospel",
+    "like": "ra<b>ng</b>e",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:nz",
+   "show": "nz",
+   "kind": "consonant",
+   "sym": "ⁿz",
+   "re": "(?<!^)nz",
+   "cells": {
+    "word": "kwanza",
+    "wordB": "kwa<b>nz</b>a",
+    "ipa": "[ˈkwɑⁿzɑ]",
+    "gloss": "to begin",
+    "like": "pa<b>ns</b>y",
+    "note": ""
+   }
+  },
+  {
+   "key": "sound:mv",
+   "show": "mv",
+   "kind": "consonant",
+   "sym": "ᶬv",
+   "re": "(?<!^)mv",
+   "cells": {
+    "word": "mvinyo",
+    "wordB": "<b>mv</b>inyo",
+    "ipa": "[ˈᶬviɲɔ]",
+    "gloss": "spirits",
+    "like": "Hu<b>mv</b>ee",
+    "note": ""
+   }
+  }
+ ],
+ "rules": [
+  {
+   "key": "rule:tone",
+   "show": "Is Swahili a tone language?",
+   "kind": "sound",
+   "says": [
+    "Unlike most Bantu languages, Swahili is not tonal."
+   ],
+   "src": [
+    "swahili"
+   ]
+  },
+  {
+   "key": "rule:classes",
+   "show": "The noun classes: mtu, watu · kitu, vitu",
+   "kind": "grammar",
+   "says": [
+    "Swahili nouns are grouped into noun classes based on the prefix they have, with each class having a prescribed number.",
+    "The classes 5, 9 and 10 are frequently without any prefix"
+   ],
+   "src": [
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "nouns",
+    "words": [
+     "mtu",
+     "mtoto",
+     "mkono",
+     "mwaka",
+     "jina",
+     "jicho",
+     "kitu",
+     "kitabu",
+     "nyumba",
+     "saa"
+    ]
+   }
+  },
+  {
+   "key": "rule:concord",
+   "show": "What a noun's class does to an adjective: -zuri",
+   "kind": "grammar",
+   "says": [
+    "The class of the noun determines the forms of other parts of speech that relate to it, such as verbs, adjectives, etc. This process is called agreement or concord.",
+    "Inflecting adjectives are words which describe a noun or pronoun and take the following prefixes, which are very similar to the prefixes found on nouns."
+   ],
+   "src": [
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "classes",
+    "words": [
+     "zuri",
+     "kubwa",
+     "ingi"
+    ]
+   }
+  },
+  {
+   "key": "rule:animate",
+   "show": "A person or an animal outside the m-wa class: rafiki, baba",
+   "kind": "grammar",
+   "says": [
+    "Swahili phrases agree with nouns in a system of concord but, if the noun refers to a human, they accord with noun classes 1–2 regardless of their noun class.",
+    "Animate nouns (referring to a person or animal) are an exception and these occur with concords of the noun classes 1 (singular) or 2 (plural)."
+   ],
+   "src": [
+    "swahili",
+    "grammar"
+   ],
+   "grid": {
+    "type": "labels",
+    "words": [
+     "rafiki",
+     "baba",
+     "mama",
+     "daktari",
+     "ndege"
+    ]
+   }
+  },
+  {
+   "key": "rule:of",
+   "show": "“of”: wa · ya · la · cha · za",
+   "kind": "grammar",
+   "says": [
+    "The genitive preposition -a (sometimes termed a \"connector\", \"possessive\" or \"associative\" preposition) has a similar role to that of the genitive case of some other languages. It indicates the possessor, or a more general association, and roughly corresponds in meaning to the English preposition \"of\". It receives a prefix that agrees with the preceding noun's class."
+   ],
+   "src": [
+    "grammar"
+   ],
+   "grid": {
+    "type": "classes",
+    "words": [
+     "a",
+     "angu",
+     "ako"
+    ]
+   }
+  },
+  {
+   "key": "rule:demonstratives",
+   "show": "this and that: hii, hiyo, -le",
+   "kind": "grammar",
+   "says": [
+    "The demonstratives in Swahili may be used either as adjectives, with a noun, or as pronouns, standing alone. They occur in three types:",
+    "Proximal (\"this, these\"), referring to something near the speaker.",
+    "Medial/Referential (\"the aforementioned\"), referring to something that has been previously mentioned."
+   ],
+   "src": [
+    "grammar",
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "classes",
+    "words": [
+     "hii",
+     "hiyo",
+     "le"
+    ]
+   }
+  },
+  {
+   "key": "rule:numbers",
+   "show": "The numbers that agree: -moja, -wili, -tatu",
+   "kind": "grammar",
+   "says": [
+    "In stems beginning with w such as ‑wili \"two\", this mutates to mb."
+   ],
+   "src": [
+    "grammar"
+   ],
+   "grid": {
+    "type": "classes",
+    "words": [
+     "moja",
+     "wili",
+     "tatu"
+    ]
+   }
+  },
+  {
+   "key": "rule:be",
+   "show": "is and is not: ni, si",
+   "kind": "grammar",
+   "says": [
+    "The invariable copula ni is used, in the present tense, to express that two noun phrases (the subject and complement) refer to one and the same referent:",
+    "The negative form si can be used in all the same situations with a negative meaning:",
+    "Because ni and si do not provide any information about the subject, personal pronouns, usually only necessary for emphasis, frequently appear."
+   ],
+   "src": [
+    "grammar",
+    "grammar",
+    "grammar"
+   ],
+   "words": [
+    "ni",
+    "si"
+   ]
+  },
+  {
+   "key": "rule:subject",
+   "show": "Who does it: the prefix on the verb",
+   "kind": "grammar",
+   "says": [
+    "Both the subject and, when applicable, the object of the verb are indicated by prefixes or concords attached to the verb stem. Swahili is a pro-drop language: explicit personal pronouns are only used for emphasis, or with verb forms that do not indicate subject or object.",
+    "The negative subject concords are formed by prefixing the syllable ha- to the beginning, except for the irregular forms si- (instead of *hani-), hu- (instead of *hau-) and ha- (instead of *haa-) which are used, respectively, for first, second and third person singular animate subjects."
+   ],
+   "src": [
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "persons",
+    "pronouns": [
+     "mimi",
+     "wewe",
+     "yeye",
+     "sisi",
+     "ninyi",
+     "wao"
+    ],
+    "word": "kuwa na",
+    "cells": [
+     "present",
+     "negative"
+    ]
+   }
+  },
+  {
+   "key": "rule:have",
+   "show": "to have: kuwa na",
+   "kind": "grammar",
+   "says": [
+    "There is no dedicated verb meaning 'to have'. Its equivalent is kuwa na, literally 'to be with', using the comitative preposition na. In the present tense, however, kuwa na has special contractions, whereby the subject prefix is attached directly onto -na. Note that kuwa na has an existential meaning when the subject is in a locative class."
+   ],
+   "src": [
+    "grammar"
+   ],
+   "grid": {
+    "type": "forms",
+    "words": [
+     "kuwa na"
+    ],
+    "cells": [
+     "there is",
+     "there is not"
+    ]
+   }
+  },
+  {
+   "key": "rule:tenses",
+   "show": "When: -na-, -li-, -ta-, -me-",
+   "kind": "grammar",
+   "says": [
+    "Prefixes are always attached in a fixed order; the object prefix always comes last, immediately before the verb stem, while the subject prefix comes before the object prefix.",
+    "The past tense is used in Swahili to talk about actions or states in the past, whether in the near or the distant past. It is formed with the prefix -li-.",
+    "The future tense is formed in Swahili with the prefix -ta-.",
+    "The perfect is formed in the positive with the prefix -me-."
+   ],
+   "src": [
+    "grammar",
+    "grammar",
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "forms",
+    "words": [
+     "kusoma",
+     "kutaka",
+     "kufanya",
+     "kuona"
+    ],
+    "cells": [
+     "present",
+     "past",
+     "future",
+     "perfect"
+    ]
+   }
+  },
+  {
+   "key": "rule:negative",
+   "show": "not: sisomi, hasomi",
+   "kind": "grammar",
+   "says": [
+    "The final -a is replaced with another vowel in certain grammatical contexts, becoming -i in the present negative, and -e in the subjunctive and imperative forms involving an object prefix.",
+    "What these verbs share in common is that they are all loan-words and none of them end in -a. The consequence of this is that they do not take the suffixes -e and -i that the verbs ending in -a do"
+   ],
+   "src": [
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "forms",
+    "words": [
+     "kusoma",
+     "kutaka",
+     "kujua",
+     "kujibu",
+     "kufikiri"
+    ],
+    "cells": [
+     "present",
+     "negative"
+    ]
+   }
+  },
+  {
+   "key": "rule:short",
+   "show": "The short verbs: kula, kunywa, kuja, kwenda",
+   "kind": "grammar",
+   "says": [
+    "Short verbs are those which, in their infinitive form, consist of only two syllables, such as kula \"to eat\", kunywa \"to drink\", kuja \"to come\", kupa \"to give\".",
+    "The positive tense marker -li- cannot take stress and triggers the use of the extension -ku- (or -kw-) where necessary."
+   ],
+   "src": [
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "forms",
+    "words": [
+     "kula",
+     "kunywa",
+     "kuja",
+     "kwenda"
+    ],
+    "cells": [
+     "present",
+     "past",
+     "negative"
+    ]
+   }
+  },
+  {
+   "key": "rule:commands",
+   "show": "Commands: soma, someni",
+   "kind": "grammar",
+   "says": [
+    "The imperative mood is used to issue direct commands.",
+    "The plural form, with the suffix -ni, is used when addressing multiple people."
+   ],
+   "src": [
+    "grammar",
+    "grammar"
+   ],
+   "grid": {
+    "type": "forms",
+    "words": [
+     "kusoma",
+     "kusema",
+     "kula",
+     "kuja",
+     "kwenda"
+    ],
+    "cells": [
+     "command"
+    ]
+   }
+  },
+  {
+   "key": "rule:time",
+   "show": "The clock: saa moja",
+   "kind": "grammar",
+   "says": [
+    "This difference arises because Swahili timekeeping begins at sunrise rather than midnight. The first hour of daylight (7:00 a.m. in the Western system) is saa moja (hour one). Therefore, 8:00 a.m. is the second hour, or saa mbili. This effectively creates a 6-hour offset between the Swahili and Western methods of counting time."
+   ],
+   "src": [
+    "time"
+   ],
+   "words": [
+    "saa",
+    "moja",
+    "mbili",
+    "ni saa ngapi"
+   ]
+  }
+ ],
+ "ipa": {
+  "Aprili": "/ɑpˈɾi.li/",
+  "Februari": "/fɛɓ.ɾuˈɑ.ɾi/",
+  "Januari": "/ʄɑ.nuˈɑ.ɾi/",
+  "Julai": "/ʄuˈlɑ.i/",
+  "Kiswahili": "/ki.sʷɑˈhi.li/",
+  "Mei": "/ˈmɛ.i/",
+  "Novemba": "/nɔˈvɛ.ᵐbɑ/",
+  "Oktoba": "/ɔkˈtɔ.ɓɑ/",
+  "Septemba": "/sɛpˈtɛ.ᵐbɑ/",
+  "ako": "/ˈɑ.kɔ/",
+  "anga": "/ˈɑ.ᵑɡɑ/",
+  "ao": "/ˈɑ.ɔ/",
+  "asubuhi": "/ɑ.suˈɓu.hi/",
+  "baada": "/ˈɓɑː.ɗɑ/",
+  "baadhi": "/ˈɓɑː.ði/",
+  "baba": "/ˈɓɑ.ɓɑ/",
+  "baki": "/ˈɓɑ.ki/",
+  "barabara": "/ɓɑ.ɾɑˈɓɑ.ɾɑ/",
+  "barua": "/ɓɑˈɾu.ɑ/",
+  "benki": "/ˈɓɛn.ki/",
+  "chache": "/ˈtʃɑ.tʃɛ/",
+  "chakula": "/tʃɑˈku.lɑ/",
+  "choo": "/ˈtʃɔː/",
+  "chungwa": "/ˈtʃu.ᵑɡʷɑ/",
+  "dawa": "/ˈɗɑ.wɑ/",
+  "dogo": "/ˈɗɔ.ɠɔ/",
+  "duka": "/ˈɗu.kɑ/",
+  "embe": "/ˈɛ.ᵐbɛ/",
+  "gari": "/ˈɠɑ.ɾi/",
+  "habari": "/hɑˈɓɑ.ɾi/",
+  "hata": "/ˈhɑ.tɑ/",
+  "hii": "/ˈhiː/",
+  "hiyo": "/ˈhi.jɔ/",
+  "hofu": "/ˈhɔ.fu/",
+  "homa": "/ˈhɔ.mɑ/",
+  "imani": "/iˈmɑ.ni/",
+  "jambo": "/ˈʄɑ.ᵐbɔ/",
+  "jana": "/ˈʄɑ.nɑ/",
+  "jicho": "/ˈʄi.tʃɔ/",
+  "jina": "/ˈʄi.nɑ/",
+  "jina lako nani": "/ˈʄi.nɑ ˈlɑ.kɔ ˈnɑ.ni/",
+  "jina langu ni": "/ˈʄi.nɑ ˈlɑ.ᵑɡu ni/",
+  "kahawa": "/kɑˈhɑ.wɑ/",
+  "kawaida": "/kɑ.wɑˈi.ɗɑ/",
+  "kazi": "/ˈkɑ.zi/",
+  "kifo": "/ˈki.fɔ/",
+  "kitanda": "/kiˈtɑ.ⁿdɑ/",
+  "kiti": "/ˈki.ti/",
+  "kitu": "/ˈki.tu/",
+  "kuanza": "/kuˈɑ.ⁿzɑ/",
+  "kubwa": "/ˈku.ɓʷɑ/",
+  "kufa": "/ˈku.fɑ/",
+  "kufunza": "/kuˈfu.ⁿzɑ/",
+  "kuitwa": "/kuˈi.tʷɑ/",
+  "kulala": "/kuˈlɑ.lɑ/",
+  "kununua": "/ku.nuˈnu.ɑ/",
+  "kuongea": "/ku.ɔˈᵑɡɛ.ɑ/",
+  "kupata": "/kuˈpɑ.tɑ/",
+  "kupiga": "/kuˈpi.ɠɑ/",
+  "kupoteza": "/ku.pɔˈtɛ.zɑ/",
+  "kuu": "/ˈkuː/",
+  "kweli": "/ˈkʷɛ.li/",
+  "kwenda": "/ˈkʷɛ.ⁿdɑ/",
+  "lala salama": "/ˈlɑ.lɑ sɑˈlɑ.mɑ/",
+  "lazima": "/ˈlɑ.zi.mɑ/",
+  "le": "/lɛ/",
+  "leo": "/ˈlɛ.ɔ/",
+  "lugha": "/ˈlu.ɣɑ/",
+  "maji": "/ˈmɑ.ʄi/",
+  "mama": "/ˈmɑ.mɑ/",
+  "mbali": "/ˈᵐbɑ.li/",
+  "mboga": "/ˈᵐbɔ.ɠɑ/",
+  "meza": "/ˈmɛ.zɑ/",
+  "mguu": "/m̩ˈɠuː/",
+  "mlango": "/m̩ˈlɑ.ᵑɡɔ/",
+  "moja": "/ˈmɔ.ʄɑ/",
+  "mtu": "/ˈm̩.tu/",
+  "muda": "/ˈmu.ɗɑ/",
+  "mwaka": "/ˈmʷɑ.kɑ/",
+  "mwalimu": "/mʷɑˈli.mu/",
+  "mwanafunzi": "/mʷɑ.nɑˈfu.ⁿzi/",
+  "mwezi": "/ˈmʷɛ.zi/",
+  "na": "/nɑ/",
+  "nchi": "/ˈn̩.tʃi/",
+  "ndani": "/ˈⁿdɑ.ni/",
+  "ndege": "/ˈⁿdɛ.ɠɛ/",
+  "ndizi": "/ˈⁿdi.zi/",
+  "neno": "/ˈnɛ.nɔ/",
+  "ni saa ngapi": "/ni ˈsɑː ˈᵑɡɑ.pi/",
+  "nini": "/ˈni.ni/",
+  "njia": "/ˈⁿdʒi.ɑ/",
+  "nyumba": "/ˈɲu.ᵐbɑ/",
+  "ofisi": "/ɔˈfi.si/",
+  "ote": "/ˈɔ.tɛ/",
+  "pesa": "/ˈpɛ.sɑ/",
+  "polepole": "/pɔ.lɛˈpɔ.lɛ/",
+  "pua": "/ˈpu.ɑ/",
+  "rafiki": "/ɾɑˈfi.ki/",
+  "saa": "/ˈsɑː/",
+  "safi": "/ˈsɑ.fi/",
+  "samaki": "/sɑˈmɑ.ki/",
+  "sana": "/ˈsɑ.nɑ/",
+  "shule": "/ˈʃu.lɛ/",
+  "si": "/si/",
+  "sifuri": "/siˈfu.ɾi/",
+  "siku": "/ˈsi.ku/",
+  "soko": "/ˈsɔ.kɔ/",
+  "tatu": "/ˈtɑ.tu/",
+  "tayari": "/tɑˈjɑ.ɾi/",
+  "thelathini": "/θɛ.lɑˈθi.ni/",
+  "tunda": "/ˈtu.ⁿdɑ/",
+  "ufunguo": "/u.fuˈᵑɡu.ɔ/",
+  "ulimwengu": "/u.liˈmʷɛ.ᵑɡu/",
+  "upepo": "/uˈpɛ.pɔ/",
+  "usiku mwema": "/uˈsi.ku ˈmʷɛ.mɑ/",
+  "vita": "/ˈvi.tɑ/",
+  "zawadi": "/zɑˈwɑ.ɗi/",
+  "zima": "/ˈzi.mɑ/"
+ }
+}
