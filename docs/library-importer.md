@@ -2921,6 +2921,28 @@ the Contrat never prints).
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
 
+## The `erman` layout — an anthology read off FineReader XML, checked against four Tesseract scans (Nov 2026, Erman)
+
+`layout: "erman"` → the `ERMAN` namespace in fetch-book.js (`extractErman` and the functions above it). The block
+comment there is the full account; what is worth carrying to the next OCR book:
+
+- **Prefer an ABBYY (`_abbyy.gz`) OCR when the typography carries meaning.** It marks italic, small capitals and
+  superscript per run; Tesseract's `_djvu.txt`/`_djvu.xml` mark none of them. Look for it in the item's file list
+  (`archive.org/metadata/<id>`) — older and DLI items have one.
+- **Measure type size, do not read it.** FineReader's `fs` is unreliable; a paragraph's median line pitch (text
+  47–50 px, commentary 43–45, notes 39–42 here) and its letters' x-height against the leaves around it separate
+  the three sizes. A one-line paragraph has no pitch — classify it by x-height, and let a short line at the foot
+  of a page belong to the notes around it.
+- **A raised mark's digit is a vote, not a fact.** Match marks to a page's notes by a monotone alignment scored
+  on the digits read (`alignMarks`): a note may be cited twice, a stray symbol in a raised run is dirt, and an
+  uncited note costs most. Keep a note no mark reaches, unmarked, in its place — never guess its anchor.
+- **Freeze an OCR vote.** The decisions depend on the shelf's vocabulary, which grows; writing them to a JSON
+  file (`.claude/erman-readings.json`, `--revote` to recompute) keeps a re-run byte-identical. A change to the
+  extraction that moves words shifts the indices: the run reports `stale` readings — revote then.
+- **Tesseract reads a macron as an acute (ē, ō → é) or drops it (ū → i).** With FineReader keeping the base vowel,
+  the two together locate every macron; restore by a reviewed table, never by letting the vote touch an accent.
+- Re-run after touching: `node .claude/fetch-book.js erman-egyptian-literature` (cache only, ~2 s), then
+  `node .claude/book-audit.js` and `node .claude/test-library.js`.
 ## The `egtales` layout — a plain-text Gutenberg file cut at its contents heads (Nov 2026, Petrie's Egyptian Tales)
 
 Don Quixote's plain-text path with a closed vocabulary of capital lines: every all-capital line alone in a block must be

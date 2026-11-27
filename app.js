@@ -13277,6 +13277,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding Erman's Literature of the Ancient Egyptians, measured as the rows above (CIE76, L 12.3–47.8,
+     chroma 18–85, 6:1 or better on white; a sweep of the cube at a step of 3). The best-separated colour left is
+     this red at 17.5 from Malory, 31.0 from Aristophanes and 31.4 from the Primary Chronicle, none read beside
+     Erman; Ptahhotep, the other Egyptian book, stands far off in teal. */
+  "Adolf Erman": "#C9000C",
   /* Nov 2026, adding The Principles of Psychology, measured as the rows above (CIE76 over L 12.3–47.8, chroma
      18–85, 4.5:1 on all the light papers, cards and second papers, 22 or more from the fifteen light inks; a
      sweep of the cube at a step of 3, which tops out at 12.5 — the band is full). THE EURIPIDES TEST: held 25 or
@@ -17760,6 +17765,39 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Sarmatians", "Germany", "Turkey", "Greece"],
     },
     {
+      id: "erman-egyptian-literature",
+      title: "The Literature of the Ancient Egyptians",
+      subtitle: "Poems, Narratives, and Manuals of Instruction, from the Third and Second Millennia B.C.",
+      author: "Adolf Erman",
+      /* Erman's anthology is dated by its own publication (German 1923), not by the texts it translates, which
+         run from the Old Kingdom to the end of the New: it is a scholar's book, and its notes and dates are his. */
+      written: "1923",
+      year: 1923,
+      translator: "Aylward M. Blackman",
+      edition: "Methuen & Co., London, 1927 (from Die Literatur der Aegypter, Leipzig, 1923)",
+      /* A LIMIT TO STATE, ON THE TRANSLATION: US public domain as a 1927 publication; Blackman died in 1956, so
+         life-plus-seventy countries see it free only from 1 January 2027. Read off OCR of an open scan and checked
+         against four others — see .claude/fetch-book.js, layout "erman". */
+      rights:
+        "Public domain in the United States, with one limit. Adolf Erman wrote the book in German (Die Literatur der " +
+        "Aegypter, 1923) and died in 1937. Aylward M. Blackman's English translation was published in London in " +
+        "1927, so it is out of copyright in the United States as a work published before 1929. Blackman died in " +
+        "1956, so where copyright lasts for the author's life plus seventy years the translation remains protected " +
+        "until 1 January 2027. The text is read from the scan of the Digital Library of India, checked against four " +
+        "other scans of the same printing; the four plates of specimen writing and the hieroglyphic signs printed " +
+        "in the introduction's section on writing are not reproduced.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/in.ernet.dli.2015.532519",
+      chapterWord: "Chapter",
+      count: 74,
+      total: 74,
+      parts: [
+        { n: 1, label: "Prefaces and Introduction" },
+        { n: 2, label: "I. From the Oldest Poetry" },
+        { n: 3, label: "II. From the Older Period" },
+        { n: 4, label: "III. From the New Kingdom" },
+        { n: 5, label: "Explanatory Notes" },
+      ],
       id: "james-principles-of-psychology",
       title: "The Principles of Psychology",
       author: "William James",
@@ -27777,6 +27815,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
+    { book: "erman-egyptian-literature", n: 69, t: "The Hymn to the Sun from El-Amarnah", p: 6,
+      text: "When it is dawn and thou risest in the horizon and shinest as the sun in the day, thou dispellest the darkness and sheddest thy beams. The Two Lands keep festival, awake, and stand on their feet, for thou hast raised them up. They wash their bodies, they take their garments, and their hands praise thine arising. The whole land, it doeth its work." },
     { book: "petrie-egyptian-tales", n: 5, t: "The Shipwrecked Sailor", p: 3,
       text: "\"Suddenly I heard a noise as of thunder, which I thought to be that of a wave of the sea. The trees shook, and the earth was moved. I uncovered my face, and I saw that a serpent drew near. He was thirty cubits long, and his beard greater than two cubits; his body was as overlayed with gold, and his colour as that of true lazuli. He coiled himself before me." },
     { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
