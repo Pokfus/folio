@@ -166,3 +166,23 @@
 .uc-mod .uc-fl {
   margin-right: 7px;
 }
+/* THE TEXTS' OWN SPELLINGS (the beginner pass, Nov 2026): one quiet line under the key forms.
+   Wiktionary prints early West Saxon and Ælfric wrote late; the line gives the spellings the
+   corpus really prints for this word that no form on the card is. */
+.uc-also {
+  margin-top: 5px;
+  font-size: 14px;
+}
+/* WHERE A SENTENCE COMES FROM: Ælfric by Thorpe's page (real prose, Thorpe's translation) or
+   Tatoeba by id (a modern composition). Small, under the translation. */
+.uc-exsrc {
+  margin-top: 2px;
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  opacity: 0.5;
+}
+/* A bracket of the English side that prints the card's own Old English is hidden where the
+   English side is the QUESTION ("Say it in Old English"), and shown where it is the answer. */
+.uc-ask + .uc-field .uc-eg {
+  display: none;
+}
