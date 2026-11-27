@@ -19715,6 +19715,228 @@ const BOOKS = {
     ].map((row) => row.concat("read off the scan of the broadside (Commons, File:Goddard broadside.jpg)")),
   },
 
+  "us-constitution": {
+    title: "The Constitution of the United States",
+    subtitle: "Signed in Convention at Philadelphia, September 17, 1787",
+    /* A CONVENTION, NOT AN AUTHOR. Madison drafted much of the plan it started from and Gouverneur
+       Morris, for the Committee of Style, gave it its final wording, but the text is the Convention's
+       and Wikisource heads it "the Federal Convention of 1787". Shelved under that body, as the Treaty
+       of Versailles is under its parties; keyed in app.js's BOOK_AUTHOR_COLOR by this string. */
+    author: "The Constitutional Convention",
+    edition: "The engrossed parchment signed at Philadelphia on 17 September 1787, in the National Archives",
+    written: "1787",
+    year: 1787,
+
+    /* ---------- WHY THIS TEXT ----------
+       Wikisource's main page for the Constitution transcludes the four sheets of the engrossed
+       parchment from the National Archives' scan (Index:COTUS (1787 Edition).pdf, NAID 1667751),
+       every page VALIDATED (Progress=T, August 2012). It is the document itself, not a printing of it,
+       so its spelling is the parchment's — chuse, defence, Independance — and nothing is modernised.
+       The text is the Constitution AS SIGNED: the twenty-seven amendments are not part of it, and the
+       clauses they later changed (the three-fifths clause, the election of Senators by the state
+       legislatures, the President's electors) stand here as they were written. The Bill of Rights is
+       the shelf's next book. THE CUT: one part per division — the Preamble, then the seven Articles,
+       the signers under the seventh, where the parchment sets them (`prep: "cotus"`). THE SETTING: the
+       treaty block pass — a Section's head is a bold head line, the clauses are paragraphs, and the
+       signers' table is read as one line per state. No `fixes`: the transcription is validated. */
+    rights:
+      "Public domain. The Constitution was signed in 1787 and is a work of the government of the United " +
+      "States, so it has never been in copyright anywhere. The text is the validated Wikisource " +
+      "transcription of the engrossed parchment, from the National Archives' scan of its four sheets.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Constitution_of_the_United_States_of_America",
+
+    about: [
+      "<b>The Constitution of the United States</b> is the plan of government that the United States has " +
+        "lived under since 1789. It was written in Philadelphia in the summer of 1787 by a convention of " +
+        "delegates from twelve of the thirteen states — Rhode Island sent none — who had been asked to " +
+        "revise the Articles of Confederation, the loose league the states had formed during the war " +
+        "with Britain. Instead they wrote a new framework: a national government with its own powers, " +
+        "acting directly on the people, and divided into three branches that check one another.",
+      "It is short, and it opens with a single sentence of purpose, beginning <i>We the People of the " +
+        "United States</i>. Then come seven Articles. The first, by far the longest, sets up Congress, its " +
+        "two houses and its powers; the second the President; the third the courts. The fourth governs " +
+        "the states' dealings with one another, the fifth says how the Constitution itself may be amended, " +
+        "the sixth makes it <i>the supreme Law of the Land</i> and forbids any religious test for public " +
+        "office, and the seventh says that it would take effect when nine states had ratified it.",
+      "The Convention sat from May to September with George Washington in the chair, and its debates " +
+        "were kept secret. The largest quarrels were between large states and small, settled by giving " +
+        "the states equal votes in the Senate and seats in the House by population, and between North " +
+        "and South over slavery. The word <i>slave</i> appears nowhere, but slavery is in the text: the " +
+        "clause counting <i>three fifths of all other Persons</i> for representation and taxes, the " +
+        "clause barring Congress from ending the importation of <i>such Persons</i> before 1808, and the " +
+        "clause requiring that a person <i>held to Service or Labour</i> who escaped to another state be " +
+        "delivered up.",
+      "Thirty-nine delegates signed it on 17 September 1787. It was then argued over in every state — " +
+        "the essays later collected as <i>The Federalist</i> were written for that debate — and took " +
+        "effect when New Hampshire became the ninth state to ratify, in June 1788. The new government " +
+        "began work in 1789. Many states had ratified only on the understanding that a list of rights " +
+        "would be added, and that list, the Bill of Rights, is the next book on this shelf.",
+      "The text here is the Constitution as it was signed, without any of the twenty-seven amendments " +
+        "made since, so clauses that were later changed are given as they were first written. It is " +
+        "transcribed from the document itself — the four sheets of parchment written out for signing, " +
+        "now in the National Archives in Washington — and keeps its spelling and capitals: " +
+        "<i>chuse</i>, <i>defence</i>, <i>Independance</i>, a capital on many nouns. The Preamble and " +
+        "each of the seven Articles is a part of its own; the signers stand under the seventh, by " +
+        "state, as they do on the parchment, with the note on four words corrected in the engrossing " +
+        "and the attestation of William Jackson, the Convention's secretary.",
+    ],
+
+    page: () => "Constitution of the United States of America",
+    prep: "cotus",
+    blocks: "treaty",
+    dropBlankParas: true,
+    chapterWord: "Part",
+    titleOf: (n) => ["Preamble", "Article I", "Article II", "Article III", "Article IV", "Article V",
+      "Article VI", "Article VII"][n - 1],
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8],
+    // the Preamble is one sentence
+    minChars: 150,
+  },
+
+  "us-bill-of-rights": {
+    title: "The Bill of Rights",
+    subtitle: "Articles in Addition to, and Amendment of, the Constitution, 1789",
+    /* NO ONE AUTHOR TO NAME. James Madison drafted the amendments and moved them in the House, but both
+       houses rewrote them; the document is a joint resolution of the First Congress, which is how
+       Wikisource heads it ("United States Congress"). Keyed in BOOK_AUTHOR_COLOR by this string. */
+    author: "The First Congress of the United States",
+    edition: "The engrossed joint resolution of 25 September 1789, the federal government's copy, in the National Archives",
+    written: "1789",
+    year: 1789,
+
+    /* ---------- WHY THIS TEXT ----------
+       Wikisource's page transcribes the engrossed copy in the National Archives (NAID 1408042) from its
+       scan, VALIDATED. It is what Congress actually sent to the states: TWELVE proposed articles, of
+       which the third to the twelfth were ratified as the First to Tenth Amendments in 1791, the second
+       in 1992 as the Twenty-seventh, and the first never. That is kept, not tidied into the ten
+       amendments as later printed, and the front matter says which article became which amendment. One
+       part. `prep: "rights"` sets each article's label as a bold head line over its clause; the treaty
+       block pass does the rest (the centred heading, the signatures). No `fixes`: validated. */
+    rights:
+      "Public domain. The Bill of Rights was passed by Congress in 1789 and is a work of the government of " +
+      "the United States, so it has never been in copyright anywhere. The text is the validated Wikisource " +
+      "transcription of the engrossed copy in the National Archives.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/United_States_Bill_of_Rights",
+
+    about: [
+      "<b>The Bill of Rights</b> is the name given to the first ten amendments to the Constitution of the " +
+        "United States. They protect freedom of religion, of speech, of the press and of assembly; the " +
+        "right to keep and bear arms; the security of people's homes and papers against unreasonable " +
+        "searches; and the rights of anyone accused of a crime — to a grand jury, to due process of law, " +
+        "to a speedy public trial by jury, and to be free of excessive bail and <i>cruel and unusual " +
+        "punishments</i>. The last two say that the list is not complete, and that powers not given to " +
+        "the federal government are kept by the states or the people.",
+      "The Constitution signed in 1787 had no such list, and its opponents made that their strongest " +
+        "objection. Several states ratified it only on the understanding that amendments would follow. " +
+        "In the First Congress, which met in New York in 1789, James Madison proposed a set drawn largely " +
+        "from the states' own declarations of rights; the House and the Senate revised and combined them, " +
+        "and on 25 September 1789 Congress sent twelve articles to the states for ratification.",
+      "The document here is that resolution, as it was written out for the states, so it has twelve " +
+        "articles rather than ten. <i>Article the first</i>, on the number of seats in the House, was never " +
+        "ratified. <i>Article the second</i>, which delays any change in the pay of members of Congress " +
+        "until after the next election, was not ratified until 1992, when it became the Twenty-seventh " +
+        "Amendment. <i>Article the third</i> to <i>Article the twelfth</i> were ratified by enough states " +
+        "on 15 December 1791 and became the First to the Tenth Amendments: <i>Congress shall make no law " +
+        "respecting an establishment of religion</i> is article the third.",
+      "It opens with the preamble Congress wrote for it, explaining that the states had asked for " +
+        "<i>further declaratory and restrictive clauses</i> to prevent <i>misconstruction or abuse</i> of " +
+        "the Constitution's powers, and closes with the signatures of Frederick Augustus Muhlenberg, " +
+        "Speaker of the House, and John Adams, Vice-President and President of the Senate, attested by the " +
+        "clerk of the House and the secretary of the Senate. The text is transcribed from the copy kept by " +
+        "the federal government, now in the National Archives, with its own spelling and capitals.",
+    ],
+
+    page: () => "United States Bill of Rights",
+    prep: "rights",
+    blocks: "treaty",
+    dropBlankParas: true,
+    chapterWord: "Part",
+    titleOf: () => "Articles in Addition to, and Amendment of, the Constitution",
+    chapters: [1],
+  },
+
+  "washington-farewell-address": {
+    title: "Washington's Farewell Address",
+    subtitle: "To the People of the United States, 1796",
+    author: "George Washington",
+    edition:
+      "A Compilation of the Messages and Papers of the Presidents, ed. James D. Richardson, vol. I, " +
+      "published by authority of Congress, 1902",
+    written: "1796",
+    year: 1796,
+
+    /* ---------- WHY THIS TEXT, AND WHY NOT WIKISOURCE ----------
+       Wikisource's "George Washington's Farewell Address" has no scan behind it, names no printing, and
+       has been edited by hand since 2006 (paragraph numbers added, its date changed from the 17th to
+       the 19th); the one scanned printing transcribed there (The World's Famous Orations, vol. 8) says
+       of itself "Here slightly abridged". Collated against the Internet Archive's OCR of the 1810 Troy
+       printing and the House's 1912 printing, it agrees with neither consistently. So the source is the
+       standard edition of the presidents' papers: Richardson's Compilation, undertaken for the Joint
+       Committee on Printing, first printed by the Government Printing Office from 1896, in Project
+       Gutenberg's proofread transcription (ebook 11314, vol. I part 1, Washington's papers). The
+       title page that transcription reproduces reads "PUBLISHED BY AUTHORITY OF CONGRESS / 1902 /
+       Copyright 1897 by James D. Richardson", so the edition line names the 1902 printing and not
+       the first: published in 1902, it is public domain in the United States under the pre-1929 rule,
+       and Richardson (a Representative from Tennessee) died in 1914, so it cleared life plus a hundred
+       in 2014. Gutenberg
+       refuses this host, so the file is read from the Internet Archive's mirror of the same ebook
+       (`acompilationofth11314gut`), byte for byte Gutenberg's. Richardson heads the Address
+       "UNITED STATES, September 17, 1796" — the date of Washington's manuscript; it was first printed
+       on the 19th — and his text is the one cut out by `layout: "pgslice"`, from its heading to the
+       signature. His spelling is the 1890s' (apprise, endeavor, labors). */
+    rights:
+      "Public domain. Washington published the Farewell Address in 1796, so the work itself has never been " +
+      "in copyright. The text is Project Gutenberg's transcription of James D. Richardson's edition, in its " +
+      "printing of 1902, which is out of copyright in the United States under the rule for works published " +
+      "before 1929; Richardson died in 1914, so it is out of copyright everywhere else as well.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/11314",
+    url: "https://archive.org/download/acompilationofth11314gut/11314-h/11314-h.htm",
+    charset: "latin1",
+    layout: "pgslice",
+    start: /<h2>\s*FAREWELL ADDRESS\.\s*<\/h2>/,
+    end: /GEORGE WASHINGTON\.\s*<\/p>/,
+
+    about: [
+      "<b>Washington's Farewell Address</b> is the letter in which George Washington told the American " +
+        "people that he would not serve a third term as President. It was never spoken. Washington had it " +
+        "printed in a Philadelphia newspaper, <i>Claypoole's American Daily Advertiser</i>, on 19 September " +
+        "1796, in the autumn of the election that chose his successor, and it was reprinted in newspapers and " +
+        "pamphlets across the country.",
+      "It begins with the decision itself and his reasons, and then becomes something longer: the advice " +
+        "of a man leaving public life on how the young republic could last. He urges Americans to value the " +
+        "<i>unity of government which constitutes you one people</i>, and warns against parties " +
+        "formed on geographical lines, North against South or East against West; against <i>the spirit of " +
+        "party</i> in general; and against changing the Constitution by anything but its own lawful " +
+        "procedure. He calls religion and morality <i>indispensable supports</i> of political prosperity, " +
+        "and asks that public credit be kept up and debt paid off rather than left to posterity.",
+      "The second half turns to other nations. Washington asks for good faith and justice towards all, " +
+        "and warns against both <i>inveterate antipathies</i> and <i>passionate attachments</i> to " +
+        "particular countries, which lead a nation into other people's quarrels. <i>It is our true " +
+        "policy</i>, he writes, <i>to steer clear of permanent alliances with any portion of the foreign " +
+        "world</i>. Coming as Britain and revolutionary France were at war, and as Americans divided " +
+        "over them, it was a defence of his own policy of neutrality as well as advice to his successors.",
+      "Washington had first thought of retiring in 1792 and asked James Madison to draft a farewell then; " +
+        "persuaded to serve again, he set it aside. In 1796 he took up Madison's draft and his own notes " +
+        "and gave them to Alexander Hamilton, who worked them into a new text which Washington revised. " +
+        "The ideas and the decision are Washington's; much of the phrasing passed through Hamilton's " +
+        "hands. Since 1893 the United States Senate has had the Address read aloud each year on or near " +
+        "Washington's birthday.",
+      "The text here is the Address as it is printed in <i>A Compilation of the Messages and Papers of " +
+        "the Presidents</i>, the edition of the presidents' papers that James D. Richardson, a congressman " +
+        "from Tennessee, prepared for Congress in the 1890s, in a printing of 1902. There it is dated, as " +
+        "Washington's manuscript is, 17 September 1796. Its spelling is that edition's: <i>apprise</i>, " +
+        "<i>endeavor</i>, <i>labors</i>. The Address is printed in one piece, with no divisions, so the " +
+        "book is one part.",
+    ],
+
+    chapterWord: "Part",
+    titleOf: () => "Farewell Address",
+    chapters: [1],
+  },
+
   "treaty-of-versailles": {
     title: "The Treaty of Versailles",
     subtitle: "Treaty of Peace between the Allied and Associated Powers and Germany",
@@ -25014,6 +25236,93 @@ function liftChapterFence(html) {
      treaty's stash. The transcription's alignment padding — a hidden "0" before a two-digit figure — goes,
      and a ditto mark is written as the words it stands for ("For a ship of"), as the treaty pass does. A
      first row with no figure in it is the header. */
+/* ---------- `prep: "cotus"` — the Constitution's parchment, one part per Article (Nov 2026) ----------
+   The validated transcription of the engrossed parchment (Index:COTUS (1787 Edition).pdf) is ONE page
+   holding the Preamble, the seven Articles and the signers. Each division opens on an `<h2>` whose id
+   is the template's own (`Pre`, `aI` … `aVII`), so part n is the stretch from heading n to heading
+   n+1, the last running to the end of the transclusion. The ids are counted and checked in order: a
+   missing or reordered heading THROWS, since a fall-back would join two Articles. The heading itself
+   goes (the tab names the Article). A Section's head is a `<dt>` ("Section. 1.") — the treaty pass
+   would read it as a plain paragraph, so it is rewritten as a centred block and becomes a bold
+   `bk-head` there. The signers' table, with its braces drawn in MathML, is left to the treaty pass,
+   which reads each state and its names as one paragraph; the braces' cells hold only spaces. */
+const COTUS_IDS = ["Pre", "aI", "aII", "aIII", "aIV", "aV", "aVI", "aVII"];
+function cotusPrep(h, n, warn) {
+  const start = h.indexOf('<div class="prp-pages-output"');
+  if (start < 0) throw new Error("cotus: no transclusion on the page");
+  const stop = blockEnd(h, start, "div");
+  if (stop < 0) throw new Error("cotus: the transclusion is not closed");
+  const heads = [...h.slice(0, stop).matchAll(/<h2 id="([A-Za-z]+)"[^>]*>[\s\S]*?<\/h2>/g)];
+  const ids = heads.map((m) => m[1]);
+  if (ids.join() !== COTUS_IDS.join()) throw new Error("cotus: the headings read " + ids.join(", "));
+  const m = heads[n - 1];
+  const end = n < heads.length ? heads[n].index : stop - "</div>".length;
+  let s = h.slice(m.index + m[0].length, end);
+  let secs = 0;
+  s = s.replace(/<dt\b[^>]*>([\s\S]*?)<\/dt>/g, (w, x) => { secs++; return '<div class="wst-center">' + x + "</div>"; });
+  if (n === COTUS_IDS.length) s = cotusSigners(s, warn);
+  if (secs) console.log("  cotus: " + secs + " section head(s)");
+  return '<div class="prp-pages-output" lang="en">' + s + "</div>";
+}
+
+/* THE SIGNERS, under Article VII. The transcription lays the foot of the last sheet out as the parchment
+   does: a table whose left cell holds the note on the four words corrected in the engrossing and the
+   secretary's attestation, and whose right cell holds the closing formula, Washington's signature and
+   a nested table of the states, each a name, a brace drawn in MathML and its signers. Read flat, the
+   treaty pass ran all of it into one paragraph. Rebuilt here as the note, the formula and Washington's
+   line, each a paragraph, then one paragraph per state — its name in italic, its signers a line each —
+   in the transcription's order, then the secretary's attestation. The leader dots after New York, which has one
+   signer and no brace, are layout and go. Twelve states (Rhode Island sent no delegates) and
+   thirty-nine signatures with Washington's, or it throws. */
+function cotusSigners(s, warn) {
+  const at = s.indexOf("<table");
+  if (at < 0) throw new Error("cotus: no signers' table under Article VII");
+  const end = blockEnd(s, at, "table");
+  if (end < 0) throw new Error("cotus: the signers' table is not closed");
+  const t = s.slice(at, end).replace(/<math\b[\s\S]*?<\/math>/g, "");
+  const flat = (x) => treatyInline(x).replace(/<br>/g, " ").replace(/\s+/g, " ").trim();
+  const paras = [];
+  const note = /<span style="float:right[^"]*">([\s\S]*?)<\/span>\s*<\/p>/.exec(t);
+  const attest = /<div style="text-align:right; padding-right:1em;">([\s\S]*?)<\/div>/.exec(t);
+  const done = /<div style="padding-left:1em;">([\s\S]*?)<\/div>/.exec(t);
+  const gw = /<div style="text-align:right; margin-right:2ex;">([\s\S]*?)<\/div>/.exec(t);
+  if (!note || !attest || !done || !gw) throw new Error("cotus: the foot of the parchment is not in the shape cotusSigners reads");
+  paras.push(flat(note[1]), flat(done[1]), treatyInline(gw[1]).replace(/\s*<br>\s*/g, "<br>").trim());
+  let states = 0, names = 1;
+  for (const r of t.match(/<tr>\s*<td style="text-align:(?:right|center);">[\s\S]*?<\/tr>/g) || []) {
+    const cells = [...r.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/g)].map((c) => c[1]);
+    const state = flat(cells[0]).replace(/\s*(?:\.\s*)+$/, "");
+    const who = treatyInline(cells[cells.length - 1]).split(/\s*<br>\s*/).map((x) => x.replace(/\s+/g, " ").trim()).filter(Boolean);
+    if (!state || !who.length) { warn("a row of the signers' table read as nothing: " + flat(r).slice(0, 60)); continue; }
+    states++; names += who.length;
+    paras.push("<i>" + state + "</i><br>" + who.join("<br>"));
+  }
+  /* The attestation stands beside the formula on the parchment; it is set last, after the signers, since
+     set between the note and the formula ("…Secretary" / "done in Convention…") joinBrokenParas reads
+     the pair as one paragraph broken at a page. */
+  paras.push(flat(attest[1]));
+  if (states !== 12 || names !== 39) throw new Error("cotus: " + states + " states and " + names + " signatures, not 12 and 39");
+  console.log("  cotus: " + states + " states, " + names + " signatures");
+  return s.slice(0, at) + paras.map((x) => "<p>" + x + "</p>").join("\n") + s.slice(end);
+}
+
+/* ---------- `prep: "rights"` — the Bill of Rights' joint resolution (Nov 2026) ----------
+   The engrossed copy Congress sent the states (validated, one page). Its twelve proposed Articles are
+   a two-column table, the label ("Article the first") left and the clause right; the treaty pass would
+   set the label as a paragraph of its own. Each row becomes a centred block (a bold `bk-head`, as the
+   treaty pass sets "Article N.") and the clause a paragraph under it. Twelve rows exactly, or it throws. */
+function rightsPrep(h, warn) {
+  let rows = 0;
+  h = h.replace(/<tr>\s*<td class="article(?:_|&#95;)title">([\s\S]*?)<\/td>\s*<td\b[^>]*>([\s\S]*?)<\/td>\s*<\/tr>/g,
+    (w, label, text) => { rows++; return '<tr><td><div class="wst-center">' + label.replace(/<\/?i>/g, "") + "</div><p>" + text.trim() + "</p></td></tr>"; });
+  if (rows !== 12) throw new Error("rights: " + rows + " article rows, not 12");
+  // the table that held them is now one cell per row: unwrap it, so the treaty pass sees blocks, not a table
+  h = h.replace(/<table style="width:100%">\s*<tbody>([\s\S]*?)<\/tbody><\/table>/, (w, inner) =>
+    inner.replace(/<\/?(?:tr|td)>/g, ""));
+  if (/class="article(?:_|&#95;)title/.test(h)) warn("an article label in a shape rightsPrep does not know was left as it stands");
+  return h;
+}
+
 function painePrep(h, warn) {
   let finis = 0;
   h = h.replace(/<div class="wst-center[^"]*"[^>]*>\s*<p>\s*(?:<[^>]+>\s*)*FINI(?:<[^>]+>)*S(?:<[^>]+>)*\.?\s*(?:<\/[^>]+>\s*)*<\/p>\s*<\/div>/g,
@@ -34402,6 +34711,54 @@ function pgRows(t) {
       html: pgFlat(x[3]),
     })));
 }
+/* ============================================================
+   ONE PIECE CUT OUT OF A GUTENBERG HTML FILE                 (layout: "pgslice")
+   ============================================================
+   Nov 2026, adding Washington's Farewell Address. Wikisource carries the Address only as an
+   unsourced, unproofread text with no scan behind it (and its one scanned printing is abridged), so
+   the text is the Address as James D. Richardson's "A Compilation of the Messages and Papers of the
+   Presidents" prints it (vol. I, Government Printing Office, 1896), in Project Gutenberg's proofread
+   transcription of that volume (ebook 11314). The volume holds all of Washington's papers; the book is
+   the stretch from `start` (a regex matching the Address's own heading, which is dropped — the tab
+   names it) to the end of the paragraph `end` matches, each of which must match exactly once from
+   there, or it throws. The file is an old one — ISO-8859-1, named entities, `<p class="r">` for a
+   line set to the right — so it is decoded as Latin-1 (`charset`), the entities it uses are written as
+   characters, an entity it does not know is REPORTED, and the right-set lines (the date line, the
+   signature) become plain paragraphs. A slice with no paragraphs, or text outside them, is reported. */
+const PG_ENTITIES = { mdash: "\u2014", ndash: "\u2013", lsquo: "\u2018", rsquo: "\u2019", ldquo: "\u201c",
+  rdquo: "\u201d", nbsp: " ", eacute: "\u00e9", aelig: "\u00e6" };
+function extractPgSlice(h, BOOK, warn) {
+  const a = BOOK.start.exec(h);
+  if (!a) throw new Error("pgslice: the start heading is not in the file");
+  if (new RegExp(BOOK.start.source).exec(h.slice(a.index + a[0].length)))
+    throw new Error("pgslice: the start heading matches twice");
+  const from = a.index + a[0].length;
+  const b = BOOK.end.exec(h.slice(from));
+  if (!b) throw new Error("pgslice: the end line is not found after the start");
+  const close = h.indexOf("</p>", from + b.index);
+  if (close < 0) throw new Error("pgslice: the end line's paragraph is not closed");
+  let s = h.slice(from, close + 4);
+  const c = { paras: 0, right: 0, blank: 0, italics: 0 };
+  s = s.replace(/<p>\s*&nbsp;\s*<\/p>/g, () => { c.blank++; return ""; });
+  s = s.replace(/<p class="r">/g, () => { c.right++; return "<p>"; });
+  if (/<(?:h\d|table|div|img|hr)\b/i.test(s)) warn("the slice holds markup other than paragraphs: " + (s.match(/<(?:h\d|table|div|img|hr)\b[^>]*>/i) || [""])[0]);
+  s = s.replace(/&([a-z]+);/g, (m, e) => {
+    if (e === "amp" || e === "lt" || e === "gt" || e === "quot") return m;
+    if (PG_ENTITIES[e] !== undefined) return PG_ENTITIES[e];
+    warn("an entity the slice does not know: " + m);
+    return m;
+  });
+  s = stripTags(s);
+  s = s.replace(/\s+/g, " ").replace(/\s*<br>\s*/g, "<br>");
+  s = s.replace(/<p>\s*/g, "<p>").replace(/\s*<\/p>/g, "</p>").replace(/<p><\/p>/g, "");
+  s = s.replace(/\s*(<\/?p\b[^>]*>)\s*/g, "$1").replace(/<\/p>(?=<)/g, "</p>\n").trim();
+  c.paras = (s.match(/<p>/g) || []).length;
+  c.italics = (s.match(/<i>/g) || []).length;
+  const loose = s.replace(/<p>[\s\S]*?<\/p>/g, "").trim();
+  if (loose) warn("text outside every paragraph: " + loose.slice(0, 80));
+  if (!c.paras) throw new Error("pgslice: the slice holds no paragraphs");
+  return { html: s, counts: c };
+}
 function extractPgChapters(vols, BOOK, warn) {
   const c = { figures: 0, tables: 0, noteTables: 0, pages: 0, breaks: 0, heads: 0, headNotes: 0, notes: 0, marks: 0 };
   const divs = [];
@@ -36209,6 +36566,26 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
   /* PETRIE'S EGYPTIAN TALES — one plain-text file, cached whole; see the block above extractEgtales. */
+  /* ONE PIECE OF A GUTENBERG HTML FILE — see the block above extractPgSlice. One part, one fetch, cached. */
+  if (BOOK.layout === "pgslice") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else {
+      raw = new TextDecoder(BOOK.charset || "utf-8").decode(await fetchBuffer(BOOK.url));
+      fs.mkdirSync(CACHE, { recursive: true });
+      fs.writeFileSync(cf, raw);
+    }
+    raw = correctRaw(raw.replace(/\r\n?/g, "\n"));
+    const got = extractPgSlice(raw, BOOK, warn);
+    const c = got.counts;
+    if (got.html.length < (BOOK.minChars || 200)) throw new Error("the slice came back short (" + got.html.length + " chars)");
+    chapters.push({ n: 1, t: titles[1] || chapterTitle(1), p: partOf(1), html: got.html, notes: [] });
+    console.log("  1 part, " + c.paras + " paragraphs (" + c.right + " set to the right), " + c.italics +
+      " italic passage(s); " + c.blank + " blank paragraph(s) dropped");
+    return writeEnglish(chapters, warnings);
+  }
   if (BOOK.layout === "egtales") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-text.txt");
@@ -36483,7 +36860,7 @@ async function fetchEnglish() {
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
     /* A page cut into several parts is fetched once and kept for the run (see `cut`). */
-    let h = BOOK.cut ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await api(pageNames[0]))
+    let h = (BOOK.cut || BOOK.prep === "cotus") ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await api(pageNames[0]))
       : await api(pageNames[0]);
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
@@ -36500,6 +36877,8 @@ async function fetchEnglish() {
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
     if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
     if (BOOK.prep === "paine") h = painePrep(h, warn);
+    if (BOOK.prep === "cotus") h = cotusPrep(h, n, warn);
+    if (BOOK.prep === "rights") h = rightsPrep(h, warn);
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody

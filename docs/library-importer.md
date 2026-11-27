@@ -2986,3 +2986,25 @@ and the characters check it, so a paragraph added or split upstream throws inste
 later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
+
+## `prep: "cotus"`, `prep: "rights"` and `layout: "pgslice"` — the Constitution, the Bill of Rights and the Farewell Address (Nov 2026)
+
+`prep: "cotus"` (`cotusPrep`) cuts the Constitution's one page into the Preamble and seven Articles at the template's
+`<h2>` ids, which are checked as a run (`COTUS_IDS`) — a missing or reordered heading THROWS. The page is fetched once
+for all eight parts (the `CUT_PAGES` memo). A Section's head is a `<dt>`, which the `treaty` block pass would read as a
+plain paragraph, so it becomes a centred block (a bold `bk-head`). `cotusSigners` rebuilds the foot of the last sheet,
+whose MathML braces and nested tables the treaty pass ran into one paragraph; it insists on 12 states and 39 names.
+
+`prep: "rights"` (`rightsPrep`) sets the Bill of Rights' twelve article rows as a centred label over a paragraph. **The
+API escapes underscores in class names** (`article&#95;title`, as the treaty's `&#95;&#95;ditto`), so a pattern on a
+class must allow both spellings; the first run found 0 rows for that reason.
+
+`layout: "pgslice"` (`extractPgSlice`) reads ONE Gutenberg HTML file (`url`, decoded with `charset`, cached as
+`en-page.html`) and keeps the stretch from `start` (a regex on the piece's own heading, dropped, which must match once)
+to the end of the paragraph `end` matches. Named entities are written as characters from `PG_ENTITIES` and an unknown
+one is reported; `<p class="r">` lines become plain paragraphs. One part.
+
+Re-run after touching: `node .claude/fetch-book.js us-constitution --force` (check "12 states, 39 signatures" and 25
+section heads over Articles I–IV), `node .claude/fetch-book.js us-bill-of-rights --force` (13 headings),
+`node .claude/fetch-book.js washington-farewell-address --force` (51 paragraphs, 2 set to the right), then
+`node .claude/book-audit.js`.
