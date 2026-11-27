@@ -3842,6 +3842,17 @@ changed was the one that had been wrong all along.
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
   with their class. The sources, the parser's two rules and every finding are 📖 `docs/swahili-decks-plan.md`.
   The `l1` row is Wikipedia's 5.3 million (Ethnologue 27th ed.); the hue is measured, `#746163` (re-swept at the merge, Greek having taken its first).
+  **READ THIS FIRST (2026-11-27, the Swahili beginner pass — its section is at the foot of this file).** The
+  shelf is seven decks: `Swahili — Sounds and spelling` first (41 notes, `build-swahili-sounds.js`), and the
+  six word decks carry a record (`.claude/decks/swahili-fixes.json`: 41 cards moved down to A1, 5 added, one
+  phrase dropped, hints, an order, a description tail), **pinned note ids** (`swahili-ids.json` — an id is no
+  longer a position) and an order (`swahili-order.json`). The counts above are the generator's: the shelf's
+  are A1 546, A2 736, B1 997, B2 1,493, C1 1,499, the phrases 267. The generator still reproduces the six
+  decks; **after any change to it run the whole chain** in `.claude/decks/README.md` ("The Swahili decks"),
+  never a level alone. `inserts.py` builds the record's cards with the generator's code; `sounds.py --verify`
+  checks the sounds table against its pinned Wikipedia revisions. A card's Forms row is now Wiktionary's
+  table: a verb's present, negative and commands with the tails of its past, future and perfect; five class
+  pairs on an agreeing word; a noun's plural even where it does not change.
 - `.claude/latin/` — the generator behind the Latin decks (Nov 2026, on request: "Add a Latin language
   collection", then the owner's answers: CEFR A1–C1 assembled, a phrases and mottos deck, principal parts,
   macrons, full tables and sentences on every card). **Built: A1, `decks/Latin-A1.folio-deck.json`** (500 notes
@@ -4083,6 +4094,14 @@ changed was the one that had been wrong all along.
   mis-tagged verb tables read by position, the shared pronoun table, the six frequency rules, `FORCE`,
   the descendant picker) are 📖 `docs/oldenglish-decks-plan.md`. The `l1` row is 0, so it sorts last; the hue
   is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
+  **Since the beginner pass (2026-11-27, the section "The Old English beginner pass" below)**: a rebuild is
+  `run.py --no-fetch`, `alphabet.py` (it reads Level 1's deck file), `node .claude/decks/oldenglish-fix.js`
+  (the pinned ids, the order, the end of each description), `oldenglish-order.js`, `oldenglish-fix.js` again;
+  Tatoeba's export is PINNED beside the scripts (`tatoeba-ang.tsv`: it is part of the corpus the band is
+  ranked on); a sentence is Ælfric's with Thorpe's translation and page (`thorpe.py`) or Tatoeba's with its
+  id; the alphabet's sounds are rows of Wikipedia's Help:IPA/Old English and its rules quoted phrases
+  (`alphabet.py --verify`), with eight reading rules of card type `oe-read`. The model is
+  `.claude/decks/README.md`, "The Old English decks".
 - `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
   collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
   `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swedish-A2.folio-deck.json`**
@@ -7070,6 +7089,209 @@ a sentence's words have been met and 478 of 1,544 sentences can be read whole (7
 - **`alphabet.py --verify` and `inserts.py --check` need the network or the cache and are not CI steps.**
 - **Byte-identity depends on live sources**: on 2026-11-27 kaikki and Tatoeba still gave the committed A1.
 
+## The Old English beginner pass (2026-11-27)
+
+On request, the audit the other shelves had been given, with one difference in the question: **the learner is
+a READER** — nobody speaks Old English — who follows the order the shelf recommends, the Alphabet and then
+Level 1, which is the last deck; the measure is how soon a page of real prose can be read. Every figure was
+measured on the two decks as shipped that morning, at the language default of ten new cards a day with both
+directions together, which is five words a day. The rules are in the `.claude/oldenglish/` entry above and in
+`.claude/decks/README.md` ("The Old English decks"); this section is the reasoning. The plan's §1 stands
+untouched: a level is a band of frequency, no speaker, the IPA, the Modern English descendant.
+
+**The generator's claim was tested first, and it was half true.** One fetch of the live sources (kaikki 140 MB;
+Project Gutenberg's main site answered 503 for maintenance all day, so the two books came from its mirror,
+where the files are the Latin-1 originals), then `--no-fetch`. The alphabet came out with the committed
+checksum. Level 1 did not: the same dictionary fields on every card, but **two words swapped at the band's
+edge, 278 notes in another place and 39 sentence fields changed** — because Tatoeba's Old English had grown
+from 745 translated sentences to 805 since 2026-11-09, and Tatoeba is BOTH part of the corpus the band is
+ranked on and the source of the sentences. Cut back to the sentences of that day (ids up to 14107058) the
+build gave the same 500 words with 9 notes in another place and 6 sentence fields changed, every one traced to
+a sentence edited since. So the code reproduces and one source moves; a band other levels are built on cannot
+move, and the export is now pinned in the repository (below). After the pass the two decks were rebuilt from
+an emptied cache, from the UTF-8 copies and from the Latin-1 mirror copies, with the record applied: the same
+bytes each time.
+
+### What the audit found, by what it costs a reader
+
+1. **The commonest forms Ælfric wrote were on no card.** Level 1's 500 lemmas own 79.5% of the 112,000 running
+   words of the corpus, but the forms PRINTED on its cards were 73.2%. The gap was the commonest words of
+   all: sē's card, note 1, showed one cell of its thirty (`table_html` cut a declined word's table at the first
+   row repeating the first row's tags, to drop an adjective's weak half, and a cell with two forms — sē, þē —
+   repeats at once): þām 1,357 tokens, þǣre 620, þæs 608, þone 571, in all 3.0% of every word of the corpus.
+   bēon had no table at all (the walk wanted a past, and its past is wesan's: biþ 528, bēoþ 272); gōd showed
+   its noun's eight cells (betera, sēlra repeat at once); hwā and hwæt none (declined by gender with no number);
+   twēġen its genders run together; and no adjective its weak declension (40 of 43 have one in Wiktionary:
+   se ēċa, þā hālgan, ælmihtigan). 4.3% of the corpus was in a card's own Wiktionary table and not printed.
+2. **The texts do not spell as the cards do, and nothing said so.** Wiktionary prints early West Saxon; Ælfric
+   wrote late. forþan (427 tokens) for forþon, būton for būtan, swilce, betwux, þisum (236) for þissum, sceolon
+   for sċulon, byrig: 2.5% of the corpus was a spelling Wiktionary files under a Level 1 word in an entry of its
+   own and no card showed. `men` (121) was counted for man "one", which has no plural.
+3. **The "real example sentences" were neither real nor cited.** 196 of 500 cards had one; of the 382 of four
+   words or more, 6 stand in Thorpe or Sweet — the rest are compositions by Tatoeba's contributors in the last
+   few years (24 about Tom, Mary or Þōmas; 30 in wynn). No card named a source, and the generator's header said
+   "most of them from Ælfric". In arrival order 57.3% of a sentence's words had been met as a form a card shows
+   (41.6% over the first fifty notes), 44 of 460 could be read whole, and 26.0% were on no card.
+4. **The alphabet deck taught the right things and could trace none of its comparisons.** It had þ and ð as one
+   sound, æ, ƿ, the macron as an editor's, ċ ġ sċ ċġ, h after a vowel, hw hl hn hr, f s þ between voiced
+   sounds, y, the diphthongs, double consonants and unstressed ġe-. Its source line named Sweet's *Primer*,
+   "Sounds", which says none of the comparisons it made: "like German See", "like German so", "as in British
+   hot but with rounder lips", "like Dutch g", "as in Italian or in bookcase", "a trilled or tapped r" (the
+   key: "The exact nature of the rhotic /r/ is unknown"), "the wh of Scottish which", i as "the i of sit"
+   (the key: f**ee**t), e as "the e of bet" (Spanish t**e**). Seven example glosses were typed by hand. It did
+   not say that Thorpe prints no macron and no dot (of the 728 Ælfric sentences now on the cards, none has
+   either, 598 print ð and 332 an acute), that ie is y in a late text (19 headwords), how the two kinds of
+   IPA bracket differ (291 headwords between slashes, 201 between brackets, 8 with none — and 9 slashed
+   words hide an f, s or þ that is said voiced), or where the stress falls when it is not first (87 headwords;
+   51 begin with ġe-). What Level 1 asks: 244 headwords carry a macron, 52 a ċ, 87 a ġ, 66 an f, s or þ between
+   voiced sounds. Level 1 prints ċ and ġ consistently, and no IPA disagreed with its headword's macrons or
+   dots (0 of 492).
+5. **Verbs: the position-read tables were right except where Wiktionary prints two.** Twenty verbs were
+   compared cell by cell with Wiktionary's rendered pages, whose cells carry their slot in a class
+   (`1|s|pres|ind-form-of`): 288 of 346 cells equal. Every misplaced form was in forsēon, rǣdan or āhebban,
+   whose pages have a second table (Anglian, or a weak conjugation): the walk read on, and the second table's
+   indicative plural stood in the subjunctive's cell (8 of Level 1's 136 verbs). Otherwise sound: 135 of 136
+   had present, past and subjunctive by person, the infinitive, 133 the inflected infinitive, 130 the
+   imperative, 128 the participle with ġe-; all 56 strong verbs their class and three principal parts.
+6. **Nouns were sound, bar the class.** 191 of 192 show gender, 190 a genitive, 185 a plural and the four cases
+   in both numbers; the mutated plurals (mann / menn, bōc / bēċ, fōt / fēt) are on the forms line. None named
+   its declension, though each Wiktionary table does.
+7. **Level 1 was dealt by frequency, which is right for a reader, with the small sets apart.** Day one was
+   sē · and · hē · wesan · on. hē was note 3, hit 25, hēo 32; wesan 4 and bēon 15; ēower 102 beside ūre 37;
+   the question words from 64 (hwæt) to 458 (hwæþer); the numbers from 34 (ān) to 462 (þūsend), with six
+   (rank 592), nine (614), ten (1,172) and eight (1,174) beyond the band; magan 36 and cunnan 252. The dual
+   (wit, unc) is on no card: ten tokens in the whole corpus. No days or months are carded.
+8. **The English → Old English card cannot be made hard, and one printed its answer.** The front is the
+   English field alone: no IPA, no descendant. But 125 of the 225 cards with a descendant lead with a gloss
+   that IS the descendant (hūs "house") and 28 have a gloss spelled as the headword (and, hand, word, gold):
+   that is the language, not a fault. swā's gloss said 'often doubled as "swā swā"'; þus carried a run-on
+   quotation ("thus#* late 9th century, translation of Bede's…"). No two notes share an English side; 9 pairs
+   share a first gloss.
+9. **Every id was a position**, in both decks. **The pace was stated nowhere**: the alphabet 9 days, Level 1
+   done on day 109.
+10. **Where the shelf ends.** A reader who has finished Level 1 meets, in every hundred words of Ælfric, 79
+    that are a form on a card (73 before), 12 that are forms of words beyond the level and 9 that are names
+    (Iohannes, Petrus) and spellings no Wiktionary entry matches. Of the 53 words of the Lord's Prayer in
+    the text Wikipedia prints, 5 are on no card (ġehālgod, tōbecume, ġeweorðe, dæġhwamlīċan, gyltendum); of the
+    first twelve sentences of Sweet's reading texts, 22 of 174 (25 before). Ælfric's *Colloquy* was not
+    measured: no open text of its Old English gloss was found.
+
+### What was built
+
+**In the generator** (`.claude/oldenglish/`; both decks rebuilt, and generator plus record proved three times
+to give the committed bytes). The same 500 words; no gloss order, IPA, descendant or id moved. Fields changed
+by a rule below: Examples on 477 cards, Forms 211, Table 62, English 3; all 500 ids as they were.
+
+- **`build_deck.halves`**: a declined word's strong and weak halves, found where the first cell's tags come
+  round AGAIN after other cells — sē has its thirty cells, gōd its own table — **and the weak declension shown**
+  (40 adjectives). **A word declined by gender without a number** (hwā, hwæt) and **in the plural only**
+  (twēġen / twā / tū).
+- **`extract.verb_table`**: stops at a second table's infinitive (8 verbs: the card shows the West Saxon
+  table), and tables a verb with no past (bēon). After it, twenty verbs again: 323 of 330 cells equal, the
+  seven being forms the page prints and the kaikki extract does not have (wesan's wese, wist, wesaþ); none in
+  a wrong cell.
+- **"also in the texts"** (`build_deck.also`): one line under the key forms, on 52 cards — a spelling is
+  printed only when two sources agree: Wiktionary files it under the word in an entry of its own (an
+  alternative form, or a form of it) AND the corpus prints it at least five times for that word, and no form
+  on the card is already that spelling under `oe.fold`. The spelling is Wiktionary's.
+- **A noun's declension** on its forms line (179 of 192: strong a-stem, weak, strong consonant stem), as its
+  Wiktionary table's template names it — not in the label, which is part of the English side: bearn and ċild
+  are both "child", and two labels differing by "a-stem" and "z-stem" would have passed for two questions.
+- **Ælfric's sentences, with Thorpe's own translation and page** (`thorpe.py`, `examples.py`). The
+  Gutenberg transcription keeps text and facing translation as the two cells of a table row. A pair is made
+  only where the two cells have the same number of paragraphs and a paragraph pair the same number of
+  sentences; a sentence pair also gives its clauses where both sides break at the same number of ; and :;
+  and every pair must pass an anchor check (at least 0.6 of the Old English words whose lemma is known have a
+  Wiktionary gloss word or descendant of that lemma in the English). 1,396 sentence and clause pairs pass;
+  52 were read, all correct. A card takes Ælfric's two best first, then the best of either source, "best" being four to
+  twelve words and the fewest words the reader has not met by rank. **Every sentence carries its
+  reference**: "Ælfric, Catholic Homilies I, ed. Thorpe (1844), p. 278" or "Tatoeba 1346715". Sentences on
+  477 cards (196), 728 of the 1,043 Ælfric's; met on arrival 71% (57.3%), on no card 18% (26.0%).
+- **Tatoeba pinned** (`tatoeba-ang.tsv`, 57 KB: id, Old English, the shortest translation; CC BY 2.0 FR).
+  `corpus.py` counts only the sentences the ranking was first counted on (`TATOEBA_CUT`); `examples.py` reads
+  the file. `run.py --snapshot-tatoeba` rewrites it, as a decision. `run.py` falls back to Gutenberg's mirror.
+- **`FORCE`**: `men` is mann's. **`.uc-eg`** hides a bracket that prints the card's own headword on the
+  English → Old English front (swā); a "compare Old Norse þat" is dropped; a quotation run into a gloss is
+  cut (þus).
+- **The alphabet sourced** (`alphabet.py`): every IPA symbol and English comparison is a row of Wikipedia's
+  Help:IPA/Old English (revision 1355663743), the letter given each symbol one its Examples cell prints in
+  bold; every rule a quoted phrase of that key's notes, of "Old English phonology" (1364038675) or of the
+  Orthography section of "Old English" (1388030632). `--verify` checks 51 comparisons and 30 phrases. The
+  41 notes keep their letters and ids; one added (⁊, which with ƿ and ᵹ is in Tatoeba's sentences; ꝥ is in no
+  source text and stays as a scribe's letter), and **eight reading rules** of card type `oe-read`, one card
+  each: the macron, the IPA line, ie against y, the dots, þ against ð, f s þ between voiced sounds, the stress,
+  Thorpe's acute. A quotation is hidden where the sound side is the question. Every example word is a Level 1
+  card with that card's IPA and first meaning; what two rules say about the cards themselves (a tie in a
+  diphthong, no macron or dot in an Ælfric sentence) is asserted against Level 1 on every run.
+
+**In a record** (`.claude/decks/oldenglish-fixes.json`, applied by `oldenglish-fix.js`, on the Greek model):
+
+- **Note ids pinned** (`oldenglish-ids.json`, 541 rows seeded from the shipped positions in a commit of its
+  own before anything moved; 550 now, none retired). In a browser, with the decks as shipped: a reader holding
+  the old Alphabet and Level 1 with 30 notes of each scheduled in BOTH directions pressed the two Updates and
+  kept all 120 schedules; all 541 old ids named the same word or letter in the device's store afterwards;
+  every note took the new file's fields (the sanitizer rewrites `&#x27;` and `&quot;` as the characters and
+  drops nothing); the alphabet gained its second card type; a note the shipped deck does not have (one was
+  planted in each) stayed on the device with its progress.
+- **An order** (`oldenglish-order.json`, computed by `oldenglish-order.js` from the pinned number, which is
+  the rank of 2026-11-09): frequency, with ONE rule — a small closed set arrives together where its commonest
+  member falls. Eight sets, 40 words: hē hēo hit hīe (notes 3 to 6), wesan bēon (7, 8), iċ þū wē ġē, the six
+  modal and preterite-present verbs, mīn þīn ūre ēower, seven question words (day 23), the numbers above one
+  (day 34), the four verbs with ne- built in. Day one is sē · and · hē · hēo · hit.
+- **The descriptions**: each ends with a paragraph the record rewrites on every run from the counts and from
+  `oldenglish-order.js`'s `facts` — the order, the pace, what a card shows, and on Level 1 where the shelf
+  ends. (What share of Ælfric the cards cover is the generator's figure, in the description's body.)
+- **CI**: `oldenglish-fix.js --check`, `oldenglish-order.js --check`, `check-oldenglish.js` (never a step
+  before; it now reads the pin, and wants a reference on every sentence). **Shared files touched**:
+  `checks.yml` (those three steps), `lang-decks.js` (regenerated), `changelog.js`.
+
+After it: the alphabet 50 notes / 92 cards, days 1 to 10; Level 1 500 notes, days 10 to 110.
+
+### What was decided against, and why
+
+- **Level 2.** Each level is asked for on its own. What it would take: `run.py --level l2` (ranks 501 to
+  1,000, whose words are another 6.1% of the corpus; 1,001 to 2,000 are 4.1%), every card read, and one thing
+  first — `select.py` cuts the band by rank and does not read `words_below`, so it relies on the ranking
+  standing still, which the pinned Tatoeba file now holds and a newer kaikki extract could still disturb. Level
+  2 joins `SHELF` in `oldenglish-fix.js` and is seeded into the pin from its first build.
+- **Adding six, eight, nine, ten, hwonne or the dual to Level 1.** A level is a band of frequency (§1): the
+  description says which level each belongs to.
+- **A hand-written head of greetings**, as the living languages were given. There is no conversation to
+  prepare for; the commonest words first is already the order that reaches a page soonest.
+- **Dropping Tatoeba's sentences.** They are short, mostly in the cards' own spelling, and the only sentences
+  62 cards have; the reference says what they are.
+- **Macrons and dots added to Ælfric's sentences**, or his spelling normalised. Marking length word by word
+  would guess; the reader of a real edition meets exactly this text, and three rule cards say how to read it.
+- **An IPA worked out for the 8 headwords with none**, or a phonetic line where Wiktionary gives only the
+  phonemic. The rule card says what the slashes hide.
+- **Grammar cards** (the cases, the declensions as patterns), as Latin's sounds deck has. The tables are on
+  the cards now; a pattern card would need a source quoted for each ending, and is a deck of its own.
+- **A leak fix for the 125 cards whose gloss is the descendant.** The gloss is the meaning.
+- **Widening `oe.fold`** (mann / man, eall / eal). It would move the ranking.
+- **Subdecks for the sets.** The app deals subdecks side by side.
+
+### Limits to know about
+
+- **The pairing of Ælfric's sentences is automatic.** 52 of the 1,396 pairs were read and were
+  right; the 728 on the cards passed the same check and were not read one by one. A clause pair begins in lower case and ends where
+  Thorpe's ; or : stood. Thorpe's English is of 1844 ("thou", "ghostly"), and "Jesus" where the text has
+  "se Hælend".
+- **96 words share a sentence with another card**, and 23 have none.
+- **"also in the texts" is only what Wiktionary files**: þǣra, micclum, þissere and worulde are common in
+  Ælfric, match no entry and are on no card.
+- **A verb whose page has two tables shows the first**; the second's forms reach the card only through the
+  line above (rǣdde, rǣddon).
+- **The sounds are a reconstruction**, and Wikipedia's key is one account of it: its comparisons are
+  approximate by its own notes, and the plain line above each quotation is this pass's paraphrase.
+- **Byte-identity depends on kaikki**, which is live: on 2026-11-27 it gave the committed Level 1. Project
+  Gutenberg's own UTF-8 copies were not reachable that day; the mirror's Latin-1 files gave the same decks as
+  their conversion.
+- **`alphabet.py --verify` needs the network or the cache and is not a CI step.**
+- **Not read card by card**: the alphabet, the head of Level 1, the eight sets and the cards named above
+  were; the rest is as generated, with the changed fields read as counts. The browser checks (the Update
+  press; ten card faces of each deck photographed front and back at 390 px, no overflow, þ ð æ ƿ, the macrons
+  and the dotted ċ ġ rendered in the site's font) were scratch scripts.
+
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
 **Read this before opening a batch on a DELE deck above A1.** A1 was read in full in batches of ten (see
@@ -9329,3 +9551,193 @@ MEASURED**: the median count is 57 at Level 1 and 7 at Level 5, and **1 at Level
 order and only genuinely common words move. **Offered ONLY where it can act** — `deckOrdersFor` steps
 the cycler past it on a deck with no examples, an option that is drawn and does nothing being worse
 than one that is not drawn.
+
+
+## The Swahili beginner pass (2026-11-27)
+
+On request, the audit the other shelves had been given: **what does a learner with no Swahili meet, in the
+order the shelf itself recommends** — A1 to C1, then the phrases? Every figure was measured on the six decks
+as shipped that morning, at the language default of ten new cards a day with both directions together, which
+is five words a day. The rules are in the `.claude/swahili/` entry above and in `.claude/decks/README.md`
+("The Swahili decks"); this section is the reasoning. The plan's decisions (`docs/swahili-decks-plan.md` §1)
+stand; its second, "no script deck and no romanisation", is kept in the letter — the new deck teaches
+sounds and agreement, not a script.
+
+**The generator's claim was proved first**: one fetch of the live sources (kaikki 86 MB, the four OPUS
+corpora, Tatoeba's three exports), then every level into a scratch copy. B1, B2, C1 and the phrases came out
+with the committed checksums; A1 and A2 differed in one sentence field each (`kufunza`, `sanaa`: Tatoeba had
+gained sentences). So the code is reproducible and the sources are live: a fault the generator can fix IS
+fixed in the generator, and only a decision about one card or one order is in a record — the Urdu and
+Turkish arrangement.
+
+### What the audit found, by what it costs a beginner
+
+1. **Every sentence is agreement and conjugation, and the cards showed almost none of it.** Of the 9,427
+   words in A1's 1,414 example sentences, 4,918 (52%) were a headword or a form some A1 card showed. 863
+   (9%) were a conjugated form of an A1 verb no card showed (`unaweza` 22, `alikuwa` 22, `siwezi`,
+   `anataka`): a verb's row was its stem and its negative infinitive (`kutosoma`: 14 of Tatoeba's 34,079
+   Swahili words) on all 1,170 verb cards of the shelf, and no subject prefix, tense marker, negative or
+   command stood anywhere. 488 (5%) were "of" — `ya` 367, `za`, `cha`, `vya` — which `select.py` excludes by
+   name as "a grammar point"; `ya` is the commonest word of A1's sentences and was on no card. 295 (3%) were
+   an agreeing form of an A1 word its card did not show (`hilo` 21, `huu` 17, `hili` 17, `langu` 8,
+   `zangu`): an adjective or possessive showed three class pairs of five and the n class's singular only,
+   and 12 of A1's 40 stems showed nothing — `hii`, "this", the numbers `-moja`, `-tatu`, `-nne`, `-tano`,
+   `-nane`, and `-ngapi`. 125 were `nina`, `ana`, `sina`, `kuna` …, forms of `kuwa na`, to have, whose card
+   had no row and no sentence. No card said what a class does: 224 of 231 A1 nouns carried their class, 94 a
+   plural, and the 103 n-class nouns had no row at all, so nothing said `nyumba` does not change.
+2. **Nothing said how a word is read.** 218 of A1's 500 headwords hold a spelling an English reader says
+   wrongly: 20 begin with an m or n that is a syllable (`mtu`, `nchi`), 28 have the ng of finger, 20 ch, 25
+   sh, 11 ny, 7 an Arabic dh or gh, 41 a j, 119 two vowels together (A2 405 of 750, B1 565, B2 828, C1 794).
+   No deck and no description mentioned a sound or the stress. The speaker is `sw-KE`: the device's Swahili
+   voice, silent where there is none, and it reads `Word` — a stem (`-zuri`) bare, a noun without its class.
+3. **The courtesies were months or years away.** `habari` was note 40 (day 8) and `jambo` 64, but
+   `tafadhali` 155 (day 31), `asante` 380 (day 76), `samahani` 419, `kwa heri` 449, `shikamoo` 498 (day
+   100); `hujambo` was B1's note 236 (day 298), `sijui` A2; `asante sana`, `habari gani`, `habari ya
+   asubuhi`, `usiku mwema`, `jina langu ni`, `jina lako nani` and `ni saa ngapi` were in the phrases deck,
+   day 1,053 at the earliest; `sijambo`, `kwa nini`, `sielewi` and `pole sana` were on no card.
+4. **A1 was dealt by corpus frequency and the closed sets were scattered.** Day one was na · kwa · ni ·
+   kuwa · hii. One to ten ran from note 22 (`-moja`) to 495 (`mbili`, the last but five); `ishirini` 470,
+   `hamsini` 486, the other tens in B1, B2 and C1, `sifuri` B2's note 541 (day 559). The days were notes 457
+   to 481; the months — which A1's own description names — were the last 150 notes of A2 (days 221 to 249).
+   The pronouns: `mimi` 66, `wewe` 95, `yeye` 107, `wao` 117, `sisi` 208, `ninyi` 412. The question words:
+   `nini` 28, `gani` 94, `nani` 120, `wapi` 193, `ngapi` 410, `lini` 418, `vipi` 500. The verbs were early
+   (`kuwa` 4 … `kuja` 57) except `kula` 289 and `kunywa` 417.
+5. **Some cards showed another word.** `kuwa`, to be, note 4: all three sentences were `wa`, "of" (`watu wa
+   ajabu`); `kula`, two of three were `la`, "of". `unga`, flour, showed `kujiunga`, to join (an etymology the
+   card leaves out); `amba` showed `kwamba` and `-enye` `kwenye`, both cards of their own. And note 43 was
+   the verb "to begin" printed `kwanza` (Wiktionary's head; `kuanza` stands beside it in the table), with
+   three sentences of `kwanza`, "first". `check-swahili.js`'s test that a verb is printed as an infinitive
+   had stood inside a comment since it was written and never ran.
+6. **The two directions were mostly sound; the phrases' hints were not.** A1 asks 1.6 glosses on average
+   (81 notes with three or more), 3 pairs share a first gloss, none is hinted and one front names its answer
+   (`shilingi`). In the phrases deck 44 notes carry the generator's `not …` label and on 37 the label prints
+   a word of the card's own answer (`jina langu`: "not jina langu ni"; `kutia saini`: "not kutia sahihi").
+7. **The sentences are long for a beginner and half-readable.** Six words at the median in A1 (35 at most;
+   119 over ten), seven or eight above. In arrival order, a form met only if a card shows it, 44% of a
+   sentence's words had been met at A1 (10 of 1,414 sentences readable whole; 30% and 0 of 147 over the
+   first fifty notes), 61%, 68%, 73% and 75% at A2 to C1. Tatoeba's Swahili is 4,353 pairs; no card carries
+   a sentence's id.
+8. **The pace was stated nowhere.** A1 was 100 days, B1 began on day 251, C1 on 751, the phrases on 1,051:
+   5,534 notes, 1,107 days, three years.
+9. **The levels are cleanly cut.** No headword is a card of two decks. The phrases were one list in the
+   order of their corpus counts, the 121 the corpora never use last and alphabetical; 68 of them are spelled
+   entirely with words and forms an A1 card now shows.
+10. **Card ids were positions**, on all six decks.
+
+### What was built
+
+**In the generator** (`.claude/swahili/`; every level rebuilt, and rebuilt again AFTER the record had moved
+cards, over the shipped decks: all six equal to the first run):
+
+- **A verb's row is Wiktionary's conjugation table** (`extract.verb_cell`, `build_deck.verb_cells`): the
+  present for I and for he or she (`ninasoma · anasoma`), the tails the table prints for the past, future
+  and perfect (`-lisoma`, `-tasoma`, `-mesoma`: nothing is composed), the negative present (`sisomi ·
+  hasomi`; `si` for `kuwa`), the two commands (`soma · someni`; `njoo · njooni`). `kuwa na` shows all six
+  persons, their negatives, `kuna` and `hakuna`. 1,159 verb cards on the five levels; the negative infinitive
+  is gone.
+- **An agreeing word's row is the five class pairs** — m-wa, m-mi, ji-ma, ki-vi, n, singular · plural
+  (`sw.class_cells`). kaikki flattens the table and drops a repeated cell, so the list is rebuilt from the
+  column each form stands in (`agree_t`); a cell that cannot be placed with certainty is left out. Of 1,003
+  cells on the lower four levels, 415 are confirmed by Wiktionary's own form entries ("ma class (VI)
+  inflected form of -angu") and none is contradicted; the rest have no form entry to check. The
+  demonstratives and the numbers have a row for the first time (101 cards carry the five pairs).
+- **A noun's plural is shown where it is spelled as the singular** (`nyumba`, plural `nyumba`), and a
+  second plural where the dictionary lists two (`rafiki · marafiki`); a greeting shows its form "to several
+  people" (`hujambo`: `hamjambo`).
+- **A sentence is found only by what the card shows** (`examples.forms_of`): the entries the card shows; a
+  verb's bare stem only where it is its command; never a spelling that is another card's own headword;
+  the five class pairs, not the locative cells (`mwili` is "body"). `kuwa na` is found by its cells (it had
+  no sentence). 43 A1 sentence fields changed, 15, 12, 11 and 3 above; the Forms field of 260, 412,
+  509, 703 and 651 cards.
+- **`-anza` is printed `kuanza`** (`sw.HEAD_INF`), its table's cells (built on `kwanza`) not shown. Its
+  note keeps its number; the pin's key was renamed by hand, once.
+- **`jina langu` is left out of the phrases** (`select.EXCLUDE`), a fragment of `jina langu ni`.
+- **`swahili_level.words_below` reads the record**, so a level rebuilt alone is dealt the list it was dealt
+  before a card moved out of it. `check-swahili.js` reads the pin, knows the new labels, and its
+  infinitive test runs. `card.css` keeps a cell of the row whole on a phone.
+
+**In a record** (`.claude/decks/swahili-fixes.json`, applied by `swahili-fix.js`, on the Turkish model):
+
+- **Note ids pinned** (`swahili-ids.json`, 5,534 rows seeded from the shipped positions) before anything
+  moved. Checked in a browser with the decks as shipped: a reader holding the old A1 with 120 notes studied
+  in BOTH directions took the Update ("46 new cards, 283 cards corrected") and kept all 240 card ids on the
+  same words with their schedules; a reader holding the old phrases with 60 notes in both directions took
+  it ("1 card corrected, 17 cards dropped from the list (kept here, with their progress)") and kept all 120
+  schedules, 104 ids on the same phrase and the 8 notes the file no longer lists still on the device. All
+  5,534 shipped ids: 5,491 on the same word, one on the same note under its corrected headword, 41 retired
+  by a move, one by the drop.
+- **41 cards moved down to A1** (a move is a row, never a copy): 16 everyday formulas of the phrases deck,
+  the twelve months and `sijui` and `polepole` from A2, `hujambo`, `thelathini` and `-a bluu` from B1,
+  `sifuri`, four tens, `robo` and `kasoro` from B2, `themanini` from C1.
+- **5 cards added to A1**, built by `inserts.py` with `build_deck.build` from Wiktionary's entries and
+  Tatoeba: `-a`, `si` (its one sense printed as Wiktionary words it), `sijambo`, `-wili`, `kumi na moja`.
+- **An order** (`swahili-order.json`): A1's first 120 notes by hand — greetings and answers, courtesies,
+  pronouns, is and is not, a first exchange, farewells, this, that and "of", to be and to have, the
+  possessives, fifteen verbs, the question words, zero to eleven, the clock, the parts of the day — then
+  frequency with thirty to a thousand from note 131, the days from 151, the months from 161, the colours
+  from 201; the phrases by the lowest level that spells them (68, 41, 34, 37, 15, and 72 none).
+- **Five reverse-card hints** in A1 (`hujambo`, `habari gani` and `mambo`; `nzuri` and `sijambo`); a moved
+  card loses the label its old deck gave it, and a hint that would print a word of the answer is refused.
+- **The descriptions**: each ends with a paragraph the record recounts on every run — what moved, the
+  order, the pace, what a card shows, and on A1 what is still on no card and why.
+
+**`Swahili — Sounds and spelling`** (41 notes, one card each, card type `swsound`;
+`build-swahili-sounds.js` from `swahili-sounds.json`): 26 sounds — the five vowels, the doubled vowel, the
+stress, and 19 consonant spellings — each the row of the key of Wikipedia's Help:IPA/Swahili (revision
+1265646459) that carries its symbol, read off the page by `sounds.py --fill` (symbol, example,
+transcription, meaning, English approximation, footnote: no cell is typed); and 15 rules — no tones, the
+noun classes, concord on the adjective, on "of", on this and that and on the numbers, the animate nouns, ni
+and si, the subject prefix, to have, the tense markers, the negative, the short verbs, the commands, the
+clock — each a quoted run of "Swahili" (1387179866), "Swahili grammar" (1387011184) or "Date and time
+notation in Africa" (1339899124), with **a table of forms read off the Forms rows of the A1 cards it
+names**. `sounds.py --verify` fetches the four revisions and checks all 62 cells and quotations, and was
+seen to fail on an altered one. A sound's A1 examples are the first three words A1 deals that have it.
+
+**CI**: `swahili-fix.js --check`, `swahili-order.js --check`, `build-swahili-sounds.js --check` and
+`check-swahili.js` (which was in no workflow).
+
+After it: sounds 41, A1 546, A2 736, B1 997, B2 1,493, C1 1,499, the phrases 267; 5,579 notes, 1,116 days.
+`hujambo` and `sijambo` are day 1, thank you and please day 2, the pronouns days 4 and 5, my name is day 6,
+the verbs days 14 to 16, zero to eleven days 18 to 20, the days of the week days 31 and 32, the months days
+33 to 35. 63% of the words of A1's sentences are a headword or a form an A1 card shows (52%); in arrival
+order 53% have been met (44%) and 36 of 1,472 sentences can be read whole (10 of 1,414); A2 to C1 66%, 73%,
+77% and 79% (61%, 68%, 73%, 75%). Over A1's first fifty notes 27% and 3 of 98 (30% and 0 of 147): the head
+is greetings, whose sentences were not chosen for it.
+
+### What was decided against, and why
+
+- **Composing the tensed forms** (`alisoma` from `a-` and `-lisoma`). The table gives the tail and the
+  rule; the card prints the tail and the sounds deck quotes the rule. So `alikuwa` is still a form no card
+  shows whole, and the 53% above counts it as unmet.
+- **All six persons on every verb**, the subjunctive (`asome`) and the object markers: a row is seven
+  cells, four lines on a phone. `kuwa na` alone carries six persons, and the rule card on the subject
+  prefix is read off it.
+- **Cards for `kwa nini`, `sielewi`, `pole sana`, `tutaonana`, pleased to meet you.** Wiktionary files the
+  first as a spelling of `kwani` and has no entry with a meaning of its own for the others; a meaning is
+  never typed.
+- **Moving the ways of asking a price or more of the "how are you" twins** (`bei gani`, `pesa ngapi`,
+  `habari yako`). Each is told from its twins by a label that names them; they stay together.
+- **Fixing the phrases' 34 remaining hints that print a word of the answer.** They are written by
+  `.claude/dedupe-glosses.py`, the shelf-wide pass; not this pass's file.
+- **A card for two vowels being two syllables, and for the days being numbered from Saturday.** No
+  sentence was found to quote in the four pages; the deck's description says so.
+- **Re-ordering A2 to C1**, **shorter sentences for the head** (Tatoeba's Swahili is 4,353 pairs), and
+  **subdecks for the sets** (the app deals subdecks in parallel).
+- **A sentence's Tatoeba id on the card.** The generator finds sentences by rule; none is chosen by hand.
+
+### Limits to know about
+
+- **Not read card by card.** The 46 added and moved cards, the head, the changed A1 sentences and the
+  sounds deck were; the other 5,400 are as generated, with the new cells checked by rule and 415 of them
+  against Wiktionary's form entries.
+- **The forms are the English Wiktionary's tables**, not checked against a second source. `-enye` and
+  `-enyewe` show one cell for m-mi: the list does not carry the other.
+- **`nzuri`, "I'm fine", still shows sentences of the adjective** (the same spelling), and a few of
+  Tatoeba's sentences carry typos (`ua` for `au`).
+- **Whether a device reads Swahili was not tested**: headless Chromium has no voices.
+- **A reader who already holds A2, B1, B2, C1 or the phrases keeps the cards that moved** and meets them
+  again in A1.
+- **Rebuilding one level needs the levels its moved cards came from** rebuilt with it: a moved card is not
+  stored in the record.
+- **`inserts.py --check` and `sounds.py --verify` need the cache or the network and are not CI steps.**
+- **The whole shelf is 5,579 notes: 1,116 days at the default pace, 3.1 years.**

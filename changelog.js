@@ -35,18 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1407", released: "2026-11-27T19:36Z" };
+window.FOLIO_VERSION = { v: "1.1424", released: "2026-11-27T20:07Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-27",
-    t: "Russia complete, a Latin sounds deck, Breasted's Ancient Records",
+    t: "Russia complete, fifteen Library texts, new sounds decks",
     items: [
       "<b>100 new cards</b> complete the Russia collection: society, Russian thought, literature from Pushkin to Solzhenitsyn, art, architecture and music.",
       "A language vocabulary card whose word has no speaker of its own no longer reads its first <b>example sentence</b> aloud when revealed.",
       "Latin gains a <b>Sounds and spelling</b> deck with both pronunciations; <b>Latin A1</b> now opens with salvē and valē, and 33 missing words join the levels, the months among them.",
       "The Greek alphabet deck gains <b>ten reading rules</b> and cites its sounds; <b>Greek A1</b> now opens with the greetings and shows each word's pronunciation.",
-      "Breasted's <i>Ancient Records of Egypt</i> (1906) joins the Library: all four volumes, reign by reign, read from the scans by machine.",
+      "<b>Find it</b> no longer turns the globe to a past state before you guess, says when a year's map is still drawing, and lights a pick's outline with its fill.",
+      "Fifteen books join the Library: <b>The Tempest</b>, <i>Common Sense</i>, Douglass, <i>Egyptian Tales</i>, <i>The Book of the Dead</i>, Freud, James, Thorndike, <b>Mencius</b>, the <b>Communist Manifesto</b>, Darwin, Erman, Pavlov, Ebbinghaus and Breasted's <i>Ancient Records of Egypt</i>.",
+      "<b>Old English Level 1</b> now shows sē's whole table, bēon's present and Ælfric's own sentences with their page; the alphabet deck cites its sounds and gains <b>eight reading rules</b>.",
+      "Swahili gains a <b>Sounds and spelling</b> deck; <b>Swahili A1</b> now opens with hujambo, every verb shows its tenses and every agreeing word five noun classes.",
     ],
   },
   {
