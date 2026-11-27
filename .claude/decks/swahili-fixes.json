@@ -1,0 +1,327 @@
+{
+ "add": {
+  "swahilia1": [
+   {
+    "word": "asante sana",
+    "id": 501,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "habari gani",
+    "id": 502,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "habari ya asubuhi",
+    "id": 503,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "habari ya jioni",
+    "id": 504,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "usiku mwema",
+    "id": 505,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "lala salama",
+    "id": 506,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "siku njema",
+    "id": 507,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "jina langu ni",
+    "id": 508,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "jina lako nani",
+    "id": 509,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "unatoka wapi",
+    "id": 510,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "ni saa ngapi",
+    "id": 511,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf, spelled with three A1 cards"
+   },
+   {
+    "word": "tuonane baadaye",
+    "id": 512,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "safari njema",
+    "id": 513,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "karibu tena",
+    "id": 514,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf"
+   },
+   {
+    "word": "nina njaa",
+    "id": 515,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf; nina is a cell of kuwa na's row"
+   },
+   {
+    "word": "nina kiu",
+    "id": 516,
+    "from": "swahiliphr",
+    "why": "an everyday formula; the phrases deck is the last on the shelf; as nina njaa"
+   },
+   {
+    "word": "sijui",
+    "id": 517,
+    "from": "swahilia2",
+    "why": "I don't know; A2's note 57"
+   },
+   {
+    "word": "polepole",
+    "id": 518,
+    "from": "swahilia2",
+    "why": "slowly, which a beginner asks for; A2's note 595"
+   },
+   {
+    "word": "hujambo",
+    "id": 519,
+    "from": "swahilib1",
+    "why": "the greeting of every first lesson; B1's note 236"
+   },
+   {
+    "word": "thelathini",
+    "id": 520,
+    "from": "swahilib1",
+    "why": "a ten: A1 held twenty and fifty and no other"
+   },
+   {
+    "word": "a bluu",
+    "id": 521,
+    "from": "swahilib1",
+    "why": "a colour: A1 held five"
+   },
+   {
+    "word": "sifuri",
+    "id": 522,
+    "from": "swahilib2",
+    "why": "zero: A1 holds one to ten; B2's note 541"
+   },
+   {
+    "word": "arobaini",
+    "id": 523,
+    "from": "swahilib2",
+    "why": "a ten: A1 held twenty and fifty and no other"
+   },
+   {
+    "word": "sitini",
+    "id": 524,
+    "from": "swahilib2",
+    "why": "a ten: A1 held twenty and fifty and no other"
+   },
+   {
+    "word": "sabini",
+    "id": 525,
+    "from": "swahilib2",
+    "why": "a ten: A1 held twenty and fifty and no other"
+   },
+   {
+    "word": "tisini",
+    "id": 526,
+    "from": "swahilib2",
+    "why": "a ten: A1 held twenty and fifty and no other"
+   },
+   {
+    "word": "robo",
+    "id": 527,
+    "from": "swahilib2",
+    "why": "a quarter: the clock is A1's (saa, dakika, nusu)"
+   },
+   {
+    "word": "kasoro",
+    "id": 528,
+    "from": "swahilib2",
+    "why": "less: \"to\" the hour, as robo"
+   },
+   {
+    "word": "themanini",
+    "id": 529,
+    "from": "swahilic1",
+    "why": "a ten: A1 held twenty and fifty and no other"
+   },
+   {
+    "word": "Januari",
+    "id": 535,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Februari",
+    "id": 536,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Machi",
+    "id": 537,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Aprili",
+    "id": 538,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Mei",
+    "id": 539,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Juni",
+    "id": 540,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Julai",
+    "id": 541,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Agosti",
+    "id": 542,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Septemba",
+    "id": 543,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Oktoba",
+    "id": 544,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Novemba",
+    "id": 545,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "Desemba",
+    "id": 546,
+    "from": "swahilia2",
+    "why": "a month: A1's own description names the days and months, and it held the days; A2 dealt the months last"
+   },
+   {
+    "word": "a",
+    "id": 530,
+    "fields": {
+     "Swahili": "<div class=\"uc-word\">-a</div>",
+     "Word": "a",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">particle</div><div class=\"uc-gl\">The genitive particle; adjectival particle; of</div></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">m-wa</span>wa · wa</span><span class=\"uc-fi\"><span class=\"uc-fl\">m-mi</span>wa · ya</span><span class=\"uc-fi\"><span class=\"uc-fl\">ji-ma</span>la · ya</span><span class=\"uc-fi\"><span class=\"uc-fl\">ki-vi</span>cha · vya</span><span class=\"uc-fi\"><span class=\"uc-fl\">n</span>ya · za</span></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Huna macho ya kahawia.\"></span>Huna macho <b>ya</b> kahawia.</div><div class=\"uc-exe\">You don&#x27;t have brown eyes.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tulikula supu ya bata.\"></span>Tulikula supu <b>ya</b> bata.</div><div class=\"uc-exe\">We ate some turtle soup.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Nina akaunti ya Twitter.\"></span>Nina akaunti <b>ya</b> Twitter.</div><div class=\"uc-exe\">I have a Twitter account.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the entry's senses and the cells of its table; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.pick",
+    "why": "\"of\": ya, wa, za, cha and vya are 488 words of A1's sentences and were on no card; select.py excludes it from the frequency fill by name"
+   },
+   {
+    "word": "si",
+    "id": 531,
+    "fields": {
+     "Swahili": "<div class=\"uc-word\">si</div>",
+     "Word": "si",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">verb</div><div class=\"uc-gl\">negative present (all persons, numbers, and classes) of -wa (“to not be”)</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Hill si jambo watakalozungumzia.\"></span>Hill <b>si</b> jambo watakalozungumzia.</div><div class=\"uc-exe\">That is not what they are going to talk about.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Papa-nyangumi si hatari kwa wanadamu.\"></span>Papa-nyangumi <b>si</b> hatari kwa wanadamu.</div><div class=\"uc-exe\">The whale shark does not pose any danger to humans.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Yeye si mtu mzuri wa kushirikiana naye.\"></span>Yeye <b>si</b> mtu mzuri wa kushirikiana naye.</div><div class=\"uc-exe\">He is by no means a pleasant fellow to associate with.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the entry's senses and the cells of its table; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.pick",
+    "why": "\"is not\", beside ni: si and sio are 38 words of A1's sentences and were on no card"
+   },
+   {
+    "word": "sijambo",
+    "id": 532,
+    "fields": {
+     "Swahili": "<div class=\"uc-word\">sijambo</div>",
+     "Word": "sijambo",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">I&#x27;m fine (response to &quot;how are you?&quot;)</div></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">to several people</span>hatujambo</span></div>",
+     "Examples": ""
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the entry's senses and the cells of its table; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.pick",
+    "why": "the answer to hujambo; the corpora never use it, so no level dealt it"
+   },
+   {
+    "word": "wili",
+    "id": 533,
+    "fields": {
+     "Swahili": "<div class=\"uc-word\">-wili</div>",
+     "Word": "wili",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">two</div></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">m-wa</span>wawili</span><span class=\"uc-fi\"><span class=\"uc-fl\">m-mi</span>miwili</span><span class=\"uc-fi\"><span class=\"uc-fl\">ji-ma</span>mawili</span><span class=\"uc-fi\"><span class=\"uc-fl\">ki-vi</span>viwili</span><span class=\"uc-fi\"><span class=\"uc-fl\">n</span>mbili</span></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ninajua nyingi wawili mmenikasirikia.\"></span>Ninajua nyingi <b>wawili</b> mmenikasirikia.</div><div class=\"uc-exe\">I know you&#x27;re both angry with me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Kuta za Roma zina milango kumi na miwili.\"></span>Kuta za Roma zina milango kumi na <b>miwili</b>.</div><div class=\"uc-exe\">The walls of Rome have twelve gates.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Viwili kati ya vitabu vyangu vimechukuliwa.\"></span><b>Viwili</b> kati ya vitabu vyangu vimechukuliwa.</div><div class=\"uc-exe\">Two of my books have been taken.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the entry's senses and the cells of its table; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.pick",
+    "why": "two, as it agrees (watu wawili, vitabu viwili): A1's card is mbili, its n-class form"
+   },
+   {
+    "word": "kumi na moja",
+    "id": 534,
+    "fields": {
+     "Swahili": "<div class=\"uc-word\">kumi na moja</div>",
+     "Word": "kumi na moja",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eleven</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Wanafunzi kumi na moja walipokea tuzo hiyo.\"></span>Wanafunzi <b>kumi</b> <b>na</b> <b>moja</b> walipokea tuzo hiyo.</div><div class=\"uc-exe\">Eleven students received the award.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Alifika nyumbani muda mfupi kabla ya saa kumi na moja jioni.\"></span>Alifika nyumbani muda mfupi kabla ya saa <b>kumi</b> <b>na</b> <b>moja</b> jioni.</div><div class=\"uc-exe\">He reached home shortly before five o&#x27;clock.</div></div>"
+    },
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27: the entry's senses and the cells of its table; sentences: Tatoeba (CC BY 2.0 FR), chosen by examples.pick",
+    "why": "eleven: the pattern of every number from 11 to 19, and of the tens with their units"
+   }
+  ]
+ },
+ "drop": {
+  "swahiliphr": [
+   {
+    "word": "jina langu",
+    "why": "a fragment of jina langu ni, \"my name is...\": the two were the same English and each was labelled \"not\" the other, which printed two of the three words of the answer on the English → Swahili question; select.EXCLUDE leaves it out",
+    "see": "swahilia1/jina langu ni"
+   }
+  ]
+ },
+ "decks": {}
+}

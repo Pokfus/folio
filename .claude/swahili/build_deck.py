@@ -23,7 +23,7 @@ The speaker reads the `Word` field.
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sw import norm, tokens
+from sw import norm, tokens, class_cells, CLASS_ROWS, HEAD_INF, infinitive
 from swahili_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
@@ -126,8 +126,10 @@ def entries_for(row, lex):
 
 
 def headword(e, word):
+    if e.get('bare'):
+        return word                 # `si`: a form that is a card of its own (inserts.py, RAW)
     if e['pos'] == 'verb':
-        return e['inf'] or 'ku' + word          # `-pa`, `-ita`, `-ambia` list no infinitive
+        return infinitive(norm(word), e) or 'ku' + word   # `-pa`, `-ita`, `-ambia` list no infinitive
     if e['canon'] and e['pos'] in ('adj', 'pron', 'det', 'num', 'particle'):
         return e['canon']
     return word
@@ -177,28 +179,67 @@ def fi(label, form):
     return f'<span class="uc-fi"><span class="uc-fl">{E(label)}</span>{E(form)}</span>'
 
 
-def agree_forms(ag):
-    """An adjective's or a possessive's agreeing forms, as m-wa, ki-vi and n.
-    Wiktionary lists them in class order; the ki-vi pair is found by its
-    spelling (ki- / ch- then vi- / vy-), and the n form follows it."""
-    for i in range(2, len(ag) - 2):
-        if ag[i][:2] in ('ki', 'ch') and ag[i + 1][:2] in ('vi', 'vy'):
-            return [('m-wa', f'{ag[0]} · {ag[1]}'), ('ki-vi', f'{ag[i]} · {ag[i + 1]}'),
-                    ('n', ag[i + 2])]
-    return []
+def agree_cells(e):
+    """An adjective's, a possessive's, a demonstrative's or a numeral's agreeing forms after
+    each of the five class pairs -- m-wa, m-mi, ji-ma, ki-vi, n -- singular · plural, as
+    Wiktionary's table has them (`sw.class_cells` rebuilds the table from kaikki's list; a
+    cell it cannot place is left out, never guessed).  Until the beginner pass (Nov 2026)
+    three pairs were shown and the n class's plural was not: `jina langu`, `hili`, `huu` and
+    `zangu` were forms no card showed."""
+    cells = class_cells(e['agree'], e.get('agree_t', ''))
+    out = []
+    for row in CLASS_ROWS:
+        pair = [x for x in cells.get(row, ()) if x]
+        if len(pair) == 2 and pair[0] == pair[1] and row == 'n':
+            pair = pair[:1]                       # nzuri · nzuri: the n class does not change
+        if pair:
+            out.append((row, ' · '.join(pair)))
+    return out
+
+
+def verb_cells(e):
+    """A verb's row, every cell a cell of Wiktionary's conjugation table (`extract.verb_cell`):
+    the present for I and for he or she, the tails the table gives for the past, the future
+    and the perfect (a subject prefix goes in front: ni-, u-, a-, tu-, m-, wa-), the negative
+    present for I and for he or she, and the two commands.  `-wa na`, to have, is irregular
+    and is shown for all six persons, with `kuna` and `hakuna`.  The negative infinitive the
+    row showed until the beginner pass (`kutosoma`) is 14 of Tatoeba's 34,079 Swahili words."""
+    c = e.get('conj') or {}
+    pres, neg = c.get('present', {}), c.get('negative', {})
+    six = 'there' in c                                  # -wa na
+    who = '012345' if six else '02'
+    out = [('present', ' · '.join(pres[i] for i in who if i in pres))]
+    if not six:
+        out += [('past', c.get('past', '')), ('future', c.get('future', '')),
+                ('perfect', c.get('perfect', ''))]
+    out.append(('negative', neg.get('all') or ' · '.join(neg[i] for i in who if i in neg)))
+    if six:
+        out += [('there is', c['there']), ('there is not', c.get('there_not', ''))]
+    else:
+        out.append(('command', ' · '.join(c.get('imperative', [])[:2])))
+    return out
 
 
 def forms_line(e, key, head):
     bits = []
+    if e.get('bare'):
+        return ''
     if e['pos'] == 'noun':
-        for p in e['plural'][:1]:
-            if p != key:
-                bits.append(fi('plural', p))
-    elif e['pos'] == 'verb' and ' ' not in key:
-        bits.append(fi('stem', '-' + key))
-        bits.append(fi('negative', e['neginf']))
+        # the plural is shown even where it is the singular's spelling (`nyumba`, plural
+        # `nyumba`): until the beginner pass an n-class noun had no row, and nothing said so
+        bits.append(fi('plural', ' · '.join(e['plural'][:2])))
+    elif e['pos'] == 'verb':
+        if ' ' not in key:
+            bits.append(fi('stem', '-' + key))
+        if key in HEAD_INF:
+            pass        # its table is built on the infinitive the card does not use: the stem only
+        elif ' ' not in key or 'there' in (e.get('conj') or {}):
+            bits += [fi(l, x) for l, x in verb_cells(e)]
+    elif e['pos'] == 'intj':
+        # a greeting said to several people: `hujambo`, plural `hamjambo`
+        bits.append(fi('to several people', e.get('several', '')))
     elif e['agree']:
-        bits += [fi(l, x) for l, x in agree_forms(e['agree'])]
+        bits += [fi(l, x) for l, x in agree_cells(e)]
     bits = [b for b in bits if b]
     return f'<div class="uc-forms">{"".join(bits)}</div>' if bits else ''
 

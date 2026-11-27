@@ -121,9 +121,32 @@ def f(name):
 _DECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'decks')
 
 
+_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'decks', 'swahili-fixes.json')
+_LEVEL_OF = {v: k for k, v in DECK_IDS.items()}
+
+
+def record_words():
+    """What `.claude/decks/swahili-fixes.json` (the beginner pass, Nov 2026) added to a deck
+    by hand: word -> the level the generator deals it to (a MOVE's `from`), or None for a card
+    no level deals (an INSERT)."""
+    if not os.path.exists(_RECORD):
+        return {}
+    out = {}
+    for rows in (json.load(open(_RECORD, encoding='utf-8')).get('add') or {}).values():
+        for r in rows:
+            out[r['word']] = _LEVEL_OF.get(r.get('from'))
+    return out
+
+
 def words_below():
     """Every word a lower level teaches, read off its SHIPPED deck file (`Word`, the
-    headword as spoken: `kusoma`, `zuri`)."""
+    headword as spoken: `kusoma`, `zuri`) -- AS THE GENERATOR DEALT IT.  The record moves
+    cards down to A1 and adds a few: a card it moved is counted where the generator deals
+    it (so the level it left is dealt it again, to be moved again, and a level above still
+    leaves it out), and a card it added is counted nowhere.  So a level rebuilt alone is
+    dealt the list it was dealt before anything moved."""
+    order = list(BANDS) + ['phr']
+    rec = record_words()
     out = set()
     for lvl in BELOW.get(LEVEL, []):
         p = os.path.join(_DECKS, DECK_FILES[lvl])
@@ -131,6 +154,9 @@ def words_below():
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         for c in json.load(open(p, encoding='utf-8'))['cards']:
             k = (c.get('fields') or {}).get('Word', '')
-            if k:
+            if k and k not in rec:
                 out.add(k)
+    for k, src in rec.items():
+        if src and order.index(src) < order.index(LEVEL):
+            out.add(k)
     return out
