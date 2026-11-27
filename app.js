@@ -13272,6 +13272,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding Common Sense, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on all
+     forty-three distinct light papers, cards and second papers, 22 or more from the fifteen light inks; a sweep of
+     the cube at a step of 3, which tops out at 14.0). THE EURIPIDES TEST: the sweep's best sit 13.7–14.0 from
+     Hobbes, Rousseau and Lucretius, all read beside a political pamphlet; held 19 or more from Jefferson, Rousseau,
+     Hobbes, Voltaire, Machiavelli and More, the best are a plum 14.1 from Plato and this crimson at 13.4 — its
+     nearest are Aristophanes 13.4, Cervantes 13.7, Strabo and the Treaty of Versailles 14.3, none read beside
+     Paine, while More stands 29.8 off, Rousseau 39.7, Hobbes 77.6 and Jefferson's Declaration 84.2. It reads
+     4.73:1 on the tightest light paper. */
+  "Thomas Paine": "#A20C45",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17648,6 +17657,36 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "paine-common-sense",
+      title: "Common Sense",
+      subtitle: "Addressed to the Inhabitants of America",
+      author: "Thomas Paine",
+      written: "1776",
+      year: 1776,
+      /* NO `translator` — written in English, so the rights box names the printing instead. */
+      edition: "Common Sense: Addressed to the Inhabitants of America, the sixth edition, re-printed by John Carter, Providence, 1776",
+      /* A LIMIT ON NOTHING: a pamphlet of 1776 in a printing of 1776, validated on Wikisource. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. Thomas Paine published Common Sense in Philadelphia in 1776 and died in 1809, and this " +
+        "printing of it was made in Providence in 1776, so it has never been in copyright anywhere. The text is the " +
+        "validated Wikisource transcription of John Carter's reprint.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Common_Sense_(1776)",
+      /* NO `origLang`: the English is the original. Six parts: the Introduction, the four sections the title page
+         lists, and the Appendix (with the address to the Quakers and the Addition's navy tables). */
+      chapterWord: "Part",
+      count: 6,
+      total: 6,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all six parts
+         (every `.ttip`, Nov 2026). YORK is the house of York beside Lancaster, or New-York, not the English city;
+         the JERSEYS are New Jersey, not the Channel Island; ISRAEL and EGYPT are the Bible's (Gideon, Samuel, the
+         Exodus), not the modern states; GERMANY, TURKEY, HOLLAND and CANADA are 1776's — the German lands, the
+         Ottoman Empire, the Dutch Republic and the British province — not the modern countries; and Paine's
+         COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
+      glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
+        "House_of_Commons_of_the_United_Kingdom"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27389,6 +27428,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
     { book: "voltaire-candide", n: 30, t: "Conclusion", p: 22,
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
+    { book: "paine-common-sense", n: 2, t: "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution", p: 1,
+      text: "Society in every state is a blessing, but government even in its best state is but a necessary evil; in its worst state an intolerable one." },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,
       text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,

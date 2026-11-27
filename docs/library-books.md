@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
+  matter (chapter 0 — see the Library bullet). Currently eighty-one:
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
@@ -165,6 +165,18 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `paine-common-sense` (~127 KB, **6 parts** — the Introduction, Sections I–IV and the Appendix, `chapterWord: "Part"`
+  — **3 notes**, the edition's; **no original**). John Carter's Providence reprint of 1776 ("The Sixth EDITION"), the
+  ONE transcription on en.wikisource (`Common Sense (1776)`; `Common Sense (Paine)` redirects), validated (Index
+  `Progress=T`, Aug 2021): the enlarged text with the Appendix, the address to the Quakers and the "Addition" of the
+  navy calculations. Public domain worldwide (Paine d. 1809). The four sections share ONE page under titled heads with
+  no numeral, so `cut` gained **`cutHeads`** (one pattern per head, in order; `cut(n)` may return null for a part that
+  is a page of its own); **`prep: "paine"`** drops the two FINIS blocks inside the text and rebuilds the Addition's two
+  tables as `bk-table`s (alignment "0"s and ditto marks resolved, the totals' colspan kept). Titles are the title
+  page's list of "SUBJECTS". `dropHeads` the printed heads, `dropTail` Carter's imprint. No `fixes`: book-scan.js's
+  four candidates are all right. Colour `#A20C45` (13.4: Aristophanes, Cervantes nearest; Jefferson 84, Rousseau 40,
+  Hobbes 78 off). `glossOff`: 9 keys — see the comment on the app.js entry. Excerpt: "Society in every state is a
+  blessing…", Section I. Not included: the title page (the front matter quotes its motto).
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
