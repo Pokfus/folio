@@ -13272,6 +13272,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding The Principles of Psychology, measured as the rows above (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all the light papers, cards and second papers, 22 or more from the fifteen light inks; a
+     sweep of the cube at a step of 3, which tops out at 12.5 — the band is full). THE EURIPIDES TEST: held 25 or
+     more from every philosopher and naturalist James is read beside (Darwin, Descartes, Kant, Hobbes, Aristotle,
+     Plato, Lucretius, Rousseau, Seneca, Marcus Aurelius), the best is this deep blue, 12.5 from Shakespeare and
+     Plutarch and 13.7 from Luo Guanzhong, none read beside James; Kant stands 30.0 off, Seneca 30.4, Plato 56.1,
+     Descartes 93.5, Darwin 105.5. It reads 7.04:1 on the tightest light paper. */
+  "William James": "#0024A5",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17616,6 +17624,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "james-principles-of-psychology",
+      title: "The Principles of Psychology",
+      author: "William James",
+      written: "1890",
+      year: 1890,
+      /* NO `translator`: written in English, like the Origin of Species. */
+      edition: "Henry Holt and Company, New York, 1890, in two volumes (a 1918 printing)",
+      /* No limit to state: printed in 1890, its author dead since 1910. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. William James published The Principles of Psychology in New York in " +
+        "1890 and died in 1910, so the book has never been in copyright anywhere since. The text is " +
+        "Project Gutenberg's transcription of the two volumes, from a 1918 printing of the 1890 plates.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/57628",
+      /* NO `origLang`: the book is English. Twenty-nine sections — James's Preface and his twenty-eight
+         chapters — so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each title
+         (the Origin of Species' arrangement); the two printed volumes are the parts. */
+      chapterWord: "Section",
+      count: 29,
+      total: 29,
+      parts: [
+        { n: 1, label: "Volume I", note: "The Preface and chapters I–XVI — the brain, habit, the stream of thought, the self, attention, memory" },
+        { n: 2, label: "Volume II", note: "Chapters XVII–XXVIII — sensation, perception, reasoning, instinct, the emotions, the will" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 29 sections
+         (every `.ttip`, 168 keys, Nov 2026). NAMESAKES: James's Clay is E. R. Clay of 'the specious present', his
+         Wolf the philosopher Christian Wolff, his Abraham Abraham Tucker, his Herzen the physiologist (the writer's
+         son), his Stanley G. Stanley Hall, his Scribe the playwright, his Wellington the Duke, his Titus a stock name
+         in a logic example, and the Commentarii are Budæus's, not Caesar's; Cambridge is the one in Massachusetts and
+         the Senate the United States'. ORDINARY WORDS and names inside names: Project Gutenberg, India rubber, the
+         Loyal Legion, the Florentine and Venetian Academies, the convergence of the eyes, Bain's law of diffusion,
+         'concords' of sound, the nonsense line 'pas de lieu Rhône que nous', the Journal of Speculative Philosophy,
+         James's 'Socius', Coriolanus the play, and his 'evolutionary psychology' and 'Transcendentalism', which are
+         Spencer's and Kant's, not the modern field or Emerson's movement. Per section: Providence is the Rhode Island
+         city in X but God's in XXI; Ethics is Spinoza's book in XXI, Logic Mill's in XXII, and the London of XVIII
+         the Illustrated London News. */
+      glossOff: ["Clay", "Wolf", "Abraham", "Alexander_Herzen", "Stanley,_Falkland_Islands", "Scribe", "Wellington",
+        "Titus", "Caesars_Commentaries", "Cambridge", "Senate", "Johannes_Gutenberg", "India", "Roman_legion",
+        "Academy", "Convergent_evolution", "Diffusion", "Concord", "Rhône", "Philosophy", "Socii",
+        "Gnaeus_Marcius_Coriolanus", "Evolutionary_psychology", "Transcendentalism"],
+      glossOffIn: { Providence: [22], Ethics: [22], Logic: [23], London: [19] },
     },
   ];
   const BOOK_BY_ID = {};
@@ -27367,6 +27418,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
       text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
+    { book: "james-principles-of-psychology", n: 10, t: "IX. The Stream of Thought", p: 43,
+      text: "Consciousness, then, does not appear to itself chopped up in bits. Such words as 'chain' or 'train' do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A 'river' or a 'stream' are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);

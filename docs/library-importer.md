@@ -2914,3 +2914,24 @@ the Contrat never prints).
 
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
+
+## `layout: "pgchapters"` — a Gutenberg HTML edition in volumes, cut at its own chapter heads (Nov 2026, The Principles of Psychology)
+
+The plain case of Polo's two-file shape, with none of Yule's apparatus: `urls` lists one Gutenberg `-h.htm` per printed
+volume, each cached whole as `en-vol<N>.html`, and `extractPgChapters` reads them as one book. `chapterHead` is a regex
+whose group 1 is the printed Roman numeral; `front: [{ n, vol, anchor }]` names a front-matter division by its anchor.
+What it settled, each a quiet failure if missed:
+- **A division runs from its head to the next `<hr class="chap">`**, and the numerals are checked as a run I..N over
+  BOTH files together — a head the regex misses would otherwise fold its chapter into the one before.
+- **Cut blocks with a BALANCED div walk** (`pgDivEnd` / `pgTakeDivs`): a `<div class="footnote">` can hold a centred
+  table, and a lazy `</div>` stops inside it.
+- **`stripTags` keeps only a numeric `data-fn`**, so the anchor `Footnote_12_12` is keyed by its first number; with the
+  whole key every marker was silently dropped and the book shipped with 1,193 notes and no markers.
+- **`stripTags` keeps a `<p>` but not its class**, so a head line passes through as `<p>@@PGH…` and gets
+  `class="bk-head"` back afterwards; a table passes as a `@@PGT` placeholder and is put back whole (`bk-table`).
+- **Unwrap every `<a>` before the heads are read**: the heads carry anchors (`<a name id>`) and the text carries
+  links to printed pages; after the markers are taken none of them is wanted.
+- A note on a chapter's numeral (`<h5>CHAPTER IV.[n]</h5>`) is carried down onto the title line; every other chapter
+  head is dropped (the tab names it), as are the running title and "END OF VOL. I.". Figures go with their captions,
+  counted; page marks never fall inside a word in these files (measured), so they are removed with nothing in their place.
+

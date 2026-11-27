@@ -12,7 +12,27 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-nine:
+  matter (chapter 0 — see the Library bullet). Currently eighty-one:
+  `james-principles-of-psychology` (~3.3 MB, **29 sections** — James's Preface and his twenty-eight chapters, so a tab
+  runs one ahead of the chapter; `chapterWord: "Section"`, titles from the contents pages via `titleOf`, the two printed
+  volumes as the `parts` — **1,193 notes**, James's own, renumbered per chapter; no original, the book being English).
+  **From Project Gutenberg, not Wikisource**: Wikisource transcludes only chapters 1, 2, 8 and 9 and its two scans stand
+  at "to be proofread" (Nov 2026). Gutenberg's ebooks 57628 and 57634 are proofread transcriptions of a **1918 Holt
+  printing** of the 1890 plates (the title pages read 1918; same text and pagination), so the edition line says "a 1918
+  printing". Read by the new `pgchapters` layout (`docs/library-importer.md`, last section): divisions cut at
+  `<hr class="chap">`, chapter heads checked as a run I–XXVIII over both files, the Preface found by its anchor. Ten
+  chapters hang a note on their head (where the chapter first appeared — Popular Science Monthly, Mind, the Journal of
+  Speculative Philosophy); those keep their title as a `bk-head` line with the marker, every other chapter head is
+  dropped. **94 figures left out** with their captions (the front matter says so), 14 tables kept as `bk-table`, 206
+  head lines inside the chapters. When Gutenberg was down (Nov 2026) the files were read from its pglaf mirror
+  (`gutenberg.pglaf.org/5/7/6/2/57628/57628-h/`), byte-for-byte the files `urls` names. Licence: printed 1890, James
+  d. 1910 — no limit to state. Colour `#0024A5` (12.5: the band is full; every philosopher and naturalist 28.4 or more
+  off). `glossOff` (swept over the front matter and all 29 sections, 168 keys): namesakes (Clay, Wolf, Abraham, Herzen,
+  Stanley, Scribe, Wellington, Titus, Budæus's Commentarii, Cambridge MA, the US Senate) and words inside names
+  (Gutenberg, India rubber, the Loyal Legion, the Academies, convergence, diffusion, concords, Rhône, the Journal of
+  Speculative Philosophy, Socius, Coriolanus the play, Spencer's evolutionary psychology, Kant's transcendentalism);
+  `glossOffIn` for Providence, Ethics, Logic and London where one section means a book or God. Excerpt: "Consciousness,
+  then, does not appear to itself chopped up in bits" (IX). Not included: title pages, dedication, contents, index.
   `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
   notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
   Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
