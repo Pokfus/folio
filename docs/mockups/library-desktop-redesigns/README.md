@@ -15,6 +15,11 @@ below about 960 px each design only falls back to a readable single column.
 | 5 | Traditions | A board with one column per tradition, or per form, scrolling sideways inside its own frame; Favourites pinned as the first column. |
 | 6 | Desk | A front page: the book in progress as a hero, the others beside it with four figures, then one shelf per form that opens into a grid. |
 
+**Chosen (Nov 2026).** Design 1, the Reading room, is now the Library page on a desktop (1100px and
+wider), and the top of design 6 — On your desk, Also on your desk, the four figures — stands over the
+shelf on a phone and a tablet. `docs/library-feature.md`, "The Reading room and the Desk", describes what
+was built. The other four are drawings only.
+
 ## Data
 
 `books.json` holds the 101 texts. Regenerate it from the live catalogue with

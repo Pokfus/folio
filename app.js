@@ -2367,20 +2367,59 @@
     supaFetch("/rest/v1/rpc/bump_book_read", { method: "POST", body: { b: String(id) } })
       .then((r) => { if (r && r.status === 404) _bookStatsOff = true; });
   }
-  /* Every book's count in ONE request — the shelf draws forty-eight tiles, so a fetch per tile would be
-     forty-eight requests for a figure that is a footnote on each. */
+  /* ---------- …AND HOW MANY TIMES IT HAS BEEN OPENED (Nov 2026, on request) ----------
+     "Popularity should count openings instead of readers." So the Popularity order has a counter of its
+     own beside `reads`: `book_stats.opens`, bumped by `bump_book_open` (schema section 20) when a book's
+     reader page comes up with its text. The two figures answer two questions and both are kept — `reads`
+     is how many PEOPLE read it (once each, after a minute, synced so a second device does not count
+     again); `opens` is how often it is reached for, and a book somebody returns to every evening counts
+     every evening.
+
+     AN OPENING IS COUNTED AT MOST ONCE AN HOUR PER BOOK PER DEVICE (`BOOK_OPEN_GAP`, a timestamp per book
+     in localStorage, deliberately not in the synced progress: it is a throttle, not a fact about the
+     reader). Without it every re-render of the reader page, every reload and every tap through the
+     chapter bar's back-and-forth would be an opening; with it, coming back to a book the same evening is
+     one visit and coming back tomorrow is another.
+
+     UNTIL SECTION 20 IS RUN the column and the function are not there: the select is refused, `_bookOpensOff`
+     latches, the figures fall back to `reads`, and the shelf says so in a sentence under the Popularity
+     order (`#bkSortNote`) rather than passing readers off as openings. */
+  let _bookOpensOff = false;
+  const BOOK_OPEN_GAP = 3600000;
+  const BOOK_OPENED_KEY = "folio_book_opened_v1";
+  function bookOpenCount(id) {
+    if (_bookStatsOff || _bookOpensOff || isDevOrigin() || !id) return;
+    let m = {};
+    try { m = JSON.parse(localStorage.getItem(BOOK_OPENED_KEY) || "{}") || {}; } catch (e) {}
+    const now = Date.now();
+    if (m[id] && now - m[id] < BOOK_OPEN_GAP) return;
+    m[id] = now;
+    try { localStorage.setItem(BOOK_OPENED_KEY, JSON.stringify(m)); } catch (e) {}
+    supaFetch("/rest/v1/rpc/bump_book_open", { method: "POST", body: { b: String(id) } })
+      .then((r) => { if (r && r.status === 404) _bookOpensOff = true; });
+  }
+  /* Every book's counts in ONE request — the shelf draws a hundred tiles, so a fetch per tile would be a
+     hundred requests for a figure that is a footnote on each. `opens` is asked for with `reads`; a
+     database without section 20 refuses the unknown column (400), and the request is made again without
+     it, once, after which `_bookOpensOff` keeps it from being asked for at all. */
   async function bookStatsLoad() {
     if (_bookStatsOff || isDevOrigin()) return null;
     if (_bookStats && Date.now() - _bookStatsAt < BOOK_STATS_TTL) return _bookStats;
-    const r = await supaFetch("/rest/v1/book_stats?select=book,reads");
+    let r = _bookOpensOff ? null : await supaFetch("/rest/v1/book_stats?select=book,reads,opens");
+    if (r && r.status === 400) { _bookOpensOff = true; r = null; }          // "column book_stats.opens does not exist"
+    if (!r) r = await supaFetch("/rest/v1/book_stats?select=book,reads");
     if (!r || !r.ok) { if (r && r.status === 404) _bookStatsOff = true; return null; }
     const out = Object.create(null);
-    (Array.isArray(r.data) ? r.data : []).forEach((row) => { if (row && row.book) out[row.book] = row.reads | 0; });
+    (Array.isArray(r.data) ? r.data : []).forEach((row) => {
+      if (row && row.book) out[row.book] = { reads: row.reads | 0, opens: _bookOpensOff ? null : (row.opens | 0) };
+    });
     _bookStats = out; _bookStatsAt = Date.now();
     return out;
   }
   // what this session knows, without asking: null until the first load settles
-  function bookReads(id) { return _bookStats ? (_bookStats[id] | 0) : null; }
+  function bookReads(id) { return _bookStats ? ((_bookStats[id] && _bookStats[id].reads) | 0) : null; }
+  // …and null as well where the database has no `opens` to give (section 20 not run)
+  function bookOpens(id) { return _bookStats && !_bookOpensOff ? ((_bookStats[id] && _bookStats[id].opens) | 0) : null; }
   /* Called from the reading clock. The flag lives on the reader's own reading record beside their place
      and their time, so it syncs with them; `Object.assign` rather than a fresh object, for the reason
      `setReadingPos` records — a rebuilt record here would wipe the clock it is reading. */
@@ -13422,6 +13461,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // composed over centuries files where it begins. `node .claude/check-library.js` holds every
       // row to that: a range's key is its early end, a single century's key lies inside the century.
       year: 62,
+      tradition: "Rome",
+      form: "Philosophy",
       translator: "Richard Mott Gummere",
       edition: "Loeb Classical Library, 1917–1925",
       rights:
@@ -13468,6 +13509,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Marcus Aurelius",
       written: "c. 170–180 CE",
       year: 170,
+      tradition: "Rome",
+      form: "Philosophy",
       translator: "C. R. Haines",
       edition: "Loeb Classical Library, 1916",
       rights:
@@ -13504,6 +13547,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // negative, and this is the book the signed sort key was written for: it files two and a half
       // thousand years before the other two, where a parse of the prose above could not have put it
       year: -500,
+      tradition: "China",
+      form: "Philosophy",
       translator: "Lionel Giles",
       edition: "Luzac & Co., London, 1910",
       /* The only book here whose licence has to state a LIMIT as well as a ground. Giles published in
@@ -13546,6 +13591,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Plato",
       written: "c. 375 BCE",
       year: -375,
+      tradition: "Greece",
+      form: "Philosophy",
       translator: "Paul Shorey",
       edition: "Loeb Classical Library, Harvard University Press, 1930 and 1935",
       /* THE ONE LICENCE ON THIS SHELF THAT DIFFERS BY VOLUME (Sep 2026, on request). This book
@@ -13603,6 +13650,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // Plato's writing life, now that the whole surviving corpus but one work is here
       written: "c. 399–347 BCE",
       year: -399,
+      tradition: "Greece",
+      form: "Philosophy",
       translator: "Harold North Fowler, W. R. M. Lamb and R. G. Bury",
       edition: "Loeb Classical Library, Harvard University Press, 1914–1929",
       /* THREE GROUNDS AND ONE REFUSAL, which is why this `rights` is the longest on the shelf.
@@ -13698,6 +13747,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Ovid",
       written: "completed c. 8 CE",
       year: 8,
+      tradition: "Rome",
+      form: "Epic and poetry",
       translator: "Brookes More",
       edition: "Cornhill Publishing Company, Boston, 1922",
       /* TWO LAYERS ON BOTH SIDES, and this is the first book here where that is true of the ENGLISH.
@@ -13744,6 +13795,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Suetonius",
       written: "c. 121 CE",
       year: 121,
+      tradition: "Rome",
+      form: "History",
       translator: "Alexander Thomson",
       edition: "Gebbie & Co., Philadelphia, 1883",
       /* Two layers on both columns, the position the Metamorphoses is in — and the expired-copyright
@@ -13806,6 +13859,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* A sort key, not a date: the Annals were written in the second decade of the second century and
          no year inside it is attested, so this sits in that span — Plutarch's position exactly. */
       year: 115,
+      tradition: "Rome",
+      form: "History",
       translator: "Alfred John Church and William Jackson Brodribb",
       edition: "Annals of Tacitus, translated into English, Macmillan and Co., London, 1869",
       /* Two layers on both columns, the Suetonius position. The ground is the publication dates —
@@ -13852,6 +13907,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       written: "early 2nd century CE",
       // files just before Suetonius (121): the Lives belong to the first two decades of the century
       year: 110,
+      tradition: "Greece",
+      form: "History",
       translator: "Bernadotte Perrin",
       edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1926",
       /* Two layers on both columns, the Plato position. The ground is the publication date alone:
@@ -13916,6 +13973,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       written: "early 3rd century CE",
       // he carried the history to his own second consulship, in 229
       year: 229,
+      tradition: "Rome",
+      form: "History",
       translator: "Earnest Cary",
       edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1927",
       /* Two layers, and the second is not Perseus's: the translation is public domain on its
@@ -13964,6 +14023,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       written: "c. 55 BCE",
       // negative, like the Art of War's: this one files second on a shelf sorted oldest first
       year: -55,
+      tradition: "Rome",
+      form: "Philosophy",
       translator: "William Ellery Leonard",
       edition: "E. P. Dutton & Co., New York, 1916",
       /* Two layers on both columns, the position the Metamorphoses and the Twelve Caesars are in.
@@ -14015,6 +14076,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Aristotle",
       written: "c. 340 BCE",
       year: -340,
+      tradition: "Greece",
+      form: "Philosophy",
       translator: "W. D. Ross",
       edition: "The Works of Aristotle, Volume IX, Clarendon Press, Oxford, 1925",
       /* THE SECOND BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, the Art of War being the first.
@@ -14068,6 +14131,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          carry the whole of the doubt. */
       written: "c. 429 BCE",
       year: -429,
+      tradition: "Greece",
+      form: "Drama",
       translator: "Richard Jebb",
       edition: "Sophocles: The Plays and Fragments, Cambridge University Press, 1887",
       /* THE EXPIRIES ARE THE EASIEST ON THIS SHELF AND THERE IS A THIRD LAYER UNDER THEM — corrected
@@ -14131,6 +14196,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          one carries no `c.` and the front matter says why it need not. */
       written: "431 BCE",
       year: -431,
+      tradition: "Greece",
+      form: "Drama",
       translator: "Edward P. Coleridge",
       edition: "The Plays of Euripides, Volume 1, George Bell and Sons, 1906",
       /* THE THIRD LICENCE HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles,
@@ -14189,6 +14256,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          letting the `c.` do all of it, as the Oedipus Rex's does. */
       written: "c. 441 BCE",
       year: -441,
+      tradition: "Greece",
+      form: "Drama",
       translator: "Richard Jebb",
       /* NOT the Oedipus Rex's volume: that is Jebb's volume 1 of 1887 and this his volume 3 of 1891,
          the same series a few years on. A second book by an author already on the shelf is exactly
@@ -14252,6 +14321,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          recorded, and the front matter says so rather than the date line pretending to know. */
       written: "411 BCE",
       year: -411,
+      tradition: "Greece",
+      form: "Drama",
       /* The volume names no translator: it was printed for the Athenian Society and published
          anonymously. That is a fact about the edition rather than a gap in the record, and it is what
          makes this the simplest licence on the shelf — there is no death year for it to depend on. */
@@ -14322,6 +14393,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          and Gilgamesh's entries do. */
       written: "c. 4th–5th century CE",
       year: 301,
+      tradition: "India",
+      form: "Drama",
       // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Jones's preface is the first chapter
       glossUntil: 1789,
       translator: "William Jones",
@@ -14393,6 +14466,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          work — the same move the Song of Roland's and Kalidasa's entries make. */
       written: "c. 700–1000 CE",
       year: 700,
+      tradition: "Medieval Europe",
+      form: "Epic and poetry",
       translator: "Francis Barton Gummere",
       edition: "The Oldest English Epic, Macmillan, New York, 1909",
       /* PUBLIC DOMAIN WITH ONE THING THAT CANNOT BE ESTABLISHED, and it is said rather than rounded up
@@ -14452,6 +14527,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          rather than leaving the `c.` to do all of it. */
       written: "c. 430 BCE",
       year: -430,
+      tradition: "Greece",
+      form: "History",
       translator: "A. D. Godley",
       edition: "Loeb Classical Library, 1920–1925",
       /* THE EXPIRY IS EASY AND THE SECOND LAYER IS NOT, which makes this licence unlike any other on
@@ -14519,6 +14596,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          than a midpoint nothing marks. */
       written: "c. 5th–3rd century BCE",
       year: -500,
+      tradition: "China",
+      form: "Philosophy",
       translator: "James Legge",
       edition: "The Chinese Classics, Vol. I, 2nd ed., Clarendon Press, Oxford, 1893",
       /* THE EASIEST LICENCE HERE, and the second that needs no qualification at all — the Republic's
@@ -14569,6 +14648,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          says the century. */
       written: "c. 4th century BCE",
       year: -301,
+      tradition: "China",
+      form: "Philosophy",
       translator: "James Legge",
       edition: "The Chinese Classics, Vol. II, 1861; 2nd revised ed., Clarendon Press, Oxford, 1895",
       /* The Analects' licence exactly: Legge published in 1861 and revised in 1895, both before 1929, and
@@ -14616,6 +14697,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          book having circulated in manuscript and been printed in 1532, five years after he died. */
       written: "1513",
       year: 1513,
+      tradition: "Renaissance and early modern",
+      form: "Law and politics",
       translator: "W. K. Marriott",
       edition: "Everyman's Library No. 280, J. M. Dent & Sons, London, 1908",
       /* THE THIRD LICENCE HERE THAT NEEDS NO QUALIFICATION — the Republic's and the Analects'
@@ -14673,6 +14756,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `c.` to do all of it. */
       written: "c. 58–50 BCE",
       year: -58,
+      tradition: "Rome",
+      form: "History",
       translator: "W. A. McDevitte and W. S. Bohn",
       edition: "Harper's New Classical Library, 1870–1872",
       /* THE EXPIRY IS CERTAIN ON THE PUBLICATION RULE AND CANNOT BE STATED ON THE OTHER ONE, which is
@@ -14729,6 +14814,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          of Livy's life; no end date is stated, since his own death date is itself only traditional. */
       written: "begun c. 27 BCE",
       year: -27,
+      tradition: "Rome",
+      form: "History",
       translator: "D. Spillan, Cyrus Edmonds and W. A. McDevitte",
       edition: "Bohn's Classical Library, 1849–1857",
       /* THE GALLIC WAR'S LICENCE AGAIN, one translator without dates. Spillan d. 1854 and McDevitte
@@ -14779,6 +14866,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          unfinished sentence for an ending should have been told first. */
       written: "c. 431–400 BCE",
       year: -431,
+      tradition: "Greece",
+      form: "History",
       translator: "Richard Crawley",
       edition: "London, 1874",
       /* THE EASIEST LICENCE ON THE SHELF, alongside the Republic's and the Analects': three layers,
@@ -14834,6 +14923,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          shelf sorts by, a round figure inside that span rather than a date anything records. */
       written: "2nd century BCE",
       year: -150,
+      tradition: "Greece",
+      form: "History",
       translator: "Evelyn S. Shuckburgh",
       edition: "Macmillan and Co., London, 1889",
       /* Both layers long expired and checked rather than recalled: Shuckburgh 1843–1906 (Online Books
@@ -14881,6 +14972,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          single date is true of it. The front matter says so at length. */
       written: "c. 6th century BCE, collected later",
       year: -550,
+      tradition: "Greece",
+      form: "Tales and fiction",
       translator: "George Fyler Townsend",
       edition: "George Routledge and Sons, London, 1867",
       /* The fourth licence here that needs no qualification at all, after the Republic, the Analects
@@ -14930,6 +15023,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the figure everyone uses and the only one the shelf can honestly sort on; how loose it is is
          said on the book's own first page. */
       year: 1100,
+      tradition: "Medieval Europe",
+      form: "Epic and poetry",
       translator: "Charles Kenneth Scott Moncrieff",
       edition: "Chapman & Hall, London, 1919",
       /* THE THIRD BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, in
@@ -14991,6 +15086,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Roland's position exactly. How loose it is is said on the book's own page. It is by a long way
          the OLDEST book here — the next is the Analects, eight hundred years later. */
       year: -1200,
+      tradition: "Egypt and Mesopotamia",
+      form: "Epic and poetry",
       // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Thompson's own notes on the tablets stand in the text
       glossUntil: 1928,
       translator: "R. Campbell Thompson",
@@ -15056,6 +15153,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the conventional span (Nov 2026, on request: a text written over a long span files at its earliest date). How loose it is is said on the book's own page, as the Song of Roland's
          and Gilgamesh's are. */
       year: -200,
+      tradition: "India",
+      form: "Scripture and religion",
       translator: "Annie Besant",
       edition: "G. A. Natesan & Co., Madras, 4th edition, 1922",
       /* THE SIXTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
@@ -15106,6 +15205,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the Analects' entry makes and for the same reason. */
       written: "c. 11th–7th century BCE",
       year: -1100,
+      tradition: "China",
+      form: "Epic and poetry",
       translator: "James Legge",
       edition:
         "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
@@ -15170,6 +15271,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          by date must have, and it is the early end of that span rather than a midpoint nothing marks. */
       written: "c. 11th–4th century BCE",
       year: -1100,
+      tradition: "China",
+      form: "History",
       translator: "James Legge",
       edition:
         "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
@@ -15226,6 +15329,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is the early end of that span rather than a midpoint nothing marks. */
       written: "c. 3rd–1st century BCE",
       year: -300,
+      tradition: "China",
+      form: "Philosophy",
       translator: "James Legge",
       edition:
         "The Sacred Books of the East, Vol. XXVII: The Texts of Confucianism, Part III, " +
@@ -15280,6 +15385,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the shelf's date sort needs; the front matter says how loose it is. */
       written: "c. 1220",
       year: 1220,
+      tradition: "Medieval Europe",
+      form: "Scripture and religion",
       translator: "Arthur Gilchrist Brodeur",
       edition:
         "The Prose Edda, translated by Arthur Gilchrist Brodeur, " +
@@ -15344,6 +15451,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          rather than leaving the `c.` to do all the work. */
       written: "c. 900–1250 CE",
       year: 900,
+      tradition: "Medieval Europe",
+      form: "Epic and poetry",
       translator: "Henry Adams Bellows",
       edition:
         "The Poetic Edda, translated by Henry Adams Bellows, " +
@@ -15412,6 +15521,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the first part's; the prose carries both, which is where the pair belongs. */
       written: "1605 & 1615",
       year: 1605,
+      tradition: "Renaissance and early modern",
+      form: "Tales and fiction",
       translator: "John Ormsby",
       edition: "Don Quixote de la Mancha, translated by John Ormsby, London, 1885",
       /* THE TENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects,
@@ -15472,6 +15583,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          with it goes the date. */
       written: "c. 60s CE",
       year: 65,
+      tradition: "Rome",
+      form: "Tales and fiction",
       translator: "Michael Heseltine",
       edition: "Loeb Classical Library, William Heinemann, London, 1913",
       /* A LIMIT TO STATE, which puts it with the Song of Roland, the Gita and the two Homers rather
@@ -15530,6 +15643,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          date belongs. */
       written: "c. 500 BCE – 200 CE",
       year: -500,
+      tradition: "India",
+      form: "Epic and poetry",
       translator: "Ralph T. H. Griffith",
       edition:
         "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
@@ -15596,6 +15711,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          hedge, which is where a contested date belongs. */
       written: "c. 2400 BCE, or the Middle Kingdom",
       year: -2400,
+      tradition: "Egypt and Mesopotamia",
+      form: "Philosophy",
       translator: "Battiscombe G. Gunn",
       edition:
         "The Instruction of Ptah-hotep and the Instruction of Ke'gemni: The Oldest Books in the " +
@@ -15644,6 +15761,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Boethius",
       written: "c. 523–524 CE, in prison at Pavia",
       year: 523,
+      tradition: "Medieval Europe",
+      form: "Philosophy",
       translator: "H. R. James",
       edition: "Elliot Stock, London, 1897",
       /* A LIMIT ON EACH COLUMN, AND THE ORIGINAL IS THE HARDER HALF. Boethius was executed around
@@ -15698,6 +15817,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Thomas Malory",
       written: "c. 1469–70, printed 1485",
       year: 1469,
+      tradition: "Medieval Europe",
+      form: "Tales and fiction",
       /* NO `translator`, AND IT IS THE FIRST BOOK HERE WITH NONE. Every other book on this shelf was
          written in another language and names the person who put it into English; Malory wrote in
          English, and this edition modernises the spelling lightly and leaves the vocabulary
@@ -15778,6 +15899,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Marco Polo",
       written: "c. 1298",
       year: 1298,
+      tradition: "Medieval Europe",
+      form: "Travel and memoir",
       translator: "Sir Henry Yule",
       edition: "The Book of Ser Marco Polo, third edition (1903), revised by Henri Cordier, John Murray, London",
       /* THE TWELFTH LICENCE ON THIS SHELF NEEDING NO QUALIFICATION AT ALL, and the plainest of the
@@ -15840,6 +15963,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Bede",
       written: "731 CE",
       year: 731,
+      tradition: "Medieval Europe",
+      form: "History",
       translator: "A. M. Sellar",
       edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
       /* THE GROUND IS THE PUBLICATION DATE AND NOTHING ELSE, which is the Gallic War's position and
@@ -15915,6 +16040,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          on request); the prose carries the hedge, which is where a contested date belongs. */
       written: "c. 1500–1000 BCE",
       year: -1500,
+      tradition: "India",
+      form: "Scripture and religion",
       translator: "Ralph T. H. Griffith",
       edition:
         "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
@@ -15985,6 +16112,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          it ends where it does, which is the book's own story rather than a delay. */
       written: "1265–1274, unfinished",
       year: 1265,
+      tradition: "Scripture and the Church",
+      form: "Scripture and religion",
       translator: "Fathers of the English Dominican Province",
       edition:
         "Second and revised edition, literally translated by the Fathers of the English Dominican " +
@@ -16050,6 +16179,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          after the sack of Rome. */
       written: "c. 397–400 CE",
       year: 397,
+      tradition: "Scripture and the Church",
+      form: "Travel and memoir",
       translator: "J. G. Pilkington",
       edition:
         "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
@@ -16107,6 +16238,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          work rather than a delay before it. */
       written: "413–426 CE",
       year: 413,
+      tradition: "Scripture and the Church",
+      form: "Scripture and religion",
       translator: "Marcus Dods",
       edition:
         "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
@@ -16163,6 +16296,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          this shelf, and those are easy to confuse. */
       written: "composed c. 750–700 BCE",
       year: -750,
+      tradition: "Greece",
+      form: "Epic and poetry",
       translator: "A. T. Murray",
       edition: "Loeb Classical Library, London and New York, 1924",
       /* A LIMIT ON EACH COLUMN, which puts this with the Song of Roland rather than with the four
@@ -16225,6 +16360,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          make. */
       written: "composed c. 725–675 BCE",
       year: -725,
+      tradition: "Greece",
+      form: "Epic and poetry",
       translator: "A. T. Murray",
       edition: "Loeb Classical Library, London and New York, 1919",
       /* THE SIMPLEST LICENCE OF ANY TWO-COLUMN BOOK HERE, and it is worth saying why rather than
@@ -16288,6 +16425,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          between Lucretius's poem of the 50s BCE and Ovid's of 8 CE, which is where it belongs. */
       written: "c. 29–19 BCE",
       year: -29,
+      tradition: "Rome",
+      form: "Epic and poetry",
       translator: "Theodore C. Williams",
       edition: "Houghton Mifflin Company, Boston, 1910",
       /* AN EASY LICENCE, AND THE FIFTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
@@ -16351,6 +16490,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          centuries before it appeared. */
       written: "first printed 1592",
       year: 1592,
+      tradition: "China",
+      form: "Tales and fiction",
       translator: "Timothy Richard",
       edition: "The Christian Literature Society's Depot, Shanghai, 1913",
       /* AN EASY LICENCE, AND THE SIXTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
@@ -16412,6 +16553,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       written: "14th century, first printed 1522",
       // the first year of the century it was written in, not the printing's (Nov 2026: the earliest date)
       year: 1301,
+      tradition: "China",
+      form: "Tales and fiction",
       translator: "C. H. Brewitt-Taylor",
       edition: "Kelly & Walsh, Limited, Shanghai, 1925",
       /* A LIMIT TO STATE, and only one modern layer to state it about. The novel is fourteenth-century
@@ -16465,6 +16608,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Geoffrey Chaucer",
       written: "c. 1387–1400",
       year: 1387,
+      tradition: "Medieval Europe",
+      form: "Tales and fiction",
       translator: "John S. P. Tatlock and Percy MacKaye",
       edition: "The Macmillan Company, New York, 1912",
       /* A LIMIT ON THE TRANSLATION, and nothing to qualify about the other two layers. Chaucer died in
@@ -16532,6 +16677,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Dante Alighieri",
       written: "c. 1308–1321",
       year: 1308,
+      tradition: "Medieval Europe",
+      form: "Epic and poetry",
       translator: "Henry Wadsworth Longfellow",
       edition: "Ticknor and Fields, Boston, 1867",
       rights:
@@ -16588,6 +16735,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          play's verse both point. */
       written: "c. 1606",
       year: 1606,
+      tradition: "Renaissance and early modern",
+      form: "Drama",
       /* NO `translator` — written in English, as Le Morte d'Arthur was, so the rights box names the
          edition instead. */
       edition: "The Yale Shakespeare, ed. Charlton M. Lewis, Yale University Press, New Haven, 1918",
@@ -16631,6 +16780,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          mid-1590s is where its style and its borrowings point. */
       written: "c. 1595",
       year: 1595,
+      tradition: "Renaissance and early modern",
+      form: "Drama",
       // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
       edition: "The Yale Shakespeare, ed. Willard Higley Durham, Yale University Press, New Haven, 1917",
       /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
@@ -16662,6 +16813,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          September 1599, generally taken to be this one, new at the Globe. First printed in the Folio of 1623. */
       written: "1599",
       year: 1599,
+      tradition: "Renaissance and early modern",
+      form: "Drama",
       // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
       edition: "The Yale Shakespeare, ed. Lawrence Mason, Yale University Press, New Haven, 1919",
       /* The play has never been in copyright; the Yale edition was published in 1919 and its editor died
@@ -16692,6 +16845,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* "c.": written around 1599–1601; first printed in the quarto of 1603. */
       written: "c. 1600",
       year: 1600,
+      tradition: "Renaissance and early modern",
+      form: "Drama",
       // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
       edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
       /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
@@ -16724,6 +16879,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          shortly before; first printed in the Folio of 1623, where it stands first. */
       written: "c. 1611",
       year: 1611,
+      tradition: "Renaissance and early modern",
+      form: "Drama",
       // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
       edition: "The Yale Shakespeare, ed. Chauncey Brewster Tinker, Yale University Press, New Haven, 1918",
       /* The play has never been in copyright; the Yale edition was published in 1918 and its editor died
@@ -16757,6 +16914,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          key is the early end of it (Nov 2026, on request: a range files at its earliest date). */
       written: "c. 760–780 CE",
       year: 760,
+      tradition: "China",
+      form: "Science",
       translator: "Z. L. Yih, as condensed by William H. Ukers",
       edition:
         "“Translation Digest of Ch‘a Ching”, in William H. Ukers, All About Tea, vol. 1, ch. 2, " +
@@ -16809,6 +16968,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Thomas Jefferson",
       written: "1776",
       year: 1776,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       /* NO `translator` — written in English, so the rights box names the printing instead. */
       edition: "The Goddard broadside, printed by order of Congress by Mary Katharine Goddard, Baltimore, 1777",
       /* A LIMIT ON NOTHING: a text of 1776 in a printing of 1777. The Wikisource transcription is not
@@ -16842,6 +17003,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the date the charter gives itself, at its foot: Runnymede, 15 June, the seventeenth year of John
       written: "1215",
       year: 1215,
+      tradition: "Medieval Europe",
+      form: "Law and politics",
       translator: "William Sharp McKechnie",
       edition:
         "Magna Carta: A Commentary on the Great Charter of King John, with an Historical Introduction, " +
@@ -16892,6 +17055,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          about 170 (10.34.5). The key is the early end of the span. */
       written: "c. 155–180 CE",
       year: 155,
+      tradition: "Greece",
+      form: "Travel and memoir",
       translator: "W. H. S. Jones and H. A. Ormerod",
       edition: "Loeb Classical Library, 1918–1935",
       /* TWO GROUNDS BY VOLUME AND ONE LIMIT. Volumes I–II (1918, 1926) are clear in the United States
@@ -16954,6 +17119,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the range Perseus's header gives the work; still being revised under Tiberius
       written: "c. 7–24 CE",
       year: 7,
+      tradition: "Greece",
+      form: "Science",
       translator: "H. C. Hamilton and W. Falconer",
       edition: "Bohn's Classical Library, 1854–1857",
       /* Expired on every ground: Bohn's three volumes of 1854–57 are pre-1929, Falconer died in 1885 and
@@ -16999,6 +17166,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          sort year is the early end of that span, and the front matter carries the reasoning. */
       written: "c. 60–30 BCE",
       year: -60,
+      tradition: "Greece",
+      form: "History",
       translator: "C. H. Oldfather and others",
       edition: "Loeb Classical Library, 1933–1963",
       /* PUBLIC DOMAIN BY NON-RENEWAL, the Classic of Tea's ground on ten volumes. Each was published
@@ -17045,6 +17214,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          key is the first year of the span. */
       written: "1st–2nd century CE",
       year: 1,
+      tradition: "Greece",
+      form: "Scripture and religion",
       translator: "Sir James George Frazer",
       edition: "Loeb Classical Library, 1921",
       /* Expired on every ground: the Loeb of 1921 is pre-1929 and Frazer died in 1941. Perseus's digital
@@ -17079,6 +17250,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the start, the single number the shelf's date sort needs; the span is in `written`. */
       written: "c. 890–1154 CE",
       year: 890,
+      tradition: "Medieval Europe",
+      form: "History",
       translator: "J. A. Giles",
       edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
       /* A LIMIT ON NOTHING. The annals are eight to eleven centuries old; Giles published the
@@ -17113,6 +17286,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // signed on 28 June 1919; in force on 10 January 1920
       written: "1919",
       year: 1919,
+      tradition: "Modern science and thought",
+      form: "Law and politics",
       /* NO `translator`: the English is one of the treaty's two authentic texts (Article 440), so the
          rights box names the edition, as for Macbeth. */
       edition:
@@ -17172,6 +17347,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          redactions after Shakhmatov. The key is the first compilation's year, the early end. */
       written: "c. 1111–1116",
       year: 1111,
+      tradition: "Medieval Europe",
+      form: "History",
       translator: "Samuel Hazzard Cross",
       edition:
         "Harvard Studies and Notes in Philology and Literature, vol. 12, Harvard University Press, " +
@@ -17240,6 +17417,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          1330, the Commission transcript rearranged in the 1450s. The key is the earlier of the two. */
       written: "c. 1330–1450s",
       year: 1330,
+      tradition: "Medieval Europe",
+      form: "History",
       translator: "Robert Michell and Nevill Forbes",
       edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914, pp. 1–221",
       /* A LIMIT TO STATE: published in 1914 (before 1931, so public domain in the United States); Forbes
@@ -17269,6 +17448,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // dated 31 October 1517, the eve of All Saints
       written: "1517",
       year: 1517,
+      tradition: "Scripture and the Church",
+      form: "Scripture and religion",
       // named by the 1915 volume's contents page: "Translation (C. M. Jacobs)"
       translator: "Charles M. Jacobs",
       edition: "Works of Martin Luther, with Introductions and Notes, Volume I, A. J. Holman Company, Philadelphia, 1915",
@@ -17304,6 +17485,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          latest piece is the last two chapters of 2 Esdras, usually put in the third century CE. */
       written: "c. 1000 BCE – c. 300 CE",
       year: -1000,
+      tradition: "Scripture and the Church",
+      form: "Scripture and religion",
       translator: "the King James translators",
       edition:
         "The Authorized Version of 1611, in the standard text of 1769, as transcribed by the CrossWire " +
@@ -17456,6 +17639,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the years of the revelation as Islamic tradition dates them; the sort key is the first year of the span
       written: "c. 610–632 CE",
       year: 610,
+      tradition: "Scripture and the Church",
+      form: "Scripture and religion",
       translator: "Marmaduke Pickthall",
       edition:
         "The Meaning of the Glorious Koran: An Explanatory Translation, London, 1930 — the printed text, " +
@@ -17500,6 +17685,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Thomas Hobbes",
       written: "1651",
       year: 1651,
+      tradition: "Renaissance and early modern",
+      form: "Law and politics",
       /* NO `translator`: written in English, like the Declaration. */
       edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
       /* No limit to state: printed in 1651, its author dead since 1679. See .claude/fetch-book.js. */
@@ -17553,6 +17740,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Jean-Jacques Rousseau",
       written: "1762",
       year: 1762,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       translator: "G. D. H. Cole",
       edition: "The Social Contract and Discourses, Everyman's Library, London, 1913",
       /* A LIMIT TO STATE, on the translation: published in 1913, so public domain in the United States;
@@ -17597,6 +17786,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Immanuel Kant",
       written: "1781, revised 1787",
       year: 1781,
+      tradition: "Enlightenment and revolution",
+      form: "Philosophy",
       translator: "J. M. D. Meiklejohn",
       edition: "Bohn's Philosophical Library, Henry G. Bohn, London, 1855",
       /* No limit to state: Kant died in 1804 and his translator more than a century ago. See .claude/fetch-book.js. */
@@ -17633,6 +17824,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the last chapter: "At the time of writing this I was in my seventy-sixth year" — 14 CE
       written: "14 CE",
       year: 14,
+      tradition: "Rome",
+      form: "History",
       translator: "Frederick W. Shipley",
       edition: "Velleius Paterculus and Res Gestae Divi Augusti, Loeb Classical Library, William Heinemann and G. P. Putnam's Sons, 1924",
       /* The Cassius Dio ground: a 1924 Loeb, public domain in the United States as a pre-1929 publication, in
@@ -17675,6 +17868,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "René Descartes",
       written: "1637",
       year: 1637,
+      tradition: "Renaissance and early modern",
+      form: "Philosophy",
       translator: "John Veitch",
       edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
       /* No limit to state: Descartes died in 1650 and Veitch in 1894. See .claude/fetch-book.js. */
@@ -17706,6 +17901,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Thomas More",
       written: "1516",
       year: 1516,
+      tradition: "Renaissance and early modern",
+      form: "Law and politics",
       translator: "Gilbert Burnet",
       edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
       /* No limit to state: More died in 1535, Burnet in 1715, Morley in 1894. See .claude/fetch-book.js. */
@@ -17736,6 +17933,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Charles Darwin",
       written: "1859",
       year: 1859,
+      tradition: "Modern science and thought",
+      form: "Science",
       /* NO `translator`: written in English, like Leviathan. */
       edition: "The first edition, John Murray, London, 1859",
       /* No limit to state: printed in 1859, its author dead since 1882. See .claude/fetch-book.js. */
@@ -17772,6 +17971,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          headnote, and the last letters to Augustine are of 418–419; `year` is the first, for the date sort. */
       written: "c. 370–419 CE",
       year: 370,
+      tradition: "Scripture and the Church",
+      form: "Travel and memoir",
       translator: "W. H. Fremantle",
       edition:
         "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
@@ -17813,6 +18014,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Euclid",
       written: "c. 300 BCE",
       year: -300,
+      tradition: "Greece",
+      form: "Science",
       translator: "Robert Simson, revised by Isaac Todhunter",
       edition: "The Elements of Euclid for the Use of Schools and Colleges, Macmillan and Co., London, 1872 (first published 1862)",
       /* No limit to state: Simson's English is of 1756 and Todhunter, who revised it, died in 1884. See .claude/fetch-book.js. */
@@ -17847,6 +18050,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Voltaire",
       written: "1759",
       year: 1759,
+      tradition: "Enlightenment and revolution",
+      form: "Tales and fiction",
       translator: "Tobias Smollett, revised by James Thornton",
       edition: "Candide, Pantheon Books, New York, undated (not before 1942), reprinting the Everyman's Library revision",
       /* A QUALIFIED LICENCE, the first on the shelf not resting on publication before 1929: the printing is
@@ -17890,6 +18095,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Turin papyrus). `year` is the start of that span, the one number the shelf's sort needs. */
       written: "c. 1550–50 BCE",
       year: -1550,
+      tradition: "Egypt and Mesopotamia",
+      form: "Scripture and religion",
       // the last year the TEXT may name (the reader unlinks a glossary term dated after it): the rubrics name the papyri and the museums that hold them
       glossUntil: 1901,
       translator: "E. A. Wallis Budge",
@@ -17932,6 +18139,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          run from the Old Kingdom to the end of the New: it is a scholar's book, and its notes and dates are his. */
       written: "1923",
       year: 1923,
+      tradition: "Egypt and Mesopotamia",
+      form: "Tales and fiction",
       translator: "Aylward M. Blackman",
       edition: "Methuen & Co., London, 1927 (from Die Literatur der Aegypter, Leipzig, 1923)",
       /* A LIMIT TO STATE, ON THE TRANSLATION: US public domain as a 1927 publication; Blackman died in 1956, so
@@ -17964,6 +18173,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "William James",
       written: "1890",
       year: 1890,
+      tradition: "Modern science and thought",
+      form: "Science",
       /* NO `translator`: written in English, like the Origin of Species. */
       edition: "Henry Holt and Company, New York, 1890, in two volumes (a 1918 printing)",
       /* No limit to state: printed in 1890, its author dead since 1910. See .claude/fetch-book.js. */
@@ -18008,6 +18219,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Ivan Pavlov",
       written: "1926",
       year: 1926,
+      tradition: "Modern science and thought",
+      form: "Science",
       translator: "G. V. Anrep",
       edition: "Translated and edited by G. V. Anrep, Oxford University Press: Humphrey Milford, London, 1927",
       /* A LIMITED licence: public domain in the US (1927) and wherever copyright runs life + 70 or less, since
@@ -18041,6 +18254,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Charles Darwin",
       written: "1872",
       year: 1872,
+      tradition: "Modern science and thought",
+      form: "Science",
       /* NO `translator`: written in English, like the Origin of Species. */
       edition: "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)",
       /* No limit to state: printed in 1872, its author dead since 1882. See .claude/fetch-book.js. */
@@ -18078,6 +18293,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Sigmund Freud",
       written: "1899",
       year: 1899,
+      tradition: "Modern science and thought",
+      form: "Science",
       translator: "A. A. Brill",
       edition: "Authorised translation of the third edition, The Macmillan Company, New York, 1913",
       /* A LIMITED licence: public domain in the US (1913) and wherever copyright runs life + 75 or less, since
@@ -18114,6 +18331,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Edward L. Thorndike",
       written: "1911",
       year: 1911,
+      tradition: "Modern science and thought",
+      form: "Science",
       /* NO `translator`: written in English. */
       edition: "The Macmillan Company, New York, 1911",
       /* A LIMITED licence: public domain in the US (1911) and wherever copyright runs life + 70 or less, since
@@ -18149,6 +18368,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          number; the prose carries the range. */
       written: "c. 2000–1600 BCE (the papyri)",
       year: -2000,
+      tradition: "Egypt and Mesopotamia",
+      form: "Tales and fiction",
       // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Petrie's Remarks follow each tale
       glossUntil: 1899,
       translator: "W. M. Flinders Petrie",
@@ -18183,6 +18404,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Frederick Douglass",
       written: "1845",
       year: 1845,
+      tradition: "Enlightenment and revolution",
+      form: "Travel and memoir",
       /* NO `translator`: written in English. */
       edition: "The first edition, the Anti-Slavery Office, Boston, 1845",
       /* No limit to state: printed in 1845, its author dead since 1895, Garrison since 1879, Phillips since 1884.
@@ -18219,6 +18442,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Thomas Paine",
       written: "1776",
       year: 1776,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       /* NO `translator` — written in English, so the rights box names the printing instead. */
       edition: "Common Sense: Addressed to the Inhabitants of America, the sixth edition, re-printed by John Carter, Providence, 1776",
       /* A LIMIT ON NOTHING: a pamphlet of 1776 in a printing of 1776, validated on Wikisource. See .claude/fetch-book.js. */
@@ -18251,6 +18476,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "The Constitutional Convention",
       written: "1787",
       year: 1787,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       /* NO `translator` — written in English, so the rights box names the document instead. */
       edition: "The engrossed parchment signed at Philadelphia on 17 September 1787, in the National Archives",
       /* A LIMIT ON NOTHING: a government's document of 1787, transcribed from its scan and validated on
@@ -18281,6 +18508,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "The First Congress of the United States",
       written: "1789",
       year: 1789,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       edition: "The engrossed joint resolution of 25 September 1789, the federal government's copy, in the National Archives",
       /* A LIMIT ON NOTHING: an act of Congress of 1789, transcribed from its scan and validated. */
       rights:
@@ -18305,6 +18534,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "George Washington",
       written: "1796",
       year: 1796,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       edition:
         "A Compilation of the Messages and Papers of the Presidents, ed. James D. Richardson, vol. I, " +
         "published by authority of Congress, 1902",
@@ -18335,6 +18566,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // written in German in January 1848 and published in London that February
       written: "1848",
       year: 1848,
+      tradition: "Enlightenment and revolution",
+      form: "Law and politics",
       // the title page: "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS"
       translator: "Samuel Moore",
       edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
@@ -18366,6 +18599,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Hermann Ebbinghaus",
       written: "1885",
       year: 1885,
+      tradition: "Modern science and thought",
+      form: "Science",
       translator: "Henry A. Ruger and Clara E. Bussenius",
       edition: "Teachers College, Columbia University, New York, 1913",
       /* A LIMITED licence: public domain in the US (1913); the translators' dates of death are not established, so
@@ -18396,6 +18631,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          before the Persian conquest of 525 BCE; `year` is the start, the single number the date sort needs. */
       written: "c. 2600–525 BCE; translated 1906",
       year: -2600,
+      tradition: "Egypt and Mesopotamia",
+      form: "History",
       // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Breasted's own introductions are part of every chapter
       glossUntil: 1906,
       edition:
@@ -18462,6 +18699,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Xun Kuang taught in the third century BCE; `year` is the single number the shelf's date sort needs. */
       written: "3rd century BCE",
       year: -250,
+      tradition: "China",
+      form: "Philosophy",
       translator: "Homer H. Dubs",
       edition: "The Works of Hsüntze, Probsthain's Oriental Series XVI, Arthur Probsthain, London, 1928",
       /* US public domain since 2024 (published 1928); Dubs d. 1969, so life plus seventy runs to 2039 — stated. */
@@ -18493,6 +18732,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Mo Di taught in the fifth century BCE and the book is his school's, over the next two centuries. */
       written: "5th–3rd century BCE",
       year: -500,
+      tradition: "China",
+      form: "Philosophy",
       translator: "Yi-Pao Mei",
       edition: "The Ethical and Political Works of Motse, Arthur Probsthain, London, 1929",
       /* US public domain since 2025 (published 1929); Mei d. 1997, so life plus seventy runs to 2067 — stated. */
@@ -22813,8 +23054,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a text for its options: star it to the top of the shelf, or share it.",
     "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a text.",
   ];
+  // the wide page (the Reading room) has no banner to hold: its second tip names what it has instead
+  const LIB_HELP_WIDE = "<b>Find your way</b> — search by title, author or date, narrow the shelf with the filters on the left, and sort it either way. Click a text to see it on the right; double-click it, or press Enter, to open it. Its star keeps it at the top of the shelf.";
   function openLibHelp(quiet) {
-    pageHelp("The Library", LIB_HELP_TIPS, "Start reading",
+    pageHelp("The Library", libWide() ? LIB_HELP_TIPS.map((x, i) => (i === 1 ? LIB_HELP_WIDE : x)) : LIB_HELP_TIPS, "Start reading",
       () => { try { localStorage.setItem(LIB_TOUR_KEY, "1"); } catch (e) {} },
       quiet ? { quiet: true } : null);
   }
@@ -34734,17 +34977,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const r = (S.reading && S.reading[id]) || null;
     return r && typeof r.ch === "number" ? r : null;
   }
-  function setReadingPos(id, ch, frac) {
+  function setReadingPos(id, ch, frac, fin) {
     if (!S.reading || typeof S.reading !== "object") S.reading = {};
     const prev = S.reading[id];
     const y = Math.max(0, Math.min(1, frac || 0));
     // don't churn the synced blob on every scroll frame — a move of less than a screen-ish is not a place
-    if (prev && prev.ch === ch && Math.abs((prev.y || 0) - y) < 0.02) return;
+    if (prev && prev.ch === ch && Math.abs((prev.y || 0) - y) < 0.02 && (!fin || prev.fin)) return;
     /* MERGED, NOT REPLACED. This record used to be rebuilt from scratch on every move, which was harmless
        while it held three fields the caller supplied — and stopped being harmless the moment the reading
        CLOCK joined it (Aug 2026): a fresh object here would have wiped `ms`, `dms` and `d` on the reader's
        next scroll, so the timer would have counted only the seconds since they last moved. */
-    S.reading[id] = Object.assign({}, prev, { ch: ch, y: y, at: Date.now() });
+    /* `fin` — THE READER REACHED THE FOOT OF THE LAST CHAPTER (Nov 2026, the Library's "Finished"). It is
+       its own mark because `y` cannot say it: the place is measured a third of the way down the window, so
+       at the very end of a chapter one screen long it reads about 0.35. Set once and kept by the merge. */
+    S.reading[id] = Object.assign({}, prev, { ch: ch, y: y, at: Date.now() }, fin ? { fin: 1 } : null);
     save();
     /* The Library's badges count books STARTED, so the only moment worth testing is the one where a book
        gains a record it did not have — never on the scrolls after it, which is why this is gated on
@@ -35151,13 +35397,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["title", "Title", "A – Z", "Z – A"],
     ["author", "Author", "A – Z", "Z – A"],
     ["written", "Date", "Oldest first", "Newest first"],
-    /* BY HOW MANY PEOPLE HAVE READ IT (Nov 2026, on request). The figure is the pooled `book_stats.reads`
-       the banner already prints — a reader counted once, after a minute with the book open (see
-       `bookReadMaybeCount`) — so the order and the number beside each banner are one fact, and no new table
-       is asked of the database. It arrives after the shelf has painted, so the page re-sorts in place when
-       it lands; where it never lands (a dev origin, a project without schema section 16) the books stand in
-       title order under a sentence saying why. */
-    ["popular", "Popularity", "Most read first", "Least read first"],
+    /* BY HOW OFTEN IT IS OPENED (Nov 2026, on request: "Popularity should count openings instead of
+       readers"). The figure is the pooled `book_stats.opens` (see `bookOpenCount`); under this order the
+       banner prints it in place of the read count, so the order and the number beside each banner are one
+       fact. It arrives after the shelf has painted, so the page re-sorts in place when it lands. Where the
+       database has no `opens` yet (schema section 20) the order falls back to `reads` and says so; where it
+       has neither (a dev origin) the books stand in title order under a sentence saying why. */
+    ["popular", "Popularity", "Most opened first", "Least opened first"],
   ];
   // read through a whitelist, like the theme: a key retired from BOOK_SORTS must fall back rather than
   // leave the shelf sorted by nothing at all
@@ -35187,6 +35433,98 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const hay = bookFold(b.title + " " + b.author + " " + (b.written || ""));
     return words.every((w) => hay.indexOf(w) >= 0);
   }
+  /* ---------- THE LIBRARY HAS TWO PAGES (Nov 2026, on request) ----------
+     Six desktop designs were drawn (docs/mockups/library-desktop-redesigns/) and two were chosen from:
+
+       · A WIDE WINDOW is the READING ROOM (design 1): filters down the left, the shelf as dense rows in the
+         middle, and the text that is selected set out in a pane on the right, with the one button that opens
+         it. A click selects, a double click or Enter opens.
+       · A PHONE OR A TABLET keeps the timeline shelf it had and gains, above it, the top of the DESK
+         (design 6): the book being read, the others in progress, and four figures about the shelf.
+
+     The seam is a width (`LIB_WIDE_MQ`), not a device: three columns need about 1100 px, and a narrow
+     window on a laptop wants the same answer as a tablet — the reason `bookPhone` is a media query too.
+     PAGES.library re-renders when the window crosses it.
+
+     WHAT THE RAIL FILTERS BY is declared on each catalogue row: `tradition` and `form`, one each, from the
+     two lists below (`check-library.js` refuses a row without them, or with a value not on the lists). The
+     other three facets are read off what the row already says. The choice is module-level, like the search
+     box's query and for its reason: a way of looking at the shelf, kept while the reader moves about and
+     gone on reload. */
+  const BOOK_TRADITIONS = ["Egypt and Mesopotamia", "Greece", "Rome", "China", "India", "Scripture and the Church",
+    "Medieval Europe", "Renaissance and early modern", "Enlightenment and revolution", "Modern science and thought"];
+  const BOOK_FORMS = ["Epic and poetry", "History", "Philosophy", "Drama", "Law and politics", "Tales and fiction",
+    "Scripture and religion", "Travel and memoir", "Science"];
+  const LIB_WIDE_MQ = "(min-width:1100px)";
+  function libWide() { try { return window.matchMedia(LIB_WIDE_MQ).matches; } catch (e) { return false; } }
+  /* "new" | "on" | "done". Finished is the foot of the last chapter (`fin`, see setReadingPos) while the
+     reader is still on that chapter: one who has gone back to re-read is reading again. A record from
+     before `fin` existed counts where its depth says as much. */
+  function bookState(b) {
+    const r = readingPos(b.id);
+    if (!r) return "new";
+    const last = b.chapterNums ? b.chapterNums[b.chapterNums.length - 1] : b.count;
+    return r.ch === last && (r.fin || (r.y || 0) >= 0.9) ? "done" : "on";
+  }
+  // [key, heading, [[value, label]…], the row's own value]
+  const BOOK_FACETS = [
+    ["state", "Reading", [["on", "In progress"], ["new", "Unread"], ["done", "Finished"]], (b) => bookState(b)],
+    ["tradition", "Tradition", BOOK_TRADITIONS.map((v) => [v, v]), (b) => b.tradition],
+    ["form", "Form", BOOK_FORMS.map((v) => [v, v]), (b) => b.form],
+    ["orig", "Original text", [["y", "With original text"]], (b) => (b.origLang ? "y" : "n")],
+    ["len", "Length", [["a", "1–9 parts"], ["b", "10–24 parts"], ["c", "25–99 parts"], ["d", "100 parts or more"]],
+      (b) => (b.count < 10 ? "a" : b.count < 25 ? "b" : b.count < 100 ? "c" : "d")],
+  ];
+  let bookFacets = {};   // facet key → the values switched on; within one facet they are alternatives, across facets all must hold
+  let bookSel = "";      // the text the Reading room's pane is showing
+  let _libKeyOff = null, _libMqOff = null;   // take the page's document and media-query listeners off again
+  function bookFacetOn(k, v) { return (bookFacets[k] || []).indexOf(v) >= 0; }
+  function bookFacetAny() { return BOOK_FACETS.some((F) => (bookFacets[F[0]] || []).length); }
+  // `skip` leaves one facet out, which is how the rail counts what choosing a row of that facet WOULD show
+  function bookFacetPass(b, skip) {
+    return BOOK_FACETS.every((F) => F[0] === skip || !(bookFacets[F[0]] || []).length || bookFacetOn(F[0], F[3](b)));
+  }
+  /* How long the text is, in its own unit. A book may STATE its plural, and one has to: adding an "s" to
+     `chapterWord` covers letters, books and chapters and turns Suetonius's twelve Lives into twelve
+     "lifes" — a declared field rather than a pluraliser, for the reason `year` is declared beside
+     `written`. For a partial book it is how many of its parts are here, "65 of 124 letters". */
+  function bookLenText(b) {
+    const unit = b.count === 1 ? b.chapterWord.toLowerCase() : (b.chapterWordPlural || b.chapterWord + "s").toLowerCase();
+    return b.total > b.count ? `${b.count} of ${b.total} ${unit}` : `${b.count} ${unit}`;
+  }
+  // where the reader is, in words. "Letter 0" is not a letter Seneca wrote — the front matter is named.
+  function bookWhere(b) {
+    const pos = readingPos(b.id);
+    return pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${readingPct(b)}%` : "";
+  }
+  // "today", "3 days ago": how long since a text was last read, counted in calendar days
+  function bookAgo(at) {
+    const day = (t) => { const d = new Date(t); return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()); };
+    const n = Math.max(0, Math.round((day(Date.now()) - day(at)) / 86400000));
+    return n === 0 ? "today" : n === 1 ? "yesterday" : n < 14 ? n + " days ago" : n < 60 ? Math.round(n / 7) + " weeks ago"
+      : n < 365 ? Math.round(n / 30) + " months ago" : "over a year ago";
+  }
+  const BOOK_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+  const BOOK_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M8 7.5 12 4l4 3.5M6 12v6a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 18v-6"/></svg>';
+  const BOOK_GO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  // the state of a text as one phrase: the way in, where the reader is, or that it is finished
+  function bookStateHTML(b) {
+    const st = bookState(b);
+    return st === "new" ? '<span class="lb-st lb-st-new">Start reading</span>'
+      : st === "done" ? '<span class="lb-st lb-st-done">' + BOOK_CHECK + "Finished</span>"
+      : '<span class="lb-st lb-st-on">' + esc(bookWhere(b)) + "</span>";
+  }
+  function bookOrigHTML(b) { return b.origLang ? `<span class="lb-orig">with original ${esc(b.origName || "text")}</span>` : ""; }
+  function bookBarHTML(b) { const st = bookState(b); return st === "new" ? "" : `<span class="lb-pg${st === "done" ? " done" : ""}"><i style="width:${st === "done" ? 100 : readingPct(b)}%"></i></span>`; }
+  /* The one figure a banner prints: how many people have read the book — or, under the Popularity order,
+     how often it has been opened, since that is what the order is counting (Nov 2026). Nothing where the
+     figure is not known. */
+  function bookFigureHTML(b) {
+    const op = bookSortKey() === "popular" ? bookOpens(b.id) : null;
+    if (op != null) return `<span class="bk-tile-reads bk-tile-opens notranslate" title="${esc(t("How many times this has been opened"))}">${op === 1 ? esc(t("opened once")) : esc(t("opened")) + " " + op + " " + esc(t("times"))}</span>`;
+    const rd = bookReads(b.id);
+    return rd == null ? "" : `<span class="bk-tile-reads notranslate" title="${esc(t("How many people have read this"))}">${rd === 1 ? esc(t("read once")) : rd + " " + esc(t("reads"))}</span>`;
+  }
   PAGES.library = function (root) {
     /* A BANNER across the full width, at every screen size (Aug 2026, on request — briefly two narrow
        tiles side by side on a phone, which was asked for and then asked back). What is gone for good is
@@ -35203,11 +35541,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          declared field rather than a pluraliser, for the reason `year` is a declared field beside the
          prose `written` — English plurals are not derivable, and a rule good enough for one more book
          is a rule that will be wrong for the one after it. */
-      const unit = b.count === 1
-        ? b.chapterWord.toLowerCase()
-        : (b.chapterWordPlural || b.chapterWord + "s").toLowerCase();
       // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
-      const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
+      const where = bookWhere(b);
       /* HOW MUCH OF THE WORK IS HERE. It is how many of the book's chapters have been imported, which for
          a partial book is not the same question as how far the reader has got — and the chip sits beside
          a reading-progress bar, so the two are easy to read as one. It carried "on Folio so far" to say
@@ -35217,7 +35552,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is what was asked for; what it no longer says out loud is that the remainder is missing from
          FOLIO rather than from the reader — that is on the book's own first page, where a book states
          its own limitations at length. */
-      const len = b.total > b.count ? `${b.count} of ${b.total} ${unit}` : `${b.count} ${unit}`;
+      const len = bookLenText(b);
       const fav = isBookFav(b.id);
       /* A CHIP FOR A BOOK THAT CARRIES ITS ORIGINAL (Aug 2026, on request). Ten of the thirty books here
          are a translation with nothing to set beside it and twenty print the text the author actually
@@ -35251,7 +35586,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   run schema section 16 it stays null for good — a shelf of books each claiming "0 reads"
                   would be a statement about the books rather than about the database. A book nobody has
                   finished yet is 0 and says so, which is a real answer and a different one. */""}
-            ${(() => { const rd = bookReads(b.id); return rd == null ? "" : `<span class="bk-tile-reads notranslate" title="${esc(t("How many people have read this"))}">${rd === 1 ? esc(t("read once")) : rd + " " + esc(t("reads"))}</span>`; })()}
+            ${bookFigureHTML(b)}
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
@@ -35261,6 +35596,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // "last read" should mean, rather than putting the untouched books first by accident
     const readAt = (b) => { const r = readingPos(b.id); return (r && r.at) || 0; };
     const key = bookSortKey(), rev = bookSortRev();
+    // what the Popularity order counts: openings, or readers where the database has no openings to give
+    const bookPop = (id) => { const o = bookOpens(id); return (o == null ? bookReads(id) : o) || 0; };
     /* One comparator, in the FORWARD direction each row of BOOK_SORTS names, and the reverse is that
        comparator negated — tie-break and all. Reversing only the primary key would leave two books written
        in the same year swapping about between renders for no reason a reader could see. */
@@ -35268,7 +35605,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (key === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
       if (key === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
       if (key === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
-      if (key === "popular") return (bookReads(b.id) || 0) - (bookReads(a.id) || 0) || a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+      if (key === "popular") return bookPop(b.id) - bookPop(a.id) || a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
       return readAt(b) - readAt(a) || a.title.localeCompare(b.title);
     };
     /* `let`, and re-made when the read counts land: every other order is known at paint, this one is not.
@@ -35306,6 +35643,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
       return `<div class="book-timeline"><div class="book-grid">${out}</div></div>`;
     };
+    /* WHICH TEXTS ARE SHOWING: the search, and on the wide page the filters of the rail as well. One list,
+       read by the shelf, the count line and the rail's own counts, so none of them can disagree. The filters
+       are applied ONLY where the rail that sets them is drawn — a narrow window has no rail, and a shelf
+       narrowed by a control that is not on the page is a shelf with books missing for no visible reason. */
+    const wide = libWide();
+    const hitsFor = (q) => {
+      const words = bookFold(q).split(/\s+/).filter(Boolean);
+      return sorted.filter((b) => bookMatches(b, words) && (!wide || bookFacetPass(b)));
+    };
     const section = (label, list) =>
       list.length
         ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` + timelineHTML(list) + `</section>`
@@ -35316,8 +35662,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        re-rendering. The favourites/rest split survives filtering: a starred book that matches still sits
        in its own section, so the shelf a reader knows does not rearrange itself while they narrow it. */
     const shelfHTML = (q) => {
-      const words = bookFold(q).split(/\s+/).filter(Boolean);
-      const hits = sorted.filter((b) => bookMatches(b, words));
+      const hits = hitsFor(q);
       if (!hits.length)
         return `<div class="lib-none"><p>No text here matches <b>${esc(q.trim())}</b>.</p></div>`;
       const favs = hits.filter((b) => isBookFav(b.id));
@@ -35332,76 +35677,339 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        repainted by the same handler, for the reason the shelf is repainted in place: a render() per
        keystroke takes the caret out of the box being typed in. */
     const countLine = (q) => {
-      const words = bookFold(q).split(/\s+/).filter(Boolean);
-      const shown = sorted.filter((b) => bookMatches(b, words)).length, all = sorted.length;
+      const shown = hitsFor(q).length, all = sorted.length;
       const n = (v) => v + " text" + (v === 1 ? "" : "s");
-      return words.length ? `${shown} of ${n(all)}` : n(all);
+      return shown < all || bookFold(q).trim() ? `${shown} of ${n(all)}` : n(all);
     };
-    root.innerHTML = `
+    const headHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
         <h1>Texts</h1>
         <p>Historical texts in the public domain, completely free to read.</p>
-      </div>
-      ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
-            a control that appears the day a second book lands is one nobody knows to look for. Beside it
-            the direction, in the chosen field's own words rather than as a bare arrow. */""}
+      </div>`;
+    /* The picker ships whatever the shelf holds, one book included — it was asked for outright, and a
+       control that appears the day a second book lands is one nobody knows to look for. Beside it the
+       direction, in the chosen field's own words rather than as a bare arrow. The "?" is the way back to
+       the first-visit card, exactly as the Atlas's is.
+       The licence note that used to close this page is gone (Aug 2026, on request). The RULE it described
+       has not changed: it is stated in .claude/fetch-book.js, which decides what may be shelved, and shown
+       to the reader in each book's own front matter, beside the edition it applies to.
+       The sentence under the row is said only under the Popularity order, and only once the figures are
+       known to be missing: the shelf is then in another order than the one chosen, and saying nothing
+       would be a lie. */
+    const toolsHTML = `
       <div class="lib-tools">
         <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these texts…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
         <span class="lib-count" id="bkCount" aria-live="polite">${countLine(bookQuery)}</span>
         ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
-        ${/* the way back to the first-visit card, exactly as the Atlas's "?" is — a page that explains
-              itself once and then never again is a page whose explanation cannot be re-read */""}
         <button class="gz-btn lib-help-btn" id="libHelpBtn" type="button" aria-label="How to use the Library">?</button>
       </div>
-      ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
-            described has not changed and is not weakened by its going: it is still stated in
-            .claude/fetch-book.js, which is what decides what may be shelved, and it is still shown to
-            the reader — in each book's own front matter, beside the edition it applies to, which is
-            where a statement about one book's copyright actually belongs. */""}
-      ${/* said only under the Popularity order, and only once the figures are known to be missing: the
-            shelf is then in title order, and an order that silently is not the one chosen is a lie */""}
-      <p class="lib-sortnote" id="bkSortNote" hidden>Reading figures are not available here, so the texts are in title order.</p>
-      <div id="bkShelf">${shelfHTML(bookQuery)}</div>`;
-    /* HOLD a banner for its options — share it, or star it (Aug 2026, on request). Same gesture, same
-       shell and same classification as an added deck's row on the home page: a tap opens the book, a
-       press past HOLD_MS opens the sheet, and a finger that wanders is scrolling rather than holding.
-       wireHoldMenu installs the tap listener itself, so there is no separate click wiring here — two
-       would open the book from under the sheet the hold had just raised.
+      <p class="lib-sortnote" id="bkSortNote" hidden></p>`;
+    const starBtn = (b, cls) => {
+      const fav = isBookFav(b.id);
+      return `<button type="button" class="lb-star${cls ? " " + cls : ""}${fav ? " on" : ""}" data-star="${esc(b.id)}" aria-pressed="${fav ? "true" : "false"}"` +
+        ` aria-label="${esc((fav ? "Remove from favourites: " : "Add to favourites: ") + b.title)}" title="${fav ? "Remove from favourites" : "Add to favourites"}">${BOOK_STAR}</button>`;
+    };
+    const shareBtn = (b) =>
+      `<button type="button" class="lb-star lb-share" data-share="${esc(b.id)}" aria-label="${esc("Share " + b.title)}" title="Share">${BOOK_SHARE}</button>`;
+    const starToggle = (id) => { const on = toggleBookFav(id); toast(on ? "Added to favourites" : "Removed from favourites"); if (on) sfx("fav"); };
+    const bookOf = (id) => BOOKS.find((x) => x.id === id);
+    let repaint = () => {};   // the page's own repaint in place, set by whichever of the two layouts is drawn
 
-       It has to be re-run after a filter repaint: the sheet is a per-element gesture rather than a
-       delegated one (it classifies a press, which needs the element's own pointer stream), so a banner
-       painted by the search box would otherwise be a book that cannot be opened. */
+    if (wide) {
+      /* ================= THE READING ROOM (a wide window) ================= */
+      const rowHTML = (b) => {
+        const st = bookState(b), fav = isBookFav(b.id), sel = b.id === bookSel;
+        const orig = b.origLang ? "with original " + (b.origName || "text") : "";
+        /* The row's one control is the button over its words (`lr-pick`): a real button, so the keyboard
+           and a screen reader have something to land on, and in the tab order like every other control on
+           the site (test-a11y.js holds every button to that) — the arrows are the quick way through the
+           list, Tab the ordinary one. The star is a second button beside it and so cannot live inside
+           the first. */
+        return `<div class="lr-row bk-tint${sel ? " is-sel" : ""}${fav ? " bk-fav" : ""}" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}">
+          <button type="button" class="lr-pick"${sel ? ' aria-current="true"' : ""}
+            aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
+            <span class="lr-t">${esc(b.title)}</span>
+            <span class="lr-s"><span class="lr-au">${esc(b.author)}</span><span class="lr-wr">${esc(b.written)}</span></span>
+          </button>
+          <div class="lr-b">${st === "on" ? `<span class="lr-on">${bookBarHTML(b)}${bookStateHTML(b)}</span>` : bookStateHTML(b)}
+            <div class="lr-m"><span class="lr-meta">${bookLenText(b)}</span>${bookFigureHTML(b)}${bookOrigHTML(b)}</div></div>
+          ${starBtn(b, "shy")}
+        </div>`;
+      };
+      const listHTML = (favs, rest) => {
+        if (!favs.length && !rest.length) {
+          const q = bookQuery.trim(), f = bookFacetAny();
+          return `<div class="lib-none"><p>${q ? `No text here matches <b>${esc(q)}</b>${f ? " with these filters" : ""}.` : "No text here matches these filters."}</p>` +
+            (f ? `<p><button type="button" class="lr-clr" data-clear>Clear filters</button></p>` : "") + `</div>`;
+        }
+        const grp = (label, l) => (label && l.length ? `<div class="lr-gh">${label} <em>${l.length}</em></div>` : "") + l.map(rowHTML).join("");
+        return favs.length ? grp("Favourites", favs) + grp("Everything else", rest) : grp("", rest);
+      };
+      /* Each row of the rail carries the number of texts it WOULD show, counted with every other facet
+         applied and its own left out — so the figures inside one facet are alternatives to each other and
+         never fall to nought merely because a sibling is switched on. A row that would show nothing is
+         dimmed, not removed: the rail must not rearrange itself under the pointer. */
+      const railHTML = () => {
+        const words = bookFold(bookQuery).split(/\s+/).filter(Boolean);
+        const base = sorted.filter((b) => bookMatches(b, words));
+        return BOOK_FACETS.map((F, i) =>
+          `<section><h2>${F[1]}${i === 0 && bookFacetAny() ? `<button type="button" class="lr-clr" data-clear>Clear filters</button>` : ""}</h2>` +
+          F[2].map((o) => {
+            const n = base.filter((b) => bookFacetPass(b, F[0]) && F[3](b) === o[0]).length, on = bookFacetOn(F[0], o[0]);
+            return `<button type="button" class="lr-fo${on ? " on" : ""}${n ? "" : " zero"}" data-f="${F[0]}" data-v="${esc(o[0])}" aria-pressed="${on ? "true" : "false"}">` +
+              `<i aria-hidden="true">${on ? BOOK_CHECK : ""}</i><span>${esc(o[1])}</span><em>${n}</em></button>`;
+          }).join("") + `</section>`).join("");
+      };
+      const detailHTML = (b) => {
+        const st = bookState(b), pos = readingPos(b.id), rd = bookReads(b.id), op = bookOpens(b.id);
+        const go = st === "on" ? "Continue reading" + (pos.ch > 0 ? " · " + b.chapterWord + " " + pos.ch : "") : st === "done" ? "Read again" : "Start reading";
+        return `<div class="lr-det-top">
+            <div class="lr-det-row"><span class="lr-au">${esc(b.author)}</span><span class="lr-det-acts">${starBtn(b)}${shareBtn(b)}</span></div>
+            <h2>${esc(b.title)}</h2>${b.subtitle ? `<p class="lr-sub">${esc(b.subtitle)}</p>` : ""}
+          </div>
+          <dl class="lr-facts">
+            <dt>Written</dt><dd class="s">${esc(b.written)}</dd>
+            ${b.translator ? `<dt>Translator</dt><dd>${esc(b.translator)}</dd>` : ""}
+            <dt>Length</dt><dd>${bookLenText(b)}</dd>
+            ${b.origLang ? `<dt>Original</dt><dd>${bookOrigHTML(b)}</dd>` : ""}
+            <dt>Shelved</dt><dd>${esc(b.tradition || "")}${b.tradition && b.form ? " · " : ""}${esc(b.form || "")}</dd>
+            ${rd == null ? "" : `<dt>Readers</dt><dd class="notranslate">${rd}</dd>`}
+            ${op == null ? "" : `<dt>Opened</dt><dd class="notranslate">${op === 1 ? "once" : op + " times"}</dd>`}
+          </dl>
+          ${pos ? `<div class="lr-place"><div class="l">${bookStateHTML(b)}${pos.at ? `<small>last read ${bookAgo(pos.at)}</small>` : ""}</div>${bookBarHTML(b)}</div>` : ""}
+          <div class="lr-go"><button type="button" class="lr-open" data-go="${esc(b.id)}">${esc(go)}${BOOK_GO}</button>
+            <p class="lr-hint">↑ ↓ move through the shelf · Enter opens</p></div>`;
+      };
+      root.innerHTML = `
+        <div class="lib-room">
+          <aside class="lr-rail" id="lrRail" aria-label="Filter the shelf"></aside>
+          <section class="lr-main">${headHTML}${toolsHTML}<div id="bkShelf" class="lr-list"></div></section>
+          <aside class="lr-det bk-tint" id="lrDet" aria-label="The selected text"></aside>
+        </div>`;
+      const room = root.querySelector(".lib-room"), rail = root.querySelector("#lrRail"), det = root.querySelector("#lrDet");
+      const list = root.querySelector("#bkShelf");
+      let order = [], shown = "";
+      const rowOf = (id) => Array.prototype.find.call(list.querySelectorAll(".lr-row"), (el) => el.dataset.book === id) || null;
+      /* The pane shows `shown`, which is the selection except while a row is being hovered: the pointer
+         resting on a row previews it there, and leaving the list puts the selection back. */
+      const paintDet = (id) => {
+        const b = bookOf(id);
+        shown = b ? id : "";
+        det.style.setProperty("--tile", b ? bookColor(b) : "");
+        det.innerHTML = b ? detailHTML(b) : `<div class="lib-none"><p>Choose a text to see it here.</p></div>`;
+      };
+      const markSel = () => list.querySelectorAll(".lr-row").forEach((el) => {
+        const on = el.dataset.book === bookSel, p = el.querySelector(".lr-pick");
+        el.classList.toggle("is-sel", on);
+        if (on) p.setAttribute("aria-current", "true"); else p.removeAttribute("aria-current");
+      });
+      const select = (id, focus) => {
+        if (!id || order.indexOf(id) < 0) return;
+        bookSel = id; markSel(); paintDet(id);
+        const el = rowOf(id);
+        if (el && focus) { try { el.querySelector(".lr-pick").focus({ preventScroll: true }); } catch (e) {} el.scrollIntoView({ block: "nearest" }); }
+      };
+      repaint = () => {
+        const hits = hitsFor(bookQuery);
+        const favs = hits.filter((b) => isBookFav(b.id)), rest = hits.filter((b) => !isBookFav(b.id));
+        order = favs.concat(rest).map((b) => b.id);
+        if (order.indexOf(bookSel) < 0) bookSel = order[0] || "";   // the pane never shows a text the filters have hidden
+        rail.innerHTML = railHTML();
+        list.innerHTML = listHTML(favs, rest);
+        paintDet(bookSel);
+        const c = root.querySelector("#bkCount"); if (c) c.textContent = countLine(bookQuery);
+      };
+      repaint();
+      const open = (id) => { if (bookOf(id)) route("book", { id: id }); };
+      rail.addEventListener("click", (e) => {
+        const clr = e.target.closest("[data-clear]"), fo = e.target.closest("[data-f]");
+        if (clr) { bookFacets = {}; repaint(); const first = rail.querySelector(".lr-fo"); if (first) first.focus(); return; }
+        if (!fo) return;
+        const k = fo.dataset.f, v = fo.dataset.v, cur = (bookFacets[k] || []).slice(), i = cur.indexOf(v);
+        if (i >= 0) cur.splice(i, 1); else cur.push(v);
+        bookFacets[k] = cur;
+        repaint();
+        // the rail was redrawn under the button that was pressed: hand the focus back to its successor
+        const again = Array.prototype.find.call(rail.querySelectorAll(".lr-fo"), (el) => el.dataset.f === k && el.dataset.v === v);
+        if (again) again.focus();
+      });
+      list.addEventListener("click", (e) => {
+        if (e.target.closest("[data-clear]")) { bookFacets = {}; repaint(); return; }
+        const star = e.target.closest("[data-star]");
+        if (star) { starToggle(star.dataset.star); repaint(); const el = rowOf(star.dataset.star); if (el) el.querySelector(".lb-star").focus(); return; }
+        const el = e.target.closest(".lr-row");
+        if (el) select(el.dataset.book, true);
+      });
+      list.addEventListener("dblclick", (e) => {
+        const el = e.target.closest(".lr-row");
+        if (el && !e.target.closest("[data-star]")) open(el.dataset.book);
+      });
+      /* Right-click is this page's long press: the same sheet the phone's banner raises when it is held. */
+      list.addEventListener("contextmenu", (e) => {
+        const el = e.target.closest(".lr-row");
+        if (!el) return;
+        e.preventDefault(); select(el.dataset.book, false); openBookMenu(el.dataset.book);
+      });
+      det.addEventListener("click", (e) => {
+        const go = e.target.closest("[data-go]"), star = e.target.closest("[data-star]"), share = e.target.closest("[data-share]");
+        if (go) return open(go.dataset.go);
+        if (star) { const id = star.dataset.star; starToggle(id); repaint(); if (shown !== id) paintDet(id); const s2 = det.querySelector(".lb-star"); if (s2) s2.focus(); return; }
+        if (share) { const b = bookOf(share.dataset.share); if (b) shareBook(b); }
+      });
+      /* THE HOVER PREVIEW, for a pointer that can hover. Short delays both ways, so a pointer crossing the
+         list on its way somewhere else does not flicker the pane through every row it passes. A pointer that
+         arrives IN the pane while it is previewing has chosen that text: it becomes the selection, so the
+         highlighted row and the pane's button never name two different books. */
+      let peekT = 0, canHover = false;
+      try { canHover = window.matchMedia("(hover:hover)").matches; } catch (e) {}
+      if (canHover) {
+        room.addEventListener("mouseover", (e) => {
+          const el = e.target.closest(".lr-row"), inDet = !!e.target.closest("#lrDet");
+          clearTimeout(peekT);
+          if (el) { const id = el.dataset.book; if (id !== shown) peekT = setTimeout(() => { if (list.isConnected) paintDet(id); }, 140); }
+          else if (inDet) { if (shown && shown !== bookSel) select(shown, false); }
+          else if (shown !== bookSel) peekT = setTimeout(() => { if (list.isConnected) paintDet(bookSel); }, 320);
+        });
+        room.addEventListener("mouseleave", () => { clearTimeout(peekT); if (shown !== bookSel) peekT = setTimeout(() => { if (list.isConnected) paintDet(bookSel); }, 320); });
+      }
+      /* ↑ ↓ MOVE THROUGH THE SHELF, ENTER OPENS — from anywhere on the page that is not a field being typed
+         in, which is why the listener is on the document: with nothing focused, a key goes to the body and
+         never reaches the list. It takes itself off when the page it belongs to is gone. */
+      if (_libKeyOff) _libKeyOff();
+      const onKey = (e) => {
+        if (!list.isConnected) { _libKeyOff && _libKeyOff(); return; }
+        const tg = e.target, tag = (tg && tg.tagName || "").toLowerCase();
+        if (tag === "input" || tag === "select" || tag === "textarea" || (tg && tg.isContentEditable)) return;
+        if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+        if (!(tg === document.body || room.contains(tg))) return;       // a sheet or a dialog has the keyboard
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          if (!order.length) return;
+          const i = order.indexOf(bookSel), n = order[Math.max(0, Math.min(order.length - 1, i + (e.key === "ArrowDown" ? 1 : -1)))];
+          e.preventDefault(); clearTimeout(peekT); select(n, true);
+        } else if (e.key === "Enter" && bookSel && (tg === document.body || (tg.classList && tg.classList.contains("lr-pick")))) {
+          e.preventDefault(); open(tg === document.body ? bookSel : tg.closest(".lr-row").dataset.book);
+        }
+      };
+      document.addEventListener("keydown", onKey);
+      _libKeyOff = () => { document.removeEventListener("keydown", onKey); _libKeyOff = null; };
+    } else {
+      /* ================= THE DESK, OVER THE TIMELINE SHELF (a phone, a tablet) =================
+         What the reader is in the middle of, said before the shelf: the text last read as a large card
+         with how far through it they are and the one button back into it; the others in progress beside
+         or under it; and four figures about the shelf. The shelf below is the page it always was, and every
+         book on the desk is still in it — the desk is a way in, not a place a book moves to.
+         It stands between the tools and the shelf and steps aside while a search is being typed, so the
+         answer to a search is directly under the box that asked it and the box never moves. */
+      const deskHTML = () => {
+        const on = BOOKS.filter((b) => bookState(b) === "on").sort((a, b) => readAt(b) - readAt(a) || a.title.localeCompare(b.title));
+        const done = BOOKS.filter((b) => bookState(b) === "done").sort((a, b) => readAt(b) - readAt(a) || a.title.localeCompare(b.title));
+        const b = on[0];
+        let hero = "";
+        if (b) {
+          const pos = readingPos(b.id), pct = readingPct(b);
+          const nums = b.chapterNums || null, last = nums ? nums[nums.length - 1] : b.count;
+          const idx = pos.ch === 0 ? -1 : nums ? nums.indexOf(pos.ch) : pos.ch - 1;      // the segment the reader is in
+          const at = pos.ch === 0 ? "About this book" : `${b.chapterWord} ${pos.ch} of ${last}`;
+          /* One segment to a chapter, the ones behind the reader filled and the one they are in half-filled:
+             the shape of the book and the place in it at a glance. Past 150 chapters the segments would be
+             hairlines, so a long book gets the plain bar. */
+          const segs = b.count <= 150 ? Array.from({ length: b.count }, (_, i) => `<i class="${i < idx ? "f" : i === idx ? "h" : ""}"></i>`).join("") : "";
+          hero = `<article class="ld-hero bk-tint" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}" aria-label="${esc("On your desk: " + b.title + " by " + b.author)}">
+            <div class="ld-k"><i aria-hidden="true"></i>On your desk${pos.at ? " · read " + bookAgo(pos.at) : ""}</div>
+            <div class="ld-g">
+              <div class="ld-what"><span class="ld-au">${esc(b.author)}</span><h2>${esc(b.title)}</h2>${b.subtitle ? `<p class="ld-sub">${esc(b.subtitle)}</p>` : ""}
+                <div class="ld-facts"><span class="ld-wr">${esc(b.written)}</span><span class="ld-meta">${bookLenText(b)}</span>${bookFigureHTML(b)}${bookOrigHTML(b)}</div></div>
+              <div class="ld-big"><b class="notranslate">${pct}<small>%</small></b><span>read so far</span></div>
+            </div>
+            ${segs ? `<div class="ld-strip${b.count > 60 ? " many" : ""}" role="img" aria-label="${esc(at)}">${segs}</div>`
+                   : `<div class="ld-strip"><span class="lb-pg"><i style="width:${pct}%"></i></span></div>`}
+            <div class="ld-f"><span class="ld-w">${esc(at)}${b.translator ? `<small>translated by ${esc(b.translator)}</small>` : ""}</span>
+              <span class="ld-a">${starBtn(b)}${shareBtn(b)}<button type="button" class="ld-go" data-go="${esc(b.id)}">Continue reading${BOOK_GO}</button></span></div>
+          </article>`;
+        }
+        const others = on.slice(1), SHOW = 4, DONE = 6;
+        const alsoRow = (x) => `<button type="button" class="ld-row bk-tint" data-go="${esc(x.id)}" style="--tile:${bookColor(x)}">
+            <span class="ld-row-a"><span class="ld-au">${esc(x.author)}</span><span class="ld-row-t">${esc(x.title)}</span></span>
+            <span class="ld-row-b">${bookBarHTML(x)}<small>${esc(bookWhere(x))}</small></span></button>`;
+        const doneLine = done.length
+          ? `<div class="ld-done"><span>${BOOK_CHECK}Finished</span>${done.slice(0, DONE).map((x) => `<button type="button" data-go="${esc(x.id)}">${esc(x.title)}</button>`).join("")}${done.length > DONE ? `<em>and ${done.length - DONE} more</em>` : ""}</div>`
+          : "";
+        const also = others.length || done.length
+          ? `<section class="ld-also"><h2>${others.length ? "Also on your desk" : "Finished"}</h2>${others.slice(0, SHOW).map(alsoRow).join("")}` +
+            (others.length > SHOW ? `<p class="ld-more">and ${others.length - SHOW} more in progress, on the shelf below</p>` : "") + doneLine + `</section>`
+          : "";
+        const figs = `<section class="ld-figs" aria-label="The shelf in figures">
+            <div><b class="notranslate">${BOOKS.length}</b><span>texts on the shelf</span></div>
+            <div><b class="notranslate">${BOOKS.filter((x) => x.origLang).length}</b><span>with the original beside the English</span></div>
+            <div><b class="notranslate">${BOOK_TRADITIONS.filter((tr) => BOOKS.some((x) => x.tradition === tr)).length}</b><span>traditions</span></div>
+            <div><b class="notranslate">${on.length}</b><span>of your books in progress</span></div>
+          </section>`;
+        return `<div class="ld-top${hero && also ? "" : " solo"}">${hero}${also}</div>${figs}`;
+      };
+      root.innerHTML = headHTML + toolsHTML +
+        `<div class="lib-desk" id="bkDesk"${bookQuery.trim() ? " hidden" : ""}>${deskHTML()}</div>` +
+        `<div id="bkShelf">${shelfHTML(bookQuery)}</div>`;
+      const desk = root.querySelector("#bkDesk"), list = root.querySelector("#bkShelf");
+      /* HOLD a banner for its options — share it, or star it (Aug 2026, on request). Same gesture, same
+         shell and same classification as an added deck's row on the home page: a tap opens the book, a
+         press past HOLD_MS opens the sheet, and a finger that wanders is scrolling rather than holding.
+         wireHoldMenu installs the tap listener itself, so there is no separate click wiring here — two
+         would open the book from under the sheet the hold had just raised.
+
+         It has to be re-run after a repaint: the sheet is a per-element gesture rather than a delegated
+         one (it classifies a press, which needs the element's own pointer stream), so a banner painted by
+         the search box would otherwise be a book that cannot be opened. */
+      const wireShelf = () => list.querySelectorAll(".book-tile").forEach((el) =>
+        wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
+      );
+      wireShelf();
+      repaint = () => {
+        desk.hidden = !!bookQuery.trim();
+        desk.innerHTML = deskHTML();
+        list.innerHTML = shelfHTML(bookQuery);
+        const c = root.querySelector("#bkCount"); if (c) c.textContent = countLine(bookQuery);
+        wireShelf();
+      };
+      desk.addEventListener("click", (e) => {
+        const go = e.target.closest("[data-go]"), star = e.target.closest("[data-star]"), share = e.target.closest("[data-share]");
+        if (star) { starToggle(star.dataset.star); repaint(); const s2 = desk.querySelector(".lb-star"); if (s2) s2.focus(); return; }
+        if (share) { const b = bookOf(share.dataset.share); if (b) shareBook(b); return; }
+        if (go && bookOf(go.dataset.go)) route("book", { id: go.dataset.go });
+      });
+    }
     const shelf = root.querySelector("#bkShelf");
-    const wireShelf = () => shelf.querySelectorAll(".book-tile").forEach((el) =>
-      wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
-    );
-    wireShelf();
-    /* THE READ COUNTS ARRIVE AFTER THE SHELF DOES, and the shelf is not held back for them. It is one
-       request for all forty-eight books (see `bookStatsLoad`), it is a footnote on each banner, and a
-       project that has not run schema section 16 never answers at all — so the tiles paint at once and
-       are repainted IN PLACE when the figures land, never through `render()`, which would take the
-       reader's search and scroll with it. A second visit inside the cache window redraws from `_bookStats`
-       with no request at all, so the figure is already there on the first paint. */
+    /* THE WINDOW CROSSING THE SEAM between the two pages redraws this one as the other — once, and only
+       while it is still the page on screen. */
+    if (_libMqOff) _libMqOff();
+    try {
+      const mq = window.matchMedia(LIB_WIDE_MQ);
+      const onMq = () => { if (_libMqOff) _libMqOff(); if (shelf.isConnected) render(); };
+      mq.addEventListener("change", onMq);
+      _libMqOff = () => { mq.removeEventListener("change", onMq); _libMqOff = null; };
+    } catch (e) {}
+    /* THE COUNTS ARRIVE AFTER THE SHELF DOES, and the shelf is not held back for them. It is one request
+       for every book (see `bookStatsLoad`), it is a footnote on each banner, and a project that has not
+       run schema section 16 never answers at all — so the page paints at once and is repainted IN PLACE
+       when the figures land, never through `render()`, which would take the reader's search and scroll
+       with it. A second visit inside the cache window redraws from `_bookStats` with no request at all,
+       so the figure is already there on the first paint. */
     bookStatsLoad().then((st) => {
       if (!shelf.isConnected) return;
+      const note = root.querySelector("#bkSortNote");
       if (!st) {
-        const note = root.querySelector("#bkSortNote");
-        if (note && key === "popular") note.hidden = false;
+        if (note && key === "popular") { note.textContent = "Opening counts are not available here, so the texts are in title order."; note.hidden = false; }
         return;
       }
+      /* the figures are here but the openings are not (schema section 20 not run): the order is by readers, said */
+      if (note && key === "popular" && bookOpens("x") == null) { note.textContent = "Openings are not being counted yet, so this order is by how many people have read each text."; note.hidden = false; }
       if (key === "popular") sorted = sortNow();
-      shelf.innerHTML = shelfHTML(bookQuery);
-      wireShelf();
+      repaint();
     });
+    /* The search repaints IN PLACE — a full render() on every keystroke would take the caret out of the box
+       being typed in. */
     const f = root.querySelector("#bkFilter");
-    const cnt = root.querySelector("#bkCount");
-    if (f) f.addEventListener("input", () => {
-      bookQuery = f.value;
-      shelf.innerHTML = shelfHTML(bookQuery);
-      if (cnt) cnt.textContent = countLine(bookQuery);
-      wireShelf();
-    });
+    if (f) f.addEventListener("input", () => { bookQuery = f.value; repaint(); });
     const so = root.querySelector("#bkSort");
     if (so) so.addEventListener("change", () => { setBookSort(so.value, false); });
     const sd = root.querySelector("#bkSortDir");
@@ -35606,6 +36214,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
 
+    // the text is here and the reader page is coming up: one opening, at most once an hour (see bookOpenCount)
+    try { bookOpenCount(b.id); } catch (e) {}
     const pos = readingPos(b.id);
     /* AN ADDRESSED SECTION BEATS THE REMEMBERED PLACE, and it beats it the way a deliberate move to
        another chapter already does: at the TOP of that chapter, never at a saved depth (see the reading
@@ -36135,7 +36745,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // reader's eye is, and it means reopening the book puts the line they stopped on back in front of
       // them rather than just above the fold
       const frac = Math.max(0, Math.min(1, (window.scrollY + window.innerHeight * 0.35 - pageEl.offsetTop) / h));
-      setReadingPos(b.id, cur.n, frac);
+      const foot = cur === chapters[chapters.length - 1] &&
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 48;
+      setReadingPos(b.id, cur.n, frac, foot);
     }
     /* The listener is on WINDOW, which outlives the page — and render() replaces #view wholesale without
        telling anyone, so there is no teardown hook to hang a removal on. It takes itself off instead, the

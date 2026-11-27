@@ -3736,7 +3736,8 @@
   {"ch":11,"in":"text","from":"Niphates. TheCurtii in","to":"Niphates. The Curtii in","kind":"run-together","why":"two words run together"},
   {"ch":8,"in":"note","from":"is corrupt.. See Groskurd","to":"is corrupt. See Groskurd","kind":"typo","why":"doubled full stop"},
   {"ch":17,"in":"text","from":"of Apis.. Into this","to":"of Apis. Into this","kind":"typo","why":"doubled full stop"},
-  {"re":"(?<![0-9A-Za-z.,:;\\-–])[3-9](?=[a-z]{2})(?!rd|th|ths)","to":"X","n":46,"kind":"scan misreading","why":"capital X read as a digit at the head of a name (3anthus, 7enophon, 4ucar) (46 when written)"}
+  {"re":"(?<![0-9A-Za-z.,:;\\-–])[3-9](?=[a-z]{2})(?!rd|th|ths)","to":"X","n":46,"kind":"scan misreading","why":"capital X read as a digit at the head of a name (3anthus, 7enophon, 4ucar) (46 when written)"},
+  {"ch":17,"in":"text","from":"to the letter (<i>δ</i>) of that name","to":"to the letter (<i>Δ</i>) of that name","kind":"scan misreading","why":"the Delta is named for the capital letter's triangle; Project Gutenberg's transcription of the same Hamilton and Falconer volume (no. 44886) reads (Δ)"}
  ],
  "suetonius-twelve-caesars": [
   {"ch":2,"in":"text","from":"near that of aEsculapius","to":"near that of AEsculapius","kind":"scan misreading","why":"the book writes the ligature as AE (AEmilius, AEtna, AEsculapius in ch5); lower-case a is a misread"},

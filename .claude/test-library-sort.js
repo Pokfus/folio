@@ -1,4 +1,5 @@
-// The Library shelf's two orders added in Nov 2026 (on request): by POPULARITY, and by DATE with a
+// The Library shelf's two orders added in Nov 2026 (on request): by POPULARITY (openings — schema
+// section 20 — falling back to readers where the database has none), and by DATE with a
 // work written over a long span filed at its EARLIEST year.
 //
 //   NODE_PATH=<scratch>/node_modules node .claude/test-library-sort.js
@@ -34,15 +35,23 @@ function check(name, ok, extra) {
   else { fail++; console.log("FAIL  " + name + (extra ? "  " + extra : "")); }
 }
 
-const READS = { "homer-iliad": 40, "plato-republic": 31, "beowulf": 31, "magna-carta": 7, "ramayana": 2 };
+// OPENINGS are what the Popularity order counts (Nov 2026); the read counts are deliberately in another
+// order, so a shelf sorted by the wrong column cannot pass.
+const OPENS = { "homer-iliad": 40, "plato-republic": 31, "beowulf": 31, "magna-carta": 7, "ramayana": 2 };
+const READS = { "homer-iliad": 1, "plato-republic": 2, "beowulf": 9, "magna-carta": 30, "ramayana": 50 };
 
-async function open(browser, base, statsStatus) {
-  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+const bumps = [];   // every bump_book_open the page sends, by book id
+async function open(browser, base, statsStatus, noOpens) {
+  // 1080 wide: the timeline shelf, whose banners this suite reads. The Reading room (from 1100px) has its own, test-library-room.js.
+  const ctx = await browser.newContext({ viewport: { width: 1080, height: 900 } });
   await ctx.route((url) => SUPA.test(url.toString()), async (r) => {
     const u = r.request().url();
+    if (u.includes("/rpc/bump_book_open")) { bumps.push((() => { try { return JSON.parse(r.request().postData()).b; } catch (e) { return "?"; } })()); return r.fulfill({ status: 204, body: "", headers: { "access-control-allow-origin": "*" } }); }
     if (u.includes("/rest/v1/book_stats")) {
       if (statsStatus !== 200) return r.fulfill({ status: statsStatus, contentType: "application/json", body: "{}", headers: { "access-control-allow-origin": "*" } });
-      const rows = Object.keys(READS).map((k) => ({ book: k, reads: READS[k] }));
+      // a database without schema section 20 refuses the unknown column, as PostgREST does
+      if (noOpens && /opens/.test(u)) return r.fulfill({ status: 400, contentType: "application/json", body: JSON.stringify({ code: "42703", message: "column book_stats.opens does not exist" }), headers: { "access-control-allow-origin": "*" } });
+      const rows = Object.keys(READS).map((k) => (noOpens ? { book: k, reads: READS[k] } : { book: k, reads: READS[k], opens: OPENS[k] }));
       return r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(rows), headers: { "access-control-allow-origin": "*" } });
     }
     return r.fulfill({ status: 200, contentType: "application/json", body: "[]", headers: { "access-control-allow-origin": "*" } });
@@ -81,12 +90,14 @@ const pick = (page, key) => page.evaluate(async (k) => {
   const opts = await page.evaluate(() => [...document.querySelectorAll("#bkSort option")].map((o) => o.value + "=" + o.textContent));
   check("the sort picker offers Popularity", opts.includes("popular=Popularity"), opts.join(","));
   let p = await pick(page, "popular");
-  check("...and choosing it is kept", p.sel === "popular" && /Most read first/.test(p.dir), JSON.stringify({ sel: p.sel, dir: p.dir }));
-  check("...the most-read book leads", p.ids[0] === "homer-iliad", p.ids.slice(0, 6).join(","));
-  check("...a tie in reads falls to the title (Beowulf before The Republic)",
+  check("...and choosing it is kept", p.sel === "popular" && /Most opened first/.test(p.dir), JSON.stringify({ sel: p.sel, dir: p.dir }));
+  check("...the most-opened book leads, whatever its read count", p.ids[0] === "homer-iliad", p.ids.slice(0, 6).join(","));
+  const chip = await page.evaluate(() => { const t = document.querySelector('.book-tile[data-book="homer-iliad"] .bk-tile-reads'); return t ? t.textContent : ""; });
+  check("...and its banner prints the openings the order is counting", /opened 40 times/.test(chip), chip);
+  check("...a tie in openings falls to the title (Beowulf before The Republic)",
     p.ids[1] === "beowulf" && p.ids[2] === "plato-republic" && p.ids[3] === "magna-carta" && p.ids[4] === "ramayana", p.ids.slice(0, 6).join(","));
   const tail = p.titles.slice(5), sortedTail = tail.slice().sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
-  check("...and the books nobody has read yet follow in title order", tail.join("|") === sortedTail.join("|"), tail.slice(0, 5).join(" | "));
+  check("...and the books nobody has opened yet follow in title order", tail.join("|") === sortedTail.join("|"), tail.slice(0, 5).join(" | "));
   check("...with no era marks (they belong to the date order) and no apology", p.marks === 0 && p.note === false, JSON.stringify({ marks: p.marks, note: p.note }));
   // by TITLE, not id: two books share the title "The Histories", and a tie is left where it stood
   const fwd = p.titles.slice();
@@ -95,7 +106,7 @@ const pick = (page, key) => page.evaluate(async (k) => {
     await new Promise((r) => setTimeout(r, 900));
     return { dir: document.querySelector("#bkSortDir").textContent.trim(), titles: [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent) };
   });
-  check("...reversed, the least read come first", /Least read first/.test(rev.dir) && rev.titles.join("|") === fwd.slice().reverse().join("|"), rev.dir + " " + rev.titles.slice(-3).join(","));
+  check("...reversed, the least opened come first", /Least opened first/.test(rev.dir) && rev.titles.join("|") === fwd.slice().reverse().join("|"), rev.dir + " " + rev.titles.slice(-3).join(","));
   await page.reload({ waitUntil: "load" });
   await page.waitForSelector(".book-tile");
   await page.waitForTimeout(1200);
@@ -122,7 +133,17 @@ const pick = (page, key) => page.evaluate(async (k) => {
   check("...and the era marks are drawn", d.marks >= 4, String(d.marks));
   await ctx.close();
 
-  /* ---- 3. popularity, where the figures never arrive ---- */
+  /* ---- 3. popularity, on a database that counts readers and not yet openings ---- */
+  ({ ctx, page } = await open(browser, base, 200, true));
+  p = await pick(page, "popular");
+  await page.waitForTimeout(600);
+  const fb = await page.evaluate(() => ({ note: !document.querySelector("#bkSortNote").hidden, text: document.querySelector("#bkSortNote").textContent,
+    ids: [...document.querySelectorAll(".book-tile")].map((t) => t.dataset.book), chip: (document.querySelector('.book-tile[data-book="ramayana"] .bk-tile-reads') || {}).textContent || "" }));
+  check("without the openings column the order falls back to readers (the Ramayana's 50 lead)", fb.ids[0] === "ramayana" && fb.ids[1] === "magna-carta", fb.ids.slice(0, 4).join(","));
+  check("...says so in a sentence, and prints the read count", fb.note && /not being counted yet/.test(fb.text) && /50 reads/.test(fb.chip), fb.text + " | " + fb.chip);
+  await ctx.close();
+
+  /* ---- 4. popularity, where the figures never arrive ---- */
   ({ ctx, page } = await open(browser, base, 404));
   p = await pick(page, "popular");
   await page.waitForTimeout(600);
@@ -135,6 +156,25 @@ const pick = (page, key) => page.evaluate(async (k) => {
   const az = noStats.titles.slice().sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
   check("with no read counts to be had, the shelf says so in a sentence", noStats.note && /not available/.test(noStats.text), noStats.text);
   check("...stands in title order, and prints no figure", noStats.titles.join("|") === az.join("|") && noStats.reads === 0, noStats.titles.slice(0, 4).join(" | "));
+  await ctx.close();
+
+  /* ---- 5. an opening is counted when the book comes up, and not again within the hour ---- */
+  ({ ctx, page } = await open(browser, base, 200));
+  bumps.length = 0;
+  await page.goto(base + "#book/magna-carta", { waitUntil: "load" });
+  await page.reload({ waitUntil: "load" });
+  await page.waitForSelector(".bk-toc-item", { state: "attached", timeout: 60000 });
+  await page.waitForTimeout(700);
+  check("opening a book sends one bump_book_open for it", bumps.join(",") === "magna-carta", bumps.join(","));
+  await page.reload({ waitUntil: "load" });
+  await page.waitForSelector(".bk-toc-item", { state: "attached", timeout: 60000 });
+  await page.waitForTimeout(700);
+  check("...and a reload a moment later is the same visit, not a second opening", bumps.length === 1, bumps.join(","));
+  await page.evaluate(() => { const m = JSON.parse(localStorage.getItem("folio_book_opened_v1")); m["magna-carta"] -= 3700000; localStorage.setItem("folio_book_opened_v1", JSON.stringify(m)); });
+  await page.reload({ waitUntil: "load" });
+  await page.waitForSelector(".bk-toc-item", { state: "attached", timeout: 60000 });
+  await page.waitForTimeout(700);
+  check("...while coming back more than an hour later is another", bumps.length === 2, bumps.join(","));
   await ctx.close();
 
   await browser.close();

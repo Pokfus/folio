@@ -159,10 +159,15 @@ excerpts; the modern-state list.
 `written` states. A span's key is its early end (the Ramayana's "c. 500 BCE – 200 CE" is −500, not the −300
 midpoint); a single century's or decade's key lies inside it. 22 rows moved.
 
-**Popularity.** A fifth sort, on the pooled `book_stats.reads` the banner already prints — a reader counted
-once, after a minute with the book open, not a count of openings (`bookReadMaybeCount`'s stated reason: a
-count of openings measures browsing). It needs nothing new of the database. If raw openings are wanted, that
-is a second column and a schema block for the owner to run.
+**Popularity.** A fifth sort. It first ran on the pooled `book_stats.reads` (a reader counted once, after a
+minute with the book open); the owner then asked for **openings instead of readers**, so it now reads
+`book_stats.opens`, bumped by `bump_book_open` when a book is opened (at most once an hour per book per
+device). That is **schema section 20, the owner's to run**: until then the order falls back to readers and
+says so under the tools row. `library-feature.md` ("POPULARITY") has the three cases.
+
+**`tradition` and `form`** (Nov 2026). Every row declares one of each, from `BOOK_TRADITIONS` and
+`BOOK_FORMS` in app.js — what the Reading room's rail filters by. `check-library.js` fails a row without
+them and prints the lists.
 
 ## 6. A new book
 
@@ -171,7 +176,7 @@ is a second column and a schema block for the owner to run.
 
 1. The importer's write applies the emendation table and the house form (nothing to do for a first import).
 2. **Gates** — the run fails on any: `check-library` (the row exists, agrees, has a colour, `year` obeys the
-   rule), `book-emend --check`, `book-audit` (tag damage), `test-book-quotes`, and "every card that quotes
+   rule, and it declares a `tradition` and a `form` from the two lists — the message prints them), `book-emend --check`, `book-audit` (tag damage), `test-book-quotes`, and "every card that quotes
    this book still quotes its words".
 3. **Evidence** — read it: `book-spell`, `book-scan`, `book-vary`, `check-cutoff`, `check-counts`,
    `check-pairing`, `check-twins`, `book-gloss-sweep` (needs Playwright on `NODE_PATH`),
@@ -190,7 +195,8 @@ shards pick up `test-library-sort.js` and `test-book-gloss-rules.js` by themselv
 
 **Re-run after touching** `bookQuotes` / `bookQuoteTree`: `test-book-quotes.js`. `bookGlossOff`,
 `unlinkLaterTerms`, the `<gloss-date-rule>` parsers, `GLOSS_MODERN_STATES`: `test-book-gloss-rules.js`.
-`BOOK_SORTS`, the shelf comparator, a `year`: `test-library-sort.js`. A book's text by any route:
+`BOOK_SORTS`, the shelf comparator, a `year`: `test-library-sort.js`. `PAGES.library`'s two layouts, the
+filters, `bookState`: `test-library-room.js`. A book's text by any route:
 `book-emend.js --check` and `check-cards.js` (the quotations).
 
 ## 7. Suggestions for the Library
@@ -203,9 +209,8 @@ Asked for ("several other suggestions for changes or improvements"). In rough or
 2. **Let readers report a slip.** Select a word in the reader → "Report a slip" → a row in a Supabase table
    with book, chapter and the sentence. It is the only way the real-word misreadings will ever be found at
    scale, and each report is already in the shape of a `book-emend.json` row.
-3. **Give the catalogue a tradition and a form.** The six desktop designs all filter or group by them
-   (`mockups/library-desktop-redesigns/make-data.js` has a first assignment for all 101). The shelf has
-   passed the size where a flat list with a search box is enough.
+3. **Give the catalogue a tradition and a form.** *Done, Nov 2026*: every row declares both, and the
+   desktop page filters by them (`library-feature.md`, "The Reading room and the Desk").
 4. **Search inside the Library**, not only its titles: a lazy per-book index, "find this phrase in every
    text". `library-card-quotes.md` shows how much the texts could answer.
 5. **Show a card where its book is.** A margin mark in the reader where a card quotes the passage ("3 cards
@@ -213,7 +218,8 @@ Asked for ("several other suggestions for changes or improvements"). In rough or
 6. **Sync highlights.** They live in `localStorage` (`BOOK_HL_KEY`) while reading position syncs; a reader
    who changes device keeps their place and loses their marks. They grow per use, so they want their own
    table, not `PROGRESS_FIELDS`.
-7. **Finish what the shelf starts.** A "finished" state and a reading goal; an estimated reading time per
+7. **Finish what the shelf starts.** A "finished" state (*done, Nov 2026*: `fin` on the reading record,
+   `bookState`) and a reading goal; an estimated reading time per
    chapter (the text length is known); the home page's reading box could say "about 25 minutes left in
    Book 3".
 8. **Take the registry's prose off the boot path.** `BOOKS` in app.js is 370 KB, 203 KB of it comments, and
@@ -224,8 +230,8 @@ Asked for ("several other suggestions for changes or improvements"). In rough or
 10. **A names index per book** ("People and places in this book"), generated from the sweep: the glossary
     keys a book links, by count, each opening the first chapter that names it.
 11. **Download a book for offline reading** through the service worker; long texts are read on trains.
-12. **Count openings as well as readers**, if the Popularity order should reward a book people keep
-    returning to (schema block 20; the order would use it where it exists and fall back to `reads`).
+12. **Count openings as well as readers.** *Done, Nov 2026, on request*: the Popularity order counts
+    openings (schema section 20, the owner's to run; it falls back to `reads` and says so until then).
 
 ## 8. The glossary list, the card quotations, the six designs
 
@@ -238,7 +244,9 @@ Asked for ("several other suggestions for changes or improvements"). In rough or
   and carry no quotation. Places to look, never passages.
 - **`mockups/library-desktop-redesigns/index.html`** — six desktop designs for the Library page in one
   interactive file (keys 1–6, D for day and night): Reading room, Stacks, Time river, Catalogue, Traditions,
-  Desk. `make-data.js` regenerates its data from the live catalogue. The owner chooses; nothing is built yet.
+  Desk. `make-data.js` regenerates its data from the live catalogue. **The owner chose** (Nov 2026): design 1,
+  the Reading room, is the desktop page, and the top of the Desk (the book in hand, the others in progress,
+  four figures) stands over the shelf on a phone and a tablet. Both are built; the other four are not.
 
 ## 9. Left as found, on purpose
 

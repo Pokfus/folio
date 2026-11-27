@@ -376,7 +376,8 @@ const CARD = () => {
     await page.waitForTimeout(300);
     check("dismissing it clears the shelf", await page.evaluate(() => !document.querySelector(".page-help-quiet, .page-help")));
     // a book still opens — a scrim left hit-testing would make the whole shelf dead to the touch
-    await page.click(".book-tile");
+    // at this width the Library is the Reading room: the pane's button opens the selected text
+    await page.click(".lr-open");
     await page.waitForTimeout(2500);
     check("...and a book opens straight afterwards", await page.evaluate(() => location.hash.startsWith("#book/")), await page.evaluate(() => location.hash));
 

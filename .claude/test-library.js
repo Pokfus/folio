@@ -41,6 +41,10 @@ const check = (label, ok, detail) => {
 
 const PHONE = { width: 390, height: 844 };
 const DESK = { width: 1280, height: 900 };
+/* THE TIMELINE SHELF AT ITS WIDEST (Nov 2026). From 1100px the Library page is the Reading room, a
+   different page with a suite of its own (test-library-room.js); the banners this file's section 2 reads
+   are the page below that width, two to a row from 1025px. */
+const SHELF = { width: 1080, height: 900 };
 
 /* Read the SHIPPED book files and look for Wikisource's own stylesheet in them. Done in Node, over
    every chapter of every book, rather than in the page over whichever chapter happens to be open —
@@ -1329,7 +1333,7 @@ function aeneidChecks() {
   let bookHref = "";
   {
     asked.length = 0;
-    const page = await browser.newPage({ viewport: DESK });
+    const page = await browser.newPage({ viewport: SHELF });
     await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1200);
@@ -2781,10 +2785,11 @@ function aeneidChecks() {
     // back to the shelf
     await page.evaluate(() => document.querySelector("#bkBack").click());
     await page.waitForTimeout(600);
-    const backToShelf = await page.evaluate(() => ({ hash: location.hash, tiles: document.querySelectorAll(".book-tile").length }));
+    // this page is 1280 wide, so the shelf it returns to is the Reading room's rows
+    const backToShelf = await page.evaluate(() => ({ hash: location.hash, tiles: document.querySelectorAll(".book-tile, .lr-row").length }));
     check("the back link returns to the shelf", /library/.test(backToShelf.hash) && backToShelf.tiles > 0, JSON.stringify(backToShelf));
 
-    const resumed = await page.evaluate(() => (document.querySelector(".bk-tile-resume") || {}).textContent || "");
+    const resumed = await page.evaluate(() => (document.querySelector('.bk-tile-resume, .lr-row[data-book="seneca-letters"] .lb-st-on') || {}).textContent || "");
     check("...and the tile now says where the reader got to", /letter\s+40/i.test(resumed), resumed);
     await page.close();
   }

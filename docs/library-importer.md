@@ -19,7 +19,8 @@ sealing it with `book-emend.js --apply <id>`.
   zero deps, resumable (per-chapter cache in `.claude/book-cache/`, gitignored), safe to re-run:
   `node .claude/fetch-book.js seneca-letters [--from=N] [--to=N] [--force] [--only-original] [--skip-original]`.
   Adding a book = adding an entry to its `BOOKS` table (**and a matching one in app.js's eager `BOOKS`
-  registry** — the importer writes the text, app.js holds the tile's metadata, and a book with only one of the
+  registry**, which must also say where the text is shelved: a `tradition` and a `form` from
+  `BOOK_TRADITIONS` / `BOOK_FORMS` — `check-library.js` refuses the row otherwise and prints the lists — the importer writes the text, app.js holds the tile's metadata, and a book with only one of the
   two either never appears on the shelf or appears and cannot be opened; **plus a row in
   `BOOK_AUTHOR_COLOR` if the author is new to the shelf**, or the book falls through to the generic
   indigo every `--tile` rule already declares).

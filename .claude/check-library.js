@@ -43,6 +43,12 @@ if (a0 < 0 || a1 < 0) { console.log("check-library: cannot find `const BOOKS = [
 const table = app.slice(app.indexOf("[", a0), a1 + 4);
 let BOOKS;
 try { BOOKS = (0, eval)(table); } catch (e) { console.log("check-library: app.js BOOKS does not evaluate: " + e.message); process.exit(1); }
+/* WHERE A TEXT IS SHELVED (Nov 2026): the Reading room's rail filters by a row's `tradition` and `form`,
+   one each, from the two lists app.js declares. A row without one is a text no filter of that facet can
+   ever show; a value not on the list is a rail row that does not exist. */
+const listOf = (name) => { const m = new RegExp("\\n  const " + name + " = (\\[[^;]*\\]);").exec(app); try { return m ? (0, eval)(m[1]) : null; } catch (e) { return null; } };
+const TRADITIONS = listOf("BOOK_TRADITIONS"), FORMS = listOf("BOOK_FORMS");
+if (!Array.isArray(TRADITIONS) || !Array.isArray(FORMS) || !TRADITIONS.length || !FORMS.length) { console.log("check-library: cannot read BOOK_TRADITIONS / BOOK_FORMS from app.js — the check is blind, which is a failure."); process.exit(1); }
 const idLines = table.split("\n").filter((l) => /^      id: "/.test(l)).map((l) => /"([^"]+)"/.exec(l)[1]);
 const rowIds = BOOKS.map((b) => b.id);
 /* one `id:` line, one object: the merged-row fault is exactly a difference between these two lists */
@@ -124,6 +130,8 @@ for (const b of BOOKS) {
   if (!t) { fail(id, "app.js lists it but books/" + id + ".js is missing or pushed nothing — the tile opens an empty book"); continue; }
   for (const k of ["title", "author", "written", "edition", "rights", "sourceName", "sourceUrl", "chapterWord"])
     if (typeof b[k] !== "string" || !b[k].trim()) fail(id, "the row has no `" + k + "`");
+  if (TRADITIONS.indexOf(b.tradition) < 0) fail(id, "`tradition` is " + JSON.stringify(b.tradition) + " — the Library's filters need one of: " + TRADITIONS.join(" | "));
+  if (FORMS.indexOf(b.form) < 0) fail(id, "`form` is " + JSON.stringify(b.form) + " — the Library's filters need one of: " + FORMS.join(" | "));
   if (typeof b.year !== "number") fail(id, "the row has no numeric `year` — the Date order has nothing to sort it by");
   if (!colour[b.author === "Anonymous" ? id : b.author]) fail(id, "no BOOK_AUTHOR_COLOR row for " + JSON.stringify(b.author === "Anonymous" ? id : b.author) + " — the tile falls back to the generic indigo");
   if (typeof t.intro !== "string" || t.intro.length < 200) fail(id, "the book ships no About essay (`intro`)");

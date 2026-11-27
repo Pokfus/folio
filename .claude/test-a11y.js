@@ -140,6 +140,19 @@ const PROBE = () => {
       const q = (v) => Math.min(255, Math.max(0, (v || 0) * 255));
       return { r: q(p[0]), g: q(p[1]), b: q(p[2]), a: p.length > 3 ? p[3] : 1 };
     }
+    /* …AND `oklch()` (Nov 2026): a BACKGROUND set from a relative `oklch(from …)` colour is serialized as
+       `oklch(L C h)`, not as `color(srgb …)` — the Library's "Continue reading" button is the book's
+       accent — and an unreadable background fell through to the paper behind it, so white on dark green
+       was measured as white on white. Converted through OKLab to sRGB, clamped like the branch above. */
+    m = /oklch\(\s*([^)]+)\)/.exec(c || "");
+    if (m) {
+      const p = m[1].split(/[\s/]+/).filter(Boolean).map((x) => (/%$/.test(x) ? parseFloat(x) / 100 : parseFloat(x)));
+      const L = p[0] || 0, C = p[1] || 0, h = ((p[2] || 0) * Math.PI) / 180, A = C * Math.cos(h), B = C * Math.sin(h);
+      const l = Math.pow(L + 0.3963377774 * A + 0.2158037573 * B, 3), mm = Math.pow(L - 0.1055613458 * A - 0.0638541728 * B, 3), s = Math.pow(L - 0.0894841775 * A - 1.291485548 * B, 3);
+      const g = (v) => { v = Math.min(1, Math.max(0, v)); return 255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055); };
+      return { r: g(4.0767416621 * l - 3.3077115913 * mm + 0.2309699292 * s), g: g(-1.2684380046 * l + 2.6097574011 * mm - 0.3413193965 * s),
+        b: g(-0.0041960863 * l - 0.7034186147 * mm + 1.707614701 * s), a: p.length > 3 ? p[3] : 1 };
+    }
     return null;
   };
   const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
