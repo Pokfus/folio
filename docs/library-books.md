@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently ninety-one:
+  matter (chapter 0 — see the Library bullet). Currently ninety-four (counted off `books/`, Nov 2026):
   `pavlov-conditioned-reflexes` (~1 MB, **24 sections** — the twenty-three lectures and the Bibliography, `chapterWord:
   "Lecture"`, titles "Lecture I"… via `titleOf`; **17 notes**; no original). **From Classics in the History of Psychology**
   (Christopher D. Green, York University, 2000–01), the only transcription: neither Wikisource nor Gutenberg has the book
@@ -289,6 +289,21 @@ book added later will meet the same traps.
   cited twice, as on the page. Colour `#844227` (13.4: Livy, Sun Tzu, Vyasa nearest; Sophocles 14.9, Darwin 16.7 — first
   `#3C5721`, which Douglass's row took the same day). `glossOff`: 18 keys — see the comment on the app.js entry. Excerpt: the via regia, chapter VII.
   Not included: the prefaces, the contents, the diagrams, the general index.
+  `ebbinghaus-memory` (~280 KB, **9 chapters**, `chapterWord: "Chapter"`, **17 notes**, Ebbinghaus's; **no original**:
+  de.wikisource has no Über das Gedächtnis). Henry A. Ruger and Clara E. Bussenius's translation, Teachers College,
+  Columbia University, 1913, proofread on Wikisource (pages of quality 3 and 4). **A LIMITED LICENCE**, said in the
+  rights box: public domain in the US (1913); the translators' dates of death are on no Wikisource page, so nothing is
+  claimed elsewhere (Ebbinghaus d. 1909). `prep: "ebbinghaus"` (📖 `docs/library-importer.md`, its section): the **72
+  tables of results** kept as `bk-table`s with their printed legends above them and the 21 tables that split a figure
+  at its decimal point joined (`ebbDecimals`), the **7 MathML formulas** written out on one line (the forgetting
+  curve, b = (100 k)/((log t)<sup>c</sup> + k)), the subscripts kept (P.E.<sub>m</sub>), the **42 numbered sections**
+  as `bk-head` lines, the symbols' definitions as paragraphs, the six figures dropped with the centred blocks that
+  split their sentences, and a second (grouped, "[* 1]") footnote list merged into the first. Scanner leads not fixed:
+  "dearness" (IX) and "cannot he applied" (a note in VII) — the York Classics in the History of Psychology copy reads
+  the same, so no second witness. Colour `#9C0066` (12.3: Cervantes, Thucydides nearest; 37.8 or more from every
+  psychologist — a first green was 20.3 from Pavlov's, merged the same day). `glossOff`: 1 key ("Arabic" numerals). Excerpt: the opening of VII, "All
+  sorts of ideas, if left to themselves, are gradually forgotten." Not included: the translators' introduction, the
+  author's preface, the figures.
   `petrie-egyptian-tales` (~99 KB, **6 tabs**, one per tale as the contents page lists them — `chapterWord: "Tale"`,
   **no notes**, no original). W. M. Flinders Petrie's *Egyptian Tales, First Series* (Methuen): the three Westcar
   Papyrus "Tales of the Magicians", the Peasant and the Workman (the Eloquent Peasant), the Shipwrecked Sailor and the

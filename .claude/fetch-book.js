@@ -21249,6 +21249,78 @@ const BOOKS = {
     // the shortest, the Literary Index, is about 12,000 characters of text
     minChars: 3000,
   },
+  "ebbinghaus-memory": {
+    title: "Memory",
+    subtitle: "A Contribution to Experimental Psychology",
+    author: "Hermann Ebbinghaus",
+    translator: "Henry A. Ruger and Clara E. Bussenius",
+    edition: "Teachers College, Columbia University, New York, 1913",
+    written: "1885",
+    year: 1885,
+    /* ---------- THE LICENCE ----------
+       Ebbinghaus died in 1909. The translation was published in New York in 1913, before 1929, so it is public
+       domain in the United States (Wikisource: PD-old for the original, PD-US for the translation). Henry Alford
+       Ruger's and Clara E. Bussenius's dates of death are not on their Wikisource author pages and are not
+       asserted here, so the rights box claims the United States only. The transcription is Wikisource's, of
+       `Memory (1913).djvu` (index marked validated; the pages fetched are quality 3 and 4, proofread and
+       validated). There is no German beside it: de.wikisource has no Über das Gedächtnis (looked for, Nov 2026). */
+    rights:
+      "Public domain in the United States, where Henry A. Ruger and Clara E. Bussenius's translation was " +
+      "published in 1913. Hermann Ebbinghaus died in 1909; the translators' dates of death are not established " +
+      "here, so the translation is not claimed to be out of copyright elsewhere. The text is the proofread " +
+      "Wikisource transcription of the 1913 edition, from a scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Memory:_A_Contribution_to_Experimental_Psychology",
+    /* THE FRONT MATTER — chapter 0. Every claim about the content was checked against this text (the 2,300
+       syllables, the 150 beats, seven syllables after one reading, the savings of 58.2, 44.2, 33.7 and 21.1 per
+       cent after 20 minutes, an hour, a day and 31 days, the two periods of tests); the life is the outline every
+       account gives. */
+    about: [
+      "<b>Memory</b> is the first experimental study of memory. Hermann Ebbinghaus set out to measure " +
+        "learning and forgetting as a physicist measures, under controlled conditions and in numbers, and he " +
+        "did it with himself as the only subject. His material was the <i>nonsense syllable</i>: about 2,300 " +
+        "syllables of a vowel between two consonants, drawn by chance into series of different lengths, so " +
+        "that no meaning or old association would help him. He read each series aloud at a fixed rate, 150 " +
+        "beats a minute, until he could recite it without error.",
+      "His measure of what remained of a thing apparently forgotten is the <i>saving</i>: learn a series, " +
+        "let time pass, learn it again, and the time saved in relearning shows how much of the first " +
+        "learning survived. Chapters I–IV argue that memory can be measured at all and set out the method " +
+        "and its errors. Chapter V finds that he could recite seven syllables after one reading, and that " +
+        "the work of learning rises steeply as a series grows longer. Chapter VI relates the saving to the " +
+        "number of earlier repetitions, and chapter VIII follows series relearned day after day. Chapter VII " +
+        "is the curve of forgetting: of the time spent learning, a saving of 58 per cent remained after " +
+        "twenty minutes, 44 after an hour, a third after a day and about a fifth after a month, a fall he " +
+        "fitted with a formula in the logarithm of the time. Chapter IX shows that learning a series also " +
+        "links each syllable to the ones after the next, and more weakly backwards.",
+      "Ebbinghaus was born in 1850 and took his doctorate in philosophy at Bonn. He made the tests in " +
+        "two periods, in 1879–80 and 1883–84, and published them in Leipzig in 1885 as <i>Über das " +
+        "Gedächtnis</i>, the book that made memory a subject of experiment. He taught at Berlin, Breslau and " +
+        "Halle, and died in 1909.",
+      "This is the English translation by Henry A. Ruger and Clara E. Bussenius, published by Teachers " +
+        "College, Columbia University, in 1913. The text here gives the nine chapters, with the book's " +
+        "forty-two numbered sections as headings, Ebbinghaus's footnotes in the notes under each chapter, " +
+        "and its tables of results as tables; where a figure was printed split at its decimal point to align " +
+        "a column, it is joined, and the formulas are written out on one line. Not included: the translators' " +
+        "introduction, the author's preface and the six figures (the curve of errors in chapter II and the " +
+        "curves in chapters IV and V), which the text describes.",
+    ],
+    chapterWord: "Chapter",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    page: (n) => "Memory: A Contribution to Experimental Psychology/Chapter " + n,
+    prep: "ebbinghaus",
+    titleOf: (n) => [null,
+      "I. Our Knowledge Concerning Memory",
+      "II. The Possibility of Enlarging Our Knowledge of Memory",
+      "III. The Method of Investigation",
+      "IV. The Utility of the Averages Obtained",
+      "V. Rapidity of Learning Series of Syllables as a Function of Their Length",
+      "VI. Retention as a Function of the Number of Repetitions",
+      "VII. Retention and Obliviscence as a Function of the Time",
+      "VIII. Retention as a Function of Repeated Learning",
+      "IX. Retention as a Function of the Order of Succession of the Members of the Series",
+    ][n],
+    minChars: 3000,
+  },
   "jerome-letters": {
     title: "The Letters of St. Jerome",
     subtitle: "Epistulae",
@@ -26490,6 +26562,241 @@ function painePrep(h, warn) {
   if (finis || tables) console.log("  paine: " + finis + " FINIS dropped, " + tables + " table(s) kept");
   return h;
 }
+/* ---------- EBBINGHAUS: tables, formulas and the numbered sections of Memory (Nov 2026) ----------
+   `prep: "ebbinghaus"`, run on the RAW page like `painePrep`. Ruger and Bussenius's Memory (1913) is a
+   report of experiments, and the generic passes lose its evidence without throwing:
+   · THE TABLES ARE THE RESULTS (72 of them, 27 in chapter IX alone): stripTags unwraps each into a loose run
+     of figures, one to a line, every column lost. Each is rebuilt as a `bk-table` (the Treaty of Versailles'
+     class), stashed through cleanBody in the treaty's stash and put back after it. A row whose cells carry the
+     printed double rule above them is the head row (`th`); a colspan is kept; a dotted leader cell (chapter
+     IX's schematic of a series, I(1) I(2) I(3) …… I(16)) becomes "……". A table's CAPTION is the printed
+     legend above it ("I. 19 minutes. 12 tests. Learning and relearning at the time A."), so it is set as the
+     paragraph before the table. A footnote marker inside a cell is resolved here, by the same note ids
+     cleanBody uses, since cleanBody never sees the cell.
+   · THE FORMULAS are MathML (the forgetting curve b = 100k / ((log t)^c + k) in chapter VII, √n in IV). The
+     tag stripper keeps their characters and drops their structure, so "b=100 k(log⁡t)c+k" was all that was
+     left. Each is written out on one line in the reader's tags: a fraction as (numerator)/(denominator), each
+     side bracketed unless it is one symbol, a power as <sup>, a root as √, a variable in italic.
+   · THE SUBSCRIPTS (P.E.<sub>m</sub>, the probable error of the mean; M<sub>o</sub>) — `sub` is not in
+     ALLOWED, and "P.E.m" reads as an abbreviation. Carried through as a placeholder and put back.
+   · THE NUMBERED SECTIONS (1–42, by which the book is cited) are centred italic heads, and every centred block
+     becomes a quotation. Each is set as a `bk-head` line; the chapter's own head above the first (the running
+     title "MEMORY", "CHAPTER VII" and its title in capitals) goes, the tab naming the chapter.
+   · THE DEFINITIONS OF THE SYMBOLS (chapter VII's "L the time of first learning…") are hanging-indented
+     divs, which would also become quotations; each is a paragraph.
+   · A SECOND FOOTNOTE LIST: a note numbered in its own group ("[* 1]", on a table's column head in VII and a
+     table in IX) is printed in a list of its own, which notesOf does not read, so its marker opened nothing.
+     Its items are moved into the main list, where their ids resolve as any other note's. */
+const EBB_HEAD = "@@EBH@@", EBB_SUB = "@@EBS@@", EBB_SUBEND = "@@EBZ@@";
+const EBB = { padding: 0, decimals: 0, runs: 0, figures: 0, tables: 0, captions: 0, maths: 0, subs: 0, heads: 0, chapterHeads: 0, defs: 0, groupNotes: 0 };
+// one MathML fragment, written out as a line of the reader's inline markup
+function ebbMath(xml, warn) {
+  const toks = xml.replace(/<annotation[\s\S]*?<\/annotation>/g, "").match(/<\/?[a-zA-Z]+[^>]*>|[^<]+/g) || [];
+  let i = 0;
+  function node() {
+    const t = toks[i++];
+    const m = /^<([a-zA-Z]+)([^>]*?)(\/?)>$/.exec(t);
+    if (!m) return { tag: "#text", text: t, kids: [] };
+    const n = { tag: m[1], attrs: m[2], kids: [] };
+    if (m[3]) return n;
+    while (i < toks.length && !/^<\//.test(toks[i])) n.kids.push(node());
+    i++;
+    return n;
+  }
+  const root = node();
+  // U+2061, FUNCTION APPLICATION, is the invisible operator between "log" and "t": a space, or "logt"
+  const txt = (s) => s.replace(/&nbsp;|&#160;|\u00a0/g, " ").replace(/\u2061|&#x2061;|&#8289;/g, " ").replace(/\s+/g, " ");
+  const flat = (n) => n.tag === "#text" ? [n] : ["mrow", "mstyle", "semantics", "math"].includes(n.tag)
+    ? n.kids.flatMap(flat) : [n];
+  const atom = (n) => { const f = flat(n).filter((x) => !(x.tag === "#text" && !x.text.trim()) && !(x.tag === "mtext" && !txt(r(x)).trim()));
+    return f.length === 1 && ["mi", "mn", "msup"].includes(f[0].tag); };
+  function r(n) {
+    switch (n.tag) {
+      case "#text": return txt(n.text);
+      case "mi": {
+        const s = n.kids.map(r).join("");
+        return s.length === 1 && !/mathvariant="normal"/.test(n.attrs) ? "<i>" + s + "</i>" : s;
+      }
+      case "mn": case "mtext": return n.kids.map(r).join("");
+      case "mo": {
+        const s = n.kids.map(r).join("");
+        if (!s.trim()) return s ? " " : "";
+        return /^[=+−\-×]$/.test(s.trim()) ? " " + s.trim() + " " : s.trim();
+      }
+      case "mfrac": {
+        const side = (k) => atom(k) ? r(k).trim() : "(" + r(k).trim() + ")";
+        return side(n.kids[0]) + "/" + side(n.kids[1]);
+      }
+      case "msup": return r(n.kids[0]).trim() + "<sup>" + r(n.kids[1]).trim() + "</sup>";
+      case "msqrt": { const s = n.kids.map(r).join("").trim(); return "√" + (n.kids.length === 1 && atom(n.kids[0]) ? s : "(" + s + ")"); }
+      case "math": case "mrow": case "mstyle": case "semantics": return n.kids.map(r).join("");
+      default: warn("a MathML element ebbMath does not know: <" + n.tag + ">"); return n.kids.map(r).join("");
+    }
+  }
+  return r(root).replace(/\s+/g, " ").replace(/\( /g, "(").replace(/ \)/g, ")").trim();
+}
+/* A NUMBER SPLIT AT ITS DECIMAL POINT: 21 of the tables set the decimals in a column of their own, so the figures
+   align on the point (89 | .5, 11 | . for "11."), and a header spans the pair. Read cell by cell that is two
+   numbers. A column is a decimal column when every cell of the body starting in it is a point and digits, or a
+   point alone, or empty, and at least one has digits; it is folded into the column before it — ".5" appended,
+   a bare "." dropped — and every cell spanning both columns loses one from its colspan. Worked on a grid, so a
+   rowspan above a row keeps its columns, and from the right so the indices hold. */
+function ebbDecimals(rows, warn) {
+  const grid = () => {
+    const occ = [];
+    rows.forEach((r, i) => {
+      let col = 0;
+      r.forEach((c) => {
+        while (occ[i] && occ[i][col]) col++;
+        c.col = col;
+        c.cs = +((c.span.match(/colspan="(\d+)"/) || [0, 1])[1]);
+        const rs = +((c.span.match(/rowspan="(\d+)"/) || [0, 1])[1]);
+        for (let a = 0; a < rs; a++) for (let b = 0; b < c.cs; b++) (occ[i + a] = occ[i + a] || [])[col + b] = c;
+        col += c.cs;
+      });
+    });
+    return occ;
+  };
+  for (let guard = 0; guard < 40; guard++) {
+    const occ = grid();
+    const width = Math.max(...occ.map((r) => (r ? r.length : 0)));
+    let j = -1;
+    for (let k = width - 1; k > 0 && j < 0; k--) {
+      const own = rows.map((r, i) => (occ[i] || [])[k]).filter((c, i) => c && !c.th && c.col === k && c.cs === 1 && rows[i].includes(c));
+      if (!own.length || !own.some((c) => /^\.\d+$/.test(c.html))) continue;
+      if (!own.every((c) => /^\.\d*$/.test(c.html) || !c.html)) continue;
+      j = k;
+    }
+    if (j < 0) return;
+    EBB.decimals++;
+    rows.forEach((r, i) => {
+      const c = (occ[i] || [])[j];
+      if (!c || !r.includes(c)) return;
+      if (c.col < j || c.cs > 1) { c.span = c.span.replace(/colspan="(\d+)"/, (m, n) => +n - 1 > 1 ? 'colspan="' + (n - 1) + '"' : "").trim(); return; }
+      const d = occ[i][j - 1];
+      if (!d || !r.includes(d) || d.col + d.cs - 1 !== j - 1) {
+        if (c.html) warn("a decimal with no figure before it: " + c.html);
+        r.splice(r.indexOf(c), 1);
+        return;
+      }
+      if (c.html && c.html !== ".") d.html += c.html;
+      r.splice(r.indexOf(c), 1);
+    });
+  }
+  warn("ebbDecimals did not settle");
+}
+function ebbinghausPrep(h, warn) {
+  // the group list's items into the main list
+  const grouped = [];
+  h = h.replace(/<ol class="references" data-mw-group="[^"]*">([\s\S]*?)<\/ol>/g, (m, items) => {
+    EBB.groupNotes += (items.match(/<li id="cite/g) || []).length;
+    grouped.push(items);
+    return "";
+  });
+  if (grouped.length) {
+    if (!/<ol class="references">/.test(h)) warn("a grouped note list with no main list to join");
+    h = h.replace(/(<ol class="references">[\s\S]*?)(<\/ol>)/, (m, a, b) => a + grouped.join("") + b);
+  }
+  const ids = notesOf(h).ids;
+  const sub = (s) => s.replace(/<sub\b[^>]*>([\s\S]*?)<\/sub>/g, (m, x) => { EBB.subs++; return EBB_SUB + x + EBB_SUBEND; });
+  const maths = (s) => s.replace(/<math\b[\s\S]*?<\/math>/g, (m) => { EBB.maths++; return ebbMath(m, warn); });
+  h = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link\b[^>]*>/g, "");
+  h = maths(h);
+  /* THE FIGURES (Ebbinghaus's curve of errors in II, his curves of learning in IV and V) — the Library sets no
+     pictures. Five of the six stand in a centred block in the MIDDLE of a sentence ("how often a [Fig. 1]
+     deviation of a certain value occurs"), so the block goes whole and the sentence closes over it; left to
+     `dropFigures`, the empty block split the paragraph and the run after it lost its paragraph. */
+  h = h.replace(/(?:<div class="wst-center[^"]*">\s*)?(?:<span class="anchor" id="[^"]*"><\/span>\s*)?<figure\b[\s\S]*?<\/figure>(?:\s*<\/div>)?/g,
+    (m) => { if (/^<div/.test(m) !== /<\/div>$/.test(m)) warn("a figure half inside a centred block"); EBB.figures++; return ""; });
+  /* A PARAGRAPH THAT OPENS A PAGE AFTER A </p>, with no <p> of its own (four: the wikitext's page joins). The
+     generic loose-run pass wraps such a run only up to its first italic ("the vertical line <i>m n</i>"),
+     leaving the rest outside every paragraph, so each is wrapped here, whole: to its own stray </p> where
+     there is one, else to the next block. */
+  h = h.replace(/<\/p>\n(?=[^<\s])/g, (m, at, all) => {
+    const rest = all.slice(at + m.length);
+    const nx = /<\/p>|<(?:p|div|table)\b/.exec(rest);
+    EBB.runs++;
+    return "</p>\n<p>" + (nx && nx[0] !== "</p>" ? "\u0008" : "");
+  });
+  h = h.replace(/<p>\u0008([\s\S]*?)(?=<(?:p|div|table)\b)/g, (m, x) => "<p>" + x.replace(/\s+$/, "") + "</p>\n");
+  // a cell's or a caption's contents: inline markup only, the markers resolved, the subscripts real
+  const inline = (c) => {
+    let x = c.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+      const k = ids.indexOf(tgt.replace(/&#95;/g, "_"));
+      if (k < 0) warn("a table's footnote marker points at no note: " + tgt);
+      return k < 0 ? "" : "\u0006" + (k + 1) + "\u0007";
+    });
+    x = x.replace(/<span class="pagenum[\s\S]*?<\/span><\/span>/g, "")
+      // alignment padding: a "½" set in transparent ink so 2 lines up under 2½ — not text
+      .replace(/<span style="color: ?transparent;?">[^<]*<\/span>/g, () => { EBB.padding++; return ""; })
+      .replace(/<span class="wst-gap[^"]*"[^>]*><\/span>/g, " ")
+      .replace(/<sub\b[^>]*>([\s\S]*?)<\/sub>/g, (m, y) => { EBB.subs++; return "\u0002" + y + "\u0003"; })
+      .replace(/<br\s*\/?>/g, "\u0001")
+      .replace(/<(\/?)(i|b|sup)\b[^>]*>/g, "\u0004$1$2\u0004")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&#160;|&nbsp;|&#32;/g, " ").replace(/\s+/g, " ")
+      .replace(/\u0004(\/?)(i|b|sup)\u0004/g, "<$1$2>")
+      .replace(/\s*\u0001\s*/g, "<br>").replace(/\u0002/g, "<sub>").replace(/\u0003/g, "</sub>")
+      .replace(/\u0006(\d+)\u0007/g, '<sup class="fn" data-fn="$1"></sup>');
+    return x.replace(/^(?:<br>)+|(?:<br>)+$/g, "").trim();
+  };
+  h = h.replace(/<table\b[^>]*>([\s\S]*?)<\/table>/g, (m, inner) => {
+    EBB.tables++;
+    let cap = "";
+    inner = inner.replace(/<caption\b[^>]*>([\s\S]*?)<\/caption>/, (mm, c) => { cap = inline(c); return ""; });
+    const rows = (inner.match(/<tr\b[\s\S]*?<\/tr>/g) || []).map((tr) =>
+      [...tr.matchAll(/<(t[dh])\b([^>]*)>([\s\S]*?)<\/\1>/g)].map((c) => {
+        let html = inline(c[3]);
+        if (!html && /dotted/.test(c[2])) html = "……";
+        return { th: c[1] === "th" || /border-top:\s*4px double/.test(c[2]),
+          span: (c[2].match(/\b(?:col|row)span="\d+"/g) || []).join(" "), html };
+      }));
+    if (!rows.length) { warn("a table with no rows"); return ""; }
+    ebbDecimals(rows, warn);
+    const html = '<div class="bk-table"><table>' + rows.map((r) => "<tr>" + r.map((c) => {
+      const tag = c.th ? "th" : "td";
+      return "<" + tag + (c.span ? " " + c.span : "") + ">" + c.html + "</" + tag + ">";
+    }).join("") + "</tr>").join("") + "</table></div>";
+    TREATY_STASH.push(html);
+    if (cap) EBB.captions++;
+    return (cap ? "<p>" + cap.replace(/<\/?sub>/g, (t) => t[1] === "/" ? EBB_SUBEND : EBB_SUB) + "</p>" : "") +
+      "<p>" + TREATY_TABLE + (TREATY_STASH.length - 1) + "@@</p>";
+  });
+  if (/<\/?t(?:able|r|d|h)\b/.test(h)) warn("table markup left over after ebbinghausPrep");
+  h = sub(h);
+  // the centred heads: the chapter's own head goes, each numbered section is a head line
+  h = h.replace(/<div class="mw-heading[^"]*">[\s\S]*?<\/div>/g, "");
+  h = h.replace(/<div class="wst-center[^"]*">([\s\S]*?)<\/div>/g, (m, inner) => {
+    inner = inner.replace(/<span id="[^"]*" title="Anchor:[^"]*" class="wst-anchor">([\s\S]*?)<\/span>/g, "$1")
+      // the em space after "Section 19." — a character from api.php, an entity from the index.php fallback
+      .replace(/\u2003|&#8195;|&emsp;/g, " ");
+    // chapter IX's display of a series reversed, centred mid-sentence: a line of the paragraph, not a quotation
+    if (/^\s*<p>I\(16\)/.test(inner)) { EBB.lines = (EBB.lines || 0) + 1; return inner; }
+    const secs = [...inner.matchAll(/<i>\s*(Section \d+\.[\s\S]*?)\s*<\/i>/g)].map((x) => x[1].replace(/\s+/g, " "));
+    const text = inner.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    if (/^(?:MEMORY )?CHAPTER [IVX]+\b/.test(text)) {
+      EBB.chapterHeads++;
+      EBB.heads += secs.length;
+      return secs.map((s) => "<p>" + EBB_HEAD + "<i>" + s + "</i></p>").join("\n");
+    }
+    if (secs.length === 1 && /^Section \d+\./.test(text)) { EBB.heads++; return "<p>" + EBB_HEAD + "<i>" + secs[0] + "</i></p>"; }
+    return m;
+  });
+  // the definitions of the symbols, hanging-indented
+  h = h.replace(/<div class="tiInherit" style="text-indent:-2em; margin-left:2em;">([\s\S]*?)<\/div>/g,
+    (m, x) => { EBB.defs++; return "<p>" + x + "</p>"; });
+  return h;
+}
+// put back what ebbinghausPrep carried through cleanBody
+function ebbinghausFinish(html) {
+  return html.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k])
+    .replace(new RegExp("<p>" + EBB_HEAD, "g"), '<p class="bk-head">')
+    .replace(new RegExp(EBB_SUB, "g"), "<sub>").replace(new RegExp(EBB_SUBEND, "g"), "</sub>")
+    .replace(/<p>(?:\s|<br>)*<\/p>\s*/g, "")
+    // the transcription's blank line at the head of a paragraph after a table or a formula
+    .replace(/<p><br>\n?/g, "<p>");
+}
+
 /* ---------- THE COMMUNIST MANIFESTO: one base page, two parts, and centred heads (Nov 2026) ----------
    `prep: "manifesto"` → `manifestoPrep(h, page, warn)` on every raw page before the notes are gathered and before
    cleanBody, then `manifestoFinish` on the assembled part. Two things about the Kerr transcription of Moore's
@@ -39356,6 +39663,7 @@ async function fetchEnglish() {
     if (BOOK.prep === "kant") h = kantPrep(h, warn);
     if (BOOK.prep === "euclid") h = euclidPrep(h, warn);
     if (BOOK.prep === "paine") h = painePrep(h, warn);
+    if (BOOK.prep === "ebbinghaus") h = ebbinghausPrep(h, warn);
     if (BOOK.prep === "manifesto") { MANIFESTO_BASE_PART = n === 1 ? "preface" : "opening"; h = manifestoPrep(h, pageNames[0], warn); }
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
@@ -39418,6 +39726,7 @@ async function fetchEnglish() {
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       // the tables painePrep stashed, put back after the tag stripper, which keeps no table tags
       if (BOOK.prep === "paine") html = html.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k]);
+      if (BOOK.prep === "ebbinghaus") html = ebbinghausFinish(html);
       if (keep) html = pruneNotes(html, keep);
       if (BOOK.prep === "leviathan") {
         const got = liftSidenotes(html, warn);
@@ -39927,6 +40236,7 @@ function writeEnglish(chapters, warnings) {
       if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
     }
   }
+  if (BOOK.prep === "ebbinghaus") console.log("  ebbinghaus: " + JSON.stringify(EBB));
   if (BOOK.dropFigures) {
     console.log("  " + FIGS_DROPPED + " figure(s) dropped");
     if (!FIGS_DROPPED) warnings.push("dropFigures is declared and no figure was found");
