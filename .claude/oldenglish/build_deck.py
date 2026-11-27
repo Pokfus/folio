@@ -449,12 +449,18 @@ def build(rows, lex, exs):
     return cards, entries
 
 
-def coverage(entries, upto=None):
-    """The share of the corpus's running words that are a form some card (of the first `upto`)
-    prints -- headword, key forms, table, the texts' spellings -- under `oe.fold`."""
+def coverage(entries):
+    """Of the corpus's running words, the share that is a form some card prints -- headword,
+    key forms, table, the texts' spellings -- under `oe.fold`; the share that is a form of a
+    word BEYOND this level; and the share no Wiktionary entry matches (names, and late
+    spellings nothing files)."""
     toks = json.load(open('tokens.json', encoding='utf-8'))
-    shown = {k for e in entries[:upto] for k in e['shown']}
-    return sum(n for k, n in toks.items() if k in shown) / sum(toks.values())
+    matched = {k.rstrip('^') for k in json.load(open('freq.json', encoding='utf-8'))}
+    shown = {k for e in entries for k in e['shown']}
+    total = sum(toks.values())
+    on = sum(n for k, n in toks.items() if k in shown)
+    later = sum(n for k, n in toks.items() if k not in shown and k in matched)
+    return on / total, later / total, (total - on - later) / total
 
 
 def desc(entries, n):
@@ -468,7 +474,7 @@ def desc(entries, n):
     adjs = sum(1 for e in entries if e['pos'] == 'adj')
     also_n = sum(1 for e in entries if e['also'])
     noipa = sum(1 for e in entries if not e['ipa'])
-    cov = coverage(entries)
+    cov, later, nomatch = coverage(entries)
     band = ('the 500 commonest words of Old English prose' if a == 1 else
             f'the words ranked {a:,} to {b:,} in frequency in Old English prose, after the '
             f'{a - 1:,} the levels below this one teach')
@@ -500,7 +506,10 @@ def desc(entries, n):
         f"Ælfric wrote late, so {also_n} cards carry a line, 'also in the texts', with the "
         "spellings the corpus really prints for that word (forþan for forþon, þisum for þissum) — "
         "only those Wiktionary itself files under the word. With them, the forms printed on these "
-        f"cards are {cov:.0%} of all the running words of the corpus. "
+        f"cards are {cov:.0%} of all the running words of the corpus; another {later:.0%} are forms "
+        f"of words beyond this level, and {nomatch:.0%} are names (Iohannes, Petrus) and spellings no "
+        "dictionary entry matches — so about one word in five of a page of Ælfric is still to be "
+        "looked up when this deck is done. "
         f"{mod} of the {n} words show their Modern English descendant "
         "where one survives (cyning → king), labelled as a descendant, not a translation. "
         + (f"Sentences come with {n - ex0} of the {n} words, three apiece for {ex3} of them, the "
