@@ -2914,3 +2914,18 @@ the Contrat never prints).
 
 Re-run after touching: `node .claude/fetch-book.js voltaire-candide --force` (30 English and 30 French fetches), check
 "26 figure(s) dropped", the `Friai` fix applied once, no `<blockquote>` in either file, and `node .claude/book-audit.js`.
+
+## `prep: "mencius"` — chapter marks placed from a second witness (Nov 2026, Mencius)
+
+The Wikisource Mencius is the Analects' interleaved shape (each Chinese paragraph in a `wst-lang`
+element, then its English) with **no chapter numbers in either language**. `menciusPrep`, called from
+`bothColumns` before `extractInterleaved`, writes the marks that extractor already reads — 【N章】 in the
+Chinese, a small-caps "Chapter N." at the head of the English paragraph after it, and 【N節】 on every
+further Chinese paragraph so the Chinese column keeps its paragraph breaks. Where the chapters start is
+the table `MENCIUS_STARTS`, measured once by aligning the page's Chinese against Chinese Wikisource's
+孟子, which heads all 260 chapters of the standard division: every chapter start fell exactly on a
+paragraph boundary. Each row is `[paragraph index, first eight characters]`. The index places the mark
+and the characters check it, so a paragraph added or split upstream throws instead of shifting every
+later chapter by one. If it throws, re-measure the table by the same alignment; never edit an index
+by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
+entry's `fixes` convert the five the conversion missed.

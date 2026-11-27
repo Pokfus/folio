@@ -87,6 +87,117 @@ const ANALECTS_TITLES = [
   "Wei Ling Kung.", "Ke She.", "Yang Ho.", "Wei Tsze.", "Tsze-chang.", "Yao Yueh.",
 ];
 
+/* Mencius's fourteen part titles, TRANSCRIBED from the work page's contents list on Wikisource
+   ("梁惠王上 - Liang Hui Wang I"), which is also the heading each page sets over its text. */
+const MENCIUS_TITLES = [
+  "Liang Hui Wang I", "Liang Hui Wang II", "Gong Sun Chou I", "Gong Sun Chou II", "Teng Wen Gong I",
+  "Teng Wen Gong II", "Li Lou I", "Li Lou II", "Wan Zhang I", "Wan Zhang II", "Gaozi I", "Gaozi II",
+  "Jin Xin I", "Jin Xin II",
+];
+
+/* Mencius's chapter starts, MEASURED rather than composed (Nov 2026, adding the Works of Mencius).
+   The English Wikisource transcription alternates Chinese and English paragraph by paragraph — one
+   `wst-lang` paragraph, then its English — but marks no chapter anywhere, where the Analects' marks
+   every one in both languages. Mencius is cited by book, half and chapter (1A.7, 7B.38), so a reader
+   needs the chapters, and they are not this file's to invent. Chinese Wikisource's 孟子 heads every
+   chapter of the standard division (7, 16, 9, 14, 5, 10, 28, 33, 9, 9, 20, 16, 46 and 38: 260), and
+   aligning its text against the Chinese paragraphs of the English pages put EVERY ONE of the 260
+   chapter starts exactly on a paragraph boundary, none inside a paragraph.
+
+   Each row is [index of the Chinese paragraph after the page's title, its first eight characters].
+   The index places the chapter and the characters CHECK it: `menciusPrep` throws if paragraph k does
+   not open on them, so an edit to the transcription that adds or splits a paragraph stops the import
+   rather than shifting every later chapter by one. The characters alone would not do — several
+   openings repeat within their half-book ("孟子見齊宣王" twice in 1B, "萬章問曰敢問" twice in 5B).
+   Keyed by the page's own Chinese title, the first `wst-lang` element on it. */
+const MENCIUS_STARTS = {
+  /* 1, Liang Hui Wang I, 7 chapters */ "梁惠王上": [
+    [0, "孟子見梁惠王王曰"], [2, "孟子見梁惠王王立"], [4, "梁惠王曰寡人之於"], [9, "梁惠王曰寡人願安"], [15, "梁惠王曰晉國天下"],
+    [17, "孟子見梁襄王出語"], [20, "齊宣王問曰齊桓晉"],
+  ],
+  /* 2, Liang Hui Wang II, 16 chapters */ "梁惠王下": [
+    [0, "莊暴見孟子曰暴見"], [8, "齊宣王問曰文王之"], [14, "齊宣王問曰交鄰國"], [18, "齊宣王見孟子於雪"], [21, "齊宣王問曰人皆謂"],
+    [31, "孟子謂齊宣王曰王"], [37, "孟子見齊宣王曰所"], [40, "齊宣王問曰湯放桀"], [44, "孟子見齊宣王曰為"], [45, "齊人伐燕勝之宣王"],
+    [47, "齊人伐燕取之諸侯"], [50, "鄒與魯鬨穆公問曰"], [52, "滕文公問曰滕小國"], [54, "滕文公問曰齊人將"], [56, "滕文公問曰滕小國"],
+    [58, "魯平公將出嬖人臧"],
+  ],
+  /* 3, Gong Sun Chou I, 9 chapters */ "公孫丑上": [
+    [0, "公孫丑問曰夫子當"], [7, "公孫丑問曰夫子加"], [35, "孟子曰以力假仁者"], [36, "孟子曰仁則榮不仁"], [37, "孟子曰尊賢使能俊"],
+    [38, "孟子曰人皆有不忍"], [39, "孟子曰矢人豈不仁"], [40, "孟子曰子路人告之"], [41, "孟子曰伯夷非其君"],
+  ],
+  /* 4, Gong Sun Chou II, 14 chapters */ "公孫丑下": [
+    [0, "孟子曰天時不如地"], [1, "孟子將朝王王使人"], [8, "陳臻問曰前日於齊"], [10, "孟子之平陸謂其大"], [17, "孟子謂蚔鼃曰子之"],
+    [20, "孟子為卿於齊出吊"], [23, "孟子自齊葬於魯反"], [26, "沈同以其私問曰燕"], [30, "燕人畔王曰吾甚慚"], [42, "孟子致為臣而歸王"],
+    [45, "孟子去齊宿於晝"], [48, "孟子去齊尹士語人"], [51, "孟子去齊充虞路問"], [53, "孟子去齊居休"],
+  ],
+  /* 5, Teng Wen Gong I, 5 chapters */ "滕文公上": [
+    [0, "滕文公為世子將之"], [2, "滕定公薨世子謂然"], [7, "滕文公問為國孟子"], [11, "有為神農之言者許"], [28, "墨者夷之因徐辟而"],
+  ],
+  /* 6, Teng Wen Gong II, 10 chapters */ "滕文公下": [
+    [0, "陳代曰不見諸侯宜"], [2, "景春曰公孫衍張儀"], [4, "周霄問曰古之君子"], [12, "彭更問曰後車數十"], [22, "萬章問曰宋小國也"],
+    [24, "孟子謂戴不勝曰子"], [27, "公孫丑問曰不見諸"], [29, "戴盈之曰什一去關"], [31, "公都子曰外人皆稱"], [37, "匡章曰陳仲子豈不"],
+  ],
+  /* 7, Li Lou I, 28 chapters */ "離婁上": [
+    [0, "孟子曰離婁之明公"], [4, "孟子曰規矩方員之"], [5, "孟子曰三代之得天"], [6, "孟子曰愛人不親反"], [7, "孟子曰人有恆言皆"],
+    [8, "孟子曰為政不難不"], [9, "孟子曰天下有道小"], [11, "孟子曰不仁者可與"], [12, "孟子曰桀紂之失天"], [13, "孟子曰自暴者不可"],
+    [14, "孟子曰道在爾而求"], [15, "孟子曰居下位而不"], [16, "孟子曰伯夷辟紂居"], [17, "孟子曰求也為季氏"], [18, "孟子曰存乎人者莫"],
+    [19, "孟子曰恭者不侮人"], [20, "淳于髡曰男女授受"], [26, "公孫丑曰君子之不"], [28, "孟子曰事孰為大事"], [29, "孟子曰人不足與適"],
+    [30, "孟子曰有不虞之譽"], [31, "孟子曰人之易其言"], [32, "孟子曰人之患在好"], [33, "樂正子從於子敖之"], [34, "孟子謂樂正子曰子"],
+    [35, "孟子曰不孝有三無"], [36, "孟子曰仁之實事親"], [37, "孟子曰天下大悅而"],
+  ],
+  /* 8, Li Lou II, 33 chapters */ "離婁下": [
+    [0, "孟子曰舜生於諸馮"], [1, "子產聽鄭國之政以"], [2, "孟子告齊宣王曰君"], [5, "孟子曰無罪而殺士"], [6, "孟子曰君仁莫不仁"],
+    [7, "孟子曰非禮之禮非"], [8, "孟子曰中也養不中"], [9, "孟子曰人有不為也"], [10, "孟子曰言人之不善"], [11, "孟子曰仲尼不為已"],
+    [12, "孟子曰大人者言不"], [13, "孟子曰大人者不失"], [14, "孟子曰養生者不足"], [15, "孟子曰君子深造之"], [16, "孟子曰博學而詳說"],
+    [17, "孟子曰以善服人者"], [18, "孟子曰言無實不祥"], [19, "徐子曰仲尼亟稱於"], [21, "孟子曰人之所以異"], [22, "孟子曰禹惡旨酒而"],
+    [23, "孟子曰王者之迹熄"], [24, "孟子曰君子之澤五"], [25, "孟子曰可以取可以"], [26, "逄蒙學射於羿盡羿"], [27, "孟子曰西子蒙不潔"],
+    [28, "孟子曰天下之言性"], [29, "公行子有子之喪右"], [31, "孟子曰君子所以異"], [32, "禹稷當平世三過其"], [33, "公都子曰匡章通國"],
+    [35, "曾子居武城有越寇"], [38, "儲子曰王使人瞷夫"], [40, "齊人有一妻一妾而"],
+  ],
+  /* 9, Wan Zhang I, 9 chapters */ "萬章上": [
+    [0, "萬章問曰舜往于田"], [4, "萬章問曰詩云娶妻"], [12, "萬章問曰象日以殺"], [18, "咸丘蒙問曰語云盛"], [22, "萬章曰堯以天下與"],
+    [32, "萬章問曰人有言至"], [34, "萬章問曰人有言伊"], [36, "萬章問曰或謂孔子"], [38, "萬章問曰或曰百里"],
+  ],
+  /* 10, Wan Zhang II, 9 chapters */ "萬章下": [
+    [0, "孟子曰伯夷目不視"], [5, "北宮錡問曰周室班"], [9, "萬章問曰敢問友"], [11, "萬章問曰敢問交際"], [27, "孟子曰仕非為貧也"],
+    [28, "萬章曰士之不託諸"], [42, "萬章曰敢問不見諸"], [52, "孟子謂萬章曰一鄉"], [53, "齊宣王問卿孟子曰"],
+  ],
+  /* 11, Gaozi I, 20 chapters */ "告子上": [
+    [0, "告子曰性猶杞柳也"], [2, "告子曰性猶湍水也"], [4, "告子曰生之謂性"], [8, "告子曰食色性也仁"], [14, "孟季子問公都子曰"],
+    [21, "公都子曰告子曰性"], [23, "孟子曰富歲子弟多"], [24, "孟子曰牛山之木嘗"], [25, "孟子曰無或乎王之"], [26, "孟子曰魚我所欲也"],
+    [27, "孟子曰仁人心也義"], [28, "孟子曰今有無名之"], [29, "孟子曰拱把之桐梓"], [30, "孟子曰人之於身也"], [31, "公都子問曰鈞是人"],
+    [35, "孟子曰有天爵者有"], [36, "孟子曰欲貴者人之"], [37, "孟子曰仁之勝不仁"], [38, "孟子曰五穀者種之"], [39, "孟子曰羿之教人射"],
+  ],
+  /* 12, Gaozi II, 16 chapters */ "告子下": [
+    [0, "任人有問屋廬子曰"], [4, "曹交問曰人皆可以"], [10, "公孫丑問曰高子曰"], [16, "宋牼將之楚孟子遇"], [21, "孟子居鄒季任為任"],
+    [24, "淳于髡曰先名實者"], [29, "孟子曰五霸者三王"], [32, "魯欲使慎子為將軍"], [35, "孟子曰今之事君者"], [36, "白圭曰吾欲二十而"],
+    [40, "白圭曰丹之治水也"], [42, "孟子曰君子不亮惡"], [43, "魯欲使樂正子為政"], [50, "陳子曰古之君子何"], [52, "孟子曰舜發於畎畝"],
+    [53, "孟子曰教亦多術矣"],
+  ],
+  /* 13, Jin Xin I, 46 chapters */ "盡心上": [
+    [0, "孟子曰盡其心者知"], [1, "孟子曰莫非命也順"], [2, "孟子曰求則得之舍"], [3, "孟子曰萬物皆備於"], [4, "孟子曰行之而不著"],
+    [5, "孟子曰人不可以無"], [6, "孟子曰恥之於人大"], [7, "孟子曰古之賢王好"], [8, "孟子謂宋句踐曰子"], [11, "孟子曰待文王而後"],
+    [12, "孟子曰附之以韓魏"], [13, "孟子曰以佚道使民"], [14, "孟子曰霸者之民驩"], [15, "孟子曰仁言不如仁"], [16, "孟子曰人之所不學"],
+    [17, "孟子曰舜之居深山"], [18, "孟子曰無為其所不"], [19, "孟子曰人之有德慧"], [20, "孟子曰有事君人者"], [21, "孟子曰君子有三樂"],
+    [22, "孟子曰廣土眾民君"], [23, "孟子曰伯夷辟紂居"], [24, "孟子曰易其田疇薄"], [25, "孟子曰孔子登東山"], [26, "孟子曰雞鳴而起孳"],
+    [27, "孟子曰楊子取為我"], [28, "孟子曰飢者甘食渴"], [29, "孟子曰柳下惠不以"], [30, "孟子曰有為者辟若"], [31, "孟子曰堯舜性之也"],
+    [32, "公孫丑曰伊尹曰予"], [34, "公孫丑曰詩曰不素"], [36, "王子墊問曰士何事"], [40, "孟子曰仲子不義與"], [41, "桃應問曰舜為天子"],
+    [47, "孟子自范之齊望見"], [49, "孟子曰食而弗愛豕"], [50, "孟子曰形色天性也"], [51, "齊宣王欲短喪公孫"], [55, "孟子曰君子之所以"],
+    [56, "公孫丑曰道則高矣"], [58, "孟子曰天下有道以"], [59, "公都子曰滕更之在"], [61, "孟子曰於不可已而"], [62, "孟子曰君子之於物"],
+    [63, "孟子曰知者無不知"],
+  ],
+  /* 14, Jin Xin II, 38 chapters */ "盡心下": [
+    [0, "孟子曰不仁哉梁惠"], [3, "孟子曰春秋無義戰"], [4, "孟子曰盡信書則不"], [5, "孟子曰有人曰我善"], [6, "孟子曰梓匠輪輿能"],
+    [7, "孟子曰舜之飯糗茹"], [8, "孟子曰吾今而後知"], [9, "孟子曰古之為關也"], [10, "孟子曰身不行道不"], [11, "孟子曰周于利者凶"],
+    [12, "孟子曰好名之人能"], [13, "孟子曰不信仁賢則"], [14, "孟子曰不仁而得國"], [15, "孟子曰民為貴社稷"], [16, "孟子曰聖人百世之"],
+    [17, "孟子曰仁也者人也"], [18, "孟子曰孔子之去魯"], [19, "孟子曰君子之戹於"], [20, "貉稽曰稽大不理於"], [22, "孟子曰賢者以其昭"],
+    [23, "孟子謂高子曰山徑"], [24, "高子曰禹之聲尚文"], [28, "齊饑陳臻曰國人皆"], [30, "孟子曰口之於味也"], [31, "浩生不害問曰樂正"],
+    [35, "孟子曰逃墨必歸於"], [36, "孟子曰有布縷之征"], [37, "孟子曰諸侯之寶三"], [38, "盆成括仕於齊孟子"], [41, "孟子之滕館於上宮"],
+    [44, "孟子曰人皆有所不"], [45, "孟子曰言近而指遠"], [46, "孟子曰堯舜性者也"], [47, "孟子曰說大人則藐"], [48, "孟子曰養心莫善於"],
+    [49, "曾皙嗜羊棗而曾子"], [53, "萬章問曰孔子在陳"], [63, "孟子曰由堯舜至於"],
+  ],
+};
+
 /* The Prince's twenty-six chapter titles, TRANSCRIBED from the headings this edition prints ABOVE the
    chapters themselves rather than from its contents page, and set in the title case titleCase() would
    have produced — the Republic's arrangement, and the same reason: chapterTitles() below walks
@@ -4398,6 +4509,136 @@ const BOOKS = {
         "transcription of it as printed in Legge's edition of 1893.",
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+    },
+  },
+
+  "mencius": {
+    title: "Mencius",
+    subtitle: "The Works of Mencius",
+    author: "Mencius",
+    translator: "James Legge",
+    edition: "The Chinese Classics, Vol. II, Trübner, London, 1861; 2nd revised edition, Clarendon Press, Oxford, 1895",
+    written: "c. 4th century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification ----------
+       The Analects' position exactly: Legge published this translation in 1861 and revised it for the
+       second edition of 1895, both before 1929, and died in 1897. The Chinese is some twenty-three
+       centuries old. WHICH of the two printings the transcription follows it does not say, and the
+       edition line names both rather than choosing one for it.
+
+       The modern translations a reader is likeliest to own are in copyright and are named so that
+       nobody reaches for one later: D. C. Lau's Penguin of 1970, Bryan Van Norden's of 2008 and Irene
+       Bloom's of 2009. */
+    rights:
+      "Public domain worldwide: Legge published this translation in 1861 and revised it for the " +
+      "second edition of 1895 — both before 1929, so its United States copyright has expired — and " +
+      "he died in 1897, so it is out of copyright wherever the term runs for the author's life plus " +
+      "seventy or even a hundred years. The Chinese it is printed beside is some twenty-three " +
+      "centuries old and is in the public domain everywhere. (The modern translations by D. C. Lau, " +
+      "1970, Bryan Van Norden, 2008, and Irene Bloom, 2009, are still in copyright and are not used " +
+      "here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_2/The_Works_of_Mencius",
+
+    /* THE FRONT MATTER — chapter 0. Three things are said because a reader would otherwise have to
+       find them out: the chapter numbers are Folio's placing of the standard division, not the
+       transcription's; the names are in pinyin because the TRANSCRIPTION has them so, not because
+       Legge did; and none of Legge's notes are here. */
+    about: [
+      "<b>Mencius</b> — Mengzi, 'Master Meng' — is the second great book of the Confucian " +
+        "tradition, and the one that argues. Where the Analects gives a saying and stops, Mencius " +
+        "talks a king round, takes an opponent's analogy and turns it against him, and follows a " +
+        "question through to its end. Its best-known claim is that human nature is good: that " +
+        "everyone has the beginnings of benevolence and righteousness in them, as everyone would " +
+        "feel alarm at the sight of a child about to fall into a well, and that cultivating those " +
+        "beginnings is what makes a person, and a government, good.",
+      "Mencius himself lived in the fourth century BCE — tradition gives his dates as about 372 to " +
+        "289 — in the small state of Zou, a few days' walk from Confucius's own Lu, and spent much " +
+        "of his life travelling between the courts of the warring states offering kings advice most " +
+        "of them did not take. Much of the book is those meetings: King Hui of Liang asking how his " +
+        "kingdom can profit, King Xuan of Qi asking whether he too could be a true king. The book was " +
+        "put together by Mencius and his disciples, and two of them, Wan Zhang and Gongsun Chou, " +
+        "give their names to two of its books. In the 12th century Zhu Xi made it one of the Four " +
+        "Books, and from 1313 to 1905 it was set for the civil service examinations alongside the " +
+        "Analects.",
+      "<b>The tabs are the book's own fourteen divisions.</b> Mencius is in seven books, each in " +
+        "two parts, and each named, as the books of the Analects are, after words near its opening " +
+        "— so 'Liang Hui Wang' is King Hui of Liang, the first man Mencius speaks to, and 'Gaozi' " +
+        "is the philosopher he argues with about human nature. A passage is cited by book, part and " +
+        "chapter, so the child at the well is 2A.6: the sixth chapter of the first part of book " +
+        "two. The fourteen parts appear here as numbered parts 1 to 14, grouped under their seven " +
+        "books, and the numbers running through each part are its chapters, 260 in all.",
+      "<b>Those chapter numbers are Folio's, placed from a second source.</b> The transcription " +
+        "this text comes from sets each paragraph of Chinese above its English, but numbers " +
+        "nothing. The division into chapters is the standard one, fixed by the commentators long " +
+        "before Legge and printed in his edition, and Chinese Wikisource marks it; matching its " +
+        "text against the Chinese here put every one of the 260 chapter breaks exactly between two " +
+        "paragraphs, so each number stands where the printed page has it. Legge's own paragraph " +
+        "numbers within a chapter are not carried by the transcription and are not supplied.",
+      "James Legge, who made this translation, was a Scottish missionary who spent three decades " +
+        "in Malacca and Hong Kong and became the first Professor of Chinese at Oxford in 1876. His " +
+        "English is Victorian and deliberately close to the Chinese, and his vocabulary for its " +
+        "key words — 'benevolence' for <i>ren</i>, 'righteousness' for <i>yi</i>, 'propriety' for " +
+        "<i>li</i>, 'the superior man' for <i>junzi</i> — is one translator's set of choices, each " +
+        "argued with since.",
+      "<b>The names are printed in modern pinyin, and that is the transcription's doing, not " +
+        "Legge's.</b> He spelled them in a system of his own — Mencius's opponent Kâo, the state of " +
+        "Ch'î — and this transcription had already converted them to the forms used today, Gaozi " +
+        "and Qi, when Folio took it; it does not say who made the conversion. Folio has changed " +
+        "the English in five places only, where the conversion missed a name it gives in pinyin " +
+        "everywhere else — duke Ching for duke Jing, Yen for the state of Yan — and the Chinese " +
+        "beside it settles which name is meant. Legge's notes, his prolegomena and his commentary, which in the printed volume " +
+        "are longer than the translation, are not part of the transcription, so there is no " +
+        "apparatus under these pages.",
+      "The Chinese column is the text the transcription sets above each paragraph of English. It " +
+        "is paired with the translation chapter by chapter and broken into the same paragraphs.",
+    ],
+
+    /* FIVE NAMES THE CONVERSION MISSED, each one a name this transcription writes in pinyin
+       everywhere else, and each settled by the characters on the same page — found by listing every
+       capitalised word in the English and reading the rare ones. They are made consistent with the
+       rest rather than with Legge, which is what the front matter says about the whole book. */
+    fixes: [
+      ["Yo-chAng said", "Yue Zheng said",
+        "樂正子 (1B.16) — a half-converted, mis-cased spelling; the same chapter names him \"Yue Zheng\" a sentence later"],
+      ["the people of Yen, you", "the people of Yan, you",
+        "燕 (1B.11) — the state is \"Yan\" in the chapter before and throughout"],
+      ["The duke Ching was pleased", "The duke Jing was pleased",
+        "景公 (1B.4) — \"duke Jing of Qi\" everywhere else"],
+      ["The duke Ching of Qi, once", "The duke Jing of Qi, once",
+        "齊景公 (5B.7) — the same"],
+      ["the prince of T'ang has", "the prince of Teng has",
+        "滕 (3A.4) — Legge's own spelling left in a book that writes \"Teng\" eighteen times; T'ang is also his spelling of 湯"],
+    ],
+
+    layout: "interleaved",
+    prep: "mencius",
+    page: (n) => "The Chinese Classics/Volume 2/The Works of Mencius/chapter" + String(n).padStart(2, "0"),
+    chapters: Array.from({ length: 14 }, (_, i) => i + 1),
+    chapterWord: "Part",
+    /* TRANSCRIBED from the work page's own contents list, which names each page in Chinese and in this
+       form ("梁惠王上 - Liang Hui Wang I"); the numeral is the half, 上 and 下. */
+    titleOf: (n) => MENCIUS_TITLES[n - 1],
+    parts: [
+      { n: 1, from: 1, to: 2, t: "Book I — Liang Hui Wang" },
+      { n: 2, from: 3, to: 4, t: "Book II — Gong Sun Chou" },
+      { n: 3, from: 5, to: 6, t: "Book III — Teng Wen Gong" },
+      { n: 4, from: 7, to: 8, t: "Book IV — Li Lou" },
+      { n: 5, from: 9, to: 10, t: "Book V — Wan Zhang" },
+      { n: 6, from: 11, to: 12, t: "Book VI — Gaozi" },
+      { n: 7, from: 13, to: 14, t: "Book VII — Jin Xin" },
+    ],
+
+    /* Both columns come off the one page, as the Analects' do; the pairing is on the chapter numbers
+       `menciusPrep` writes into both, each checked against MENCIUS_STARTS. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      edition: "The Chinese text as transcribed beside Legge's translation on Wikisource",
+      rights:
+        "Public domain worldwide: the Chinese text is some twenty-three centuries old.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_2/The_Works_of_Mencius",
     },
   },
 
@@ -25168,11 +25409,76 @@ function extractShloka(h, book, warn) {
   return { html, notes, orig, count: verses.length, origCount: verses.length, t };
 }
 
+/* `prep: "mencius"` — the Works of Mencius on English Wikisource (Nov 2026). The page is the
+   Analects' interleaved shape without its chapter marks: each Chinese paragraph in its own `wst-lang`
+   element, then its English, and no number anywhere. This writes the marks `extractInterleaved`
+   already reads — 【N章】 inside the Chinese element that opens a chapter, and a small-caps "Chapter N."
+   at the head of the English paragraph after it — at the places MENCIUS_STARTS measured, after
+   checking each against the characters it records. Inside a chapter each further Chinese paragraph
+   gets a 【N節】, which that extractor turns into a paragraph break and never prints, so the Chinese
+   column keeps the paragraphs the English beside it has instead of running a chapter into one block.
+   Nothing is ever added to the English but the chapter mark. */
+const CN_NUMERAL = "一二三四五六七八九";
+function cnNumeral(n) {
+  const t = Math.floor(n / 10), u = n % 10;
+  return (t > 1 ? CN_NUMERAL[t - 1] : "") + (t ? "十" : "") + (u ? CN_NUMERAL[u - 1] : "");
+}
+function menciusPrep(h, warn) {
+  const rx = /<span[^>]*class="[^"]*wst-lang[^"]*"[^>]*>/g;
+  const els = [];
+  for (let m; (m = rx.exec(h)); ) {
+    const e = blockEnd(h, m.index, "span");
+    if (e < 0) throw new Error("mencius: an unclosed Chinese element at " + m.index);
+    els.push({ open: m.index + m[0].length, close: e - "</span>".length, end: e });
+    rx.lastIndex = e;
+  }
+  if (els.length < 2) throw new Error("mencius: no Chinese paragraphs on the page — the markup has changed");
+  const ideo = (s) => cnPlain(s).replace(/[^㐀-鿿豈-﫿]/g, "");
+  const title = cnPlain(h.slice(els[0].open, els[0].close));
+  const rows = MENCIUS_STARTS[title];
+  if (!rows) throw new Error("mencius: no chapter table for the page titled " + title);
+  const paras = els.slice(1);
+  const at = new Map(rows.map(([k, head], c) => [k, { c: c + 1, head }]));
+  if (rows[0][0] !== 0) throw new Error("mencius: " + title + "'s first chapter does not open the page");
+  if (rows[rows.length - 1][0] >= paras.length)
+    throw new Error("mencius: " + title + " has " + paras.length + " paragraphs, fewer than its table expects");
+  /* Rebuilt from the end so every recorded offset stays valid while the page grows. */
+  const edits = [];
+  let chap = 0, within = 0;
+  paras.forEach((p, k) => {
+    const s = at.get(k);
+    if (s) {
+      const got = ideo(h.slice(p.open, p.close));
+      if (!got.startsWith(s.head))
+        throw new Error("mencius: " + title + " paragraph " + k + ' should open chapter ' + s.c + ' on "' +
+          s.head + '" but opens on "' + got.slice(0, 8) + '" — the transcription has changed; re-measure the table');
+      chap = s.c; within = 1;
+      edits.push([p.open, "【" + cnNumeral(chap) + "章】"]);
+      /* The English paragraph is the next <p> with text in it, and it must come before the next
+         Chinese element — or this chapter has no English and the mark would open the wrong one. */
+      const nx = /<p>(?:\s|<br\s*\/?>)*(?=[^<\s])/g;
+      nx.lastIndex = p.end;
+      const m = nx.exec(h);
+      const limit = k + 1 < paras.length ? paras[k + 1].open : h.length;
+      if (!m || m.index > limit) throw new Error("mencius: " + title + " chapter " + chap + " has no English paragraph after its Chinese");
+      edits.push([m.index, '<p><span class="smallcaps">Chapter</span> ' + toRoman(chap) + ". ", m[0].length]);
+    } else {
+      within++;
+      edits.push([p.open, "【" + cnNumeral(within) + "節】"]);
+    }
+  });
+  if (chap !== rows.length) warn("only " + chap + " of " + rows.length + " chapters were marked");
+  edits.sort((a, b) => b[0] - a[0]);
+  for (const [i, ins, del] of edits) h = h.slice(0, i) + ins + h.slice(i + (del || 0));
+  return h;
+}
+
 /* A facing-page edition, whichever way it is transcribed. One choke point, so the two callers that
    want both columns — the English walk and the original's read-back out of its cache — can never
    come to disagree about which extractor a book uses. */
 function bothColumns(h, book, warn) {
   if (book.layout === "shloka") return extractShloka(h, book, warn);
+  if (book.prep === "mencius") h = menciusPrep(h, warn);
   return book.layout === "interleaved" ? extractInterleaved(h, book, warn) : extractParallel(h, book, warn);
 }
 

@@ -13272,6 +13272,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Mencius (Nov 2026), measured over the same band as Voltaire's navy: lightness 28–45, chroma 25–60,
+     at least 6:1 on white. The best-separated colour left is this deep teal at 16.4 from its nearest —
+     Aristotle 16.4, Marcus Aurelius 17.6, Kalidasa 18.1 — and 26 from Confucius's walnut, which keeps the
+     two Confucian books apart on the shelf. */
+  "Mencius": "#006C78",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -14424,6 +14429,52 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* No `parts`. The twenty books are traditionally read in two halves — the first ten held to be
          the older — but that is a scholarly view about the text rather than a division this edition
          prints, so the shelf shows one unlabelled group and the front matter carries the doubt. */
+    },
+    {
+      id: "mencius",
+      title: "Mencius",
+      subtitle: "The Works of Mencius",
+      author: "Mencius",
+      /* Mencius lived in the fourth century BCE (tradition: c. 372–289) and the book was put together by
+         him and his disciples; `year` is the single number the shelf's date sort needs, and the prose
+         says the century. */
+      written: "c. 4th century BCE",
+      year: -300,
+      translator: "James Legge",
+      edition: "The Chinese Classics, Vol. II, 1861; 2nd revised ed., Clarendon Press, Oxford, 1895",
+      /* The Analects' licence exactly: Legge published in 1861 and revised in 1895, both before 1929, and
+         died in 1897. The transcription does not say which printing it follows, so both are named. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1861 and revised it for " +
+        "the second edition of 1895 — both before 1929, so its United States copyright has expired — " +
+        "and he died in 1897, so it is out of copyright wherever the term runs for the author's life " +
+        "plus seventy or even a hundred years. The Chinese text printed beside it is some " +
+        "twenty-three centuries old and is in the public domain everywhere. (The modern translations " +
+        "by D. C. Lau, 1970, Bryan Van Norden, 2008, and Irene Bloom, 2009, are still in copyright " +
+        "and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_2/The_Works_of_Mencius",
+      /* Paired on the CHAPTER (Mencius 2A.6 is book, part, chapter). The transcription numbers nothing;
+         .claude/fetch-book.js writes the 260 chapter marks into both columns at the places
+         MENCIUS_STARTS measured against Chinese Wikisource's division, each checked against the
+         characters it records, so the two columns cannot drift. */
+      origLang: "zh",
+      origName: "Chinese",
+      /* "Part": the fourteen tabs are the seven books' halves (1A … 7B), so "Part 13" is a plain
+         ordinal where "Book 13" would name a book the work does not have. */
+      chapterWord: "Part",
+      // the whole work: seven books in two parts each, 260 chapters, come down entire
+      count: 14,
+      total: 14,
+      parts: [
+        { n: 1, label: "Book I — Liang Hui Wang", note: "2 parts" },
+        { n: 2, label: "Book II — Gong Sun Chou", note: "2 parts" },
+        { n: 3, label: "Book III — Teng Wen Gong", note: "2 parts" },
+        { n: 4, label: "Book IV — Li Lou", note: "2 parts" },
+        { n: 5, label: "Book V — Wan Zhang", note: "2 parts" },
+        { n: 6, label: "Book VI — Gaozi", note: "2 parts" },
+        { n: 7, label: "Book VII — Jin Xin", note: "2 parts" },
+      ],
     },
     {
       id: "machiavelli-prince",
@@ -27249,6 +27300,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "This is the display of the inquiry of Herodotus of Halicarnassus, so that things done by man not be forgotten in time, and that great and marvelous deeds, some displayed by the Hellenes, some by the barbarians, not lose their glory, including among others what was the cause of their waging war on each other. The Persian learned men say that the Phoenicians were the cause of the dispute. These (they say) came to our seas from the sea which is called Red, and having settled in the country which they still occupy, at once began to make long voyages. Among other places to which they carried…" },
     { book: "confucius-analects", n: 1, t: "Xue Er.", p: 0,
       text: "The Master said, \"Is it not pleasant to learn with a constant perseverance and application? 2. \"Is it not delightful to have friends coming from distant quarters? 3. \"Is he not a man of complete virtue, who feels no discomposure though men may take no note of him?\"" },
+    { book: "mencius", n: 3, t: "Gong Sun Chou I", p: 38,
+      text: "Mencius said, 'All men have a mind which cannot bear to see the sufferings of others. 'The ancient kings had this commiserating mind, and they, as a matter of course, had likewise a commiserating government. When with a commiserating mind was practised a commiserating government, to rule the kingdom was as easy a matter as to make anything go round in the palm. When I say that all men have a mind which cannot bear to see the sufferings of others, my meaning may be illustrated thus: even now-a-days, if men suddenly see a child about to fall into a well, they will without exception experience a…" },
     { book: "machiavelli-prince", n: 17, t: "Concerning Cruelty and Clemency, and Whether It Is Better to Be Loved Than Feared", p: 4,
       text: "Upon this a question arises: whether it be better to be loved than feared or feared than loved? It may be answered that one should wish to be both, but, because it is difficult to unite them in one person, it is much safer to be feared than loved, when, of the two, either must be dispensed with. Because this is to be asserted in general of men, that they are ungrateful, fickle, false, cowards, covetous, and as long as you succeed they are yours entirely; they will offer you their blood, property, life, and children, as is said above, when the need is far distant; but when it approaches they…" },
     { book: "caesar-gallic-war", n: 1, t: "Book 1", p: 0,
