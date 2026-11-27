@@ -232,7 +232,7 @@ def main():
                 gl.append({'g': g, 'weak': bool(tags & WEAK),
                            'tags': sorted(tags & {'formal', 'informal', 'colloquial', 'figuratively',
                                                   'transitive', 'intransitive', 'idiomatic', 'slang',
-                                                  'familiar', 'plural', 'in-plural'})})
+                                                  'familiar', 'plural', 'in-plural', 'singular'})})
         table = []
         for f in e.get('forms') or []:
             fm = nfc(f.get('form', ''))

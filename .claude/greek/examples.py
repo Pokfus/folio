@@ -63,16 +63,20 @@ def forms_of(row, lex):
     return out
 
 
-def main():
-    rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))
-    pairs = load()
+def index_pairs(pairs):
     toks = [(pid, hi, en, [fold(t) for t in tokens(hi)]) for pid, hi, en in pairs]
     index = {}
     for i, (_, _, _, ft) in enumerate(toks):
         for t in set(ft):
             index.setdefault(t, []).append(i)
-    used, out = set(), {}
+    return toks, index
+
+
+def pick(rows, lex, toks, index, used, ids=None):
+    """Up to three sentences for each row, in order; `used` (indices into `toks`) grows, so a
+    sentence serves one card.  `ids`, if given, collects each row's Tatoeba sentence ids --
+    `inserts.py` names them in the record."""
+    out = {}
     for row in rows:
         words = fold(row['word']).split()
         cands = []
@@ -102,11 +106,22 @@ def main():
             if c[0] in used:
                 continue
             used.add(c[0])
-            _, hi, en, _ = toks[c[0]]
+            pid, hi, en, _ = toks[c[0]]
             picked.append([hi, en, sorted(set(c[2]))])
+            if ids is not None:
+                ids.setdefault(row['key'], []).append(pid)
             if len(picked) == 3:
                 break
         out[row['key']] = picked
+    return out
+
+
+def main():
+    rows = json.load(open(f('selected.json'), encoding='utf-8'))
+    lex = json.load(open('lex.json', encoding='utf-8'))
+    pairs = load()
+    toks, index = index_pairs(pairs)
+    out = pick(rows, lex, toks, index, set())
     json.dump(out, open(f('examples.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     n3 = sum(1 for v in out.values() if len(v) == 3)
     n0 = sum(1 for v in out.values() if not v)

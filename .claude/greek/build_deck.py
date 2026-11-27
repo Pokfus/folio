@@ -85,8 +85,22 @@ E = html.escape
 TRAIL = re.compile(r'\s*[:;,]\s*$')
 
 
+MARKS = re.compile(r'\s*\^?[†‡]')        # Wiktionary's footnote daggers ("(singular^†)")
+REGISTER = ('formal', 'informal', 'familiar')
+
+
 def gloss_text(g):
-    return TRAIL.sub('', g)
+    return TRAIL.sub('', MARKS.sub('', g))
+
+
+def register(x):
+    """" (informal, singular)" for a sense Wiktionary tags formal, informal or familiar -- with
+    its number where it gives one -- unless the gloss already says so: γεια σου and γεια σας
+    are both "hello, goodbye", and the tag is the whole difference."""
+    tags = [t for t in REGISTER + ('singular', 'plural') if t in x['tags']]
+    if not set(tags) & set(REGISTER) or any(t in x['g'].lower() for t in tags):
+        return ''
+    return ' (' + ', '.join(tags) + ')'
 
 
 # ONE ETYMOLOGY PER CARD, the first Wiktionary lists, unless named here.  Where the
@@ -119,11 +133,13 @@ LEAD = {
     'χώρα': 'country',        # first listed is "main town or village"
     'αμάξι': 'car',           # first listed is "horse carriage"
     'σύζυγος': 'spouse',      # first listed is "yokefellow"
+    'με λένε': 'my name is',  # first listed is the literal "they call me …"
 }
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a
 # beginner meets (`μου` "moo", `εγώ` "ego", `δύο` "a two at cards").
-DROP_POS = {('μου', 'intj'), ('εγώ', 'noun'), ('δύο', 'noun')}
+DROP_POS = {('μου', 'intj'), ('εγώ', 'noun'), ('δύο', 'noun'),
+            ('σαράντα', 'noun')}       # the memorial service of the fortieth day
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword ("see: βρίσκομαι",
 # "synonym of γυρίζω"), a form label ("nominative/accusative/vocative plural of μέσο"),
@@ -199,6 +215,7 @@ def english(ents, word='', own=()):
             t = gloss_text(x['g'])
             if NOT_A_MEANING.search(t):
                 continue
+            t += register(x)
             if t and t not in seen:
                 seen.add(t)
                 gl.append(t)

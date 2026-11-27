@@ -1,1 +1,514 @@
-{"add": {}, "decks": {}}
+{
+ "add": {
+  "greeka1": [
+   {
+    "word": "γεια σου",
+    "id": 501,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 1123840, 2684025, 2051830 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "γεια σου",
+     "Roman": "geia sou",
+     "Word": "γεια σου",
+     "Say": "γεια σου",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>hello, goodbye (informal, singular)</li><li>your health</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Γεια σου.\"></span><b>Γεια</b> <b>σου</b>.</div><div class=\"uc-exe\">Hello!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Γεια σου, φίλε!\"></span><b>Γεια</b> <b>σου</b>, φίλε!</div><div class=\"uc-exe\">Hi, friend!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Γεια σου, φίλε μου. Τι κάνεις;\"></span><b>Γεια</b> <b>σου</b>, φίλε μου. Τι κάνεις;</div><div class=\"uc-exe\">Hey, my friend. How are you?</div></div>",
+     "IPA": "/ˈʝasu/"
+    }
+   },
+   {
+    "word": "γεια σας",
+    "id": 502,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 1123842, 5485752, 3743446 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "γεια σας",
+     "Roman": "geia sas",
+     "Word": "γεια σας",
+     "Say": "γεια σας",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>hello, goodbye (formal, plural)</li><li>your health</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Γεια σας.\"></span><b>Γεια</b> <b>σας</b>.</div><div class=\"uc-exe\">Hello!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Γεια σας, παιδιά.\"></span><b>Γεια</b> <b>σας</b>, παιδιά.</div><div class=\"uc-exe\">Hi, guys.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Γεια σας κορίτσια.\"></span><b>Γεια</b> <b>σας</b> κορίτσια.</div><div class=\"uc-exe\">Hello, girls.</div></div>",
+     "IPA": "/ˈʝasas/"
+    }
+   },
+   {
+    "word": "τι κάνεις",
+    "id": 503,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 1370120, 3013946, 4269857 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "τι κάνεις",
+     "Roman": "ti káneis?",
+     "Word": "τι κάνεις",
+     "Say": "τι κάνεις",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">How are you? (singular) (informal)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Καλησπέρα, τι κάνεις;\"></span>Καλησπέρα, <b>τι</b> <b>κάνεις</b>;</div><div class=\"uc-exe\">Good evening, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τι κάνεις; Είμαι καλά, σας ευχαριστώ!\"></span><b>Τι</b> <b>κάνεις</b>; Είμαι καλά, σας ευχαριστώ!</div><div class=\"uc-exe\">&quot;How are you?&quot; &quot;Fine, thank you.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"« Τι κάνεις; » « Καλά, ευχαριστώ. Και εσύ; »\"></span>« <b>Τι</b> <b>κάνεις</b>; » « Καλά, ευχαριστώ. Και εσύ; »</div><div class=\"uc-exe\">&quot;How are you?&quot; - &quot;Well, thanks. And you?&quot;</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "τι κάνετε",
+    "id": 504,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 3579741 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "τι κάνετε",
+     "Roman": "ti kánete?",
+     "Word": "τι κάνετε",
+     "Say": "τι κάνετε",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">How are you? (plural) (formal)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τι κάνετε;\"></span><b>Τι</b> <b>κάνετε</b>;</div><div class=\"uc-exe\">How are you?</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "με λένε",
+    "id": 505,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 948453, 7776356, 2570818 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "με λένε",
+     "Roman": "me léne …",
+     "Word": "με λένε",
+     "Say": "με λένε",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>my name is …</li><li>they call me … (literal translation)</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Με λένε Σάλι.\"></span><b>Με</b> <b>λένε</b> Σάλι.</div><div class=\"uc-exe\">My name is Sally.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Με λένε Σάρα.\"></span><b>Με</b> <b>λένε</b> Σάρα.</div><div class=\"uc-exe\">My name is Sara.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Με λένε Αντρέα.\"></span><b>Με</b> <b>λένε</b> Αντρέα.</div><div class=\"uc-exe\">My name is Andrea.</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "πώς σε λένε",
+    "id": 506,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; no Tatoeba sentence holds it",
+    "fields": {
+     "Greek": "πώς σε λένε",
+     "Roman": "pós se léne?",
+     "Word": "πώς σε λένε",
+     "Say": "πώς σε λένε",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what is your name?, what&#x27;s your name?, what are you called? (informal)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "πώς σας λένε",
+    "id": 507,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; no Tatoeba sentence holds it",
+    "fields": {
+     "Greek": "πώς σας λένε",
+     "Roman": "pós sas léne?",
+     "Word": "πώς σας λένε",
+     "Say": "πώς σας λένε",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what is your name?, what&#x27;s your name?, what are you called?</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "χαίρω πολύ",
+    "id": 508,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 11120915, 7323851, 1413547 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "χαίρω πολύ",
+     "Roman": "chaíro polý",
+     "Word": "χαίρω πολύ",
+     "Say": "χαίρω πολύ",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>pleased to meet you (literally: I am very pleased)</li><li>(of well known facts introduced as novel)</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Χαίρω πολύ για τη γνωριμία.\"></span><b>Χαίρω</b> <b>πολύ</b> για τη γνωριμία.</div><div class=\"uc-exe\">I am very pleased to meet you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Το όνομά μου είναι Κύριλλος· χαίρω πολύ!\"></span>Το όνομά μου είναι Κύριλλος· <b>χαίρω</b> <b>πολύ</b>!</div><div class=\"uc-exe\">My name&#x27;s Cyril; pleased to meet you!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Χαίρω πολύ.\"></span><b>Χαίρω</b> <b>πολύ</b>.</div><div class=\"uc-exe\">Nice to meet you.</div></div>",
+     "IPA": "/ˈçero poˈli/"
+    }
+   },
+   {
+    "word": "τα λέμε",
+    "id": 509,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 5607949, 5579437, 5631870 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "τα λέμε",
+     "Roman": "ta léme",
+     "Word": "τα λέμε",
+     "Say": "τα λέμε",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">see you later! bye!</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τα λέμε στη Βοστώνη.\"></span><b>Τα</b> <b>λέμε</b> στη Βοστώνη.</div><div class=\"uc-exe\">See you in Boston.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τα λέμε στ&#x27; αεροπλάνο.\"></span><b>Τα</b> <b>λέμε</b> στ&#x27; αεροπλάνο.</div><div class=\"uc-exe\">See you on the plane.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τα λέμε σε τρεις μήνες.\"></span><b>Τα</b> <b>λέμε</b> σε τρεις μήνες.</div><div class=\"uc-exe\">See you in three months.</div></div>",
+     "IPA": "/ta‿ˈleme/"
+    }
+   },
+   {
+    "word": "ευχαριστώ πολύ",
+    "id": 510,
+    "why": "a first conversation: the phrase is a Wiktionary entry and was a card of no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 2397990, 2455199, 4707978 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "ευχαριστώ πολύ",
+     "Roman": "efcharistó polý",
+     "Word": "ευχαριστώ πολύ",
+     "Say": "ευχαριστώ πολύ",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">thank you very much, many thanks</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ευχαριστώ πολύ για τη βοήθειά σας.\"></span><b>Ευχαριστώ</b> <b>πολύ</b> για τη βοήθειά σας.</div><div class=\"uc-exe\">Thank you very much for your help.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Σας ευχαριστώ πολύ για τη βοήθειά σας.\"></span>Σας <b>ευχαριστώ</b> <b>πολύ</b> για τη βοήθειά σας.</div><div class=\"uc-exe\">I thank you very much for your help.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Παιδιά, ευχαριστώ πολύ πού ήρθατε σήμερα!\"></span>Παιδιά, <b>ευχαριστώ</b> <b>πολύ</b> πού ήρθατε σήμερα!</div><div class=\"uc-exe\">Guys, thanks a lot for coming today!</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "δεν καταλαβαίνω",
+    "id": 511,
+    "why": "a phrase a traveller needs on the first day: a Wiktionary entry, on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 5544728, 7796637, 1023187 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεν καταλαβαίνω",
+     "Roman": "den katalavaíno",
+     "Word": "δεν καταλαβαίνω",
+     "Say": "δεν καταλαβαίνω",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">I don&#x27;t understand.</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Δεν καταλαβαίνω τι θέλει.\"></span><b>Δεν</b> <b>καταλαβαίνω</b> τι θέλει.</div><div class=\"uc-exe\">I don&#x27;t understand what he wants.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Δεν καταλαβαίνω την όπερα.\"></span><b>Δεν</b> <b>καταλαβαίνω</b> την όπερα.</div><div class=\"uc-exe\">I don&#x27;t understand opera.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Δεν καταλαβαίνω τη μουσική.\"></span><b>Δεν</b> <b>καταλαβαίνω</b> τη μουσική.</div><div class=\"uc-exe\">I don&#x27;t understand music.</div></div>",
+     "IPA": "[ðen kɑtɑlɑvˈɛno]"
+    }
+   },
+   {
+    "word": "δεν ξέρω",
+    "id": 512,
+    "why": "a phrase a traveller needs on the first day: a Wiktionary entry, on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 1563540, 7766448, 4357302 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεν ξέρω",
+     "Roman": "den xéro",
+     "Word": "δεν ξέρω",
+     "Say": "δεν ξέρω",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">I don&#x27;t know.</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Δεν ξέρω τι να πω.\"></span><b>Δεν</b> <b>ξέρω</b> τι να πω.</div><div class=\"uc-exe\">I just don&#x27;t know what to say.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Δεν ξέρω τι είναι.\"></span><b>Δεν</b> <b>ξέρω</b> τι είναι.</div><div class=\"uc-exe\">I don&#x27;t know what it is.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Δεν ξέρω τι ψάχνεις.\"></span><b>Δεν</b> <b>ξέρω</b> τι ψάχνεις.</div><div class=\"uc-exe\">I don&#x27;t know what you&#x27;re looking for.</div></div>",
+     "IPA": "[ðɛŋɡˈzɛrɔ]"
+    }
+   },
+   {
+    "word": "πόσο κάνει",
+    "id": 513,
+    "why": "a phrase a traveller needs on the first day: a Wiktionary entry, on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 4703686, 2716629, 7580219 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "πόσο κάνει",
+     "Roman": "Póso kánei?",
+     "Word": "πόσο κάνει",
+     "Say": "πόσο κάνει",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><ol class=\"uc-gls\"><li>How much?</li><li>How much is it?</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Πόσο κάνει το παντελόνι;\"></span><b>Πόσο</b> <b>κάνει</b> το παντελόνι;</div><div class=\"uc-exe\">How much do the trousers cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Πόσο κάνει αυτό το καπέλο;\"></span><b>Πόσο</b> <b>κάνει</b> αυτό το καπέλο;</div><div class=\"uc-exe\">How much is this hat?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Πόσο κάνει αυτή η μπανάνα;\"></span><b>Πόσο</b> <b>κάνει</b> αυτή η μπανάνα;</div><div class=\"uc-exe\">How much does this banana cost?</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "τι ώρα είναι",
+    "id": 514,
+    "why": "a phrase a traveller needs on the first day: a Wiktionary entry, on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 12009573, 5554011, 944760 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "τι ώρα είναι",
+     "Roman": "Ti óra eínai?",
+     "Word": "τι ώρα είναι",
+     "Say": "τι ώρα είναι",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what time is it?</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τι ώρα είναι η πτήση;\"></span><b>Τι</b> <b>ώρα</b> <b>είναι</b> η πτήση;</div><div class=\"uc-exe\">What time is the flight?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τι ώρα είναι στη Βοστώνη;\"></span><b>Τι</b> <b>ώρα</b> <b>είναι</b> στη Βοστώνη;</div><div class=\"uc-exe\">What time is it in Boston?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Με συγχωρείτε, τι ώρα είναι;\"></span>Με συγχωρείτε, <b>τι</b> <b>ώρα</b> <b>είναι</b>;</div><div class=\"uc-exe\">Excuse me, what time is it?</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "καλή όρεξη",
+    "id": 515,
+    "why": "a phrase a traveller needs on the first day: a Wiktionary entry, on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; no Tatoeba sentence holds it",
+    "fields": {
+     "Greek": "καλή όρεξη",
+     "Roman": "kalí órexi",
+     "Word": "καλή όρεξη",
+     "Say": "καλή όρεξη",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">bon appétit, enjoy your meal</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "στην υγειά σου",
+    "id": 516,
+    "why": "a phrase a traveller needs on the first day: a Wiktionary entry, on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; no Tatoeba sentence holds it",
+    "fields": {
+     "Greek": "στην υγειά σου",
+     "Roman": "stin ygeiá sou",
+     "Word": "στην υγειά σου",
+     "Say": "στην υγειά σου",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">to your health! cheers!</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "",
+     "IPA": "/stin‿iˈʝa‿su/"
+    }
+   },
+   {
+    "word": "μηδέν",
+    "id": 517,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 11161136, 11161482, 5564415 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "μηδέν",
+     "Roman": "midén",
+     "Word": "μηδέν",
+     "Say": "μηδέν",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><ol class=\"uc-gls\"><li>zero</li><li>nothing, nought, nil</li><li>cipher</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Μηδέν συν ένα κάνει ένα.\"></span><b>Μηδέν</b> συν ένα κάνει ένα.</div><div class=\"uc-exe\">Zero plus one makes one.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Το μηδέν είναι ένας αριθμός.\"></span>Το <b>μηδέν</b> είναι ένας αριθμός.</div><div class=\"uc-exe\">Zero is a number.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ο Τομ θα &#x27;ναι εδώ σε μηδέν χρόνο.\"></span>Ο Τομ θα &#x27;ναι εδώ σε <b>μηδέν</b> χρόνο.</div><div class=\"uc-exe\">Tom will be here in no time.</div></div>",
+     "IPA": ""
+    }
+   },
+   {
+    "word": "δεκατρία",
+    "id": 518,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 2604255, 5344521 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεκατρία",
+     "Roman": "dekatría",
+     "Word": "δεκατρία",
+     "Say": "δεκατρία",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">thirteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Μερικοί άνθρωποι πιστεύουν πως ο αριθμός δεκατρία φέρνει κακή τύχη.\"></span>Μερικοί άνθρωποι πιστεύουν πως ο αριθμός <b>δεκατρία</b> φέρνει κακή τύχη.</div><div class=\"uc-exe\">Some people believe that the number 13 brings bad luck.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Μερικοί άνθρωποι πιστεύουν ότι ο αριθμός δεκατρία φέρνει κακοτυχία.\"></span>Μερικοί άνθρωποι πιστεύουν ότι ο αριθμός <b>δεκατρία</b> φέρνει κακοτυχία.</div><div class=\"uc-exe\">Some people believe that the number 13 brings bad luck.</div></div>",
+     "IPA": "/ðe.kaˈtɾi.a/"
+    }
+   },
+   {
+    "word": "δεκατέσσερα",
+    "id": 519,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; no Tatoeba sentence holds it",
+    "fields": {
+     "Greek": "δεκατέσσερα",
+     "Roman": "dekatéssera",
+     "Word": "δεκατέσσερα",
+     "Say": "δεκατέσσερα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fourteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "",
+     "IPA": "/ðe.kaˈte.se.ɾa/"
+    }
+   },
+   {
+    "word": "δεκαπέντε",
+    "id": 520,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 5469781, 1498141, 9951833 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεκαπέντε",
+     "Roman": "dekapénte",
+     "Word": "δεκαπέντε",
+     "Say": "δεκαπέντε",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fifteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Έμαθα να οδηγώ, όταν ήμουν δεκαπέντε.\"></span>Έμαθα να οδηγώ, όταν ήμουν <b>δεκαπέντε</b>.</div><div class=\"uc-exe\">I learned to drive when I was fifteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Θα κοστίσει δεκαπέντε δολλάρια περίπου.\"></span>Θα κοστίσει <b>δεκαπέντε</b> δολλάρια περίπου.</div><div class=\"uc-exe\">It will cost around fifteen dollars.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τα εισιτήρια ήταν χωρισμένα σε δεκαπέντε παρτίδες.\"></span>Τα εισιτήρια ήταν χωρισμένα σε <b>δεκαπέντε</b> παρτίδες.</div><div class=\"uc-exe\">The tickets were divided into fifteen batches.</div></div>",
+     "IPA": "/ðe.kaˈpen.de/"
+    }
+   },
+   {
+    "word": "δεκαέξι",
+    "id": 521,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 5483627, 3115202, 999573 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεκαέξι",
+     "Roman": "dekaéxi",
+     "Word": "δεκαέξι",
+     "Say": "δεκαέξι",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τον επόμενο μήνα θα γίνω δεκαέξι ετών.\"></span>Τον επόμενο μήνα θα γίνω <b>δεκαέξι</b> ετών.</div><div class=\"uc-exe\">I&#x27;ll be sixteen years old next month.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Τον επόμενο μήνα θα γίνω δεκαέξι χρόνων.\"></span>Τον επόμενο μήνα θα γίνω <b>δεκαέξι</b> χρόνων.</div><div class=\"uc-exe\">I&#x27;ll be sixteen years old next month.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"«Πόσο χρονών είσαι;» «Είμαι δεκαέξι χρονών.»\"></span>«Πόσο χρονών είσαι;» «Είμαι <b>δεκαέξι</b> χρονών.»</div><div class=\"uc-exe\">&quot;How old are you?&quot; &quot;I&#x27;m sixteen.&quot;</div></div>",
+     "IPA": "/ðe.kaˈe.ksi/"
+    }
+   },
+   {
+    "word": "δεκαεπτά",
+    "id": 522,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 3899591, 5583812, 3899590 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεκαεπτά",
+     "Roman": "dekaeptá",
+     "Word": "δεκαεπτά",
+     "Say": "δεκαεπτά",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventeen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είστε δεκαεπτά ετών;\"></span>Είστε <b>δεκαεπτά</b> ετών;</div><div class=\"uc-exe\">Are you 17?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είσαι δεκαεπτά ετών;\"></span>Είσαι <b>δεκαεπτά</b> ετών;</div><div class=\"uc-exe\">Are you 17?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είσαι δεκαεπτά χρόνων;\"></span>Είσαι <b>δεκαεπτά</b> χρόνων;</div><div class=\"uc-exe\">Are you 17?</div></div>",
+     "IPA": "/ðe.ka.eˈpta/"
+    }
+   },
+   {
+    "word": "δεκαοκτώ",
+    "id": 523,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; no Tatoeba sentence holds it",
+    "fields": {
+     "Greek": "δεκαοκτώ",
+     "Roman": "dekaoktó",
+     "Word": "δεκαοκτώ",
+     "Say": "δεκαοκτώ",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "",
+     "IPA": "/ðe.ka.oˈkto/"
+    }
+   },
+   {
+    "word": "δεκαεννέα",
+    "id": 524,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 2157657 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "δεκαεννέα",
+     "Roman": "dekaennéa",
+     "Word": "δεκαεννέα",
+     "Say": "δεκαεννέα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">nineteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είμαι δεκαεννέα χρονών.\"></span>Είμαι <b>δεκαεννέα</b> χρονών.</div><div class=\"uc-exe\">I am nineteen years old.</div></div>",
+     "IPA": "/ˌðe.ka.eˈne.a/"
+    }
+   },
+   {
+    "word": "σαράντα",
+    "id": 525,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 12072003, 11521484, 11516382 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "σαράντα",
+     "Roman": "saránta",
+     "Word": "σαράντα",
+     "Say": "σαράντα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">forty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ο μοναχός είναι σαράντα χρονών.\"></span>Ο μοναχός είναι <b>σαράντα</b> χρονών.</div><div class=\"uc-exe\">The monk is forty years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Η απεργία κράτησε σαράντα δύο μέρες.\"></span>Η απεργία κράτησε <b>σαράντα</b> δύο μέρες.</div><div class=\"uc-exe\">The strike lasted forty-two days.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Σαράντα μίλια είναι μια καλή απόσταση.\"></span><b>Σαράντα</b> μίλια είναι μια καλή απόσταση.</div><div class=\"uc-exe\">Forty miles is a good distance.</div></div>",
+     "IPA": "/saˈɾan.da/"
+    }
+   },
+   {
+    "word": "εξήντα",
+    "id": 526,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 11639902, 12144906, 11570648 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "εξήντα",
+     "Roman": "exínta",
+     "Word": "εξήντα",
+     "Say": "εξήντα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ένας κύκλος έχει τριακόσιες εξήντα μοίρες.\"></span>Ένας κύκλος έχει τριακόσιες <b>εξήντα</b> μοίρες.</div><div class=\"uc-exe\">A circle has three hundred sixty degrees.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Υπέστη βλάβη στο εξήντα χιλιόμετρο του αγώνα.\"></span>Υπέστη βλάβη στο <b>εξήντα</b> χιλιόμετρο του αγώνα.</div><div class=\"uc-exe\">He suffered a breakdown in the sixtieth kilometer of the race.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Οι δεινόσαυροι εξαφανίστηκαν πριν από εξήντα πέντε εκατομμύρια χρόνια.\"></span>Οι δεινόσαυροι εξαφανίστηκαν πριν από <b>εξήντα</b> πέντε εκατομμύρια χρόνια.</div><div class=\"uc-exe\">Dinosaurs went extinct sixty-five million years ago.</div></div>",
+     "IPA": "/eˈksi.ⁿda/"
+    }
+   },
+   {
+    "word": "εβδομήντα",
+    "id": 527,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 11172854, 2454091 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "εβδομήντα",
+     "Roman": "evdomínta",
+     "Word": "εβδομήντα",
+     "Say": "εβδομήντα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventy (70)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Το βάρος μου είναι εβδομήντα πέντε κιλά.\"></span>Το βάρος μου είναι <b>εβδομήντα</b> πέντε κιλά.</div><div class=\"uc-exe\">My weight is seventy-five kilos.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Το σχολείο έχει ιδρυθεί πριν από εβδομήντα χρόνια.\"></span>Το σχολείο έχει ιδρυθεί πριν από <b>εβδομήντα</b> χρόνια.</div><div class=\"uc-exe\">The school was founded seventy years ago.</div></div>",
+     "IPA": "/ev.ðoˈmi.ⁿda/"
+    }
+   },
+   {
+    "word": "ογδόντα",
+    "id": 528,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 11161015 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "ογδόντα",
+     "Roman": "ogdónta",
+     "Word": "ογδόντα",
+     "Say": "ογδόντα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είμαι ογδόντα εννιά ετών.\"></span>Είμαι <b>ογδόντα</b> εννιά ετών.</div><div class=\"uc-exe\">I am eighty-nine years old.</div></div>",
+     "IPA": "/oɣˈðo.ⁿda/"
+    }
+   },
+   {
+    "word": "ενενήντα",
+    "id": 529,
+    "why": "A1 counted one to twelve, then twenty, thirty, fifty: this number was on no deck",
+    "src": "English Wiktionary via kaikki.org (CC BY-SA 4.0), read 2026-11-27; sentences: Tatoeba 11161082, 11161080, 12125748 (CC BY 2.0 FR)",
+    "fields": {
+     "Greek": "ενενήντα",
+     "Roman": "enenínta",
+     "Word": "ενενήντα",
+     "Say": "ενενήντα",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">ninety</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είμαι σχεδόν ενενήντα ετών.\"></span>Είμαι σχεδόν <b>ενενήντα</b> ετών.</div><div class=\"uc-exe\">I am almost ninety years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Είμαι σχεδόν ενενήντα χρονών.\"></span>Είμαι σχεδόν <b>ενενήντα</b> χρονών.</div><div class=\"uc-exe\">I am almost ninety years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ο παππούς μας είναι ενενήντα χρονών.\"></span>Ο παππούς μας είναι <b>ενενήντα</b> χρονών.</div><div class=\"uc-exe\">Our grandfather is ninety years old.</div></div>",
+     "IPA": "/e.neˈni.ⁿda/"
+    }
+   }
+  ]
+ },
+ "decks": {
+  "elabc": {
+   "tail": "THE BEGINNER PASS (November 2026). WHAT GREEK A1 ASKS OF A READER, counted on its {fact.a1Words} headwords: {fact.pairWords} hold a two-letter spelling and cannot be read one letter at a time; {fact.spelledWords} hold an [i], an [e] or an [o] written otherwise than ι, ε or ο, which no rule predicts; {fact.accentWords} carry the accent; {fact.sigmaWords} end in ς; {fact.capitalWords} are written with a capital, the days and the months; and {fact.questionSentences} of A1's example sentences end in the Greek question mark. THE PACE: Folio deals ten new cards a day to a language deck unless you change it in the deck's options. A letter, a pair or a sign is two cards and a reading rule is one, so these {notes} notes are {cards} cards, {days} days; Greek A1 then runs from day {greeka1.from} to day {greeka1.to}."
+  },
+  "greeka1": {
+   "subtitle": "{notes} words and phrases · both directions, as two cards each",
+   "descSub": [
+    [
+     "The cards are dealt by that frequency, so the words you meet most often come first. ",
+     "The cards are dealt in a teaching order, described at the end of this text. "
+    ]
+   ],
+   "tail": "THE BEGINNER PASS (November 2026). {fact.added} cards were added to the {fact.generated} described above, each built from its own English Wiktionary entry by the same rules: the phrases of a first conversation (γεια σου and γεια σας, τι κάνεις and τι κάνετε, με λένε, πώς σε λένε, χαίρω πολύ, τα λέμε), what a traveller needs on the first day (δεν καταλαβαίνω, δεν ξέρω, πόσο κάνει, τι ώρα είναι), zero, thirteen to nineteen, forty and sixty to ninety. That makes {notes} notes, {cards} cards. THE ORDER: the first {fact.head} notes are set by hand — a greeting, thank you, please, yes and no on days 1 and 2, how are you on day {fact.howAreYouDay}, my name is on day {fact.nameDay}, the personal pronouns on days {fact.pronounsFrom} and {fact.pronounsTo}, to be and to have and the small words every sentence is built of, the commonest verbs on days {fact.verbsFrom} to {fact.verbsTo}, the question words on days {fact.questionsFrom} and {fact.questionsTo}, zero to ten on days {fact.zeroDay} to {fact.tenDay} — and the rest follow by frequency, with eleven to a thousand together from note {fact.numbersFrom}, the days of the week from note {fact.weekdaysFrom} with the months behind them, and the colours from note {fact.coloursFrom}. THE PACE: Folio deals ten new cards a day to a language deck unless you change it in the deck's options, both directions together, which is five words a day: this deck is {days} days, days {from} to {to} for a reader who takes the Greek Alphabet first. WHAT A CARD SHOWS: all {fact.nouns} nouns their article and gender, {fact.nounTables} of them the four cases in both numbers behind All forms, {fact.stressMoves} a genitive or plural marked \"stress moves\"; {fact.verbsAfterNa} of the {fact.verbs} verbs the six forms that follow θα and να; {fact.ipa} cards Wiktionary's pronunciation. On {fact.romanMisread} cards the romanisation holds a pair that is not said as English would say it (ai, ei, oi, y, nt, mp, gk): trust the pronunciation line and the speaker. WHERE THIS DECK ENDS, since it is the last Greek deck on the shelf: the example sentences are Tatoeba's, {fact.sentenceMedian} words long at the median. In the order the cards arrive, {fact.metPct}% of a sentence's words have been met by the time its card is dealt — a form counting as met only if a card shows it — and {fact.wholeSentences} of the {fact.sentences} sentences can be read whole. {fact.noCardPct}% of the words in these sentences are on no card of this deck: names such as Τομ, and words and forms beyond it. No A2 deck and no phrases deck has been built for Greek, so a reader who finishes here can greet, ask, count and read short sentences, and will meet unknown words in almost any text."
+  }
+ }
+}
