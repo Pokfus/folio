@@ -2987,6 +2987,25 @@ later chapter by one. If it throws, re-measure the table by the same alignment; 
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
 
+## `prep: "thorndike"` — a Gutenberg file reshaped into the `pgchapters` form (Nov 2026, Animal Intelligence)
+
+Thorndike's book (Gutenberg ebook 69904) is the `pgchapters` case in one file, set by a different transcriber, so
+`thorndikePrep` (called in the `pgchapters` branch before `extractPgChapters`) rewrites it into the form James's
+files have and the reader is untouched. Each rewrite is counted and throws on a mismatch, so a change upstream
+cannot quietly move a note into the wrong chapter:
+- **The rule is `<hr class="chap x-ebookmaker-drop">`**, which the reader's `<hr class="chap"…` does not match.
+- **All the notes stand in one FOOTNOTES division after the last chapter**, numbered 1–46 across the book, with bare
+  anchors (`Footnote_12`). Each goes to the foot of the division holding its FIRST marker, in James's anchor form
+  (`Footnote_12_12`, the `label` span); 48 markers for 46 notes, two notes being cited by two table cells each.
+- **A chapter head is one `<h2>`** ("CHAPTER IV<br>" + the title + sometimes a note): it becomes an `<h5>` numeral
+  (`chapterHead` finds it) and an `<h4>` title, which the reader drops, or keeps as a head line when it carries a note.
+- **The inner heads are `<h3>`–`<h5>`**, which the reader drops or holds as James's numeral lines, so they move to
+  `<h6>`; the running title `<h1>` over chapter I goes.
+- **A figure's class carries its width** (`figcenter illowp48`), cut to the bare class the reader drops; **a table is
+  bare**, wrapped in the `<div class="center">` the reader stashes; **a quotation is `<div class="blockquote">`**, made a
+  `<blockquote>`; **a `<ul>`** (the kittens' ages, a schedule) becomes one paragraph, an item to a line — unwrapped by
+  the tag strip its items ran together outside every paragraph.
+
 ## `prep: "manifesto"` — a base page holding a preface, an opening and advertisements (Nov 2026, the Communist Manifesto)
 
 `manifestoPrep(h, page, warn)` runs on every raw page (the first and each extra of a `page(n)` array) before `notesOf`
@@ -3001,3 +3020,24 @@ a note marker (Part I's), and every other is fenced and lifted to one `bk-head` 
 
 Re-run after touching: `node .claude/fetch-book.js marx-communist-manifesto --force` (six fetches), check "5 printed
 head(s) dropped, 6 heading block(s) fenced, 6 lifted" and 10 notes, then `node .claude/book-audit.js`.
+
+## `layout: "pglinknote"` — a Gutenberg HTML edition with every note at the end (Nov 2026, The Expression of the Emotions)
+
+The OLDER Gutenberg HTML shape (ebook 1227), which `pgchapters` cannot read: each printed division is a
+`<div class="chapter">` under an `<h2>` carrying an anchor (`link2H_INTR`, `link2HCH0001` …), and every note of the
+book stands in one closing division (`link2H_FOOT`) as `linknote-N`, cited by `<a href="#linknote-N">[N]</a>`.
+`extractPgLinknote` reads one file (`url`, cached as `en-page.html`). The entry names the divisions by anchor in
+reading order (`pgAnchors`, section n = index + 1), the half-title to skip (`pgSkip`) and the notes' anchor
+(`pgNotes`); `pgArgument: true` sets the first paragraph of every chapter after the first section as a `bk-head`
+line (Darwin's argument, as the Origin's). What it settled, each a quiet failure if missed:
+- **The note numbers carry a hundreds offset per chapter** (1–22, 101–120, 201–203 …), so a chapter's notes are the
+  ones its markers cite, renumbered from 1 — never a range of numbers. A note cited from two sections, a marker with
+  no note and a note nothing cites are all reported.
+- **A note opens on "N (return)" and wraps its text in square brackets**; both are taken off, and a note without them
+  is reported rather than trimmed blindly. A note of several paragraphs (Galton's letter in I) is joined with `<br><br>`.
+- **Every `<div class="chapter">` must be named** (an anchor, the skip list or the notes); an unknown one is reported,
+  and a chapter's `<h2>` must read "CHAPTER <its numeral>.", checked as a run.
+- **A caption is a paragraph "{illust. caption = …}"**, one of them carrying a scrap of the sentence above it and one
+  never closing its brace, so the whole paragraph goes with its figure, counted.
+- **The typographic entities** (`&mdash;`, `&lsquo;` … ) are written as characters before anything else, so `fixes`
+  rows are written with the real characters; `&amp;` stays.

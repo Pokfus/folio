@@ -21637,6 +21637,202 @@ const BOOKS = {
     minChars: 3000,
   },
 
+  "thorndike-animal-intelligence": {
+    title: "Animal Intelligence",
+    subtitle: "Experimental Studies",
+    author: "Edward L. Thorndike",
+    /* NO `translator`: written in English. */
+    edition: "The Macmillan Company, New York, 1911",
+    written: "1911",
+    year: 1911,
+    /* ---------- THE LICENCE ----------
+       Published in New York in June 1911 (the copyright page: "Copyright, 1911, By THE MACMILLAN COMPANY"),
+       before 1931, so public domain in the United States. Thorndike died in 1949, so the book is also out of
+       copyright wherever copyright lasts for the author's life plus seventy years or less (from 2020) — NOT
+       where it runs longer, and the rights box says so rather than claiming the world. THE SOURCE IS PROJECT
+       GUTENBERG (ebook 69904, a proofread transcription of the 1911 printing): Wikisource has no copy (searched,
+       Nov 2026). When gutenberg.org was down for maintenance (Nov 2026) the file was read from its pglaf
+       mirror, `gutenberg.pglaf.org/6/9/9/0/69904/69904-h/69904-h.htm` — the same file `urls` names. */
+    rights:
+      "Public domain in the United States, where The Macmillan Company published the book in 1911. Edward L. " +
+      "Thorndike died in 1949, so it is also out of copyright in countries where copyright lasts for the " +
+      "author's life plus seventy years or less. The text is Project Gutenberg's transcription of the 1911 edition.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/69904",
+    urls: ["https://www.gutenberg.org/files/69904/69904-h/69904-h.htm"],
+    layout: "pgchapters",
+    /* the file's own heads are reshaped into James's form first — see `thorndikePrep` */
+    prep: "thorndike",
+    chapterHead: /<h5 id="CHAPTER_([IVX]+)">/,
+    front: [{ n: 1, vol: 1, anchor: 'id="PREFACE"' }],
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every quotation in
+       it was found in this text; where each chapter first appeared is the book's own notes (1, 4, 18, 21, 22,
+       46); the life is the record's. */
+    about: [
+      "<b>Animal Intelligence</b> collects the experiments with which Edward L. Thorndike began the laboratory " +
+        "study of animal learning. Its centre is his doctoral study of 1898, in which hungry cats — <i>or " +
+        "rather kittens</i> — dogs and chicks were shut in small boxes whose doors opened only when the animal " +
+        "pulled a loop, pressed a lever or turned a button, and the time each took to get out was recorded, " +
+        "trial after trial. The cat claws and squeezes at random until a movement happens to open the door; " +
+        "over many trials <i>all the other non-successful impulses will be stamped out and the particular " +
+        "impulse leading to the successful act will be stamped in by the resulting pleasure</i>.",
+      "Chapter I asks what it means to study behaviour rather than consciousness. Chapter II is the 1898 " +
+        "study itself, <i>Animal Intelligence; an Experimental Study of the Associative Processes in " +
+        "Animals</i>: the apparatus, the cats, dogs and chicks, and its tests of whether animals reason or " +
+        "learn by imitation, which find that they do neither. Chapters III and IV are shorter papers on the " +
+        "instincts of young chicks and on the psychology of fishes; chapter V, <i>The Mental Life of the " +
+        "Monkeys</i>, repeats the methods with <i>three South American monkeys of the genus Cebus</i>. " +
+        "Chapter VI, written for this volume, states the general laws, and chapter VII, <i>The Evolution of the " +
+        "Human Intellect</i>, argues that man's mind differs from the animals' in degree and not in kind: " +
+        "<i>not as a demigod from another planet, but as a king from the same race</i>.",
+      "The experiments were aimed at the <i>anecdote school</i> of animal psychology, which inferred reasoning " +
+        "from stories of clever pets. Thorndike quotes George Romanes's examples at length and answers that " +
+        "the anecdotes are <i>on pretty much the same level as the anecdotes of thought-transference</i>: what " +
+        "is reported is the one remarkable success, never the many failures. In chapter VI the results become " +
+        "the <i>Law of Effect</i> — responses <i>accompanied or closely followed by satisfaction to the " +
+        "animal</i> are more firmly connected with the situation, those followed by discomfort less — and the " +
+        "<i>Law of Exercise</i>, under which a connection grows stronger the more often it is made.",
+      "Thorndike was born in Massachusetts in 1874. He studied under William James at Harvard and took his " +
+        "doctorate at Columbia in 1898; the study was printed that year as a monograph supplement to the " +
+        "<i>Psychological Review</i>, and the other papers followed between 1899 and 1901. By 1911 he was at " +
+        "Teachers College, Columbia University, and his Preface leaves the old texts unaltered while owning " +
+        "that <i>what one writes at the age of twenty-three is likely to irritate oneself a dozen years " +
+        "later</i>. He became one of the founders of educational psychology and died in 1949.",
+      "The text here is the book as Thorndike printed it in 1911, in its own American spelling. It is given " +
+        "in its own order: the Preface and the seven chapters, so a tab's number runs one ahead of the " +
+        "chapter's, whose Roman numeral opens each title. The head lines inside a chapter are Thorndike's own, " +
+        "and so are the tables. His footnotes are kept under each chapter. The book's figures — drawings of " +
+        "the boxes and the curves of the animals' times — are not reproduced, so where Thorndike writes " +
+        "<i>see Fig. 1</i> there is no figure to see. Not included: the title page, the contents, the index " +
+        "and the publisher's advertisements.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Preface",
+      "I. The Study of Consciousness and the Study of Behavior",
+      "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals",
+      "III. The Instinctive Reactions of Young Chicks",
+      "IV. A Note on the Psychology of Fishes",
+      "V. The Mental Life of the Monkeys; an Experimental Study",
+      "VI. Laws and Hypotheses for Behavior",
+      "VII. The Evolution of the Human Intellect",
+    ][n],
+    /* the Preface is about 1,900 characters */
+    minChars: 1500,
+  },
+
+  "darwin-expression-of-emotions": {
+    title: "The Expression of the Emotions in Man and Animals",
+    author: "Charles Darwin",
+    /* NO `translator`: written in English, as the Origin of Species was. */
+    edition: "John Murray, London, 1872 (an 1899 New York reprint by D. Appleton)",
+    written: "1872",
+    year: 1872,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Darwin published the book in London in 1872 and died in 1882, so there is no copyright in it
+       anywhere. THE SOURCE IS PROJECT GUTENBERG (ebook 1227), not Wikisource: Wikisource has no
+       transcription of the book (Nov 2026 — the Author page's link is red). Gutenberg's title page reads
+       "New York, D. Appleton and Company, 1899", a reprint of the first edition's text: it carries none of
+       the notes Francis Darwin added to the second edition of 1890, and its readings were checked against
+       the Internet Archive's scan of the 1872 Murray printing (`expressionofemot1872darw`), which is the
+       witness for every row of `fixes` below. Fetched from Gutenberg's own mirror, gutenberg.pglaf.org,
+       which serves the same files as www.gutenberg.org at the same paths. */
+    rights:
+      "Public domain worldwide. Charles Darwin published The Expression of the Emotions in Man and " +
+      "Animals in London in 1872 and died in 1882, so the book has never been in copyright anywhere " +
+      "since. The text is Project Gutenberg's transcription, from an 1899 reprint of the first edition.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/1227",
+    url: "https://gutenberg.pglaf.org/1/2/2/1227/1227-h/1227-h.htm",
+    layout: "pglinknote",
+    pgAnchors: ["link2H_INTR"].concat(Array.from({ length: 14 }, (_, i) => "link2HCH" + String(i + 1).padStart(4, "0"))),
+    pgSkip: ["link2H_4_0003"],
+    pgNotes: "link2H_FOOT",
+    pgArgument: true,
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every
+       quotation in it was found in this text; the dates are the record's. */
+    about: [
+      "<b>The Expression of the Emotions in Man and Animals</b> asks why we look the way we do when we " +
+        "feel something: why a grieving person's eyebrows slant, why an angry dog bares its teeth, why we " +
+        "blush with shame and shrug when we cannot help. Charles Darwin's answer is that expressions have " +
+        "a history. Most of them, he argues, began as movements that were once of use, and became habits " +
+        "that are inherited; and many of the same expressions are found in every human race and, in part, " +
+        "in other animals — evidence that we share a common descent with them.",
+      "He explains them by <i>three Principles</i>, set out in the first three chapters: <i>the principle " +
+        "of serviceable associated Habits</i>, by which a movement once useful is repeated whenever the same " +
+        "state of mind returns, even when it is of no use; <i>the principle of Antithesis</i>, by which an " +
+        "opposite state of mind brings opposite movements — a friendly dog's whole body is the reverse of a " +
+        "hostile one's; and the direct action of the excited nervous system on the body, as in trembling. " +
+        "Chapters IV and V describe the expressions of animals, and the rest those of man: suffering and " +
+        "weeping, grief, joy and love, reflection and ill-temper, hatred and anger, disdain and disgust, " +
+        "surprise and fear, and blushing (VI–XIII). The last chapter sums up.",
+      "Darwin first took notes on expression in 1838, and he meant to treat the subject in <i>The Descent " +
+        "of Man</i> (1871); it grew into a book of its own, published by John Murray in 1872. He gathered " +
+        "his evidence widely. In 1867 he circulated a list of printed queries — <i>Is astonishment expressed " +
+        "by the eyes and mouth being opened wide, and by the eyebrows being raised?</i> — and received " +
+        "<i>thirty-six answers from different observers</i> in many parts of the world, several of them " +
+        "missionaries. He watched his own children and the animals at the Zoological Gardens, and he " +
+        "showed photographs, without a word of explanation, to people and asked them what emotion they " +
+        "saw.",
+      "The book is one of the first scientific works illustrated with photographs. Some of its plates " +
+        "come from the French physician Duchenne, who made the muscles of a man's face contract with " +
+        "electricity and photographed the result; others were taken for Darwin by the photographer Oscar " +
+        "Rejlander. Darwin died in 1882, and his son Francis edited a second edition in 1890. The book's " +
+        "claim that some facial expressions are the same in every culture was taken up again by " +
+        "psychologists in the twentieth century, and it is still argued over.",
+      "The text here is the first edition's, in its own spelling. It is given in the book's own order: the " +
+        "Introduction and the fourteen chapters, so a tab's number runs one ahead of the chapter's, whose " +
+        "Roman numeral opens each title. The italic lines that open each chapter are Darwin's own summary " +
+        "of its contents, printed under the chapter heading. His footnotes are kept under each chapter. The " +
+        "book's figures and its seven plates of photographs are not reproduced, so where Darwin writes " +
+        "<i>see fig. 5</i> or <i>Plate I.</i> there is no picture to see. Not included: the title page, the " +
+        "contents and the list of illustrations, and the index.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Introduction",
+      "I. General Principles of Expression",
+      "II. General Principles of Expression — continued",
+      "III. General Principles of Expression — concluded",
+      "IV. Means of Expression in Animals",
+      "V. Special Expressions of Animals",
+      "VI. Special Expressions of Man: Suffering and Weeping",
+      "VII. Low Spirits, Anxiety, Grief, Dejection, Despair",
+      "VIII. Joy, High Spirits, Love, Tender Feelings, Devotion",
+      "IX. Reflection — Meditation — Ill-temper — Sulkiness — Determination",
+      "X. Hatred and Anger",
+      "XI. Disdain — Contempt — Disgust — Guilt — Pride, etc. — Helplessness — Patience — Affirmation and Negation",
+      "XII. Surprise — Astonishment — Fear — Horror",
+      "XIII. Self-attention — Shame — Shyness — Modesty: Blushing",
+      "XIV. Concluding Remarks and Summary",
+    ][n],
+    /* Each row read against the Internet Archive's scan of the 1872 Murray printing (see the licence note). */
+    fixes: [
+      ["Professors Donders of Utrecht", "Professor Donders of Utrecht", "Introduction: 1872 reads “Professor”"],
+      ["the first edition, and in the third edition", "the first edition, and in 1844 the third edition", "Introduction: the year of Bell's third edition, which the transcription moved into note 3"],
+      ["&amp;c. 1792. 1844", "&amp;c. 1792.", "Introduction, note 3: the stray year that belongs in the text (row above)"],
+      ["from Herde\u2019s well-known", "from Henle\u2019s well-known", "Introduction: Henle's Handbuch, misread"],
+      ["as it appeirs to me", "as it appears to me", "Introduction: a misprint in the transcription"],
+      ["always lowers its bead", "always lowers its head", "I: a misread letter"],
+      ["hostile frame of mind be walks", "hostile frame of mind he walks", "II: a misread letter"],
+      ["species of Alacacus", "species of Macacus", "V: the genus, misread"],
+      ["partially cheeked by", "partially checked by", "VII: a misread letter"],
+      ["Ducheinne takes", "Duchenne takes", "XII, a note: the name, misspelt"],
+      ["Physiologi-cum", "Physiologicum", "VII, a note: the printer's line-end hyphen kept mid-line"],
+      ["regarde dons", "regarde dans", "IX, a note: Gratiolet's French, misread"],
+      ["p. 53. p. 53.{sic}", "p. 53.", "V, a note: the page typed twice and marked by the transcriber"],
+      ["full acount,{sic}", "full account,", "a note: the transcriber's {sic} on its own misspelling"],
+      ["both emotions and-sensations", "both emotions and sensations", "I, note 1: a hyphen typed for a space"],
+      ["lower parts of the checks downwards", "lower parts of the cheeks downwards", "XII: a misread letter"],
+      ["observed by Brehin with", "observed by Brehm with", "V: the naturalist's name, misread"],
+      ["Dr. Mandsley has", "Dr. Maudsley has", "VIII, a note: the name, misread"],
+      ["{footnote continues:} ", "", "I, a note: the transcriber's mark where the note runs onto the next page"],
+    ],
+    minChars: 3000,
+  },
+
   "petrie-egyptian-tales": {
     title: "Egyptian Tales",
     subtitle: "Translated from the Papyri · First Series, IVth to XIIth Dynasty",
@@ -34692,6 +34888,209 @@ function extractPgChapters(vols, BOOK, warn) {
   return { chapters: out, counts: c };
 }
 
+/* `prep: "thorndike"` — Nov 2026, adding Thorndike's Animal Intelligence (Gutenberg ebook 69904). The same
+   reader as James's, but the transcriber set this file differently in five ways, and each is put into the
+   shape `extractPgChapters` reads BEFORE it runs, so the reader itself is unchanged:
+   · the division rule is `<hr class="chap x-ebookmaker-drop">` (the reader matches `<hr class="chap"…`
+     only with nothing between the class's quotes);
+   · ALL the notes stand in one FOOTNOTES division after chapter VII, numbered 1–46 across the book, and
+     their anchors are bare (`Footnote_12`, not `Footnote_12_12`). Each note is moved to the foot of the
+     division holding its FIRST marker, in James's anchor form, and the markers are rewritten to match;
+     a note cited twice (two table cells cite 34, two 40: 48 markers for 46 notes) stays one note, as the reader already handles;
+   · a chapter's head is ONE `<h2>` — "CHAPTER IV<br>" and the title, a note sometimes on the title. It
+     becomes James's pair, an `<h5>` numeral (which `chapterHead` finds) and an `<h4>` title (dropped as
+     the tab names it, kept as a head line where it carries a note); the Preface's `<h2>` an `<h4>`;
+   · the heads INSIDE a chapter are `<h3>`, `<h4>` and `<h5>` (sections, subsections, "Table 4"), which
+     the reader drops or holds as James's numeral lines — so they are moved to `<h6>`, a head it keeps;
+     and the running title over chapter I (`<h1>ANIMAL INTELLIGENCE</h1>`) goes; a figure's class carries
+     its width (`figcenter illowp48`), so it is cut to the bare class the reader drops with its caption;
+     and a `<ul>` (ages, a schedule) becomes one paragraph, an item to a line;
+   · a table is a bare `<table>` (wrapped in the `<div class="center">` the reader stashes), and a
+     quotation a `<div class="blockquote">` (made a `<blockquote>`). Every count is checked, so a change
+     upstream throws rather than shifting a note into the wrong chapter. */
+function thorndikePrep(h, warn) {
+  const count = (rx) => (h.match(rx) || []).length;
+  const want = (what, n, rx) => { const k = count(rx); if (k !== n) throw new Error("thorndike: expected " + n + " " + what + ", found " + k); };
+  want("division rules", 13, /<hr class="chap x-ebookmaker-drop">/g);
+  h = h.replace(/<hr class="chap x-ebookmaker-drop">/g, '<hr class="chap">');
+  /* the notes, out of their own division */
+  const fs0 = h.indexOf('<div class="footnotes">');
+  if (fs0 < 0) throw new Error("thorndike: no FOOTNOTES division");
+  const fs1 = pgDivEnd(h, fs0);
+  const notes = [];
+  pgTakeDivs(h.slice(fs0, fs1), "footnote", (blk) => {
+    const k = /<a id="Footnote_(\d+)" href="#FNanchor_\d+" class="label">\[\d+\]<\/a>\s*/.exec(blk);
+    if (!k) throw new Error("thorndike: a note without its label: " + blk.slice(0, 80));
+    notes.push({ n: +k[1], html: blk.replace(k[0], '<a id="Footnote_' + k[1] + "_" + k[1] + '"></a><a href="#FNanchor_' +
+      k[1] + "_" + k[1] + '"><span class="label">[' + k[1] + "]</span></a>") });
+    return "";
+  });
+  if (notes.length !== 46 || notes.some((x, i) => x.n !== i + 1)) throw new Error("thorndike: the notes do not run 1–46");
+  h = h.slice(0, fs0) + h.slice(fs1);
+  want("note markers", 48, /<a (?:id="FNanchor_\d+" )?href="#Footnote_\d+" class="fnanchor">\[\d+\]<\/a>/g);
+  h = h.replace(/<a (?:id="FNanchor_\d+" )?href="#Footnote_(\d+)" class="fnanchor">\[\d+\]<\/a>/g,
+    (w, k) => '<a href="#Footnote_' + k + "_" + k + '" class="fnanchor">[' + k + "]</a>");
+  /* each note to the foot of the division its first marker stands in */
+  const ins = new Map();
+  for (const x of notes) {
+    const at = h.indexOf('href="#Footnote_' + x.n + "_" + x.n + '"');
+    if (at < 0) throw new Error("thorndike: note " + x.n + " is never cited");
+    const hr = h.indexOf('<hr class="chap">', at);
+    if (hr < 0) throw new Error("thorndike: no rule after note " + x.n + "'s marker");
+    ins.set(hr, (ins.get(hr) || "") + "\n" + x.html + "\n");
+  }
+  [...ins.keys()].sort((a, b) => b - a).forEach((at) => { h = h.slice(0, at) + ins.get(at) + h.slice(at); });
+  /* the heads */
+  want("running titles", 1, /<h1>ANIMAL INTELLIGENCE<\/h1>/g);
+  h = h.replace(/<h1>ANIMAL INTELLIGENCE<\/h1>/, "");
+  h = h.replace(/<(\/?)h[345]\b/g, "<$1h6");
+  want("chapter heads", 7, /<h2 class="nobreak" id="CHAPTER_[IVX]+">/g);
+  h = h.replace(/<h2 class="nobreak" id="CHAPTER_([IVX]+)">CHAPTER \1<br>\s*<span class="smcap">([\s\S]*?)<\/span>([\s\S]*?)<\/h2>/g,
+    (w, r, t, fn) => '<h5 id="CHAPTER_' + r + '">CHAPTER ' + r + ".</h5>\n<h4>" + t.replace(/\s+/g, " ") + fn + "</h4>");
+  want("rewritten chapter heads", 7, /<h5 id="CHAPTER_[IVX]+">/g);
+  h = h.replace(/<h2 class="nobreak" id="PREFACE">PREFACE<\/h2>/, '<h4 id="PREFACE">PREFACE</h4>');
+  /* figures: the class carries a width (`figcenter illowp48`), which the reader's exact match would miss */
+  want("figures", 30, /<div class="figcenter illowp\d+"/g);
+  h = h.replace(/<div class="figcenter illowp\d+"/g, '<div class="figcenter"');
+  /* a list (ages, a schedule, a chain of S's) is one paragraph, an item to a line: unwrapped by the tag
+     strip its items would run together into one sentence outside every paragraph */
+  want("lists", 7, /<ul>/g);
+  h = h.replace(/<ul>([\s\S]*?)<\/ul>/g, (w, b) =>
+    "<p>" + [...b.matchAll(/<li>([\s\S]*?)<\/li>/g)].map((m) => m[1].trim()).join("<br>") + "</p>");
+  /* tables and quotations */
+  h = h.replace(/<table\b[\s\S]*?<\/table>/g, (t) => '<div class="center">' + t + "</div>");
+  h = pgTakeDivs(h, "blockquote", (b) => "<blockquote>" + b.replace(/^<div[^>]*>/, "").replace(/<\/div>\s*$/, "") + "</blockquote>");
+  return h;
+}
+
+/* ============================================================
+   A GUTENBERG HTML EDITION WITH ITS NOTES COLLECTED AT THE END     (layout: "pglinknote")
+   ============================================================
+   Nov 2026, adding Darwin's The Expression of the Emotions in Man and Animals (Gutenberg ebook 1227).
+   The older Gutenberg HTML shape, not the one `pgchapters` reads: each printed division is a
+   `<div class="chapter">` headed by an `<h2>` carrying an anchor (`link2H_INTR`, `link2HCH0001` …),
+   and EVERY NOTE OF THE BOOK stands in one last division (`link2H_FOOT`), keyed `linknote-N`, with
+   the markers in the text `<a href="#linknote-N" …>[N]</a>`. The transcriber numbers the notes per
+   chapter with a hundreds offset (1–22, 101–120, 201–203 …), so a chapter's notes are found by its own
+   markers, never by the number. What it does, each a quiet failure if missed:
+   · THE DIVISIONS ARE NAMED BY ANCHOR (`BOOK.pgAnchors`, in reading order, section n = index + 1), and
+     every `<div class="chapter">` must be one of them, `BOOK.pgSkip` (the half-title) or the notes —
+     an unknown division is reported, never dropped in silence. A chapter's `<h2>` must read
+     "CHAPTER <its numeral>.", checked as a run.
+   · THE NOTES: each opens on "N (return)" and wraps its text in square brackets; both are taken off,
+     and a note without them is reported. A note of several paragraphs (a long quotation in one) is
+     joined with `<br><br>`. Each chapter keeps the notes its markers cite, renumbered from 1 in citing
+     order; a marker with no note, or a note no marker cites, is reported.
+   · THE CHAPTER'S ARGUMENT — the small-type list of its topics under each chapter head, the first
+     paragraph of every chapter but the Introduction — is set as a `bk-head` line, as the Origin of
+     Species' are (`BOOK.pgArgument`).
+   · THE FIGURES go with their anchors and their captions (the transcription sets a caption as a
+     paragraph "{illust. caption = …}", one of them carrying a scrap of the sentence above it, one
+     never closing its brace), counted — the Library sets no pictures.
+   · VERSE (`<p class="poem">`) becomes a quotation block with its lines kept; the thematic rules and
+     every link and anchor go. */
+function extractPgLinknote(h, BOOK, warn) {
+  const c = { notes: 0, marks: 0, figures: 0, captions: 0, verse: 0, heads: 0, breaks: 0 };
+  const s0 = h.indexOf("*** START OF"), e0 = h.indexOf("*** END OF");
+  if (s0 < 0 || e0 < 0) throw new Error("the edition lacks Gutenberg's START and END lines");
+  /* The typographic entities, written as the characters every other book carries (`&amp;` stays). */
+  const ENT = { mdash: "\u2014", rsquo: "\u2019", lsquo: "\u2018", ldquo: "\u201c", rdquo: "\u201d" };
+  const body = h.slice(s0, e0).replace(/&(mdash|rsquo|lsquo|ldquo|rdquo);/g, (w, k) => ENT[k]);
+  const segs = {};
+  let notesSeg = null;
+  for (const m of body.matchAll(/<div class="chapter"[^>]*>/g)) {
+    const end = pgDivEnd(body, m.index);
+    if (end < 0) throw new Error("an unclosed chapter division near offset " + m.index);
+    const seg = body.slice(m.index, end);
+    const a = /<h2\b[^>]*>\s*<a name="([^"]+)"/.exec(seg);
+    const id = a && a[1];
+    if (id === BOOK.pgNotes) notesSeg = seg;
+    else if (BOOK.pgAnchors.includes(id)) segs[id] = seg;
+    else if (!(BOOK.pgSkip || []).includes(id))
+      warn("a division the entry does not name (" + id + "): " + pgFlat(seg).slice(0, 80));
+  }
+  if (!notesSeg) throw new Error("the notes division " + BOOK.pgNotes + " is not in the edition");
+
+  /* the notes, keyed by the transcriber's number */
+  const notes = {};
+  const parts = notesSeg.split(/<p>\s*<a name="linknote-(\d+)"[^>]*>\s*(?:<!--[^>]*-->)?\s*<\/a>\s*<\/p>/);
+  for (let i = 1; i < parts.length; i += 2) {
+    const k = parts[i];
+    let t = parts[i + 1].replace(/<\/div>(?:<!--[^>]*-->)?\s*$/, "");
+    const paras = [...t.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((m) => m[1]);
+    if (!paras.length) { warn("note " + k + " came back empty"); continue; }
+    const head = /^\s*(\d+) \(<a [^>]*>return<\/a>\)<br\s*\/?>\s*\[\s*/.exec(paras[0]);
+    if (!head || head[1] !== k) warn("note " + k + " does not open on its number and a bracket: " + pgFlat(paras[0]).slice(0, 60));
+    else paras[0] = paras[0].slice(head[0].length);
+    const last = paras.length - 1;
+    if (!/\]\s*$/.test(paras[last])) warn("note " + k + " does not close on a bracket: " + pgFlat(paras[last]).slice(-60));
+    else paras[last] = paras[last].replace(/\s*\]\s*$/, "");
+    const rest = pgFlat(t.replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, ""));
+    if (rest) warn("note " + k + " has text outside its paragraphs: " + rest.slice(0, 60));
+    notes[k] = paras.map((p) => pgFlat(p.replace(/<\/?a\b[^>]*>/g, ""))).filter(Boolean).join("<br><br>");
+    c.notes++;
+  }
+  const cited = new Set();
+
+  const out = BOOK.pgAnchors.map((id, i) => {
+    const n = i + 1;
+    let s = segs[id];
+    if (!s) throw new Error("the division " + id + " (section " + n + ") is not in the edition");
+    /* the head: checked, then dropped — the tab names the chapter */
+    const hd = /<h2\b[^>]*>([\s\S]*?)<\/h2>/.exec(s);
+    const htext = pgFlat(hd[1].replace(/<\/?a\b[^>]*>/g, "")).replace(/<br>/g, " ");
+    if (n > 1 && !new RegExp("^CHAPTER " + toRoman(n - 1) + "\\.").test(htext))
+      warn("section " + n + " is headed " + JSON.stringify(htext.slice(0, 40)));
+    s = s.slice(hd.index + hd[0].length).replace(/<\/div>(?:<!--[^>]*-->)?\s*$/, "");
+    /* the figures, their anchors and their captions */
+    s = s.replace(/<p>\s*<a name="linkimage-\d+"[^>]*>\s*(?:<!--[^>]*-->)?\s*<\/a>\s*<\/p>/g, "");
+    s = pgTakeDivs(s, "fig", () => { c.figures++; return ""; });
+    s = s.replace(/<p>\s*\{illust\. caption =[\s\S]*?<\/p>/g, () => { c.captions++; return ""; });
+    if (/<img\b|\{illust/.test(s)) warn("section " + n + ": a picture or caption left in the text");
+    /* the markers, before any link is unwrapped */
+    s = s.replace(/<a\s+href="#linknote-(\d+)"[^>]*>\s*\[\d+\]\s*<\/a>/g, (w, k) => {
+      c.marks++; return '<sup class="fn" data-fn="' + k + '"></sup>';
+    });
+    if (/linknote/.test(s)) warn("section " + n + ": a note marker was not recognised");
+    c.breaks += (s.match(/<hr\b[^>]*>/g) || []).length;
+    s = s.replace(/<hr\b[^>]*>/g, "").replace(/<\/?a\b[^>]*>/g, "");
+    /* the argument under the chapter head */
+    if (BOOK.pgArgument && n > 1) {
+      let done = false;
+      s = s.replace(/<p\b[^>]*>/, (w) => { done = true; c.heads++; return "<p>@@PGH"; });
+      if (!done) warn("section " + n + ": no argument under the head");
+    }
+    /* verse */
+    s = s.replace(/<p class="poem">([\s\S]*?)<\/p>/g, (w, x) => { c.verse++; return "<blockquote><p>" + x + "</p></blockquote>"; });
+
+    s = stripTags(s.replace(/&nbsp;/g, " "));
+    s = s.replace(/\s+/g, " ").replace(/\s*<br>\s*/g, "<br>");
+    s = s.replace(/<p>(?:\s|<br>)*/g, "<p>").replace(/(?:\s|<br>)*<\/p>/g, "</p>").replace(/<p><\/p>/g, "");
+    s = s.replace(/\s*(<\/?(?:p|blockquote)\b[^>]*>)\s*/g, "$1");
+    s = s.replace(/(<\/p>|<\/blockquote>)(?=<)/g, "$1\n").replace(/(<blockquote>)(?=<p)/g, "$1\n").trim();
+    s = s.replace(/<p>@@PGH\s*/g, '<p class="bk-head">');
+    if (/@@PG/.test(s)) warn("section " + n + ": a placeholder was left in the text");
+    const loose = s.replace(/<p\b[^>]*>[\s\S]*?<\/p>|<\/?blockquote>/g, "").trim();
+    if (loose) warn("section " + n + ": text outside every paragraph: " + loose.slice(0, 80));
+
+    const seen = [], map = {};
+    s = s.replace(/<sup class="fn" data-fn="([^"]+)"><\/sup>/g, (w, k) => {
+      if (!map[k]) {
+        if (notes[k] === undefined) { warn("section " + n + " cites a note " + k + " that is not printed"); return ""; }
+        if (cited.has(k)) warn("note " + k + " is cited from two sections");
+        cited.add(k);
+        seen.push(notes[k]); map[k] = seen.length;
+      }
+      return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+    });
+    return { n, html: s, notes: seen };
+  });
+  const orphan = Object.keys(notes).filter((k) => !cited.has(k));
+  if (orphan.length) warn("note(s) " + orphan.join(", ") + " printed but never cited");
+  return { chapters: out, counts: c };
+}
+
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -36081,6 +36480,28 @@ async function fetchEnglish() {
 
   /* A GUTENBERG HTML EDITION IN ONE FILE PER VOLUME, cut at its own chapter heads — see the block
      above extractPgChapters. Cached as Polo's two volumes are. */
+  /* A GUTENBERG HTML EDITION WITH ITS NOTES COLLECTED AT THE END — see the block above
+     extractPgLinknote. One file, cached whole as `en-page.html`. */
+  if (BOOK.layout === "pglinknote") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = correctGot(extractPgLinknote(raw.replace(/\r\n?/g, "\n"), BOOK, warn));
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers), " +
+      c.heads + " chapter argument(s) set as head lines, " + c.verse + " verse block(s), " + c.figures +
+      " figure(s) and " + c.captions + " caption(s) left out, " + c.breaks + " rule(s) removed");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "pgchapters") {
     const warn = (m) => warnings.push(m);
     const vols = [];
@@ -36095,7 +36516,8 @@ async function fetchEnglish() {
         await sleep(500);
       }
     }
-    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n")), BOOK, warn));
+    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n"))
+      .map((x) => (BOOK.prep === "thorndike" ? thorndikePrep(x, warn) : x)), BOOK, warn));
     const c = g.counts;
     console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers, " +
       c.headNotes + " on a chapter head, " + c.noteTables + " table(s) in a note set one row to a line), " +
