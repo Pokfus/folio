@@ -13277,6 +13277,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Voltaire, while Kant stands 19.7 off, Plato 36.1, Seneca 37.3, Machiavelli 42.6, Rousseau 60.1. It reads
      9.80:1 on the tightest light paper. */
   "Voltaire": "#12155D",
+  /* Nov 2026, adding The Interpretation of Dreams, measured as the rows above (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen light
+     inks; a sweep of the cube at a step of 3, which tops out at 13.9). First placed at the olive #3C5721, which
+     Frederick Douglass's row, merged the same day, took from the same sweep (1.3 apart), so measured again with
+     Douglass on the shelf. THE EURIPIDES TEST: the sweep's best sit 13.9 from Darwin, 13.5 from Aristotle (whose
+     On Dreams Freud cites) or 13.5 from Sophocles (Oedipus); this brick red's nearest are Livy 13.4, Sun Tzu
+     14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
+     46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
+  "Sigmund Freud": "#844227",
   /* Nov 2026, adding Petrie's Egyptian Tales — anonymous, so keyed on its id. Swept over the cube at a step of 3
      (CIE76; lightness 12.3–47.8, chroma 18–85; 4.5:1 on the fourteen darkest light papers): the field is the dark
      purples, and the best clears its nearest ink, the Song of Roland, by 16.5 — not a book read beside these
@@ -17675,6 +17684,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          are not the modern states. */
       glossOff: ["Bulgaria", "Pantheon,_Rome", "Raleigh", "Titus_Annius_Milo", "Academy", "Providence", "Israel",
         "Sarmatians", "Germany", "Turkey", "Greece"],
+    },
+    {
+      id: "freud-interpretation-of-dreams",
+      title: "The Interpretation of Dreams",
+      subtitle: "Die Traumdeutung",
+      author: "Sigmund Freud",
+      written: "1899",
+      year: 1899,
+      translator: "A. A. Brill",
+      edition: "Authorised translation of the third edition, The Macmillan Company, New York, 1913",
+      /* A LIMITED licence: public domain in the US (1913) and wherever copyright runs life + 75 or less, since
+         Brill died in 1948 — not yet where it runs life + 80. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where A. A. Brill's translation was published in 1913. Sigmund " +
+        "Freud died in 1939 and Brill in 1948, so it is also out of copyright in countries where copyright " +
+        "lasts for the author's life plus seventy-five years or less. The text is the validated Wikisource " +
+        "transcription of the 1913 edition, from a scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Interpretation_of_Dreams_(Freud)",
+      /* NO `origLang`: de.wikisource has no page "Die Traumdeutung" (looked for, Nov 2026), and Brill translated
+         the third edition (1911), so any German beside it would have to be that edition to pair. Eight chapters — Freud's seven and the Literary Index his raised numbers refer to. No `parts`. */
+      chapterWord: "Chapter",
+      count: 8,
+      total: 8,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 8 chapters
+         (every `.ttip`, 150 keys, Nov 2026). NAMESAKES: Freud's Abraham is the psychoanalyst Karl Abraham, his
+         Jodl the philosopher Friedrich Jodl, his Maine the philosopher Maine de Biran, his Pallas the virgin
+         goddess, his Mora Daudet's Duc de Mora, his Miss Lyons an English teacher, his "St. Paul's Cathedral, near
+         Rome" St Paul Outside the Walls, not the apostle; the rose of Jericho is a plant; "Saxony (Anglo-Saxon)" is
+         a pun; "sexual selection" is the parents' preference for a child of the other sex, not Darwin's; the
+         children of Israel are the biblical people; the Czech of his Moravian childhood and the Turkish drawings
+         are not the modern states. IN THE LITERARY INDEX, words of titles: Italian "Sui", French "Évolution",
+         "Taste Dreams", "The Pathology of Mind", the American Journal of Psychology. */
+      glossOff: ["Abraham", "Alfred_Jodl", "Maine", "Marcus_Antonius_Pallas", "Mora_(military_unit)", "Lyon",
+        "St._Paul", "Jericho", "Anglo-Saxon_England", "Sexual_selection", "Israel", "Czech_Republic", "Turkey",
+        "Sui_dynasty", "Evolution", "Taste", "Pathology", "Psychology"],
     },
     {
       id: "petrie-egyptian-tales",
@@ -27529,6 +27574,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
     { book: "quran", n: 1, t: "The Opening", p: 1,
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
+    { book: "freud-interpretation-of-dreams", n: 7, t: "VII. The Psychology of the Dream Activities", p: 160,
+      text: "At any rate the interpretation of dreams is the via regia to a knowledge of the unconscious in the psychic life." },
     { book: "douglass-narrative", n: 12, t: "Chapter X", p: 11,
       text: "This battle with Mr. Covey was the turning-point in my career as a slave. It rekindled the few expiring embers of freedom, and revived within me a sense of my own manhood. It recalled the departed self-confidence, and inspired me again with a determination to be free. The gratification afforded by the triumph was a full compensation for whatever else might follow, even death itself. He only can understand the deep satisfaction which I experienced, who has himself repelled by force the bloody arm of slavery. I felt as I never felt before. It was a glorious resurrection, from the tomb of slavery, to the heaven of freedom. My long-crushed spirit rose, cowardice departed, bold defiance took its place; and I now resolved that, however long I might remain a slave in form, the day had passed forever when I could be a slave in fact." },
     { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
