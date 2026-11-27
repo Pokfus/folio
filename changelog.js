@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1427", released: "2026-11-27T20:34Z" };
+window.FOLIO_VERSION = { v: "1.1428", released: "2026-11-27T20:42Z" };
 
 window.CHANGELOG = [
   {
@@ -48,6 +48,7 @@ window.CHANGELOG = [
       "The Greek alphabet deck gains <b>ten reading rules</b> and cites its sounds; <b>Greek A1</b> now opens with the greetings and shows each word's pronunciation.",
       "<b>Find it</b> no longer turns the globe to a past state before you guess, says when a year's map is still drawing, and lights a pick's outline with its fill.",
       "Twenty-one books join the Library, among them <b>The Tempest</b>, the <b>Communist Manifesto</b>, the US <b>Constitution</b>, the <b>Xunzi</b> and <b>The Chronicle of Novgorod</b>.",
+      "Five texts that had dropped off the Library shelf are back: the <b>Res Gestae</b>, <b>Jerome's Letters</b>, Erman's Egyptian literature, Douglass's <b>Narrative</b> and Ebbinghaus's <b>Memory</b>.",
       "<b>Old English Level 1</b> now shows sē's whole table, bēon's present and Ælfric's own sentences with their page; the alphabet deck cites its sounds and gains <b>eight reading rules</b>.",
       "Swahili gains a <b>Sounds and spelling</b> deck; <b>Swahili A1</b> now opens with hujambo, every verb shows its tenses and every agreeing word five noun classes.",
     ],

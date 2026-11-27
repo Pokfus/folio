@@ -16780,7 +16780,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
-    },    {
+    },
+    {
       id: "declaration-of-independence",
       title: "The Declaration of Independence",
       subtitle: "In Congress, July 4, 1776",
@@ -17646,6 +17647,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Germany", "Spain", "Italy", "Egypt", "Syria", "Armenia", "India", "Ethiopia", "Asia", "Africa",
         "Julius_Caesar", "Nero", "Lucretius", "Marcus_Licinius_Crassus", "Quintus_Fabius_Maximus", "Libertus",
         "Augusta", "Embassy"],
+    },
+    {
       id: "descartes-discourse-on-method",
       title: "Discourse on the Method",
       subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
@@ -17782,6 +17785,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 4, label: "Bethlehem, from 401", note: "Letters 96–144 · Augustine, the sack of Rome, the Pelagians" },
         { n: 5, label: "Of uncertain date", note: "Letters 145–150 · three of them not his" },
       ],
+    },
+    {
       id: "euclid-elements",
       title: "The Elements",
       subtitle: "Books I–VI, XI and XII",
@@ -17930,6 +17935,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 4, label: "III. From the New Kingdom" },
         { n: 5, label: "Explanatory Notes" },
       ],
+    },
+    {
       id: "james-principles-of-psychology",
       title: "The Principles of Psychology",
       author: "William James",
@@ -18180,6 +18187,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          and Newport. */
       glossOff: ["Lucretia", "Noah", "Austin", "Augustus", "Stanley,_Falkland_Islands", "Richmond", "Cat", "Water",
         "Providence", "Italic_peoples", "Sparta", "Israel", "India"],
+    },
+    {
       id: "paine-common-sense",
       title: "Common Sense",
       subtitle: "Addressed to the Inhabitants of America",
@@ -18208,7 +18217,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
       glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
         "House_of_Commons_of_the_United_Kingdom"],
-    },    {
+    },
+    {
       id: "us-constitution",
       title: "The Constitution of the United States",
       subtitle: "Signed in Convention at Philadelphia, September 17, 1787",
@@ -18352,6 +18362,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          (every `.ttip`, 10 keys, Nov 2026): the series "designated with Roman numbers and the separate syllables
          with Arabic" are numerals, not the language. */
       glossOff: ["Arabic"],
+    },
+    {
       id: "breasted-ancient-records",
       title: "Ancient Records of Egypt",
       subtitle: "Historical Documents from the Earliest Times to the Persian Conquest",
