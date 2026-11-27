@@ -23351,6 +23351,229 @@ const BOOKS = {
     // the base page cut in two, the cover and advertisements dropped, the centred heads — see manifestoPrep
     prep: "manifesto",
   },
+  "breasted-ancient-records": {
+    title: "Ancient Records of Egypt",
+    subtitle: "Historical Documents from the Earliest Times to the Persian Conquest",
+    author: "James Henry Breasted",
+    edition:
+      "Ancient Records of Egypt: Historical Documents from the Earliest Times to the Persian Conquest, " +
+      "collected, edited and translated with commentary, 4 vols., University of Chicago Press, Chicago, 1906",
+    /* The documents span Egyptian history from the Fourth Dynasty (Snefru's Sinai inscriptions, conventionally
+       c. 2600 BCE) to Amasis, the last king before the Persian conquest of 525 BCE. `year` is the start, the
+       single number the shelf's date sort needs; the span is in `written`. The dates are today's conventional
+       ones, NOT Breasted's: his own table (Vol. I, §§ 58–75) puts Menes at 3400 BC and the Fourth Dynasty at
+       2900, some three centuries above the dates used now, and the front matter says so. */
+    written: "c. 2600–525 BCE; translated 1906",
+    year: -2600,
+
+    /* ---------- THE LICENCE — one modern layer, and a limit to state ----------
+       The inscriptions are ancient. The modern layer is Breasted's: the translations, the introductions and the
+       notes, published by the University of Chicago Press in four volumes in 1906 (the copyright pages read
+       "Published February 1906", March, May and July; the index volume followed in February 1907). Breasted
+       lived 27 August 1865 – 2 December 1935 (Wikipedia's infobox; Wikisource's Author page tags him PD/US with
+       a death year of 1935). So the text is public domain in the United States on the pre-1929 publication
+       rule, cleared life plus seventy in 2006, and stays in copyright until 2036 where the term is life plus a
+       hundred.
+
+       WHAT IS TAKEN. Volumes I–IV whole, from the first § of each to its last: the introduction (documentary
+       sources, chronology, the chronological table) and every document with Breasted's commentary and notes.
+       NOT TAKEN: the front matter (preface, the table of contents of all four volumes, the list of figures,
+       the explanation of signs), the figures themselves (plans and drawings of reliefs; the Library is text
+       only) and Volume V, the indices, whose page references point into a printing this reader does not keep.
+
+       THE SOURCE IS A MACHINE READING, NOT A TRANSCRIPTION — see the `breasted` layout's comment for the scans
+       and why these four, and the front matter for what a reader should expect. */
+    rights:
+      "Public domain, with one limit. The documents are ancient; the modern layer is James Henry Breasted's " +
+      "translations, introductions and notes, published in Chicago in 1906, so it is out of copyright in the " +
+      "United States under the rule for works published before 1929. Breasted lived from 1865 to 1935, so it " +
+      "also cleared the author's life plus seventy years in 2006; where the term is life plus a hundred it " +
+      "remains in copyright until 2036. The text is read by machine from the Internet Archive's scans of the " +
+      "Getty Research Institute's copies of Volumes I–III and the Archive's own copy of Volume IV. The front " +
+      "matter, the figures and the index volume are not reproduced.",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/ancientrecordsof01brea_0",
+
+    /* THE FRONT MATTER — chapter 0. Every fact about Breasted and the edition is a matter of record; the
+       limitations are measured on this text by the importer, whose counts are printed on every run. */
+    about: [
+      "<b>Ancient Records of Egypt</b> is James Henry Breasted's English translation of every Egyptian " +
+        "historical document known to him, from the earliest times to the Persian conquest of 525 BCE, each " +
+        "with an introduction and notes. It runs from the Palermo Stone's annals of the first kings to the " +
+        "stelae of the last pharaohs before Cambyses, and between them are most of the texts any history of " +
+        "ancient Egypt still quotes: the autobiographies of Uni and Harkhuf, the annals of Thutmose III and " +
+        "the battle of Megiddo, Hatshepsut's expedition to Punt, the boundary stelae of Ikhnaton's new city, " +
+        "Ramses II's battle of Kadesh and his treaty with the Hittites, Merneptah's hymn of victory, the great " +
+        "Papyrus Harris, the trial of the conspirators against Ramses III, the report of Wenamon and the " +
+        "victory stela of Piankhi.",
+      "Breasted, born in Illinois in 1865, studied Egyptology at Berlin and became the first American to " +
+        "take a doctorate in the subject. He spent his career at the University of Chicago, where in 1919 he " +
+        "founded the Oriental Institute. The four volumes of documents appeared in 1906, with a volume of " +
+        "indices in 1907, and they were the first attempt to put the whole historical record of Egypt into " +
+        "one language and one numbered sequence. That sequence is still how the texts are cited: a reference " +
+        "like \"BAR II, 312\" means this work, Volume II, paragraph 312, and the paragraph numbers are kept " +
+        "here as the section marks in the margin. Each volume numbers its paragraphs afresh.",
+      "It is also a book of 1906, and reads like one. The names are spelt as Breasted spelt them, so " +
+        "Akhenaten is Ikhnaton, Horemheb is Harmhab, Wenamun is Wenamon and Piye is Piankhi. His chronology " +
+        "is higher than the one used today: he dates Menes to 3400 BC and the Fourth Dynasty to 2900, where " +
+        "most historians now put them some three centuries later. Many of his readings have been improved " +
+        "since. Read the commentary as the judgement of its time, and the translations as the work of the scholar who made the field " +
+        "readable in English.",
+      "Breasted's own signs are kept. Half-brackets ⌈ ⌉ enclose words whose translation he thought " +
+        "uncertain; square brackets enclose restorations; runs of dashes stand for words lost in the " +
+        "original, roughly one dash to a word. The small numbers he printed through the translations, marking " +
+        "the lines of the original monument, are not reproduced, and neither are the special signs of his " +
+        "transliterations, which the scans do not preserve; his italics are lost as well.",
+      "No one has ever transcribed this book. What you are reading was taken by a program from the " +
+        "Internet Archive's machine reading of four scanned volumes, and it has not been proofread by a " +
+        "person, so expect the scanner's slips: a misread letter, a figure for a letter, a word run into " +
+        "the next. Breasted lettered his notes afresh on every printed page, and the program matched each " +
+        "note to its mark by that sequence; where it could not find the mark, about one note in fourteen, " +
+        "the note is attached at the end of the text of its own page. The tables — the Palermo Stone, the " +
+        "chronological table, Papyrus Harris's lists of gifts — come through least well, as rows of " +
+        "figures that have lost their columns.",
+    ],
+
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 94 }, (_, i) => i + 1),
+    titleOf: (n) => BOOKS["breasted-ancient-records"].plan[n - 1][2],
+    // the shortest reigns run to a single paragraph (Menkuhor, §263)
+    minChars: 400,
+    layout: "breasted",
+    /* The four scans, each the Archive's character-level OCR, and the leaves the text occupies. The fourth is
+       a Tesseract reading whose word confidences mean something, so its figure pages are filtered (see the
+       layout's comment); the first three are FineReader readings, where that filter removed real lines. */
+    volumes: [
+      { url: "https://archive.org/download/ancientrecordsof01brea_0/ancientrecordsof01brea_0_chocr.html.gz", fromLeaf: 47, toLeaf: 390 },
+      { url: "https://archive.org/download/ancientrecordsof02brea_0/ancientrecordsof02brea_0_chocr.html.gz", fromLeaf: 33, toLeaf: 460 },
+      { url: "https://archive.org/download/ancientrecordsof03brea_0/ancientrecordsof03brea_0_chocr.html.gz", fromLeaf: 35, toLeaf: 313 },
+      { url: "https://archive.org/download/ancientrecordsof0004jame_k7s1/ancientrecordsof0004jame_k7s1_chocr.html.gz", fromLeaf: 33, toLeaf: 552, noiseFilter: true },
+    ],
+    /* The parts are the top-level heads of Breasted's table of contents (Vol. I, pp. xix–xlii, which lists
+       all four volumes); the chapters are its reigns. */
+    parts: [
+      { n: 1, label: "Introduction", from: 1, to: 3 },
+      { n: 2, label: "The Palermo Stone: the First to the Fifth Dynasties", from: 4, to: 4 },
+      { n: 3, label: "The Third Dynasty", from: 5, to: 5 },
+      { n: 4, label: "The Fourth Dynasty", from: 6, to: 8 },
+      { n: 5, label: "The Fifth Dynasty", from: 9, to: 14 },
+      { n: 6, label: "The Sixth Dynasty", from: 15, to: 20 },
+      { n: 7, label: "The Ninth and Tenth Dynasties", from: 21, to: 21 },
+      { n: 8, label: "The Eleventh Dynasty", from: 22, to: 23 },
+      { n: 9, label: "The Twelfth Dynasty", from: 24, to: 30 },
+      { n: 10, label: "From the Thirteenth Dynasty to the Hyksos", from: 31, to: 34 },
+      { n: 11, label: "The Eighteenth Dynasty", from: 35, to: 50 },
+      { n: 12, label: "The Nineteenth Dynasty", from: 51, to: 59 },
+      { n: 13, label: "The Twentieth Dynasty", from: 60, to: 69 },
+      { n: 14, label: "The Twenty-First Dynasty", from: 70, to: 73 },
+      { n: 15, label: "The Twenty-Second Dynasty", from: 74, to: 82 },
+      { n: 16, label: "The Twenty-Third Dynasty", from: 83, to: 84 },
+      { n: 17, label: "The Twenty-Fourth Dynasty", from: 85, to: 85 },
+      { n: 18, label: "The Twenty-Fifth Dynasty", from: 86, to: 89 },
+      { n: 19, label: "The Twenty-Sixth Dynasty", from: 90, to: 94 },
+    ],
+    /* [volume, the § the chapter opens on, its title, and — where the machine misread that § — Breasted's
+       heading to cut at instead]. Transcribed from the table of contents; the four longest reigns (Thutmose III
+       and Hatshepsut, Thutmose III, Ramses II, Ramses III) are cut again at the documents it lists, each part
+       titled by the reign and its first document. Osorkon III's single paragraph (IV, 795) stays under its
+       dynasty's head, as do the eleventh-dynasty reigns of a paragraph or two (I, 421–433). */
+    plan: [
+      [1, 1, "The Documentary Sources of Egyptian History"],
+      [1, 38, "Chronology"],
+      [1, 58, "Chronological Table"],
+      [1, 76, "The Palermo Stone"],
+      [1, 168, "Reign of Snefru"],
+      [1, 176, "Reign of Khufu"],
+      [1, 188, "Reign of Khafre"],
+      [1, 210, "Reign of Menkure"],
+      [1, 213, "Reign of Userkaf"],
+      [1, 236, "Reign of Sahure"],
+      [1, 242, "Reign of Neferirkere"],
+      [1, 250, "Reign of Nuserre"],
+      [1, 263, "Reign of Menkuhor"],
+      [1, 264, "Reign of Dedkere-Isesi"],
+      [1, 282, "Reign of Teti"],
+      [1, 295, "Reign of Pepi I"],
+      [1, 316, "Reign of Mernere"],
+      [1, 337, "Reign of Pepi II"],
+      [1, 386, "Reign of Ity"],
+      [1, 388, "Reign of Imhotep"],
+      [1, 391, "The Ninth and Tenth Dynasties: Inscriptions of Siut"],
+      [1, 415, "The Eleventh Dynasty"],
+      [1, 434, "Reign of Nibtowere-Mentuhotep IV"],
+      [1, 460, "Chronology of the Twelfth Dynasty", "CHRONOLOGY OF THE TWELFTH"],
+      [1, 463, "Reign of Amenemhet I"],
+      [1, 498, "Reign of Sesostris I"],
+      [1, 594, "Reign of Amenemhet II"],
+      [1, 614, "Reign of Sesostris II"],
+      [1, 640, "Reign of Sesostris III"],
+      [1, 749, "Reign of Amenemhet IV"],
+      [1, 751, "Reign of Sekhemre-Khutowe"],
+      [1, 753, "Reign of Neferhotep"],
+      [1, 773, "Reign of Nubkheprure-Intef"],
+      [1, 781, "Reign of Khenzer"],
+      [2, 1, "Reign of Ahmose I"],
+      [2, 38, "Reign of Amenhotep I"],
+      [2, 54, "Reign of Thutmose I"],
+      [2, 115, "Reign of Thutmose II"],
+      [2, 128, "Reign of Thutmose III and Hatshepsut"],
+      [2, 246, "Thutmose III and Hatshepsut: The Punt Reliefs"],
+      [2, 296, "Thutmose III and Hatshepsut: Inscription of the Speos Artemidos"],
+      [2, 391, "Reign of Thutmose III: The Annals"],
+      [2, 541, "Thutmose III: Feasts and Offerings from the Conquests"],
+      [2, 663, "Thutmose III: Tomb of Rekhmire"],
+      [2, 780, "Reign of Amenhotep II"],
+      [2, 810, "Reign of Thutmose IV"],
+      [2, 841, "Reign of Amenhotep III"],
+      [2, 932, "Reign of Ikhnaton"],
+      [2, 1019, "Reign of Tutenkhamon"],
+      [2, 1042, "Reign of Eye"],
+      [3, 1, "Reign of Harmhab"],
+      [3, 74, "Reign of Ramses I"],
+      [3, 80, "Reign of Seti I"],
+      [3, 251, "Reign of Ramses II"],
+      [3, 294, "Ramses II: The Asiatic War"],
+      [3, 392, "Ramses II: Relations of Egypt with the Hittites after the War"],
+      [3, 492, "Ramses II: Building Inscriptions"],
+      [3, 569, "Reign of Merneptah"],
+      [3, 639, "Reign of Siptah"],
+      [4, 1, "Reign of Ramses III"],
+      [4, 59, "Ramses III: Northern War, Year 8"],
+      [4, 151, "Ramses III: Papyrus Harris"],
+      [4, 416, "Ramses III: Records of the Harem Conspiracy"],
+      [4, 457, "Reign of Ramses IV"],
+      [4, 473, "Reign of Ramses V"],
+      [4, 474, "Reign of Ramses VI"],
+      [4, 484, "Reign of Ramses VII"],
+      [4, 486, "Reign of Ramses IX"],
+      [4, 557, "Reign of Ramses XII"],
+      [4, 604, "The Twenty-First Dynasty"],
+      [4, 608, "Reign of Hrihor"],
+      [4, 627, "Reign of Nesubenebded"],
+      [4, 631, "Reign of the High Priest and King Paynozem I"],
+      [4, 693, "The Twenty-Second Dynasty"],
+      [4, 699, "Reign of Sheshonk I"],
+      [4, 729, "Reign of Osorkon I"],
+      [4, 738, "Reign of Takelot I"],
+      [4, 742, "Reign of Osorkon II"],
+      [4, 752, "Reign of Takelot II"],
+      [4, 756, "Reign of Sheshonk III"],
+      [4, 778, "Reign of Pemou"],
+      [4, 782, "Reign of Sheshonk IV"],
+      [4, 793, "The Twenty-Third Dynasty"],
+      [4, 796, "Reign of Piankhi"],
+      [4, 884, "Reign of Bocchoris"],
+      [4, 885, "The Twenty-Fifth Dynasty"],
+      [4, 889, "Reign of Shabaka"],
+      [4, 892, "Reign of Taharka"],
+      [4, 919, "Reign of Tanutamon"],
+      [4, 935, "Reign of Psamtik I"],
+      [4, 974, "Reign of Necho"],
+      [4, 981, "Reign of Psamtik II"],
+      [4, 984, "Reign of Apries"],
+      [4, 996, "Reign of Amasis (Ahmose II)"],
+    ],
+  },
 };
 
 /* ---------- args ---------- */
@@ -36736,6 +36959,529 @@ function extractPgLinknote(h, BOOK, warn) {
   return { chapters: out, counts: c };
 }
 
+/* ============================================================
+   A SCHOLAR'S CORPUS READ OFF THE SCANS' GLYPH BOXES              (layout: "breasted")
+   ============================================================
+   Nov 2026, adding James Henry Breasted's Ancient Records of Egypt (Chicago, 1906). Four volumes, some
+   1,700 printed pages, and no transcription anywhere: English Wikisource has the Vol. I scan unproofread
+   (two pages made) and nothing else. So the text is read off the Internet Archive's character-level OCR
+   (`_chocr.html`), one file per volume, and every structural decision is taken from WHERE each glyph
+   stands on the page rather than from what the machine thought it was. What was measured and decided:
+
+   · THE SCANS WERE CHOSEN FOR COMPLETENESS FIRST. The best-read copy (`BreastedJ.H.AncientRecords…`, a
+     compiled PDF of all five volumes) is missing pages: Vol. II §§ 178–233 are gone with a block of other
+     pages duplicated in their place, and Vols. I and IV drift by 15 and 34 pages. Its 2026 re-OCR
+     (`ancient-records-of-egypt-volume-4`) is the same scan. Cornell's 2007 copies are complete but read
+     by FineReader 8 ("Hke" for like, "oj" for of, the note letters as junk). The Getty Research
+     Institute's 2015 scans (Vols. I–III) and the Archive's own 2026 scan of Vol. IV are complete by
+     their detected page numbers and read as well as the compiled PDF.
+   · SIZE IS MEASURED AGAINST THE PRINTED MEASURE, never in pixels. The four scans are at three
+     resolutions; an x-height divided by the column width is the same in all of them and falls in three
+     clean clusters: about 13 (the notes, 8-point), 16 (the translations, 10-point) and 19 (Breasted's
+     introductions, 12-point) thousandths. The notes are the trailing run of small rows at a page's foot.
+   · A RAISED GLYPH IS FOUND BY ITS BOTTOM, against the row's own baseline (the median bottom of its
+     x-height letters). That one test finds Breasted's three superscripts — the note letters, the line
+     numbers of the original, and his half-brackets ⌈ ⌉, which the machine reads as a raised r (or f, t)
+     and a raised 1 (or l, i, !). A raised run of figures is a line number and is dropped; a raised r
+     before a word and a raised 1 after one become ⌈ and ⌉. A raised glyph INSIDE a word is the
+     machine's noise and is kept as read. A figure that merely looks small is NOT a line number: this
+     printing uses old-style figures, so 0, 1 and 2 are x-height on the baseline — a first version that
+     dropped small figures deleted the digits of real section numbers (604 read as 64).
+   · THE NOTES ARE LETTERED a, b, c… AFRESH ON EVERY PAGE, and that is what anchors them. The page's notes
+     are split (a note opens on an indented row, or at a far segment where two short notes share a row,
+     beginning with its mark), the body's candidate marks are gathered (raised letters, raised symbols the
+     machine read for a letter, a letter glued after punctuation, a letter glued before a capital), and a
+     monotone alignment of the two sequences picks the best placement, an exact letter scoring above a
+     wildcard and a note left unplaced costing more than either. A note the alignment cannot place is
+     anchored at the end of its own page's text, so it is never lost and never moves to another page.
+     A raised quotation mark is a candidate only at a word's end, never inside one ("day's").
+   · A WORD THE CONVERSION GLUED TO ITS NEIGHBOUR is split where its glyphs stand apart (more than 0.55 of
+     an x-height): the hyphenated line breaks came through as "pre-sentedmay".
+   · THE SECTIONS ARE BREASTED'S § NUMBERS, the citation every later scholar uses ("II, 312"). A paragraph
+     opening on a number is a section when the number moves the volume's count forward by 1–60, so a
+     year or a list item is not taken; the period may be read as * - , : ’ ”. Each volume restarts at 1.
+   · THE CHAPTERS ARE THE REIGNS of Breasted's own table of contents, with the dynasties as parts, cut at
+     the § each opens on; the four longest reigns are cut again at his document headings. Where the
+     machine misread the number, the cut falls at his heading instead ("REIGN OF TAHARKA").
+   · A FIGURE PAGE READ AS TEXT is dropped only in the Tesseract volume, where the word confidences mean
+     something: a row under 50% confidence with no figure in it and few real words. Applied to the
+     FineReader volumes it removed real transliteration lines, so it is not. */
+
+const brEnt = (s) => s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+  .replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+const brMedian = (a) => { if (!a.length) return 0; const s = a.slice().sort((x, y) => x - y); return s[s.length >> 1]; };
+const brNorm = (w) => w.toLowerCase().replace(/[^a-z]/g, "");
+const BR_XCH = /[acemnorsuvwxz]/;
+const BR_NOTE_MAX = 14.3; // thousandths of the measure: the notes' x-height is about 13, the translations' 16
+const BR_LET = "abcdefghijklmnopqrstuvwxyz";
+
+/* One page of character hOCR → lines → words → glyphs. Both flavours: FineReader-derived and Tesseract. */
+function brParsePage(p) {
+  const lines = [];
+  const re = /<span class="(ocr_line|ocr_caption|ocr_textfloat|ocr_header|ocrx_word|ocrx_cinfo)"[^>]*title="([^"]*)"[^>]*>([^<]*)/g;
+  let m, L = null, W = null;
+  while ((m = re.exec(p))) {
+    const cls = m[1], t = m[2];
+    const bb = t.match(/(?:bbox|x_bboxes) (\d+) (\d+) (\d+) (\d+)/);
+    if (!bb) continue;
+    const box = { l: +bb[1], t: +bb[2], r: +bb[3], b: +bb[4] };
+    if (cls === "ocrx_word") {
+      if (!L) continue;
+      W = Object.assign(box, { conf: +((t.match(/x_wconf (\d+)/) || [0, 0])[1]), chars: [], s: "" });
+      L.words.push(W);
+    } else if (cls === "ocrx_cinfo") {
+      if (!W) continue;
+      const ch = brEnt(m[3]);
+      if (!ch.trim()) continue;
+      W.chars.push(Object.assign(box, { ch }));
+      W.s += ch;
+    } else {
+      L = Object.assign(box, { words: [] });
+      lines.push(L);
+      W = null;
+    }
+  }
+  return lines.filter((l) => l.words.length);
+}
+
+/* Lines → printed rows (segments that overlap vertically), with baseline, x-height and raised glyphs. */
+function brRows(lines) {
+  const segs = lines.slice().sort((a, b) => a.t - b.t || a.l - b.l);
+  const rows = [];
+  for (const s of segs) {
+    const mid = (s.t + s.b) / 2;
+    let row = rows.find((r) => mid > r.t && mid < r.b);
+    if (!row) { row = { t: s.t, b: s.b, segs: [] }; rows.push(row); }
+    row.segs.push(s);
+    row.t = Math.min(row.t, s.t); row.b = Math.max(row.b, s.b);
+  }
+  rows.sort((a, b) => a.t - b.t);
+  for (const r of rows) {
+    r.segs.sort((a, b) => a.l - b.l);
+    const words = [].concat(...r.segs.map((s) => s.words)).sort((a, b) => a.l - b.l);
+    const all = [].concat(...words.map((w) => w.chars));
+    const xh0 = brMedian(all.filter((c) => BR_XCH.test(c.ch)).map((c) => c.b - c.t)) || (r.b - r.t) * 0.4;
+    // a word the conversion glued to its neighbour ("sentedmay"): split where the glyphs stand apart
+    r.words = [];
+    for (const w of words) {
+      let cur = null;
+      w.chars.forEach((c, i) => {
+        if (!cur || c.l - w.chars[i - 1].r > xh0 * 0.55) {
+          cur = { l: c.l, t: w.t, r: c.r, b: w.b, conf: w.conf, chars: [], s: "" };
+          r.words.push(cur);
+        }
+        cur.chars.push(c); cur.s += c.ch; cur.r = c.r;
+      });
+    }
+    r.l = r.words[0].l; r.r = Math.max(...r.words.map((w) => w.r));
+    const xs = all.filter((c) => BR_XCH.test(c.ch));
+    r.base = brMedian(xs.map((c) => c.b));
+    r.xh = xs.length >= 3 ? brMedian(xs.map((c) => c.b - c.t)) : 0;
+    if (xs.length < 3) r.base = brMedian(all.map((c) => c.b));
+    for (const w of r.words) for (const c of w.chars)
+      c.up = r.xh > 0 && (c.b - c.t) < r.xh * 1.25 && (
+        (/[A-Za-z0-9*®©°^]/.test(c.ch) && r.base - c.b > r.xh * 0.42) ||
+        // a superscript the machine read as punctuation: as tall as a small letter, and lifted
+        (/[?!'‘’]/.test(c.ch) && r.base - c.b > r.xh * 0.35 && c.b - c.t > r.xh * 0.5 && c.b - c.t < r.xh));
+    r.text = r.words.map((w) => w.s).join(" ");
+  }
+  return rows;
+}
+
+function brMeasure(pages) {
+  const ms = [];
+  for (let i = 0; i < pages.length; i += 3) {
+    const rows = brRows(brParsePage(pages[i]));
+    if (rows.length < 15) continue;
+    const rs = rows.map((r) => r.r);
+    const left = brMedian(rows.map((r) => r.l)), right = Math.max(...rs.filter((x) => x < brMedian(rs) * 1.08));
+    ms.push(right - left);
+  }
+  return brMedian(ms);
+}
+
+function brGeom(rows, measure) {
+  const ls = rows.filter((r) => r.r - r.l > measure * 0.7).map((r) => r.l);
+  return ls.length ? brMedian(ls) : brMedian(rows.map((r) => r.l));
+}
+
+/* A page's rows → running head, body rows, note rows; indents in thousandths of the measure. */
+function brClassify(rows, measure, opts, counts) {
+  const res = { head: null, body: [], notes: [] };
+  if (!rows.length) return res;
+  const U = measure / 1000;
+  rows.forEach((r) => { r.size = r.xh / U; });
+  let i = 0;
+  const top = rows[0];
+  const toks = top.text.trim().split(/\s+/);
+  const numTok = (t) => t && t.length <= 4 && /\d/.test(t);
+  // the running head carries a page number or a [§ mark — a reign title ending in "I" does not count
+  if (/§\s*[\dIilOS]|[\[|(]\s*[§$]\s*[\dIilOS]|^\s*\$\s*\d/.test(top.text) || numTok(toks[0]) || numTok(toks[toks.length - 1])) {
+    res.head = top.text; i = 1;
+    while (rows[i] && rows[i].t < top.b + (top.b - top.t) * 0.6 && /§|^\[|^[\dIilO]+$/.test(rows[i].text.trim())) i++;
+  }
+  let body = rows.slice(i).filter((r) => !(r.text.trim().length <= 5 && /^[\dIilOXxv|]+$/.test(r.text.trim())));
+  if (opts.noiseFilter) body = body.filter((r) => {
+    const cs = r.words.map((w) => w.conf).sort((a, b) => a - b);
+    const mc = cs[cs.length >> 1];
+    if (mc >= 60) return true;
+    const ws = r.words.map((w) => brNorm(w.s)).filter((w) => w.length >= 3);
+    const real = ws.filter((w) => (opts.vocab[w] || 0) >= 3).length;
+    const lens = r.words.map((w) => w.s.length).sort((a, b) => a - b);
+    const confetti = r.words.length >= 5 && lens[lens.length >> 1] <= 2 && !/\d/.test(r.text) && real <= Math.max(1, ws.length * 0.3);
+    const keep = !confetti && (ws.length < 3 || /\d/.test(r.text) || mc >= 50 || real / ws.length >= 0.25);
+    if (!keep) counts.figureRows++;
+    return keep;
+  });
+  // the notes: walk up from the foot while the rows are small type (a stray short or unsized row is let through)
+  let k = body.length;
+  const small = (r) => r.size > 0 && r.size < BR_NOTE_MAX;
+  const short = (r) => r.r - r.l < measure * 0.5;
+  while (k > 0 && (small(body[k - 1]) || ((body[k - 1].size === 0 || short(body[k - 1])) && [2, 3, 4].some((d) => k >= d && small(body[k - d]))))) k--;
+  res.body = body.slice(0, k);
+  res.notes = body.slice(k);
+  if (res.notes.length) {
+    const nl = Math.min(...res.notes.map((r) => r.l));
+    res.notes.forEach((r) => (r.ind = (r.l - nl) / U));
+  }
+  if (res.body.length) {
+    const left = brGeom(res.body, measure);
+    res.body.forEach((r) => {
+      r.ind = (r.l - left) / U;
+      r.rgap = (left + measure - r.r) / U;
+      r.centred = r.ind > 40 && r.rgap > 40 && Math.abs(r.ind - r.rgap) < 80;
+    });
+  }
+  return res;
+}
+
+/* A word → pieces: [{k:"t"}] plain and [{k:"up"}] raised, in order. */
+function brPieces(w) {
+  const out = [];
+  for (const c of w.chars) {
+    const k = c.up ? "up" : "t";
+    const last = out[out.length - 1];
+    if (last && last.k === k) last.s += c.ch; else out.push({ k, s: c.ch });
+  }
+  return out;
+}
+
+function brJoin(a, b) {
+  if (/[a-z]-\s*$/.test(a) && /^\s*[a-z]/.test(b)) return a.replace(/-\s*$/, "") + b.replace(/^\s+/, "");
+  if (/-\s*$/.test(a)) return a.replace(/\s+$/, "") + b.replace(/^\s+/, "");
+  return a.replace(/\s*$/, " ") + b.replace(/^\s+/, "");
+}
+
+/* The note rows → notes. A note opens on an indented row, or at a far segment, beginning with its mark. */
+function brPageNotes(pg) {
+  const out = [];
+  const markAt = (ps) => {
+    if (!ps.length || !ps[0].s) return null;
+    if (ps[0].k === "up" && /^[a-zA-Z*®©^]/.test(ps[0].s)) return { raised: true };
+    if (/^[a-z*®©^](?=[A-Z“"‘'(\[§\d])/.test(ps[0].s)) return { cut: 1 };
+    if (/^[a-z]$/.test(ps[0].s) && ps[1] && ps[1].k === "sp" && ps[2] && /^[A-Z“"‘(\[§\d]/.test(ps[2].s)) return { cut: 1 };
+    return null;
+  };
+  pg.notes.forEach((r) => {
+    const segs = [];
+    let cur = null;
+    r.words.forEach((w) => {
+      if (!cur || w.l - cur.r > (r.b - r.t) * 2.2) { cur = { r: w.r, words: [] }; segs.push(cur); }
+      cur.words.push(w); cur.r = w.r;
+    });
+    segs.forEach((sg, si) => {
+      const ps = [].concat(...sg.words.map((w, i) => (i ? [{ k: "sp", s: " " }] : []).concat(brPieces(w))));
+      const mk = markAt(ps);
+      let text = ps.map((p) => (p.k === "up" ? "\u0001" + p.s + "\u0002" : p.s)).join("");
+      if (mk && (si > 0 || r.ind > 25)) {
+        text = mk.raised ? text.replace(/^\u0001[^\u0002]*\u0002\s*/, "") : text.slice(mk.cut).replace(/^\s+/, "");
+        out.push({ text });
+      } else if (out.length) out[out.length - 1].text = brJoin(out[out.length - 1].text, text);
+      else out.push({ text, cont: true });
+    });
+  });
+  // raised glyphs inside a note are kept as read: a note has no marks of its own to place
+  out.forEach((n) => (n.text = n.text.replace(/[\u0001\u0002]/g, "").replace(/\s+/g, " ").trim()));
+  return out;
+}
+
+/* A body word's candidate marks, with scores for the alignment. */
+function brCandidates(ps, vocab) {
+  const c = [];
+  ps.forEach((p, i) => {
+    if (p.k !== "up") return;
+    if (/^\d+$/.test(p.s) && !(p.s === "0" && i === ps.length - 1)) return; // a line number
+    const before = ps.slice(0, i).map((q) => q.s).join(""), after = ps.slice(i + 1).map((q) => q.s).join("");
+    const bracketish = (/^[rft]$/.test(p.s) && /^[A-Za-z]/.test(after)) || (/^[1li!]$/.test(p.s) && /[A-Za-z]$/.test(before));
+    if (/^['‘’]+$/.test(p.s) && (after || !/[A-Za-z.,;:!?)\]]$/.test(before))) return; // an apostrophe or an opening quote
+    if (/^[a-z]/.test(p.s)) c.push({ letter: p.s[0], pi: i, score: bracketish ? 3 : 6 });
+    if (/^[a-zA-Z*®©°^0?!'‘’]/.test(p.s) && !bracketish) c.push({ letter: "?", pi: i, score: 2.5 });
+  });
+  const last = ps[ps.length - 1];
+  if (last && last.k === "t") {
+    let m;
+    if ((m = last.s.match(/[A-Za-z][.,;:!?’”"')\]]+([a-z])$/))) c.push({ letter: m[1], pi: ps.length - 1, tail: 1, score: 4 });
+    else if ((m = last.s.match(/^(.*[A-Za-z]{2,})([a-z])$/)) && ps.length === 1) {
+      const fs = vocab[brNorm(m[1])] || 0, ff = vocab[brNorm(last.s)] || 0;
+      if (fs >= 3 && ff * 4 < fs) c.push({ letter: m[2], pi: ps.length - 1, tail: 1, score: ff ? 1.5 : 3 });
+    }
+  }
+  if (ps.length === 1 && ps[0].k === "t" && /^[b-z]$/.test(ps[0].s)) c.push({ letter: ps[0].s, pi: 0, lone: 1, score: 3 });
+  if (ps[0] && ps[0].k === "t" && /^[a-z](?=[A-Z“"‘(])/.test(ps[0].s)) c.push({ letter: ps[0].s[0], pi: 0, head: 1, score: 4 });
+  return c;
+}
+
+/* The page's letters against its candidates: a monotone alignment, one candidate per glyph run. */
+function brAlign(tokens, n) {
+  const C = [];
+  tokens.forEach((t, ti) => t.cands.forEach((c) => C.push(Object.assign({ ti }, c))));
+  const m = C.length;
+  const first = C.map((c, j) => { let k = j; while (k > 0 && C[k - 1].ti === c.ti && C[k - 1].pi === c.pi) k--; return k; });
+  const dp = Array.from({ length: n + 1 }, () => new Float64Array(m + 1).fill(-1e9));
+  const bt = Array.from({ length: n + 1 }, () => new Int32Array(m + 1).fill(-1));
+  for (let j = 0; j <= m; j++) dp[0][j] = 0;
+  for (let i = 1; i <= n; i++) {
+    dp[i][0] = dp[i - 1][0] - 3; bt[i][0] = -2;
+    for (let j = 1; j <= m; j++) {
+      let best = dp[i][j - 1], b = -1;
+      if (dp[i - 1][j] - 3 > best) { best = dp[i - 1][j] - 3; b = -2; }
+      const c = C[j - 1];
+      if (c.letter === BR_LET[i - 1] || c.letter === "?") {
+        const v = dp[i - 1][first[j - 1]] + c.score;
+        if (v > best) { best = v; b = j - 1; }
+      }
+      dp[i][j] = best; bt[i][j] = b;
+    }
+  }
+  const assign = new Array(n).fill(null);
+  let i = n, j = m;
+  while (i > 0) {
+    const b = bt[i][j];
+    if (j === 0 || b === -2) { i--; continue; }
+    if (b === -1) { j--; continue; }
+    assign[i - 1] = C[b]; i--; j = first[b];
+  }
+  return assign;
+}
+
+/* A volume's pages → blocks (paragraphs and heads) holding placed marks, and the notes. */
+function brBuildVolume(pages, opts, counts) {
+  const blocks = [], notes = [];
+  let cur = null;
+  for (let leaf = opts.fromLeaf; leaf <= opts.toLeaf && leaf < pages.length; leaf++) {
+    const pg = brClassify(brRows(brParsePage(pages[leaf])), opts.measure, opts, counts);
+    if (!pg.body.length && !pg.notes.length) continue;
+    counts.pages++;
+    const pn = brPageNotes(pg);
+    const tokens = [];
+    pg.body.forEach((r, ri) => {
+      const prev = ri ? pg.body[ri - 1] : null;
+      const prevEnds = !prev || prev.rgap > 30 || /[.:;!?"”)\]]\s*$/.test(prev.text);
+      const letters = r.text.replace(/[^A-Za-z]/g, "");
+      const caps = letters.length >= 6 && letters.replace(/[^A-Z]/g, "").length / letters.length > 0.85 &&
+        r.text.length < 70 && !/^\d/.test(r.text.trim());
+      if (r.centred || (caps && r.ind > 10)) { cur = { kind: "h", toks: [] }; blocks.push(cur); }
+      else if ((r.ind > 25 && prevEnds) || !cur || cur.kind === "h") { cur = { kind: "p", toks: [] }; blocks.push(cur); }
+      else cur.toks.push({ br: true });
+      r.words.forEach((w) => {
+        const ps = brPieces(w);
+        const tok = { ps, cands: brCandidates(ps, opts.vocab) };
+        cur.toks.push(tok);
+        tokens.push(tok);
+      });
+    });
+    if (pn.length && pn[0].cont) {
+      if (notes.length) notes[notes.length - 1] = brJoin(notes[notes.length - 1], pn[0].text);
+      pn.shift();
+    }
+    const assign = brAlign(tokens, pn.length);
+    pn.forEach((nt, k) => {
+      const id = notes.length;
+      notes.push(nt.text);
+      counts.notes++;
+      const a = assign[k];
+      if (a) { counts.anchored++; (tokens[a.ti].marks = tokens[a.ti].marks || []).push({ id, pi: a.pi, tail: a.tail, head: a.head, lone: a.lone }); }
+      else { counts.footAnchored++; if (cur) cur.toks.push({ ps: [], marks: [{ id, pi: -1 }] }); }
+    });
+  }
+  return { blocks, notes };
+}
+
+/* A block → text with \u0001id\u0002 marks; unused raised glyphs become half-brackets, or go. */
+function brBlockText(b, counts) {
+  let s = "";
+  b.toks.forEach((t) => {
+    if (t.br) { if (/[a-z]-$/.test(s)) s = s.slice(0, -1) + "\u0004"; else s += " "; return; }
+    const used = {};
+    (t.marks || []).forEach((m) => (used[m.pi] = m));
+    let w = "";
+    t.ps.forEach((p, i) => {
+      const m = used[i];
+      if (m) {
+        const mk = "\u0001" + m.id + "\u0002";
+        if (m.lone) w += mk;
+        else if (m.tail) w += p.s.slice(0, -1) + mk;
+        else if (m.head) w += mk + p.s.slice(1);
+        else w += mk;
+        return;
+      }
+      if (p.k === "t") { w += p.s; return; }
+      const before = t.ps.slice(0, i).map((q) => q.s).join(""), after = t.ps.slice(i + 1).map((q) => q.s).join("");
+      const atStart = !/[A-Za-z0-9]/.test(before) && /^[A-Za-z]/.test(after);
+      const atEnd = /[A-Za-z]$/.test(before) && !/[A-Za-z0-9]/.test(after);
+      const alone = !/[A-Za-z0-9]/.test(before + after);
+      if (/^(?=.*\d)[\dIlO]+$/.test(p.s) || (/^[li1I]$/.test(p.s) && atStart)) { counts.lineNumbers++; return; }
+      if ((atStart || alone) && /^[rft]$/.test(p.s)) { w += "⌈"; counts.halfBrackets++; return; }
+      if ((atEnd || alone) && /^[1li!]$/.test(p.s)) { w += "⌉"; counts.halfBrackets++; return; }
+      if (/[A-Za-z]$/.test(before) && /^[A-Za-z]/.test(after)) { w += p.s; return; } // inside a word: kept as read
+      if (/^['‘’“”"]+$/.test(p.s)) { w += p.s; return; } // a quotation mark, lifted as quotation marks are
+      counts.raisedDropped++;
+    });
+    (t.marks || []).filter((m) => m.pi === -1).forEach((m) => (w += "\u0001" + m.id + "\u0002"));
+    if (s && !/[\s\u0004]$/.test(s)) s += " ";
+    s += w;
+  });
+  return s;
+}
+
+/* The repairs every page needs, each counted. All are narrow: each is keyed on a shape the machine
+   produces and the printing never does. */
+function brClean(s, vocab, counts) {
+  // a hyphen at a line's end: dropped where the two halves make a word found elsewhere, kept for a compound
+  s = s.replace(/([A-Za-z]+)\u0004([A-Za-z]+)/g, (m, a, b) => {
+    if ((vocab[brNorm(a + b)] || 0) > 0 && /^[a-z]/.test(b)) { counts.dehyphenated++; return a + b; }
+    counts.hyphensKept++; return a + "-" + b;
+  });
+  s = s.replace(/\u0004/g, "").replace(/[ \t]+/g, " ");
+  // the italic "of" the machine reads as oj, o}, 0}, o)
+  s = s.replace(/(^|[\s(])[o0][j}\)](?=[\s,.;:]|$)/g, (m, a) => { counts.italicOf++; return a + "of"; });
+  /* a brace: never in the printing — the machine's reading of an italic parenthesis, "{Zeitschrift … 36)" (it also
+     looks like a CSS rule set to the Library suite's leak guard) */
+  s = s.replace(/[{}]/g, (m) => { counts.braces++; return m === "{" ? "(" : ")"; });
+  // a regnal numeral read as "Ill": Thutmose Ill
+  s = s.replace(/\b([A-Z][a-z]+) Ill\b/g, (m, a) => { counts.regnalIll++; return a + " III"; });
+  // a line reference with figures for letters: "§ 274, 1. 3" is l. 3, "(11. 11, 12" is ll.
+  s = s.replace(/(§\s*\d+[a-z]?,\s*)1\.\s(?=\d)/g, (m, a) => { counts.lineRefs++; return a + "l. "; });
+  s = s.replace(/(^|[\s(,;])11\.\s(?=\d+\s*[-–—]\s*\d)/g, (m, a) => { counts.lineRefs++; return a + "ll. "; });
+  s = s.replace(/([(,;]\s?)(1|11)\.\s(?=\d+(?:\s*[-–]\s*\d+)?\s*[,;)]|\d+\s*ff?\.)/g, (m, a, b) => { counts.lineRefs++; return a + (b === "1" ? "l. " : "ll. "); });
+  // a section reference with a letter for a figure ("§§ 4o8") and "ff." read as "fT."
+  s = s.replace(/(§§?\s?)([\doOlI]{2,4})(?=[\s,.;)\]-])/g, (m, a, n) => {
+    if (!/\d/.test(n) || /^\d+$/.test(n)) return m;
+    counts.sectionRefs++; return a + n.replace(/[oO]/g, "0").replace(/[lI]/g, "1");
+  });
+  s = s.replace(/(\d\s)f[fT]\./g, (m, a) => { counts.ffs++; return a + "ff."; });
+  // a year in the old-style figures the machine reads as letters, in the tables above all: "i98o-i935", "2ooo"
+  s = s.replace(/(^|[\s(\-–])([\dioO]{4})(?=[\s,.;)\-–]|$)/g, (m, a, n) => {
+    if (/^\d+$/.test(n) || (n.match(/\d/g) || []).length < 2) return m;
+    counts.oldStyleFigures++; return a + n.replace(/i/g, "1").replace(/[oO]/g, "0");
+  });
+  /* a line number the scan printed too low to measure as raised, glued to the word it precedes: "34Taanach",
+     "47They". Never an ordinal ("18th", "3d") and never a single letter ("53a" is a paragraph's sub-part) */
+  s = s.replace(/(^|[\s\[(“"‘⌈])(\d{1,3})(?!(?:st|nd|rd|th|d)\b)(?=[A-Za-z][a-z])/g, (m, a) => { counts.gluedLineNumbers++; return a; });
+  /* Breasted's sign for uncertain words, ⌈ — ⌉ ("r — 1 represents one uncertain word", his key), read unraised as a
+     lone r, a run of dashes and a lone 1 */
+  s = s.replace(/(^|[\s\[(])r(\s?[—–-]+(?:\s[—–-]+)*\s?)[1l](?=[\s,.;:)\]]|$)/g, (m, a, d) => { counts.uncertainSigns++; return a + "\u2308" + d.trim() + "\u2309"; });
+  // the machine's reading of a raised mark it could not place, glued to a word's front: "^a consultation", "*Aruna"
+  s = s.replace(/(^|[\s\[(“"‘])[*^]+(?=[A-Za-z])/g, (m, a) => { counts.strayMarks++; return a; });
+  // spacing inside quotation marks and before punctuation
+  s = s.replace(/(^|[\s(\[])(["“‘]) +(?=[A-Za-z\[⌈])/g, "$1$2");
+  s = s.replace(/ +([,;:.!?])(?=\s|$)/g, "$1");
+  return s.trim();
+}
+
+/* One volume's hOCR → html blocks with § numbers, and its notes. */
+function brVolume(html, vol, vocab, counts) {
+  const pages = html.split('<div class="ocr_page"').slice(1);
+  const measure = brMeasure(pages);
+  const r = brBuildVolume(pages, Object.assign({ measure, vocab }, vol), counts);
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let last = 0;
+  const out = [];
+  r.blocks.forEach((b) => {
+    const t = brClean(brBlockText(b, counts), vocab, counts);
+    if (!t) return;
+    let h = esc(t);
+    if (b.kind === "h") { out.push({ kind: "h", html: '<p class="bk-head">' + h + "</p>" }); return; }
+    // a section number as read: "312.", "2 .", "594*", "773-", and at a volume's head "i." for 1
+    const m = t.match(/^([\dIilOoS]{1,4})([A-H])?\s?[.*\-,:’”]\s/);
+    let sec = null, num = null;
+    if (m && (/\d/.test(m[1]) || last === 0)) {
+      const n = +m[1].replace(/[Iil]/g, "1").replace(/[Oo]/g, "0").replace(/S/g, "5");
+      if (n > last && n <= last + 60) {
+        sec = n + (m[2] || ""); num = n; last = n; counts.sections++;
+        h = h.replace(/^[\dIilOoS]{1,4}[A-H]?\s?[.*\-,:’”]\s*/, "");
+      }
+    }
+    out.push({ kind: "p", num, html: "<p>" + (sec ? '<span class="bk-n" data-n="' + sec + '">' + sec + "</span> " : "") + h + "</p>" });
+  });
+  // the notes take the same repairs as the text (they have no line breaks left to rejoin)
+  return { blocks: out, notes: r.notes.map((n) => esc(brClean(n, vocab, counts))) };
+}
+
+/* A volume's blocks → its chapters, cut at the § each opens on (or at Breasted's heading). */
+function brCut(v, blocks, notes, plan, counts, warn) {
+  const plain = (h) => h.replace(/<[^>]+>/g, "").replace(/\u0001\d+\u0002/g, "");
+  const mine = plan.filter((c) => c.v === v);
+  let prev = 0;
+  const starts = [];
+  mine.forEach((c) => {
+    let i = blocks.findIndex((b, k) => k >= prev && b.num === c.from);
+    if (i < 0) {
+      const head = (c.head || c.t.replace(/^Reign of /, "REIGN OF ")).toUpperCase();
+      const re = new RegExp(head.replace(/[.*+?^${}()|[\]\\]/g, "\\function partOf(n) {") + "(?![A-Z])");
+      i = blocks.findIndex((b, k) => k >= prev && re.test(plain(b.html)));
+      if (i >= 0) {
+        const b = blocks[i];
+        if (b.kind === "p" && plain(b.html).search(re) > 0) {
+          // the heading ran into the paragraph above it: split the block where the heading begins
+          const at = b.html.lastIndexOf(head.split(" ")[0]);
+          if (at > 3) {
+            blocks.splice(i, 1, { kind: "p", html: b.html.slice(0, at).replace(/\s+$/, "") + "</p>" },
+              { kind: "h", html: '<p class="bk-head">' + b.html.slice(at) });
+            i++;
+          }
+        }
+        counts.cutAtHeading++;
+      } else {
+        warn("Vol. " + v + ": no § " + c.from + " and no heading for " + c.t + "; cut at the next section");
+        i = blocks.findIndex((b, k) => k >= prev && b.num && b.num > c.from);
+      }
+    }
+    while (i > prev && blocks[i - 1].kind === "h") i--;
+    starts.push(i);
+    prev = i + 1;
+  });
+  return mine.map((c, k) => {
+    const a = k === 0 ? 0 : starts[k], b = k + 1 < mine.length ? starts[k + 1] : blocks.length;
+    const ids = [];
+    const html = blocks.slice(a, b).map((x) => x.html).join("\n")
+      .replace(/\u0001(\d+)\u0002/g, (m, id) => { ids.push(+id); return '<sup class="fn" data-fn="' + ids.length + '"></sup>'; });
+    return { n: c.n, t: c.t, html, notes: ids.map((id) => notes[id] || "") };
+  });
+}
+
+function extractBreasted(htmls, book, warn) {
+  const counts = { pages: 0, notes: 0, anchored: 0, footAnchored: 0, lineNumbers: 0, halfBrackets: 0, raisedDropped: 0,
+    figureRows: 0, sections: 0, dehyphenated: 0, hyphensKept: 0, italicOf: 0, regnalIll: 0, lineRefs: 0, sectionRefs: 0,
+    ffs: 0, oldStyleFigures: 0, gluedLineNumbers: 0, strayMarks: 0, uncertainSigns: 0, braces: 0, cutAtHeading: 0 };
+  // the vocabulary every "is this a word?" test asks: the words of all four volumes as read
+  const vocab = {};
+  htmls.forEach((h) => {
+    const re = /class="ocrx_word"[^>]*>([\s\S]*?)<\/span>\s*<\/span>/g;
+    let m;
+    while ((m = re.exec(h))) {
+      const w = brNorm(brEnt(m[1].replace(/<[^>]+>/g, "")));
+      if (w) vocab[w] = (vocab[w] || 0) + 1;
+    }
+  });
+  const chapters = [];
+  htmls.forEach((h, i) => {
+    const v = i + 1;
+    const r = brVolume(h, book.volumes[i], vocab, counts);
+    brCut(v, r.blocks, r.notes, book.breastedChapters, counts, warn).forEach((c) => chapters.push(c));
+  });
+  return { chapters, counts };
+}
 
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
@@ -38929,6 +39675,45 @@ async function fetchEnglish() {
       if (b.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
       chapters.push({ n: b.n, t: titles[b.n] || b.t || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+  /* ANCIENT RECORDS OF EGYPT — four scanned volumes read off their glyph boxes; see the block above
+     extractBreasted. Each volume's character OCR is cached gzipped as served, so --from/--to cost nothing and
+     a re-extract needs no network. */
+  if (BOOK.layout === "breasted") {
+    const warn = (m) => warnings.push(m);
+    const zlib = require("zlib");
+    const htmls = [];
+    for (let v = 0; v < BOOK.volumes.length; v++) {
+      const cf = path.join(CACHE, "vol" + (v + 1) + ".chocr.html.gz");
+      let buf;
+      if (!FORCE && fs.existsSync(cf)) buf = fs.readFileSync(cf);
+      else {
+        buf = await fetchBuffer(BOOK.volumes[v].url);
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, buf);
+        await sleep(500);
+      }
+      htmls.push(zlib.gunzipSync(buf).toString("utf8"));
+    }
+    const plan = BOOK.plan.map((r, i) => ({ n: i + 1, v: r[0], from: r[1], t: r[2], head: r[3] }));
+    const g = extractBreasted(htmls, Object.assign({}, BOOK, { breastedChapters: plan }), warn);
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " chapters from " + c.pages + " pages, " + c.sections + " sections (§); " +
+      c.notes + " notes, " + c.anchored + " placed on their mark and " + c.footAnchored + " at the end of their page's text (" +
+      (100 * c.anchored / Math.max(1, c.notes)).toFixed(1) + "% placed)");
+    console.log("  " + c.lineNumbers + " line numbers dropped, " + c.halfBrackets + " half-brackets restored, " +
+      c.raisedDropped + " other raised glyphs dropped, " + c.figureRows + " figure rows dropped (Vol. IV); " +
+      c.dehyphenated + " words rejoined at a line's end, " + c.hyphensKept + " compound hyphens kept");
+    console.log("  repairs: " + c.italicOf + " italic \"of\", " + c.regnalIll + " \"Ill\" for III, " + c.lineRefs +
+      " line references, " + c.sectionRefs + " § references, " + c.ffs + " \"ff.\", " + c.oldStyleFigures +
+      " old-style years, " + c.gluedLineNumbers + " line numbers glued to a word, " + c.strayMarks + " stray marks, " + c.uncertainSigns + " ⌈—⌉ signs, " + c.braces + " braces; " + c.cutAtHeading + " chapter(s) cut at Breasted's heading where the § was unreadable");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }

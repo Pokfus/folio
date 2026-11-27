@@ -3126,3 +3126,38 @@ line (Darwin's argument, as the Origin's). What it settled, each a quiet failure
   never closing its brace, so the whole paragraph goes with its figure, counted.
 - **The typographic entities** (`&mdash;`, `&lsquo;` … ) are written as characters before anything else, so `fixes`
   rows are written with the real characters; `&amp;` stays.
+
+## The `breasted` layout — a scholar's corpus read off the scans' glyph boxes (Nov 2026, Ancient Records of Egypt)
+
+`extractBreasted` and the `br*` functions above it. The first book with **no transcription anywhere**: English
+Wikisource has Vol. I's scan unproofread (two pages) and nothing else, so the text is read from the Internet Archive's
+character-level OCR (`_chocr.html.gz`, one per volume, cached gzipped as served). Everything structural is decided by
+WHERE a glyph stands, not by what the machine read; the layout's own comment has the measurements. What to carry:
+
+- **Choose the scan for completeness before quality, and prove it.** The best-read copy (a compiled PDF of all five
+  volumes) is missing Vol. II §§ 178–233 with other pages duplicated in their place, and Vols. I and IV drift by 15 and
+  34 pages; its 2026 re-OCR is the same scan. Found by checking the detected page numbers (`_page_numbers.json`) and the
+  run of § numbers. The Getty copies (Vols. I–III) and the Archive's own 2026 scan of Vol. IV are complete.
+- **Measure size against the printed measure, never in pixels**: x-height ÷ column width gives three clean clusters
+  (notes ≈ 13, translations ≈ 16, introductions ≈ 19 thousandths) across scans at three resolutions.
+- **A raised glyph is found by its bottom against the row's baseline** — the note letters, the line numbers and the
+  half-brackets (raised r … raised 1 → ⌈ … ⌉). **Never by size alone**: this printing has old-style figures, so 0, 1 and
+  2 are x-height, and a rule that dropped small figures deleted digits from real § numbers (604 read as 64).
+- **The notes are lettered afresh on every page, and that anchors them**: a monotone alignment of the page's letters
+  against its candidate marks (raised letters, symbols read for a letter, a letter glued after punctuation or before a
+  capital). An unplaced note is attached at the end of its own page's text — never lost, never moved off its page. The
+  run prints the placed share (92.8% at first import).
+- **A raised quotation mark is a mark only at a word's end** ("day's" put a note inside a word until it was not).
+- **The FineReader conversions glue the word after a hyphenated line break to the next** ("pre-sentedmay"): split words
+  where glyphs stand more than 0.55 x-height apart.
+- **The notes take the same repairs as the text**, braces included: the printing has none, the machine reads an italic
+  parenthesis as one, and a `{ … : … }` in a note trips the Library suite's stylesheet-leak guard.
+- **The figure-page filter runs on the Tesseract volume only** (`noiseFilter`): on the FineReader volumes the word
+  confidence is low on every transliteration line, and the same filter dropped real text.
+- **The chapters are the plan's reigns, cut at the § each opens on**; where the § was unreadable the cut falls at
+  Breasted's heading (the plan's fourth column, or "REIGN OF …" from the title). A reign title ending in a Roman numeral
+  ("REIGN OF SHESHONK I") was taken for a running head until a head's page number had to contain a figure.
+
+Re-run after touching: `node .claude/fetch-book.js breasted-ancient-records` (cached; `--force` refetches ~43 MB) and
+check "94 chapters", "5416 notes … 92.8% placed", "3065 sections", "6 chapter(s) cut at Breasted's heading" and no
+warning; then `node .claude/test-library.js`.

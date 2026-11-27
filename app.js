@@ -13367,6 +13367,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      16.9 and Jefferson 17.9, with Hobbes 25.5, Rousseau 41.2, Darwin 43.8 and Paine 78.9. It reads 9.37:1 on the
      tightest light paper. */
   "Karl Marx and Friedrich Engels": "#002A1E",
+  /* Nov 2026, adding Ancient Records of Egypt, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1 on
+     every light paper, card and second paper, 22 or more from the fifteen light inks; a sweep of the cube at a step
+     of 3, against the 85 colours placed, which tops out at 12.3). THE EURIPIDES TEST: held 25 or more from the books
+     read beside this one — Ptahhotep, Petrie's Egyptian Tales, the Book of the Dead, Erman, Herodotus, Diodorus,
+     Strabo, Plutarch and Gilgamesh — the best is this deep green, 12.3 from Chaucer, not a book read beside
+     Breasted. It reads 6.73:1 on the tightest light paper. (A plum first taken for this row stood 9.2 from Petrie's
+     tales, placed the same day.) */
+  "James Henry Breasted": "#06451E",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -18203,6 +18211,69 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          (every `.ttip`, 10 keys, Nov 2026): the series "designated with Roman numbers and the separate syllables
          with Arabic" are numerals, not the language. */
       glossOff: ["Arabic"],
+      id: "breasted-ancient-records",
+      title: "Ancient Records of Egypt",
+      subtitle: "Historical Documents from the Earliest Times to the Persian Conquest",
+      author: "James Henry Breasted",
+      /* The documents run from Snefru's Sinai inscriptions (conventionally c. 2600 BCE) to Amasis, the last king
+         before the Persian conquest of 525 BCE; `year` is the start, the single number the date sort needs. */
+      written: "c. 2600–525 BCE; translated 1906",
+      year: -2600,
+      edition:
+        "Ancient Records of Egypt: Historical Documents from the Earliest Times to the Persian Conquest, " +
+        "collected, edited and translated with commentary, 4 vols., University of Chicago Press, Chicago, 1906",
+      /* A LIMIT TO STATE, ON THE ONE MODERN LAYER: Breasted (1865–1935) published in 1906, so the text clears the
+         pre-1929 rule and cleared life plus seventy in 2006, not life plus a hundred (2036). THE FIRST BOOK ON THE
+         SHELF READ BY MACHINE FROM SCANS WITH NO TRANSCRIPTION ANYWHERE, and its front matter says so — see the
+         `breasted` layout in .claude/fetch-book.js for the scans and every measurement. */
+      rights:
+        "Public domain, with one limit. The documents are ancient; the modern layer is James Henry Breasted's " +
+        "translations, introductions and notes, published in Chicago in 1906, so it is out of copyright in the " +
+        "United States under the rule for works published before 1929. Breasted lived from 1865 to 1935, so it " +
+        "also cleared the author's life plus seventy years in 2006; where the term is life plus a hundred it " +
+        "remains in copyright until 2036. The text is read by machine from the Internet Archive's scans of the " +
+        "Getty Research Institute's copies of Volumes I–III and the Archive's own copy of Volume IV. The front " +
+        "matter, the figures and the index volume are not reproduced.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/ancientrecordsof01brea_0",
+      /* NO `origLang`: Breasted's English alone. The chapters are the reigns of his own table of contents and the
+         parts its dynasties; each part's note gives its volume and paragraphs, the citation the field uses. */
+      chapterWord: "Chapter",
+      count: 94,
+      total: 94,
+      parts: [
+        { n: 1, label: "Introduction", note: "Volume I, §§ 1–75" },
+        { n: 2, label: "The Palermo Stone: the First to the Fifth Dynasties", note: "Volume I, §§ 76–167" },
+        { n: 3, label: "The Third Dynasty", note: "Volume I, §§ 168–175" },
+        { n: 4, label: "The Fourth Dynasty", note: "Volume I, §§ 176–212" },
+        { n: 5, label: "The Fifth Dynasty", note: "Volume I, §§ 213–281" },
+        { n: 6, label: "The Sixth Dynasty", note: "Volume I, §§ 282–390" },
+        { n: 7, label: "The Ninth and Tenth Dynasties", note: "Volume I, §§ 391–414" },
+        { n: 8, label: "The Eleventh Dynasty", note: "Volume I, §§ 415–459" },
+        { n: 9, label: "The Twelfth Dynasty", note: "Volume I, §§ 460–750" },
+        { n: 10, label: "From the Thirteenth Dynasty to the Hyksos", note: "Volume I, §§ 751–787" },
+        { n: 11, label: "The Eighteenth Dynasty", note: "Volume II, §§ 1–1043" },
+        { n: 12, label: "The Nineteenth Dynasty", note: "Volume III, §§ 1–651" },
+        { n: 13, label: "The Twentieth Dynasty", note: "Volume IV, §§ 1–603" },
+        { n: 14, label: "The Twenty-First Dynasty", note: "Volume IV, §§ 604–692" },
+        { n: 15, label: "The Twenty-Second Dynasty", note: "Volume IV, §§ 693–792" },
+        { n: 16, label: "The Twenty-Third Dynasty", note: "Volume IV, §§ 793–883" },
+        { n: 17, label: "The Twenty-Fourth Dynasty", note: "Volume IV, §§ 884–884" },
+        { n: 18, label: "The Twenty-Fifth Dynasty", note: "Volume IV, §§ 885–934" },
+        { n: 19, label: "The Twenty-Sixth Dynasty", note: "Volume IV, §§ 935–1029" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 94 chapters (every `.ttip`, Nov
+         2026). Breasted's PALESTINE, LIBYANS, ETHIOPIANS (the Kushite kings), LEBANON (the mountains), JORDAN (the
+         river), SUDAN and SOMALI coast, GREEKS and TRIPOLIS (the Phoenician town) are ancient lands and peoples, not
+         the modern states; EYE is the king; TAO is Sekenenre-Tao's name, not the Chinese Way; GROVES are sacred
+         groves, not Leslie Groves; "Lord of TRUTH" and "lord of EARTH" are titles; the COUNCIL is a council of war,
+         the LIBYAN war Merneptah's, not Carthage's, and RAPHIA Sargon's battle of 720 BC, not Ptolemy's; YORK is New
+         York's obelisk. SEATTLE, SUI, ZEN, IOS, SERES, KANA, TELAMON, EUROPA, POLE and "The Valley" are the
+         machine's misreadings or a common word matching a name. */
+      glossOff: ["State_of_Palestine", "Libya", "Ethiopia", "Lebanon", "Jordan", "Sudan", "Somalia", "Greece", "Tripoli",
+        "Human_eye", "Tao", "Leslie_Groves", "Truth", "Earth", "Council", "Mercenary_War", "Battle_of_Raphia", "York",
+        "Seattle", "Sui_dynasty", "Zen", "Ios", "Seres", "Kana", "Battle_of_Telamon", "Europa_(moon)", "Polaris",
+        "The_Valley,_Anguilla"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27982,6 +28053,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "So infinitely complex, so continuously in flux, are the conditions in the world around, that that complex animal system which is itself in living flux, and that system only, has a chance to establish dynamic equilibrium with the environment. Thus we see that the fundamental and the most general function of the hemispheres is that of reacting to signals presented by innumerable stimuli of interchangeable signification." },
     { book: "thorndike-animal-intelligence", n: 3, t: "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals", p: 33,
       text: "The cat that is clawing all over the box in her impulsive struggle will probably claw the string or loop or button so as to open the door. And gradually all the other non-successful impulses will be stamped out and the particular impulse leading to the successful act will be stamped in by the resulting pleasure, until, after many trials, the cat will, when put in the box, immediately claw the button or loop in a definite way." },
+    { book: "breasted-ancient-records", n: 58, t: "Reign of Merneptah", p: 100,
+      text: "The monument has attracted wide attention, because of the reference to Israel in the last section. This is the earliest mention of Israel known to us in literature, not excluding the Hebrew Scriptures themselves." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
