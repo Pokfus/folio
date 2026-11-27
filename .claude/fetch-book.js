@@ -21281,6 +21281,120 @@ const BOOKS = {
       sourceUrl: "https://fr.wikisource.org/wiki/Candide,_ou_l%E2%80%99Optimisme/Garnier_1877",
     },
   },
+  "james-principles-of-psychology": {
+    title: "The Principles of Psychology",
+    author: "William James",
+    /* NO `translator`: written in English, as the Origin of Species was. */
+    edition: "Henry Holt and Company, New York, 1890, in two volumes (a 1918 printing)",
+    written: "1890",
+    year: 1890,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       James published the book in New York in 1890 and died in 1910, so there is no copyright in it
+       anywhere. THE SOURCE IS PROJECT GUTENBERG, not Wikisource: Wikisource transcludes only four of the
+       twenty-eight chapters, and its two scans stand at "to be proofread" (Index:Principles of Psychology
+       (1890) v1.djvu, Progress=C, Nov 2026). Gutenberg's two files (ebooks 57628 and 57634) are proofread
+       transcriptions of a 1918 Holt printing — the title pages read "1918" — from the plates of 1890:
+       the same text and the same page numbers (vol. I, 689 pages; vol. II, 704), which is why the
+       edition line says "a 1918 printing" rather than claiming the first impression. Gutenberg's own
+       header and licence are cut away at the START and END lines. */
+    rights:
+      "Public domain worldwide. William James published The Principles of Psychology in New York in " +
+      "1890 and died in 1910, so the book has never been in copyright anywhere since. The text is " +
+      "Project Gutenberg's transcription of the two volumes, from a 1918 printing of the 1890 plates.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/57628",
+    /* The files the transcriber posted, rather than Gutenberg's regenerated `-images.html`, so the cache
+       and the source are the same bytes. Volume II is ebook 57634. */
+    urls: [
+      "https://www.gutenberg.org/files/57628/57628-h/57628-h.htm",
+      "https://www.gutenberg.org/files/57634/57634-h/57634-h.htm",
+    ],
+    layout: "pgchapters",
+    chapterHead: /<h5\b[^>]*>(?:<a\b[^>]*>)?CHAPTER ([IVXL]+)\./,
+    front: [{ n: 1, vol: 1, anchor: 'id="PREFACE"' }],
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every
+       quotation in it was found in this text; the dates are the record's. */
+    about: [
+      "<b>The Principles of Psychology</b> sets out to make psychology a natural science. " +
+        "<i>Psychology is the Science of Mental Life</i>, its first sentence says, <i>both of its " +
+        "phenomena and of their conditions</i>, and William James keeps both halves in view throughout: " +
+        "what thinking, feeling and willing are like from the inside, and what the brain and nervous " +
+        "system are doing while they happen. He leaves the deepest questions about the soul to " +
+        "metaphysics, and he describes what experience is actually like with a care, and a liveliness, " +
+        "that few writers on the mind have matched.",
+      "The book opens with the brain: its functions, the general conditions of its activity, and " +
+        "<i>habit</i>, which James calls <i>the enormous fly-wheel of society</i> (chapters I–IV). After " +
+        "chapters on the theories he rejects and on the psychologist's methods (V–VIII) come the most " +
+        "famous: <i>The Stream of Thought</i>, where consciousness is described not as a chain of " +
+        "separate ideas but as a flowing stream — <i>let us call it the stream of thought, of " +
+        "consciousness, or of subjective life</i> — and <i>The Consciousness of Self</i>, with its " +
+        "material, social and spiritual selves (IX–X). Attention, conception, discrimination, association, " +
+        "the perception of time and memory close the first volume (XI–XVI). The second turns to " +
+        "sensation, imagination and the perception of things, space and reality (XVII–XXI), then to " +
+        "reasoning, movement, instinct and the emotions (XXII–XXV), the will and hypnotism (XXVI–XXVII), " +
+        "and ends on what experience can and cannot explain (XXVIII).",
+      "James was born in New York in 1842, the elder brother of the novelist Henry James. He trained as a " +
+        "physician at Harvard, began teaching physiology there in the early 1870s and moved from it to " +
+        "psychology and then to philosophy. He agreed to write the book for the publisher Henry Holt in " +
+        "1878, expecting to finish it in two years; it took twelve, and appeared in two volumes in 1890. " +
+        "His Preface apologises for its length — <i>fourteen hundred continuous pages</i> — and in 1892 he " +
+        "cut it down to a single volume for students, <i>Psychology: Briefer Course</i>. He went on to " +
+        "write <i>The Varieties of Religious Experience</i> (1902) and <i>Pragmatism</i> (1907), and died " +
+        "in New Hampshire in 1910.",
+      "Several of the book's ideas are still known by its own phrases. Chapter XXV gives the theory of " +
+        "emotion that is named after James and the Danish physiologist Carl Lange, who reached it " +
+        "independently: that the bodily changes come first, and <i>we feel sorry because we cry, angry " +
+        "because we strike, afraid because we tremble</i>. Chapter XXIV argues that <i>man has a far " +
+        "greater variety of impulses than any lower animal</i>; chapter XIII describes how a baby feels " +
+        "the world <i>as one great blooming, buzzing confusion</i>; and chapter XI opens <i>Every one " +
+        "knows what attention is</i>. Much of the experimental detail is of its time, but the book has never stopped being read.",
+      "The text here is the book as James printed it in 1890, in its own American spelling. It is given in " +
+        "its own order: the Preface and the twenty-eight chapters, so a tab's number runs one ahead of the " +
+        "chapter's, whose Roman numeral opens each title; the two volumes are the two parts. The head " +
+        "lines inside a chapter are James's own. His footnotes are kept under each chapter. The " +
+        "book's figures — drawings of the brain, diagrams and optical illusions — are not reproduced, so " +
+        "where James writes <i>see Fig. 5</i> there is no figure to see. Not included: the title pages, the " +
+        "dedication to François Pillon, the contents and the index.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 29 }, (_, i) => i + 1),
+    titleOf: (n) => [null, "Preface",
+      "I. The Scope of Psychology",
+      "II. The Functions of the Brain",
+      "III. On Some General Conditions of Brain-activity",
+      "IV. Habit",
+      "V. The Automaton-theory",
+      "VI. The Mind-stuff Theory",
+      "VII. The Methods and Snares of Psychology",
+      "VIII. The Relations of Minds to other Things",
+      "IX. The Stream of Thought",
+      "X. The Consciousness of Self",
+      "XI. Attention",
+      "XII. Conception",
+      "XIII. Discrimination and Comparison",
+      "XIV. Association",
+      "XV. The Perception of Time",
+      "XVI. Memory",
+      "XVII. Sensation",
+      "XVIII. Imagination",
+      "XIX. The Perception of 'Things'",
+      "XX. The Perception of Space",
+      "XXI. The Perception of Reality",
+      "XXII. Reasoning",
+      "XXIII. The Production of Movement",
+      "XXIV. Instinct",
+      "XXV. The Emotions",
+      "XXVI. Will",
+      "XXVII. Hypnotism",
+      "XXVIII. Necessary Truths and the Effects of Experience",
+    ][n],
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 17 },
+      { n: 2, label: "Volume II", from: 18, to: 29 },
+    ],
+    minChars: 3000,
+  },
 
   "petrie-egyptian-tales": {
     title: "Egyptian Tales",
@@ -33919,6 +34033,194 @@ function extractPickthall(text, warn) {
   return { chapters: out, verses: verses, misprints: misprints, readings: readings };
 }
 
+/* ============================================================
+   A GUTENBERG HTML EDITION CUT INTO CHAPTERS BY ITS OWN HEADS     (layout: "pgchapters")
+   ============================================================
+   Nov 2026, adding William James's The Principles of Psychology — two Project Gutenberg HTML files
+   (one per printed volume, `urls`), each cached whole as `en-vol<N>.html` and read as one book, as the
+   Polo entry reads its two. This reader is the plain case of the same thing, with none of Yule's
+   apparatus. What it does, per division:
+   · A DIVISION RUNS FROM ITS HEAD TO THE NEXT `<hr class="chap">`, which the transcriber sets between
+     printed divisions and never inside one. A chapter's head is found by `BOOK.chapterHead`, which
+     captures its printed numeral, and the numerals are CHECKED to run I..N over both files together,
+     so a head the pattern misses is reported rather than swallowed into the chapter before it. A
+     front-matter division (the Preface) is found by its anchor (`BOOK.front`), never by its words.
+   · THE NOTES stand at the foot of each chapter, numbered across the volume, each in a
+     `<div class="footnote">` that may hold a table of its own — so blocks are cut by a BALANCED div
+     walk, never by a lazy `</div>`. A chapter keeps the notes its own markers cite, renumbered from 1
+     in citing order, the printed number carried in `data-fn` while it is resolved (the Ptahhotep
+     rule; the number alone, `stripTags` keeping only a numeric `data-fn` — the anchor is `N_N`). A note nothing cites, or a marker with no note, is reported. A note of several paragraphs
+     is joined with `<br><br>`, and a table in a note is set one row to a line.
+   · A MARKER ON A HEAD keeps its head: James hangs a note on the head of several chapters, so that
+     head is set as a `bk-head` line for the marker to stand on. Every other chapter head is dropped,
+     the tab already naming the chapter, and so are the running title over each volume's first chapter
+     ("PSYCHOLOGY.") and the "END OF VOL. I." line. A head INSIDE a chapter becomes a `bk-head` line.
+   · THE FIGURES go with their captions, counted — the Library sets no pictures (Darwin's diagram,
+     Euclid's figures), and a caption's letters name parts of a picture that is not there.
+   · A TABLE is kept as a table (`bk-table`, the Treaty of Versailles' style), stashed through
+     `stripTags`, which would unwrap it into loose cells, and put back afterwards.
+   · The page numbers (`<span class="pagenum">`) go — measured, none falls inside a word in these files
+     — and so do the thematic breaks (`<hr class="tb">`) and every link and anchor (contents links,
+     cross-references to a page, the anchors heads carry), unwrapped before the heads are read. */
+function pgDivEnd(s, at) {
+  const rx = /<(\/?)div\b[^>]*>/gi;
+  rx.lastIndex = at;
+  let depth = 0, m;
+  while ((m = rx.exec(s))) {
+    depth += m[1] ? -1 : 1;
+    if (!depth) return rx.lastIndex;
+  }
+  return -1;
+}
+/* Every balanced <div class="CLS"…> block in `s`, in order, replaced by what `take` returns. */
+function pgTakeDivs(s, cls, take) {
+  const rx = new RegExp('<div class="(?:' + cls + ')"[^>]*>', "gi");
+  let out = "", pos = 0, m;
+  while ((m = rx.exec(s))) {
+    const end = pgDivEnd(s, m.index);
+    if (end < 0) throw new Error("an unclosed <div> in the edition near: " + s.slice(m.index, m.index + 80));
+    out += s.slice(pos, m.index) + (take(s.slice(m.index, end)) || "");
+    pos = rx.lastIndex = end;
+  }
+  return out + s.slice(pos);
+}
+function pgFlat(h) {
+  return stripTags(h.replace(/&nbsp;/g, " ")).replace(/\s+/g, " ").replace(/\s*<br>\s*/g, "<br>")
+    .replace(/^(?:<br>)+|(?:<br>)+$/g, "").trim();
+}
+function pgRows(t) {
+  return (t.match(/<tr\b[\s\S]*?<\/tr>/gi) || []).map((r) =>
+    [...r.matchAll(/<(t[dh])\b([^>]*)>([\s\S]*?)<\/\1>/gi)].map((x) => ({
+      th: x[1].toLowerCase() === "th",
+      span: (x[2].match(/\b(?:col|row)span="\d+"/gi) || []).join(" "),
+      html: pgFlat(x[3]),
+    })));
+}
+function extractPgChapters(vols, BOOK, warn) {
+  const c = { figures: 0, tables: 0, noteTables: 0, pages: 0, breaks: 0, heads: 0, headNotes: 0, notes: 0, marks: 0 };
+  const divs = [];
+  vols.forEach((h, v) => {
+    const s0 = h.indexOf("*** START OF"), e0 = h.indexOf("*** END OF");
+    if (s0 < 0 || e0 < 0) throw new Error("volume " + (v + 1) + " lacks Gutenberg's START and END lines");
+    const body = h.slice(s0, e0);
+    const hrs = [...body.matchAll(/<hr class="chap"[^>]*>/g)].map((m) => m.index);
+    const cut = (at) => {
+      const e = hrs.find((x) => x > at);
+      if (e === undefined) throw new Error("no rule closes the division at offset " + at + " of volume " + (v + 1));
+      return body.slice(at, e);
+    };
+    for (const f of BOOK.front || []) {
+      if (f.vol !== v + 1) continue;
+      const at = body.indexOf(f.anchor);
+      if (at < 0) throw new Error("the front-matter anchor " + f.anchor + " is not in volume " + (v + 1));
+      divs.push({ n: f.n, seg: cut(body.lastIndexOf("<h", at)) });
+    }
+    for (const m of body.matchAll(new RegExp(BOOK.chapterHead.source, "g")))
+      divs.push({ roman: m[1], seg: cut(m.index) });
+  });
+  const off = (BOOK.front || []).length;
+  divs.filter((d) => d.roman).forEach((d, i) => {
+    if (d.roman !== toRoman(i + 1)) warn("chapter " + (i + 1) + " is headed " + d.roman + " in the edition");
+    d.n = i + 1 + off;
+  });
+
+  const out = divs.map((d) => {
+    let s = d.seg;
+    /* the notes, keyed by their printed number */
+    const notes = {};
+    s = pgTakeDivs(s, "footnote", (blk) => {
+      c.notes++;
+      const k = /id="Footnote_(\d+)_\d+"/.exec(blk);
+      if (!k) { warn("section " + d.n + ": a note is printed without its anchor: " + pgFlat(blk).slice(0, 60)); return ""; }
+      let t = blk.replace(/^<div[^>]*>/, "").replace(/<\/div>\s*$/, "");
+      t = t.replace(/<a (?:name="[^"]*" )?id="Footnote_[^"]*"[^>]*>\s*<\/a>\s*<a href="#FNanchor_[^"]*"[^>]*>\s*<span class="label">[^<]*<\/span>\s*<\/a>/, "");
+      t = pgTakeDivs(t, "fig(?:center|left|right)", () => { c.figures++; return ""; });
+      t = pgTakeDivs(t, "center", (tb) => {
+        c.noteTables++;
+        return "<p>" + pgRows(tb).map((r) => r.map((x) => x.html).filter(Boolean).join(" ")).filter(Boolean).join("<br>") + "</p>";
+      });
+      t = t.replace(/<span class="pagenum">[\s\S]*?<\/span>/g, "").replace(/<\/?a\b[^>]*>/g, "");
+      if (/class="fnanchor"/.test(t)) warn("section " + d.n + ": note " + k[1] + " cites a note of its own");
+      const paras = [...t.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((m) => pgFlat(m[1])).filter(Boolean);
+      const rest = pgFlat(t.replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, "").replace(/<\/?blockquote>/g, ""));
+      if (rest) warn("section " + d.n + ": note " + k[1] + " has text outside its paragraphs: " + rest.slice(0, 60));
+      if (!paras.length) warn("section " + d.n + ": note " + k[1] + " came back empty");
+      notes[k[1]] = paras.join("<br><br>");
+      return "";
+    });
+    s = pgTakeDivs(s, "fig(?:center|left|right)", () => { c.figures++; return ""; });
+    /* the markers, before any link is unwrapped */
+    s = s.replace(/(?:<a (?:name="[^"]*" )?id="FNanchor_[^"]*"[^>]*>\s*<\/a>)?\s*<a href="#Footnote_(\d+)_\d+"[^>]*class="fnanchor"[^>]*>\[[^\]]*\]<\/a>/g,
+      (w, k) => { c.marks++; return '<sup class="fn" data-fn="' + k + '"></sup>'; });
+    if (/fnanchor/.test(s)) warn("section " + d.n + ": a note marker was not recognised");
+    c.pages += (s.match(/<span class="pagenum">/g) || []).length;
+    s = s.replace(/<span class="pagenum">[\s\S]*?<\/span>/g, "");
+    c.breaks += (s.match(/<hr class="tb"[^>]*>/g) || []).length;
+    s = s.replace(/<hr\b[^>]*>/g, "").replace(/<\/?a\b[^>]*>/g, "");
+    /* the heads */
+    /* `stripTags` keeps a <p> but not its class, so a head line goes through it as `<p>@@PGH` and gets
+       its class back afterwards. A note on the chapter's numeral ("CHAPTER IV.") is carried down onto
+       the title line, which is the head a reader can make sense of. */
+    let first = true, held = [];
+    s = s.replace(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/g, (w, lv, inner) => {
+      const fn = inner.match(/<sup class="fn" data-fn="[^"]+"><\/sup>/g) || [];
+      const text = pgFlat(inner.replace(/<sup class="fn"[^>]*><\/sup>/g, "")).replace(/<br>/g, " ");
+      if (lv === "3" || /^END OF VOL\b/.test(text)) return "";
+      if (lv === "5") { held = held.concat(fn); return ""; }
+      if (lv === "4" && first) {
+        first = false;
+        const all = held.concat(fn);
+        held = [];
+        if (!all.length) return "";
+        c.headNotes += all.length;
+        return "<p>@@PGH" + text + all.join("") + "</p>";
+      }
+      c.heads++;
+      return "<p>@@PGH" + text + fn.join("") + "</p>";
+    });
+    if (held.length) warn("section " + d.n + ": a note on the chapter's numeral found no title to stand on");
+    /* the tables, kept whole through the tag strip */
+    const stash = [];
+    s = pgTakeDivs(s, "center", (tb) => {
+      const rows = pgRows(tb);
+      if (!rows.length) { warn("section " + d.n + ": a centred block that is not a table: " + pgFlat(tb).slice(0, 60)); return "<p>" + pgFlat(tb) + "</p>"; }
+      c.tables++;
+      stash.push('<div class="bk-table"><table>' + rows.map((r) => "<tr>" + r.map((x) => {
+        const tag = x.th ? "th" : "td";
+        return "<" + tag + (x.span ? " " + x.span : "") + ">" + x.html + "</" + tag + ">";
+      }).join("") + "</tr>").join("") + "</table></div>");
+      return "<p>@@PGT" + (stash.length - 1) + "@@</p>";
+    });
+    if (/<table\b/i.test(s)) warn("section " + d.n + ": a table outside a centred block is left to the tag strip");
+    if (/<img\b/i.test(s)) warn("section " + d.n + ": a picture outside a figure block");
+
+    /* the blocks: paragraphs, quotations and head lines, whitespace collapsed */
+    s = stripTags(s.replace(/&nbsp;/g, " "));
+    s = s.replace(/\s+/g, " ").replace(/\s*<br>\s*/g, "<br>");
+    s = s.replace(/<p>(?:\s|<br>)*/g, "<p>").replace(/(?:\s|<br>)*<\/p>/g, "</p>").replace(/<p><\/p>/g, "");
+    s = s.replace(/\s*(<\/?(?:p|blockquote)\b[^>]*>)\s*/g, "$1");
+    s = s.replace(/(<\/p>|<\/blockquote>)(?=<)/g, "$1\n").replace(/(<blockquote>)(?=<p)/g, "$1\n").trim();
+    s = s.replace(/<p>@@PGT(\d+)@@<\/p>/g, (w, i) => stash[+i]).replace(/<p>@@PGH/g, '<p class="bk-head">');
+    if (/@@PG/.test(s)) warn("section " + d.n + ": a table placeholder was left in the text");
+    const loose = s.replace(/<p\b[^>]*>[\s\S]*?<\/p>|<div class="bk-table">[\s\S]*?<\/div>|<\/?blockquote>/g, "").trim();
+    if (loose) warn("section " + d.n + ": text outside every paragraph: " + loose.slice(0, 80));
+
+    /* each chapter's notes, renumbered from 1 in citing order */
+    const seen = [], map = {};
+    s = s.replace(/<sup class="fn" data-fn="([^"]+)"><\/sup>/g, (w, k) => {
+      if (!map[k]) {
+        if (notes[k] === undefined) { warn("section " + d.n + " cites a note " + k + " that is not printed in it"); return ""; }
+        seen.push(notes[k]); map[k] = seen.length;
+      }
+      return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+    });
+    const orphan = Object.keys(notes).filter((k) => !map[k]);
+    if (orphan.length) warn("section " + d.n + ": note(s) " + orphan.join(", ") + " printed but never cited");
+    return { n: d.n, html: s, notes: seen };
+  });
+  return { chapters: out, counts: c };
+}
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -35302,6 +35604,37 @@ async function fetchEnglish() {
       if (ch.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
       chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A GUTENBERG HTML EDITION IN ONE FILE PER VOLUME, cut at its own chapter heads — see the block
+     above extractPgChapters. Cached as Polo's two volumes are. */
+  if (BOOK.layout === "pgchapters") {
+    const warn = (m) => warnings.push(m);
+    const vols = [];
+    for (let v = 0; v < BOOK.urls.length; v++) {
+      const cf = path.join(CACHE, "en-vol" + (v + 1) + ".html");
+      if (!FORCE && fs.existsSync(cf)) vols.push(fs.readFileSync(cf, "utf8"));
+      else {
+        const raw = await fetchText(BOOK.urls[v]);
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, raw);
+        vols.push(raw);
+        await sleep(500);
+      }
+    }
+    const g = correctGot(extractPgChapters(vols.map((x) => x.replace(/\r\n?/g, "\n")), BOOK, warn));
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " divisions, " + c.notes + " notes (" + c.marks + " markers, " +
+      c.headNotes + " on a chapter head, " + c.noteTables + " table(s) in a note set one row to a line), " +
+      c.heads + " head(s) inside a chapter, " + c.tables + " table(s) kept, " + c.figures +
+      " figure(s) left out, " + c.pages + " printed page mark(s) and " + c.breaks + " thematic break(s) removed");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }
