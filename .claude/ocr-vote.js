@@ -398,7 +398,7 @@ function shelfBigrams(words) {
   const dir = SHELF.dir;
   const W = new Set(words), cnt = new Map();
   for (const f of fs.readdirSync(dir)) {
-    if (!/^[a-z0-9-]+\.js$/.test(f) || f === SHELF.self + ".js") continue;
+    if (!DICT_SHELF.includes(f.replace(/\.js$/, "")) || f === SHELF.self + ".js") continue;
     const toks = fs.readFileSync(path.join(dir, f), "utf8").replace(/<[^>]+>/g, " ").replace(/\\u00ad|\u00ad/g, "").toLowerCase().replace(/’/g, "'").match(/[a-z']+/g) || [];
     for (let i = 1; i < toks.length; i++) if (W.has(toks[i]) || W.has(toks[i - 1])) { const k = toks[i - 1] + " " + toks[i]; cnt.set(k, (cnt.get(k) || 0) + 1); }
   }
@@ -509,10 +509,36 @@ function render(blocks, cfg, dict) {
 }
 
 /* ---------- the shelf as dictionary ---------- */
+/* THE DICTIONARY IS PINNED to the English books on the shelf when the Xunzi and the Mozi were checked (Nov 2026),
+   not to whatever the shelf holds on the day of a run. Read off the live shelf, books added later (some with OCR
+   noise of their own) changed tie-breaks: a re-run after a merge turned "Yu" into "Yh" and "of" into "oe". A
+   listed file that has gone is skipped; a book added later never enters. */
+const DICT_SHELF = [
+  // each of the two ocrvote books is in the other's dictionary (never its own: see SHELF.self)
+  "xunzi", "mozi",
+  "aesop-fables", "anglo-saxon-chronicle", "apollodorus-library", "aristophanes-lysistrata",
+  "aristotle-nicomachean-ethics", "augustus-res-gestae", "bede-history", "beowulf", "bhagavad-gita",
+  "boethius-consolation", "book-of-documents", "book-of-rites", "caesar-gallic-war", "canterbury-tales",
+  "cassius-dio-roman-history", "city-of-god", "classic-of-poetry", "classic-of-tea", "confessions",
+  "confucius-analects", "darwin-origin-of-species", "declaration-of-independence", "descartes-discourse-on-method",
+  "diodorus-library", "divine-comedy", "don-quixote", "douglass-narrative", "epic-of-gilgamesh", "euclid-elements",
+  "euripides-medea", "freud-interpretation-of-dreams", "hamlet", "herodotus-histories", "hobbes-leviathan",
+  "homer-iliad", "homer-odyssey", "james-principles-of-psychology", "jerome-letters", "journey-to-the-west",
+  "julius-caesar", "kalidasa-shakuntala", "kant-critique-of-pure-reason", "king-james-bible", "livy-history-of-rome",
+  "lucretius-nature-of-things", "luther-ninety-five-theses", "macbeth", "machiavelli-prince", "magna-carta",
+  "marco-polo", "marcus-aurelius-meditations", "mencius", "more-utopia", "morte-darthur", "ovid-metamorphoses",
+  "paine-common-sense", "pausanias-description-of-greece", "petrie-egyptian-tales", "plato-dialogues",
+  "plato-republic", "plutarch-lives", "poetic-edda", "polybius-histories", "prose-edda", "ptahhotep", "quran",
+  "ramayana", "rigveda", "romeo-and-juliet", "rousseau-social-contract", "russian-primary-chronicle", "satyricon",
+  "seneca-letters", "song-of-roland", "sophocles-antigone", "sophocles-oedipus-rex", "strabo-geography",
+  "suetonius-twelve-caesars", "summa-theologica", "sun-tzu-art-of-war", "tacitus-annals", "tempest",
+  "three-kingdoms", "thucydides-peloponnesian-war", "treaty-of-versailles", "virgil-aeneid", "voltaire-candide"
+];
 function shelfDict() {
   const cnt = new Map();
-  for (const f of fs.readdirSync(SHELF.dir)) {
-    if (!/^[a-z0-9-]+\.js$/.test(f) || f === SHELF.self + ".js") continue;
+  for (const id of DICT_SHELF) {
+    const f = id + ".js";
+    if (id === SHELF.self || !fs.existsSync(path.join(SHELF.dir, f))) continue;
     const s = fs.readFileSync(path.join(SHELF.dir, f), "utf8").replace(/<[^>]+>/g, " ").replace(/\\u00ad|­/g, "");
     for (const w of s.match(/[A-Za-z]+(?:['’][a-z]+)?/g) || []) { const k = w.toLowerCase().replace(/’/g, "'"); cnt.set(k, (cnt.get(k) || 0) + 1); }
   }

@@ -117,3 +117,81 @@ class VerbParser:
                     continue
                 out.add(lem)
         return out
+
+
+# ---- an agreeing word's table, class by class (the beginner pass, Nov 2026) -------------------
+# Wiktionary's table (`sw-cl`) has a row for each pair of classes -- m-wa, m-mi, ji-ma, ki-vi,
+# n -- and three locative cells after them.  kaikki flattens it to a list and DROPS a cell that
+# repeats an earlier cell of the same column (`mzuri` stands for the m-wa singular and is not
+# listed again for the m-mi singular), so the list is shorter than the table and its positions
+# mean nothing on their own.  `extract.py` keeps the column of each form (`agree_t`), and the
+# table is rebuilt here: a row's cell is the next form if it stands in that column, and
+# otherwise the cell was dropped as a repeat.
+CLASS_ROWS = ['m-wa', 'm-mi', 'ji-ma', 'ki-vi', 'n']
+
+
+def class_cells(agree, cols):
+    """{row: (first cell, second cell)} for the five class pairs, a cell None where the table
+    cannot be read with certainty.  A DROPPED cell is a repeat of an earlier cell of its
+    column, and it is filled only where one earlier cell can be meant:
+      · the m-mi singular repeats the m-wa singular (the only cell before it);
+      · the n singular repeats whichever earlier cell the n plural beside it spells
+        (`kali`: n `kali · kali`, the ji-ma singular's spelling);
+      · the ji-ma plural repeats the m-mi plural when it is not the m-wa plural's turn --
+        a possessive's or the genitive's `ya`, which class 4 and class 6 share.
+    A numeral's table has one column (`-moja` the first, `-tatu` the second): its cells are
+    that column's, and the other is left empty."""
+    if not agree or len(agree) != len(cols):
+        return {}
+    forms = list(agree)
+    if cols == '00000111':
+        # a plural numeral (-wili, -tatu ...): wa- mi- ma- vi- n-, then the three locatives
+        return {r: (None, forms[i]) for i, r in enumerate(CLASS_ROWS)}
+    if cols[0] != '1':
+        return {}                                    # `kumi na moja` (000111): not this table
+    if '0' not in cols:
+        # a singular numeral (-moja): m-wa, [m-mi dropped], ji-ma, ki-vi, [n dropped], locatives
+        if len(forms) == 5 and forms[2][:2] in ('ki', 'ch') and ' ' not in forms[0]:
+            return {'m-wa': (forms[0], None), 'm-mi': (forms[0], None), 'ji-ma': (forms[1], None),
+                    'ki-vi': (forms[2], None), 'n': (forms[1], None)}
+        return {}
+    i, out = 0, {}
+    for row in CLASS_ROWS:
+        pair = []
+        for col in '10':
+            if i < len(forms) and cols[i] == col:
+                pair.append(forms[i])
+                i += 1
+            else:
+                pair.append(None)                    # dropped as a repeat: filled below
+        out[row] = pair
+    if len(forms) - i > 3 or any(c != '1' for c in cols[i:]):
+        return {}                                    # not the table this reads
+    if out['m-mi'][0] is None:
+        out['m-mi'][0] = out['m-wa'][0]
+    if out['n'][0] is None and out['n'][1] in (out['m-wa'][0], out['m-mi'][0], out['ji-ma'][0], out['ki-vi'][0]):
+        out['n'][0] = out['n'][1]
+    if out['ji-ma'][1] is None and out['m-mi'][1] is not None and out['m-mi'][1] != out['m-wa'][1]:
+        out['ji-ma'][1] = out['m-mi'][1]
+    return {r: tuple(p) for r, p in out.items()}
+
+
+# ---- a verb printed under its second infinitive (the beginner pass, Nov 2026) ------------------
+# Wiktionary heads `-anza`, to begin, "infinitive kwanza" and lists `kuanza` beside it in the
+# table.  `kwanza` is also "first" (`-a kwanza`, an A1 card of its own), and the three sentences
+# the verb's card showed were all "first"; Tatoeba writes the verb `kuanza`, `alianza`.  The
+# table's cells are built on the infinitive not used (`ninakwanza`, `-likwanza`) and are not
+# shown.  The counts in lex.json are untouched: this is how the word is PRINTED and matched.
+HEAD_INF = {'anza': 'kuanza'}
+
+
+def infinitive(key, entry):
+    """A verb's headword: its listed infinitive, `HEAD_INF`'s where one is named."""
+    return HEAD_INF.get(key) or entry['inf']
+
+
+def shown_forms(entry):
+    """The agreeing forms a card SHOWS: the cells of the five class pairs.  The table's three
+    locative cells are left out of the row and so of the sentences: `mwili` is the mu-class
+    form of `-wili`, two, and is "body" in every sentence that has it."""
+    return {x for pair in class_cells(entry['agree'], entry.get('agree_t', '')).values() for x in pair if x}
