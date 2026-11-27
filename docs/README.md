@@ -56,8 +56,8 @@ before changing the thing it names.
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |
 | `map-cards.md` | The geography format — a shape on a globe as the question. |
 | `war-cards.md` | `card.war` — the two sides of a war shaded on a card's globe and on the reader's own atlas. |
-| `library-books.md` | Per-book findings for all 88 — how each edition is set, what pairs, the licence ground. |
-| `library-importer.md` | `.claude/fetch-book.js` — the 23 layouts, the extraction faults, the per-book options. |
+| `library-books.md` | Per-book findings for all 89 — how each edition is set, what pairs, the licence ground. |
+| `library-importer.md` | `.claude/fetch-book.js` — the 24 layouts, the extraction faults, the per-book options. |
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
 | `russian-decks-plan.md` | The plan for the Russian language decks (TORFL A1–C2 + phrases): word source, lemma order, stress, aspect pairs, the as-built findings per level. Alphabet, A1–C2 and phrases are built. |
 | `turkish-decks-plan.md` | The plan for the Turkish language decks (A1–C1 + phrases): sources checked, the card, the pitfalls, the build order, the decisions, and (§9) what the beginner pass of Nov 2026 changed. |

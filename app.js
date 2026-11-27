@@ -13309,6 +13309,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.6 and Vyasa 14.8, none read beside Freud, with Sophocles 14.9, Darwin 16.7, Descartes 20.1, Douglass
      46.5 and Kant 71.2. It reads 4.53:1 on the tightest light paper. */
   "Sigmund Freud": "#844227",
+  /* Nov 2026, adding Conditioned Reflexes, measured as the rows above (CIE76 over L 12.3–47.8, chroma 18–85, 4.5:1
+     on all forty-three light papers and cards; a sweep of the cube at a step of 3, which tops out at 15.4 — the band
+     is full). THE EURIPIDES TEST: held 25 or more from the books read beside Pavlov (James, Freud, Darwin,
+     Descartes), the sweep's best olives stand 28 from Darwin, so this dark green, 15.3 from Boethius, its nearest,
+     not read beside Pavlov; Darwin stands 43.4 off, Freud 54.5, Descartes 68.5, James 96.0. It reads 9.03:1 on the
+     tightest light paper. */
+  "Ivan Pavlov": "#032D21",
   /* Nov 2026, adding Thorndike's Animal Intelligence, measured as the rows above (CIE76 over L 12.3–47.8, chroma
      18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen light inks;
      a sweep of the cube at a step of 3, which tops out at 13.2). THE EURIPIDES TEST: the sweep's joint best, a
@@ -17890,6 +17897,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Academy", "Convergent_evolution", "Diffusion", "Concord", "Rhône", "Philosophy", "Socii",
         "Gnaeus_Marcius_Coriolanus", "Evolutionary_psychology", "Transcendentalism"],
       glossOffIn: { Providence: [22], Ethics: [22], Logic: [23], London: [19] },
+    },
+    {
+      id: "pavlov-conditioned-reflexes",
+      title: "Conditioned Reflexes",
+      subtitle: "An Investigation of the Physiological Activity of the Cerebral Cortex",
+      author: "Ivan Pavlov",
+      written: "1926",
+      year: 1926,
+      translator: "G. V. Anrep",
+      edition: "Translated and edited by G. V. Anrep, Oxford University Press: Humphrey Milford, London, 1927",
+      /* A LIMITED licence: public domain in the US (1927) and wherever copyright runs life + 70 or less, since
+         Anrep died in 1955 — not yet where it runs longer. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, where G. V. Anrep's translation was published in 1927. Ivan Pavlov " +
+        "died in 1936 and Anrep in 1955, so it is also out of copyright in countries where copyright lasts for " +
+        "the author's life plus seventy years or less. The text is the transcription in Classics in the History " +
+        "of Psychology (York University, Toronto), corrected against two scans of the 1927 printing; its tables, " +
+        "which that site gives as pictures of the page, were typed from those pictures.",
+      sourceName: "Classics in the History of Psychology",
+      sourceUrl: "http://psychclassics.yorku.ca/Pavlov/",
+      /* NO `origLang`: no Russian text of the 1927 Lectures is transcribed anywhere this importer reads. Twenty-four
+         sections — the twenty-three lectures and the Bibliography. No `parts`. */
+      chapterWord: "Lecture",
+      count: 24,
+      total: 24,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 24 sections
+         (every `.ttip`, 34 keys, Nov 2026). NAMESAKES: Pavlov's Speransky is the physiologist A. D. Speransky, not the
+         statesman; Max-Kohl's tone-variator is a maker's name, not the cosmetic. NAMES INSIDE NAMES and ordinary words:
+         the Military Medical Academy, Oxford University Press, Classics in the History of Psychology at York
+         University (Toronto, not the English city), the Archive of Biological Sciences, the Congress of Natural
+         Sciences, "Monographs on Animal Biology", "Necessary conditions" in Lecture II's summary, Dutch cheese, a
+         "Sound of bubbling water" in a table and Foursikov's paper "Water as a conditioned stimulus". */
+      glossOff: ["Mikhail_Speransky", "Kohl_(cosmetics)", "Academy", "University_of_Oxford", "Psychology", "York",
+        "Biology", "Natural_science", "Monograph", "Necessity_and_sufficiency", "Netherlands", "Sound", "Water"],
     },
     {
       id: "darwin-expression-of-emotions",
@@ -27898,6 +27939,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The movements of expression in the face and body, whatever their origin may have been, are in themselves of much importance for our welfare. They serve as the first means of communication between the mother and her infant; she smiles approval, and thus encourages her child on the right path, or frowns disapproval. We readily perceive sympathy in others by their expression; our sufferings are thus mitigated and our pleasures increased; and mutual good feeling is thus strengthened. The movements of expression give vividness and energy to our spoken words. They reveal the thoughts and intentions of others more truly than do words, which may be falsified." },
     { book: "james-principles-of-psychology", n: 10, t: "IX. The Stream of Thought", p: 43,
       text: "Consciousness, then, does not appear to itself chopped up in bits. Such words as 'chain' or 'train' do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A 'river' or a 'stream' are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life." },
+    { book: "pavlov-conditioned-reflexes", n: 1, t: "Lecture I", p: 30,
+      text: "So infinitely complex, so continuously in flux, are the conditions in the world around, that that complex animal system which is itself in living flux, and that system only, has a chance to establish dynamic equilibrium with the environment. Thus we see that the fundamental and the most general function of the hemispheres is that of reacting to signals presented by innumerable stimuli of interchangeable signification." },
     { book: "thorndike-animal-intelligence", n: 3, t: "II. Animal Intelligence; an Experimental Study of the Associative Processes in Animals", p: 33,
       text: "The cat that is clawing all over the box in her impulsive struggle will probably claw the string or loop or button so as to open the door. And gradually all the other non-successful impulses will be stamped out and the particular impulse leading to the successful act will be stamped in by the resulting pleasure, until, after many trials, the cat will, when put in the box, immediately claw the button or loop in a definite way." },
   ];

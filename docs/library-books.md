@@ -12,7 +12,22 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently ninety:
+  matter (chapter 0 — see the Library bullet). Currently ninety-one:
+  `pavlov-conditioned-reflexes` (~1 MB, **24 sections** — the twenty-three lectures and the Bibliography, `chapterWord:
+  "Lecture"`, titles "Lecture I"… via `titleOf`; **17 notes**; no original). **From Classics in the History of Psychology**
+  (Christopher D. Green, York University, 2000–01), the only transcription: neither Wikisource nor Gutenberg has the book
+  (Nov 2026). Read by the new `york` layout (`docs/library-importer.md`, last section). The site's text came from a scan,
+  so **242 `fixes`**, each a place where the OCR of BOTH Internet Archive scans of the 1927 printing agree against it
+  (`conditionedrefle0000ippa`, `conditioned-reflexes-an-investigation-of-the-physiological-activity-of-the-cerebral-cortex`),
+  read before written; a few found by eye (degree signs, dashes) checked the same way. **Its tables are GIFs** on the
+  site: all 187 were typed from the pictures into `.claude/book-tables/pavlov-conditioned-reflexes.json` and set as
+  `bk-table`, spot-checked against the pictures (the OCR garbles table columns too badly to check them by machine); 11
+  pictures of brains and a dog (Figs. 8–18) and 5 `fig…` pictures left out, with the one caption the site typed. Each
+  lecture opens on Pavlov's italic summary. Licence: OUP 1927 (US PD); Pavlov d. 1936, Anrep d. 1955 — the rights box
+  says life + 70 or less. Colour `#032D21` (15.3, the band full; Darwin 43.4 off, Freud 54.5). `glossOff` (34 keys
+  swept): Speransky the physiologist, Max-Kohl, and words inside names (the Academy, Oxford University Press, York
+  University, Biological Sciences, Natural Sciences, Monographs, "Necessary conditions", Dutch cheese, Sound, Water).
+  Excerpt: "reacting to signals" (I). Not included: title page, dedication, the three prefaces, contents, index, figures.
   `darwin-expression-of-emotions` (~640 KB, **15 sections** — Darwin's Introduction and his fourteen chapters, so a tab
   runs one ahead of the chapter; `chapterWord: "Section"`, titles from the 1872 contents via `titleOf` — **303 notes**,
   Darwin's own, renumbered per chapter; no original, the book being English). **From Project Gutenberg (ebook 1227), not

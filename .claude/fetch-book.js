@@ -22059,6 +22059,606 @@ const BOOKS = {
     minChars: 3000,
   },
 
+  "pavlov-conditioned-reflexes": {
+    title: "Conditioned Reflexes",
+    subtitle: "An Investigation of the Physiological Activity of the Cerebral Cortex",
+    author: "Ivan Pavlov",
+    translator: "G. V. Anrep",
+    edition: "Translated and edited by G. V. Anrep, Oxford University Press: Humphrey Milford, London, 1927",
+    written: "1926",
+    year: 1926,
+    /* ---------- THE LICENCE ----------
+       Pavlov died in Leningrad in 1936. Anrep's translation was published by the Oxford University Press in
+       1927 — before 1931, so it is public domain in the United States (the Russian edition, from which it was
+       made, is of the same year). Anrep died in 1955, so the translation is out of copyright wherever copyright
+       runs for the translator's life plus seventy years or less; NOT yet where it runs longer — the rights box
+       says so rather than claiming the world.
+       THE SOURCE IS NOT WIKISOURCE, which has no copy (searched, Nov 2026), nor Project Gutenberg. It is the
+       transcription in Christopher D. Green's Classics in the History of Psychology (York University, Toronto),
+       posted 2000–2001: the twenty-three lectures and the Bibliography, one page each, Word 97 and Netscape HTML
+       in windows-1252. It was made from a scan and carries OCR slips ("hut also incapable" for "but"), so it is
+       corrected by `fixes`, every row witnessed by BOTH Internet Archive scans of the 1927 printing (items
+       `conditionedrefle0000ippa` and `conditioned-reflexes-an-investigation-of-the-physiological-activity-of-
+       the-cerebral-cortex`): a word-level alignment of the transcription against each scan's OCR, keeping only
+       the places where the two OCRs agree with each other and not with the transcription, then each read as a
+       sentence before it was written. Its 187 TABLES are pictures on that site (GIFs of the printed page), so
+       they were typed from those pictures into `.claude/book-tables/pavlov-conditioned-reflexes.json` and are
+       set as tables; the eleven pictures of brains and the dog's outline (Figs. 1–18) are left out. */
+    rights:
+      "Public domain in the United States, where G. V. Anrep's translation was published in 1927. Ivan Pavlov " +
+      "died in 1936 and Anrep in 1955, so it is also out of copyright in countries where copyright lasts for " +
+      "the author's life plus seventy years or less. The text is the transcription in Classics in the History " +
+      "of Psychology (York University, Toronto), corrected against two scans of the 1927 printing; its tables, " +
+      "which that site gives as pictures of the page, were typed from those pictures.",
+    sourceName: "Classics in the History of Psychology",
+    sourceUrl: "http://psychclassics.yorku.ca/Pavlov/",
+    layout: "york",
+    url: (n) => "http://psychclassics.yorku.ca/Pavlov/" + (n === 24 ? "bibliography.htm" : "lecture" + n + ".htm"),
+    tablesFile: "pavlov-conditioned-reflexes.json",
+    /* the pictures that are not tables: the drawings of the dog's brain (Figs. 8–14, 16–18) and the outline of a
+       dog marked with its places of stimulation (Fig. 15), which the site files under "table" names */
+    figures: ["table19-1.gif", "table19-2.gif", "table19-3.gif", "table19-4.gif", "table19-6.gif", "table19-8.gif",
+      "table20-2.gif", "table20-4.gif", "table20-6.gif", "table20-8.gif", "table21-1.gif"],
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every
+       quotation in it was found in this text, except Anrep's "expand, but in no sense to alter" and the audience
+       of "medical men and biologists", which are his preface and Pavlov's preface to the Russian edition, read
+       in the scans; the date of the flood is Lecture XVIII's own, the year the record's. */
+    about: [
+      "<b>Conditioned Reflexes</b> is Ivan Pavlov's account of a quarter of a century's experiments on the " +
+        "working of the brain. Its subject is the <i>conditioned reflex</i>: a dog that salivates when food is " +
+        "put in its mouth will, after the food has several times been given together with some other " +
+        "stimulus — the beats of a metronome, a tone, a touch on the skin — salivate at that stimulus alone. " +
+        "The inborn response Pavlov calls an <i>unconditioned</i> reflex, the learned one a <i>conditioned</i> " +
+        "reflex, and he argues that <i>the fundamental and the most general function of the hemispheres is " +
+        "that of reacting to signals</i>. By counting the drops of saliva the experimenter can measure the " +
+        "activity of the cerebral cortex objectively, without guessing at what the animal feels.",
+      "The lectures move from the method (I–II) to how conditioned reflexes are formed and how they are " +
+        "inhibited — by an extraneous stimulus, by extinction, by a conditioned inhibitor and by delay " +
+        "(III–VI). Lectures VII–XIV follow the cortex as it analyses and combines the stimuli that reach it, " +
+        "and trace how excitation and inhibition spread across it and give way to one another. Lectures XV " +
+        "and XVI argue that sleep is <i>internal inhibition which has become diffused</i> over the cortex, " +
+        "with the hypnotic stages between waking and sleep. Lectures XVII–XXI describe the types of nervous " +
+        "system in dogs and the disturbances produced in the cortex by overstrain and by surgery, including " +
+        "the dogs whose conditioned reflexes were upset by the flood in Petrograd of September 1924 (XVIII). Lecture XXII reviews the " +
+        "work and corrects some of its own earlier conclusions, and Lecture XXIII applies the results to " +
+        "man: to sleep, hypnosis and nervous illness.",
+      "Pavlov was born in Ryazan in 1849, the son of a priest, and trained in physiology in St Petersburg. " +
+        "His work on the digestive glands won him the Nobel Prize in Physiology or Medicine in 1904, and it " +
+        "was while measuring their secretions that he turned to the <i>psychic</i> salivation of dogs that " +
+        "had not yet been fed. The book began as lectures given at the Military Medical Academy in Petrograd " +
+        "in the spring of 1924 to <i>an audience of medical men and biologists</i>; Pavlov spent over " +
+        "eighteen months recasting them, and they were published in Russian and in this English translation " +
+        "in 1927. He died in Leningrad in 1936.",
+      "The translation is by G. V. Anrep, who had worked in Pavlov's laboratories and was by then a " +
+        "lecturer in physiology at Cambridge. Pavlov allowed him, he says in his preface, to <i>expand, but " +
+        "in no sense to alter</i>, the text for English and American readers. The many experimenters named in the text " +
+        "(<i>Dr. Frolov</i>, <i>Dr. Foursikov</i> and the rest) are Pavlov's collaborators, and the " +
+        "Bibliography at the end lists their papers.",
+      "The text here gives the twenty-three lectures and the Bibliography. Each lecture opens on Pavlov's own " +
+        "summary of its contents, in italics. The tables of experiments are set as tables, typed from " +
+        "pictures of the printed pages; a figure of 1.5 drops is printed with a raised point in the book and " +
+        "with a full stop here. The footnotes are in the notes under each lecture. Not included: the title " +
+        "page, the dedication, Anrep's preface, Pavlov's preface to the English edition and his preface to " +
+        "the Russian one, the contents, the index, and the figures — drawings of the apparatus, a chart and " +
+        "the drawings of dogs' brains in Lectures XIX–XXI — so where the text says <i>see Fig. 8</i> there " +
+        "is no figure to see.",
+    ],
+    chapterWord: "Lecture",
+    chapters: Array.from({ length: 24 }, (_, i) => i + 1),
+    titleOf: (n) => (n === 24 ? "Bibliography" : "Lecture " + toRoman(n)),
+    minChars: 3000,
+    /* THE CORRECTIONS. Every row is a place where BOTH scans' OCR agree with each other against the transcription
+       (the alignment described under THE LICENCE above), read as a sentence before it was written; the rest of
+       that alignment's hits — OCR noise shared by both, a spelling both print (Thorndyke, which the site marks
+       [sic]), the transcription's own ½ where the OCR reads "4" — were left alone. A few rows were found by eye
+       and checked in both OCRs the same way: the degree signs, the dashes typed as "-", the stray marks. */
+    fixes: [
+      ["Med. Sec.", "Med. Soc.",
+        "Bibliography: \"Med. Sec.\" for \"Med. Soc.\" (21 times) — both scans read \"Soc.\""],
+      ["duties hut also", "duties but also",
+        "L1: \"hut\" for \"but\" — both scans read \"duties but also\""],
+      ["of thc lower", "of the lower",
+        "L1: \"thc\" for \"the\" — both scans read \"of the lower\""],
+      ["the anial threw", "the animal threw",
+        "L1: \"anial\" for \"animal\" — both scans read \"the animal threw\""],
+      ["from thc very", "from the very",
+        "L1: \"thc\" for \"the\" — both scans read \"from the very\""],
+      ["the fundnmental reflexes", "the fundamental reflexes",
+        "L1: \"fundnmental\" for \"fundamental\" — both scans read \"the fundamental reflexes\""],
+      ["at lazst that", "at last that",
+        "L1: \"lazst\" for \"last\" — both scans read \"at last that\""],
+      ["innumerable of interchangeable", "innumerable stimuli of interchangeable",
+        "L1: \"stimuli\" missing — both scans read \"innumerable stimuli of interchangeable\""],
+      ["of thc duct", "of the duct",
+        "L2: \"thc\" for \"the\" — both scans read \"of the duct\""],
+      ["as s recording", "as a recording",
+        "L2: \"s\" for \"a\" — both scans read \"as a recording\""],
+      ["for considerable time", "for a considerable time",
+        "L2: \"a\" missing — both scans read \"for a considerable time\""],
+      ["accurately thc secretory", "accurately the secretory",
+        "L2: \"thc\" for \"the\" — both scans read \"accurately the secretory\""],
+      ["of thc effective", "of the effective",
+        "L2: \"thc\" for \"the\" — both scans read \"of the effective\""],
+      ["different modifcations and", "different modifications and",
+        "L2: \"modifcations\" for \"modifications\" — both scans read \"different modifications and\""],
+      ["of thc odour", "of the odour",
+        "L2: \"thc\" for \"the\" — both scans read \"of the odour\""],
+      ["is s record", "is a record",
+        "L2: \"s\" for \"a\" — both scans read \"is a record\""],
+      ["from s consideration", "from a consideration",
+        "L2: \"s\" for \"a\" — both scans read \"from a consideration\""],
+      ["Nevertheless, an the", "Nevertheless, on the",
+        "L2: \"an\" for \"on\" — both scans read \"Nevertheless, on the\""],
+      ["Drs. Zeljony, Foursikov", "Drs. Zeliony, Foursikov",
+        "L3: \"Zeljony\" for \"Zeliony\" — both scans read \"Drs. Zeliony, Foursikov\""],
+      ["by modifcations in", "by modifications in",
+        "L3: \"modifcations\" for \"modifications\" — both scans read \"by modifications in\""],
+      ["could bc obtained", "could be obtained",
+        "L3: \"bc\" for \"be\" — both scans read \"could be obtained\""],
+      ["or s small", "or a small",
+        "L3: \"s\" for \"a\" — both scans read \"or a small\""],
+      ["may he affected", "may be affected",
+        "L3: \"he\" for \"be\" — both scans read \"may be affected\""],
+      ["conditioned syimulus. The", "conditioned stimulus. The",
+        "L3: \"syimulus\" for \"stimulus\" — both scans read \"conditioned stimulus. The\""],
+      ["metronome. dl this", "metronome. In this",
+        "L3: \"dl\" for \"In\" — both scans read \"metronome. In this\""],
+      ["every hall-hour", "every half-hour",
+        "L3: \"hall\" for \"half\" — both scans read \"every half-hour\""],
+      ["underwent e series", "underwent a series",
+        "L3: \"e\" for \"a\" — both scans read \"underwent a series\""],
+      ["itself graduadly from", "itself gradually from",
+        "L3: \"graduadly\" for \"gradually\" — both scans read \"itself gradually from\""],
+      ["for urination had", "for micturition had",
+        "L3: \"urination\" for \"micturition\" — both scans read \"for micturition had\""],
+      ["in greeter or", "in greater or",
+        "L3: \"greeter\" for \"greater\" — both scans read \"in greater or\""],
+      ["stimulus rightly constant", "stimulus rigidly constant",
+        "L4: \"rightly\" for \"rigidly\" — both scans read \"stimulus rigidly constant\""],
+      ["of 8 natural", "of a natural",
+        "L4: \"8\" for \"a\" — both scans read \"of a natural\""],
+      ["a salivatry secretion", "a salivary secretion",
+        "L4: \"salivatry\" for \"salivary\" — both scans read \"a salivary secretion\""],
+      ["the secondatry extinction", "the secondary extinction",
+        "L4: \"secondatry\" for \"secondary\" — both scans read \"the secondary extinction\""],
+      ["experiment which the", "experiment with the",
+        "L4: \"which\" for \"with\" — both scans read \"experiment with the\""],
+      ["the ease of", "the case of",
+        "L4: \"ease\" for \"case\" — both scans read \"the case of\""],
+      ["historical consideration. Since", "historical considerations. Since",
+        "L5: \"consideration\" for \"considerations\" — both scans read \"historical considerations. Since\""],
+      ["conditioned stimulus of the metronome was applied", "conditioned stimulus of a metronome was applied",
+        "L5: \"the\" for \"a\" — both scans read \"conditioned stimulus of a metronome was applied\""],
+      ["trace loft in", "trace left in",
+        "L5: \"loft\" for \"left\" — both scans read \"trace left in\""],
+      ["the fist few", "the first few",
+        "L5: \"fist\" for \"first\" — both scans read \"the first few\""],
+      ["such cases:</p>\n<p>A", "such case:</p>\n<p>A",
+        "L5: \"cases\" for \"case\" — both scans read \"such case: ¶ A\""],
+      ["Dr. Poursikov].</p>\n<p>Finally", "Dr. Foursikov].</p>\n<p>Finally",
+        "L5: \"Poursikov\" for \"Foursikov\" — both scans read \"Dr. Foursikov]. ¶ Finally\""],
+      ["inhibitory combinations we", "inhibitory combination we",
+        "L5: \"combinations\" for \"combination\" — both scans read \"inhibitory combination we\""],
+      ["to s conditioned", "to a conditioned",
+        "L5: \"s\" for \"a\" — both scans read \"to a conditioned\""],
+      ["of tho positive", "of the positive",
+        "L5: \"tho\" for \"the\" — both scans read \"of the positive\""],
+      ["give s smaller", "give a smaller",
+        "L6: \"s\" for \"a\" — both scans read \"give a smaller\""],
+      ["not through the", "not throughout the",
+        "L6: \"through\" for \"throughout\" — both scans read \"not throughout the\""],
+      ["active pages. This", "active phase. This",
+        "L6: \"pages\" for \"phase\" — both scans read \"active phase. This\""],
+      ["carried out in the", "carried out on the",
+        "L6: \"in\" for \"on\" — both scans read \"carried out on the\""],
+      ["manner, if the conditioned", "manner, if a conditioned",
+        "L6: \"the\" for \"a\" — both scans read \"manner, if a conditioned\""],
+      ["new line is", "new lines is",
+        "L7: \"line\" for \"lines\" — both scans read \"new lines is\""],
+      ["find s method", "find a method",
+        "L7: \"s\" for \"a\" — both scans read \"find a method\""],
+      ["to s definite", "to a definite",
+        "L7: \"s\" for \"a\" — both scans read \"to a definite\""],
+      ["conditioned stimuli. On", "conditioned stimulus. On",
+        "L7: \"stimuli\" for \"stimulus\" — both scans read \"conditioned stimulus. On\""],
+      ["however, thc initial", "however, the initial",
+        "L7: \"thc\" for \"the\" — both scans read \"however, the initial\""],
+      ["light recent experiments", "light in recent experiments",
+        "L7: \"in\" missing — both scans read \"light in recent experiments\""],
+      ["4:6, 5", "4:5, 5",
+        "L7: \"6\" for \"5\" — both scans read \"4:5, 5\""],
+      ["provide s reliable", "provide a reliable",
+        "L8: \"s\" for \"a\" — both scans read \"provide a reliable\""],
+      ["in s first", "in a first",
+        "L8: \"s\" for \"a\" — both scans read \"in a first\""],
+      ["to s luminous", "to a luminous",
+        "L8: \"s\" for \"a\" — both scans read \"to a luminous\""],
+      ["to he quite", "to be quite",
+        "L8: \"he\" for \"be\" — both scans read \"to be quite\""],
+      ["the thud interval", "the third interval",
+        "L8: \"thud\" for \"third\" — both scans read \"the third interval\""],
+      ["compound because fully", "compound became fully",
+        "L8: \"because\" for \"became\" — both scans read \"compound became fully\""],
+      ["intensities, very weak", "intensities, a very weak",
+        "L8: \"a\" missing — both scans read \"intensities, a very weak\""],
+      ["required great deal", "required a great deal",
+        "L8: \"a\" missing — both scans read \"required a great deal\""],
+      ["in s different", "in a different",
+        "L8: \"s\" for \"a\" — both scans read \"in a different\""],
+      ["fixed its somewhere", "fixed as somewhere",
+        "L8: \"its\" for \"as\" — both scans read \"fixed as somewhere\""],
+      ["the initial generalization of the", "the initial generalisation of the",
+        "L9: \"generalization\" for \"generalisation\" — both scans read \"the initial generalisation of the\""],
+      ["of thc positive", "of the positive",
+        "L9: \"thc\" for \"the\" — both scans read \"of the positive\""],
+      ["4, which is the", "4, which in the",
+        "L9: \"is\" for \"in\" — both scans read \"4, which in the\""],
+      ["in thc course", "in the course",
+        "L9: \"thc\" for \"the\" — both scans read \"in the course\""],
+      ["crowded meeting of", "crowded meetings of",
+        "L9: \"meeting\" for \"meetings\" — both scans read \"crowded meetings of\""],
+      ["by corresponding shortening", "by a corresponding shortening",
+        "L9: \"a\" missing — both scans read \"by a corresponding shortening\""],
+      ["which bas been", "which has been",
+        "L9: \"bas\" for \"has\" — both scans read \"which has been\""],
+      ["the akin. While", "the skin. While",
+        "L9: \"akin\" for \"skin\" — both scans read \"the skin. While\""],
+      ["minutes, or the most", "minutes, or at the most",
+        "L9: \"at\" missing — both scans read \"minutes, or at the most\""],
+      ["form if internal", "form of internal",
+        "L9: \"if\" for \"of\" — both scans read \"form of internal\""],
+      ["of s period", "of a period",
+        "L9: \"s\" for \"a\" — both scans read \"of a period\""],
+      ["undergoes s gradual", "undergoes a gradual",
+        "L9: \"s\" for \"a\" — both scans read \"undergoes a gradual\""],
+      ["Ivanov-Smolensby on", "Ivanov-Smolensky on",
+        "L9: \"Smolensby\" for \"Smolensky\" — both scans read \"Ivanov-Smolensky on\""],
+      ["to metronome (<i>M", "to a metronome (<i>M",
+        "L10: \"a\" missing — both scans read \"to a metronome (<i>M\""],
+      ["of thc skin", "of the skin",
+        "L10: \"thc\" for \"the\" — both scans read \"of the skin\""],
+      ["from thc place", "from the place",
+        "L10: \"thc\" for \"the\" — both scans read \"from the place\""],
+      ["elicited s drops", "elicited 8 drops",
+        "L10: \"s\" for \"8\" — both scans read \"elicited 8 drops\""],
+      ["conditions thc process", "conditions the process",
+        "L10: \"thc\" for \"the\" — both scans read \"conditions the process\""],
+      ["that of place", "that at place",
+        "L10: \"of\" for \"at\" — both scans read \"that at place\""],
+      ["it then on", "it than on",
+        "L10: \"then\" for \"than\" — both scans read \"it than on\""],
+      ["and if is", "and it is",
+        "L10: \"if\" for \"it\" — both scans read \"and it is\""],
+      ["such confusion between", "such a confusion between",
+        "L10: \"a\" missing — both scans read \"such a confusion between\""],
+      ["representation is the", "representation in the",
+        "L10: \"is\" for \"in\" — both scans read \"representation in the\""],
+      ["further if spreads", "further it spreads",
+        "L10: \"if\" for \"it\" — both scans read \"further it spreads\""],
+      ["of <i>increases</i> excitability", "of <i>increased</i> excitability",
+        "L11: \"increases\" for \"increased\" — both scans read \"of <i>increased</i> excitability\""],
+      ["induction \"new condition", "induction \"a new condition",
+        "L11: \"a\" missing — both scans read \"induction \"a new condition\""],
+      ["100 beets per", "100 beats per",
+        "L11: \"beets\" for \"beats\" — both scans read \"100 beats per\""],
+      ["period if was", "period it was",
+        "L11: \"if\" for \"it\" — both scans read \"period it was\""],
+      ["differentiation, as soon", "differentiation, so soon",
+        "L11: \"as\" for \"so\" — both scans read \"differentiation, so soon\""],
+      ["acted a$ the", "acted as the",
+        "L11: \"a\" for \"as\" — both scans read \"acted as the\""],
+      ["with ah the", "with all the",
+        "L12: \"ah\" for \"all\" — both scans read \"with all the\""],
+      ["the pieces were", "the places were",
+        "L12: \"pieces\" for \"places\" — both scans read \"the places were\""],
+      ["three fables for", "three tables for",
+        "L12: \"fables\" for \"tables\" — both scans read \"three tables for\""],
+      ["3 min. are", "3 mins. are",
+        "L12: \"min\" for \"mins\" — both scans read \"3 mins. are\""],
+      ["the fetal inhibitory", "the total inhibitory",
+        "L12: \"fetal\" for \"total\" — both scans read \"the total inhibitory\""],
+      ["The moat natural", "The most natural",
+        "L12: \"moat\" for \"most\" — both scans read \"The most natural\""],
+      ["No. o on", "No. 0 on",
+        "L12: \"o\" for \"0\" — both scans read \"No. 0 on\""],
+      ["tested, ifs normal", "tested, its normal",
+        "L12: \"ifs\" for \"its\" — both scans read \"tested, its normal\""],
+      ["the akin corresponds", "the skin corresponds",
+        "L12: \"akin\" for \"skin\" — both scans read \"the skin corresponds\""],
+      ["of inquirer.</p>\n<p>The", "of the inquirer.</p>\n<p>The",
+        "L13: \"the\" missing — both scans read \"of the inquirer. ¶ The\""],
+      ["to the unconditioned reflex. The", "to the same unconditioned reflex. The",
+        "L13: \"same\" missing — both scans read \"to the same unconditioned reflex. The\""],
+      ["a stimulation of", "a tactile stimulation of",
+        "L13: \"tactile\" missing — both scans read \"a tactile stimulation of\""],
+      ["were inhibitory conditioned", "were used as inhibitory conditioned",
+        "L13: \"used as\" missing — both scans read \"were used as inhibitory conditioned\""],
+      ["stimulations the places", "stimulations of the places",
+        "L13: \"of\" missing — both scans read \"stimulations of the places\""],
+      ["effect of different points", "effect of the different points",
+        "L13: \"the\" missing — both scans read \"effect of the different points\""],
+      ["to he made", "to be made",
+        "L13: \"he\" for \"be\" — both scans read \"to be made\""],
+      ["between positive c", "between the positive c",
+        "L13: \"the\" missing — both scans read \"between the positive c\""],
+      ["gradually resume excitatory", "gradually reassume excitatory",
+        "L13: \"resume\" for \"reassume\" — both scans read \"gradually reassume excitatory\""],
+      ["needed. indicates that", "needed. This indicates that",
+        "L13: \"this\" missing — both scans read \"needed. This indicates that\""],
+      ["inhibitory effect as before", "inhibitory after-effect as before",
+        "L13: \"effect\" for \"aftereffect\" — both scans read \"inhibitory after-effect as before\""],
+      ["cessation the tone", "cessation of the tone",
+        "L13: \"of\" missing — both scans read \"cessation of the tone\""],
+      ["time its termination", "time after its termination",
+        "L13: \"after\" missing — both scans read \"time after its termination\""],
+      ["of 258 d", "of 256 d",
+        "L13: \"258\" for \"256\" — both scans read \"of 256 d\""],
+      ["diminution I the", "diminution in the",
+        "L13: \"I\" for \"in\" — both scans read \"diminution in the\""],
+      ["interval time from", "interval of time from",
+        "L14: \"of\" missing — both scans read \"interval of time from\""],
+      ["onset secretion—is", "onset of the secretion—is",
+        "L14: \"of the\" missing — both scans read \"onset of the secretion—is\""],
+      ["the of weakening", "the degree of weakening",
+        "L14: \"degree\" missing — both scans read \"the degree of weakening\""],
+      ["maximal constant and strength", "maximal and constant strength",
+        "L14: \"and\" missing — both scans read \"maximal and constant strength\""],
+      ["of extreme importance", "of the extreme importance",
+        "L14: \"the\" missing — both scans read \"of the extreme importance\""],
+      ["in condition of", "in the condition of",
+        "L14: \"the\" missing — both scans read \"in the condition of\""],
+      ["quicker greater the", "quicker the greater the",
+        "L14: \"the\" missing — both scans read \"quicker the greater the\""],
+      ["have just described is", "have just been described is",
+        "L14: \"been\" missing — both scans read \"have just been described is\""],
+      ["saw conditioned reflexes", "saw that conditioned reflexes",
+        "L14: \"that\" missing — both scans read \"saw that conditioned reflexes\""],
+      ["Dr. Solovaichik gives", "Dr. Soloveichik gives",
+        "L14: \"Solovaichik\" for \"Soloveichik\" — both scans read \"Dr. Soloveichik gives\""],
+      ["reinforcement, so on", "reinforcement, and so on",
+        "L14: \"and\" missing — both scans read \"reinforcement, and so on\""],
+      ["differentiation conditioned inhibition", "differentiation and conditioned inhibition",
+        "L14: \"and\" missing — both scans read \"differentiation and conditioned inhibition\""],
+      ["their role of", "their rôle of",
+        "L15: \"role\" for \"rôle\" — both scans read \"their rôle of\""],
+      ["sleep closely coincides", "sleep so closely coincides",
+        "L15: \"so\" missing — both scans read \"sleep so closely coincides\""],
+      ["mosaic the cortex", "mosaic of the cortex",
+        "L15: \"of\" missing — both scans read \"mosaic of the cortex\""],
+      ["first be accompanied", "first to be accompanied",
+        "L15: \"to\" missing — both scans read \"first to be accompanied\""],
+      ["ecto-sylviusanterior</i> (see", "ecto-sylvius anterior</i> (see",
+        "L15: \"sylviusanterior\" for \"sylvius anterior\" — both scans read \"ecto-sylvius anterior</i> (see\""],
+      ["in form of", "in the form of",
+        "L15: \"the\" missing — both scans read \"in the form of\""],
+      ["Dr. Poursikov, brings", "Dr. Foursikov, brings",
+        "L15: \"Poursikov\" for \"Foursikov\" — both scans read \"Dr. Foursikov, brings\""],
+      ["which many exceptionally", "which had many exceptionally",
+        "L16: \"had\" missing — both scans read \"which had many exceptionally\""],
+      ["weak one to", "weak tone to",
+        "L16: \"one\" for \"tone\" — both scans read \"weak tone to\""],
+      ["secretory is absent", "secretory effect is absent",
+        "L16: \"effect\" missing — both scans read \"secretory effect is absent\""],
+      ["distributed interned inhibition", "distributed internal inhibition",
+        "L16: \"interned\" for \"internal\" — both scans read \"distributed internal inhibition\""],
+      ["functional interferences.</i></p>\n<p>We", "functional interference.</i></p>\n<p>We",
+        "L17: \"interferences\" for \"interference\" — both scans read \"functional interference.</i> ¶ We\""],
+      ["other eases the", "other cases the",
+        "L17: \"eases\" for \"cases\" — both scans read \"other cases the\""],
+      ["movement—the immediately", "movement—they immediately",
+        "L17: \"the\" for \"they\" — both scans read \"movement—they immediately\""],
+      ["type \"melancholic.\" I", "type of \"melancholic.\" I",
+        "L17: \"of\" missing — both scans read \"type of \"melancholic.\" I\""],
+      ["to reset to", "to react to",
+        "L17: \"reset\" for \"react\" — both scans read \"to react to\""],
+      ["the plaid calm", "the placid calm",
+        "L17: \"plaid\" for \"placid\" — both scans read \"the placid calm\""],
+      ["and unconditioned stimuli", "and the unconditioned stimuli",
+        "L17: \"the\" missing — both scans read \"and the unconditioned stimuli\""],
+      ["of conditioned stimulus by", "of the conditioned stimulus by",
+        "L17: \"the\" missing — both scans read \"of the conditioned stimulus by\""],
+      ["animal becomes quite", "animal became quite",
+        "L17: \"becomes\" for \"became\" — both scans read \"animal became quite\""],
+      ["forms internal inhibition", "forms of internal inhibition",
+        "L17: \"of\" missing — both scans read \"forms of internal inhibition\""],
+      ["over inhibition. Such", "over into inhibition. Such",
+        "L18: \"into\" missing — both scans read \"over into inhibition. Such\""],
+      ["excitation inhibition.</p>\n<p>Besides", "excitation and inhibition.</p>\n<p>Besides",
+        "L18: \"and\" missing — both scans read \"excitation and inhibition. ¶ Besides\""],
+      ["at a quarter", "at about a quarter",
+        "L18: \"about\" missing — both scans read \"at about a quarter\""],
+      ["storm, the breaking", "storm, amid the breaking",
+        "L18: \"amid\" missing — both scans read \"storm, amid the breaking\""],
+      ["in groups from", "in little groups from",
+        "L18: \"little\" missing — both scans read \"in little groups from\""],
+      ["the hood constantly", "the flood constantly",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood constantly\""],
+      ["the door. Under", "the floor. Under",
+        "L18: \"door\" for \"floor\" — both scans read \"the floor. Under\""],
+      ["the hood were", "the flood were",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood were\""],
+      ["of ah the", "of all the",
+        "L18: \"ah\" for \"all\" — both scans read \"of all the\""],
+      ["the hood, as", "the flood, as",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood, as\""],
+      ["the hood this", "the flood this",
+        "L18: \"hood\" for \"flood\" — both scans read \"the flood this\""],
+      ["Dr. Zavadskyl the", "Dr. Zavadsky the",
+        "L19: \"Zavadskyl\" for \"Zavadsky\" — both scans read \"Dr. Zavadsky the\""],
+      ["of soar tissue", "of scar tissue",
+        "L19: \"soar\" for \"scar\" — both scans read \"of scar tissue\""],
+      ["Dr. Erofeeva]. One", "Dr. Eroféeva]. One",
+        "L19: \"Erofeeva\" for \"Eroféeva\" — both scans read \"Dr. Eroféeva]. One\""],
+      ["that ally sound", "that any sound",
+        "L19: \"ally\" for \"any\" — both scans read \"that any sound\""],
+      ["see Pig. 9", "see Fig. 9",
+        "L19: \"Pig\" for \"Fig\" — both scans read \"see Fig. 9\""],
+      ["these faces it", "these facts it",
+        "L20: \"faces\" for \"facts\" — both scans read \"these facts it\""],
+      ["Dr. Krasnogorskyl it", "Dr. Krasnogorsky it",
+        "L20: \"Krasnogorskyl\" for \"Krasnogorsky\" — both scans read \"Dr. Krasnogorsky it\""],
+      ["by Il. Munk", "by H. Munk",
+        "L20: \"Il\" for \"H\" — both scans read \"by H. Munk\""],
+      ["Foursikov end Bikov", "Foursikov and Bikov",
+        "L20: \"end\" for \"and\" — both scans read \"Foursikov and Bikov\""],
+      ["sulcus presylvius</i> down", "sulcus praesylvius</i> down",
+        "L20: \"presylvius\" for \"praesylvius\" — both scans read \"sulcus praesylvius</i> down\""],
+      ["that al our", "that all our",
+        "L20: \"al\" for \"all\" — both scans read \"that all our\""],
+      ["in case of", "in the case of",
+        "L21: \"the\" missing — both scans read \"in the case of\""],
+      ["absent, altough the", "absent, although the",
+        "L21: \"altough\" for \"although\" — both scans read \"absent, although the\""],
+      ["dog suriving for", "dog surviving for",
+        "L21: \"suriving\" for \"surviving\" — both scans read \"dog surviving for\""],
+      ["walking amd running", "walking and running",
+        "L21: \"amd\" for \"and\" — both scans read \"walking and running\""],
+      ["to a stimuli", "to tactile stimuli",
+        "L21: \"a\" for \"tactile\" — both scans read \"to tactile stimuli\""],
+      ["that, afterer two", "that, after two",
+        "L21: \"afterer\" for \"after\" — both scans read \"that, after two\""],
+      ["of acid the dog", "of acid to the dog",
+        "L21: \"to\" missing — both scans read \"of acid to the dog\""],
+      ["experiments this reflex", "experiments with this reflex",
+        "L21: \"with\" missing — both scans read \"experiments with this reflex\""],
+      ["a die-inhibition", "a dis-inhibition",
+        "L21: \"die\" for \"dis\" — both scans read \"a dis-inhibition\""],
+      ["smell mentioned neither", "smell functioned neither",
+        "L21: \"mentioned\" for \"functioned\" — both scans read \"smell functioned neither\""],
+      ["the <i>gyus postcruciatus", "the <i>gyrus postcruciatus",
+        "L21: \"gyus\" for \"gyrus\" — both scans read \"the <i>gyrus postcruciatus\""],
+      ["were definitely atrophied", "were very definitely atrophied",
+        "L21: \"very\" missing — both scans read \"were very definitely atrophied\""],
+      ["areas diminished and", "areas being diminished and",
+        "L21: \"being\" missing — both scans read \"areas being diminished and\""],
+      ["to even the slightest changes in these", "to even the minutest changes in these",
+        "L22: \"slightest\" for \"minutest\" — both scans read \"to even the minutest changes in these\""],
+      ["the following observations, which", "the two following observations, which",
+        "L22: \"two\" missing — both scans read \"the two following observations, which\""],
+      ["the renditions which", "the conditions which",
+        "L22: \"renditions\" for \"conditions\" — both scans read \"the conditions which\""],
+      ["the week stimulus", "the weak stimulus",
+        "L22: \"week\" for \"weak\" — both scans read \"the weak stimulus\""],
+      ["Dr. Poursikov not", "Dr. Foursikov not",
+        "L22: \"Poursikov\" for \"Foursikov\" — both scans read \"Dr. Foursikov not\""],
+      ["preparation these lectures", "preparation of these lectures",
+        "L22: \"of\" missing — both scans read \"preparation of these lectures\""],
+      ["establishment extinguished conditioned", "establishment of extinguished conditioned",
+        "L22: \"of\" missing — both scans read \"establishment of extinguished conditioned\""],
+      ["had over intervened", "had ever intervened",
+        "L22: \"over\" for \"ever\" — both scans read \"had ever intervened\""],
+      ["diminish end finally", "diminish and finally",
+        "L22: \"end\" for \"and\" — both scans read \"diminish and finally\""],
+      ["discoordinate it well", "discoordinate a well",
+        "L23: \"it\" for \"a\" — both scans read \"discoordinate a well\""],
+      ["normal excitabiiity and", "normal excitability and",
+        "L23: \"excitabiiity\" for \"excitability\" — both scans read \"normal excitability and\""],
+      ["surrounded, may crushed", "surrounded, nay crushed",
+        "L23: \"may\" for \"nay\" — both scans read \"surrounded, nay crushed\""],
+      ["of Round-proof", "of sound-proof",
+        "LBibliography: \"Round\" for \"sound\" — both scans read \"of sound-proof\""],
+      ["form or dis", "form of dis",
+        "LBibliography: \"or\" for \"of\" — both scans read \"form of dis\""],
+      ["Zeliony, C. P", "Zeliony, G. P",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Zeliony, G. P\""],
+      ["10) Corn, E", "10) Gorn, E",
+        "LBibliography: \"Corn\" for \"Gorn\" — both scans read \"10) Gorn, E\""],
+      ["Thesis, Petrogad, 1911", "Thesis, Petrograd, 1911",
+        "LBibliography: \"Petrogad\" for \"Petrograd\" — both scans read \"Thesis, Petrograd, 1911\""],
+      ["A. SeeIVD (7", "A. See IVD (7",
+        "LBibliography: \"SeeIVD\" for \"See IVD\" — both scans read \"A. See IVD (7\""],
+      ["Ten-Gate, J", "Ten-Cate, J",
+        "LBibliography: \"Gate\" for \"Cate\" — both scans read \"Ten-Cate, J\""],
+      ["Vindelband, 0.A", "Vindelband, O.A",
+        "LBibliography: \"0\" for \"O\" — both scans read \"Vindelband, O.A\""],
+      ["I.X. See", "I.S. See",
+        "LBibliography: \"X\" for \"S\" — both scans read \"I.S. See\""],
+      ["Physiol. Sec., 1924", "Physiol. Soc., 1924",
+        "LBibliography: \"Sec\" for \"Soc\" — both scans read \"Physiol. Soc., 1924\""],
+      ["Snegirev, C.V", "Snegirev, G.V",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Snegirev, G.V\""],
+      ["5) Corn, E", "5) Gorn, E",
+        "LBibliography: \"Corn\" for \"Gorn\" — both scans read \"5) Gorn, E\""],
+      ["Anrep, C.V", "Anrep, G.V",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Anrep, G.V\""],
+      ["D.X. See", "D.S. See",
+        "LBibliography: \"X\" for \"S\" — both scans read \"D.S. See\""],
+      ["Frolov, C.P", "Frolov, G.P",
+        "LBibliography: \"C\" for \"G\" — both scans read \"Frolov, G.P\""],
+      ["Chebotareva, 0.M", "Chebotareva, O.M",
+        "LBibliography: \"0\" for \"O\" — both scans read \"Chebotareva, O.M\""],
+      ["8) Ousievich, M", "8) Ousiévich, M",
+        "LBibliography: \"Ousievich\" for \"Ousiévich\" — both scans read \"8) Ousiévich, M\""],
+      ["A.C. \"Irradiation", "A.G. \"Irradiation",
+        "LBibliography: \"C\" for \"G\" — both scans read \"A.G. \"Irradiation\""],
+      ["Articles, 6, 15", "Articles, 5, 15",
+        "LBibliography: \"6\" for \"5\" — both scans read \"Articles, 5, 15\""],
+      ["5-8, 1925", "5-6, 1925",
+        "LBibliography: \"8\" for \"6\" — both scans read \"5-6, 1925\""],
+      ["and Eurmnan, M", "and Eurman, M",
+        "LBibliography: \"Eurmnan\" for \"Eurman\" — both scans read \"and Eurman, M\""],
+      ["4-6, 1926", "4-5, 1926",
+        "LBibliography: \"6\" for \"5\" — both scans read \"4-5, 1926\""],
+      ["conditioned relieves.\" Pavlov", "conditioned reflexes.\" Pavlov",
+        "LBibliography: \"relieves\" for \"reflexes\" — both scans read \"conditioned reflexes.\" Pavlov\""],
+      ["BILATERAL SYNERCETIC ACTIVITY", "BILATERAL SYNERGETIC ACTIVITY",
+        "LBibliography: \"SYNERCETIC\" for \"SYNERGETIC\" — both scans read \"BILATERAL SYNERGETIC ACTIVITY\""],
+      ["Med. Xoc. in", "Med. Soc. in",
+        "LBibliography: \"Xoc\" for \"Soc\" — both scans read \"Med. Soc. in\""],
+      ["11) Poursikov, D", "11) Foursikov, D",
+        "LBibliography: \"Poursikov\" for \"Foursikov\" — both scans read \"11) Foursikov, D\""],
+      ["See 111(12", "See III(12",
+        "LBibliography: \"111\" for \"III\" — both scans read \"See III(12\""],
+      ["1) Kruishkovsky, N", "1) Krjishkovsky, N",
+        "LBibliography: \"Kruishkovsky\" for \"Krjishkovsky\" — both scans read \"1) Krjishkovsky, N\""],
+      ["der Hundin wahrend der", "der Hündin während der",
+        "LBibliography: \"Hundin\" for \"Hündin\" — both scans read \"der Hündin während der\""],
+      ["7) Andrkev, L", "7) Andréev, L",
+        "LBibliography: \"Andrkev\" for \"Andréev\" — both scans read \"7) Andréev, L\""],
+      ["<p>Fig. 15.—O and Roman figures:—Numbers of the places stimulated. Arabic figures:—Conditioned reflex in drops of saliva (1 drop= 0.01 c.c.). The figures to the right and left of the Roman figures were obtained by stimulation of the right and left sides of the animal respectively. the tactile reflex was established on the left side at place O. The fig. shows the spontaneous bilateral formation of accessory reflexes. Note that the strength of the reflexes at corresponding points is identical on both sides of the animal. The reflex which was established at place O was a short-trace reflex.</p>\n", "",
+        "L20: the caption of Fig. 15, the outline of a dog, which the site types beside the picture; the picture is left out, so its key goes with it"],
+      ["Neurologischcs Celtralblatt", "Neurologisches Centralblatt",
+        "L1, note 2: two letters misread — both scans read \"Neurologisches Central-\""],
+      ["<i>Arckiv für", "<i>Archiv für",
+        "L1, note 3: \"Arckiv\" — both scans read \"Archiv für\""],
+      ["Grosskirnrinde", "Grosshirnrinde",
+        "L1, note 5: \"k\" for \"h\" — both scans read \"Grosshirnrinde\""],
+      ["Action of</i> the <i>Nervous", "Action of the Nervous",
+        "L1, note 7: the title's italic broken round \"the\" by the site's markup"],
+      ["Mendeléef's", "Mendeléeff's",
+        "L2, note 1: both scans read \"Mendeléeff's\" (as the index does)"],
+      ["Unterschungsmethode", "Untersuchungsmethode",
+        "L8, note 1: a letter lost — the scans read \"Untersuchungsmethode\""],
+      ["Schläfanlappens", "Schläfenlappens",
+        "L19, note 1: \"a\" for \"e\" — both scans read \"Schl(a)fenlappens\""],
+      ["Sitzungsber, der", "Sitzungsber. der",
+        "L19, note 1: a comma for the point — both scans read \"Sitzungsber. der\""],
+      ["stimuli at 5\"C. and at 440C.", "stimuli at 5°C. and at 44°C.",
+        "L6: the degree sign misread as \" and 0 — both scans read \"5°C. and at 44°C.\""],
+      ["stimuli at 0·50C. and at 50\"C.", "stimuli at 0.5°C. and at 50°C.",
+        "L6: the degree sign misread as 0 and \" — both scans read \"0·5°C. and at 50°C.\" (the point set as a full stop, as elsewhere here)"],
+      ["of a l% extract", "of a 1% extract",
+        "L4: \"l\" for \"1\" — both scans read \"a 1% extract\""],
+      ["administered at 15th second", "administered at the 15th second",
+        "L13: \"the\" missing — both scans read \"at the 15th second\""],
+      ["demarcation of: neighbouring", "demarcation of neighbouring",
+        "L13: a stray colon — both scans read \"demarcation of neighbouring\""],
+      ["substances -consists", "substances—consists",
+        "L2: a dash typed as \"-\" — the scans print a dash"],
+      ["less time-a fact", "less time—a fact",
+        "L3: a dash typed as \"-\" — both scans read \"time—a fact\""],
+      ["appearance -of a", "appearance of a",
+        "a stray hyphen — both scans read \"appearance of a\""],
+      ["conditioned -reflex", "conditioned reflex",
+        "a stray hyphen — the scans read \"conditioned reflex\""],
+      ["metatarso -phalangeal", "metatarso-phalangeal",
+        "a stray space — both scans read \"metatarso-phalangeal\""],
+      ["remotest hint -f those", "remotest hint—of those",
+        "a dash and a letter lost — both scans read \"hint—of those\""],
+    ],
+  },
+
   "thorndike-animal-intelligence": {
     title: "Animal Intelligence",
     subtitle: "Experimental Studies",
@@ -35457,6 +36057,176 @@ function extractPgChapters(vols, BOOK, warn) {
   return { chapters: out, counts: c };
 }
 
+/* ============================================================
+   A TRANSCRIPTION IN CLASSICS IN THE HISTORY OF PSYCHOLOGY, ONE PAGE PER LECTURE     (layout: "york")
+   ============================================================
+   Nov 2026, adding Pavlov's Conditioned Reflexes — the first book from Christopher D. Green's site at York
+   University. Twenty-four pages (`BOOK.url(n)`, the last the Bibliography), each cached as `en-<n>.html`.
+   What it settled, each a quiet failure if missed:
+   · THE PAGES ARE windows-1252, read as bytes and decoded as such (`fetchBuffer`): read as UTF-8 every ½, °
+     and é became a replacement character, and nothing threw.
+   · THE MARKUP IS NOT NESTED, so `stripTags` cannot be used: Word 97 writes `<B><P>LECTURE I</P></B>` and
+     `<I><P>…</P></I>`, an inline element wrapped round block ones, and a stack-based pass then drops the
+     closers it cannot match (paragraphs run together, or the italic runs on). `yorkFlat` reads the page as a
+     flat run instead — every <p>, <center>, <div>, <h…> or <hr> is a paragraph break, and <i> / <b> are
+     STATES, closed at each break and reopened after it — so every paragraph it returns is balanced.
+   · WHERE A LECTURE BEGINS: just after its "LECTURE IV" head, which the tab names; Lecture XIV's page has
+     no head, so it begins after the page's header ("Posted …"), and the Bibliography after the editor's note.
+     Each lecture's first paragraph is Pavlov's summary of it, set in italics whole (the transcription
+     italicises it with its small words roman, which is Word's damage, not the book's).
+   · THE EDITOR'S INSERTIONS GO: his page numbers "[p. 34]" (some across a line break), the "[sic]" he adds,
+     and the square brackets he puts round a reference number — the note marker is set without them.
+   · THE TABLES ARE PICTURES on this site: each <img> is looked up in `BOOK.tablesFile` (typed from the
+     pictures) and set as a `bk-table`, its caption lines above it and its notes below; a picture named in
+     `BOOK.figures`, or any `fig…` picture, is left out and counted. A picture found in neither THROWS.
+   · THE CORRECTIONS (`fixes`, through `correctRaw`) run on the flattened paragraphs, before the tables are
+     put back, so a row is written against the prose a reader sees with its whitespace collapsed. */
+function yorkDecode(s) {
+  const named = { nbsp: " ", quot: '"', eacute: "é", ocirc: "ô", uuml: "ü", ouml: "ö", auml: "ä", aelig: "æ",
+    deg: "°", egrave: "è", agrave: "à", ccedil: "ç", amp: "&amp;", lt: "&lt;", gt: "&gt;" };
+  return s.replace(/&([a-zA-Z]+);/g, (w, k) => (k in named ? named[k] : w))
+    .replace(/&#(\d+);/g, (w, d) => String.fromCharCode(+d));
+}
+function yorkFlat(s) {
+  const paras = [];
+  let cur = "", it = false, bd = false, center = false;
+  const open = () => (it ? "<i>" : "") + (bd ? "<b>" : "");
+  const brk = (nextCenter) => {
+    paras.push({ html: cur + (bd ? "</b>" : "") + (it ? "</i>" : ""), center: center });
+    cur = open();
+    center = nextCenter;
+  };
+  const rx = /<(\/?)([a-zA-Z0-9]+)([^>]*)>/g;
+  let pos = 0, m;
+  while ((m = rx.exec(s))) {
+    cur += s.slice(pos, m.index);
+    pos = rx.lastIndex;
+    const close = !!m[1], name = m[2].toLowerCase(), attrs = m[3];
+    if (/^(p|div|h[1-6]|hr|blockquote|table|tr|td)$/.test(name)) brk(!close && /align\s*=\s*["']?center/i.test(attrs));
+    else if (name === "center") brk(!close);
+    /* a change of either state closes both and reopens what is still on, always <i> outside <b>, so Word's
+       crossed tags (`<B> <I></B></I>`) can never come out crossed */
+    else if (/^(i|em|b|strong)$/.test(name)) {
+      const was = (bd ? "</b>" : "") + (it ? "</i>" : "");
+      if (name === "i" || name === "em") it = !close; else bd = !close;
+      cur += was + open();
+    }
+    else if (name === "br") cur += " ";
+  }
+  cur += s.slice(pos);
+  brk(false);
+  return paras.map((p) => {
+    let h = yorkDecode(p.html).replace(/\s+/g, " ");
+    for (let k = 0; k < 3; k++)
+      h = h.replace(/<(i|b)>(\s*)<\/\1>/g, "$2").replace(/<\/(i|b)>(\s*)<\1>/g, "$2");
+    h = h.replace(/<(i|b)>(\s+)/g, "$2<$1>").replace(/(\s+)<\/(i|b)>/g, "</$2>$1");
+    return { html: h.trim(), center: p.center };
+  }).filter((p) => p.html && !/^(?:<\/?[ib]>|\s)*$/.test(p.html));
+}
+function yorkTable(t, file) {
+  const e = (x) => String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const cell = (c, tag) => (typeof c === "string" ? "<" + tag + ">" + e(c) + "</" + tag + ">"
+    : "<" + tag + ' colspan="' + c.span + '">' + e(c.t) + "</" + tag + ">");
+  let h = (t.above || []).map((x) => '<p class="bk-head">' + e(x) + "</p>").join("\n");
+  if (t.rows && t.rows.length) {
+    h += (h ? "\n" : "") + '<div class="bk-table"><table>' +
+      (t.header || []).map((r) => "<tr>" + r.map((c) => cell(c, "th")).join("") + "</tr>").join("") +
+      t.rows.map((r) => "<tr>" + r.map((c) => cell(c, "td")).join("") + "</tr>").join("") + "</table></div>";
+  } else if (!(t.below || []).length) throw new Error("the table " + file + " is empty");
+  h += (t.below || []).map((x) => "\n<p>" + e(x) + "</p>").join("");
+  return h;
+}
+function extractYork(raw, n, BOOK, tables, warn, c) {
+  let s = raw.replace(/\r\n?/g, "\n").replace(/<head\b[\s\S]*?<\/head>/i, "")
+    .replace(/<!--[\s\S]*?-->/g, "").replace(/<!\[[^\]]*\]>/g, "");
+  /* where the text begins */
+  const head = /LECTURE(?:\s|<\/?b>|&nbsp;|<\/?font[^>]*>)*[IVXL]+\b/.exec(s);
+  if (head) s = s.slice(head.index + head[0].length);
+  else {
+    const ends = [...s.matchAll(/Posted [A-Za-z]+ \d{4}|-cdg-\s*(?:<\/i>)?\s*\]/gi)].map((x) => x.index + x[0].length);
+    if (!ends.length) throw new Error("lecture page " + n + ": no head and no header to begin after");
+    s = s.slice(Math.max(...ends));
+  }
+  /* the notes */
+  const notes = {};
+  const fh = />\s*Footnotes?\s*</i.exec(s);
+  if (fh) {
+    const tail = s.slice(fh.index + 1);
+    s = s.slice(0, fh.index + 1);
+    const parts = tail.split(/<a name="f(\d+)"[^>]*>\s*<\/a>/i);
+    for (let k = 1; k < parts.length; k += 2) {
+      const t = yorkFlat(parts[k + 1]).map((p) => p.html).join(" ").replace(/^\]?\s*\[?\s*\d+\s*\]\s*/, "")
+        .replace(/\[<i>sic<\/i>\]|\[sic\]/g, "").trim();
+      notes[parts[k]] = correctRaw(t.replace(/\s*(?:<i>)?--(?:<\/i>)?\s*/g, "—"));
+      c.notes++;
+    }
+  }
+  /* the markers, without the editor's brackets */
+  const anchored = new Set();
+  s = s.replace(/(?:\[\s*|\(\s*)?(?:<sup>\s*)?<a href="#f(\d+)"[^>]*>[^<]*<\/a>(?:\s*<\/sup>)?(?:\s*\]|\s*\))?/gi, (w, k) => {
+    c.marks++;
+    anchored.add(k);
+    return "@@FN" + k + "@@";
+  });
+  /* one marker the site set as plain text, "(1898),[12]": a bare [N] whose note no link reaches */
+  s = s.replace(/\[(\d{1,2})\]/g, (w, k) => {
+    if (notes[k] === undefined || anchored.has(k)) return w;
+    c.marks++;
+    c.bare++;
+    anchored.add(k);
+    return "@@FN" + k + "@@";
+  });
+  /* the editor's insertions */
+  c.pages += (s.match(/\[p\.\s*\d+\s*\]/g) || []).length;
+  s = s.replace(/\s*\[p\.\s*\d+\s*\]/g, " ");
+  c.sic += (s.match(/\[\s*(?:<i>)?\s*sic\s*(?:<\/i>)?\s*\]/gi) || []).length;
+  s = s.replace(/\[\s*(?:<i>)?\s*sic\s*(?:<\/i>)?\s*\]/gi, "");
+  /* the pictures: a table becomes a placeholder paragraph */
+  const stash = [];
+  s = s.replace(/<img\b[^>]*src="([^"]+)"[^>]*>/gi, (w, f) => {
+    if (/^fig/i.test(f) || (BOOK.figures || []).includes(f)) { c.figures++; return " "; }
+    if (!tables[f]) throw new Error("lecture page " + n + ": a picture " + f + " that is neither a typed table nor a figure");
+    stash.push(yorkTable(tables[f], f));
+    c.tables++;
+    return "<p>@@YT" + (stash.length - 1) + "@@<p>";
+  });
+  let paras = yorkFlat(s);
+  if (n === 24 && /^(?:<b>)?BIBLIOGRAPHY(?:<\/b>)?$/.test(paras[0].html)) paras.shift();
+  if (n < 24) {
+    /* the summary: italic whole */
+    paras[0] = { html: "<i>" + paras[0].html.replace(/<\/?i>/g, "") + "</i>", center: false };
+    c.summaries++;
+  }
+  let h = paras.map((p) => {
+    if (/^@@YT\d+@@$/.test(p.html)) return p.html;
+    if (/@@YT/.test(p.html)) warn("lecture " + n + ": a table placeholder inside a paragraph: " + p.html.slice(0, 60));
+    if (p.center && n === 24) { c.heads++; return '<p class="bk-head">' + p.html + "</p>"; }
+    if (p.center && /@@FN/.test(p.html) === false && p.html.length < 120 && !/[.:]$/.test(p.html.replace(/<[^>]+>/g, ""))) {
+      warn("lecture " + n + ": a short centred line kept as a paragraph: " + p.html);
+    }
+    return "<p>" + p.html + "</p>";
+  }).join("\n");
+  /* the site types the printed dash as "--" (the page closes it up: "nervous activity—varying") */
+  c.dashes += (h.match(/--/g) || []).length;
+  h = h.replace(/\s*--\s*/g, "—");
+  h = correctRaw(h);
+  /* the notes, renumbered from 1 in citing order */
+  const seen = [], map = {};
+  h = h.replace(/\s*@@FN(\d+)@@/g, (w, k) => {
+    if (!map[k]) {
+      if (notes[k] === undefined) { warn("lecture " + n + " cites a note " + k + " that is not printed"); return ""; }
+      seen.push(notes[k]); map[k] = seen.length;
+    }
+    return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+  });
+  const orphan = Object.keys(notes).filter((k) => !map[k]);
+  if (orphan.length) warn("lecture " + n + ": note(s) " + orphan.join(", ") + " printed but never cited");
+  h = h.replace(/@@YT(\d+)@@/g, (w, i) => stash[+i]).replace(/<p>(<p class="bk-head">|<div class="bk-table">)/g, "$1");
+  h = h.replace(/<p>((?:<p class="bk-head">[\s\S]*?<\/p>\n?)*<div class="bk-table">[\s\S]*?<\/div>(?:\n<p>[\s\S]*?<\/p>)*)<\/p>/g, "$1");
+  if (/@@/.test(h)) warn("lecture " + n + ": a placeholder was left in the text");
+  return { n: n, html: h, notes: seen };
+}
+
 /* `prep: "thorndike"` — Nov 2026, adding Thorndike's Animal Intelligence (Gutenberg ebook 69904). The same
    reader as James's, but the transcriber set this file differently in five ways, and each is put into the
    shape `extractPgChapters` reads BEFORE it runs, so the reader itself is unchanged:
@@ -37891,6 +38661,37 @@ async function fetchEnglish() {
         throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
       chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
     });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A TRANSCRIPTION IN CLASSICS IN THE HISTORY OF PSYCHOLOGY — see the block above extractYork. */
+  if (BOOK.layout === "york") {
+    const warn = (m) => warnings.push(m);
+    const tables = JSON.parse(fs.readFileSync(path.join(__dirname, "book-tables", BOOK.tablesFile), "utf8"));
+    const used = new Set();
+    const c = { notes: 0, marks: 0, bare: 0, dashes: 0, pages: 0, sic: 0, figures: 0, tables: 0, heads: 0, summaries: 0 };
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, "en-" + n + ".html");
+      let raw;
+      if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+      else {
+        raw = new TextDecoder("windows-1252").decode(await fetchBuffer(BOOK.url(n)));
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, raw);
+        await sleep(500);
+      }
+      for (const m of raw.matchAll(/<img\b[^>]*src="([^"]+)"/gi)) used.add(m[1]);
+      const ch = extractYork(raw, n, BOOK, tables, warn, c);
+      if (n < FROM || n > TO) continue;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: 1, html: ch.html, notes: ch.notes });
+    }
+    const unused = Object.keys(tables).filter((f) => !used.has(f));
+    if (unused.length) warn("typed table(s) no page shows: " + unused.join(", "));
+    console.log("  " + c.tables + " table(s) set from the typed file, " + c.figures + " figure(s) left out, " +
+      c.summaries + " summaries in italics, " + c.heads + " Bibliography head(s), " + c.notes + " notes (" +
+      c.marks + " markers, " + c.bare + " of them plain text), " + c.pages + " page number(s) and " + c.sic + " [sic] of the site's editor removed, " + c.dashes + " \"--\" set as a dash");
     return writeEnglish(chapters, warnings);
   }
 
