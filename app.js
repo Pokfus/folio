@@ -13321,6 +13321,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aristotle 16.4, Marcus Aurelius 17.6, Kalidasa 18.1 — and 26 from Confucius's walnut, which keeps the
      two Confucian books apart on the shelf. */
   "Mencius": "#006C78",
+  /* Nov 2026, adding the Communist Manifesto, swept over the cube at a step of 3 (CIE76 over L 12.3–47.8, chroma
+     18–85, 4.5:1 on all forty-three light papers and cards; nearest-ink distance against the shelf's 79 rows). The
+     sweep tops out at 15.4; THE EURIPIDES TEST passes over its first nine, which sit 15–17 from Hobbes or Jefferson,
+     both read beside a political tract, for this near-black green at 14.9: its nearest are Boethius 14.9, Kalidasa
+     16.9 and Jefferson 17.9, with Hobbes 25.5, Rousseau 41.2, Darwin 43.8 and Paine 78.9. It reads 9.37:1 on the
+     tightest light paper. */
+  "Karl Marx and Friedrich Engels": "#002A1E",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17957,6 +17964,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
       glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
         "House_of_Commons_of_the_United_Kingdom"],
+    },
+    {
+      id: "marx-communist-manifesto",
+      title: "The Communist Manifesto",
+      subtitle: "Manifesto of the Communist Party",
+      author: "Karl Marx and Friedrich Engels",
+      // written in German in January 1848 and published in London that February
+      written: "1848",
+      year: 1848,
+      // the title page: "AUTHORIZED ENGLISH TRANSLATION: EDITED AND ANNOTATED BY FREDERICK ENGELS"
+      translator: "Samuel Moore",
+      edition: "Manifesto of the Communist Party, authorized English translation of 1888, edited and annotated by Frederick Engels, Charles H. Kerr & Company, Chicago, 1910",
+      /* NO LIMIT TO STATE: the translation was published in 1888 and this printing in 1910; Moore died in 1911,
+         Engels in 1895, Marx in 1883. See .claude/fetch-book.js. */
+      rights:
+        "Public domain. Karl Marx and Friedrich Engels wrote the Manifesto in German and published it in London in " +
+        "1848. Samuel Moore's English translation, edited by Engels, was first published in 1888, and this printing of " +
+        "it was made in Chicago in 1910. Moore died in 1911, Engels in 1895 and Marx in 1883, so the translation is out " +
+        "of copyright everywhere. The text is the validated Wikisource transcription of the 1910 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Manifesto_of_the_Communist_Party",
+      /* NO `origLang`: the German is not set beside it. Five parts: Engels's preface of 1888 and the Manifesto's
+         four, the unnumbered opening ("A spectre is haunting Europe") at the head of Part I. No `parts`. */
+      chapterWord: "Part",
+      count: 5,
+      total: 5,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all five parts
+         (every `.ttip`, Nov 2026). NAMESAKES: Helen is Helen Macfarlane, the first translator, not Helen of Troy;
+         the Council is the General Council of the International; the Holy Water, the New Jerusalem and the Home
+         Colonies are figures and a scheme's name; "Philosophy of Action" is a book's title. 1848'S MAP: the German
+         lands and the partitioned Poland of Part IV are not the modern states (Common Sense's rule). */
+      glossOff: ["Helen_of_Troy", "Council", "Water", "Jerusalem", "Colony", "Philosophy", "Germany", "Poland"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -27704,6 +27743,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "“I have no more than twenty acres of ground,” he replied, “the whole of which I cultivate myself with the help of my children; and our labour keeps off from us three great evils, idleness, vice, and want.”" },
     { book: "paine-common-sense", n: 2, t: "I. Of the Origin and Design of Government in general, with concise Remarks on the English Constitution", p: 1,
       text: "Society in every state is a blessing, but government even in its best state is but a necessary evil; in its worst state an intolerable one." },
+    { book: "marx-communist-manifesto", n: 5, t: "IV. Position of the Communists in Relation to the Various Existing Opposition Parties", p: 10,
+      text: "The Communists disdain to conceal their views and aims. They openly declare that their ends can be attained only by the forcible overthrow of all existing social conditions. Let the ruling classes tremble at a Communistic revolution. The proletarians have nothing to lose but their chains. They have a world to win." },
     { book: "euclid-elements", n: 1, t: "Book I", p: 1,
       text: "1. A point is that which has no parts, or which has no magnitude. 2. A line is length without breadth. 3. The extremities of a line are points. 4. A straight line is that which lies evenly between its extreme points. 5. A superficies is that which has only length and breadth. 6. The extremities of a superficies are lines. 7. A plane superficies is that in which any two points being taken, the straight line between them lies wholly in that superficies." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
