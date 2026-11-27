@@ -98,28 +98,96 @@ def is_formof(s):
     return 'form_of' in s or 'alt_of' in s or 'form-of' in tags or 'alt-of' in tags
 
 
+CONCORD = re.compile(r'^(?:positive|negative) subject concord \+ (-[a-z\' ]+)$')
+
+
 def forms_of(e):
-    out = {'plural': [], 'inf': '', 'neginf': '', 'canon': '', 'agree': []}
+    """The forms Wiktionary's tables list.  `agree` is an adjective's, a possessive's or a
+    demonstrative's agreeing forms in the order of its table, and `agree_t` says, form by
+    form, whether the cell is the FIRST of its row ('1': the singular class of a pair, or a
+    class with no pair) or the second ('0') -- kaikki reads the table's first column as
+    "plural", which is wrong as a tag and exact as a column.  `sw.class_cells` turns the two
+    into a form for each class.  `conj` is what a verb's conjugation table says, cell by
+    cell (the beginner pass, Nov 2026): nothing in it is composed here."""
+    out = {'plural': [], 'inf': '', 'neginf': '', 'canon': '', 'agree': [], 'agree_t': '',
+           'conj': {}}
+    conj = out['conj']
     for f in e.get('forms') or []:
         t = f.get('tags') or []
-        w = norm(f.get('form', ''))
+        raw = re.sub(r'\s+', ' ', f.get('form', '')).strip()
+        w = norm(raw)
         if 'table-tags' in t or 'inflection-template' in t:
             continue
         if 'canonical' in t:
             if w.startswith('-') and is_sw(w):
                 out['canon'] = w
             continue
+        if e.get('pos') == 'verb':
+            verb_cell(conj, raw, w, set(t))
         if not is_sw(w) or re.fullmatch(r'[ivx]+', w):
             continue
         if 'error-unrecognized-form' in t:
             out['agree'].append(w)
+            out['agree_t'] += '1' if 'plural' in t else '0'
         elif 'infinitive' in t and 'negative' in t:
             out['neginf'] = out['neginf'] or w
         elif 'infinitive' in t:
             out['inf'] = out['inf'] or w
         elif 'plural' in t and e.get('pos') == 'noun' and w not in out['plural']:
             out['plural'].append(w)
+        elif 'plural' in t and e.get('pos') == 'intj':
+            out['several'] = out.get('several') or w      # hujambo, to several people hamjambo
+    if e.get('pos') != 'verb':
+        del out['conj']
     return out
+
+
+PERSONS = [('first-person', 'singular'), ('second-person', 'singular'), ('third-person', 'singular'),
+           ('first-person', 'plural'), ('second-person', 'plural'), ('third-person', 'plural')]
+
+
+def verb_cell(conj, raw, w, t):
+    """One cell of a verb's conjugation table (`sw-conj`), kept under the name of its row.
+    A tense the table gives as a rule -- "positive subject concord + -lisoma" -- is kept as
+    the dictionary prints its tail, `-lisoma`; a tense it conjugates is kept person by
+    person, the m-wa class's row only (the table's first)."""
+    m = CONCORD.match(raw)
+    if m:
+        tail = norm(m.group(1))
+        for name, tags in (('past', {'past'}), ('future', {'future'}), ('perfect', {'perfect'})):
+            if t == tags and raw.startswith('positive'):
+                conj.setdefault(name, tail)
+        return
+    if not is_sw(w) or w.startswith('-'):
+        return
+    if 'imperative' in t:
+        conj.setdefault('imperative', []).append(w)
+        return
+    cls = {x for x in t if x.startswith('class-')}
+    if cls - {'class-1', 'class-2'}:
+        # `-wa na` conjugates its present for every class; two of its cells are a card's worth
+        if t - cls == {'singular', 'third-person'} and cls == {'class-15', 'class-17'}:
+            conj.setdefault('there', w)
+        return
+    rest = t - cls
+    if rest == {'negative', 'present'}:                       # `si`, the one form of kuwa's
+        conj.setdefault('negative', {}).setdefault('all', w)
+        return
+    if rest == {'error-unrecognized-form', 'singular', 'third-person'} and 'there' in conj:
+        conj.setdefault('there_not', w)                       # hakuna, beside kuna
+        return
+    for i, (person, number) in enumerate(PERSONS):
+        if {person, number} <= rest:
+            other = rest - {person, number}
+            if other == {'present'}:
+                conj.setdefault('present', {}).setdefault(str(i), w)
+            elif other == {'negative', 'present'}:
+                conj.setdefault('negative', {}).setdefault(str(i), w)
+            elif not other:
+                # `-wa na` tags neither row: its positive present comes first, its negative second
+                row = 'negative' if str(i) in conj.get('present', {}) else 'present'
+                conj.setdefault(row, {}).setdefault(str(i), w)
+            return
 
 
 def noun_class(e):
@@ -176,6 +244,13 @@ def main():
                'cls': cls, 'anim': anim, 'plonly': pl_only, 'plural': fo['plural'],
                'inf': fo['inf'], 'neginf': fo['neginf'], 'canon': fo['canon'],
                'agree': fo['agree'], 'proper': proper}
+        # the beginner pass (Nov 2026): which column each agreeing form stands in, and a verb's cells
+        if fo['agree']:
+            ent['agree_t'] = fo['agree_t']
+        if fo.get('conj'):
+            ent['conj'] = fo['conj']
+        if fo.get('several'):
+            ent['several'] = fo['several']
         # THE CASE IS WIKTIONARY'S: `Kiswahili`, `Mungu`, `Jumatatu` are written with a
         # capital; a lower-case entry of the same spelling wins (`mungu` "a god").
         word = e['word'].strip()
