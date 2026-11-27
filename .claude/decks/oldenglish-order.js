@@ -22,7 +22,7 @@
     · a SET (`SETS`) arrives together, in the order written here, at the place of its COMMONEST member.
   Everything else is in the order of its pinned number. A set word that is not a card of Level 1 is an
   ERROR, and so is a word in two sets. Level 1 gained no card: a level is a band of frequency (the plan's
-  §1), and six, eight, nine and ten are Level 2's by count.
+  §1): by count six and nine are Level 2's (ranks 592 and 614), eight and ten Level 3's.
 
   THE ALPHABET has no order here: it keeps the one `alphabet.py` wrote (a rule after the block it needs).
   Its facts are what Level 1's headwords and sentences ask of a reader.
