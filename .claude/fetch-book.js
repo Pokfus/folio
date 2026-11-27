@@ -5561,7 +5561,7 @@ const BOOKS = {
 
     original: {
       lang: "grc",
-      langName: "Ancient Greek",
+      langName: "Greek",   // "Greek" as every other Greek column names it (was "Ancient Greek" on two books; Nov 2026 audit)
       source: "tei",
       layout: "chaptered",
       edition: "Historiae, edited by Henry Stuart Jones, Oxford Classical Texts, Clarendon Press, Oxford, 1910",
@@ -6823,7 +6823,7 @@ const BOOKS = {
     /* The Gita is dated by argument rather than by any statement of its own, and the range above is
        the conventional scholarly span for its composition. The sort key takes the middle of it. As
        with the Song of Roland and Gilgamesh, how loose the figure is is said on the book's page. */
-    year: -50,
+    year: -200,
 
     /* ---------- THE LICENCE — two layers, and one of them needs a limit stated ----------
        The poem is ancient and free everywhere. The only modern layer is Besant's English.
@@ -7199,7 +7199,7 @@ const BOOKS = {
        what is stated, with the doubt carried in the front matter rather than left to the `c.` to do
        on its own, as the Song of Roland's and Gilgamesh's entries do. The sort key takes the middle. */
     written: "c. 4th–5th century CE",
-    year: 400,
+    year: 301,
 
     /* ---------- THE LICENCE — the shelf's easiest, and the only one clear by a full century ----------
        Three layers and not one of them is close.
@@ -7427,7 +7427,7 @@ const BOOKS = {
     author: "Anonymous",
     translator: "Francis Barton Gummere",
     edition: "The Oldest English Epic, translated by Francis Barton Gummere, Macmillan, New York, 1909",
-    written: "c. 700–1000",
+    written: "c. 700–1000 CE",
     /* THE DATE IS THE OPEN QUESTION OF THE FIELD and the shelf has to sort on one number anyway. The
        only certainty is the manuscript, written around the year 1000; when the poem behind it was
        composed has been argued from its language, its metre and its politics for two centuries, and
@@ -9341,7 +9341,7 @@ const BOOKS = {
     edition:
       "The Poetic Edda, translated by Henry Adams Bellows, " +
       "The American-Scandinavian Foundation, New York, 1923",
-    written: "c. 900–1250",
+    written: "c. 900–1250 CE",
     /* THE DATE IS THIRTY-FIVE OPEN QUESTIONS RATHER THAN ONE, which is worse than the usual case: a
        collection is only as datable as its parts, and these were composed by different people over
        something like three centuries. The one fixed point is the manuscript, written in Iceland
@@ -9656,6 +9656,13 @@ const BOOKS = {
     dropLinkLists: true,
     dropHeadMarkers: true,
     dropBlankParas: true,
+    /* THE TWO HALVES THE SHELF NAMES (Nov 2026, the Library audit): app.js lists them and nothing here
+       did, so `partOf` filed all twenty-two Books under the first. Augustine states the division himself
+       in the Retractations: ten books against the pagans, twelve on the two cities. */
+    parts: [
+      { n: 1, label: "Against the pagans", from: 1, to: 10 },
+      { n: 2, label: "The two cities", from: 11, to: 22 },
+    ],
     chapters: Array.from({ length: 22 }, (_, k) => k + 1),
     chapterWord: "Book",
     titleOf: (n) => "Book " + COG_ROMAN[n - 1],
@@ -10581,7 +10588,7 @@ const BOOKS = {
     translator: "Theodore C. Williams",
     edition: "Houghton Mifflin Company, Boston, 1910",
     written: "c. 29–19 BCE",
-    year: -25,
+    year: -29,
 
     /* ---------- THE LICENCE, and it is the EASIEST on the shelf after the four clean ones ----------
        Everything here is stated by a date that can be checked from the editions themselves, and every
@@ -11807,7 +11814,7 @@ const BOOKS = {
        the fourteenth century and the attribution on the 1522 printing is why; when it was actually
        written nobody knows, and the text here is later still, so a composed figure would be three
        kinds of guess at once. 1522 is a date somebody can check. */
-    year: 1522,
+    year: 1301,
 
     /* ---------- THE LICENCE — one modern layer, and a limit on it ----------
        Two layers and only one of them is modern. The novel is a Chinese work of the fourteenth
@@ -16105,7 +16112,7 @@ const BOOKS = {
       "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
       "Trübner & Co., London, and E. J. Lazarus and Co., Benares, 1870–1874",
     written: "c. 500 BCE – 200 CE",
-    year: -300,
+    year: -500,
 
     /* ---------- THE LICENCE — the ELEVENTH here needing no qualification at all ----------
        The poem is some two thousand years old and free everywhere. Ralph Thomas Hotchkin Griffith
@@ -16451,8 +16458,8 @@ const BOOKS = {
     author: "Boethius",
     translator: "H. R. James",
     edition: "Elliot Stock, London, 1897",
-    written: "c. 523–524, in prison at Pavia",
-    year: 524,
+    written: "c. 523–524 CE, in prison at Pavia",
+    year: 523,
 
     /* ---------- THE LICENCE — a LIMIT on each column, and the original is the harder half ----------
        Three layers and every one of them has to be stated. Boethius was executed around 524, so the
@@ -16591,7 +16598,7 @@ const BOOKS = {
       "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
       "complete in two volumes, E. J. Lazarus and Co., Benares, 1896",
     written: "c. 1500–1000 BCE",
-    year: -1300,
+    year: -1500,
 
     /* ---------- THE LICENCE — the NINTH here needing no qualification at all ----------
        After the Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey
@@ -17141,6 +17148,14 @@ const BOOKS = {
        chapter instead would put 278 tabs on the bar, most of them a paragraph long. */
     source: "wiki",
     chapterWord: "Book",
+    /* THE THREE PARTS THE SHELF NAMES (Nov 2026, the Library audit). app.js has always listed them — the
+       life, Memory, Genesis and time — but with no `parts` here `partOf` filed all thirteen Books under
+       the first, so the reader headed Books X–XIII "The life". The division is the conventional one. */
+    parts: [
+      { n: 1, label: "The life", from: 1, to: 9 },
+      { n: 2, label: "Memory", from: 10, to: 10 },
+      { n: 3, label: "Genesis and time", from: 11, to: 13 },
+    ],
     chapters: Array.from({ length: 13 }, (_, i) => i + 1),
     /* `page(n)` returns an ARRAY — the book's chapters in order, minus the two the transcription
        does not carry. The book's OWN page is deliberately not fetched: unlike the City of God's, it
@@ -17419,7 +17434,7 @@ const BOOKS = {
        book on this shelf is a translation and says whose; this one is in English already. */
     edition: "Everyman's Library, ed. Ernest Rhys, J. M. Dent, London, 1906",
     written: "c. 1469–70, printed 1485",
-    year: 1485,
+    year: 1469,
 
     /* ---------- THE LICENCE ----------
        Malory finished writing in the ninth year of Edward IV — he says so in his own epilogue, which
@@ -17646,7 +17661,7 @@ const BOOKS = {
     author: "Bede",
     translator: "A. M. Sellar",
     edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
-    written: "731",
+    written: "731 CE",
     year: 731,
 
     /* ---------- THE LICENCE ----------
@@ -18323,12 +18338,12 @@ const BOOKS = {
     edition:
       "“Translation Digest of Ch‘a Ching”, in William H. Ukers, All About Tea, vol. 1, " +
       "ch. 2, The Tea and Coffee Trade Journal Company, New York, 1935, pp. 15–22",
-    written: "c. 760–780",
+    written: "c. 760–780 CE",
     /* The date is a RANGE, and the three witnesses disagree about where in it the book falls: Ukers says
        "about A.D. 780" and that Lu Yu retired in 775; the Chinese Wikisource header says 760 to 780; the
        English Wikipedia article gives 760 to 762 for the first draft. The key is the end of the range so
        that the book files after every date any of them gives for its writing. */
-    year: 780,
+    year: 760,
 
     /* ---------- THE LICENCE — A DIGEST, ON A GROUND THAT HAS TO BE SHOWN RATHER THAN READ OFF ----------
        THIS IS THE SHELF'S FIRST ENGLISH TEXT THAT IS PUBLIC DOMAIN BY NON-RENEWAL RATHER THAN BY THE
@@ -18598,7 +18613,7 @@ const BOOKS = {
        Sylvester signs in 1116, which is the Laurentian text translated here. The key is the colophon's
        year, so the book files at the date its own last page gives. */
     written: "c. 1111–1116",
-    year: 1116,
+    year: 1111,
 
     /* ---------- THE LICENCE ----------
        THE GROUND IS THE PUBLICATION DATE: Cross's translation was published in 1930, and a US work of
@@ -18895,7 +18910,7 @@ const BOOKS = {
        1329, with entries added to 1352; the Commission transcript, which carries the text on to 1446, is a
        rearrangement made at Novgorod "in the fifties of the fifteenth century". The key is that decade. */
     written: "c. 1330–1450s",
-    year: 1450,
+    year: 1330,
 
     /* ---------- THE LICENCE ----------
        THE GROUND IS THE PUBLICATION DATE: the translation was published in London in 1914, before 1931, so
@@ -19724,7 +19739,7 @@ const BOOKS = {
     author: "Anonymous",
     translator: "J. A. Giles",
     edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
-    written: "c. 890–1154",
+    written: "c. 890–1154 CE",
     year: 890,
 
     /* ---------- THE LICENCE ----------
@@ -20386,7 +20401,7 @@ const BOOKS = {
 
     original: {
       lang: "grc",
-      langName: "Ancient Greek",
+      langName: "Greek",   // "Greek" as every other Greek column names it (was "Ancient Greek" on two books; Nov 2026 audit)
       source: "tei",
       layout: "chaptered",
       edition: "Bibliotheca Historica, edited by Immanuel Bekker, Ludwig Dindorf and Friedrich Vogel (Books 1–5, Teubner, Leipzig, 1888–1890) and Curt Theodor Fischer (Books 18–20, Teubner, 1903–1906); Books 11–17 as printed in the Loeb volumes, 1946–1963",
@@ -21254,7 +21269,7 @@ const BOOKS = {
     /* The years of the revelation as Islamic tradition dates them, from about 610 to Muhammad's death in
        632. `year` is the single number the shelf's date sort needs: the middle of that span. */
     written: "c. 610–632 CE",
-    year: 621,
+    year: 610,
 
     /* ---------- THE LICENCE — two layers, and a limit on the second ----------
        The Arabic is fourteen centuries old and is not reproduced. The only modern layer is Pickthall's
@@ -23992,7 +24007,7 @@ const BOOKS = {
     edition: "Egyptian Tales, Translated from the Papyri, First Series, ed. W. M. Flinders Petrie, " +
       "Methuen, London, second edition, 1899 (first published 1895)",
     written: "c. 2000–1600 BCE (the papyri)",
-    year: -1900,
+    year: -2000,
 
     /* ---------- THE LICENCE, and the edition — which is the 1899 SECOND edition, not 1895 ----------
        Asked for as "Petrie, Egyptian Tales (1895)". English Wikisource does not carry the book (Author:
@@ -42857,6 +42872,15 @@ function writeEnglish(chapters, warnings) {
   wrapLooseText(chapters);
   joinBrokenParas(chapters);
 
+  /* THE LAST STEP: the audit's emendations and the shelf's house form (Nov 2026) — see
+     .claude/book-emend.js, which owns both and is also the tool that brings an already-shipped
+     file up to its table without a refetch. It runs here, on the finished chapters, because an
+     emendation is written against the text a reader was sent; and it runs for EVERY book, so a
+     new one is put in the house form (title case, no stop after a heading, `--` as a dash) the
+     moment it is first written. A row that neither fires nor is already applied is reported
+     below and fails the run: the source moved under it. */
+  const EMEND = require("./book-emend.js").finish(id, chapters, { keepForm: BOOK.keepForm });
+
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, id + ".js");
@@ -42875,6 +42899,8 @@ function writeEnglish(chapters, warnings) {
   lines.push("window.FOLIO_BOOKS_IN = window.FOLIO_BOOKS_IN || [];");
   lines.push("window.FOLIO_BOOKS_IN.push({");
   lines.push('  id: "' + id + '",');
+  // how many audit emendations this text carries; the reader's About page says so (bookIntroChapter)
+  if (EMEND.emended) lines.push("  emended: " + EMEND.emended + ",");
   /* The front matter, as ONE html string in the same shape a chapter's is — so the reader page can
      treat it as a chapter and needs no second renderer for it. Written before `chapters` because it
      reads first. */
@@ -42904,6 +42930,14 @@ function writeEnglish(chapters, warnings) {
     (text.length / 1024).toFixed(0) + " KB, " +
     got.chapters.reduce((a, c) => a + (c.notes ? c.notes.length : 0), 0) + " notes. Re-parsed OK."
   );
+  if (EMEND.emend.rows || EMEND.form.titles || EMEND.form.dashes)
+    console.log("  " + EMEND.emend.fired + " of " + EMEND.emend.rows + " emendation(s) fired (book-emend.json); " +
+      EMEND.form.titles + " chapter title(s) and " + EMEND.form.dashes + " typed dash(es) put in the house form");
+  if (EMEND.emend.bad.length) {
+    process.exitCode = 1;
+    console.log("\n  " + EMEND.emend.bad.length + " EMENDATION(S) DID NOT FIRE — the text has moved under them; correct the row or drop it:");
+    EMEND.emend.bad.forEach((b) => console.log("    ch" + b.row.ch + " " + (b.row.in || "text") + ": " + JSON.stringify(b.row.from) + " → " + JSON.stringify(b.row.to) + "\n       " + b.why));
+  }
   if (SMALLCAPS_UPPER) console.log("  " + SMALLCAPS_UPPER + " small-capital run(s) typed in lower case or set all small caps, now in capitals (see `smallcaps`)");
   /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
      quietest failure this script has: it does not throw, it does not shorten the text and it does not

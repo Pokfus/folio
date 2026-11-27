@@ -13417,6 +13417,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // rather than parsed out of that string: a shelf that sorts by date needs one number per book,
       // and guessing it from "c. 62–65 CE" is a parser nobody asked for. Signed, so a BCE book is
       // simply negative and files before this one.
+      // THE EARLIEST DATE, NEVER A MIDPOINT (Nov 2026, on request): where `written` states a span —
+      // "c. 500 BCE – 200 CE", "c. 11th–7th century BCE" — `year` is the FIRST year of it, so a work
+      // composed over centuries files where it begins. `node .claude/check-library.js` holds every
+      // row to that: a range's key is its early end, a single century's key lies inside the century.
       year: 62,
       translator: "Richard Mott Gummere",
       edition: "Loeb Classical Library, 1917–1925",
@@ -13598,7 +13602,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Plato",
       // Plato's writing life, now that the whole surviving corpus but one work is here
       written: "c. 399–347 BCE",
-      year: -380,
+      year: -399,
       translator: "Harold North Fowler, W. R. M. Lamb and R. G. Bury",
       edition: "Loeb Classical Library, Harvard University Press, 1914–1929",
       /* THREE GROUNDS AND ONE REFUSAL, which is why this `rights` is the longest on the shelf.
@@ -14317,7 +14321,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          carries that doubt rather than leaving the `c.` to do all the work, as the Song of Roland's
          and Gilgamesh's entries do. */
       written: "c. 4th–5th century CE",
-      year: 400,
+      year: 301,
+      // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Jones's preface is the first chapter
+      glossUntil: 1789,
       translator: "William Jones",
       edition: "Reprinted from the translation of Sir William Jones, Charlton Tucker, London, 1870",
       /* THE EASIEST LICENCE ON THE SHELF, and the only one clear by a full century on every ground at
@@ -14385,7 +14391,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          running from the early eighth century to the very decade of the copy. 700 is the early end of
          that range, and the front matter carries the doubt rather than leaving the `c.` to do all the
          work — the same move the Song of Roland's and Kalidasa's entries make. */
-      written: "c. 700–1000",
+      written: "c. 700–1000 CE",
       year: 700,
       translator: "Francis Barton Gummere",
       edition: "The Oldest English Epic, Macmillan, New York, 1909",
@@ -14512,7 +14518,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          single number a shelf that sorts by date has to have, and it is the early end of it rather
          than a midpoint nothing marks. */
       written: "c. 5th–3rd century BCE",
-      year: -450,
+      year: -500,
       translator: "James Legge",
       edition: "The Chinese Classics, Vol. I, 2nd ed., Clarendon Press, Oxford, 1893",
       /* THE EASIEST LICENCE HERE, and the second that needs no qualification at all — the Republic's
@@ -14562,7 +14568,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          him and his disciples; `year` is the single number the shelf's date sort needs, and the prose
          says the century. */
       written: "c. 4th century BCE",
-      year: -300,
+      year: -301,
       translator: "James Legge",
       edition: "The Chinese Classics, Vol. II, 1861; 2nd revised ed., Clarendon Press, Oxford, 1895",
       /* The Analects' licence exactly: Legge published in 1861 and revised in 1895, both before 1929, and
@@ -14985,6 +14991,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Roland's position exactly. How loose it is is said on the book's own page. It is by a long way
          the OLDEST book here — the next is the Analects, eight hundred years later. */
       year: -1200,
+      // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Thompson's own notes on the tablets stand in the text
+      glossUntil: 1928,
       translator: "R. Campbell Thompson",
       edition: "Luzac & Co., London, 1928",
       /* THE FIFTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
@@ -15044,10 +15052,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          than filing one of the most famous books in the world under "Anonymous" against the naming of
          every edition of it. */
       written: "c. 2nd century BCE – 2nd century CE",
-      /* Dated by argument rather than by any statement of its own, so the sort key takes the middle of
-         the conventional span. How loose it is is said on the book's own page, as the Song of Roland's
+      /* Dated by argument rather than by any statement of its own, so the sort key is the early end of
+         the conventional span (Nov 2026, on request: a text written over a long span files at its earliest date). How loose it is is said on the book's own page, as the Song of Roland's
          and Gilgamesh's are. */
-      year: -50,
+      year: -200,
       translator: "Annie Besant",
       edition: "G. A. Natesan & Co., Madras, 4th edition, 1922",
       /* THE SIXTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
@@ -15097,7 +15105,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          have, and it is the early end of it rather than a midpoint nothing marks — the same choice
          the Analects' entry makes and for the same reason. */
       written: "c. 11th–7th century BCE",
-      year: -1000,
+      year: -1100,
       translator: "James Legge",
       edition:
         "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
@@ -15161,7 +15169,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the span the genuinely ancient layer covers; `year` is the single number a shelf that sorts
          by date must have, and it is the early end of that span rather than a midpoint nothing marks. */
       written: "c. 11th–4th century BCE",
-      year: -1000,
+      year: -1100,
       translator: "James Legge",
       edition:
         "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
@@ -15334,7 +15342,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          written in Iceland about 1270. 900 is the early end of the range the poems are argued into
          and is the only figure the shelf can honestly sort on; the front matter carries the doubt
          rather than leaving the `c.` to do all the work. */
-      written: "c. 900–1250",
+      written: "c. 900–1250 CE",
       year: 900,
       translator: "Henry Adams Bellows",
       edition:
@@ -15518,10 +15526,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Valmiki",
       /* Composed over centuries and by more than one hand whatever the tradition says, so the range
          is wide and argued at both ends. `year` is the single number the shelf's date sort needs and
-         is the middle of the usual range; the prose carries the hedge, which is where a contested
+         is the early end of the usual range (Nov 2026, on request); the prose carries the hedge, which is where a contested
          date belongs. */
       written: "c. 500 BCE – 200 CE",
-      year: -300,
+      year: -500,
       translator: "Ralph T. H. Griffith",
       edition:
         "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
@@ -15634,8 +15642,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       title: "The Consolation of Philosophy",
       subtitle: "Philosophiae Consolationis",
       author: "Boethius",
-      written: "c. 523–524, in prison at Pavia",
-      year: 524,
+      written: "c. 523–524 CE, in prison at Pavia",
+      year: 523,
       translator: "H. R. James",
       edition: "Elliot Stock, London, 1897",
       /* A LIMIT ON EACH COLUMN, AND THE ORIGINAL IS THE HARDER HALF. Boethius was executed around
@@ -15689,7 +15697,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       subtitle: "King Arthur and of his Noble Knights of the Round Table",
       author: "Thomas Malory",
       written: "c. 1469–70, printed 1485",
-      year: 1485,
+      year: 1469,
       /* NO `translator`, AND IT IS THE FIRST BOOK HERE WITH NONE. Every other book on this shelf was
          written in another language and names the person who put it into English; Malory wrote in
          English, and this edition modernises the spelling lightly and leaves the vocabulary
@@ -15795,6 +15803,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       chapterWord: "Chapter",
       count: 235,
       total: 235,
+      /* THE FIVE DIVISIONS YULE PRINTS (Nov 2026, the Library audit). The importer has always filed each
+         chapter under its Book (`POLO_PARTS`), but this row named no parts — and the reader's Contents
+         lists a book with none as ONE part numbered 1, so it showed the Prologue's eighteen chapters and
+         nothing of the 217 after them. The labels and counts are the importer's own. */
+      parts: [
+        { n: 1, label: "Prologue", note: "18 chapters" },
+        { n: 2, label: "Book First", note: "61 chapters" },
+        { n: 3, label: "Book Second", note: "82 chapters" },
+        { n: 4, label: "Book Third", note: "40 chapters" },
+        { n: 5, label: "Book Fourth", note: "34 chapters" },
+      ],
       /* WHAT THE GLOSSARY MUST NOT LINK, swept over all 235 chapters with this list emptied rather
          than guessed at — the Bede row's rule, and here the guess was wrong by more than half.
          A book that names half the world looks like the one that would need the longest list on the
@@ -15819,7 +15838,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       id: "bede-history",
       title: "The Ecclesiastical History of the English People",
       author: "Bede",
-      written: "731",
+      written: "731 CE",
       year: 731,
       translator: "A. M. Sellar",
       edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
@@ -15892,10 +15911,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       subtitle: "ऋग्वेदः",
       author: "Anonymous",
       /* A composite of many hands over centuries, and the dating is argued at both ends. `year` is
-         the single number the shelf's date sort needs and is the middle of the usual range; the
-         prose carries the hedge, which is where a contested date belongs. */
+         the single number the shelf's date sort needs and is the early end of the usual range (Nov 2026,
+         on request); the prose carries the hedge, which is where a contested date belongs. */
       written: "c. 1500–1000 BCE",
-      year: -1300,
+      year: -1500,
       translator: "Ralph T. H. Griffith",
       edition:
         "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
@@ -16201,11 +16220,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Composed somewhere in the late eighth or early seventh century BCE and not datable more
          closely than that; `year` is the single signed number the shelf's date sort needs, and the
          prose `written` carries the hedge, as it should. The usual reckoning puts it a generation or
-         so after the Iliad, which is why −700 sits just behind that poem's −750 on a date sort. Both
+         so after the Iliad, which is why −725, the early end of its range, sits just behind that poem's −750 on a date sort. Both
          figures are a convention for sorting rather than a claim this shelf is in a position to
          make. */
       written: "composed c. 725–675 BCE",
-      year: -700,
+      year: -725,
       translator: "A. T. Murray",
       edition: "Loeb Classical Library, London and New York, 1919",
       /* THE SIMPLEST LICENCE OF ANY TWO-COLUMN BOOK HERE, and it is worth saying why rather than
@@ -16264,11 +16283,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       subtitle: "Aeneis",
       author: "Virgil",
       /* Begun about 29 BCE and unfinished when Virgil died in 19 BCE, so the composition is a decade
-         rather than a date; `year` is the single signed number the shelf's date sort needs and −25 is
-         the middle of that decade, with the prose `written` carrying the range. It therefore sorts
+         rather than a date; `year` is the single signed number the shelf's date sort needs and −29 is
+         its first year (the early end, Nov 2026), with the prose `written` carrying the range. It therefore sorts
          between Lucretius's poem of the 50s BCE and Ovid's of 8 CE, which is where it belongs. */
       written: "c. 29–19 BCE",
-      year: -25,
+      year: -29,
       translator: "Theodore C. Williams",
       edition: "Houghton Mifflin Company, Boston, 1910",
       /* AN EASY LICENCE, AND THE FIFTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
@@ -16391,7 +16410,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Mao Zonggang re-edited it in 1679 — two of the most quoted sentences on its first page are
          theirs and not Luo's, which the book's own front matter says. */
       written: "14th century, first printed 1522",
-      year: 1522,
+      // the first year of the century it was written in, not the printing's (Nov 2026: the earliest date)
+      year: 1301,
       translator: "C. H. Brewitt-Taylor",
       edition: "Kelly & Walsh, Limited, Shanghai, 1925",
       /* A LIMIT TO STATE, and only one modern layer to state it about. The novel is fourteenth-century
@@ -16734,9 +16754,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Lu Yu",
       /* A RANGE, and the witnesses disagree about where in it: Ukers says about 780, the Chinese
          Wikisource header 760 to 780, the English Wikipedia article 760 to 762 for a first draft. The
-         key is the end of it, so the book files after every date given for its writing. */
-      written: "c. 760–780",
-      year: 780,
+         key is the early end of it (Nov 2026, on request: a range files at its earliest date). */
+      written: "c. 760–780 CE",
+      year: 760,
       translator: "Z. L. Yih, as condensed by William H. Ukers",
       edition:
         "“Translation Digest of Ch‘a Ching”, in William H. Ukers, All About Tea, vol. 1, ch. 2, " +
@@ -16869,9 +16889,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Pausanias",
       /* Written over many years and dated by the text itself: Book I was finished before Herodes
          Atticus began his music hall at Athens (7.20.6), and Book X mentions the Costoboci's raid of
-         about 170 (10.34.5). The key is a single year inside the span. */
+         about 170 (10.34.5). The key is the early end of the span. */
       written: "c. 155–180 CE",
-      year: 170,
+      year: 155,
       translator: "W. H. S. Jones and H. A. Ormerod",
       edition: "Loeb Classical Library, 1918–1935",
       /* TWO GROUNDS BY VOLUME AND ONE LIMIT. Volumes I–II (1918, 1926) are clear in the United States
@@ -16976,9 +16996,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Diodorus Siculus",
       /* Oldfather's dating in the Loeb's introduction: at work by 56 BCE (1.44), in Egypt in 59, and the
          latest event named is the Roman colony at Tauromenium, 36 BCE or a little later (16.7.1). The
-         sort year is the middle of that span, and the front matter carries the reasoning. */
+         sort year is the early end of that span, and the front matter carries the reasoning. */
       written: "c. 60–30 BCE",
-      year: -45,
+      year: -60,
       translator: "C. H. Oldfather and others",
       edition: "Loeb Classical Library, 1933–1963",
       /* PUBLIC DOMAIN BY NON-RENEWAL, the Classic of Tea's ground on ten volumes. Each was published
@@ -17022,9 +17042,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Apollodorus",
       /* "Generally dated to the first or second century AD" (Wikipedia); Frazer's introduction puts the
          earliest possible date at the middle of the first century BCE, since the book quotes Castor. The
-         key is a single year inside the span. */
+         key is the first year of the span. */
       written: "1st–2nd century CE",
-      year: 100,
+      year: 1,
       translator: "Sir James George Frazer",
       edition: "Loeb Classical Library, 1921",
       /* Expired on every ground: the Loeb of 1921 is pre-1929 and Frazer died in 1941. Perseus's digital
@@ -17057,7 +17077,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Anonymous",
       /* Begun in Alfred's reign around 890, the last entry written at Peterborough in 1154. `year` is
          the start, the single number the shelf's date sort needs; the span is in `written`. */
-      written: "c. 890–1154",
+      written: "c. 890–1154 CE",
       year: 890,
       translator: "J. A. Giles",
       edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
@@ -17149,9 +17169,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          out, not that he composed it. Keyed for colour by id — see bookColor. */
       author: "Anonymous",
       /* A RANGE: a first compilation of 1111 and Sylvester's redaction of 1116, on Cross's account of the
-         redactions after Shakhmatov. The key is the colophon's year. */
+         redactions after Shakhmatov. The key is the first compilation's year, the early end. */
       written: "c. 1111–1116",
-      year: 1116,
+      year: 1111,
       translator: "Samuel Hazzard Cross",
       edition:
         "Harvard Studies and Notes in Philology and Literature, vol. 12, Harvard University Press, " +
@@ -17217,9 +17237,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          colour by id — see bookColor. */
       author: "Anonymous",
       /* A RANGE, on Shakhmatov's account of the text in this volume: the Synodal transcript copied about
-         1330, the Commission transcript rearranged in the 1450s. The key is that decade. */
+         1330, the Commission transcript rearranged in the 1450s. The key is the earlier of the two. */
       written: "c. 1330–1450s",
-      year: 1450,
+      year: 1330,
       translator: "Robert Michell and Nevill Forbes",
       edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914, pp. 1–221",
       /* A LIMIT TO STATE: published in 1914 (before 1931, so public domain in the United States); Forbes
@@ -17433,9 +17453,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Muslims hold it to be God's word revealed to Muhammad, not a book he wrote, and catalogues enter it
          under its title; so it is shelved as the King James Bible is, and keyed for colour by id. */
       author: "Anonymous",
-      // the years of the revelation as Islamic tradition dates them; the sort key is the middle of the span
+      // the years of the revelation as Islamic tradition dates them; the sort key is the first year of the span
       written: "c. 610–632 CE",
-      year: 621,
+      year: 610,
       translator: "Marmaduke Pickthall",
       edition:
         "The Meaning of the Glorious Koran: An Explanatory Translation, London, 1930 — the printed text, " +
@@ -17870,6 +17890,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Turin papyrus). `year` is the start of that span, the one number the shelf's sort needs. */
       written: "c. 1550–50 BCE",
       year: -1550,
+      // the last year the TEXT may name (the reader unlinks a glossary term dated after it): the rubrics name the papyri and the museums that hold them
+      glossUntil: 1901,
       translator: "E. A. Wallis Budge",
       edition: "Egyptian Literature, The World's Great Classics, The Colonial Press, New York, 1901",
       /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: Budge 1857–1934, printed 1901 — pre-1929 in the US,
@@ -18126,7 +18148,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          in the Fourth to the Twelfth Dynasty, which the subtitle keeps as his. `year` is the date sort's one
          number; the prose carries the range. */
       written: "c. 2000–1600 BCE (the papyri)",
-      year: -1900,
+      year: -2000,
+      // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Petrie's Remarks follow each tale
+      glossUntil: 1899,
       translator: "W. M. Flinders Petrie",
       edition: "Egyptian Tales, Translated from the Papyri, First Series, ed. W. M. Flinders Petrie, " +
         "Methuen, London, second edition, 1899 (first published 1895)",
@@ -18372,6 +18396,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          before the Persian conquest of 525 BCE; `year` is the start, the single number the date sort needs. */
       written: "c. 2600–525 BCE; translated 1906",
       year: -2600,
+      // the last year the TEXT may name (the reader unlinks a glossary term dated after it): Breasted's own introductions are part of every chapter
+      glossUntil: 1906,
       edition:
         "Ancient Records of Egypt: Historical Documents from the Earliest Times to the Persian Conquest, " +
         "collected, edited and translated with commentary, 4 vols., University of Chicago Press, Chicago, 1906",
@@ -18466,7 +18492,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       author: "Mozi",
       /* Mo Di taught in the fifth century BCE and the book is his school's, over the next two centuries. */
       written: "5th–3rd century BCE",
-      year: -400,
+      year: -500,
       translator: "Yi-Pao Mei",
       edition: "The Ethical and Political Works of Motse, Arthur Probsthain, London, 1929",
       /* US public domain since 2025 (published 1929); Mei d. 1997, so life plus seventy runs to 2067 — stated. */
@@ -18519,6 +18545,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      they open the book does not belong in it, and books/<id>.js is never hand-edited, so an intro
      written straight into that file would not survive the next run of the importer. */
   const BOOK_INTRO = {};
+  /* How many slips this text has had corrected by the Library audit (Nov 2026) — `emended: N` in the
+     book's own generated file, written by the importer from .claude/book-emend.json. The About page
+     says so in a sentence (bookIntroChapter): a reader is owed the fact that the text in front of them
+     is not letter for letter the transcription it was taken from. */
+  const BOOK_EMENDED = {};
   /* …overlaid with the admin's own edits (Aug 2026, on request: an admin should be able to edit the text
      of a book's opening About chapter). It follows the QUOTES pattern rather than the Mission's, and the
      difference is where the words end up living. The Mission's prose has mission.js to be baked back into;
@@ -18556,6 +18587,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!inc || !inc.id) return;
       BOOK_TEXT[inc.id] = inc.chapters || [];
       if (inc.intro) BOOK_INTRO[inc.id] = inc.intro;
+      if (inc.emended) BOOK_EMENDED[inc.id] = inc.emended | 0;
     });
   }
   function bookOrigIngest() {
@@ -34322,6 +34354,228 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.normalize();
   }
 
+  /* ONE SET OF QUOTATION MARKS FOR THE WHOLE SHELF (Nov 2026, the Library audit, on request: "ensure
+     consistency in formatting across all books").
+
+     Measured over the 101 books: thirty print “these” and ’this’, seventy-one the typewriter's " and '
+     — and nine do both inside one book (Bede's apostrophes are 74% straight, the Odyssey's 42%), because
+     the mark a book wears is whichever its TRANSCRIBER's keyboard had, not anything the edition printed.
+     Every one of these editions was set with curled marks. So the page curls them as it paints.
+
+     IT IS ONE CHARACTER FOR ONE CHARACTER, ALWAYS, and that is the whole constraint: a reader's
+     highlights are stored as offsets into the chapter's text, and a pass that changed its length would
+     move every mark after the first quotation. That is also why `--` is NOT turned into a dash here
+     (the importer does that, in the file — .claude/book-emend.js) and "..." is left alone.
+
+     The rules are the ordinary ones, and the one hard case is the leading apostrophe: 'Tis and 'em are
+     elisions and take ’, while 'Tis true,' he said opens a quotation and takes ‘. A leading mark is an
+     OPENING one unless its word is a known elision, or no closing mark follows it in the same block.
+     The English only: the facing original keeps whatever its own edition has.
+
+     Pure, and sliced out of this file by .claude/test-book-quotes.js between the marker lines. */
+  /* <book-quotes> */
+  function bookQuotes(t) {
+    if (t.indexOf('"') < 0 && t.indexOf("'") < 0) return t;
+    const W = /[A-Za-z0-9\u00C0-\u024F\u1E00-\u1EFF]/;
+    const OPENERS = " \t\n\u00A0([{—–-“‘";
+    const ELIDE = /^(?:[Tt]is|[Tt]was|[Tt]were|[Tt]will|[Tt]would|[Tt]wixt|[Tt]ween|em|t|gainst|[Gg]ainst|neath|[Nn]eath|mongst|midst|mid|bove|scape|scapes|scaped|gan|gins|pon|las|stead|prentice|[Ss]blood|[Ss]wounds|[Zz]ounds|[Ss]death|[Ss]foot|[Ss]lid|fore)(?![A-Za-z])/;
+    const out = t.split("");
+    let dq = 0;                                    // double marks open at this point
+    for (let i = 0; i < t.length; i++) {
+      const c = t[i];
+      if (c === "“") dq++; else if (c === "”") dq = Math.max(0, dq - 1);
+      if (c !== '"' && c !== "'") continue;
+      const prev = i ? out[i - 1] : "", next = t[i + 1] || "";
+      const opens = !prev || OPENERS.indexOf(prev) >= 0;
+      if (c === '"') {
+        let o;
+        // after a dash a mark opens only if a word follows it: said—"Go"  against  "I thought—" he began
+        if (prev === "—" || prev === "–" || prev === "-") o = W.test(next) || next === "'" || next === "‘";
+        else if (!opens) o = false;
+        else if (W.test(next) || next === "'" || next === "‘" || next === "(" || next === "[") o = true;
+        /* a mark with space on both sides ("called \" instincts.\"", "species reflexes \" since") says
+           nothing by its position, so it is read by what is open: the first opens, the next closes.
+           One standing alone in its block is a table's ditto mark and takes the closing form. */
+        else o = dq === 0 && !!next && i > 0;
+        out[i] = o ? "“" : "”";
+        dq = o ? dq + 1 : Math.max(0, dq - 1);
+        continue;
+      }
+      if (prev && W.test(prev)) { out[i] = "’"; continue; }                 // don't · kings' · Ch'in
+      if (opens && next === "'" && W.test(t[i + 2] || "")) { out[i] = "‘"; continue; }   // ''tis so.' — a quotation opening on an elision
+      if (!(opens && W.test(next))) { out[i] = "’"; continue; }             // a closing mark, or one standing alone
+      if (/[0-9]/.test(next) || ELIDE.test(t.slice(i + 1, i + 12))) { out[i] = "’"; continue; }   // '45 · 'tis
+      // an opening mark needs a closing one somewhere after it in the block
+      let closes = false;
+      for (let j = i + 2; j < t.length; j++) {
+        if (t[j] !== "'") continue;
+        const p = t[j - 1], n = t[j + 1] || "";
+        if (!W.test(n) && p !== " " && p !== "\n") { closes = true; break; }
+      }
+      out[i] = closes ? "‘" : "’";
+    }
+    return out.join("");
+  }
+  /* </book-quotes> */
+  /* Over a painted chapter, a block at a time: the marks of one paragraph are decided together even where
+     an <i> or a glossary link splits it into several text nodes, and — the replacement being one for one
+     — each node is handed back its own slice of the result. */
+  function bookQuoteTree(root) {
+    if (!root) return;
+    const SKIP = { SUP: 1, SCRIPT: 1, STYLE: 1, CODE: 1, PRE: 1 };
+    const doBlock = (el) => {
+      const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+        acceptNode(n) {
+          for (let p = n.parentNode; p && p !== el; p = p.parentNode) if (SKIP[p.nodeName] || (p.classList && p.classList.contains("bk-n"))) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+      const nodes = []; let all = "", n;
+      while ((n = tw.nextNode())) { nodes.push(n); all += n.nodeValue; }
+      if (all.indexOf('"') < 0 && all.indexOf("'") < 0) return;
+      const fixed = bookQuotes(all);
+      let at = 0;
+      nodes.forEach((nd) => { const len = nd.nodeValue.length, part = fixed.slice(at, at + len); if (part !== nd.nodeValue) nd.nodeValue = part; at += len; });
+    };
+    const blocks = root.querySelectorAll("p, li, td, th, h3, h4");
+    if (!blocks.length) { doBlock(root); return; }
+    blocks.forEach((el) => { if (!el.querySelector("p, li, td, th")) doBlock(el); });
+  }
+
+  /* A BOOK CANNOT NAME WHAT CAME AFTER IT (Nov 2026, the Library audit).
+
+     `linkProperNounsOnly` keeps a book from linking common nouns; it cannot help with a NAME that is
+     also somebody else's. Swept over the rendered page of all 101 books (.claude/book-gloss-sweep.js),
+     the shelf drew 287 links whose term is dated after the book was written: the Summa's Trinity went
+     to the nuclear test of 1945 seventy-two times, divine Providence to the capital of Rhode Island in
+     thirty books, the Roman province of Lusitania to the liner sunk in 1915, Pallas Athena to Claudius's
+     freedman, Lu Xun the general of Wu to the writer born in 1881. A hand list per book (`glossOff`) had
+     caught some of these and would have to be re-swept after every batch of glossary terms.
+
+     The rule needs no list: a term whose own date (`GLOSSARY_DATES`) BEGINS later than the last year the
+     book's `written` states is not what the book means, whatever it is spelled like. It is deliberately
+     one-sided — an EARLIER term may or may not be the one meant (the Pausanias of Thucydides is the
+     regent, the glossary's is the traveller six centuries on: that one is caught; a namesake who lived
+     before the book is not, and still wants `glossOff`). A date the parser cannot read judges nothing.
+
+     `glossUntil` on a row moves the line for a book whose chapters carry a modern editor's own prose —
+     Breasted's introductions name Champollion and the Louvre, and rightly.
+
+     The front matter is Folio's own essay and is not put through this: it names translators, museums
+     and copyright law on purpose.
+
+     THE TWO PARSERS ARE SLICED OUT OF THIS FILE BY .claude/book-gloss-sweep.js, between the two marker
+     lines, so the check and the page cannot come to disagree. Keep them free of closures. */
+  /* <gloss-date-rule> */
+  function glossTermStart(d) {
+    let s = String(d || "").replace(/(\d),(\d{3})/g, "$1$2");
+    if (/\b(?:Mya|kya|BP)\b|years ago/.test(s)) return -1000000;
+    if (/\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/.test(s)) {
+      const y = /\b(\d{3,4})\b/.exec(s);                       // "7 December 1941": the year, not the day
+      return y ? (/\bBCE\b/.test(s) ? -y[1] : +y[1]) : null;
+    }
+    const m = /(\d{1,5})(?:st|nd|rd|th)?/.exec(s);
+    if (!m) return null;
+    const n = +m[1], rest = s.slice(m.index + m[0].length), clause = rest.split(/[;,(]/)[0];
+    const here = /^\s*(?:centur(?:y|ies)\s*)?(BCE|CE)\b/.exec(rest);
+    const bce = here ? here[1] === "BCE" : /\bBCE\b/.test(clause);
+    let y;
+    if (/^(?:\s*[–-]\s*\d{1,2}(?:st|nd|rd|th))?\s+centur/.test(rest)) y = bce ? -n * 100 : (n - 1) * 100 + 1;
+    else if (/^(?:\s*[–-]\s*\d{1,2}(?:st|nd|rd|th))?\s+millenni/.test(rest)) y = bce ? -n * 1000 : (n - 1) * 1000 + 1;
+    else y = bce ? -n : n;
+    // "d. 43 BCE" dates a death; the life began up to a long lifetime before it
+    if (/\b(?:d\.|died)\s*(?:c\.\s*)?$/i.test(s.slice(0, m.index))) y -= 90;
+    return y;
+  }
+  function bookLastYear(b) {
+    if (typeof b.glossUntil === "number") return b.glossUntil;
+    const s = String(b.written || "").split(/;|, (?:first )?printed|, revised|, collected| translated/)[0];
+    const re = /(\d{1,4})(st|nd|rd|th)?(s\b)?(\s+century)?\s*(BCE|CE)?/g;
+    const toks = []; let m;
+    while ((m = re.exec(s))) toks.push(m);
+    let end = typeof b.year === "number" ? b.year : -Infinity;
+    toks.forEach((t, i) => {
+      // an era belongs to the dates before it too: "c. 399–347 BCE", "5th–3rd century BCE"
+      let era = t[5]; for (let j = i + 1; !era && j < toks.length; j++) era = toks[j][5];
+      const bce = era === "BCE";
+      const cent = !!t[4] || (!!t[2] && toks.slice(i + 1).some((x) => x[4]));
+      let n = +t[1];
+      // "1469–70" is 1470 — but only a CE year is ever cut short ("1550–50 BCE" is two years)
+      if (i && !bce && !t[2] && !cent && t[1].length <= 2 && toks[i - 1][1].length >= 3 && !toks[i - 1][2] && !toks[i - 1][5]) n = +(toks[i - 1][1].slice(0, toks[i - 1][1].length - t[1].length) + t[1]);
+      const y = cent ? (bce ? -(n - 1) * 100 - 1 : n * 100) : t[3] ? (bce ? -n : n + 9) : bce ? -n : n;
+      if (y > end) end = y;
+    });
+    return end;
+  }
+  /* </gloss-date-rule> */
+  /* …AND AN OLD BOOK DOES NOT MEAN THE MODERN STATE (Nov 2026, the same audit). The glossary's "Egypt",
+     "Greece", "Italy", "India", "Syria" are entries about today's countries — area, population, the present
+     constitution — and a text written before there were nation-states means the land, the people or a Roman
+     province. The rows added since October 2026 (the Res Gestae, the King James Bible, the Primary
+     Chronicle, Marco Polo, Malory) each switch these off by hand, on the stated ground that the page must
+     "link nothing that would tell the reader something untrue about the sentence in front of them"; the
+     fifty rows before them never did. One rule for the shelf: a book whose last year is before
+     GLOSS_STATE_FROM links none of them. "Ancient_Egypt", "Gaul", "Persia", "Rome" and the cities are other
+     keys and are untouched.
+
+     THE LIST IS GENERATED, never typed: every glossary key that is one of the Atlas's present-day
+     countries (atlas/data/country-names.js). `node .claude/check-library.js` fails when it lags the
+     glossary and prints the line to paste. */
+  const GLOSS_STATE_FROM = 1500;
+  /* <gloss-modern-states> */
+  const GLOSS_MODERN_STATES = new Set([
+    "Afghanistan", "Albania", "Algeria", "American_Samoa", "Andorra", "Angola", "Anguilla", "Antigua_and_Barbuda",
+    "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Barbados",
+    "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia_and_Herzegovina", "Botswana",
+    "Brazil", "British_Virgin_Islands", "Brunei", "Bulgaria", "Burkina_Faso", "Burundi", "Cambodia", "Cameroon",
+    "Canada", "Cape_Verde", "Cayman_Islands", "Central_African_Republic", "Chad", "Chile", "China", "Colombia",
+    "Comoros", "Cook_Islands", "Costa_Rica", "Croatia", "Cuba", "Curaçao", "Cyprus", "Czech_Republic",
+    "Democratic_Republic_of_the_Congo", "Denmark", "Djibouti", "Dominica", "Dominican_Republic", "East_Timor",
+    "Ecuador", "Egypt", "El_Salvador", "Equatorial_Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
+    "Falkland_Islands", "Faroe_Islands", "Federated_States_of_Micronesia", "Fiji", "Finland", "France",
+    "French_Polynesia", "Gabon", "Georgia_(country)", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland",
+    "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras",
+    "Hong_Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle_of_Man", "Israel",
+    "Italy", "Ivory_Coast", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo",
+    "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania",
+    "Luxembourg", "Macau", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall_Islands",
+    "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco",
+    "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New_Caledonia", "New_Zealand", "Nicaragua",
+    "Niger", "Nigeria", "Niue", "Norfolk_Island", "North_Korea", "North_Macedonia", "Northern_Mariana_Islands",
+    "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua_New_Guinea", "Paraguay", "Peru", "Philippines",
+    "Pitcairn_Islands", "Poland", "Portugal", "Puerto_Rico", "Qatar", "Republic_of_the_Congo", "Romania", "Russia",
+    "Rwanda", "Saint_Barthélemy", "Saint_Helena", "Saint_Kitts_and_Nevis", "Saint_Lucia", "Saint_Martin",
+    "Saint_Pierre_and_Miquelon", "Saint_Vincent_and_the_Grenadines", "Samoa", "San_Marino", "Saudi_Arabia",
+    "Senegal", "Serbia", "Seychelles", "Sierra_Leone", "Singapore", "Sint_Maarten", "Slovakia", "Slovenia",
+    "Solomon_Islands", "Somalia", "South_Africa", "South_Korea", "South_Sudan", "Spain", "Sri_Lanka", "Sudan",
+    "Suriname", "Sweden", "Switzerland", "Syria", "São_Tomé_and_Príncipe", "Taiwan", "Tajikistan", "Tanzania",
+    "Thailand", "The_Bahamas", "The_Gambia", "Togo", "Tonga", "Trinidad_and_Tobago", "Tunisia", "Turkey",
+    "Turkmenistan", "Turks_and_Caicos_Islands", "Tuvalu", "Uganda", "Ukraine", "United_Arab_Emirates",
+    "United_Kingdom", "United_States", "United_States_Virgin_Islands", "Uruguay", "Uzbekistan", "Vanuatu",
+    "Vatican_City", "Venezuela", "Vietnam", "Wallis_and_Futuna", "Western_Sahara", "Yemen", "Zambia", "Zimbabwe",
+    "Åland",
+  ]);
+  /* </gloss-modern-states> */
+  const GLOSS_LATER_SLACK = 25;       // years: a date line is a round figure, and so is a book's
+  const _glossStart = new Map();
+  function glossStartOf(k) {
+    if (_glossStart.has(k)) return _glossStart.get(k);
+    const d = (window.GLOSSARY_DATES || {})[k];
+    const y = d ? glossTermStart(d) : null;
+    _glossStart.set(k, y);
+    return y;
+  }
+  function unlinkLaterTerms(root, b) {
+    if (!root || !b) return;
+    const last = bookLastYear(b), until = last + GLOSS_LATER_SLACK, old = last < GLOSS_STATE_FROM;
+    let any = false;
+    root.querySelectorAll(".ttip[data-k]").forEach((el) => {
+      const k = el.dataset.k, y = glossStartOf(k);
+      if ((y != null && y > until) || (old && GLOSS_MODERN_STATES.has(k))) { el.replaceWith(document.createTextNode(el.textContent)); any = true; }
+    });
+    if (any) root.normalize();
+  }
+
   /* ------------------------------------------------------------
      THE ORIGINAL BESIDE THE TRANSLATION (Aug 2026, on request)
      ------------------------------------------------------------
@@ -34888,6 +35142,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["title", "Title", "A – Z", "Z – A"],
     ["author", "Author", "A – Z", "Z – A"],
     ["written", "Date", "Oldest first", "Newest first"],
+    /* BY HOW MANY PEOPLE HAVE READ IT (Nov 2026, on request). The figure is the pooled `book_stats.reads`
+       the banner already prints — a reader counted once, after a minute with the book open (see
+       `bookReadMaybeCount`) — so the order and the number beside each banner are one fact, and no new table
+       is asked of the database. It arrives after the shelf has painted, so the page re-sorts in place when
+       it lands; where it never lands (a dev origin, a project without schema section 16) the books stand in
+       title order under a sentence saying why. */
+    ["popular", "Popularity", "Most read first", "Least read first"],
   ];
   // read through a whitelist, like the theme: a key retired from BOOK_SORTS must fall back rather than
   // leave the shelf sorted by nothing at all
@@ -34998,9 +35259,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (key === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
       if (key === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
       if (key === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
+      if (key === "popular") return (bookReads(b.id) || 0) - (bookReads(a.id) || 0) || a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
       return readAt(b) - readAt(a) || a.title.localeCompare(b.title);
     };
-    const sorted = BOOKS.slice().sort((a, b) => (rev ? -forward(a, b) : forward(a, b)));
+    /* `let`, and re-made when the read counts land: every other order is known at paint, this one is not.
+       The functions below close over the variable, so the search box and the count line follow it. */
+    const sortNow = () => BOOKS.slice().sort((a, b) => (rev ? -forward(a, b) : forward(a, b)));
+    let sorted = sortNow();
     /* FAVOURITES SIT IN A SECTION OF THEIR OWN AT THE TOP (Aug 2026, on request), and a starred book is
        NOT repeated in the shelf below — one book, one banner, or a reader scrolling past their own
        favourites twice has to work out which of the two is the real one. The lower section is therefore
@@ -35085,6 +35350,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             .claude/fetch-book.js, which is what decides what may be shelved, and it is still shown to
             the reader — in each book's own front matter, beside the edition it applies to, which is
             where a statement about one book's copyright actually belongs. */""}
+      ${/* said only under the Popularity order, and only once the figures are known to be missing: the
+            shelf is then in title order, and an order that silently is not the one chosen is a lie */""}
+      <p class="lib-sortnote" id="bkSortNote" hidden>Reading figures are not available here, so the texts are in title order.</p>
       <div id="bkShelf">${shelfHTML(bookQuery)}</div>`;
     /* HOLD a banner for its options — share it, or star it (Aug 2026, on request). Same gesture, same
        shell and same classification as an added deck's row on the home page: a tap opens the book, a
@@ -35107,7 +35375,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reader's search and scroll with it. A second visit inside the cache window redraws from `_bookStats`
        with no request at all, so the figure is already there on the first paint. */
     bookStatsLoad().then((st) => {
-      if (!st || !shelf.isConnected) return;
+      if (!shelf.isConnected) return;
+      if (!st) {
+        const note = root.querySelector("#bkSortNote");
+        if (note && key === "popular") note.hidden = false;
+        return;
+      }
+      if (key === "popular") sorted = sortNow();
       shelf.innerHTML = shelfHTML(bookQuery);
       wireShelf();
     });
@@ -35248,6 +35522,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             : ". The text here is " + esc(b.edition) + ".") + "</p>" +
         '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
         '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
+        /* WHAT FOLIO HAS CHANGED IN IT (Nov 2026, the Library audit). Said here, beside the source it was
+           changed from, and only where there is something to say. The count is the file's own. */
+        (BOOK_EMENDED[b.id]
+          ? '<p class="bk-rights-note bk-emended">' + (BOOK_EMENDED[b.id] === 1
+              ? "One slip of the scan or the press has been corrected in this text"
+              : esc(String(BOOK_EMENDED[b.id])) + " slips of the scan or the press have been corrected in this text") +
+            " — a doubled word, a misread letter, a word no printing can have meant. Spelling, punctuation and wording that belong to the edition are left as they are.</p>"
+          : "") +
       "</section>";
     /* The original gets a statement of its own, on the same terms and for the same reason: the reader
        is shown what they are reading and on what grounds it may be served. It is a SECOND box rather
@@ -35468,8 +35750,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const proseEn = rows ? pageEl.querySelectorAll(".bk-col-en") : pageEl.querySelectorAll(".bk-prose");
       const glossOff = bookGlossOff(b, c);
       proseEn.forEach((el) => {
-        try { autoLinkGlossary(el, "", glossOff, "site"); linkProperNounsOnly(el); } catch (e) {}
+        try {
+          autoLinkGlossary(el, "", glossOff, "site"); linkProperNounsOnly(el);
+          if (!c.intro) unlinkLaterTerms(el, b);
+          /* the licence boxes under the essay are a statement of rights, not prose to gloss: "Creative
+             Commons" went to the House of Commons and "T. Rice Holmes" to the grain (Nov 2026 audit) */
+          else el.querySelectorAll(".bk-rights .ttip[data-k]").forEach((t) => t.replaceWith(document.createTextNode(t.textContent)));
+        } catch (e) {}
       });
+      /* the shelf's one set of quotation marks — the English prose and its notes, after the linker has
+         matched its terms against the text as shipped, and one character for one, so the highlights
+         applied below land where they were made */
+      proseEn.forEach((el) => { try { bookQuoteTree(el); } catch (e) {} });
+      pageEl.querySelectorAll(".bk-notes .src-text").forEach((el) => { try { bookQuoteTree(el); } catch (e) {} });
       setupTooltips(pageEl);
       wireFootnotes(pageEl);
       unitizeTree(pageEl);

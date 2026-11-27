@@ -1026,6 +1026,19 @@ the highlights.**
       not in `S` — this one is a PREFERENCE: `S.settings.bookSort` / `bookSortRev`, device-local like the
       theme, read back through a whitelist so a retired key falls back rather than leaving the shelf
       sorted by nothing.
+    · **POPULARITY, AND THE EARLIEST DATE** (Nov 2026, on request). A fifth row, `popular`
+      ("Popularity", Most read first / Least read first), orders the shelf by the pooled
+      `book_stats.reads` the banner already prints — a reader counted once after a minute with the book
+      open (`bookReadMaybeCount`), not a raw count of openings, so the order and the figure beside each
+      banner are one fact and the database is asked for nothing new. The figures land after the shelf
+      paints, so `sorted` is a `let` re-made in the `bookStatsLoad()` callback (`sortNow`); books nobody
+      has read tie at zero and fall to title order. Where the figures cannot be had (a dev origin, a
+      project without schema section 16) `#bkSortNote` says the shelf is in title order — never a
+      silent fallback. **The Date order files a work at the EARLIEST year its `written` states**: a
+      range's `year` is its early end (the Ramayana's "c. 500 BCE – 200 CE" is −500, not the −300
+      midpoint it had), a single century's key lies inside that century. 22 rows moved; the rule is
+      held by `node .claude/check-library.js` (the `year` check) and `.claude/test-library-sort.js`
+      guards both orders. Re-run that suite after touching `BOOK_SORTS`, the comparator, or a `year`.
     · **A SEARCH BOX beside the sort** (`bookQuery` / `bookFold` / `bookMatches` / `shelfHTML` / `#bkFilter`
       / `.lib-search`, Aug 2026, on request). It matches TITLE, AUTHOR and the year written — the three
       things the banner itself shows, so a reader can always see why a book matched — folding diacritics

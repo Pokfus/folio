@@ -1,4 +1,4 @@
-/* The Library of History — Diodorus Siculus, in the Ancient Greek he wrote it in.
+/* The Library of History — Diodorus Siculus, in the Greek he wrote it in.
    Diodorus wrote in Greek in the first century BCE, so the words themselves are in the public domain everywhere. Books 1 to 5 are the Teubner text of Bekker, Dindorf and Vogel (1888–1890) and Books 18 to 20 that of Bekker, Dindorf and Fischer (1903–1906), both published before 1929 and so public domain in the United States. Books 11 to 17 are the Greek printed facing the translation in the same Loeb volumes (1946–1963), public domain in the United States on the same non-renewal ground as the English. The digital editions are prepared by the Perseus Digital Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike 4.0 International licence.
    Source: Perseus Digital Library — https://scaife.perseus.org/library/urn:cts:greekLit:tlg0060.tlg001/
 
@@ -11,7 +11,7 @@ window.FOLIO_BOOK_ORIG_IN = window.FOLIO_BOOK_ORIG_IN || [];
 window.FOLIO_BOOK_ORIG_IN.push({
   id: "diodorus-library",
   lang: "grc",
-  langName: "Ancient Greek",
+  langName: "Greek",
   edition: "Bibliotheca Historica, edited by Immanuel Bekker, Ludwig Dindorf and Friedrich Vogel (Books 1–5, Teubner, Leipzig, 1888–1890) and Curt Theodor Fischer (Books 18–20, Teubner, 1903–1906); Books 11–17 as printed in the Loeb volumes, 1946–1963",
   rights: "Diodorus wrote in Greek in the first century BCE, so the words themselves are in the public domain everywhere. Books 1 to 5 are the Teubner text of Bekker, Dindorf and Vogel (1888–1890) and Books 18 to 20 that of Bekker, Dindorf and Fischer (1903–1906), both published before 1929 and so public domain in the United States. Books 11 to 17 are the Greek printed facing the translation in the same Loeb volumes (1946–1963), public domain in the United States on the same non-renewal ground as the English. The digital editions are prepared by the Perseus Digital Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
   sourceName: "Perseus Digital Library",

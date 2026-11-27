@@ -8473,6 +8473,12 @@ body.night .rv-star.on{color:#E6C765;}
   flex:0 0 auto; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em;
   color:var(--ink-faint); white-space:nowrap;
 }
+/* Under the Popularity order, where the read counts could not be had: one quiet line saying the shelf is
+   in title order instead (Nov 2026). */
+.lib-sortnote{
+  margin:-4px 0 12px; text-align:right; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-faint);
+}
+.lib-sortnote[hidden]{display:none;}
 /* Nothing matched. A line rather than an empty shelf, which reads as a page that failed to draw. */
 .lib-none{
   padding:26px 18px; text-align:center; border:1px dashed var(--rule); border-radius:14px;

@@ -1,4 +1,4 @@
-/* The History of the Peloponnesian War — Thucydides, in the Ancient Greek he wrote it in.
+/* The History of the Peloponnesian War — Thucydides, in the Greek he wrote it in.
    Public domain on both grounds. Thucydides wrote in Greek in the fifth century BCE, so the words themselves have been out of copyright for as long as copyright has existed. The text printed here is the Oxford Classical Text edited by Henry Stuart Jones and published in 1910 — before 1929, so its United States copyright has expired — and Stuart Jones lived from 1867 to 1939, so it is also public domain wherever the term is the editor's life plus seventy years or more. The 1942 reprint of this text added an apparatus criticus by J. E. Powell; that apparatus is not part of what is imported here. The digital edition is prepared by the Perseus Digital Library at Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 International licence.
    Source: Perseus Digital Library — https://scaife.perseus.org/library/urn:cts:greekLit:tlg0003.tlg001/
 
@@ -11,7 +11,7 @@ window.FOLIO_BOOK_ORIG_IN = window.FOLIO_BOOK_ORIG_IN || [];
 window.FOLIO_BOOK_ORIG_IN.push({
   id: "thucydides-peloponnesian-war",
   lang: "grc",
-  langName: "Ancient Greek",
+  langName: "Greek",
   edition: "Historiae, edited by Henry Stuart Jones, Oxford Classical Texts, Clarendon Press, Oxford, 1910",
   rights: "Public domain on both grounds. Thucydides wrote in Greek in the fifth century BCE, so the words themselves have been out of copyright for as long as copyright has existed. The text printed here is the Oxford Classical Text edited by Henry Stuart Jones and published in 1910 — before 1929, so its United States copyright has expired — and Stuart Jones lived from 1867 to 1939, so it is also public domain wherever the term is the editor's life plus seventy years or more. The 1942 reprint of this text added an apparatus criticus by J. E. Powell; that apparatus is not part of what is imported here. The digital edition is prepared by the Perseus Digital Library at Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
   sourceName: "Perseus Digital Library",
