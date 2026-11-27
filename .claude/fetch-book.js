@@ -33865,6 +33865,9 @@ function brClean(s, vocab, counts) {
   s = s.replace(/\u0004/g, "").replace(/[ \t]+/g, " ");
   // the italic "of" the machine reads as oj, o}, 0}, o)
   s = s.replace(/(^|[\s(])[o0][j}\)](?=[\s,.;:]|$)/g, (m, a) => { counts.italicOf++; return a + "of"; });
+  /* a brace: never in the printing — the machine's reading of an italic parenthesis, "{Zeitschrift … 36)" (it also
+     looks like a CSS rule set to the Library suite's leak guard) */
+  s = s.replace(/[{}]/g, (m) => { counts.braces++; return m === "{" ? "(" : ")"; });
   // a regnal numeral read as "Ill": Thutmose Ill
   s = s.replace(/\b([A-Z][a-z]+) Ill\b/g, (m, a) => { counts.regnalIll++; return a + " III"; });
   // a line reference with figures for letters: "§ 274, 1. 3" is l. 3, "(11. 11, 12" is ll.
@@ -33921,7 +33924,8 @@ function brVolume(html, vol, vocab, counts) {
     }
     out.push({ kind: "p", num, html: "<p>" + (sec ? '<span class="bk-n" data-n="' + sec + '">' + sec + "</span> " : "") + h + "</p>" });
   });
-  return { blocks: out, notes: r.notes.map(esc) };
+  // the notes take the same repairs as the text (they have no line breaks left to rejoin)
+  return { blocks: out, notes: r.notes.map((n) => esc(brClean(n, vocab, counts))) };
 }
 
 /* A volume's blocks → its chapters, cut at the § each opens on (or at Breasted's heading). */
@@ -33969,7 +33973,7 @@ function brCut(v, blocks, notes, plan, counts, warn) {
 function extractBreasted(htmls, book, warn) {
   const counts = { pages: 0, notes: 0, anchored: 0, footAnchored: 0, lineNumbers: 0, halfBrackets: 0, raisedDropped: 0,
     figureRows: 0, sections: 0, dehyphenated: 0, hyphensKept: 0, italicOf: 0, regnalIll: 0, lineRefs: 0, sectionRefs: 0,
-    ffs: 0, oldStyleFigures: 0, gluedLineNumbers: 0, strayMarks: 0, uncertainSigns: 0, cutAtHeading: 0 };
+    ffs: 0, oldStyleFigures: 0, gluedLineNumbers: 0, strayMarks: 0, uncertainSigns: 0, braces: 0, cutAtHeading: 0 };
   // the vocabulary every "is this a word?" test asks: the words of all four volumes as read
   const vocab = {};
   htmls.forEach((h) => {
@@ -35356,7 +35360,7 @@ async function fetchEnglish() {
       c.dehyphenated + " words rejoined at a line's end, " + c.hyphensKept + " compound hyphens kept");
     console.log("  repairs: " + c.italicOf + " italic \"of\", " + c.regnalIll + " \"Ill\" for III, " + c.lineRefs +
       " line references, " + c.sectionRefs + " § references, " + c.ffs + " \"ff.\", " + c.oldStyleFigures +
-      " old-style years, " + c.gluedLineNumbers + " line numbers glued to a word, " + c.strayMarks + " stray marks, " + c.uncertainSigns + " ⌈—⌉ signs; " + c.cutAtHeading + " chapter(s) cut at Breasted's heading where the § was unreadable");
+      " old-style years, " + c.gluedLineNumbers + " line numbers glued to a word, " + c.strayMarks + " stray marks, " + c.uncertainSigns + " ⌈—⌉ signs, " + c.braces + " braces; " + c.cutAtHeading + " chapter(s) cut at Breasted's heading where the § was unreadable");
     g.chapters.forEach((ch) => {
       if (ch.n < FROM || ch.n > TO) return;
       if (ch.html.length < (BOOK.minChars || 200))

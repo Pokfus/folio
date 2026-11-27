@@ -2938,6 +2938,8 @@ WHERE a glyph stands, not by what the machine read; the layout's own comment has
 - **A raised quotation mark is a mark only at a word's end** ("day's" put a note inside a word until it was not).
 - **The FineReader conversions glue the word after a hyphenated line break to the next** ("pre-sentedmay"): split words
   where glyphs stand more than 0.55 x-height apart.
+- **The notes take the same repairs as the text**, braces included: the printing has none, the machine reads an italic
+  parenthesis as one, and a `{ … : … }` in a note trips the Library suite's stylesheet-leak guard.
 - **The figure-page filter runs on the Tesseract volume only** (`noiseFilter`): on the FineReader volumes the word
   confidence is low on every transliteration line, and the same filter dropped real text.
 - **The chapters are the plan's reigns, cut at the § each opens on**; where the § was unreadable the cut falls at
