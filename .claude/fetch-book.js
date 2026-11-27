@@ -18757,6 +18757,258 @@ const BOOKS = {
     ],
   },
 
+  "novgorod-chronicle": {
+    title: "The Chronicle of Novgorod",
+    subtitle: "1016–1471",
+    author: "Anonymous",
+    translator: "Robert Michell and Nevill Forbes",
+    edition: "Camden Third Series, vol. 25, Offices of the Royal Historical Society, London, 1914",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/chronicleofnovgo00michrich",
+    url: "https://archive.org/download/chronicleofnovgo00michrich/chronicleofnovgo00michrich_abbyy.gz",
+    layout: "novgorod",
+    chapterWord: "Part",
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+    leaves: [53, 273],
+    begin: /^A\.D\. 1016\. A\.M\. 6524\. \[There was a fight/,
+    mainEnd: /^Having received their liberty from their sovereign/,
+    /* THE RUNS OF HEADS THE PRINTED PAGE BREAKS, each read off the page and left as printed: no head for
+       1273, 1351 (the edition's own note: "No record for 1351") or 1422 — both OCRs agree and the page
+       confirms — and 1355–1356 printed twice, where the Synodal text ends and the edition goes on from the
+       Commission text (its notes on p. 144). */
+    headRuns: ["1272→1274", "1350→1352", "1356→1355", "1421→1423"],
+    spans: [[1016, 1099], [1100, 1149], [1150, 1199], [1200, 1249], [1250, 1299], [1300, 1349], [1350, 1399], [1400, 1449], [1450, 1471]],
+    appendices: [{ head: /^APPENDIX\.?$/, title: "Appendix: Money, Weights and Measures" }],
+    /* A PAGE TRANSCRIBED FROM ITS IMAGE — see extractNovgorod. p. 3: twenty-four year heads in a column, and
+       the engine read the column and the text beside it as one jumble. */
+    transcribed: {
+      55: {
+        paras: [
+          "A.D. 1022. A.M. 6530.", "A.D. 1023. A.M. 6531.", "A.D. 1024. A.M. 6532.", "A.D. 1025. A.M. 6533.",
+          "A.D. 1026. A.M. 6534.", "A.D. 1027. A.M. 6535.",
+          "A.D. 1028. A.M. 6536. There appeared a sign in the sky like a serpent.",
+          "A.D. 1029. A.M. 6537.", "A.D. 1030. A.M. 6538.", "A.D. 1031. A.M. 6539.", "A.D. 1032. A.M. 6540.",
+          "A.D. 1033. A.M. 6541.", "A.D. 1034. A.M. 6542.", "A.D. 1035. A.M. 6543.", "A.D. 1036. A.M. 6544.",
+          "A.D. 1037. A.M. 6545. Yaroslav founded the town⟦1⟧ of Kiev, and the Church of St. Sophia.",
+          "A.D. 1038. A.M. 6546.",
+          "A.D. 1039. A.M. 6547. The church of the Holy Mother of God was consecrated by Volodimir.",
+          "A.D. 1040. A.M. 6548.", "A.D. 1041. A.M. 6549.",
+          "A.D. 1042. A.M. 6550. Volodimir, the son of Yaroslav, went against the Yem⟦2⟧ people with the men of Novgorod.",
+          "A.D. 1043. A.M. 6551. Volodimir went against the Greeks.",
+          "A.D. 1044. A.M. 6552. Two Knyazes, Yaropolk and Oleg, sons of Svyatoslav, were buried, and they christened their bones.",
+          "A.D. 1045. A.M. 6553. St. Sophia was burnt down, on a Saturday, after the early morning service, in the third hour, on March 15.",
+        ],
+        notes: ["Gorod, sc. fortified town.", "A Finnish tribe."],
+      },
+    },
+    /* WHAT EACH CANDIDATE MARK IS, read off the page images — see extractNovgorod. Keyed by leaf, one
+       entry per candidate in reading order: a number is the note of that number at the foot of the same
+       page; a string is what the glyphs really are — an apostrophe, a quotation mark, a letter of an italic
+       word the engine broke ("p" ends the "Posadnik-shi" it reads for Posadnik-ship), or nothing (a speck,
+       a pen stroke); "⟦k⟧" inside a string places note k beside a quotation mark, in the page's order. */
+    marks: {
+      53: [2,3,4,5,6,7,8], 54: [1,2,3,4,5,6,7], 56: [1,2], 57: [2,3,4,5,6,7,8,9,10], 58: ["",1,"",2,3,3,4,5],
+      59: ["’","",1,2,3,4,"",5,6], 60: [1,2,3,4,5,6], 61: [1,3], 62: [1,2,3,4,5], 63: [1,2,3,4,""], 64: [1,3,4],
+      65: [1,3,"’",4,5,6], 66: [1], 68: [2], 69: ["",1], 70: [1,2,3,4,5], 71: [1,2], 72: [1,2,3], 73: ["p","p"],
+      74: [1,2], 75: ["p",1,"","p"], 76: [1,2], 77: [1,3,4,5], 78: [2,"",3], 79: [1,2,3,"p","p",4], 80: [1,""],
+      82: ["",1], 84: [1,2,3], 85: ["","","",1,2], 86: [1,"","",3,4,5], 87: [1,2,3,4], 88: [2,3,4,4], 89: ["’",1,2],
+      90: [1,3,4], 91: [1], 92: [1,2,3,4,5], 93: [1,"’"], 94: [1,2,3,4,5,6,7], 95: [1,2,"p",3,4,5], 96: [1,2,3,4],
+      97: [1], 98: [1,1,2,3], 99: [1], 100: [1,2,3,4,5,6], 101: ["’",1], 102: [1,2,3,4,"p",5], 103: [1,3,4,5],
+      104: [1,2,3,4,5,6,7], 105: [","], 106: [1,"","",2], 108: [1], 110: [1,2,3], 111: [1], 112: [1],
+      113: [1,3,4,5,6,7], 114: [1], 115: [1,2,"",3,4], 116: [1,2,3,4,5,6], 117: ["","","","",1,2,3], 118: [1,2,3],
+      119: [1], 120: ["\"⟦1⟧",2,2,3,4,5], 121: [1], 122: [1,2,3,4], 123: [1,2,3,4], 124: [1], 125: ["",1,3],
+      126: [1,"\"⟦2⟧",3], 127: [1,"p",3,4,5], 129: [1,2,3,4], 130: [1,2,3], 131: [1,3], 133: [1,2,3,"",4,4],
+      134: [1,"’","","",2], 135: [1,2,3,4], 136: [1,2,3,4,4,5,6,7], 137: [1,2,3,4], 138: [1,2,"","",""],
+      139: [1,3,""], 140: [1,2], 142: ["\"",1,3,"\"","'"], 143: [1,""], 144: [1,2], 145: [1,2], 146: ["’",1],
+      147: [1], 148: ["p","\"⟦1⟧","\"⟦2⟧"], 150: [1,2], 152: [1], 153: [","], 155: ["",1,3,4], 156: [1], 157: [1,2],
+      158: [1,2,3], 159: ["p",1,2,2,"’"], 160: [1,3,""], 161: [1,2,3,4], 162: [1,"p",2,"","","p"], 163: [1,2],
+      164: [1], 165: [1,2], 166: [1,2,3], 167: [1], 168: [1,"","","",2,1,1,3], 169: [1,3,4,5], 170: [1,"’","’"],
+      171: [1,2,2,2], 172: [1,"e",2], 173: [1], 174: [1,3], 175: [1,4,2,3,4,5,6,7], 176: [1,2],
+      177: [1,"","","","",3], 178: ["’",1,2,3,4,5], 179: [1,2,3], 180: ["",3,4,5], 181: [1,2,3,4], 182: [1,2,3,4],
+      183: [1,2,3], 184: [1,2,3,4,5,6], 185: [1,"\"⟦2⟧",3], 186: [2,3,"’",4,""], 187: [1], 188: [1], 189: [1],
+      190: [1,2], 191: [1,"",1,3,1,3], 192: [1,2,"","",3], 193: [1,3,4], 194: [1,2,3], 195: [1,2,3,4,5,5,5,6],
+      196: [1,3,4,5,6], 197: [1,2,3,4,5,"p"], 198: [1,2,3,3,4], 199: [1,2,3], 200: [1], 201: [1,2,3,4,5],
+      202: [2,3,4,5], 203: [1,2,3,4,5,6,""], 204: [1,"’",2,3,4,5,"’",2,6], 205: [1,2,3], 206: [1,2,3,4,5],
+      207: [1,3,4,5,6,5,4], 208: ["’",1,2], 209: [1,3,4,5], 210: [1], 211: [1,3,4,5], 212: [2], 213: ["’",1,2,3],
+      214: [1,"’",2,3,4], 215: ["’"], 216: [2,3,4,5], 217: [1,3,4], 218: [1,"p"], 219: [1,3,4,5,6,7,"V"],
+      220: [1,2,3], 221: [1,"",3,4,""], 222: ["⟦2⟧\""], 223: [1], 224: [1,"’",3], 225: [1,3,4], 226: ["\"⟦1⟧",2,3,4],
+      227: [1,2,3], 228: ["",1,"’",2,3], 229: [1,3], 230: [1,3,"’",4,5,6], 231: [1,2,"",3,"",""],
+      232: [1,2,3,4,5,6,7,8], 233: [1,2,3,4], 234: [1,1,1,2,1,"\""], 235: [1,"’",3,4,5,5], 236: [1,"’","y",""],
+      237: ["",1,2,1,3,"",4], 238: [1], 239: [1,"’"], 240: ["⟦1⟧\"","’",2], 241: [1,3,4,5,6], 242: [1,2,3,4,"’"],
+      243: [1,2,3,4], 244: ["n",1,1,2], 245: [1], 246: [1,2,3,4], 247: [1,2,3,4], 248: ["’",2," ",3],
+      249: [1,3,3,""], 250: [1,2,""], 251: [1,"’",2,3,4,5,6,"",7], 252: ["","","","",1,2,"\"⟦3⟧",3,4,2,"",""],
+      253: ["",1], 254: [1,2,3,4,"’"], 255: [2,3], 256: ["",1,2,3], 257: [1,2,3,4], 259: [1], 260: [1],
+      264: [2,3,4,5], 266: [""], 267: ["\"⟦1⟧","",2,3], 269: ["",""], 271: [1,""],
+    },
+    fixes: [
+      /* ---------- THE YEAR HEADS ----------
+         Walked for gaps and reversals on every run; every row read off the page. One is the printer's. */
+      ["A.D. nil. A.M. 6619.", "A.D. 1111. A.M. 6619.", "the year 1111 read as `nil` (p. 8)"],
+      ["A.D. 114:2. A.M. 6650.", "A.D. 1142. A.M. 6650.", "the year 1142 read as `114:2` (p. 17)"],
+      ["A.M. G667.", "A.M. 6667.", "the year 6667 read as `G667` (p. 23)"],
+      ["A.M. 661)9.", "A.M. 6699.", "the year 6699 read as `661)9` (p. 35)"],
+      ["A.D. 1200. A.M. 7708.", "A.D. 1200. A.M. 6708.", "PRINTED `7708` (p. 42) — a misprint for 6708, between 6707 (1199) and 6709 (1201)"],
+      ["A.D. 1204. .\\.M. 6712.", "A.D. 1204. A.M. 6712.", "`A.M.` read as `.\\.M.` (p. 43)"],
+      ["A.M. G718.", "A.M. 6718.", "the year 6718 read as `G718` (p. 50)"],
+      ["A.M. 6744,", "A.M. 6744.", "a full stop read as a comma (p. 80)"],
+      ["A.D, 1237.", "A.D. 1237.", "a full stop read as a comma (p. 81)"],
+      ["A.D. 124L A.M. 6749.", "A.D. 1241. A.M. 6749.", "the year 1241 read as `124L` (p. 86)"],
+      ["A.D. 126L A.M. 6769.", "A.D. 1261. A.M. 6769.", "the year 1261 read as `126L` (p. 97)"],
+      ["A.M. 677L", "A.M. 6771.", "the year 6771 read as `677L` (p. 98)"],
+      ["A.D. 127L A.M. 6779.", "A.D. 1271. A.M. 6779.", "the year 1271 read as `127L` (p. 105)"],
+      ["A.M. 6866,", "A.M. 6866.", "a full stop read as a comma (p. 146)"],
+      ["A.D. 138L A.M. 6889.", "A.D. 1381. A.M. 6889.", "the year 1381 read as `138L` (p. 158)"],
+      ["A.M. G903.", "A.M. 6903.", "the year 6903 read as `G903` (p. 167)"],
+      ["A.M. 6948,", "A.M. 6948.", "a full stop read as a comma (p. 196)"],
+      ["A.D. 14:26. A.M. 6934.", "A.D. 1426. A.M. 6934.", "the year 1426 read as `14:26` (p. 192)"],
+      /* ---------- FOOTNOTE MARKS THE BOX TEST MISSED ----------
+         Found from each note never cited, and read off the page image: a raised figure set close to its
+         word, which the engine read as a letter or a stop of the line (`-` for ², `/` for ¹, `}`, `P`). */
+      ["the Lyakhi} And at that time", "the Lyakhi.⟦1@53⟧ And at that time",
+        "p. 1, note 1: the full stop and the mark read together as `}`"],
+      ["in Russia [Rus.y", "in Russia [Rus.]⟦1@57⟧",
+        "p. 5, note 1: the bracket and the mark read as `.y`"],
+      ["Medvezhya Golovofi on", "Medvezhya Golova⟦2@61⟧ on",
+        "p. 9, note 2: `Golova²` read as `Golovofi`"],
+      ["came from Donia- in health", "came from Donia⟦2@64⟧ in health",
+        "p. 12, note 2: its mark read as `-`"],
+      ["a war with Suzhdal,- and", "a war with Suzhdal,⟦2@65⟧ and",
+        "p. 13, note 2: its mark read as `-`"],
+      ["cost seven rezanas?-", "cost seven rezanas.⟦1@67⟧",
+        "p. 15, note 1: the stop and the mark read as `?-`"],
+      ["went out to Silnishche/ and", "went out to Silnishche,⟦1@68⟧ and",
+        "p. 16, note 1: the comma and the mark read as `/`"],
+      ["barrel (kadka)- for seven kunas? Oh", "barrel (kadka)⟦2@75⟧ for seven kunas.⟦3@75⟧ Oh",
+        "p. 23, notes 2 and 3: their marks read as `-` and `?`"],
+      ["a way to Vyatsko- and", "a way to Vyatsko⟦2@77⟧ and",
+        "p. 25, note 2: its mark read as `-`"],
+      ["Anna, Iguniena} of St. Barbara", "Anna, Igumena⟦1@78⟧ of St. Barbara",
+        "p. 26, note 1: its mark read as `}`, and Igumena misread"],
+      ["Divna Gora} and", "Divna Gora,⟦1@88⟧ and",
+        "p. 36, note 1: the comma and the mark read as `}`"],
+      ["householders, body-guards'- and", "householders, body-guards⟦2@90⟧ and",
+        "p. 38, note 2: its mark read as `’-`"],
+      ["monastery at Nelezino- in", "monastery at Nelezino⟦2@91⟧ in",
+        "p. 39, note 2: its mark read as `-`"],
+      ["called Nereditsa-;", "called Nereditsa⟦2@93⟧;",
+        "p. 41, note 2: its mark read as `-`"],
+      ["consulted with Murchufl,- took", "consulted with Murchufl,⟦2@97⟧ took",
+        "p. 45, note 2: its mark read as `-`"],
+      ["The wonderful Digitria- of", "The wonderful Digitria⟦2@99⟧ of",
+        "p. 47, note 2: its mark read as `-`"],
+      ["Markos of Rome,''", "Markos of Rome,⟦3@99⟧",
+        "p. 47, note 3: its mark read as `''`"],
+      ["build a fortification,- and", "build a fortification,⟦2@103⟧ and",
+        "p. 51, note 2: its mark read as `-`"],
+      ["the King's son-;", "the King's son⟦2@113⟧;",
+        "p. 61, note 2: its mark read as `-`"],
+      ["and they- having", "and they⟦2@121⟧ having",
+        "p. 69, note 2: its mark read as `-`"],
+      ["took much money- from", "took much money⟦2@124⟧ from",
+        "p. 72, note 2: its mark read as `-`"],
+      ["Give up the Volokr and", "Give up the Volok⟦2@125⟧ and",
+        "p. 73, note 2: its mark read as `r`"],
+      ["on Exaltation Day,- and kissed", "on Exaltation Day,⟦2@127⟧ and kissed",
+        "p. 75, note 2: its mark read as `-`"],
+      ["the Low country- fell", "the Low country⟦2@131⟧ fell",
+        "p. 79, note 2: its mark read as `-`"],
+      ["the Subol shore.- And", "the Subol shore.⟦2@139⟧ And",
+        "p. 87, note 2: its mark read as `-`"],
+      ["steward- named Eldega", "steward⟦2@142⟧ named Eldega",
+        "p. 90, note 2: its mark read as `-`"],
+      ["against Poltesk-,", "against Poltesk⟦2@152⟧,",
+        "p. 100, note 2: its mark read as `-`"],
+      ["the Narova to Rakovor/ and", "the Narova to Rakovor⟦1@153⟧ and",
+        "p. 101, note 1: its mark read as `/`"],
+      ["to deprive them- of", "to deprive them⟦2@155⟧ of",
+        "p. 103, note 2: its mark read as `-`"],
+      ["beat with their foreheadsto the Tsar", "beat with their foreheads⟦2@160⟧ to the Tsar",
+        "p. 108, note 2: its mark read as `-` at a line's end, which joined two words"],
+      ["of God at Dubenka,- by", "of God at Dubenka,⟦2@169⟧ by",
+        "p. 117, note 2: its mark read as `-`"],
+      ["St. loan- Ishkov", "St. loan⟦2@170⟧ Ishkov",
+        "p. 118, note 2: its mark read as `-`"],
+      ["a town of the 'Nemtsy-;", "a town of the Nemtsy⟦2@174⟧;",
+        "p. 122, note 2: its mark read as `-`, and a speck before the word as `‘`"],
+      ["Yurev of the Nemtsy- was", "Yurev of the Nemtsy⟦2@177⟧ was",
+        "p. 125, note 2: its mark read as `-`"],
+      ["raised the stone walP in", "raised the stone wall⟦1@180⟧ in",
+        "p. 128, note 1: the last l and the mark read as `P`"],
+      ["of St. Yuriraised the", "of St. Yuri⟦2@180⟧ raised the",
+        "p. 128, note 2: its mark lost and two lines run together"],
+      ["and in the schema}; and", "and in the schema⟦1@186⟧; and",
+        "p. 134, note 1: its mark read as `}`"],
+      ["\"A Nemetski- force", "\"A Nemetski⟦2@188⟧ force",
+        "p. 136, note 2: its mark read as `-`"],
+      ["brought masters'- from", "brought masters⟦2@189⟧ from",
+        "p. 137, note 2: its mark read as `’-`"],
+      ["in the Rugodivdistrict", "in the Rugodiv⟦2@191⟧ district",
+        "p. 139, note 2: its mark read as `-` at a line's end, which joined two words"],
+      ["Shelon and Luga- by assault", "Shelon and Luga⟦2@193⟧ by assault",
+        "p. 141, note 2: its mark read as `-`"],
+      ["A.M. 6860.\" The nobles", "A.M. 6860.⟦2@196⟧ The nobles",
+        "p. 144, note 2: its mark read as a quotation mark"],
+      ["the Gornichar- quarter", "the Gornichar⟦2@200⟧ quarter",
+        "p. 148, note 2: its mark read as `-`"],
+      ["monastery at Skovorodka/ on", "monastery at Skovorodka⟦1@202⟧ on",
+        "p. 150, note 1: its mark read as `/`"],
+      ["the Holy Martyr Popolit.''' They", "the Holy Martyr Popolit.⟦7@203⟧ They",
+        "p. 151, note 7: its mark read as `'''`"],
+      ["flowed backwards,- seven days", "flowed backwards,⟦2@207⟧ seven days",
+        "p. 155, note 2: its mark read as `-`"],
+      ["to their lord- Vladyka", "to their lord⟦2@209⟧ Vladyka",
+        "p. 157, note 2: its mark read as `-`"],
+      ["Volodimir and Yurev.-", "Volodimir and Yurev.⟦2@211⟧",
+        "p. 159, note 2: its mark read as `-`"],
+      ["the Korel town/ and half", "the Korel town⟦1@212⟧ and half",
+        "p. 160, note 1: its mark read as `/`"],
+      ["his mother Olena/ and", "his mother Olena,⟦1@216⟧ and",
+        "p. 164, note 1: the comma and the mark read as `/`"],
+      ["some A'emisy- pirates", "some Nemtsy⟦2@217⟧ pirates",
+        "p. 165, note 2: its mark read as `-`, and Nemtsy misread"],
+      ["the Lisitsa Hill- to", "the Lisitsa Hill⟦2@218⟧ to",
+        "p. 166, note 2: its mark read as `-`"],
+      ["two charters- of instruct", "two charters⟦2@219⟧ of instruct",
+        "p. 167, note 2: its mark read as `-`"],
+      ["the Exaltation- was burnt", "the Exaltation⟦2@221⟧ was burnt",
+        "p. 169, note 2: its mark read as `-`"],
+      ["beyond the Voloh}, Torzhok", "beyond the Volok⟦1@222⟧, Torzhok",
+        "p. 170, note 1: its mark read as `}`, and Volok misread"],
+      ["one day of Galich,- and", "one day of Galich,⟦2@223⟧ and",
+        "p. 171, note 2: its mark read as `-`"],
+      ["but Alfan- escaped", "but Alfan⟦2@224⟧ escaped",
+        "p. 172, note 2: its mark read as `-`"],
+      ["Vladyka of Selun,- and", "Vladyka of Selun,⟦2@225⟧ and",
+        "p. 173, note 2: its mark read as `-`"],
+      ["came from the lake- and broke", "came from the lake⟦2@229⟧ and broke",
+        "p. 177, note 2: its mark read as `-`"],
+      ["wall and the Krom- did", "wall and the Krom⟦2@230⟧ did",
+        "p. 178, note 2: its mark read as `-`"],
+      ["Archangel GavriP in", "Archangel Gavril⟦3@234⟧ in",
+        "p. 182, note 3: the last l and the mark read as `P`"],
+      ["the Carpenters’ quarter- the same", "the Carpenters’ quarter⟦2@235⟧ the same",
+        "p. 183, note 2: its mark read as `-`"],
+      ["Krasnaya Gorka- in", "Krasnaya Gorka⟦2@236⟧ in",
+        "p. 184, note 2: its mark read as `-`"],
+      ["Nikola in the KoreP country", "Nikola in the Korel⟦2@241⟧ country",
+        "p. 189, note 2: the last l and the mark read as `P`"],
+      ["A.M. 6940.- The Russian", "A.M. 6940.⟦2@245⟧ The Russian",
+        "p. 193, note 2: its mark read as `-`"],
+      ["wall of the Deiineis} and", "wall of the Detinets,⟦1@248⟧ and",
+        "p. 196, note 1: the comma and the mark read as `}`, and Detinets misread"],
+      ["Kasimir, Yagoilo's- son", "Kasimir, Yagoilo's⟦2@249⟧ son",
+        "p. 197, note 2: its mark read as `-`"],
+      ["the Murman Svei''- came", "the Murman Svei⟦1@255⟧ came",
+        "p. 203, note 1: its mark read as `’’-`"],
+      ["Dmitri of Selun} Georgi", "Dmitri of Selun,⟦1@264⟧ Georgi",
+        "p. 212, note 1: the comma and the mark read as `}`"],
+      ["the Nemtsy,\" in Khoruzhk", "the Nemtsy,⟦2@86⟧ in Khoruzhk",
+        "p. 34, note 2: its mark read as a quotation mark"],
+      ["raised a wall- around", "raised a wall⟦2@119⟧ around", "p. 67, note 2: its mark read as `-`"],
+      ["Having received their Hberty", "Having received their liberty", "the li of liberty read as `H` (p. 219)"],
+    ],
+  },
+
   "anglo-saxon-chronicle": {
     title: "The Anglo-Saxon Chronicle",
     author: "Anonymous",
@@ -35174,6 +35426,344 @@ function chronicleJoin(a, b, BOOK, c) {
   return a.slice(0, -1) + b;
 }
 
+/* ============================================================
+   ANNALS READ OFF AN ABBYY OCR'S CHARACTER BOXES           (layout: "novgorod")
+   ============================================================
+   Nov 2026, adding the Chronicle of Novgorod — Robert Michell and Nevill Forbes's translation, Camden
+   Third Series vol. 25 (1914), pp. 1–221 of a 300-leaf Internet Archive scan. The third book read off an
+   Archive OCR and the first read off the ABBYY FineReader export (`_abbyy.gz`), which carries a box for
+   every CHARACTER and a baseline for every line — the `_djvu.xml` the Primary Chronicle reads has boxes
+   for words only. One reason, and it is the footnotes.
+
+   THE MARKS ARE THE PROBLEM, AND THEY ARE ONLY FINDABLE BY THEIR HEIGHT. The edition has about 700
+   footnotes, numbered from 1 on each page, and their marks are raised figures that the OCR reads as `^`
+   (most of them), `*`, `®`, `"`, `'`, a digit, or as nothing. Matched on the text, a mark is
+   indistinguishable from a closing quotation mark or an apostrophe, and a mark read as a letter cannot be
+   seen at all. Matched on the box, a mark is a glyph whose foot stands clear of the line's baseline — a
+   quarter of the line's capital height or more — which no letter, figure or stop of the body does. So a
+   CANDIDATE is a run of raised glyphs at a word's end, and what each candidate is was READ OFF THE PAGE
+   IMAGE (contact sheets of crops, every one labelled with its leaf and its order on the leaf) into the
+   entry's `marks` table: a note number, or the text the glyphs really are (an apostrophe, a quotation
+   mark, nothing). The note a mark points to is the note of that number at the foot of the same page,
+   since the numbering starts again on every page, and the same note is often cited twice there. A mark
+   the box test misses entirely is a `fixes` row writing `⟦k⟧` where the page sets it; the `⟦k⟧` is
+   resolved against the page the row's text falls on. Every note must be cited at least once, every
+   candidate must be in the table, and every table row must be used, or the run says so.
+
+   WHAT A LINE IS, in order: the RUNNING HEAD (the first line of the page when it holds "CHRONICLE OF
+   NOVGOROD" or is a bare page number); FOOTNOTES (from the first line, in the lower half of the page, set
+   in a smaller size than the page's body and followed only by lines of that size, to the end of the page:
+   a note opens on a line indented from the notes' own left edge, or on every line when none is); a
+   HEADING (centred, clear of both margins); or prose. A prose line opens a paragraph when it stands 25 to
+   200 px right of the local margin (the edge a quarter of the way up the left edges of the eight lines
+   either side, the pages being skewed) or when it starts with a year head. A line standing farther in
+   than 200 px is the second line of a year head: the edition sets the head in a column of its own and
+   hangs the first lines of the entry beside it, so that line continues the paragraph above.
+
+   THE ANNALS ARE THE TEXT AND THE SPANS ARE FOLIO'S. Each entry opens on its year twice over, "A.D. 1016.
+   A.M. 6524.", the year of our era and the year from the Creation, and nothing else divides the book —
+   no books, chapters or titles. About 430 entries, a good third of them a bare year with nothing beside
+   it, would make a contents list of 430 tabs, so the chapters are runs of years (`spans` on the entry,
+   each a [first, last] pair of the A.D. years), cut where an entry's head reaches the next span's first
+   year, as the Anglo-Saxon Chronicle is cut. The heads are walked for gaps and reversals on every run,
+   and a head whose two years do not differ by 5508 or 5509 is reported: the September and March years
+   both occur in this chronicle, so either difference is the chronicle's own. */
+const NOVGOROD_HEAD = /^A\.\s?D\.\s?(\d{4})\.(?:\s+A\.\s?M\.\s?(\d{4})\.)?/;
+
+function novgorodPages(xml) {
+  const pages = [];
+  xml.split(/<page /).slice(1).forEach((p, idx) => {
+    const lines = [];
+    for (const lm of p.matchAll(/<line baseline="(\d+)" l="(\d+)" t="(\d+)" r="(\d+)" b="(\d+)">([\s\S]*?)<\/line>/g)) {
+      const base = +lm[1];
+      const chars = [];
+      for (const fm of lm[6].matchAll(/<formatting([^>]*)>([\s\S]*?)<\/formatting>/g)) {
+        const fsz = +((/fs="([\d.]+)"/.exec(fm[1]) || [0, 0])[1]);
+        for (const c of fm[2].matchAll(/<charParams l="(\d+)" t="(\d+)" r="(\d+)" b="(\d+)"[^>]*>([^<]*)<\/charParams>/g))
+          chars.push({ l: +c[1], t: +c[2], r: +c[3], b: +c[4], ch: chronicleEnt(c[5]) || " ", fs: fsz });
+      }
+      if (!chars.some((c) => c.ch.trim())) continue;
+      const fss = chars.filter((c) => c.ch.trim()).map((c) => c.fs).sort((a, b) => a - b);
+      /* The capital height, from the letters with ascenders and the figures, for the raised-glyph test. */
+      const caps = chars.filter((c) => /[A-Zbdhklt0-9]/.test(c.ch)).map((c) => base - c.t).sort((a, b) => a - b);
+      const ink = chars.filter((c) => c.ch.trim());
+      lines.push({ base: base, x0: ink[0].l, x1: ink[ink.length - 1].r, chars: chars,
+        fs: fss[fss.length >> 1], cap: caps.length ? caps[caps.length >> 1] : 40 });
+    }
+    lines.sort((a, b) => a.base - b.base);
+    /* ONE PRINTED LINE CAN ARRIVE AS SEVERAL: the engine boxes a column of year heads apart from the text
+       beside it ("A.D. 1027." / "A.M." / "6535."). Pieces on one baseline that do not overlap are joined,
+       left to right, with a space. */
+    for (let i = 0; i < lines.length; i++) {
+      for (let j = i + 1; j < lines.length && lines[j].base - lines[i].base < 0.4 * lines[i].cap; j++) {
+        const a = lines[i], b = lines[j];
+        if (b.x0 < a.x1 && a.x0 < b.x1) continue;
+        const [L, R] = a.x0 < b.x0 ? [a, b] : [b, a];
+        L.chars = L.chars.concat([{ l: L.x1, t: L.base, r: R.x0, b: L.base, ch: " ", fs: L.fs }], R.chars);
+        L.x1 = Math.max(L.x1, R.x1);
+        lines[i] = L; lines.splice(j, 1); j--;
+      }
+    }
+    pages.push({ leaf: idx, lines: lines });
+  });
+  return pages;
+}
+
+/* A line's text, with every candidate mark taken out and recorded. A glyph is RAISED when its foot stands
+   a quarter of the capital height above the baseline. Stops, hyphens and dashes are excluded (a hyphen
+   floats by its shape); a raised quotation mark or apostrophe is a candidate only directly after a letter
+   or figure and before a space, stop or the line's end — an apostrophe inside a word ("Yaroslav's") and a
+   quotation mark after a stop or a space are the text's own. */
+function novgorodLineText(l, leaf, cands) {
+  let s = "";
+  const cs = l.chars;
+  for (let j = 0; j < cs.length; j++) {
+    const c = cs[j];
+    const raised = (x) => x && x.ch.trim() && !/[-—–.,;:]/.test(x.ch) && x.b < l.base - 0.25 * l.cap;
+    if (!raised(c) && !/[*®^•°]/.test(c.ch)) { s += c.ch; continue; }
+    let k = j;
+    while (k + 1 < cs.length && (raised(cs[k + 1]) || /[*®^•°]/.test(cs[k + 1].ch))) k++;
+    const run = cs.slice(j, k + 1);
+    const glyphs = run.map((x) => x.ch).join("");
+    const before = s.slice(-1), after = (cs[k + 1] || { ch: " " }).ch;
+    const quoteOnly = /^["'‘’“”]+$/.test(glyphs);
+    if (quoteOnly && !(/[A-Za-z0-9\])?!]/.test(before) && /[\s.,;:)]/.test(after))) { s += glyphs; j = k; continue; }
+    const n = cands.filter((x) => x.leaf === leaf).length + 1;
+    cands.push({ leaf: leaf, k: n, glyphs: glyphs, box: [run[0].l, Math.min(...run.map((x) => x.t)), run[run.length - 1].r, l.base],
+      ctx: [Math.max(0, (cs[Math.max(0, j - 12)] || c).l), l.base - l.cap - 10] });
+    s += "⟦c" + leaf + "." + n + "⟧";
+    j = k;
+  }
+  return s.replace(/\s+/g, " ").trim();
+}
+
+function extractNovgorod(xml, BOOK, warn) {
+  const c = { dropped: [], heads: 0, notes: 0, marks: 0, cands: 0, indents: 0, hyphens: 0, kept: 0, pages: 0,
+    entries: 0, quotes: 0, transcribed: 0 };
+  const all = novgorodPages(xml);
+  const pages = all.filter((p) => p.leaf >= BOOK.leaves[0] && p.leaf <= BOOK.leaves[1]);
+  const stream = [], notes = {}, cands = [];
+  for (const p of pages) {
+    let ls = p.lines.slice();
+    if (!ls.length) continue;
+    c.pages++;
+    /* A PAGE THE ENGINE COULD NOT LAY OUT — a column of bare year heads beside a column of text, read
+       across and down at once — is transcribed from its image in the entry (`transcribed`), paragraphs
+       and notes, marks written ⟦k⟧. */
+    const tr = (BOOK.transcribed || {})[p.leaf];
+    if (tr) {
+      tr.paras.forEach((t, i) => stream.push({ t: t.replace(/⟦(\d+)⟧/g, "⟦$1@" + p.leaf + "⟧"), para: i > 0 || !tr.continues, head: false, leaf: p.leaf }));
+      notes[p.leaf] = tr.notes.slice();
+      c.notes += tr.notes.length; c.transcribed++;
+      continue;
+    }
+    /* The printer's signature at a gathering's first page ("B 2"), set at the foot under the notes. */
+    while (ls.length > 1 && /^[A-Z] ?\d?$/.test(ls[ls.length - 1].chars.map((x) => x.ch).join("").trim())) { c.dropped.push(p.leaf + ": " + ls.pop().chars.map((x) => x.ch).join("").trim()); }
+    const t0 = ls[0].chars.map((x) => x.ch).join("");
+    if (/CHRONICLE\s+OF\s+NOVGOROD|^\W*\d{1,3}\W*$/i.test(t0) && ls[0].base < 300) { ls.shift(); c.heads++; }
+    /* The body's size is the most common size on the page; the notes are the run at the foot set smaller. */
+    const fss = ls.map((l) => l.fs);
+    const body = fss.slice().sort((a, b) => fss.filter((x) => x === b).length - fss.filter((x) => x === a).length || b - a)[0];
+    let fi = ls.findIndex((l, i) => i >= ls.length / 3 && l.fs < body && ls.slice(i).every((x) => x.fs < body || x.chars.length < 6));
+    /* The engine sometimes gives the notes the body's size (leaves 69, 74). Then they are the run after a
+       gap wider than the page's line pitch, set smaller than the body by its capitals and closer by its
+       pitch. */
+    if (fi < 0) {
+      const pt = ls.slice(1).map((l, i) => l.base - ls[i].base).sort((a, b) => a - b)[(ls.length - 1) >> 1] || 55;
+      const bc = ls.map((l) => l.cap).sort((a, b) => a - b)[ls.length >> 1];
+      fi = ls.findIndex((l, i) => i >= ls.length / 3 && ls.slice(i).every((x, j, r) => x.cap <= 0.9 * bc &&
+        (j === 0 || x.base - r[j - 1].base < 0.9 * pt)));
+    }
+    const pageNotes = [];
+    if (fi >= 0) {
+      /* Two short notes can share a line ("3 cf. p. 34.      4 Ten puds."): a gap of more than 40 px
+         before a mark (anything but a letter or a bracket) splits it, and the right half opens a note of its own. */
+      const nl = [];
+      for (const l of ls.slice(fi)) {
+        let start = 0;
+        for (let j = 1; j < l.chars.length; j++) {
+          const a = l.chars.slice(0, j).filter((x) => x.ch.trim()).pop(), b = l.chars[j];
+          if (a && b.ch.trim() && b.l - a.r > 40 && j > start && !/[A-Za-z(]/.test(b.ch) &&
+            l.chars.slice(start, j).map((x) => x.ch).join("").replace(/[^A-Za-z]/g, "").length >= 3) {
+            nl.push(Object.assign({}, l, { chars: l.chars.slice(start, j), x0: l.chars[start].l, split: start > 0 }));
+            start = j;
+          }
+        }
+        const rest = l.chars.slice(start);
+        /* a speck far right of a note's last word, and the printer's signature ("D 2", "12"), are dirt */
+        if (start && rest.map((x) => x.ch).join("").replace(/[^A-Za-z0-9]/g, "").length < 2) c.dropped.push(p.leaf + ": " + rest.map((x) => x.ch).join("").trim());
+        else if (!start && (rest[0].l > 1300 || /^\W*[A-Z] ?\d$/.test(rest.map((x) => x.ch).join("").trim())) && /^\W*(?:[A-Z] ?)?\d{0,2}\W*$/.test(rest.map((x) => x.ch).join("").trim())) c.dropped.push(p.leaf + ": " + rest.map((x) => x.ch).join("").trim());
+        else nl.push(start ? Object.assign({}, l, { chars: rest, x0: rest[0].l, split: true }) : l);
+      }
+      const nm = Math.min(...nl.map((l) => l.x0));
+      const indented = nl.some((l) => !l.split && l.x0 > nm + 25);
+      for (const l of nl) {
+        let t = l.chars.map((x) => x.ch).join("").replace(/\s+/g, " ").trim();
+        if (!indented || l.split || l.x0 > nm + 25 || !pageNotes.length) {
+          /* the note's own mark, a figure the OCR reads as anything: the first token, when it holds no letter
+             or is one character long */
+          const m = /^(\S+)\s+/.exec(t);
+          if (m && (!/[A-Za-z]/.test(m[1]) || m[1].length === 1)) t = t.slice(m[0].length);
+          /* or run onto the note's first word ("icf. p. 123.", "'In Novgorod.", "^Bestnezdniki") */
+          else if (/^(?:[^A-Za-z(“"]+|[A-Za-z](?=cf\.|i\.e\.))(?=[A-Za-z(“"])/.test(t)) t = t.replace(/^(?:[^A-Za-z(“"]+|[A-Za-z](?=cf\.|i\.e\.))/, "");
+          else warn("leaf " + p.leaf + ": a note opens on no mark the pass can see: " + t.slice(0, 40));
+          pageNotes.push(t);
+        } else pageNotes[pageNotes.length - 1] = chronicleJoin(pageNotes[pageNotes.length - 1], t, BOOK, c);
+      }
+      ls = ls.slice(0, fi);
+    }
+    notes[p.leaf] = pageNotes;
+    c.notes += pageNotes.length;
+    const right = Math.max(...ls.map((l) => l.x1));
+    const pitch = ls.slice(1).map((l, i) => l.base - ls[i].base).sort((a, b) => a - b)[(ls.length - 1) >> 1] || 55;
+    ls.forEach((l, i) => {
+      const near = ls.slice(Math.max(0, i - 8), i + 9).filter((x) => x !== l);
+      const xs = near.map((x) => x.x0).sort((a, b) => a - b);
+      const margin = xs.length ? xs[Math.floor(xs.length / 4)] : l.x0;
+      let t = novgorodLineText(l, p.leaf, cands);
+      /* a speck in the margin read as a letter or figure before a year head ("1 A.D. 1097.") */
+      t = t.replace(/^\S{1,2} (?=A\.\s?D\.\s?\d{4}\.)/, (w) => { c.dropped.push(p.leaf + ": " + w); return ""; });
+      if (!/[A-Za-z0-9]/.test(t)) { c.dropped.push(p.leaf + ": " + t); return; }
+      /* a head whose figures the engine misread ("A.D. 124L A.M. 6749.", "A.D, 1237.") still opens a
+         paragraph, and its figures are a `fixes` row */
+      const year = NOVGOROD_HEAD.test(t) || /^A\.\s?D[.,]\s?\S{3,6}\s+(?:[.\\]|A)\.?\s?M[.,]/.test(t) || /^A\.\s?D\.\s?\d{4}\.$/.test(t);
+      /* A line hung beside a year head is set far in, and its last line may stand short of the right
+         margin as well — so the hang is tested first, and only against the lines a head opened. */
+      const prev = stream[stream.length - 1];
+      const hang = !year && l.x0 - margin > 200 && prev && prev.hangOk;
+      /* A heading stands clear of both margins AND of the line above (the title on p. 1, the Appendix's);
+         a paragraph's short last line set off-centre by the engine's box does not. */
+      const gapAbove = i === 0 ? Infinity : l.base - ls[i - 1].base;
+      const head = !hang && !year && l.x0 - margin > 150 && right - l.x1 > 150 && ls.length > 1 && gapAbove > 1.6 * pitch;
+      const para = year || (!head && !hang && l.x0 - margin > 25);
+      if (para && !year) c.indents++;
+      stream.push({ t: t, para: para, head: head, leaf: p.leaf, hangOk: year || (hang && prev.hangOk),
+        box: [l.x0, l.base - l.cap - 12, l.x1, l.base + 14] });
+    });
+  }
+  c.cands = cands.length;
+
+  const paras = [];
+  for (const s of stream) {
+    const last = paras[paras.length - 1];
+    if (last && !s.para && !s.head && !last.head) { last.t = chronicleJoin(last.t, s.t, BOOK, c); last.leaves.push(s.leaf); continue; }
+    paras.push({ t: s.t, head: s.head, leaf: s.leaf, leaves: [s.leaf] });
+  }
+
+  /* The candidates, resolved from the table read off the page images. */
+  const table = BOOK.marks || {};
+  const used = {};
+  const resolve = (t) => t.replace(/⟦c(\d+)\.(\d+)⟧/g, (w, leaf, k) => {
+    const row = table[leaf];
+    const v = row ? row[+k - 1] : undefined;
+    if (v === undefined) { warn("candidate mark " + leaf + "." + k + " is not in the marks table"); return "⟦?⟧"; }
+    used[leaf] = Math.max(used[leaf] || 0, +k);
+    return typeof v === "number" ? "⟦" + v + "@" + leaf + "⟧" : v.replace(/⟦(\d+)⟧/g, "⟦$1@" + leaf + "⟧");
+  });
+  paras.forEach((p) => (p.t = resolve(p.t)));
+  for (const leaf of Object.keys(table)) {
+    const n = cands.filter((x) => x.leaf === +leaf).length;
+    if (table[leaf].length !== n) warn("the marks table holds " + table[leaf].length + " entries for leaf " + leaf + ", which has " + n + " candidates");
+  }
+
+  /* A fixes row may write a bare ⟦k⟧ for a mark the box test missed; it names note k of the page that
+     row's text stands on. Corrections run per paragraph, as a reader meets them. */
+  const fixed = correctRaw(paras.map((p) => p.t).join("\n")).split("\n");
+  if (fixed.length !== paras.length) throw new Error("a fixes row added or removed a paragraph break");
+  fixed.forEach((t, i) => {
+    const p = paras[i];
+    p.t = t.replace(/⟦(\d+)(?:@(\d+))?⟧/g, (w, k, leaf) => {
+      if (leaf) return w;
+      const at = p.leaves.find((lf) => (notes[lf] || []).length >= +k);
+      if (at === undefined) { warn("a bare mark ⟦" + k + "⟧ in a paragraph whose pages carry no note " + k); return w; }
+      if (new Set(p.leaves).size > 1 && p.leaves.filter((lf) => (notes[lf] || []).length >= +k).length > 1)
+        warn("a bare mark ⟦" + k + "⟧ in a paragraph across two pages that both carry a note " + k + "; write ⟦k@leaf⟧");
+      return "⟦" + k + "@" + at + "⟧";
+    });
+    p.t = novgorodQuotes(p.t, c);
+  });
+  const fixedNotes = {};
+  for (const leaf of Object.keys(notes)) fixedNotes[leaf] = notes[leaf].map((n) => novgorodQuotes(correctRaw(n), c));
+
+  if (process.env.NOVGOROD_DUMP) {
+    fs.writeFileSync(process.env.NOVGOROD_DUMP, paras.map((p) => (p.head ? "## " : "") + p.leaf + "| " + p.t).join("\n\n") +
+      "\n\nDROPPED\n" + c.dropped.join("\n") + "\n\nNOTES\n" +
+      Object.keys(fixedNotes).map((lf) => fixedNotes[lf].map((n, i) => (i + 1) + "@" + lf + " " + n).join("\n")).filter(Boolean).join("\n"));
+    fs.writeFileSync(process.env.NOVGOROD_DUMP + ".cands.json", JSON.stringify(cands));
+    fs.writeFileSync(process.env.NOVGOROD_DUMP + ".lines.json", JSON.stringify(stream.map((x) => ({ leaf: x.leaf, box: x.box, t: x.t }))));
+  }
+
+  const text = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const startAt = paras.findIndex((p) => BOOK.begin.test(p.t));
+  const endAt = paras.findIndex((p) => BOOK.mainEnd.test(p.t));
+  if (startAt < 0 || endAt < startAt) throw new Error("the translation's first or last paragraph is not where the entry says");
+
+  /* The year heads, walked; then the spans. */
+  const chapters = BOOK.spans.map((s) => ({ t: s[0] + "–" + s[1], from: s[0], to: s[1], ps: [] }));
+  let ci = 0, lastAD = 0;
+  for (let i = startAt; i <= endAt; i++) {
+    const p = paras[i];
+    if (p.head) { if (i > startAt) warn("a centred line inside the annals: " + p.t.slice(0, 60)); continue; }
+    const m = NOVGOROD_HEAD.exec(p.t);
+    if (m) {
+      const ad = +m[1], am = +m[2];
+      c.entries++;
+      if (!m[2] && /^A\.\s?D\.\s?\d{4}\.\s+\S?\.?\s?M/.test(p.t)) warn("a year head whose A.M. figures the pattern cannot read, leaf " + p.leaf + ": " + p.t.slice(0, 40));
+      /* "A.D. 1446." stands once with no year of the Creation beside it, as printed (p. 204) */
+      if (m[2] && am - ad !== 5508 && am - ad !== 5509) warn("the head " + m[0] + " (leaf " + p.leaf + ") does not convert: A.M. − A.D. = " + (am - ad));
+      if (lastAD && ad !== lastAD + 1 && ad !== lastAD && !(BOOK.headRuns || []).includes(lastAD + "→" + ad)) warn("the heads run " + lastAD + " → " + ad + " at leaf " + p.leaf);
+      lastAD = ad;
+      while (ci + 1 < chapters.length && ad >= chapters[ci + 1].from) ci++;
+    } else if (/^A\.\s?D\./.test(p.t)) warn("a year head the pattern cannot read, leaf " + p.leaf + ": " + p.t.slice(0, 40));
+    chapters[ci].ps.push(p);
+  }
+  for (const a of BOOK.appendices || []) {
+    const hi = paras.findIndex((p, i) => i > endAt && a.head.test(p.t));
+    if (hi < 0) { warn("the appendix heading " + a.head + " is not in the scan's text"); continue; }
+    const ps = [];
+    for (let i = hi + 1; i < paras.length && !paras[i].head; i++) ps.push(paras[i]);
+    chapters.push({ t: a.title, ps: ps });
+  }
+
+  const cited = {};
+  const out = chapters.map((ch, i) => {
+    const seen = [], idx = {};
+    const body = ch.ps.map((p) => {
+      const h = text(p.t).replace(/⟦(\d+)@(\d+)⟧/g, (w, k, leaf) => {
+        const key = k + "@" + leaf;
+        const nt = (fixedNotes[leaf] || [])[+k - 1];
+        if (nt === undefined) { warn("a mark cites note " + key + ", which the page does not print"); return ""; }
+        cited[key] = (cited[key] || 0) + 1;
+        c.marks++;
+        if (!(key in idx)) { seen.push(text(nt)); idx[key] = seen.length; }
+        return '<sup class="fn" data-fn="' + idx[key] + '"></sup>';
+      });
+      return "<p>" + h.trim() + "</p>";
+    });
+    return { n: i + 1, t: ch.t, html: body.join("\n"), notes: seen };
+  });
+  for (const leaf of Object.keys(fixedNotes)) fixedNotes[leaf].forEach((n, i) => {
+    if (!cited[(i + 1) + "@" + leaf]) warn("footnote " + (i + 1) + "@" + leaf + " is never cited: " + n.slice(0, 50));
+  });
+  const left = out.map((x) => x.html).join(" ").match(/⟦[^⟧]*⟧|[\^*®•°]/g) || [];
+  if (left.length) warn(left.length + " stray mark(s) left in the text: " + [...new Set(left)].slice(0, 20).join(" "));
+  return { chapters: out, counts: c };
+}
+
+/* THE QUOTATION MARKS. The OCR gives straight marks, and sets a space inside each pair as the printer
+   spaces them (`" We cannot look upon this violence,"`). A double mark after a space or at a paragraph's
+   start, before a word, opens; any other closes. A single mark between two letters is an apostrophe; one
+   after a space before a word opens a quotation inside a quotation, and any other closes it. */
+function novgorodQuotes(t, c) {
+  return t
+    .replace(/(^|[\s(\[—])" ?(?=[A-Za-z0-9‘'(\[.])/g, (w, a) => { c.quotes++; return a + "“"; })
+    .replace(/ ?"/g, () => { c.quotes++; return "”"; })
+    .replace(/(?<=[A-Za-z])'(?=[A-Za-z])/g, "’")
+    .replace(/(^|[\s“(\[—])' ?(?=[A-Za-z0-9])/g, "$1‘")
+    .replace(/ ?'/g, "’")
+    .replace(/“ /g, "“").replace(/ ([,;:!?])(?=\s|$|[”’])/g, "$1");
+}
+
 /* A MediaWiki page's WIKITEXT, as the API serves it, with the revision it came from. Cached as served, so
    the revision id and timestamp are in the cache beside the text. The wiki answers a fast walk with a
    plain-text rate-limit notice, which fails the JSON parse and retries here — and for far longer than
@@ -36021,6 +36611,29 @@ async function fetchEnglish() {
       c.hyphens + " line-end hyphen(s) removed, " + c.kept + " kept");
     if (got.chapters.length !== BOOK.chapters.length)
       warnings.push("the scan gave " + got.chapters.length + " chapters where the entry declares " + BOOK.chapters.length);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.layout === "novgorod") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-abbyy.xml");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else {
+      raw = require("zlib").gunzipSync(await fetchBuffer(BOOK.url)).toString("utf8");
+      fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw);
+    }
+    const got = extractNovgorod(raw, BOOK, warn);
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " chapters (" + BOOK.spans.length + " spans holding " + c.entries +
+      " entries, " + (got.chapters.length - BOOK.spans.length) + " appendix) from " + c.pages + " pages; dropped " +
+      c.heads + " running head(s) and " + c.dropped.length + " line(s) of dirt; " + c.indents + " paragraph indent(s) read; " +
+      c.notes + " footnote(s), " + c.cands + " candidate mark(s), " + c.marks + " mark(s) placed; " + c.quotes +
+      " quotation mark(s) set; " + c.hyphens + " line-end hyphen(s) removed, " + c.kept + " kept");
     got.chapters.forEach((ch) => {
       if (ch.n < FROM || ch.n > TO) return;
       chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
