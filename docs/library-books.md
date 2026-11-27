@@ -12,7 +12,30 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently eighty-six:
+  matter (chapter 0 — see the Library bullet). Currently eighty-eight:
+  `xunzi` (~340 KB, **20 sections** — Homer H. Dubs's nineteen books of the Hsüntze, Books XI and XVI a single paragraph
+  each, and his closing "A Gloss"; `chapterWord: "Section"`, the Book numeral in each title, transcribed from the contents
+  pages; no notes, no original) and `mozi` (~360 KB, **36 chapters** under the work's own numbers, `chapterNums`, of 71;
+  `parts` = its Books I–IX and XI–XIII; Y. P. Mei's ethical and political chapters — the canons and the siege chapters
+  he left out, 18 chapters are lost; no notes, no original). **The first books on the shelf with no transcription
+  anywhere** (Nov 2026: not on Wikisource — the Mozi has only an index page over a HathiTrust PDF with eight pages
+  proofread —, Gutenberg, or ctext, which sits behind a challenge page), so both are read off OCRs by the new `ocrvote`
+  layout (`.claude/ocr-vote.js`; `docs/library-importer.md`, last section): the Xunzi off three Digital Library of India
+  scans of the 1928 printing (`in.ernet.dli.2015.103953`, the primary; `2015.280269`, which reads "hi" as "M"
+  throughout; `in.gov.ignca.14722`, poor), the Mozi off the HathiTrust PDF (Michigan's copy, Google's OCR, read through
+  `pdftotext -bbox-layout`; far the better reading, so the primary) and the DLI scan `2015.283868`. **What is left out,
+  and said in the front matter**: both translators' footnotes, Dubs's marginal summaries and the Wang Hsien-ch'ien folio
+  numbers in his margin, both introductions/prefaces and indexes, and the Chinese characters Mei prints in brackets
+  (the OCR reads none of them). Dubs's rows of asterisks (passages he omitted) are kept as `* * * * *` (18). Names are
+  the translators' Wade-Giles, not converted. **Residual error, measured**: after the vote, each book's words unknown to
+  the shelf were read one by one; the Xunzi's `reFixes` (≈80 rows) settle the misreadings among them and remove five
+  footnote fragments that reached the body, the Mozi's (8) the same; what remains is real words the dictionary lacks
+  and a handful of names neither scan settles. A misreading that is itself an English word in every scan cannot be
+  caught this way ("be" for "he" is caught only before a verb that cannot follow "be"). Licence: **US public domain
+  only** — Dubs's 1928 printing since 2024 (d. 1969, so life+70 to 2039), Mei's 1929 since 2025 (d. 1997, to 2067);
+  both rights lines say so. Colours `#C9002A` and `#0060CC`. `glossOff`: Homer (H. Dubs), Chuang (King Chuang, not the
+  Zhuang), Sui (the pearl), Domesday (Dubs's analogy); Shu (the Book of History, not the Egyptian god), Yuan, Sui,
+  Chuang, the Middle Kingdom (China, not Egypt's), Michigan (the library).
   `james-principles-of-psychology` (~3.3 MB, **29 sections** — James's Preface and his twenty-eight chapters, so a tab
   runs one ahead of the chapter; `chapterWord: "Section"`, titles from the contents pages via `titleOf`, the two printed
   volumes as the `parts` — **1,193 notes**, James's own, renumbered per chapter; no original, the book being English).

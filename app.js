@@ -13321,6 +13321,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aristotle 16.4, Marcus Aurelius 17.6, Kalidasa 18.1 — and 26 from Confucius's walnut, which keeps the
      two Confucian books apart on the shelf. */
   "Mencius": "#006C78",
+  /* Nov 2026, adding the Xunzi and the Mozi: a sweep of the cube at a step of 3 over L 12.3–47.8, chroma 18–85,
+     4.5:1 on every light paper and card in styles.css, maximising the CIE76 distance from every ink in this table
+     (the light-ink test of the rows above was not rerun). This crimson stands 18.6 from its nearest and 61 from
+     Confucius and Mencius; the blue, swept after it, 17.9, and 63 from both. */
+  "Xunzi": "#C9002A",
+  "Mozi": "#0060CC",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17921,6 +17927,84 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          COMMONS is the House of Commons of Great Britain, before the United Kingdom of 1801. */
       glossOff: ["York", "Jersey", "Israel", "Egypt", "Germany", "Turkey", "Netherlands", "Canada",
         "House_of_Commons_of_the_United_Kingdom"],
+    },
+    {
+      id: "xunzi",
+      title: "Xunzi",
+      subtitle: "The Works of Hsüntze",
+      author: "Xunzi",
+      /* Xun Kuang taught in the third century BCE; `year` is the single number the shelf's date sort needs. */
+      written: "3rd century BCE",
+      year: -250,
+      translator: "Homer H. Dubs",
+      edition: "The Works of Hsüntze, Probsthain's Oriental Series XVI, Arthur Probsthain, London, 1928",
+      /* US public domain since 2024 (published 1928); Dubs d. 1969, so life plus seventy runs to 2039 — stated. */
+      rights:
+        "Public domain in the United States: Homer H. Dubs published this translation in London in 1928, and " +
+        "works published that year entered the American public domain in 2024. Dubs died in 1969, so where " +
+        "copyright lasts for the author's life plus seventy years it remains in copyright until the end of 2039. " +
+        "The Chinese work is some twenty-two centuries old. Dubs's footnotes, marginal summaries, introduction " +
+        "and index are not reproduced.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/in.ernet.dli.2015.103953",
+      /* NO TRANSCRIPTION EXISTS: read off three OCRs of the 1928 printing and voted word by word (the `ocrvote`
+         layout, .claude/ocr-vote.js). Twenty sections: Dubs's nineteen books, two of them a single paragraph, and
+         the closing 'A Gloss'; each title carries his Book numeral, so a tab's number is not the book's. */
+      chapterWord: "Section",
+      count: 20,
+      total: 20,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all twenty sections (every
+         `.ttip`, 40 keys, Nov 2026). HOMER is Homer H. Dubs; CHUANG is King Chuang of Ch‘u or Chuangtze, not the
+         Zhuang people; SUI is the pearl of the Marquis of Sui, not the dynasty; DOMESDAY books are Dubs's analogy
+         for the registers of a Chinese state, not William's survey. */
+      glossOff: ["Homer", "Zhuang_people", "Sui_dynasty", "Domesday_Book"],
+    },
+    {
+      id: "mozi",
+      title: "Mozi",
+      subtitle: "The Ethical and Political Works of Motse",
+      author: "Mozi",
+      /* Mo Di taught in the fifth century BCE and the book is his school's, over the next two centuries. */
+      written: "5th–3rd century BCE",
+      year: -400,
+      translator: "Yi-Pao Mei",
+      edition: "The Ethical and Political Works of Motse, Arthur Probsthain, London, 1929",
+      /* US public domain since 2025 (published 1929); Mei d. 1997, so life plus seventy runs to 2067 — stated. */
+      rights:
+        "Public domain in the United States: Y. P. Mei published this translation in London in 1929, and works " +
+        "published that year entered the American public domain in 2025. Mei died in 1997, so where copyright " +
+        "lasts for the author's life plus seventy years it remains in copyright until the end of 2067. The " +
+        "Chinese work is more than two thousand years old. Mei's footnotes, preface and index are not reproduced.",
+      sourceName: "Wikisource (HathiTrust scan)",
+      sourceUrl: "https://en.wikisource.org/wiki/Index:The_ethical_and_political_works_of_Motse_translated_from_the_original_Chinese_text_by_Yi-Pao_Mei,_PH._D.pdf",
+      /* NO TRANSCRIPTION EXISTS: read off two OCRs (HathiTrust's and the Digital Library of India's) by the
+         `ocrvote` layout. The work's own chapter numbers: 36 of its 71 chapters (18 are lost; Mei left out the
+         logical canons and the chapters on siege defence), which `chapterNums` tells the progress line. */
+      chapterWord: "Chapter",
+      count: 36,
+      total: 71,
+      chapterNums: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 26, 27, 28, 31, 32,
+        35, 36, 37, 39, 46, 47, 48, 49, 50],
+      // the work's own books, which group its chapters; Book X (the canons) and XIV–XV (defence) are not translated
+      parts: [
+        { n: 1, label: "Book I", note: "Chapters I–VII" },
+        { n: 2, label: "Book II", note: "Exaltation of the Virtuous" },
+        { n: 3, label: "Book III", note: "Identification with the Superior" },
+        { n: 4, label: "Book IV", note: "Universal Love" },
+        { n: 5, label: "Book V", note: "Condemnation of Offensive War" },
+        { n: 6, label: "Book VI", note: "Economy of Expenditures; Simplicity in Funeral" },
+        { n: 7, label: "Book VII", note: "Will of Heaven" },
+        { n: 8, label: "Book VIII", note: "On Ghosts; Condemnation of Music" },
+        { n: 9, label: "Book IX", note: "Anti-Fatalism; Anti-Confucianism" },
+        { n: 10, label: "Book XI", note: "Keng Chu" },
+        { n: 11, label: "Book XII", note: "Esteem for Righteousness; Kung Meng" },
+        { n: 12, label: "Book XIII", note: "Lu's Question; Kung Shu" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all 36 chapters (every
+         `.ttip`, 33 keys, Nov 2026). SHU is the Book of History (Shu Ching) or the state of Shu, never the Egyptian
+         god; YUAN is a person's name, not the dynasty; SUI the pearl of Duke Sui; CHUANG King Chuang of Ch‘u, not the
+         Zhuang people; the MIDDLE KINGDOM is China, not Egypt's; MICHIGAN is the university whose copy was scanned. */
+      glossOff: ["Shu_(Egyptian_god)", "Yuan_dynasty", "Sui_dynasty", "Zhuang_people", "Middle_Kingdom_of_Egypt", "Michigan"],
     },
   ];
   const BOOK_BY_ID = {};
