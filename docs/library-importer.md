@@ -3030,6 +3030,41 @@ later chapter by one. If it throws, re-measure the table by the same alignment; 
 by hand to make it pass. The transcription's names were already in pinyin (not Legge's spelling); the
 entry's `fixes` convert the five the conversion missed.
 
+## `layout: "ocrvote"` — a book read off several OCRs of one printing, voted word by word (Nov 2026, the Xunzi and the Mozi)
+
+For a book with **no transcription anywhere**. The engine is its own file, `.claude/ocr-vote.js` (zero deps; a
+`kind: "pdf"` witness needs poppler's `pdftotext`), called from the one `ocrvote` branch; the entry's `ocr` block lists
+the witnesses (`url`, `kind`, the first and last leaf of the text, per-witness `opt`), `starts` (the primary's leaf on
+which each chapter opens — it must open on a head, or the run throws), `never` (tokens the dictionary knows that are
+only ever misreadings in this book, "Ms" for "his") and the text options (`aspiration`, `curly`). The witnesses are cached
+as `w<k>.djvu.xml` / `w<k>.pdf` + `w<k>.bbox.html`. The header of the file walks the five steps; what each settled:
+- **Read the page by GEOMETRY, never by the text file.** A DLI `_djvu.txt` interleaves Dubs's side-glosses into the
+  prose line by line ("examine your- cultivation,"). With boxes, the column's edges are the most populated cluster of
+  row ends and starts; a word starting at or past the right edge is margin (the glosses stand 19 px off the text), and
+  the column width in PIXELS, measured over the full pages, overrides a page whose left edge the glosses dragged.
+- **A page that is mostly footnote has the notes' size as its commonest row height** (a chapter opening with a long
+  note): the book's body height is the floor, the notes cannot begin above the last pair of full-size rows, and a
+  small row in capitals is a section head, not the notes. Each of the three was a silent loss of a page's first lines.
+- **The primary owns the layout; the others only vote on words.** Two weaker scans agreeing on a footnote they both
+  misfiled as text inserted a whole note into the Xunzi; an insertion where the primary has nothing is now limited to
+  five words, while a run of four or more the primary has and both others lack is dropped (that is how the primary's
+  own leaks go). A replacement is placed at the position it replaces, never after the token before it — placed after,
+  a chapter's first word went to the end of the chapter before.
+- **Join detached punctuation to its word BEFORE aligning** (the PDF's text layer sets "says :" and "far - sighted"),
+  or a separate ";" is voted away against a witness that attached it. Single-confusion repairs (`mkFixer`) try the
+  rules in order of frequency and take the first that makes exactly one word.
+- **A figure in brackets is an enumeration**, "(1) When …": the footnote-figure rule had eaten twelve of them.
+- **Quotes**: a ‘‘ is an opening double quote, not a mark; a straight " (the PDF) is paired within its paragraph,
+  respecting curly ones already there; 34 Mozi paragraphs end with a quote open, which is mostly a quotation running on.
+- **A row of asterisks** (three to nine short tokens spread across the column, one of them a star) is the printer's
+  omission mark and is kept as `* * * * *` — stripped with the footnote marks, it would hide where Dubs left text out.
+- **The dictionary is PINNED** (`DICT_SHELF`, the 87 English books of Nov 2026 plus the other ocrvote book): read off
+  the live shelf, a re-run after a merge that brought books with OCR noise of their own turned "Yu" into "Yh".
+Re-run after touching: `node .claude/fetch-book.js xunzi` and `node .claude/fetch-book.js mozi` (cached; the output
+should be byte-identical to the committed files), check that every `refix`
+fired, "20 chapters; 4 head(s)" / "36 chapters", "18 row(s) of asterisks", and `node .claude/book-audit.js`.
+
+
 ## `prep: "ebbinghaus"` — a report of experiments: tables, formulas, numbered sections (Nov 2026, Ebbinghaus's Memory)
 
 `ebbinghausPrep`, run on the raw page like `painePrep`, with `ebbinghausFinish` after cleanBody. Each of these is a quiet

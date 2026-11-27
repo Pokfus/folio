@@ -23490,6 +23490,306 @@ const BOOKS = {
     // the FINIS printed inside the text and the Addition's two tables — see painePrep
     prep: "paine",
   },
+
+  "xunzi": {
+    title: "Xunzi",
+    subtitle: "The Works of Hsüntze",
+    author: "Xunzi",
+    translator: "Homer H. Dubs",
+    edition: "The Works of Hsüntze, translated from the Chinese, with notes, Probsthain's Oriental Series XVI, Arthur Probsthain, London, 1928",
+    written: "3rd century BCE",
+
+    /* ---------- THE LICENCE, WITH A LIMIT TO STATE ----------
+       Dubs published this translation in London in 1928, so it entered the public domain in the United
+       States on 1 January 2024 (published before 1929 + 95 years). Homer H. Dubs died in 1969, so where the
+       term is the author's life plus seventy years it stays in copyright to the end of 2039, and the rights
+       line says so rather than calling it free everywhere. The Chinese work is some twenty-two centuries old.
+
+       THERE IS NO TRANSCRIPTION ANYWHERE (Nov 2026): not on Wikisource, Gutenberg or ctext (whose pages sit
+       behind a challenge page). The text is read off THREE scans of the 1928 printing in the Digital Library of
+       India, each with its own OCR, by the `ocrvote` layout (.claude/ocr-vote.js). The first witness is the
+       cleanest and gives the paragraphs; the second reads "hi" as "M" throughout ("Ms", "tMs") and the third is
+       poor, but where two agree against one they win. */
+    rights:
+      "Public domain in the United States: Homer H. Dubs published this translation in London in 1928, and " +
+      "works published that year entered the American public domain in 2024. Dubs died in 1969, so where " +
+      "copyright lasts for the author's life plus seventy years it remains in copyright until the end of 2039. " +
+      "The Chinese work is some twenty-two centuries old. Dubs's footnotes, marginal summaries, introduction " +
+      "and index are not reproduced.",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/in.ernet.dli.2015.103953",
+
+    about: [
+      "<b>Xunzi</b> — Xun Kuang, 'Master Xun', called Xun Qing by his contemporaries — was the third great " +
+        "thinker of early Confucianism, after Confucius and Mencius, and the one who disagreed with Mencius " +
+        "most sharply. His best-known claim is the title of Book XXIII here: <i>the nature of man is evil</i>. " +
+        "Goodness, he argued, is not born in people but made, as a potter makes a pot or a carpenter " +
+        "straightens wood — by study, by teachers, and above all by <i>li</i>, the rules of proper conduct " +
+        "that the sages devised. He lived in the third century BCE, taught at the Jixia academy in the state " +
+        "of Qi, and held office in Chu; two of his pupils, Han Fei and Li Si, became leading figures of the " +
+        "Legalist school that served the state of Qin as it unified China.",
+      "<b>This is a selection, as Dubs made it.</b> The received <i>Xunzi</i> has thirty-two books; Dubs " +
+        "translated the nineteen he thought both genuine and important, two of them only in part — a single " +
+        "paragraph each from Books XI and XVI — and closed with the short passage he heads 'A Gloss', which " +
+        "praises Xunzi against his critics and is not Xunzi's own writing. The tabs keep his numbering, so " +
+        "they run Book I, II, IV, V and so on, with gaps where he left books out.",
+      "Homer H. Dubs (1892–1969) was an American scholar of Chinese philosophy and history who had grown up " +
+        "in China as the son of missionaries. He published this translation in London in 1928, a year after " +
+        "his study of the philosopher, <i>Hsüntze, the Moulder of Ancient Confucianism</i>. His English is " +
+        "deliberately literal, and he leaves the key Confucian terms in Chinese beside their translation: " +
+        "<i>Li</i> for the rules of proper conduct, <i>Yi</i> for justice or righteousness, <i>Jen</i> for " +
+        "benevolence, <i>Tao</i> for the Way.",
+      "<b>The names are in Dubs's own spelling</b>, the Wade-Giles romanisation of his day, and are not " +
+        "converted: Hsüntze is Xunzi, Mencius and Micius are Mengzi and Mozi, Ch‘u and Ts‘in are the states of " +
+        "Chu and Qin, Yao, Shun and Yü the legendary Sage-Kings, and Chieh and Chou (Dubs's Ch‘ie and Chou) the " +
+        "proverbially wicked last kings of the Xia and Shang.",
+      "<b>How this text was made.</b> No transcription of Dubs's translation exists, so Folio read it off " +
+        "three scans of the 1928 printing in the Digital Library of India, each with its own machine reading " +
+        "(OCR). The three were aligned word by word: where two agree against the third they win, and where " +
+        "only two disagree the reading that is an English word wins. Every word here comes from one of the " +
+        "scans and none is supplied, but the method cannot catch a misreading that is itself a real word in " +
+        "all of them, and some names may still be wrongly spelled. Dubs's footnotes, the summaries printed in " +
+        "his margins, the folio numbers of the Chinese edition beside the text, his introduction and his " +
+        "Chinese index are not included. A row of asterisks, as in the printed book, marks a passage Dubs left " +
+        "out of his translation.",
+    ],
+
+    /* WHAT THE VOTE COULD NOT SETTLE (Nov 2026): every word below is unknown to the shelf, and in each the three
+       scans' readings, the page and the contents pages leave one reading. NAMES are put in the form the book prints
+       most often (Hsüntze, Ch‘ie, Sungtze, Lin-wu-chün; ü read as "ii" or "ui", the turned comma read as f, 4, d or
+       lost); WORDS are the ordinary word the misreading stands for. Real-word misreadings follow the shapes the
+       scans make: "be" for "he" before a verb no English puts after "be", "lie" for "he" (never "a lie"). Rows that
+       remove text remove footnote fragments that reached the body ("Lit., …", "Cf. Analects …"). */
+    reFixes: [
+      [/<p>Probably Cbung-fo\. Of\. Analects, V, ir; VI, i, ivj XI, ii; XII, /g, "<p>", "a footnote's citation that reached the body (first, before the name rows touch it)"],
+      [/‘‘/g, "“", "a double opening quote read as two turned commas"],
+      [/\bBooh\b/g, "Book", "the italic k of Book read as h (Booh of Odes)"],
+      [/\b(?:Ch4e|Chde|Chfie|Chie)\b/g, "Ch‘ie", "Ch‘ie, the wicked last king of the Hsia, with its turned comma misread"],
+      [/\bChfies\b/g, "Ch‘ies", "the same, in the plural (Ch‘ies and Chous)"],
+      [/\bChile died\b/g, "Ch‘ie died", "the same, read as Chile (Book XXI)"],
+      [/\bTLe original\b/g, "The original", "h read as L (Book XXIII's opening paragraph)"],
+      [/\b(?:Chfing|Ob‘ing)\b/g, "Ch‘ing", "Hsün Ch‘ing, Xunzi's own name, misread"],
+      [/\bHsiao-c(?:li‘|M)en\b/g, "Hsiao-ch‘en", "a name the first witness spells Hsiao-ch‘en"],
+      [/\b(?:Hshntze|Hsiintze|Hsuntze|Hsxintze)/g, "Hsüntze", "the philosopher's name: the ü read as h, ii, u or xi"],
+      [/\bHs(?:un|im|ua)\b/g, "Hsün", "Hsün Ch‘ing: the ü lost"],
+      [/\bHsii\b/g, "Hsü", "ü read as ii"],
+      [/\bChii\b/g, "Chü", "ü read as ii"],
+      [/\bChieh-yii\b/g, "Chieh-yü", "ü read as ii"],
+      [/\bSwen-lii\b/g, "Swen-lü", "ü read as ii"],
+      [/\b(?:Sungfcze|Svmgtze|Sunze)\b/g, "Sungtze", "the philosopher Sungtze, misread"],
+      [/\b(?:Coneucians|Confiicians|Oonfucians|Oonfuoians|CoOTuoiAisrs)\b/g, "Confucians", "Confucians: the C read as O, f as e"],
+      [/\bLin-w(?:ii|n|u)-c(?:liuin|hnin|huin)\b|\bLin-wU'Cliiiiii\b/g, "Lin-wu-chün", "the general Lin-wu-chün of Book XV, misread five ways"],
+      [/\b(?:Tden|TienY)\b/g, "T‘ien", "T‘ien, misread"],
+      [/\bT‘su\b/g, "Ts‘u", "the state of Ts‘u, letters transposed"],
+      [/\bTsfl\b/g, "Ts‘u", "the same, the turned comma read as f and u as fl"],
+      [/\bGheh-lung\b/g, "Cheh-lung", "C read as G"],
+      [/\b(?:Dnlce|Dulce)\b/g, "Duke", "k read as lc"],
+      [/\b(?:Imowledge|laiowledge)\b/g, "knowledge", "kn read as Im, lai"],
+      [/\bImowing\b/g, "knowing", "kn read as Im"],
+      [/\bunlmown\b/g, "unknown", "kn read as lm"],
+      [/\bIdlled\b/g, "killed", "ki read as Id"],
+      [/\bWffien\b|\bWKen\b/g, "When", "h read as ffi, K"],
+      [/\b(?:vvhen|witen)\b/g, "when", "w read as vv, h as it"],
+      [/\bEvexytliing\b/g, "Everything", "r read as x, h as li"],
+      [/\bEverythingthat\b/g, "Everything that", "a space lost"],
+      [/\bandthe\b/g, "and the", "a space lost"],
+      [/\btheyjbecame\b/g, "they became", "a space read as j"],
+      [/\bXJnortliodox\b/g, "Unorthodox", "U read as XJ, h as li"],
+      [/\bimorthodox\b/g, "unorthodox", "un read as im"],
+      [/\bnnorthodoxy\b/g, "unorthodoxy", "u read as n"],
+      [/\bGrea\.t\b/g, "Great", "a speck read as a stop"],
+      [/\beviP/g, "evil", "l read as P"],
+      [/\bftonour\b/g, "honour", "h read as ft"],
+      [/\bdilferent\b/g, "different", "ff read as lf"],
+      [/\bcommom\b/g, "common", "n read as m"],
+      [/\bcotmt\b/g, "count", "un read as tm"],
+      [/\bmlers\b/g, "rulers", "ru read as m"],
+      [/\bmaldng\b/g, "making", "ki read as ld"],
+      [/\btMnIdng\b/g, "thinking", "hi read as M, ki as Id"],
+      [/\bstotild\b/g, "should", "h read as t, u as ti"],
+      [/\bthxougli\b/g, "through", "r read as x, h as li"],
+      [/\bwBat\b/g, "what", "h read as B"],
+      [/\bthirk\b/g, "think", "n read as r"],
+      [/\bptmishing\b/g, "punishing", "un read as tm"],
+      [/\bmisgovemment\b/g, "misgovernment", "rn read as m"],
+      [/\bgOTBinment\b/g, "government", "over read as OTBi"],
+      [/\bOefioials\b/g, "Officials", "ffic read as efio"],
+      [/\bauspioiousness\b/g, "auspiciousness", "c read as o"],
+      [/\bdiscrimiiiatiiig\b/g, "discriminating", "n read as ii"],
+      [/\bdisoiiminate\b/g, "discriminate", "cr read as oi"],
+      [/\bdietinctiong\b/g, "distinctions", "s read as e, s as g"],
+      [/\bencofSning\b/g, "encoffining", "fi read as S"],
+      [/\bnnderclotliing\b/g, "underclothing", "u read as n, h as li"],
+      [/\bovei-empliasizing\b/g, "over-emphasizing", "r read as i, h as li"],
+      [/\b(?:tinpertiirbedness|unperturhedness)\b/g, "unperturbedness", "misread"],
+      [/\bunauthoriaedly\b/g, "unauthorizedly", "z read as a"],
+      [/\bwine-sldns\b/g, "wine-skins", "ki read as ld"],
+      [/\bsmalLminded\b/g, "small-minded", "a hyphen read as L"],
+      [/\bearthem\b/g, "earthen", "n read as m"],
+      [/\bxevent\b/g, "prevent", "pr read as x"],
+      [/\bwHt\b/g, "whit", "hi read as H"],
+      [/\bW'-e say\b/g, "we say", "a speck inside we"],
+      [/\bjustice"\(y'i\)/g, "justice (Yi)", "the bracketed term misread"],
+      [/\bconduct,\(Us\)/g, "conduct (Li)", "the bracketed term misread"],
+      [/\(Yi\)y merit/g, "(Yi), merit", "a comma read as y"],
+      [/\bcharacteristic\.\.This\b/g, "characteristic. This", "a doubled stop and a lost space"],
+      [/\borganiza,tion\b/g, "organization", "a speck read as a comma"],
+      [/\btie performance\b/g, "the performance", "h read as i"],
+      [/\btie the hands\b/g, "tie the hands", "kept: tie is the word here"],
+      [/\bhut exists\b/g, "but exists", "b read as h"],
+      [/\bbe (?=(?:is|was|has|will|would|can|could|does|did|should|may|must)\b)/g, "he ", "be for he before a verb that cannot follow be"],
+      [/(?<!\ba )\blie\b(?! in\b| dead\b| there\b)/g, "he", "lie for he (lie in, lie dead, lie there and a lie are kept)"],
+      [/<blockquote><p>Lit\., a piece of gold of twenty taels \(ounces\) weight\.<br>Study\.<\/p><\/blockquote>\n/g, "", "a footnote that reached the body as an indented block"],
+      [/<p>Lit\., apt\.<\/p>\n/g, "", "a footnote that reached the body"],
+      [/\n?<p>Lit\.?, “?Wang,"[^<]*<\/p>/g, "", "two footnotes on the word Wang that reached the body (Book IX)"],
+      [/ This is how the superior man Lit\.,/g, " This is how the superior man", "a footnote's opening that reached the body"],
+    ],
+    layout: "ocrvote",
+    chapterWord: "Section",
+    chapters: Array.from({ length: 20 }, (_, i) => i + 1),
+    /* TRANSCRIBED from the table of contents (pp. 9–15), checked against the page images; the two partial
+       books and the Gloss take their titles from their own heads, which the contents page does not carry. */
+    titleOf: (n) => [
+      "Book I. An Encouragement to Study", "Book II. Self-cultivation", "Book IV. On Honour and Shame",
+      "Book V. Against Physiognomy", "Book VI. Against the Ten Philosophers", "Book VII. The Confucians",
+      "Book VIII. The Merit of the Confucian", "Book IX. Kingly Government", "Book X. A Rich Country",
+      "A Paragraph from Book XI: Kings and Lords Protector", "Book XV. A Debate on Military Affairs",
+      "A Paragraph from Book XVI: A Strong Country", "Book XVII. Concerning Heaven",
+      "Book XVIII. On the Correction of Errors", "Book XIX. On the Rules of Proper Conduct (Li)",
+      "Book XX. On Music", "Book XXI. The Removal of Prejudices", "Book XXII. On the Rectification of Terms",
+      "Book XXIII. The Nature of Man is Evil", "A Gloss",
+    ][n - 1],
+    // Book XI's single paragraph is about 940 characters
+    minChars: 600,
+    ocr: {
+      witnesses: [
+        { url: "https://archive.org/download/in.ernet.dli.2015.103953/2015.103953.Works-Of-Hsuntze_djvu.xml", from: 33, to: 324 },
+        { url: "https://archive.org/download/in.ernet.dli.2015.280269/2015.280269.Hsuntze-Works_djvu.xml", from: 30, to: 321 },
+        { url: "https://archive.org/download/in.gov.ignca.14722/14722_djvu.xml", from: 33, to: 325 },
+      ],
+      opt: { noteRatio: 0.88, verseInd: 1.7, headExempt: /^(BOOK|A PARAGRAPH|A GLOSS)/i },
+      // the dictionary knows these, and in this book each is only ever a misreading
+      never: ["Ms", "Mm", "Hm", "bis", "bim", "tke", "Mmself", "hia", "tbe", "tlie", "ie", "lias", "wMch", "tMs", "Tbe", "Hs"],
+      // Dubs's turned comma for aspiration (ch‘ien), which the scans read as ' ’ or ‘
+      aspiration: "‘",
+      // the first witness's leaf on which each section opens (BOOK I … A GLOSS)
+      starts: [[33, 1], [45, 2], [57, 3], [69, 4], [79, 5], [83, 6], [93, 7], [123, 8], [153, 9], [157, 10],
+        [159, 11], [173, 12], [175, 13], [189, 14], [215, 15], [249, 16], [261, 17], [283, 18], [303, 19], [321, 20]],
+    },
+  },
+
+  "mozi": {
+    title: "Mozi",
+    subtitle: "The Ethical and Political Works of Motse",
+    author: "Mozi",
+    translator: "Yi-Pao Mei",
+    edition: "The Ethical and Political Works of Motse, translated from the original Chinese text, Arthur Probsthain, London, 1929",
+    written: "5th–3rd century BCE",
+
+    /* ---------- THE LICENCE, WITH A LIMIT TO STATE ----------
+       Mei published in London in 1929, so the translation entered the United States public domain on
+       1 January 2025. Y. P. Mei (Mei Yi-pao) died in 1997, so on life plus seventy it is in copyright until the
+       end of 2067, and the rights line says so.
+
+       NO TRANSCRIPTION EXISTS (Nov 2026): Wikisource has only an index page over a HathiTrust scan, with a
+       handful of pages proofread. The text is read by the `ocrvote` layout off TWO scans: that HathiTrust PDF
+       (Michigan's copy, Google's OCR in its text layer, read through `pdftotext -bbox-layout`) as the primary,
+       and the Digital Library of India's scan as the second witness. The first is far the better reading. */
+    rights:
+      "Public domain in the United States: Y. P. Mei published this translation in London in 1929, and works " +
+      "published that year entered the American public domain in 2025. Mei died in 1997, so where copyright " +
+      "lasts for the author's life plus seventy years it remains in copyright until the end of 2067. The " +
+      "Chinese work is more than two thousand years old. Mei's footnotes, preface and index are not reproduced.",
+    sourceName: "Wikisource (HathiTrust scan)",
+    sourceUrl: "https://en.wikisource.org/wiki/Index:The_ethical_and_political_works_of_Motse_translated_from_the_original_Chinese_text_by_Yi-Pao_Mei,_PH._D.pdf",
+
+    about: [
+      "<b>Mozi</b> — Mo Di, 'Master Mo' — taught in the fifth century BCE, in the generations after " +
+        "Confucius, and founded the school that was Confucianism's great rival for two hundred years. Its " +
+        "central doctrine is <i>universal love</i>: that people should care for others' families and states " +
+        "as they care for their own, because partiality is the root of theft, feuding and war. From it " +
+        "follow the rest — the condemnation of offensive war, thrift in spending and in funerals, the " +
+        "rejection of court music as waste, obedience to the will of Heaven, and a fierce attack on " +
+        "fatalism. The Mohists were also practical defenders of cities under siege, and the book ends with " +
+        "Mozi walking to Chu to talk its king out of an attack.",
+      "<b>The book is the work of his school.</b> Many of its doctrines survive in three versions, marked " +
+        "(I), (II) and (III) — probably the records of three branches of Mohists — and the chapters are " +
+        "grouped in fifteen books. The Mohist school died out after the Qin and Han unified China, and the " +
+        "text survived badly: of its seventy-one chapters eighteen are lost.",
+      "<b>This is a selection, as Mei made it.</b> He translated the ethical and political chapters and left " +
+        "out two groups: the logical 'canons' and their expositions, which he judged too obscure to " +
+        "translate, and the chapters on the defence of cities. The tabs keep the work's own chapter numbers " +
+        "— 36 chapters, from I to L, with gaps for the lost and the omitted ones — grouped under its books.",
+      "Y. P. Mei — Mei Yi-pao (1900–1997) — was a Chinese scholar who made this, the first English " +
+        "translation of the Mohist ethical and political chapters, while working in the United States, and " +
+        "published it in London in 1929 with a companion study, <i>Motse, the Neglected Rival of " +
+        "Confucius</i>. He based it on Sun Yirang's standard edition of the text. The names are in his spelling, the " +
+        "Wade-Giles of the day: Motse is Mozi, Ch'u and Ch'i are the states of Chu and Qi.",
+      "<b>How this text was made.</b> No transcription of Mei's translation exists, so Folio read it off two " +
+        "scans of the 1929 printing — the University of Michigan's copy, by way of HathiTrust and Wikisource, " +
+        "and the Digital Library of India's — aligning their machine readings (OCR) word by word and taking the " +
+        "reading that is an English word where they disagree. Every word comes from one of the scans and none " +
+        "is supplied, but a misreading that is itself a real word can survive. Mei's footnotes, his preface " +
+        "and the index are not included, nor are the Chinese characters he prints in brackets beside some " +
+        "names and terms, which the machine readings could not read.",
+    ],
+
+    /* WHAT THE VOTE COULD NOT SETTLE (Nov 2026), each read against both scans. Two chapters' titles stand on one
+       printed row with the first word, "Motse", and the OCR lost its last letter; the rest are single words. */
+    reFixes: [
+      [/<p>Will of Heaton \(I\) Mots said:/g, "<p>Motse said:", "chapter XXVI's title fused with its first words"],
+      [/\bMots said\b/g, "Motse said", "Motse with its last letter lost"],
+      [/\bMoste\b/g, "Motse", "letters transposed"],
+      [/\bdisXorder\b/g, "disorder", "a speck read as X"],
+      [/\bbeautful\b/g, "beautiful", "i lost; the second scan reads beautiful"],
+      [/\batrributed\b/g, "attributed", "tt read as tr"],
+      [/Oath of Yu’’A Yu said/g, "Oath of Yü. Yü said", "the stop, a footnote figure and the ü misread; the first scan reads Yü"],
+      [/T’ang “:” I then/g, "T’ang: “I then", "the colon and the opening quote out of order"],
+    ],
+    layout: "ocrvote",
+    chapterWord: "Chapter",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 26, 27, 28, 31, 32,
+      35, 36, 37, 39, 46, 47, 48, 49, 50],
+    // TRANSCRIBED from the table of contents (pp. vii–x)
+    titleOf: (n) => ({
+      1: "Befriending the Learned", 2: "Self-cultivation", 3: "On Dyeing", 4: "On the Necessity of Standards",
+      5: "The Seven Causes of Anxiety", 6: "Indulgence in Excess", 7: "Threefold Argument",
+      8: "Exaltation of the Virtuous (I)", 9: "Exaltation of the Virtuous (II)", 10: "Exaltation of the Virtuous (III)",
+      11: "Identification with the Superior (I)", 12: "Identification with the Superior (II)",
+      13: "Identification with the Superior (III)", 14: "Universal Love (I)", 15: "Universal Love (II)",
+      16: "Universal Love (III)", 17: "Condemnation of Offensive War (I)", 18: "Condemnation of Offensive War (II)",
+      19: "Condemnation of Offensive War (III)", 20: "Economy of Expenditures (I)", 21: "Economy of Expenditures (II)",
+      25: "Simplicity in Funeral (III)", 26: "Will of Heaven (I)", 27: "Will of Heaven (II)", 28: "Will of Heaven (III)",
+      31: "On Ghosts (III)", 32: "Condemnation of Music (I)", 35: "Anti-Fatalism (I)", 36: "Anti-Fatalism (II)",
+      37: "Anti-Fatalism (III)", 39: "Anti-Confucianism (II)", 46: "Keng Chu", 47: "Esteem for Righteousness",
+      48: "Kung Meng", 49: "Lu's Question", 50: "Kung Shu",
+    })[n],
+    parts: [
+      { n: 1, from: 1, to: 7, t: "Book I" }, { n: 2, from: 8, to: 10, t: "Book II" },
+      { n: 3, from: 11, to: 13, t: "Book III" }, { n: 4, from: 14, to: 16, t: "Book IV" },
+      { n: 5, from: 17, to: 19, t: "Book V" }, { n: 6, from: 20, to: 25, t: "Book VI" },
+      { n: 7, from: 26, to: 28, t: "Book VII" }, { n: 8, from: 29, to: 34, t: "Book VIII" },
+      { n: 9, from: 35, to: 39, t: "Book IX" }, { n: 10, from: 46, to: 46, t: "Book XI" },
+      { n: 11, from: 47, to: 48, t: "Book XII" }, { n: 12, from: 49, to: 50, t: "Book XIII" },
+    ],
+    minChars: 1500,
+    ocr: {
+      witnesses: [
+        { url: "https://upload.wikimedia.org/wikisource/en/9/95/The_ethical_and_political_works_of_Motse_translated_from_the_original_Chinese_text_by_Yi-Pao_Mei%2C_PH._D.pdf",
+          kind: "pdf", from: 18, to: 277, opt: { digitMarks: true } },
+        { url: "https://archive.org/download/in.ernet.dli.2015.283868/2015.283868.The-Works_djvu.xml", from: 14, to: 273, opt: { noteRatio: 0.88 } },
+      ],
+      opt: { noteRatio: 0.92, verseInd: 1.7, headExempt: /^(BOOK|CHAPTER)/i },
+      never: ["Ms", "Mm", "Hm", "bis", "tbe", "tlie", "wMch", "tMs"],
+      // the PDF's text layer sets a straight apostrophe; the printing's is curly
+      curly: true,
+      starts: [[18, 1], [23, 2], [26, 3], [30, 4], [34, 5], [39, 6], [45, 7], [47, 8], [53, 9], [65, 10], [72, 11],
+        [76, 12], [87, 13], [95, 14], [98, 15], [104, 16], [115, 17], [118, 18], [124, 19], [134, 20], [137, 21],
+        [140, 25], [152, 26], [158, 27], [168, 28], [177, 31], [192, 32], [199, 35], [206, 36], [211, 37], [217, 39],
+        [229, 46], [239, 47], [247, 48], [260, 49], [274, 50]],
+    },
+  },
+
   "marx-communist-manifesto": {
     title: "The Communist Manifesto",
     // the title page's own words (djvu p. 5)
@@ -40109,6 +40409,19 @@ async function fetchEnglish() {
       if (ch.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
       chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* SEVERAL OCRs OF ONE PRINTING, voted word by word — see .claude/ocr-vote.js and docs/library-importer.md,
+     "The ocrvote layout". The witnesses are cached as served (w0.djvu.xml …, a PDF's as w0.pdf + w0.bbox.html). */
+  if (BOOK.layout === "ocrvote") {
+    const got = await require("./ocr-vote.js").ocrVoteBook(BOOK, { id, cache: CACHE, force: FORCE, fetchText, fetchBuffer, log: (m) => console.log(m) });
+    correctGot(got).forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }
