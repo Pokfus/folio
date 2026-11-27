@@ -165,6 +165,24 @@ book added later will meet the same traps.
   philosopher and comic novel 19.7 or more off). `glossOff`: 11 keys — see the comment on the app.js entry. Excerpt: the
   old farmer's twenty acres, chapter 30 (this translation's last line is "let us take care of our garden", which the
   front matter says). Not included: the illustrations, the colophon.
+  `erman-egyptian-literature` (~850 KB, **74 chapters** in five parts — the prefaces, Erman's Outline and his six-part
+  introduction; I. the Pyramid Texts and hymns; II. the Middle Kingdom's narratives, instructions, complaints and poems;
+  III. the New Kingdom's; the Explanatory Notes — `chapterWord: "Chapter"`, **~1,750 notes**, no original). Adolf
+  Erman, *The Literature of the Ancient Egyptians*, translated by Aylward M. Blackman, Methuen, London, 1927 (German
+  1923). **US public domain as a pre-1929 publication; Blackman d. 1956, so life-plus-seventy countries see it free
+  only from 1 January 2027 — said in the rights box.** Wikisource indexes the scan with one page typed; the text is
+  **read off OCR** by the new **`layout: "erman"`** (see docs/library-importer.md): the Digital Library of India scan's
+  FineReader XML for structure, italics (Erman's sign of a free rendering) and raised marks, and four Tesseract texts
+  of other 1927 scans as witnesses for a frozen word vote (`.claude/erman-readings.json`). Erman's commentary is set
+  smaller than the translations in the print, and here as `bk-small` (new class, the `bk-var` rule). The macrons of
+  his transcription (Rē, Amūn, Thōth, Amenemhēt — 680 hits) are restored from a table (`ermanNames`); page xxxvi is
+  transcribed by hand (inline hieroglyphs); the four plates and the inline signs are not reproduced. Printed page
+  numbers kept as `bk-n` markers (Erman cross-refers by page). **Known residue, for the next session**: 21 notes whose
+  mark could not be placed are kept unmarked in their chapter's list; ~60 pages whose marks fit their notes badly
+  are listed by the run's warnings (`p. N: the marks [...] fit K note(s) badly`) — a note split or merged wrongly on
+  such a page shifts the markers after it; and OCR slips the vote could not settle remain (`book-scan.js`). Colour
+  `#C9000C` (17.5 from Malory; Ptahhotep far off). No `glossOff` yet (not swept). Excerpt: the Hymn to the Sun from
+  El-Amarnah, "When it is dawn" (chapter 69, paragraph 6).
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on

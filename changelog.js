@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1406", released: "2026-11-27T08:16Z" };
+window.FOLIO_VERSION = { v: "1.1407", released: "2026-11-27T19:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-27",
     t: "The Russia collection is complete; Latin gains a sounds deck",
     items: [
+      "The Library gains Adolf Erman's <b>The Literature of the Ancient Egyptians</b>, in Aylward Blackman's 1927 translation, with Erman's notes.",
       "<b>100 new cards</b> complete the Russia collection: society, Russian thought, literature from Pushkin to Solzhenitsyn, art, architecture and music.",
       "A language vocabulary card whose word has no speaker of its own no longer reads its first <b>example sentence</b> aloud when revealed.",
       "Latin gains a <b>Sounds and spelling</b> deck with both pronunciations; <b>Latin A1</b> now opens with salvē and valē, and 33 missing words join the levels, the months among them.",
