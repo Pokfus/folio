@@ -438,21 +438,21 @@ description that must not be written from one tradition's usage alone.
     in-098  The Great Renunciation: the life as the traditions tell it
     in-099  Four Noble Truths
     in-100  Noble Eightfold Path
-    in-101  The first sermon at Sarnath
+    in-101  Dhammacakkappavattana Sutta
     in-102  Sangha
-    in-103  Early Buddhist monasticism
+    in-103  Vinaya
     in-104  Mahavira
     in-105  Jainism
     in-106  Ahimsa
     in-107  Anekantavada
     in-108  Ajivika
-    in-109  Materialist and sceptical schools in ancient India
-    in-110  The Achaemenid provinces in the Indus
+    in-109  Charvaka
+    in-110  Hindush
     in-111  Alexander's Indian campaign
     in-112  Battle of the Hydaspes
     in-113  Porus
-    in-114  Greek accounts of India
-    in-115  The Indian world in 400 BCE
+    in-114  Ctesias
+    in-115  Jambudvipa
 
 ### The Mauryan Empire — `in-mauryas`
 
@@ -460,44 +460,44 @@ description that must not be written from one tradition's usage alone.
     in-117  Chandragupta Maurya
     in-118  Chanakya
     in-119  Arthashastra
-    in-120  The Mauryan seizure of Magadha
-    in-121  The treaty with Seleucus
+    in-120  Dhana Nanda
+    in-121  Seleucid–Mauryan War
     in-122  Megasthenes
     in-123  Indica
     in-124  Bindusara
     in-125  Ashoka
     in-126  Kalinga War
-    in-127  Ashoka's conversion
+    in-127  Minor Rock Edicts
     in-128  Ashoka's dhamma
     in-129  Edicts of Ashoka
-    in-130  The rock edicts
-    in-131  The pillar edicts
+    in-130  Major Rock Edicts
+    in-131  Major Pillar Edicts
     in-132  Pillars of Ashoka
     in-133  Lion Capital of Ashoka
     in-134  The decipherment of Brahmi
     in-135  Brahmi script
     in-136  Kharosthi
-    in-137  Ashoka's Buddhist missions
+    in-137  Dhammavijaya
     in-138  Third Buddhist council
-    in-139  The mission to Sri Lanka
-    in-140  Mauryan administration
-    in-141  The Mauryan provinces
-    in-142  Mauryan revenue
-    in-143  Mauryan roads
-    in-144  Pataliputra under the Mauryas
+    in-139  Mahinda
+    in-140  Mahamatra
+    in-141  Tosali
+    in-142  Lumbini pillar inscription
+    in-143  Uttarapatha
+    in-144  Kumrahar
     in-145  Mauryan art
     in-146  Didarganj Yakshi
-    in-147  Mauryan stupas
+    in-147  Dharmarajika Stupa
     in-148  Sanchi
-    in-149  The fall of the Mauryas
-    in-150  Ashoka in modern India
+    in-149  Brihadratha Maurya
+    in-150  Ashoka Chakra
 
 ### After the Mauryas — `in-after-mauryas`
 
     in-151  Shunga Empire
     in-152  Pushyamitra Shunga
     in-153  Bharhut
-    in-154  The gateways of Sanchi
+    in-154  Torana
     in-155  Indo-Greek Kingdom
     in-156  Menander I
     in-157  Milinda Panha
@@ -510,15 +510,15 @@ description that must not be written from one tradition's usage alone.
     in-164  Mahayana
     in-165  Greco-Buddhist art
     in-166  Mathura art
-    in-167  The first images of the Buddha
+    in-167  Buddhist aniconism
     in-168  Satavahana dynasty
-    in-169  The Deccan under the Satavahanas
+    in-169  Gautamiputra Satakarni
     in-170  Sangam period
-    in-171  The Chera, Chola and Pandya kingdoms of the Sangam age
-    in-172  Roman trade with India
+    in-171  Three Crowned Kings
+    in-172  Indo-Roman trade
     in-173  Periplus of the Erythraean Sea
-    in-174  The monsoon trade of the Indian Ocean
-    in-175  Merchant guilds in early India
+    in-174  Hippalus
+    in-175  Nigama
 
 ### The Gupta age — `in-guptas`
 
@@ -527,26 +527,26 @@ description that must not be written from one tradition's usage alone.
     in-178  Samudragupta
     in-179  Allahabad pillar inscription
     in-180  Chandragupta II
-    in-181  Gupta administration
-    in-182  Gupta land grants
+    in-181  Vishaya
+    in-182  Agrahara
     in-183  Faxian
-    in-184  Gupta coinage
+    in-184  Dinara
     in-185  Iron pillar of Delhi
-    in-186  Gupta temple architecture
+    in-186  Dashavatara Temple
     in-187  Ajanta Caves
-    in-188  Gupta sculpture
+    in-188  Sarnath school
     in-189  Kalidasa
     in-190  Abhijnanashakuntalam
     in-191  Aryabhata
     in-192  Varahamihira
     in-193  Nalanda
     in-194  Puranas
-    in-195  The Gupta golden age question
+    in-195  Golden age
     in-196  Alchon Huns
-    in-197  The fall of the Guptas
+    in-197  Skandagupta
     in-198  Harsha
     in-199  Xuanzang
-    in-200  The end of the classical age
+    in-200  Maukhari dynasty
 
 ## Early Medieval India
 
