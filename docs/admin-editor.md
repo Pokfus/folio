@@ -250,3 +250,23 @@ the overlay `ADMIN_EDITS.whosaid` — whole replacement entries keyed by the SHI
 `ADMIN_EDITS.truefalse` — and removals stay `ADMIN_EDITS.whosaidOff`; `whoSaidPool` applies both, so they
 travel through `content_overrides` like every other delta and `quotes.js` is never rewritten. Typing the
 shipped entry back clears the edit rather than storing a copy.
+
+## Admin → Minigames — every game's own pool (2026-11-28, on request)
+
+"Each minigame's questions and answers should be editable in the Admin edit page." A tab (`data-atab="games"`,
+`adminRenderGames`, borrowing `quotes-mode`; an orchid colour pair, and Feedback now spans both columns again) with a picker of
+every game in `GAME_NAMES`, dormant ones marked. For a game with an authored pool of its own — the crossword (`crossword.js`:
+clue, answer), What year? (`whatyear.js`: event, year), What share? (`pie.js`: question, answer %, explanation) and What
+language? (`whatlang.js`: passage, language name; no Add, since a language also needs its family, branch and script) — every
+item is listed in file order with Edit (a form in place of the row), Remove/Restore, Revert, and Add where cheap
+(`GAME_EDIT_SPECS` holds each game's fields and checks). True or False and Who said it? keep their own tabs and are linked; a
+game dealt from the cards, the glossary, the artefacts or the Atlas says so in one sentence (`GAME_EDIT_ELSEWHERE`).
+
+**The delta is `ADMIN_EDITS.games[game][key]`**: the key is the item's SHIPPED key (the crossword's answer `a`, What year?'s
+sentence `e`, What share?'s question `q`, What language?'s `id`) → the edited fields only, merged over the shipped item, or
+`null` to take it out of play; a key that matches nothing shipped is an item the admin added (the whole item). Typing the shipped
+words back clears the edit, and an emptied game's map is deleted. `normalizeAdminEdits` keeps `games`, so it publishes and adopts
+through `content_overrides` like every other delta. It is applied at READ time by `gamePoolEdited` inside `xwPool`, `wyPool`,
+`piePool` and `whatLangPool` — the True or False pattern, not an `after` hook — so the lazy pool files are never rewritten and a
+late bundle has nothing to clobber. `test-admin-editor.js` §6 guards the tab, the delta's shape, its survival across a reload,
+Remove → null and Restore.

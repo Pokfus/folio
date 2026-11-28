@@ -181,7 +181,7 @@ async function typeField(page, field, text) {
   check("no community ids in the tree", !isolation.tree);
   check("no community terms in the glossary", isolation.gloss === 0);
   check("nothing written to the admin overlay", !isolation.admin);
-  for (const g of ["truefalse", "whosaid", "chrono"]) {
+  for (const g of ["thread", "whatyear", "whoisthis"]) {   // True or False, Who said it? and Timeline are dormant since 2026-11-28
     await page.goto(base + "#" + g, { waitUntil: "load" });
     await page.waitForTimeout(500);
   }

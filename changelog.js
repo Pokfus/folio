@@ -35,14 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1435", released: "2026-11-28T04:06Z" };
+window.FOLIO_VERSION = { v: "1.1436", released: "2026-11-28T04:40Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-28",
-    t: "Portraits for a hundred more cards",
+    t: "Portraits, 23 glossary terms, four games resting, numbers as numerals",
     items: [
       "<b>100 cards gain a picture</b>: portraits across China, Ancient Greece, Ancient Rome, Russia, Ancient Egypt, World History, Psychology and three more.",
+      "<b>23 new glossary terms</b>, and new glossary links on 8 cards in World History, Philosophy and Palaeontology.",
+      "5 World History cards corrected: a new picture, a longer quotation, a fuller date line and figures written as numbers.",
+      "<b>Numbers of 100 and more</b> are now written as numerals across cards, the glossary, the games and country notes: 600, not six hundred.",
+      "<b>Timeline, True or False, Who said it? and Crossword</b> are resting for now, and the daily chest unlocks on the 6 games still in play.",
+      "<b>Common Thread</b> now uses only level 1 terms.",
+      "Admins can edit each minigame's questions and answers in a new <b>Minigames</b> tab.",
+      "The Russian stress-mark card shows the accent alone, and a speaker now says when the device has no voice for the card's language.",
     ],
   },
   {

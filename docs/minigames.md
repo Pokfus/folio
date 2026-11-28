@@ -1091,3 +1091,27 @@ The request: "the player is shown a picture of a historical figure and must pick
 - A round answered stays answered (`setGameProgress`), cleared at the end; the lock is `gameLockedToday`; a perfect run is 5 / 5.
 
 Re-run after touching `PAGES.whoisthis`, `whoIsThisPool`, `whoIsThisDecoys` or `build-whoisthis.js`: `node .claude/test-whoisthis.js` (it checks every answer's decoys through the page's own dealer) and `test-minigames.js` for the wiring.
+
+## Dormant games are one switch; Common Thread is household names only (2026-11-28, on request)
+
+> "Make these minigames dormant: Timeline, True or False, Who Said It, Crossword." · "Common Thread should only include level 1
+> difficulty terms."
+
+- **`DORMANT_GAMES` in `app.js` is the one switch.** `DAILY_GAMES` is now DERIVED: `DAILY_GAMES_ALL` (the grid's full order)
+  less `DORMANT_GAMES`. So a dormant game leaves the sweep, the meter's chips, the chest's count ("all 6"), the gilded chest,
+  the games archive and the account page's tallies at once; `tile()` in `PAGES.home` draws nothing for a dormant key
+  (`gameDormant`); `route`, the hashchange handler and the boot parse (`initName`) send its address home; and the idle warm-up
+  skips its pool. Its page, pool file, `GAME_NAMES` / `PAGE_META` rows, `valid` row and admin editing all stay. **Reviving
+  Timeline, True or False, Who said it? or the crossword is deleting its key from `DORMANT_GAMES` — nothing else.** (Picture
+  round, Multiple Choice and What language? predate this: they are not in `DAILY_GAMES_ALL` or `valid` and have no tile, so
+  reviving one of them is the old three-place change.) The chest's sentences that said "all nine" / "all ten" now read the count
+  or say "all the daily games", so they cannot go stale again.
+- **`test-minigames.js` still plays the dormant games**: the sections for the crossword, Who said it? and the seed check serve
+  `app.js` with `DORMANT_GAMES` cut back to the old three (`revive`), proving the code still works; section 3a proves that as
+  shipped each has no tile, its address lands home mid-session and at boot, and the sweep unlocks on the six in play.
+- **Common Thread draws only from cards rated 1** (`THREAD_MAX_DIFFICULTY` in `threadEasyKeys`). The door is still
+  `gameCardIdSet()` (rating ≤ `GAME_MAX_DIFFICULTY`, 2, for every other game); Common Thread narrows what comes through it.
+  Measured on the shipped corpus: 541 eligible terms, and a puzzle on 730 of 730 days from 2026-11-28 (the pool is site-wide,
+  not per scope). If it ever starves, the placard says so; there is no fallback to rating 2. `test-minigames.js`'s `[ct]`
+  check re-derives the bar as 1.
+- **Every authored pool is editable in Admin → Minigames** — see `docs/admin-editor.md` "Admin → Minigames".

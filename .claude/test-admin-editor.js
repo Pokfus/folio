@@ -152,6 +152,50 @@ const moved=await p.evaluate(async()=>{
 });
 check("choosing another deck MOVES the card rather than adding it", moved.checked===1&&moved.head!==dp.head, JSON.stringify(moved));
 
+/* 6) ADMIN → MINIGAMES (2026-11-28): every game in a picker (dormant ones marked), a game with its own pool listed with Edit /
+      Remove, an edit stored as the delta ADMIN_EDITS.games[game][shippedKey] — which must SURVIVE a reload, i.e. normalizeAdminEdits
+      keeps the section — and a game whose material lives elsewhere answered with a sentence and a door to its tab. */
+await p.evaluate(()=>{const t=document.querySelector('.admin-tab[data-atab="games"]'); if(t) t.click();});
+await p.waitForTimeout(500);
+await p.evaluate(()=>{const b=document.querySelector('[data-gmpick="crossword"]'); if(b) b.click();});
+await p.waitForTimeout(1500);
+const gm=await p.evaluate(()=>({
+  tab:!!document.querySelector('.admin-tab.active[data-atab="games"]'),
+  picks:[...document.querySelectorAll("[data-gmpick]")].map(b=>b.dataset.gmpick),
+  dormant:[...document.querySelectorAll("[data-gmpick]")].filter(b=>/dormant/.test(b.textContent)).map(b=>b.dataset.gmpick),
+  rows:document.querySelectorAll(".gm-row").length,
+}));
+check("Minigames tab lists every game, dormant ones marked", gm.tab&&["crossword","whatyear","pie","truefalse","whosaid","chrono","thread"].every(k=>gm.picks.includes(k))&&gm.dormant.includes("crossword")&&gm.dormant.includes("chrono")&&!gm.dormant.includes("whatyear"), JSON.stringify(gm));
+check("...and the crossword's pool is listed", gm.rows>20, String(gm.rows));
+await p.evaluate(()=>document.querySelector(".gm-row [data-gmedit]").click());
+await p.waitForTimeout(300);
+const key=await p.evaluate(()=>{const f=document.querySelector(".gm-form");const c=f.querySelector('[data-gmf="c"]');c.value="ZZCLUEZZ";f.querySelector("[data-gmsave]").click();return f.dataset.gmform;});
+await p.waitForTimeout(400);
+const saved=await p.evaluate((k)=>{const o=JSON.parse(localStorage.getItem("folio_admin_v1")||"{}");const e=((o.games||{}).crossword||{})[k];
+  return {e:e||null, shown:[...document.querySelectorAll(".gm-row")].some(r=>/ZZCLUEZZ/.test(r.textContent)&&/edited/.test(r.textContent))};},key);
+check("an edit is stored as ADMIN_EDITS.games.crossword[shipped answer]", !!saved.e&&saved.e.c==="ZZCLUEZZ"&&saved.e.a===key, JSON.stringify(saved));
+check("...and the row shows it, marked edited", saved.shown);
+await p.reload({waitUntil:"load"});await p.waitForTimeout(1600);
+const kept=await p.evaluate((k)=>{const o=JSON.parse(localStorage.getItem("folio_admin_v1")||"{}");return !!(((o.games||{}).crossword||{})[k]);},key);
+check("...and survives a reload (normalizeAdminEdits keeps games)", kept);
+await p.evaluate(()=>{const t=document.querySelector('.admin-tab[data-atab="games"]'); if(t) t.click();});
+await p.waitForTimeout(400);
+await p.evaluate(()=>{const b=document.querySelector('[data-gmpick="crossword"]'); if(b) b.click();});
+await p.waitForTimeout(1200);
+// Remove the edited item, then Restore it: a shipped item with an edit becomes null, then comes back without the edit
+await p.evaluate(()=>{const r=[...document.querySelectorAll(".gm-row")].find(r=>/ZZCLUEZZ/.test(r.textContent));r.querySelector("[data-gmoff]").click();});
+await p.waitForTimeout(300);
+const off=await p.evaluate((k)=>{const o=JSON.parse(localStorage.getItem("folio_admin_v1")||"{}");return ((o.games||{}).crossword||{})[k];},key);
+check("Remove stores null", off===null, JSON.stringify(off));
+await p.evaluate(()=>{const r=document.querySelector(".gm-row.ws-off");r.querySelector("[data-gmoff]").click();});
+await p.waitForTimeout(300);
+const clean=await p.evaluate(()=>{const o=JSON.parse(localStorage.getItem("folio_admin_v1")||"{}");return !o.games||!o.games.crossword;});
+check("...and Restore clears the delta", clean);
+await p.evaluate(()=>{const b=document.querySelector('[data-gmpick="truefalse"]'); if(b) b.click();});
+await p.waitForTimeout(300);
+const tf=await p.evaluate(()=>({txt:(document.querySelector(".gm-admin .tl-intro")||{}).textContent||"",go:(document.querySelector("[data-gmgo]")||{}).dataset}));
+check("a game with its own tab says so and links it", /tab of its own/.test(tf.txt)&&tf.go&&tf.go.gmgo==="truefalse", JSON.stringify(tf));
+
 check("no console/page errors", errs.length===0, errs.join(" | "));
 await b.close();s.close();
 console.log("\n"+(fail?fail+" failed":"all passed"));process.exit(fail?1:0);})();

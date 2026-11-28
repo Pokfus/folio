@@ -13276,7 +13276,30 @@ window.GLOSSARY = {
 "Igor_Stravinsky": "",
 "Sergei_Rachmaninoff": "",
 "Dmitri_Shostakovich": "",
-"Soviet_montage_theory": ""
+"Soviet_montage_theory": "",
+"Political_science": "",
+"John_Rawls": "",
+"Conservatism": "",
+"Anarchism": "",
+"Environmentalism": "",
+"Thomas_Hobbes": "",
+"Social_contract": "",
+"Leviathan_(Hobbes_book)": "",
+"Velites": "",
+"Hastati": "",
+"Principes_(Roman_army)": "",
+"Triarii": "",
+"Bridle": "",
+"Gabriel_(archangel)": "",
+"Ilium_(bone)": "",
+"Ischium": "",
+"Theropoda": "",
+"Vertebra": "",
+"Vertebral_lamina": "",
+"Spinophorosaurus": "",
+"Daojia": "",
+"Daojiao": "",
+"Chinese_language": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19748,7 +19771,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Igor_Stravinsky": "1882–1971",
 "Sergei_Rachmaninoff": "1873–1943",
 "Dmitri_Shostakovich": "1906–1975",
-"Soviet_montage_theory": "c. 1918–1930s"
+"Soviet_montage_theory": "c. 1918–1930s",
+"John_Rawls": "1921–2002",
+"Thomas_Hobbes": "1588–1679"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28551,7 +28576,23 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Igor_Stravinsky": ["Stravinsky"],
 "Sergei_Rachmaninoff": ["Rachmaninoff","Rachmaninov","Sergei Rachmaninov"],
 "Dmitri_Shostakovich": ["Shostakovich"],
-"Soviet_montage_theory": ["Soviet montage","montage of attractions"]
+"Soviet_montage_theory": ["Soviet montage","montage of attractions"],
+"Anarchism": ["anarchist","anarchists"],
+"Environmentalism": ["environmentalist","environmentalists"],
+"Thomas_Hobbes": ["Hobbes"],
+"Social_contract": ["social contract theory","social-contract theory"],
+"Leviathan_(Hobbes_book)": ["Hobbes's Leviathan"],
+"Velites": ["velites"],
+"Hastati": ["hastati","hastatus"],
+"Triarii": ["triarii","triarius"],
+"Gabriel_(archangel)": ["angel Gabriel","archangel Gabriel","Archangel Gabriel","Jibril"],
+"Ilium_(bone)": ["ilium"],
+"Theropoda": ["theropod","theropods"],
+"Vertebra": ["vertebrae"],
+"Vertebral_lamina": ["laminae","vertebral laminae"],
+"Daojia": ["daojia"],
+"Daojiao": ["daojiao"],
+"Chinese_language": ["Chinese languages","Sinitic languages"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28818,7 +28859,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Byt": true,
 "Silver_Age_of_Russian_Poetry": true,
 "Constructivism_(art)": true,
-"Mayakovskaya_(Moscow_Metro)": true
+"Mayakovskaya_(Moscow_Metro)": true,
+"Ilium_(bone)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -42098,7 +42140,30 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Igor_Stravinsky": ["person","music","art","history","russia"],
 "Sergei_Rachmaninoff": ["person","music","art","history","russia"],
 "Dmitri_Shostakovich": ["person","music","art","history","russia","soviet union"],
-"Soviet_montage_theory": ["theory","film","art","history","soviet union"]
+"Soviet_montage_theory": ["theory","film","art","history","soviet union"],
+"Political_science": ["concept","politics","philosophy"],
+"John_Rawls": ["person","philosophy","politics","united states"],
+"Conservatism": ["concept","history","politics","philosophy"],
+"Anarchism": ["concept","history","politics","philosophy"],
+"Environmentalism": ["concept","history","politics","environment"],
+"Thomas_Hobbes": ["person","philosophy","history","politics","england"],
+"Social_contract": ["concept","philosophy","politics","history"],
+"Leviathan_(Hobbes_book)": ["literature","philosophy","politics","history","england"],
+"Velites": ["institution","warfare","history","rome"],
+"Hastati": ["institution","warfare","history","rome"],
+"Principes_(Roman_army)": ["institution","warfare","history","rome"],
+"Triarii": ["institution","warfare","history","rome"],
+"Bridle": ["object","technology","transport","archaeology"],
+"Gabriel_(archangel)": ["creature","religion","christianity","islam","judaism"],
+"Ilium_(bone)": ["concept","anatomy","science","biology"],
+"Ischium": ["concept","anatomy","science","biology"],
+"Theropoda": ["animal","dinosaurs","palaeontology","taxonomy"],
+"Vertebra": ["concept","anatomy","science","biology"],
+"Vertebral_lamina": ["concept","anatomy","science","biology","dinosaurs"],
+"Spinophorosaurus": ["animal","dinosaurs","palaeontology","sauropod","jurassic","africa"],
+"Daojia": ["concept","philosophy","taoism","china"],
+"Daojiao": ["religion","taoism","china","history"],
+"Chinese_language": ["concept","language","linguistics","china"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

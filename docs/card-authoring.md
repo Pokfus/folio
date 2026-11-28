@@ -125,10 +125,15 @@ exists).
 - **British spelling** (colour, civilisation, centre, defence, practise as a verb).
 - **BCE / CE, never BC / AD**; the numeral leads ("301 CE").
 - **A century named is a numeral ordinal**: "11th century", "2nd millennium BCE" (a COUNT of centuries is in words, below).
-- **Non-round numbers above 20 are numerals** ("27 chapters"); round ones may be words ("thirty
+- **Non-round numbers above 20 are numerals** ("27 chapters"); round ones below 100 may be words ("thirty
   kings"). Write "32,000", never "32 thousand".
 - **Troop numbers and army sizes are always numerals** (2026-11-13, on request): "10,000 men", "300 hoplites",
   "1 million soldiers", never "ten thousand men".
+- **Every number of a hundred or more is a numeral** (2026-11-28, on request): "600", "5,000", "100 ships",
+  "1,000 years", "2 million", "1.5 million", never "six hundred", "five thousand", "a hundred ships" or "a
+  million". A range keeps both ends as numerals ("4,000 to 5,000", "2 to 3 million"). Proper names and
+  titles keep their words (the Hundred Days, the Thousand Character Classic), and so do quotations,
+  translated phrases and glossary terms; so does a fraction of one ("half a million") and an idiom ("one in a thousand").
 - **Distances, measurements and time spans are always numerals** (2026-11-13, on request): "14 miles",
   "8 metres", "3 years", "a 5-day battle", "100 years", never "fourteen miles" or "three years". The one
   exception is a span of ONE, which stays a word ("one day", "one year"). Proper names keep their words
