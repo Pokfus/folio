@@ -3857,6 +3857,11 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 /* the "Who said it?" pool under the daily quotes — a switch per line rather than a form (see whoSaidAdminHTML) */
 .ws-admin{margin-top:28px; padding-top:18px; border-top:1px solid var(--rule);}
 .ws-admin-head{display:flex; align-items:baseline; gap:10px; margin-bottom:6px;}
+/* Admin → Minigames: the game picker above the pool (2026-11-28) */
+.gm-pick{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 14px;}
+.gm-pick-btn.on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+.gm-pick-btn .q-pill{margin-left:4px;}
+.gm-add{margin:4px 0 12px;}
 .ws-admin-head b{font-family:var(--display); font-size:calc(17px * var(--fs)); color:var(--ink);}
 .ws-admin-count{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint);}
 .ws-admin .q-main{cursor:default;}
@@ -6868,6 +6873,10 @@ body.admin-mode .page{animation:none;}
 /* Who said it? (Nov 2026) takes a terracotta; with a ninth tab the grid is even again, so Feedback no longer spans. */
 .admin-tab[data-atab="whosaid"]{color:#b5533c; background:rgba(181,83,60,.13); border-color:rgba(181,83,60,.32);}
 .admin-tab[data-atab="whosaid"].active{color:#fff; background:#b5533c; border-color:#b5533c; box-shadow:0 5px 15px -7px rgba(181,83,60,.9);}
+/* Minigames (2026-11-28) takes a deep orchid; with a tenth tab the grid is odd again, so Feedback, the last, spans both. */
+.admin-tab[data-atab="games"]{color:#8a3fb0; background:rgba(138,63,176,.13); border-color:rgba(138,63,176,.32);}
+.admin-tab[data-atab="games"].active{color:#fff; background:#8a3fb0; border-color:#8a3fb0; box-shadow:0 5px 15px -7px rgba(138,63,176,.9);}
+.admin-tab[data-atab="feedback"]{grid-column:1 / -1;}
 .admin-tab[data-atab="themes"]{color:#6d8f1f; background:rgba(109,143,31,.14); border-color:rgba(109,143,31,.33);}
 .admin-tab[data-atab="themes"].active{color:#fff; background:#6d8f1f; border-color:#6d8f1f; box-shadow:0 5px 15px -7px rgba(109,143,31,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}

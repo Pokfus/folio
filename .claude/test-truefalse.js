@@ -65,6 +65,14 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/javascript" });
     return res.end(FIXTURE_JS);
   }
+  /* TRUE OR FALSE IS DORMANT since 2026-11-28 (DORMANT_GAMES in app.js: #truefalse lands on home). Dormancy is meant to be undone
+     by deleting the game's key from that one list, so this suite serves app.js with exactly that edit and goes on proving the game
+     works; test-minigames.js proves the shipped address is closed. */
+  if (rel === "app.js") {
+    const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+    res.writeHead(200, { "Content-Type": "text/javascript" });
+    return res.end(src.replace(/(const DORMANT_GAMES = \[[^\]]*)"truefalse", ([^\]]*\];)/, "$1$2"));
+  }
   const p = path.join(ROOT, rel);
   fs.readFile(p, (e, buf) => {
     if (e) { res.writeHead(404); res.end("not found"); return; }

@@ -568,6 +568,9 @@
       // the True or False ("Myth or fact?") pool's EDITS, keyed by each statement's SHIPPED English `q`
       // (see truefalsePool): a whole replacement { q, a, why, cat, src }, or null to take it out of play.
       truefalse: o.truefalse && typeof o.truefalse === "object" ? o.truefalse : {},
+      // the other game pools' EDITS (2026-11-28, Admin → Minigames): { <game>: { <shipped key>: { edited fields } | null, <new key>: { item } } }
+      // for crossword, whatyear, pie and whatlang (see gamePoolEdited). Applied at read time; the lazy pool files are never rewritten.
+      games: o.games && typeof o.games === "object" ? o.games : {},
       // the artefact pool, keyed by artefact ID (see artefactsMerged): a whole replacement object, or
       // null to retire a shipped artefact. A key matching nothing in artefacts.js is one the admin added.
       artefacts: o.artefacts && typeof o.artefacts === "object" ? o.artefacts : {},
@@ -2240,8 +2243,17 @@
      Multiple Choice is: out of DAILY_GAMES (the sweep needs nine again), off the home grid and refused by `route`; PAGES.whatlang, its
      pool (whatlang.js, still lazy), name, icon and meta stay, so reviving it is putting "whatlang" back here, in `valid`, and its tile back. */
   /* WHO IS THIS? (2026-11-19) joins the sweep, so it needs ten again. */
-  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whoisthis"];
-  const DORMANT_GAMES = ["picture", "challenge", "whatlang"];
+  /* TIMELINE, TRUE OR FALSE, WHO SAID IT? AND THE CROSSWORD ARE DORMANT (2026-11-28, on request), and with them DORMANCY BECAME ONE
+     SWITCH: `DORMANT_GAMES` is the only list to edit. DAILY_GAMES is DERIVED from the grid's full order below, so a dormant game leaves
+     the sweep, the chest's count, the meter, the archive and the account page's tallies at once; its home tile is dropped by `tile()`
+     (the grid's own guard), `route` and the hashchange handler send its address home, and the idle warm-up skips its pool. Its page,
+     pool file, name, icon, meta and admin editing all stay, so reviving one is deleting its key from DORMANT_GAMES and nothing else.
+     (The three dormant before this — picture, challenge, whatlang — are not in the grid's order and so also need a tile and a `valid`
+     row back; see their notes above.) docs/minigames.md "Dormant games are one switch". */
+  const DAILY_GAMES_ALL = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whoisthis"];
+  const DORMANT_GAMES = ["picture", "challenge", "whatlang", "chrono", "truefalse", "whosaid", "crossword"];
+  const DAILY_GAMES = DAILY_GAMES_ALL.filter((k) => DORMANT_GAMES.indexOf(k) < 0);
+  function gameDormant(key) { return DORMANT_GAMES.indexOf(key) >= 0; }
   /* ---------- THE GAMES ARCHIVE (Nov 2026, on request: admins may play any past day's draw) ----------
      Every daily draw is a pure function of a "YYYY-MM-DD" key, so replaying a past day is a matter of
      handing the draws a different key. `GAME_DAY` is that key while an archived day is being played
@@ -22539,7 +22551,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
         "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
-        "ribbon on the home page shows that one filling up), and for finishing all ten minigames in a day. " +
+        "ribbon on the home page shows that one filling up), and for finishing all the minigames in a day. " +
         "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
@@ -25428,12 +25440,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const base = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     return base !== t && /^[a-z]$/i.test(base) ? base.toLowerCase() : text;
   }
+  /* NO VOICE FOR THE CARD'S LANGUAGE MUST NOT PASS FOR SPEECH IN IT (Nov 2026, on a report that the Latin
+     deck "pronounces it in English"). The Latin decks read in an ITALIAN voice (`it-IT`, see
+     .claude/latin/build_deck.py); an engine with no voice of that language reads the word with its default —
+     usually English — and nothing said why. A list that is there and holds no voice of the language still
+     speaks (an engine may reach a voice it does not list, test-speak.js §2) but now says, once per language
+     per visit, which voice is missing and where to add it. An EMPTY list keeps its own note (ttsSilentNote). */
+  const _ttsNoVoiceTold = new Set();
   function cardSpeak(el) {
     if (!el || !ttsSupported()) return;
     const holder = el.closest("[lang]");
     const lang = holder ? holder.getAttribute("lang") : "";
     const text = speakableWord(cardSpeakText(el), lang);
     if (!text) return;
+    if (lang && ttsAllVoices().length && !speechVoiceFor(lang) && !_ttsNoVoiceTold.has(lang)) {
+      _ttsNoVoiceTold.add(lang);
+      toast("No " + speechLangName(lang) + " voice on this device, so it may be read in another accent — add one in your device's settings", TTS_NOTE_MS);
+    }
     ttsStop();                              // …which also clears every .tts-playing, so mark it after
     const gen = _ttsSeq;
     try {
@@ -26448,7 +26471,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (src === "level") return "Earned by reaching a new level.";
     if (src === "badge") return "Earned with a new badge.";
     if (src === "streak") return "Earned by your study streak.";
-    if (src === "play") return "Earned by playing all nine games today.";
+    if (src === "play") return "Earned by playing all the daily games today.";
     if (src === "gilded") return "A gilded chest, for a perfect score in every game. Rare finds are likelier.";
     const d = chestSrcDeck(src);
     if (d) {
@@ -27100,7 +27123,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      named two of the six channels and was wrong as soon as the third shipped). One string so the next
      channel is added in one place. */
   function chestWaysText() {
-    return "Chests come from reaching a level, earning a badge, finishing a deck, playing all nine daily games, " +
+    return "Chests come from reaching a level, earning a badge, finishing a deck, playing all the daily games, " +
       "a perfect score in every game (a gilded chest) and every week of a study streak.";
   }
   PAGES.reliquary = function (root) {
@@ -30530,7 +30553,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        of it. The front is wrapped in `.gt-face` for the flip — nothing else needs it, and the two theme
        rules that use `>` on the tile's children were rewritten to match. `data-game` carries the key, so
        the back can be filled without a closure per tile. */
-    const tile = (o) =>
+    const tile = (o) => gameDormant(o.key) ? "" :   // a dormant game has no tile (see DORMANT_GAMES)
       `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" data-game="${esc(o.key || "")}" style="--tile:${o.color}">
         <span class="gt-face">
         ${doneMarkHTML(o.done, o.won)}
@@ -30624,11 +30647,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
-            : ready ? "Open the chest for finishing all ten today"
-            : "Finish all ten of today's minigames to unlock a chest") + '"' +
+            : ready ? "Open the chest for finishing all " + all + " today"
+            : "Finish all " + all + " of today's minigames to unlock a chest") + '"' +
           ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
             : ready ? "Open today's minigame chest"
-            : "Locked: finish all ten minigames to unlock today's chest") + '">' +
+            : "Locked: finish all " + all + " minigames to unlock today's chest") + '">' +
           CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
         "</button></div>";
     };
@@ -47236,12 +47259,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      MEASURED before it was trusted, over the shipped corpus: 68 terms survive, carrying eleven tags with
      six or more clean terms apiece — comfortably more than the four disjoint groups a puzzle needs. If the
      pool is ever thinned below that the game says so rather than dealing a bad grid; see the placard. */
+  /* …AND SINCE 2026-11-28 ONLY THE HOUSEHOLD NAMES (on request: Common Thread "should only include level 1 difficulty terms").
+     The door is still `gameCardIdSet()` — the one every card game goes through, which already holds a card at or below
+     GAME_MAX_DIFFICULTY — and this game narrows what comes through it to rating 1 on its own, so the other games keep
+     their bar of 2. If the narrower pool ever cannot seat four groups the page says so (the placard), never a wider pool. */
+  const THREAD_MAX_DIFFICULTY = 1;
   function threadEasyKeys() {
     const avail = gameCardIdSet();
     const idx = glossIndexFor(GLOSS_SCOPE_SITE);
     const out = new Set();
     CARDS.forEach((c) => {
-      if (!avail.has(c.id) || !c.answerText) return;
+      if (!avail.has(c.id) || !c.answerText || cardDifficulty(c) > THREAD_MAX_DIFFICULTY) return;
       const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText).trim().toLowerCase()] : null;
       if (k && !isDeckGlossKey(k)) out.add(k);
     });
@@ -47571,8 +47599,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      and a thirteen-letter answer would be dropped by `xwLayout` in silence and simply narrow the pool.
      `id` is kept in the row because the marking and the record are keyed on the entry; it is the answer
      itself now rather than a card id, which is the only thing that was ever needed of it. */
+  /* A GAME'S OWN POOL, WITH THE ADMIN'S EDITS OVER IT (2026-11-28, on request: "each minigame's questions and answers should be
+     editable in the Admin edit page"). `ADMIN_EDITS.games[game]` is keyed by an item's SHIPPED key (`keyOf`: the crossword's
+     answer, What year?'s sentence, What share?'s question, What language?'s id) → the edited fields only, merged over the shipped
+     item, or null to take it out of play; a key that matches nothing shipped is an item the admin added. Applied at READ time by
+     each pool function — the True or False pattern — so the lazy file is never rewritten and a late bundle has nothing to clobber.
+     Defined here, inside the crossword's block, because test-minigames.js slices this block into Node. Admin → Minigames edits it. */
+  function gamePoolEdited(game, list, keyOf) {
+    const all = (typeof ADMIN_EDITS === "object" && ADMIN_EDITS && ADMIN_EDITS.games) || {};
+    const ov = all[game];
+    if (!ov || typeof ov !== "object" || !Object.keys(ov).length) return list;
+    const has = (k) => Object.prototype.hasOwnProperty.call(ov, k), seen = new Set(), out = [];
+    list.forEach((x) => {
+      const k = x ? keyOf(x) : null;
+      if (k == null || !has(k)) { out.push(x); return; }
+      seen.add(k);
+      if (ov[k] && typeof ov[k] === "object") out.push(Object.assign({}, x, ov[k]));   // null → out of play
+    });
+    Object.keys(ov).forEach((k) => { if (!seen.has(k) && ov[k] && typeof ov[k] === "object" && !list.some((x) => x && keyOf(x) === k)) out.push(Object.assign({}, ov[k])); });
+    return out;
+  }
   function xwPool() {
-    const bank = window.CROSSWORD || [], seen = new Set(), out = [];
+    const bank = gamePoolEdited("crossword", window.CROSSWORD || [], (e) => e.a), seen = new Set(), out = [];
     bank.forEach((e) => {
       const raw = String((e && e.a) || "").trim();
       const clue = String((e && e.c) || "").trim();
@@ -48432,7 +48480,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which is all it is asked to be — nothing stores it. */
   function wyPool() {
     const n = {};
-    return (window.WHATYEAR || [])
+    return gamePoolEdited("whatyear", window.WHATYEAR || [], (x) => x.e)
       .filter((x) => x && typeof x.y === "number" && x.e)
       .map((x) => { n[x.y] = (n[x.y] || 0) + 1; return { id: "wy-" + x.y + "-" + n[x.y], name: String(x.e), year: x.y, d: typeof x.d === "string" ? x.d : "" }; });
   }
@@ -48826,7 +48874,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        True or False's own explanation and source apparatus (`tfWhyHTML`, `sourcesHTML`, `tfWireWhy`). */
   const PIE_ROUNDS = 5, PIE_MARGIN = 10;
   function piePool() {
-    return (window.PIE_QUESTIONS || []).filter((x) => x && typeof x.q === "string" && x.q && typeof x.a === "number" && x.a >= 0 && x.a <= 100 && x.why);
+    return gamePoolEdited("pie", window.PIE_QUESTIONS || [], (x) => x.q).filter((x) => x && typeof x.q === "string" && x.q && typeof x.a === "number" && x.a >= 0 && x.a <= 100 && x.why);
   }
   // the slice from twelve o'clock clockwise to `pct` per cent, as an SVG path on a circle of radius R about (C, C)
   function pieSlicePath(pct, C, R) {
@@ -49009,7 +49057,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      every passage is Article 1 of the Universal Declaration of Human Rights, so no text is Folio's own and the reveal can show the
      English it means. Five passages a day (dayPick), the same for everyone; four options each. */
   const WL_ROUNDS = 5;
-  function whatLangPool() { const W = window.WHATLANG; return (W && Array.isArray(W.langs)) ? W.langs.filter((l) => l && l.id && l.text) : []; }
+  function whatLangPool() { const W = window.WHATLANG; return (W && Array.isArray(W.langs)) ? gamePoolEdited("whatlang", W.langs, (l) => l.id).filter((l) => l && l.id && l.text) : []; }
   /* THE DECOYS ARE THE LANGUAGE'S NEAREST RELATIONS. Every other language is scored — same branch 4, same family 3, named in the
      answer's own `like` 3 (the hand-picked look-alikes of a language whose family is too small to fill a round: Korean, Basque, Georgian),
      same script 2 (so a relation always outranks a stranger in the same script) — and the three best are taken, ties broken by a shuffle seeded on the day and the answer, so a Hindi passage is
@@ -54981,6 +55029,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
             '<button class="admin-tab" type="button" data-atab="truefalse">True or False</button>' +
             '<button class="admin-tab" type="button" data-atab="whosaid">Who said it?</button>' +
+            '<button class="admin-tab" type="button" data-atab="games">Minigames</button>' +
             '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
             '<button class="admin-tab" type="button" data-atab="themes">Themes</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
@@ -55652,6 +55701,148 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       items.innerHTML = '<div class="q-page">' + tfAdminHTML() + "</div>";
       wireTfAdmin(items);
     }
+    /* ADMIN → MINIGAMES (2026-11-28, on request: "each minigame's questions and answers should be editable in the Admin edit
+       page"). A picker of every game — the dormant ones too, marked — and, for a game with an authored pool of its own, every item
+       in file order with Edit (its question and answer in place of the row), Remove/Restore and, where the pool has no other
+       required field, Add. Edits are the delta `ADMIN_EDITS.games[game][shippedKey]` (see gamePoolEdited), so they publish and
+       adopt through `content_overrides` like every other delta and the pool file is never rewritten. True or False and Who said
+       it? already have tabs of their own and are linked; a game dealt from the cards, the glossary, the artefacts or the Atlas
+       says where its material is edited. Borrows `quotes-mode` for the full-width layout. */
+    const GAME_EDIT_SPECS = {
+      crossword: { bundle: "crossword", file: "crossword.js", list: () => window.CROSSWORD || [], key: (x) => x.a, add: true,
+        fields: [{ f: "c", label: "the clue", rows: 2 }, { f: "a", label: "the answer — one word, 4 to 11 letters" }],
+        check: (it) => { const w = xwNorm(it.a); return w.length < XW_MIN_LEN || w.length > XW_MAX_LEN || /\s/.test(String(it.a).trim()) ? "The answer must be one word of 4 to 11 letters." : null; } },
+      whatyear: { bundle: "whatyear", file: "whatyear.js", list: () => window.WHATYEAR || [], key: (x) => x.e, add: true,
+        fields: [{ f: "e", label: "the event — one plain sentence that names no year", rows: 2 }, { f: "y", label: "the year — negative for BCE", num: true }],
+        check: (it) => (!Number.isInteger(it.y) || it.y === 0 ? "The year must be a whole number other than 0 (negative for BCE)." : null) },
+      pie: { bundle: "pie", file: "pie.js", list: () => window.PIE_QUESTIONS || [], key: (x) => x.q, add: true,
+        fields: [{ f: "q", label: "the question", rows: 2 }, { f: "a", label: "the answer — a whole per cent, 2 to 98", num: true }, { f: "why", label: "the explanation (HTML: <b>, <i> and empty footnote markers)", rows: 4 }],
+        check: (it) => (!Number.isInteger(it.a) || it.a < 2 || it.a > 98 ? "The answer must be a whole per cent from 2 to 98." : !it.why ? "A question needs its explanation." : null) },
+      // no Add: a language also needs its family, branch and script, which drive the decoys
+      whatlang: { bundle: "whatlang", file: "whatlang.js", list: () => (window.WHATLANG && window.WHATLANG.langs) || [], key: (x) => x.id, add: false,
+        fields: [{ f: "text", label: "the passage", rows: 4 }, { f: "name", label: "the answer — the language's name" }] },
+    };
+    const GAME_EDIT_ELSEWHERE = {
+      truefalse: ["truefalse", "True or False has a tab of its own, with every statement's answer, explanation and sources."],
+      whosaid: ["whosaid", "Who said it? has a tab of its own, with every quotation's speaker, explanation and sources."],
+      chrono: ["cards", "Timeline is dealt from the cards — their answers and dates. Edit a card in the Cards tab."],
+      thread: ["glossary", "Common Thread is dealt from the glossary terms that answer cards rated 1. Edit a term in the Glossary tab."],
+      challenge: ["cards", "Multiple Choice is dealt from the cards. Edit a card in the Cards tab."],
+      picture: ["artefacts", "The Picture round is dealt from the artefacts and the artwork cards. Edit them in the Artefacts and Cards tabs."],
+      whoisthis: ["cards", "Who is this? is dealt from the cards whose picture shows their person. Edit a card in the Cards tab."],
+      findit: [null, "Find it is dealt from the Atlas's places, which are generated data and are not edited here."],
+      howfar: [null, "How far? is dealt from the Atlas's capitals and cities, which are generated data and are not edited here."],
+    };
+    let _gmPick = "crossword", _gmEditing = null;   // the game shown, and the shipped key (or "+new") whose form is open
+    const gmOv = (g) => { const all = ADMIN_EDITS.games || (ADMIN_EDITS.games = {}); return all[g] || (all[g] = {}); };
+    const gmTidy = (g) => { if (ADMIN_EDITS.games && ADMIN_EDITS.games[g] && !Object.keys(ADMIN_EDITS.games[g]).length) delete ADMIN_EDITS.games[g]; };
+    function gmFormHTML(spec, k, it, edited) {
+      return '<div class="q-form tf-form gm-form" data-gmform="' + esc(k) + '">' +
+        '<div class="q-form-head"><b>' + (k === "+new" ? "Add an item" : "Edit item") + "</b></div>" +
+        spec.fields.map((fd) => '<label class="admin-field"><span class="af-label">' + esc(fd.label) + "</span>" +
+          (fd.rows ? '<textarea class="af-input" data-gmf="' + fd.f + '" rows="' + fd.rows + '">' + esc(it[fd.f] == null ? "" : String(it[fd.f])) + "</textarea>"
+            : '<input class="af-input" type="' + (fd.num ? "number" : "text") + '" data-gmf="' + fd.f + '" value="' + esc(it[fd.f] == null ? "" : String(it[fd.f])) + '" />') + "</label>").join("") +
+        '<div class="q-form-acts">' +
+          '<button class="mini-btn" type="button" data-gmcancel>Cancel</button>' +
+          (edited ? '<button class="mini-btn" type="button" data-gmrevert="' + esc(k) + '">Revert</button>' : "") +
+          '<button class="admin-new" type="button" data-gmsave="' + esc(k) + '">Save</button>' +
+        "</div></div>";
+    }
+    function gmFormSave(g, spec, k, f) {
+      const it = {};
+      spec.fields.forEach((fd) => {
+        const raw = (f.querySelector('[data-gmf="' + fd.f + '"]').value || "").trim();
+        it[fd.f] = fd.num ? (raw === "" ? NaN : Number(raw)) : (fd.rows ? raw : raw.replace(/\s+/g, " "));
+      });
+      if (spec.fields.some((fd) => !fd.num && !it[fd.f] && fd.f !== "why")) return "Both the question and the answer need their words.";
+      const err = spec.check ? spec.check(it) : null;
+      if (err) return err;
+      const ov = gmOv(g), shipped = spec.list().find((x) => x && spec.key(x) === k);
+      if (k === "+new") {
+        const nk = spec.key(it);
+        if (spec.list().some((x) => x && spec.key(x) === nk) || Object.prototype.hasOwnProperty.call(ov, nk)) return "An item with those words is already in the pool.";
+        ov[nk] = it;
+      } else if (shipped && spec.fields.every((fd) => shipped[fd.f] === it[fd.f])) delete ov[k];   // the shipped words typed back clear the edit
+      else ov[k] = it;
+      gmTidy(g);
+      saveAdminEdits();
+      return null;
+    }
+    function adminRenderGames() {
+      const items = root.querySelector("#adminListItems");
+      const countEl = root.querySelector("#adminListCount");
+      if (!items) return;
+      const keys = Object.keys(GAME_NAMES);
+      if (keys.indexOf(_gmPick) < 0) _gmPick = keys[0];
+      const g = _gmPick, spec = GAME_EDIT_SPECS[g], name = GAME_NAMES[g][0];
+      const picker = '<div class="gm-pick" role="tablist" aria-label="Choose a minigame">' + keys.map((k) =>
+        '<button type="button" class="mini-btn gm-pick-btn' + (k === g ? " on" : "") + '" data-gmpick="' + k + '" aria-pressed="' + (k === g) + '">' +
+          esc(GAME_NAMES[k][0]) + (gameDormant(k) ? ' <span class="q-pill q-noorig">dormant</span>' : "") + "</button>").join("") + "</div>";
+      let body;
+      if (!spec) {
+        const e = GAME_EDIT_ELSEWHERE[g] || [null, name + " has no pool of its own to edit here."];
+        if (countEl) countEl.textContent = "";
+        body = '<div class="tl-intro">' + esc(e[1]) + "</div>" + (e[0] ? '<button type="button" class="admin-new" data-gmgo="' + e[0] + '">Open the ' + esc((root.querySelector('.admin-tab[data-atab="' + e[0] + '"]') || {}).textContent || e[0]) + " tab</button>" : "");
+      } else if (!dataReady(spec.bundle)) {
+        if (countEl) countEl.textContent = "";
+        body = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading the pool</strong></div>';
+        ensureData(spec.bundle).then((ok) => { if (ok && root.isConnected && current.name === "admin" && adminState.tab === "games" && _gmPick === g) adminRenderGames(); });
+      } else {
+        const ov = (ADMIN_EDITS.games && ADMIN_EDITS.games[g]) || {}, has = (k) => Object.prototype.hasOwnProperty.call(ov, k);
+        const shipped = spec.list().filter(Boolean), shippedKeys = new Set(shipped.map(spec.key));
+        const added = Object.keys(ov).filter((k) => !shippedKeys.has(k) && ov[k]).map((k) => ({ k: k, it: ov[k], added: true }));
+        const rows = shipped.map((x) => { const k = spec.key(x); return { k: k, it: has(k) && ov[k] ? Object.assign({}, x, ov[k]) : x, off: has(k) && ov[k] === null, edited: has(k) && !!ov[k] }; }).concat(added);
+        const live = rows.filter((r) => !r.off).length;
+        if (countEl) countEl.textContent = live + (live === 1 ? " item" : " items") + " in play";
+        const q = spec.fields[0].f, a = spec.fields[1].f;
+        body = '<div class="ws-admin-head"><b>' + esc(name) + '</b> <span class="ws-admin-count">' + live + " of " + rows.length + " in play</span></div>" +
+          '<div class="tl-intro">The minigame\'s own pool, from <code>' + esc(spec.file) + "</code>. An edit, an addition or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped item." +
+            (gameDormant(g) ? " This game is dormant: readers do not see it until it is revived." : "") + "</div>" +
+          (spec.add ? (_gmEditing === "+new" ? gmFormHTML(spec, "+new", {}, false) : '<button type="button" class="admin-new gm-add" data-gmadd>+ Add an item</button>') : "") +
+          '<div class="q-list">' + rows.map((r) => {
+            if (_gmEditing === r.k && !r.off) return gmFormHTML(spec, r.k, r.it, r.edited || r.added);
+            return '<div class="q-row ws-row gm-row' + (r.off ? " ws-off" : "") + '">' +
+              '<div class="q-main"><span class="q-text">' + esc(String(r.it[q] == null ? "" : r.it[q])) + "</span>" +
+                '<span class="q-meta"><b>' + esc(String(r.it[a] == null ? "" : r.it[a])) + "</b>" +
+                  (r.off ? '<span class="q-pill q-edited">removed</span>' : r.added ? '<span class="q-pill q-added">added</span>' : r.edited ? '<span class="q-pill q-edited">edited</span>' : "") + "</span></div>" +
+              (r.off ? "" : '<button type="button" class="mini-btn" data-gmedit="' + esc(r.k) + '">Edit</button>') +
+              '<button type="button" class="mini-btn' + (r.off ? "" : " danger") + '" data-gmoff="' + esc(r.k) + '">' + (r.off ? "Restore" : "Remove") + "</button>" +
+            "</div>";
+          }).join("") + "</div>";
+      }
+      items.innerHTML = '<div class="q-page"><div class="ws-admin gm-admin">' + picker + body + "</div></div>";
+      items.querySelectorAll("[data-gmpick]").forEach((b) => b.addEventListener("click", () => { _gmPick = b.dataset.gmpick; _gmEditing = null; adminRenderGames(); }));
+      items.querySelectorAll("[data-gmgo]").forEach((b) => b.addEventListener("click", () => { adminState.tab = b.dataset.gmgo; saveAdminUI(); adminRefresh(); }));
+      if (!spec) return;
+      items.querySelectorAll("[data-gmadd]").forEach((b) => b.addEventListener("click", () => { _gmEditing = "+new"; adminRenderGames(); }));
+      items.querySelectorAll("[data-gmedit]").forEach((b) => b.addEventListener("click", () => {
+        _gmEditing = b.dataset.gmedit; adminRenderGames();
+        const f = items.querySelector(".gm-form"); if (f) f.scrollIntoView({ block: "nearest" });
+      }));
+      items.querySelectorAll("[data-gmoff]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.gmoff, ov = gmOv(g), isShipped = spec.list().some((x) => x && spec.key(x) === k);
+        let gone;
+        if (!isShipped) { delete ov[k]; gone = true; }                  // an added item is simply deleted
+        else if (ov[k] === null) { delete ov[k]; gone = false; }      // restore
+        else { ov[k] = null; gone = true; }
+        if (_gmEditing === k) _gmEditing = null;
+        gmTidy(g); saveAdminEdits(); adminRenderGames();
+        toast(gone ? "Removed from " + name : "Restored to " + name);
+      }));
+      items.querySelectorAll("[data-gmcancel]").forEach((b) => b.addEventListener("click", () => { _gmEditing = null; adminRenderGames(); }));
+      items.querySelectorAll("[data-gmrevert]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.gmrevert;
+        inlineConfirm("Put this item back to its shipped wording?", () => {
+          delete gmOv(g)[k]; gmTidy(g); _gmEditing = null; saveAdminEdits(); adminRenderGames(); toast("Reverted");
+        }, "Revert");
+      }));
+      items.querySelectorAll("[data-gmsave]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.gmsave, f = b.closest(".gm-form"); if (!f) return;
+        const err = gmFormSave(g, spec, k, f);
+        if (err) { toast(err); return; }
+        _gmEditing = null; adminRenderGames(); toast(k === "+new" ? "Item added" : "Item saved");
+      }));
+    }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
@@ -56097,7 +56288,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", tfTab = adminState.tab === "truefalse", wsTab = adminState.tab === "whosaid", quotes = adminState.tab === "quotes" || tfTab || wsTab, artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", tfTab = adminState.tab === "truefalse", wsTab = adminState.tab === "whosaid", gmTab = adminState.tab === "games", quotes = adminState.tab === "quotes" || tfTab || wsTab || gmTab, artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
       const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); admEl.classList.toggle("themes-mode", themes); }
       // the feedback branch returns before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
@@ -56119,6 +56310,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (tfTab) { adminState.selected.clear(); adminRenderTrueFalse(); return; }
       if (wsTab) { adminState.selected.clear(); adminRenderWhoSaid(); return; }
+      if (gmTab) { adminState.selected.clear(); adminRenderGames(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
       if (themes) { adminState.selected.clear(); adminRenderThemes(); return; }
@@ -56570,6 +56762,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the intent REMEMBERED rather than acted on, because at this moment the role is not known: see
      bootAdminSettled, which supaBoot calls on every path where it is. */
   if (ADMIN_ROUTES.indexOf(initName) >= 0 && !isAdmin()) { _bootWantedAdmin = initName; initName = "home"; }
+  if (gameDormant(initName)) initName = "home";   // a dormant game's link at boot lands on home too (see DORMANT_GAMES)
   current = { name: initName, params: initParams };
   /* WHATEVER THEME IS ON SCREEN IS A THEME THIS READER OWNS. Five of the six became collectibles in
      Aug 2026 and a reader wearing one from before that must not lose it — there is no honest way to tell
@@ -56640,7 +56833,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      reader who beats the warm. Skipped under Save-Data. */
   whenIdleAfterGlobe(() => { if (!lightMode()) ensureData("artefactExtra"); });
   // the daily games' pools (Nov 2026): off the eager path, warmed here so a tile opens on a ready game; the game pages wait on them otherwise
-  whenIdleAfterGlobe(() => { if (!lightMode()) ["truefalse", "quotegame", "crossword", "whatyear"].forEach((n) => ensureData(n)); });
+  whenIdleAfterGlobe(() => { if (!lightMode()) [["truefalse", "truefalse"], ["quotegame", "whosaid"], ["crossword", "crossword"], ["whatyear", "whatyear"]].forEach((b) => { if (!gameDormant(b[1])) ensureData(b[0]); }); });   // a dormant game's pool is not warmed (see DORMANT_GAMES)
 
   /* THE OLD ADDRESS SENDS READERS TO THE NEW ONE (Oct 2026, on request — Folio moved to folio.study).
      A strip, not an automatic redirect, because browser storage belongs to one hostname: a reader who

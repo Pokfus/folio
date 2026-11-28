@@ -360,7 +360,7 @@
   },
   {
    "key": "rule:stress",
-   "show": "◌́",
+   "show": "´",
    "kind": "Russian spelling",
    "name": "the stress mark",
    "src": "alphabet+phonology",

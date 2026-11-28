@@ -81,19 +81,23 @@ function serve() {
    measure. Sliced rather than re-listed here so this cannot drift from what ships. */
 function registry() {
   const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
-  const daily = /const DAILY_GAMES = \[([^\]]*)\]/.exec(src);
+  /* DAILY_GAMES is DERIVED since 2026-11-28 — the grid's full order (DAILY_GAMES_ALL) less DORMANT_GAMES, the one switch —
+     so the registry derives it the same way rather than reading a literal that no longer exists. */
+  const all = /const DAILY_GAMES_ALL = \[([^\]]*)\]/.exec(src);
+  const dormant = /const DORMANT_GAMES = \[([^\]]*)\]/.exec(src);
   const valid = /const valid = \[([^\]]*)\]/.exec(src);
   const list = (m) => (m ? m[1].split(",").map((s) => s.trim().replace(/^["']|["']$/g, "")).filter(Boolean) : []);
   return {
-    daily: list(daily),
+    daily: list(all).filter((k) => list(dormant).indexOf(k) < 0),
+    dormant: list(dormant),
     valid: list(valid),
     meta: ["crossword", "picture", "whatyear", "whoisthis"].filter((k) => new RegExp("\\n\\s*" + k + ":\\s*\\[\"[^\"]+ — Folio\"").test(src)),
     names: ["crossword", "picture", "whatyear", "whoisthis"].filter((k) => new RegExp(k + ": \\[\"[^\"]+\", ICON\\." + k).test(src)),
   };
 }
 
+// the crossword went dormant on 2026-11-28 (see DORMANT_GAMES below), so it has no tile to test here
 const NEW_GAMES = [
-  { key: "crossword", title: "Crossword", id: "g-crossword" },
   { key: "whatyear", title: "What year?", id: "g-whatyear" },
   { key: "whoisthis", title: "Who is this?", id: "g-whoisthis" },   // 2026-11-19
 ];
@@ -230,8 +234,16 @@ function crosswordForPage(cells) {
        missing reports "the server responded with a status of 404", which carries no `net::` at all. */
     p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   };
+  /* THE DORMANT GAMES ARE STILL PLAYED HERE (2026-11-28): Timeline, True or False, Who said it? and the crossword went dormant
+     on request, and the whole point of dormancy is that each comes back by deleting its key from DORMANT_GAMES. So the sections
+     that play them serve app.js with exactly that edit made — every dormant game revived in that context alone — and go on
+     proving the code still works; the DORMANT_GAMES section below proves that, as shipped, a reader cannot reach them. */
+  const SRC_APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+  const REVIVED_APP = SRC_APP.replace(/const DORMANT_GAMES = \[[^\]]*\];/, 'const DORMANT_GAMES = ["picture", "challenge", "whatlang"];');
+  if (REVIVED_APP === SRC_APP) check("[dormant] the revive patch found DORMANT_GAMES in app.js", false);
+  const revive = (c) => c.route(/\/app\.js(\?|$)/, (rt) => rt.fulfill({ status: 200, contentType: "text/javascript", body: REVIVED_APP }));
   // a fresh browser context each time, so "played today" from one section cannot gate the next
-  const fresh = async (viewport) => { const c = await browser.newContext({ viewport: viewport || PHONE }); const p = await c.newPage(); return [c, p]; };
+  const fresh = async (viewport, revived) => { const c = await browser.newContext({ viewport: viewport || PHONE }); if (revived) await revive(c); const p = await c.newPage(); return [c, p]; };
 
   /* ============================ 0. two years of puzzles ============================ */
   {
@@ -438,7 +450,7 @@ function crosswordForPage(cells) {
       await p2.addInitScript(() => {
         const d = new Date();
         const t = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-        localStorage.setItem("folio_v1", JSON.stringify({ games: { chrono: { date: t, played: true, won: false }, truefalse: { date: t, played: true, won: true } } }));
+        localStorage.setItem("folio_v1", JSON.stringify({ games: { thread: { date: t, played: true, won: false }, whatyear: { date: t, played: true, won: true } } }));
       });
       await p2.goto(base, { waitUntil: "load" });
       await p2.waitForTimeout(1400);
@@ -457,7 +469,7 @@ function crosswordForPage(cells) {
             glyph: getComputedStyle(el.querySelector(".gt-glyph")).display,
           };
         };
-        return { played: read("g-chrono"), perfect: read("g-truefalse"), idle: read("g-findit") };
+        return { played: read("g-thread"), perfect: read("g-whatyear"), idle: read("g-findit") };   // Timeline and True or False are dormant (2026-11-28)
       });
       const same = (a, b) => a && b && a.toLowerCase() === b.toLowerCase();
       check("[home] an untouched tile keeps the game's own hue", same(st.idle.accent, st.idle.tile), JSON.stringify(st.idle));
@@ -487,9 +499,9 @@ function crosswordForPage(cells) {
     await ctx.close();
   }
 
-  /* ============================ 2. the crossword ============================ */
+  /* ============================ 2. the crossword (dormant since 2026-11-28; played revived) ============================ */
   {
-    const [ctx, page] = await fresh();
+    const [ctx, page] = await fresh(null, true);
     watch(page, "[xw]");
     await page.goto(base + "#crossword", { waitUntil: "load" });
     await page.waitForTimeout(1200);
@@ -747,6 +759,51 @@ function crosswordForPage(cells) {
       const res = await page.evaluate(() => ({ txt: (document.querySelector("#wyResult") || {}).textContent || "", win: !!document.querySelector(".chrono-result.win") }));
       check("[wy] …and landing on it first go is a win", res.win && /first guess/i.test(res.txt), res.txt.slice(0, 70));
     }
+    await ctx.close();
+  }
+
+  /* ====================== 3a. Timeline, True or False, Who said it? and the crossword are dormant (2026-11-28, on request) ======================
+     ONE SWITCH: each is in DORMANT_GAMES, so it is out of the sweep (DAILY_GAMES is derived), has no tile, and its address —
+     followed mid-session or at boot — lands on home. Its page and pool stay, which the revived sections above prove. */
+  {
+    const r = registry();
+    const FOUR = [["chrono", "#chrono", ".chrono-item"], ["truefalse", "#truefalse", "#tfopts .opt"], ["whosaid", "#whosaid", ".ws-quote"], ["crossword", "#crossword", ".xw-grid"]];
+    for (const [k, hash, sel] of FOUR) {
+      check("[dormant] " + k + " is in DORMANT_GAMES and out of the sweep", r.dormant.indexOf(k) >= 0 && r.daily.indexOf(k) < 0);
+      const [ctx, page] = await fresh();
+      watch(page, "[dormant]");
+      await page.goto(base, { waitUntil: "load" });
+      await page.waitForTimeout(900);
+      check("[dormant] " + k + ": no tile on the home grid", !(await page.evaluate((id) => !!document.getElementById(id), "g-" + k)));
+      await page.evaluate((h) => { location.hash = h; }, hash);
+      await page.waitForTimeout(700);
+      const at = await page.evaluate((s) => ({ hash: location.hash, game: !!document.querySelector(s) }), sel);
+      check("[dormant] " + hash + " followed mid-session lands on home", at.hash === "" && !at.game, JSON.stringify(at));
+      await page.goto(base + hash, { waitUntil: "load" });
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(900);
+      const at2 = await page.evaluate((s) => ({ hash: location.hash, game: !!document.querySelector(s), home: !!document.querySelector(".game-grid") }), sel);
+      check("[dormant] a " + hash + " link at boot lands on home", !at2.game && at2.home, JSON.stringify(at2));
+      await ctx.close();
+    }
+    // …and the day's count does not wait on them: six chips, and the chest unlocks on the six
+    const [ctx, page] = await fresh({ width: 1280, height: 900 });
+    watch(page, "[dormant]");
+    await page.addInitScript((keys) => {
+      const d = new Date();
+      const t = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+      const games = {}; keys.forEach((k) => { games[k] = { date: t, played: true, won: false }; });
+      localStorage.setItem("folio_v1", JSON.stringify({ games: games }));
+    }, r.daily);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const sw = await page.evaluate(() => ({
+      chips: document.querySelectorAll(".sweep-chips .sw-chip").length,
+      on: document.querySelectorAll(".sweep-chips .sw-chip.on").length,
+      ready: !!document.querySelector("#sweepChest.ready"),
+      title: (document.querySelector("#sweepChest") || {}).title || "",
+    }));
+    check("[dormant] the sweep counts only the games in play, and unlocks on them", sw.chips === r.daily.length && sw.on === r.daily.length && sw.ready && sw.title.indexOf(String(r.daily.length)) >= 0, JSON.stringify(sw));
     await ctx.close();
   }
 
@@ -1028,7 +1085,7 @@ function crosswordForPage(cells) {
        rather than reimplemented outside it. */
     const bad = await page.evaluate(() => {
       const keys = [...document.querySelectorAll(".th-tile")].map((b) => b.dataset.k);
-      const max = 2;   // GAME_MAX_DIFFICULTY, re-derived below from the shipped cards rather than trusted
+      const max = 1;   // Common Thread's own bar since 2026-11-28 (THREAD_MAX_DIFFICULTY: household names only), re-derived below from the shipped cards
       const norm = (s) => String(s || "").trim().toLowerCase();
       const easy = new Set();
       (window.CARD_DATA || []).forEach((c) => {
@@ -1159,6 +1216,7 @@ function crosswordForPage(cells) {
      and it degrades honestly on a thin cell, where t simply lands further down the ladder. */
   {
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    await revive(ctx);   // Who said it? is dormant since 2026-11-28; played revived (see `revive`)
     const page = await ctx.newPage();
     watch(page);
     await page.goto(base + "#whosaid", { waitUntil: "load" });
@@ -1232,6 +1290,7 @@ function crosswordForPage(cells) {
     for (const [q, at] of spelledQuotes) {
       if (!at.day) { shown.push({ q: q.slice(0, 50), ok: false, on: "never dealt as round one in 3000 days" }); continue; }
       const c2 = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+      await revive(c2);
       const p2 = await c2.newPage();
       watch(p2, "ws-verbatim");
       await p2.clock.setFixedTime(new Date(at.day + "T12:00:00"));
@@ -1284,7 +1343,7 @@ function crosswordForPage(cells) {
        are static markup, so a check of its option order alone is a check that cannot fail, which reads
        as coverage and is not. */
     const trace = async (hash, sel) => {
-      const [ctx, page] = await fresh({ width: 1280, height: 900 });
+      const [ctx, page] = await fresh({ width: 1280, height: 900 }, true);   // both games are dormant since 2026-11-28; played revived
       watch(page);
       await page.goto(base + hash, { waitUntil: "load" });
       await page.waitForTimeout(700);
