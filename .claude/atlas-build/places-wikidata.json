@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-11-18",
+ "retrieved": "2026-11-28",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -50999,6 +50999,570 @@
    "tops": [
     "Q190429"
    ]
+  },
+  "Q55833": {
+   "label": "supercontinent",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q5107": {
+   "label": "continent",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q251749": {
+   "label": "pueblo",
+   "tops": [
+    "Q532",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q41176"
+   ]
+  },
+  "Q261543": {
+   "label": "federal state of Austria",
+   "tops": [
+    "Q7275",
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q319796": {
+   "label": "district of Nauru",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q358078": {
+   "label": "road network",
+   "tops": []
+  },
+  "Q673234": {
+   "label": "pile bridge",
+   "tops": [
+    "Q12280"
+   ]
+  },
+  "Q831740": {
+   "label": "krai of Russia",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q129319315": {
+   "label": "de jure national capital",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q5119",
+    "Q515"
+   ]
+  },
+  "Q141763519": {
+   "label": "city of the United Kingdom",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q3764344": {
+   "label": "district of the Isle of Man",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q4976993": {
+   "label": "parish",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q5398059": {
+   "label": "Indian reservation of the United States",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q41710",
+    "Q1048835"
+   ]
+  },
+  "Q7202294": {
+   "label": "platform mound",
+   "tops": [
+    "Q4989906"
+   ]
+  },
+  "Q7631958": {
+   "label": "subregion",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q7840353": {
+   "label": "federally recognized Native American tribe in the United States",
+   "tops": [
+    "Q2472587",
+    "Q41710"
+   ]
+  },
+  "Q10860585": {
+   "label": "Czech lands",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q11054716": {
+   "label": "aeolian lake",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q23397"
+   ]
+  },
+  "Q11828004": {
+   "label": "province of Canada",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q13217186": {
+   "label": "county of Arizona",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794",
+    "Q15284"
+   ]
+  },
+  "Q2399626": {
+   "label": "technology center",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q2418896": {
+   "label": "part of the world",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1008803": {
+   "label": "federal territory of Malaysia",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q1205140": {
+   "label": "barrier island",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q54050",
+    "Q23442"
+   ]
+  },
+  "Q1530361": {
+   "label": "geopolitical corridor",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091"
+   ]
+  },
+  "Q1564373": {
+   "label": "mission station",
+   "tops": [
+    "Q1370598",
+    "Q41176"
+   ]
+  },
+  "Q1901835": {
+   "label": "seat of government",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q16678127": {
+   "label": "administrative territorial entity of Anguilla",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q25412763": {
+   "label": "city in Chile",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q515"
+   ]
+  },
+  "Q28107315": {
+   "label": "quartier of Saint Barthélemy",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q56580326": {
+   "label": "city of okrug significance",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972"
+   ]
+  },
+  "Q56580425": {
+   "label": "city of oblast significance",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972"
+   ]
+  },
+  "Q57766005": {
+   "label": "United States census region",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q61708099": {
+   "label": "urban district in Saxony",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q80096233": {
+   "label": "Wikimedia information list",
+   "tops": []
+  },
+  "Q84599126": {
+   "label": "Commune",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q84669937": {
+   "label": "commune of New Caledonia",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284",
+    "Q484170"
+   ]
+  },
+  "Q123615496": {
+   "label": "U.S. region",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q124157233": {
+   "label": "unorganized territory",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q129319205": {
+   "label": "de facto national capital",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q5119",
+    "Q515"
+   ]
+  },
+  "Q43197": {
+   "label": "river delta",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794"
+   ]
+  },
+  "Q45776": {
+   "label": "fjord",
+   "tops": [
+    "Q2221906",
+    "Q39594",
+    "Q82794"
+   ]
+  },
+  "Q188913": {
+   "label": "plantation",
+   "tops": []
+  },
+  "Q857833": {
+   "label": "state crime",
+   "tops": []
+  },
+  "Q1140845": {
+   "label": "subterranean river",
+   "tops": [
+    "Q2221906",
+    "Q355304",
+    "Q82794",
+    "Q47521"
+   ]
+  },
+  "Q1244922": {
+   "label": "embankment dam",
+   "tops": []
+  },
+  "Q295469": {
+   "label": "ecoregion",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q1970725"
+   ]
+  },
+  "Q302646": {
+   "label": "inland delta",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q107425"
+   ]
+  },
+  "Q667783": {
+   "label": "sandō",
+   "tops": []
+  },
+  "Q1258086": {
+   "label": "National Historic Site",
+   "tops": [
+    "Q4989906",
+    "Q82794",
+    "Q5003624",
+    "Q4835091",
+    "Q2221906"
+   ]
+  },
+  "Q1620919": {
+   "label": "organized incorporated territory",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q1967454": {
+   "label": "National Memorial of the United States",
+   "tops": [
+    "Q82794",
+    "Q2221906",
+    "Q5003624",
+    "Q4989906"
+   ]
+  },
+  "Q2624320": {
+   "label": "United States national laboratory",
+   "tops": []
+  },
+  "Q3455524": {
+   "label": "administrative region",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q3610510": {
+   "label": "ethnic enclave",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972",
+    "Q123705"
+   ]
+  },
+  "Q4389092": {
+   "label": "district of Moscow",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q123705",
+    "Q15284",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q4895393": {
+   "label": "landmark",
+   "tops": []
+  },
+  "Q5852411": {
+   "label": "state of Australia",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q11558926": {
+   "label": "underwater archaeological site",
+   "tops": [
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q13415368": {
+   "label": "county of Virginia",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794",
+    "Q15284"
+   ]
+  },
+  "Q13466456": {
+   "label": "house of millions of years",
+   "tops": [
+    "Q1370598",
+    "Q41176",
+    "Q44539"
+   ]
+  },
+  "Q20968646": {
+   "label": "neighborhood or historical district of Moscow",
+   "tops": [
+    "Q1620908",
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q123705",
+    "Q82794"
+   ]
+  },
+  "Q21493801": {
+   "label": "radioactive waste repository",
+   "tops": []
+  },
+  "Q26934845": {
+   "label": "integral overseas territory",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q110390579": {
+   "label": "city of United Kingdom",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q515"
+   ]
+  },
+  "Q46112269": {
+   "label": "rail mountain pass",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q47272186": {
+   "label": "headquarters",
+   "tops": []
+  },
+  "Q54935504": {
+   "label": "city of Switzerland",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q515"
+   ]
+  },
+  "Q110071194": {
+   "label": "city of Illinois",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q702492",
+    "Q486972",
+    "Q82794",
+    "Q15284"
+   ]
   }
  },
  "labels": {
@@ -83076,11 +83640,11 @@
     31.8717
    ],
    "classes": [
-    "Q106491339",
+    "Q7251867",
     "Q65064889",
-    "Q7251867"
+    "Q106491339"
    ],
-   "label": "",
+   "label": "Tell es-Sultan",
    "title": "Tell es-Sultan"
   },
   "Q192522": {
@@ -85634,7 +86198,7 @@
     "Q15284",
     "Q1549591"
    ],
-   "label": "",
+   "label": "Tarsus",
    "title": "Tarsus, Mersin"
   },
   "Q216551": {
@@ -85655,11 +86219,11 @@
     31.05
    ],
    "classes": [
-    "Q125866553",
+    "Q515",
     "Q15661340",
-    "Q515"
+    "Q125866553"
    ],
-   "label": "",
+   "label": "Pelusium",
    "title": "Pelusium"
   },
   "Q42798": {
@@ -87661,7 +88225,7 @@
     "Q839954",
     "Q1057440"
    ],
-   "label": "",
+   "label": "Argive Heraion",
    "title": "Heraion of Argos"
   },
   "Q1136637": {
@@ -88386,12 +88950,12 @@
     53.95
    ],
    "classes": [
-    "Q7897276",
-    "Q1549591",
+    "Q515",
     "Q1357964",
-    "Q515"
+    "Q1549591",
+    "Q7897276"
    ],
-   "label": "",
+   "label": "York",
    "title": "York"
   },
   "Q1127325": {
@@ -92375,6 +92939,4573 @@
    ],
    "label": "Bletchley Park",
    "title": "Bletchley Park"
+  },
+  "Q304823": {
+   "coord": [
+    22.917,
+    38.587
+   ],
+   "classes": [
+    "Q148837",
+    "Q217123",
+    "Q839954"
+   ],
+   "label": "Abae",
+   "title": "Abae"
+  },
+  "Q317290": {
+   "coord": [
+    9.717,
+    48.3769
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Ach",
+   "title": "Ach (Blau)"
+  },
+  "Q420810": {
+   "coord": [
+    22.8709,
+    37.8914
+   ],
+   "classes": [
+    "Q23413",
+    "Q131668",
+    "Q839954"
+   ],
+   "label": "Acrocorinth",
+   "title": "Acrocorinth"
+  },
+  "Q48273": {
+   "coord": [
+    -130.1,
+    -25.0667
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Adamstown",
+   "title": "Adamstown, Pitcairn Islands"
+  },
+  "Q396547": {
+   "coord": [
+    8.3,
+    48.2
+   ],
+   "classes": [
+    "Q183366"
+   ],
+   "label": "Agri Decumates",
+   "title": "Agri Decumates"
+  },
+  "Q81863": {
+   "coord": [
+    140.1025,
+    39.7186
+   ],
+   "classes": [
+    "Q50337"
+   ],
+   "label": "Akita Prefecture",
+   "title": "Akita Prefecture"
+  },
+  "Q1760729": {
+   "coord": [
+    33.4333,
+    35.1
+   ],
+   "classes": [
+    "Q417175",
+    "Q3024240"
+   ],
+   "label": "Alashiya",
+   "title": "Alashiya"
+  },
+  "Q488653": {
+   "coord": [
+    -78.56,
+    38.03
+   ],
+   "classes": [
+    "Q13415368"
+   ],
+   "label": "Albemarle County",
+   "title": "Albemarle County, Virginia"
+  },
+  "Q30966": {
+   "coord": [
+    -169.921,
+    -19.056
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Alofi",
+   "title": "Alofi"
+  },
+  "Q5942": {
+   "coord": [
+    82.6167,
+    52.7667
+   ],
+   "classes": [
+    "Q43263",
+    "Q831740"
+   ],
+   "label": "Altai Krai",
+   "title": "Altai Krai"
+  },
+  "Q284841": {
+   "coord": [
+    20.9692,
+    38.9725
+   ],
+   "classes": [
+    "Q1322134"
+   ],
+   "label": "Ambracian Gulf",
+   "title": "Ambracian Gulf"
+  },
+  "Q385233": {
+   "coord": [
+    -112.8556,
+    42.7811
+   ],
+   "classes": [
+    "Q62049",
+    "Q1093829"
+   ],
+   "label": "American Falls",
+   "title": "American Falls, Idaho"
+  },
+  "Q385335": {
+   "coord": [
+    -83.0833,
+    42.1
+   ],
+   "classes": [
+    "Q3957",
+    "Q15210668"
+   ],
+   "label": "Amherstburg",
+   "title": "Amherstburg"
+  },
+  "Q473766": {
+   "coord": [
+    25.2061,
+    35.3308
+   ],
+   "classes": [
+    "Q148837",
+    "Q15661340"
+   ],
+   "label": "Amnisos",
+   "title": "Amnisos"
+  },
+  "Q208587": {
+   "coord": [
+    25.8875,
+    36.8403
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Amorgos",
+   "title": "Amorgos"
+  },
+  "Q2647314": {
+   "coord": [
+    127.1302,
+    37.5605
+   ],
+   "classes": [
+    "Q490329",
+    "Q839954"
+   ],
+   "label": "Amsa-dong",
+   "title": "Amsa-dong"
+  },
+  "Q13074886": {
+   "coord": [
+    22.4502,
+    37.0363
+   ],
+   "classes": [
+    "Q839954",
+    "Q1617500",
+    "Q15661340"
+   ],
+   "label": "Amyclae",
+   "title": "Amyclae"
+  },
+  "Q4752411": {
+   "coord": [
+    22.9647,
+    39.3494
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Anavros",
+   "title": "Anavros"
+  },
+  "Q529246": {
+   "coord": [
+    25.1444,
+    35.2556
+   ],
+   "classes": [
+    "Q267596",
+    "Q839954",
+    "Q96352513"
+   ],
+   "label": "Anemospilia",
+   "title": "Anemospilia"
+  },
+  "Q546600": {
+   "coord": [
+    12.5007,
+    41.9424
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Aniene",
+   "title": "Aniene"
+  },
+  "Q165366": {
+   "coord": [
+    4.884,
+    52.3751
+   ],
+   "classes": [
+    "Q33506",
+    "Q575759"
+   ],
+   "label": "Anne Frank House",
+   "title": "Anne Frank House"
+  },
+  "Q71699": {
+   "coord": [
+    140.7406,
+    40.8246
+   ],
+   "classes": [
+    "Q50337"
+   ],
+   "label": "Aomori Prefecture",
+   "title": "Aomori Prefecture"
+  },
+  "Q632418": {
+   "coord": [
+    25.1636,
+    35.2367
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Archanes",
+   "title": "Archanes"
+  },
+  "Q38891": {
+   "coord": [
+    32.8802,
+    23.9714
+   ],
+   "classes": [
+    "Q1244922",
+    "Q3497167",
+    "Q15911738"
+   ],
+   "label": "Aswan Dam",
+   "title": "Aswan High Dam"
+  },
+  "Q662563": {
+   "coord": [
+    19.2031,
+    50.0276
+   ],
+   "classes": [
+    "Q152081",
+    "Q210272",
+    "Q328468",
+    "Q628505"
+   ],
+   "label": "Auschwitz I concentration camp",
+   "title": "Auschwitz I"
+  },
+  "Q170482": {
+   "coord": [
+    -159.771,
+    -21.207
+   ],
+   "classes": [
+    "Q3957",
+    "Q149621"
+   ],
+   "label": "Avarua",
+   "title": "Avarua"
+  },
+  "Q1053044": {
+   "coord": [
+    140.0169,
+    35.1747
+   ],
+   "classes": [
+    "Q860290"
+   ],
+   "label": "Awa Province",
+   "title": "Awa Province (Chiba)"
+  },
+  "Q803626": {
+   "coord": [
+    30.8107,
+    27.559
+   ],
+   "classes": [
+    "Q12284"
+   ],
+   "label": "Bahr Yussef",
+   "title": "Bahr Yussef"
+  },
+  "Q804509": {
+   "coord": [
+    42.4447,
+    43.2731
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Baksan",
+   "title": "Baksan (river)"
+  },
+  "Q980": {
+   "coord": [
+    11.3856,
+    49.0786
+   ],
+   "classes": [
+    "Q1221156"
+   ],
+   "label": "Bavaria",
+   "title": "Bavaria"
+  },
+  "Q375935": {
+   "coord": [
+    33.9944,
+    18.0153
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Berber",
+   "title": "Berber, Sudan"
+  },
+  "Q2657223": {
+   "coord": [
+    30.5508,
+    50.4403
+   ],
+   "classes": [
+    "Q15642599",
+    "Q15661340"
+   ],
+   "label": "Berestove",
+   "title": "Berestove"
+  },
+  "Q7332": {
+   "coord": [
+    9.9071,
+    52.7589
+   ],
+   "classes": [
+    "Q152081",
+    "Q328468"
+   ],
+   "label": "Bergen-Belsen concentration camp",
+   "title": "Bergen-Belsen concentration camp"
+  },
+  "Q18205494": {
+   "coord": [
+    35.8685,
+    31.237
+   ],
+   "classes": [
+    "Q88205"
+   ],
+   "label": "Betthorus",
+   "title": "Betthorus"
+  },
+  "Q7769": {
+   "coord": [
+    132.9333,
+    48.7833
+   ],
+   "classes": [
+    "Q7930989",
+    "Q56580425"
+   ],
+   "label": "Birobidzhan",
+   "title": "Birobidzhan"
+  },
+  "Q373189": {
+   "coord": [
+    31,
+    40.5
+   ],
+   "classes": [
+    "Q34876",
+    "Q1414991",
+    "Q1620908",
+    "Q3024240"
+   ],
+   "label": "Bithynia",
+   "title": "Bithynia"
+  },
+  "Q4923326": {
+   "coord": [
+    -109.535,
+    41.295
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Blacks Fork",
+   "title": "Blacks Fork"
+  },
+  "Q208181": {
+   "coord": [
+    -1.3609,
+    51.8414
+   ],
+   "classes": [
+    "Q1107656",
+    "Q1343246",
+    "Q2087181"
+   ],
+   "label": "Blenheim Palace",
+   "title": "Blenheim Palace"
+  },
+  "Q885987": {
+   "coord": [
+    -140.5186,
+    64.1353
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Bluefish Caves",
+   "title": "Bluefish Caves"
+  },
+  "Q8257871": {
+   "coord": [
+    22.8833,
+    38.4333
+   ],
+   "classes": [
+    "Q202595",
+    "Q1234255"
+   ],
+   "label": "Boeotia Regional Unit",
+   "title": "Boeotia"
+  },
+  "Q39193": {
+   "coord": [
+    14.3333,
+    49.8333
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Bohemia",
+   "title": "Bohemia"
+  },
+  "Q891257": {
+   "coord": [
+    67.4942,
+    29.4533
+   ],
+   "classes": [
+    "Q133056"
+   ],
+   "label": "Bolan Pass",
+   "title": "Bolan Pass"
+  },
+  "Q243634": {
+   "coord": [
+    142.2181,
+    26.9981
+   ],
+   "classes": [
+    "Q1402592"
+   ],
+   "label": "Bonin Islands",
+   "title": "Bonin Islands"
+  },
+  "Q2910728": {
+   "coord": [
+    31.9889,
+    -27.0258
+   ],
+   "classes": [
+    "Q35509",
+    "Q839954",
+    "Q1149405"
+   ],
+   "label": "Border Cave",
+   "title": "Border Cave"
+  },
+  "Q895484": {
+   "coord": [
+    -3.2167,
+    54.95
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Bowness-on-Solway",
+   "title": "Bowness-on-Solway"
+  },
+  "Q31006": {
+   "coord": [
+    -62.2106,
+    16.7928
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Brades",
+   "title": "Brades"
+  },
+  "Q1013528": {
+   "coord": [
+    -0.3101,
+    51.4861
+   ],
+   "classes": [
+    "Q1357964",
+    "Q2755753",
+    "Q18511725"
+   ],
+   "label": "Brentford",
+   "title": "Brentford"
+  },
+  "Q6221": {
+   "coord": [
+    10.2203,
+    45.5389
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Brescia",
+   "title": "Brescia"
+  },
+  "Q3117121": {
+   "coord": [
+    1.6762,
+    44.062
+   ],
+   "classes": [
+    "Q35509"
+   ],
+   "label": "Bruniquel Cave",
+   "title": "Bruniquel Cave"
+  },
+  "Q216104": {
+   "coord": [
+    12.495,
+    41.8836
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Caelian Hill",
+   "title": "Caelian Hill"
+  },
+  "Q320210": {
+   "coord": [
+    7.4733,
+    50.4133
+   ],
+   "classes": [
+    "Q428759",
+    "Q673234"
+   ],
+   "label": "Caesar's Rhine bridges",
+   "title": "Caesar's Rhine bridges"
+  },
+  "Q350": {
+   "coord": [
+    0.1225,
+    52.2081
+   ],
+   "classes": [
+    "Q515",
+    "Q1115575",
+    "Q1187811",
+    "Q1357964",
+    "Q1549591",
+    "Q110390579"
+   ],
+   "label": "Cambridge",
+   "title": "Cambridge"
+  },
+  "Q49111": {
+   "coord": [
+    -71.1061,
+    42.375
+   ],
+   "classes": [
+    "Q515",
+    "Q1093829"
+   ],
+   "label": "Cambridge",
+   "title": "Cambridge, Massachusetts"
+  },
+  "Q163329": {
+   "coord": [
+    35.3333,
+    32.7667
+   ],
+   "classes": [
+    "Q8432",
+    "Q1620908"
+   ],
+   "label": "Canaan",
+   "title": "Canaan"
+  },
+  "Q1145180": {
+   "coord": [
+    30.0833,
+    31.3
+   ],
+   "classes": [
+    "Q839954",
+    "Q20616831",
+    "Q22674925"
+   ],
+   "label": "Canopus",
+   "title": "Canopus, Egypt"
+  },
+  "Q3273113": {
+   "coord": [
+    145.7546,
+    15.2115
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Capitol Hill",
+   "title": "Capitol Hill, Saipan"
+  },
+  "Q519033": {
+   "coord": [
+    12.5571,
+    42.6398
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Carsulae",
+   "title": "Carsulae"
+  },
+  "Q27275": {
+   "coord": [
+    63.9,
+    45.3
+   ],
+   "classes": [
+    "Q82794",
+    "Q3502482"
+   ],
+   "label": "Central Asia",
+   "title": "Central Asia"
+  },
+  "Q182299": {
+   "coord": [
+    24.0167,
+    35.5167
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Chania",
+   "title": "Chania"
+  },
+  "Q306193": {
+   "coord": [
+    -119.64,
+    33.66
+   ],
+   "classes": [
+    "Q46169",
+    "Q158454",
+    "Q34918903"
+   ],
+   "label": "Channel Islands National Park",
+   "title": "Channel Islands National Park"
+  },
+  "Q985261": {
+   "coord": [
+    -112.4531,
+    34.7575
+   ],
+   "classes": [
+    "Q15127012"
+   ],
+   "label": "Chino Valley",
+   "title": "Chino Valley, Arizona"
+  },
+  "Q24036929": {
+   "coord": [
+    46.2711,
+    33.3774
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Chogha Golan",
+   "title": "Chogha Golan"
+  },
+  "Q378223": {
+   "coord": [
+    121.5533,
+    31.6183
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Chongming Island",
+   "title": "Chongming Island"
+  },
+  "Q31094": {
+   "coord": [
+    127.8772,
+    37.0178
+   ],
+   "classes": [
+    "Q1549591",
+    "Q29045252"
+   ],
+   "label": "Chungju",
+   "title": "Chungju"
+  },
+  "Q586568": {
+   "coord": [
+    28.9497,
+    41.0197
+   ],
+   "classes": [
+    "Q16970",
+    "Q19860854"
+   ],
+   "label": "Church of the Holy Apostles",
+   "title": "Church of the Holy Apostles"
+  },
+  "Q2660144": {
+   "coord": [
+    141.0997,
+    39.0014
+   ],
+   "classes": [
+    "Q5393308"
+   ],
+   "label": "Chūson-ji Temple",
+   "title": "Chūson-ji"
+  },
+  "Q620864": {
+   "coord": [
+    35.12,
+    36.985
+   ],
+   "classes": [
+    "Q82794",
+    "Q1414991",
+    "Q1620908"
+   ],
+   "label": "Cilicia",
+   "title": "Cilicia"
+  },
+  "Q1147780": {
+   "coord": [
+    23.2492,
+    38.1844
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Kithairon",
+   "title": "Cithaeron"
+  },
+  "Q1933754": {
+   "coord": [
+    27.1931,
+    38.005
+   ],
+   "classes": [
+    "Q217123",
+    "Q486972",
+    "Q839954"
+   ],
+   "label": "Claros",
+   "title": "Claros"
+  },
+  "Q34205": {
+   "coord": [
+    -71.1414,
+    21.4603
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Cockburn Town",
+   "title": "Cockburn Town"
+  },
+  "Q5155122": {
+   "coord": [
+    -106.0642,
+    41.9161
+   ],
+   "classes": [
+    "Q740445",
+    "Q9096832"
+   ],
+   "label": "Como Bluff",
+   "title": "Como Bluff"
+  },
+  "Q208306": {
+   "coord": [
+    22.75,
+    37.9167
+   ],
+   "classes": [
+    "Q1234255"
+   ],
+   "label": "Corinthia Regional Unit",
+   "title": "Corinthia"
+  },
+  "Q747992": {
+   "coord": [
+    5.4492,
+    43.2028
+   ],
+   "classes": [
+    "Q11269813"
+   ],
+   "label": "Cosquer Cave",
+   "title": "Cosquer Cave"
+  },
+  "Q1142110": {
+   "coord": [
+    12.5482,
+    42.0128
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Crustumerium",
+   "title": "Crustumerium"
+  },
+  "Q223385": {
+   "coord": [
+    -70.6667,
+    -47.15
+   ],
+   "classes": [
+    "Q35509",
+    "Q11269813"
+   ],
+   "label": "Cueva de las Manos",
+   "title": "Cueva de las Manos"
+  },
+  "Q15682": {
+   "coord": [
+    -6.2975,
+    36.535
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "Cádiz",
+   "title": "Cádiz"
+  },
+  "Q626655": {
+   "coord": [
+    3.7393,
+    44.4262
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Cévennes",
+   "title": "Cévennes"
+  },
+  "Q151198": {
+   "coord": [
+    11.4683,
+    48.2699
+   ],
+   "classes": [
+    "Q173462",
+    "Q328468",
+    "Q857833"
+   ],
+   "label": "Dachau concentration camp",
+   "title": "Dachau concentration camp"
+  },
+  "Q5208266": {
+   "coord": [
+    127.9625,
+    35.2237
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Daepyeong",
+   "title": "Daepyeong"
+  },
+  "Q131416": {
+   "coord": [
+    48.2889,
+    42.0578
+   ],
+   "classes": [
+    "Q192287",
+    "Q1549591",
+    "Q7930989"
+   ],
+   "label": "Derbent",
+   "title": "Derbent"
+  },
+  "Q123014803": {
+   "coord": [
+    82.0097,
+    24.4993
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Dhaba (archaeological site)",
+   "title": "Dhaba (archaeological site)"
+  },
+  "Q671358": {
+   "coord": [
+    27.2564,
+    37.385
+   ],
+   "classes": [
+    "Q29553",
+    "Q486972",
+    "Q839954",
+    "Q2434238"
+   ],
+   "label": "Didyma",
+   "title": "Didyma"
+  },
+  "Q271911": {
+   "coord": [
+    91.77,
+    26.15
+   ],
+   "classes": [
+    "Q515",
+    "Q486972",
+    "Q1549591"
+   ],
+   "label": "Dispur",
+   "title": "Dispur"
+  },
+  "Q102334": {
+   "coord": [
+    37.5333,
+    56.35
+   ],
+   "classes": [
+    "Q7930989"
+   ],
+   "label": "Dmitrov",
+   "title": "Dmitrov"
+  },
+  "Q131555": {
+   "coord": [
+    27.3,
+    36.45
+   ],
+   "classes": [
+    "Q1402592"
+   ],
+   "label": "Dodecanese",
+   "title": "Dodecanese"
+  },
+  "Q3866": {
+   "coord": [
+    35.746,
+    -6.1835
+   ],
+   "classes": [
+    "Q1549591",
+    "Q129319315"
+   ],
+   "label": "Dodoma",
+   "title": "Dodoma"
+  },
+  "Q1075975": {
+   "coord": [
+    16.6438,
+    48.8872
+   ],
+   "classes": [
+    "Q5153359"
+   ],
+   "label": "Dolní Věstonice",
+   "title": "Dolní Věstonice"
+  },
+  "Q748910": {
+   "coord": [
+    37.6171,
+    55.7509
+   ],
+   "classes": [
+    "Q2319498",
+    "Q56242225"
+   ],
+   "label": "Dormition Cathedral",
+   "title": "Dormition Cathedral, Moscow"
+  },
+  "Q18569": {
+   "coord": [
+    -4.4775,
+    54.15
+   ],
+   "classes": [
+    "Q515",
+    "Q3764344"
+   ],
+   "label": "Douglas",
+   "title": "Douglas, Isle of Man"
+  },
+  "Q27407": {
+   "coord": [
+    36.8473,
+    -1.3004
+   ],
+   "classes": [
+    "Q82794",
+    "Q3502482"
+   ],
+   "label": "East Africa",
+   "title": "East Africa"
+  },
+  "Q1047144": {
+   "coord": [
+    136.3333,
+    36
+   ],
+   "classes": [
+    "Q860290"
+   ],
+   "label": "Echizen Province",
+   "title": "Echizen Province"
+  },
+  "Q1343280": {
+   "coord": [
+    33.8832,
+    35.162
+   ],
+   "classes": [
+    "Q532",
+    "Q839954"
+   ],
+   "label": "Egkomi Ammochostou",
+   "title": "Enkomi"
+  },
+  "Q320367": {
+   "coord": [
+    23.8022,
+    38.401
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Eretria",
+   "title": "Eretria"
+  },
+  "Q1363807": {
+   "coord": [
+    55,
+    12
+   ],
+   "classes": [
+    "Q165"
+   ],
+   "label": "Erythraean Sea",
+   "title": "Erythraean Sea"
+  },
+  "Q626031": {
+   "coord": [
+    32.5564,
+    25.2933
+   ],
+   "classes": [
+    "Q515",
+    "Q839954"
+   ],
+   "label": "Esna",
+   "title": "Esna"
+  },
+  "Q211233": {
+   "coord": [
+    12.4967,
+    41.8956
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Esquiline Hill",
+   "title": "Esquiline Hill"
+  },
+  "Q173096": {
+   "coord": [
+    24,
+    38.5
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Euboea",
+   "title": "Euboea"
+  },
+  "Q1362044": {
+   "coord": [
+    109.4635,
+    31.0234
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Fengjie County",
+   "title": "Fengjie County"
+  },
+  "Q13362": {
+   "coord": [
+    11.6175,
+    44.8392
+   ],
+   "classes": [
+    "Q515",
+    "Q747074",
+    "Q1392581",
+    "Q1549591"
+   ],
+   "label": "Ferrara",
+   "title": "Ferrara"
+  },
+  "Q3744504": {
+   "coord": [
+    12.3594,
+    41.7979
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Ficana",
+   "title": "Ficana"
+  },
+  "Q1234405": {
+   "coord": [
+    12.5123,
+    41.9785
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Fidenae",
+   "title": "Fidenae"
+  },
+  "Q1438579": {
+   "coord": [
+    -71.0117,
+    42.3381
+   ],
+   "classes": [
+    "Q1785071"
+   ],
+   "label": "Fort Independence",
+   "title": "Fort Independence (Massachusetts)"
+  },
+  "Q49268": {
+   "coord": [
+    -85.1391,
+    41.0805
+   ],
+   "classes": [
+    "Q62049",
+    "Q1093829",
+    "Q1549591"
+   ],
+   "label": "Fort Wayne",
+   "title": "Fort Wayne, Indiana"
+  },
+  "Q1231380": {
+   "coord": [
+    28.971,
+    41.009
+   ],
+   "classes": [
+    "Q1062780",
+    "Q14752696"
+   ],
+   "label": "Forum of Constantine",
+   "title": "Forum of Constantine"
+  },
+  "Q1196381": {
+   "coord": [
+    135.8072,
+    34.5022
+   ],
+   "classes": [
+    "Q839954",
+    "Q1025961",
+    "Q11643523"
+   ],
+   "label": "Fujiwara-kyō",
+   "title": "Fujiwara-kyō"
+  },
+  "Q7436": {
+   "coord": [
+    30.1229,
+    59.5684
+   ],
+   "classes": [
+    "Q515",
+    "Q106389302"
+   ],
+   "label": "Gatchina",
+   "title": "Gatchina"
+  },
+  "Q172996": {
+   "coord": [
+    -81.3817,
+    19.2964
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "George Town",
+   "title": "George Town, Cayman Islands"
+  },
+  "Q1342857": {
+   "coord": [
+    44.7189,
+    41.8951
+   ],
+   "classes": [
+    "Q34442"
+   ],
+   "label": "Georgian Military Road",
+   "title": "Georgian Military Road"
+  },
+  "Q708488": {
+   "coord": [
+    37.6821,
+    55.7669
+   ],
+   "classes": [
+    "Q839954",
+    "Q3610510",
+    "Q20968646"
+   ],
+   "label": "German Quarter",
+   "title": "German Quarter"
+  },
+  "Q489139": {
+   "coord": [
+    126.6667,
+    36
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Geum River",
+   "title": "Geum River"
+  },
+  "Q798422": {
+   "coord": [
+    74.1364,
+    29.2897
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Ghaggar-Hakra river",
+   "title": "Ghaggar-Hakra River"
+  },
+  "Q167551": {
+   "coord": [
+    29.925,
+    -3.4283
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Gitega",
+   "title": "Gitega"
+  },
+  "Q16303552": {
+   "coord": [
+    31.1374,
+    29.9782
+   ],
+   "classes": [
+    "Q39614"
+   ],
+   "label": "Giza East Field",
+   "title": "Giza East Field"
+  },
+  "Q179839": {
+   "coord": [
+    28.9611,
+    41.0292
+   ],
+   "classes": [
+    "Q123705",
+    "Q149621",
+    "Q554394"
+   ],
+   "label": "Golden Horn",
+   "title": "Golden Horn"
+  },
+  "Q6025": {
+   "coord": [
+    85.96,
+    51.96
+   ],
+   "classes": [
+    "Q7930989",
+    "Q106389302"
+   ],
+   "label": "Gorno-Altaysk",
+   "title": "Gorno-Altaysk"
+  },
+  "Q2352674": {
+   "coord": [
+    25.0282,
+    35.0509
+   ],
+   "classes": [
+    "Q1349648"
+   ],
+   "label": "Gortyn Municipality",
+   "title": "Gortyn"
+  },
+  "Q676689": {
+   "coord": [
+    0.3686,
+    51.4417
+   ],
+   "classes": [
+    "Q3957",
+    "Q7897276",
+    "Q18511725"
+   ],
+   "label": "Gravesend",
+   "title": "Gravesend"
+  },
+  "Q475338": {
+   "coord": [
+    28.9778,
+    41.0064
+   ],
+   "classes": [
+    "Q16560",
+    "Q19860854"
+   ],
+   "label": "Great Palace of Constantinople",
+   "title": "Great Palace of Constantinople"
+  },
+  "Q486986": {
+   "coord": [
+    43.1109,
+    43.0005
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Greater Caucasus",
+   "title": "Greater Caucasus"
+  },
+  "Q692982": {
+   "coord": [
+    -104.86,
+    31.8911
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Guadalupe Mountains",
+   "title": "Guadalupe Mountains"
+  },
+  "Q1025918": {
+   "coord": [
+    46.9617,
+    42.3867
+   ],
+   "classes": [
+    "Q532",
+    "Q192287"
+   ],
+   "label": "Gunib",
+   "title": "Gunib"
+  },
+  "Q34112": {
+   "coord": [
+    -62.8492,
+    17.8986
+   ],
+   "classes": [
+    "Q3257686",
+    "Q28107315"
+   ],
+   "label": "Gustavia",
+   "title": "Gustavia"
+  },
+  "Q482485": {
+   "coord": [
+    126.9768,
+    37.5799
+   ],
+   "classes": [
+    "Q16560"
+   ],
+   "label": "Gyeongbokgung",
+   "title": "Gyeongbokgung"
+  },
+  "Q848793": {
+   "coord": [
+    110.92,
+    34.63
+   ],
+   "classes": [
+    "Q133056"
+   ],
+   "label": "Hangu Pass",
+   "title": "Hangu Pass"
+  },
+  "Q165414": {
+   "coord": [
+    9.5653,
+    54.4911
+   ],
+   "classes": [
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Hedeby",
+   "title": "Hedeby"
+  },
+  "Q1246866": {
+   "coord": [
+    29.885,
+    31.1994
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Heptastadion",
+   "title": "Heptastadion"
+  },
+  "Q186513": {
+   "coord": [
+    -4.35,
+    40.21
+   ],
+   "classes": [
+    "Q182547",
+    "Q1620908",
+    "Q2221906",
+    "Q11514315",
+    "Q24457356"
+   ],
+   "label": "Hispania",
+   "title": "Hispania"
+  },
+  "Q4895226": {
+   "coord": [
+    12.67,
+    42.9917
+   ],
+   "classes": [
+    "Q2202509"
+   ],
+   "label": "Hispellum",
+   "title": "Hispellum"
+  },
+  "Q875927": {
+   "coord": [
+    9.7556,
+    48.3792
+   ],
+   "classes": [
+    "Q839954",
+    "Q2232001",
+    "Q7558985",
+    "Q21573182"
+   ],
+   "label": "Hohle Fels",
+   "title": "Hohle Fels"
+  },
+  "Q1133035": {
+   "coord": [
+    -73.6593,
+    42.9277
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Hoosic River",
+   "title": "Hoosic River"
+  },
+  "Q261932": {
+   "coord": [
+    135.7342,
+    34.6144
+   ],
+   "classes": [
+    "Q5393308"
+   ],
+   "label": "Hōryū-ji Temple",
+   "title": "Hōryū-ji"
+  },
+  "Q1656624": {
+   "coord": [
+    33.413,
+    35.02
+   ],
+   "classes": [
+    "Q148837",
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Idalion",
+   "title": "Idalion"
+  },
+  "Q938412": {
+   "coord": [
+    25.736,
+    35.0106
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Ierapetra",
+   "title": "Ierapetra"
+  },
+  "Q868245": {
+   "coord": [
+    -98,
+    36
+   ],
+   "classes": [
+    "Q19953632",
+    "Q124157233"
+   ],
+   "label": "Indian Territory",
+   "title": "Indian Territory"
+  },
+  "Q1426627": {
+   "coord": [
+    -4.5,
+    14.6167
+   ],
+   "classes": [
+    "Q43197",
+    "Q170321",
+    "Q295469",
+    "Q302646",
+    "Q6617741"
+   ],
+   "label": "Inner Niger Delta",
+   "title": "Inner Niger Delta"
+  },
+  "Q216993": {
+   "coord": [
+    25.3167,
+    36.7167
+   ],
+   "classes": [
+    "Q23442",
+    "Q148837"
+   ],
+   "label": "Ios",
+   "title": "Ios"
+  },
+  "Q1410335": {
+   "coord": [
+    40.8942,
+    57.7772
+   ],
+   "classes": [
+    "Q11784935"
+   ],
+   "label": "Ipatiev Monastery",
+   "title": "Ipatiev Monastery"
+  },
+  "Q11532469": {
+   "coord": [
+    130.4528,
+    33.5655
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Itazuke Site",
+   "title": "Itazuke Site"
+  },
+  "Q602538": {
+   "coord": [
+    21.925,
+    37.1861
+   ],
+   "classes": [
+    "Q8502",
+    "Q839954"
+   ],
+   "label": "Ithome",
+   "title": "Ithome"
+  },
+  "Q860928": {
+   "coord": [
+    138.99,
+    35.0358
+   ],
+   "classes": [
+    "Q860290"
+   ],
+   "label": "Izu Province",
+   "title": "Izu Province"
+  },
+  "Q1033157": {
+   "coord": [
+    39.8614,
+    21.4581
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Jabal al-Nour",
+   "title": "Jabal al-Nour"
+  },
+  "Q30970": {
+   "coord": [
+    -5.7179,
+    -15.9251
+   ],
+   "classes": [
+    "Q515",
+    "Q2264924"
+   ],
+   "label": "Jamestown",
+   "title": "Jamestown, Saint Helena"
+  },
+  "Q303001": {
+   "coord": [
+    12.4611,
+    41.8917
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Janiculum",
+   "title": "Janiculum"
+  },
+  "Q841337": {
+   "coord": [
+    138,
+    36
+   ],
+   "classes": [
+    "Q33837"
+   ],
+   "label": "Japanese archipelago",
+   "title": "Japanese archipelago"
+  },
+  "Q155032": {
+   "coord": [
+    16.8278,
+    45.2944
+   ],
+   "classes": [
+    "Q152081",
+    "Q328468"
+   ],
+   "label": "Jasenovac concentration camp",
+   "title": "Jasenovac concentration camp"
+  },
+  "Q29151": {
+   "coord": [
+    126.55,
+    33.38
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Jeju Island",
+   "title": "Jeju Island"
+  },
+  "Q1236870": {
+   "coord": [
+    113.9263,
+    29.9736
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Jiayu County",
+   "title": "Jiayu County"
+  },
+  "Q2463859": {
+   "coord": [
+    35.57,
+    32.3172
+   ],
+   "classes": [
+    "Q39816"
+   ],
+   "label": "Jordan Valley",
+   "title": "Jordan Valley"
+  },
+  "Q735202": {
+   "coord": [
+    -115.8193,
+    33.7484
+   ],
+   "classes": [
+    "Q34918903"
+   ],
+   "label": "Joshua Tree National Park",
+   "title": "Joshua Tree National Park"
+  },
+  "Q1003997": {
+   "coord": [
+    34.9,
+    32.5
+   ],
+   "classes": [
+    "Q182547"
+   ],
+   "label": "Judaea",
+   "title": "Judaea (Roman province)"
+  },
+  "Q69048": {
+   "coord": [
+    7.7278,
+    47.5414
+   ],
+   "classes": [
+    "Q70208"
+   ],
+   "label": "Kaiseraugst",
+   "title": "Kaiseraugst"
+  },
+  "Q1014225": {
+   "coord": [
+    22.8833,
+    38.6333
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Kalapodi",
+   "title": "Kalapodi"
+  },
+  "Q957273": {
+   "coord": [
+    34.5,
+    51.9
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Kalinovka",
+   "title": "Kalinovka, Khomutovsky District, Kursk Oblast"
+  },
+  "Q200267": {
+   "coord": [
+    139.5472,
+    35.3192
+   ],
+   "classes": [
+    "Q494721",
+    "Q1200957",
+    "Q1549591",
+    "Q15661340"
+   ],
+   "label": "Kamakura",
+   "title": "Kamakura"
+  },
+  "Q127513": {
+   "coord": [
+    139.6425,
+    35.4478
+   ],
+   "classes": [
+    "Q50337"
+   ],
+   "label": "Kanagawa Prefecture",
+   "title": "Kanagawa Prefecture"
+  },
+  "Q1367638": {
+   "coord": [
+    -96.8014,
+    39.06
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Kansas River",
+   "title": "Kansas River"
+  },
+  "Q1124865": {
+   "coord": [
+    140,
+    36
+   ],
+   "classes": [
+    "Q160091"
+   ],
+   "label": "Kantō Plain",
+   "title": "Kantō Plain"
+  },
+  "Q187946": {
+   "coord": [
+    39.829,
+    37.7114
+   ],
+   "classes": [
+    "Q212057"
+   ],
+   "label": "Karaca Dağ",
+   "title": "Karaca Dağ"
+  },
+  "Q62677": {
+   "coord": [
+    102.8238,
+    47.1975
+   ],
+   "classes": [
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Karakorum",
+   "title": "Karakorum"
+  },
+  "Q4216510": {
+   "coord": [
+    147.6667,
+    44.9667
+   ],
+   "classes": [
+    "Q39594"
+   ],
+   "label": "Kasatka Bay",
+   "title": "Kasatka Bay"
+  },
+  "Q1341882": {
+   "coord": [
+    30.5261,
+    19.1019
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Kawa",
+   "title": "Kawa, Sudan"
+  },
+  "Q26156285": {
+   "coord": [
+    30.6934,
+    29.1342
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Kerkeosiris",
+   "title": "Kerkeosiris"
+  },
+  "Q191333": {
+   "coord": [
+    71.1117,
+    34.11
+   ],
+   "classes": [
+    "Q133056",
+    "Q46112269"
+   ],
+   "label": "Khyber Pass",
+   "title": "Khyber Pass"
+  },
+  "Q30963": {
+   "coord": [
+    167.9667,
+    -29.05
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Kingston",
+   "title": "Kingston, Norfolk Island"
+  },
+  "Q1743884": {
+   "coord": [
+    33.6295,
+    34.9296
+   ],
+   "classes": [
+    "Q148837",
+    "Q2561694",
+    "Q3024240"
+   ],
+   "label": "Kition",
+   "title": "Kition"
+  },
+  "Q3815801": {
+   "coord": [
+    24.3901,
+    -34.1081
+   ],
+   "classes": [
+    "Q35509"
+   ],
+   "label": "Klasies River Caves",
+   "title": "Klasies River Caves"
+  },
+  "Q3104": {
+   "coord": [
+    7.5978,
+    50.3597
+   ],
+   "classes": [
+    "Q56061",
+    "Q134626",
+    "Q1549591",
+    "Q42744322",
+    "Q85632032"
+   ],
+   "label": "Koblenz",
+   "title": "Koblenz"
+  },
+  "Q1968136": {
+   "coord": [
+    36.1872,
+    3.9478
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Koobi Fora",
+   "title": "Koobi Fora"
+  },
+  "Q930376": {
+   "coord": [
+    37.6186,
+    55.7532
+   ],
+   "classes": [
+    "Q16560",
+    "Q2319498"
+   ],
+   "label": "Kremlin Senate",
+   "title": "Kremlin Senate"
+  },
+  "Q130308": {
+   "coord": [
+    130.7414,
+    32.7897
+   ],
+   "classes": [
+    "Q50337"
+   ],
+   "label": "Kumamoto Prefecture",
+   "title": "Kumamoto Prefecture"
+  },
+  "Q593256": {
+   "coord": [
+    76.85,
+    29.9708
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Kurukshetra",
+   "title": "Kurukshetra"
+  },
+  "Q739779": {
+   "coord": [
+    24.4167,
+    37.3833
+   ],
+   "classes": [
+    "Q23442",
+    "Q148837"
+   ],
+   "label": "Kythnos",
+   "title": "Kythnos"
+  },
+  "Q538605": {
+   "coord": [
+    35.6333,
+    38.85
+   ],
+   "classes": [
+    "Q755017",
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Kültepe",
+   "title": "Kültepe"
+  },
+  "Q672056": {
+   "coord": [
+    139.5357,
+    35.3169
+   ],
+   "classes": [
+    "Q5393308"
+   ],
+   "label": "Kōtoku-in Temple",
+   "title": "Kōtoku-in"
+  },
+  "Q63073": {
+   "coord": [
+    1.7133,
+    44.9819
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "La Chapelle-aux-Saints",
+   "title": "La Chapelle-aux-Saints"
+  },
+  "Q125309": {
+   "coord": [
+    14.5338,
+    13.0979
+   ],
+   "classes": [
+    "Q23397",
+    "Q9019918",
+    "Q11054716"
+   ],
+   "label": "Lake Chad",
+   "title": "Lake Chad"
+  },
+  "Q6414": {
+   "coord": [
+    10.6667,
+    45.6333
+   ],
+   "classes": [
+    "Q23397"
+   ],
+   "label": "Lake Garda",
+   "title": "Lake Garda"
+  },
+  "Q1012861": {
+   "coord": [
+    22.7153,
+    37.6383
+   ],
+   "classes": [
+    "Q23413"
+   ],
+   "label": "Larissa Fortress",
+   "title": "Larisa (Argos)"
+  },
+  "Q210450": {
+   "coord": [
+    25.8333,
+    35.0833
+   ],
+   "classes": [
+    "Q202595",
+    "Q1234255"
+   ],
+   "label": "Lasithi Regional Unit",
+   "title": "Lasithi"
+  },
+  "Q1163542": {
+   "coord": [
+    -121.4275,
+    40.4981
+   ],
+   "classes": [
+    "Q46169",
+    "Q34918903"
+   ],
+   "label": "Lassen Volcanic National Park",
+   "title": "Lassen Volcanic National Park"
+  },
+  "Q1718159": {
+   "coord": [
+    12.3469,
+    41.7111
+   ],
+   "classes": [
+    "Q2202509"
+   ],
+   "label": "Laurentum",
+   "title": "Laurentum"
+  },
+  "Q740691": {
+   "coord": [
+    31.1611,
+    29.9328
+   ],
+   "classes": [
+    "Q175582",
+    "Q839954",
+    "Q1456099",
+    "Q18412881"
+   ],
+   "label": "Layer Pyramid",
+   "title": "Layer Pyramid"
+  },
+  "Q20982430": {
+   "coord": [
+    40.8667,
+    11.35
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Ledi-Geraru",
+   "title": "Ledi-Geraru"
+  },
+  "Q2079": {
+   "coord": [
+    12.3747,
+    51.3406
+   ],
+   "classes": [
+    "Q515",
+    "Q253030",
+    "Q1549591",
+    "Q42744322",
+    "Q61708099"
+   ],
+   "label": "Leipzig",
+   "title": "Leipzig"
+  },
+  "Q1822737": {
+   "coord": [
+    120.4603,
+    -8.5342
+   ],
+   "classes": [
+    "Q35509",
+    "Q839954"
+   ],
+   "label": "Liang Bua",
+   "title": "Liang Bua"
+  },
+  "Q23090": {
+   "coord": [
+    -0.2,
+    53.1
+   ],
+   "classes": [
+    "Q180673"
+   ],
+   "label": "Lincolnshire",
+   "title": "Lincolnshire"
+  },
+  "Q101418": {
+   "coord": [
+    31.2064,
+    -26.4465
+   ],
+   "classes": [
+    "Q515",
+    "Q1901835"
+   ],
+   "label": "Lobamba",
+   "title": "Lobamba"
+  },
+  "Q879764": {
+   "coord": [
+    9.8928,
+    48.5483
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Lone",
+   "title": "Lone (river)"
+  },
+  "Q474665": {
+   "coord": [
+    -71.1264,
+    42.3767
+   ],
+   "classes": [
+    "Q3947",
+    "Q33506",
+    "Q1258086",
+    "Q5003624"
+   ],
+   "label": "Longfellow House–Washington's Headquarters National Historic Site",
+   "title": "Longfellow House–Washington's Headquarters National Historic Site"
+  },
+  "Q19675": {
+   "coord": [
+    2.3358,
+    48.8611
+   ],
+   "classes": [
+    "Q207694",
+    "Q3329412"
+   ],
+   "label": "Louvre Museum",
+   "title": "Louvre"
+  },
+  "Q476033": {
+   "coord": [
+    5,
+    52
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Low Countries",
+   "title": "Low Countries"
+  },
+  "Q42497": {
+   "coord": [
+    15.75,
+    48.3333
+   ],
+   "classes": [
+    "Q261543",
+    "Q1620908"
+   ],
+   "label": "Lower Austria",
+   "title": "Lower Austria"
+  },
+  "Q463871": {
+   "coord": [
+    31.1,
+    30.6
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Lower Egypt",
+   "title": "Lower Egypt"
+  },
+  "Q1878691": {
+   "coord": [
+    31.0555,
+    30.9087
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Lycopolis",
+   "title": "Lycopolis (Delta)"
+  },
+  "Q81126": {
+   "coord": [
+    125,
+    45
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Manchuria",
+   "title": "Manchuria"
+  },
+  "Q58691": {
+   "coord": [
+    -112.4758,
+    33.5139
+   ],
+   "classes": [
+    "Q13217186"
+   ],
+   "label": "Maricopa County",
+   "title": "Maricopa County, Arizona"
+  },
+  "Q48329": {
+   "coord": [
+    19.9444,
+    60.0986
+   ],
+   "classes": [
+    "Q856076"
+   ],
+   "label": "Mariehamn",
+   "title": "Mariehamn"
+  },
+  "Q200605": {
+   "coord": [
+    -63.0847,
+    18.0667
+   ],
+   "classes": [
+    "Q3257686"
+   ],
+   "label": "Marigot",
+   "title": "Marigot, Saint Martin"
+  },
+  "Q23586169": {
+   "coord": [
+    25.7882,
+    36.8001
+   ],
+   "classes": [
+    "Q486972",
+    "Q839954"
+   ],
+   "label": "Markiani",
+   "title": "Markiani"
+  },
+  "Q1896118": {
+   "coord": [
+    -80.4917,
+    40.2864
+   ],
+   "classes": [
+    "Q33506",
+    "Q839954",
+    "Q1149405"
+   ],
+   "label": "Meadowcroft Rockshelter",
+   "title": "Meadowcroft Rockshelter"
+  },
+  "Q184864": {
+   "coord": [
+    23.3423,
+    37.9949
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Megara",
+   "title": "Megara"
+  },
+  "Q11723843": {
+   "coord": [
+    22.1097,
+    37.0344
+   ],
+   "classes": [
+    "Q1234255"
+   ],
+   "label": "Messenia Regional Unit",
+   "title": "Messenia"
+  },
+  "Q1925381": {
+   "coord": [
+    23.3908,
+    37.581
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Methana",
+   "title": "Methana"
+  },
+  "Q1422037": {
+   "coord": [
+    31.05,
+    28.07
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Middle Egypt",
+   "title": "Middle Egypt"
+  },
+  "Q6878730": {
+   "coord": [
+    -98.4798,
+    29.362
+   ],
+   "classes": [
+    "Q839954",
+    "Q1564373"
+   ],
+   "label": "Mission San José",
+   "title": "Mission San José (Texas)"
+  },
+  "Q684424": {
+   "coord": [
+    10.7488,
+    51.5348
+   ],
+   "classes": [
+    "Q152081",
+    "Q328468",
+    "Q2772772"
+   ],
+   "label": "Mittelbau-Dora concentration camp",
+   "title": "Mittelbau-Dora concentration camp"
+  },
+  "Q199499": {
+   "coord": [
+    21.13,
+    43.96
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Moesia",
+   "title": "Moesia"
+  },
+  "Q280444": {
+   "coord": [
+    -90.062,
+    38.6607
+   ],
+   "classes": [
+    "Q7202294"
+   ],
+   "label": "Monks Mound",
+   "title": "Monks Mound"
+  },
+  "Q700356": {
+   "coord": [
+    19.2915,
+    50.0311
+   ],
+   "classes": [
+    "Q152081",
+    "Q628505",
+    "Q5996900"
+   ],
+   "label": "Auschwitz III Monowitz concentration camp",
+   "title": "Monowitz concentration camp"
+  },
+  "Q43266": {
+   "coord": [
+    17,
+    49.5
+   ],
+   "classes": [
+    "Q82794",
+    "Q1620908",
+    "Q10860585"
+   ],
+   "label": "Moravia",
+   "title": "Moravia"
+  },
+  "Q1058753": {
+   "coord": [
+    32.6087,
+    25.7214
+   ],
+   "classes": [
+    "Q839954",
+    "Q13466456"
+   ],
+   "label": "Mortuary Temple of Amenhotep III",
+   "title": "Mortuary Temple of Amenhotep III"
+  },
+  "Q3866147": {
+   "coord": [
+    31.3833,
+    27.0833
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Mostagedda",
+   "title": "Mostagedda"
+  },
+  "Q3321879": {
+   "coord": [
+    25.1441,
+    35.2399
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Juktas",
+   "title": "Mount Juktas"
+  },
+  "Q844360": {
+   "coord": [
+    109.2105,
+    34.3587
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Li",
+   "title": "Mount Li"
+  },
+  "Q476546": {
+   "coord": [
+    25.5844,
+    35.0036
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Myrtos",
+   "title": "Myrtos"
+  },
+  "Q1052803": {
+   "coord": [
+    135.7032,
+    34.9432
+   ],
+   "classes": [
+    "Q839954",
+    "Q1025961",
+    "Q11643523"
+   ],
+   "label": "Nagaoka-kyō",
+   "title": "Nagaoka-kyō"
+  },
+  "Q1239887": {
+   "coord": [
+    113.1138,
+    38.7013
+   ],
+   "classes": [
+    "Q5393308"
+   ],
+   "label": "Nanchan Temple",
+   "title": "Nanchan Temple"
+  },
+  "Q10942269": {
+   "coord": [
+    135.7831,
+    34.5763
+   ],
+   "classes": [
+    "Q813672"
+   ],
+   "label": "Nara Basin",
+   "title": "Nara Basin"
+  },
+  "Q1241943": {
+   "coord": [
+    -71.35,
+    41.6
+   ],
+   "classes": [
+    "Q39594"
+   ],
+   "label": "Narragansett Bay",
+   "title": "Narragansett Bay"
+  },
+  "Q2174": {
+   "coord": [
+    53.0067,
+    67.6378
+   ],
+   "classes": [
+    "Q7930989",
+    "Q106389302"
+   ],
+   "label": "Naryan-Mar",
+   "title": "Naryan-Mar"
+  },
+  "Q6983513": {
+   "coord": [
+    31.3731,
+    26.7828
+   ],
+   "classes": [
+    "Q820477",
+    "Q839954"
+   ],
+   "label": "Nazlet Khater",
+   "title": "Nazlet Khater"
+  },
+  "Q170081": {
+   "coord": [
+    6.9511,
+    51.2267
+   ],
+   "classes": [
+    "Q39816"
+   ],
+   "label": "Neandertal",
+   "title": "Neandertal (valley)"
+  },
+  "Q1287599": {
+   "coord": [
+    37.6264,
+    55.7497
+   ],
+   "classes": [
+    "Q1140845"
+   ],
+   "label": "Neglinnaya",
+   "title": "Neglinnaya (river)"
+  },
+  "Q382500": {
+   "coord": [
+    30.315,
+    59.9367
+   ],
+   "classes": [
+    "Q907698",
+    "Q1081138"
+   ],
+   "label": "Nevsky Prospect",
+   "title": "Nevsky Prospect"
+  },
+  "Q223308": {
+   "coord": [
+    -74.0124,
+    40.7037
+   ],
+   "classes": [
+    "Q677678",
+    "Q22674925"
+   ],
+   "label": "New Amsterdam",
+   "title": "New Amsterdam"
+  },
+  "Q34404": {
+   "coord": [
+    -90.0783,
+    29.9761
+   ],
+   "classes": [
+    "Q1093829",
+    "Q1549591",
+    "Q3301053"
+   ],
+   "label": "New Orleans",
+   "title": "New Orleans"
+  },
+  "Q3224": {
+   "coord": [
+    147,
+    -32
+   ],
+   "classes": [
+    "Q5852411"
+   ],
+   "label": "New South Wales",
+   "title": "New South Wales"
+  },
+  "Q515229": {
+   "coord": [
+    134.6242,
+    7.5006
+   ],
+   "classes": [
+    "Q515",
+    "Q486972"
+   ],
+   "label": "Ngerulmud",
+   "title": "Ngerulmud"
+  },
+  "Q1217726": {
+   "coord": [
+    35.46,
+    -3.21
+   ],
+   "classes": [
+    "Q473972"
+   ],
+   "label": "Ngorongoro Conservation Area",
+   "title": "Ngorongoro Conservation Area"
+  },
+  "Q943637": {
+   "coord": [
+    20.7361,
+    39.008
+   ],
+   "classes": [
+    "Q839954",
+    "Q15661340",
+    "Q18247357"
+   ],
+   "label": "Nicopolis",
+   "title": "Nicopolis"
+  },
+  "Q188395": {
+   "coord": [
+    45.2308,
+    32.1261
+   ],
+   "classes": [
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Nippur",
+   "title": "Nippur"
+  },
+  "Q11629958": {
+   "coord": [
+    135.7519,
+    35.0297
+   ],
+   "classes": [
+    "Q123705"
+   ],
+   "label": "Nishijin",
+   "title": "Nishijin"
+  },
+  "Q27381": {
+   "coord": [
+    9.6817,
+    30.4407
+   ],
+   "classes": [
+    "Q82794",
+    "Q3502482"
+   ],
+   "label": "North Africa",
+   "title": "North Africa"
+  },
+  "Q37736": {
+   "coord": [
+    43.8318,
+    43.405
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "North Caucasus",
+   "title": "North Caucasus"
+  },
+  "Q9733": {
+   "coord": [
+    166.45,
+    -22.2667
+   ],
+   "classes": [
+    "Q1549591",
+    "Q84669937"
+   ],
+   "label": "Nouméa",
+   "title": "Nouméa"
+  },
+  "Q1136962": {
+   "coord": [
+    34.5,
+    47.5
+   ],
+   "classes": [
+    "Q183366"
+   ],
+   "label": "Novorossiya",
+   "title": "Novorossiya"
+  },
+  "Q470839": {
+   "coord": [
+    14.6739,
+    40.7431
+   ],
+   "classes": [
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Nuceria",
+   "title": "Nuceria Alfaterna"
+  },
+  "Q3346299": {
+   "coord": [
+    12.4249,
+    41.6504
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Numicus",
+   "title": "Numicus"
+  },
+  "Q454456": {
+   "coord": [
+    36.3333,
+    36.75
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Nur Mountains",
+   "title": "Nur Mountains"
+  },
+  "Q226": {
+   "coord": [
+    -51.7333,
+    64.175
+   ],
+   "classes": [
+    "Q515",
+    "Q51929311"
+   ],
+   "label": "Nuuk",
+   "title": "Nuuk"
+  },
+  "Q123510295": {
+   "coord": [
+    34.4519,
+    -0.3985
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Nyayanga",
+   "title": "Nyayanga"
+  },
+  "Q48809": {
+   "coord": [
+    -84.2625,
+    36.0133
+   ],
+   "classes": [
+    "Q1093829"
+   ],
+   "label": "Oak Ridge",
+   "title": "Oak Ridge, Tennessee"
+  },
+  "Q3073505": {
+   "coord": [
+    12.4671,
+    42.4113
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Ocriculum",
+   "title": "Ocriculum"
+  },
+  "Q1904": {
+   "coord": [
+    -85,
+    50
+   ],
+   "classes": [
+    "Q11828004"
+   ],
+   "label": "Ontario",
+   "title": "Ontario"
+  },
+  "Q131243": {
+   "coord": [
+    -70.0358,
+    12.5186
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Oranjestad",
+   "title": "Oranjestad"
+  },
+  "Q1753659": {
+   "coord": [
+    30.8475,
+    50.9361
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Oster River",
+   "title": "Oster (river)"
+  },
+  "Q2046019": {
+   "coord": [
+    -97.3678,
+    26.8445
+   ],
+   "classes": [
+    "Q23442",
+    "Q1205140"
+   ],
+   "label": "Padre Island",
+   "title": "Padre Island"
+  },
+  "Q329967": {
+   "coord": [
+    15.0056,
+    40.42
+   ],
+   "classes": [
+    "Q148837",
+    "Q839954",
+    "Q15661340",
+    "Q93342462"
+   ],
+   "label": "Paestum",
+   "title": "Paestum"
+  },
+  "Q2307647": {
+   "coord": [
+    37.6167,
+    55.7503
+   ],
+   "classes": [
+    "Q16560",
+    "Q2319498"
+   ],
+   "label": "Palace of Facets",
+   "title": "Palace of Facets"
+  },
+  "Q2031943": {
+   "coord": [
+    12.4715,
+    41.8967
+   ],
+   "classes": [
+    "Q15848826"
+   ],
+   "label": "Palazzo della Cancelleria",
+   "title": "Palazzo della Cancelleria"
+  },
+  "Q180918": {
+   "coord": [
+    32.4265,
+    34.7761
+   ],
+   "classes": [
+    "Q2561694",
+    "Q29556224"
+   ],
+   "label": "Paphos",
+   "title": "Paphos"
+  },
+  "Q1361247": {
+   "coord": [
+    116.9326,
+    34.7279
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Pei County",
+   "title": "Pei County"
+  },
+  "Q233129": {
+   "coord": [
+    -89.59,
+    40.6925
+   ],
+   "classes": [
+    "Q110071194"
+   ],
+   "label": "Peoria",
+   "title": "Peoria, Illinois"
+  },
+  "Q428732": {
+   "coord": [
+    26.7532,
+    38.6704
+   ],
+   "classes": [
+    "Q133442",
+    "Q148837",
+    "Q839954",
+    "Q2434238"
+   ],
+   "label": "Phocaea",
+   "title": "Phocaea"
+  },
+  "Q19890323": {
+   "coord": [
+    22.25,
+    38.5
+   ],
+   "classes": [
+    "Q1234255"
+   ],
+   "label": "Phocis Regional Unit",
+   "title": "Phocis"
+  },
+  "Q1447360": {
+   "coord": [
+    24.5046,
+    36.755
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Phylakopi",
+   "title": "Phylakopi"
+  },
+  "Q2092506": {
+   "coord": [
+    -105.7117,
+    36.2025
+   ],
+   "classes": [
+    "Q251749",
+    "Q498162",
+    "Q7840353"
+   ],
+   "label": "Picuris Pueblo",
+   "title": "Picuris Pueblo, New Mexico"
+  },
+  "Q1929568": {
+   "coord": [
+    -102.0892,
+    43.3533
+   ],
+   "classes": [
+    "Q5398059"
+   ],
+   "label": "Pine Ridge Indian Reservation",
+   "title": "Pine Ridge Indian Reservation"
+  },
+  "Q1814354": {
+   "coord": [
+    22.0895,
+    -34.2079
+   ],
+   "classes": [
+    "Q8502",
+    "Q839954"
+   ],
+   "label": "Pinnacle Point",
+   "title": "Pinnacle Point"
+  },
+  "Q13375": {
+   "coord": [
+    10.4,
+    43.7167
+   ],
+   "classes": [
+    "Q515",
+    "Q747074",
+    "Q1187811"
+   ],
+   "label": "Pisa",
+   "title": "Pisa"
+  },
+  "Q12757361": {
+   "coord": [
+    21.3647,
+    43.2106
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Pločnik",
+   "title": "Pločnik (archaeological site)"
+  },
+  "Q156654": {
+   "coord": [
+    18.3333,
+    54.35
+   ],
+   "classes": [
+    "Q1530361",
+    "Q1620908"
+   ],
+   "label": "Polish Corridor",
+   "title": "Polish Corridor"
+  },
+  "Q200797": {
+   "coord": [
+    28.8,
+    55.4833
+   ],
+   "classes": [
+    "Q79324274"
+   ],
+   "label": "Polatsak",
+   "title": "Polotsk"
+  },
+  "Q2372311": {
+   "coord": [
+    23.7188,
+    37.9782
+   ],
+   "classes": [
+    "Q44539",
+    "Q839954"
+   ],
+   "label": "Pompeion",
+   "title": "Pompeion"
+  },
+  "Q621672": {
+   "coord": [
+    37.83,
+    40.68
+   ],
+   "classes": [
+    "Q1414991",
+    "Q1620908"
+   ],
+   "label": "Pontus",
+   "title": "Pontus (region)"
+  },
+  "Q724394": {
+   "coord": [
+    23.4667,
+    37.5167
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Poros",
+   "title": "Poros"
+  },
+  "Q3799": {
+   "coord": [
+    2.6167,
+    6.4833
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Porto-Novo",
+   "title": "Porto-Novo"
+  },
+  "Q2107419": {
+   "coord": [
+    12.8923,
+    41.8395
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Praeneste",
+   "title": "Praeneste"
+  },
+  "Q842239": {
+   "coord": [
+    37.7254,
+    55.7972
+   ],
+   "classes": [
+    "Q4389092"
+   ],
+   "label": "Preobrazhenskoye District",
+   "title": "Preobrazhenskoye District"
+  },
+  "Q79931": {
+   "coord": [
+    -112.4685,
+    34.54
+   ],
+   "classes": [
+    "Q62049",
+    "Q1093829"
+   ],
+   "label": "Prescott",
+   "title": "Prescott, Arizona"
+  },
+  "Q1643807": {
+   "coord": [
+    25.4451,
+    35.1629
+   ],
+   "classes": [
+    "Q35509",
+    "Q839954",
+    "Q2232001"
+   ],
+   "label": "Dikteon Andron",
+   "title": "Psychro Cave"
+  },
+  "Q4384906": {
+   "coord": [
+    -111.9842,
+    33.4464
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Pueblo Grande Ruin and Irrigation Sites",
+   "title": "Pueblo Grande Ruin and Irrigation Sites"
+  },
+  "Q182378": {
+   "coord": [
+    101.69,
+    2.93
+   ],
+   "classes": [
+    "Q171441",
+    "Q1008803",
+    "Q1306755",
+    "Q15840617"
+   ],
+   "label": "Putrajaya",
+   "title": "Putrajaya"
+  },
+  "Q207896": {
+   "coord": [
+    12.4883,
+    41.9011
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Quirinal Hill",
+   "title": "Quirinal Hill"
+  },
+  "Q152243": {
+   "coord": [
+    6.8607,
+    50.277
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Rhineland",
+   "title": "Rhineland"
+  },
+  "Q203409": {
+   "coord": [
+    41.6361,
+    42.1842
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Rioni",
+   "title": "Rioni"
+  },
+  "Q216373": {
+   "coord": [
+    -2.1304,
+    54.9888
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "River Tyne",
+   "title": "River Tyne"
+  },
+  "Q179431": {
+   "coord": [
+    -64.6167,
+    18.4333
+   ],
+   "classes": [
+    "Q3957",
+    "Q486972"
+   ],
+   "label": "Road Town",
+   "title": "Road Town"
+  },
+  "Q185103": {
+   "coord": [
+    -0.57,
+    52.22
+   ],
+   "classes": [
+    "Q182547"
+   ],
+   "label": "Roman Britain",
+   "title": "Roman Britain"
+  },
+  "Q202311": {
+   "coord": [
+    32.1,
+    28
+   ],
+   "classes": [
+    "Q182547"
+   ],
+   "label": "Roman Egypt",
+   "title": "Roman Egypt"
+  },
+  "Q207118": {
+   "coord": [
+    36.15,
+    36.2
+   ],
+   "classes": [
+    "Q182547"
+   ],
+   "label": "Roman Syria",
+   "title": "Roman Syria"
+  },
+  "Q537577": {
+   "coord": [
+    32.605,
+    25.7368
+   ],
+   "classes": [
+    "Q381885",
+    "Q665247"
+   ],
+   "label": "TT320",
+   "title": "Royal Cache"
+  },
+  "Q609176": {
+   "coord": [
+    147.4,
+    65.5
+   ],
+   "classes": [
+    "Q15642541"
+   ],
+   "label": "Russian Far East",
+   "title": "Russian Far East"
+  },
+  "Q788556": {
+   "coord": [
+    31.2979,
+    58.4942
+   ],
+   "classes": [
+    "Q88598",
+    "Q839954"
+   ],
+   "label": "Rurikovo Gorodische",
+   "title": "Ryurikovo Gorodishche"
+  },
+  "Q160420": {
+   "coord": [
+    130.2994,
+    33.2492
+   ],
+   "classes": [
+    "Q50337"
+   ],
+   "label": "Saga Prefecture",
+   "title": "Saga Prefecture"
+  },
+  "Q612253": {
+   "coord": [
+    138.8522,
+    35.4283
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Sagami River",
+   "title": "Sagami River"
+  },
+  "Q185678": {
+   "coord": [
+    -56.1778,
+    46.7778
+   ],
+   "classes": [
+    "Q486972",
+    "Q84599126"
+   ],
+   "label": "Saint-Pierre",
+   "title": "Saint-Pierre, Saint Pierre and Miquelon"
+  },
+  "Q174262": {
+   "coord": [
+    -2.5519,
+    49.46
+   ],
+   "classes": [
+    "Q515",
+    "Q4976993"
+   ],
+   "label": "Saint Peter Port",
+   "title": "Saint Peter Port"
+  },
+  "Q128186": {
+   "coord": [
+    139.6492,
+    35.8572
+   ],
+   "classes": [
+    "Q50337"
+   ],
+   "label": "Saitama Prefecture",
+   "title": "Saitama Prefecture"
+  },
+  "Q6494": {
+   "coord": [
+    66.6333,
+    66.5333
+   ],
+   "classes": [
+    "Q7930989",
+    "Q56580326"
+   ],
+   "label": "Salekhard",
+   "title": "Salekhard"
+  },
+  "Q1083": {
+   "coord": [
+    14.7594,
+    40.6806
+   ],
+   "classes": [
+    "Q515",
+    "Q747074",
+    "Q1549591"
+   ],
+   "label": "Salerno",
+   "title": "Salerno"
+  },
+  "Q1341271": {
+   "coord": [
+    -112.313,
+    33.3811
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Salt River",
+   "title": "Salt River (Arizona)"
+  },
+  "Q208267": {
+   "coord": [
+    3.8414,
+    50.0303
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Sambre",
+   "title": "Sambre"
+  },
+  "Q1084625": {
+   "coord": [
+    14.4667,
+    40.7333
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Sarno",
+   "title": "Sarno (river)"
+  },
+  "Q213965": {
+   "coord": [
+    -3.05,
+    58.9
+   ],
+   "classes": [
+    "Q39594"
+   ],
+   "label": "Scapa Flow",
+   "title": "Scapa Flow"
+  },
+  "Q501661": {
+   "coord": [
+    9.5697,
+    54.5153
+   ],
+   "classes": [
+    "Q42744322"
+   ],
+   "label": "Schleswig",
+   "title": "Schleswig, Schleswig-Holstein"
+  },
+  "Q3511003": {
+   "coord": [
+    -15.05,
+    13.8167
+   ],
+   "classes": [
+    "Q107425",
+    "Q1970725",
+    "Q3502482"
+   ],
+   "label": "Senegambia",
+   "title": "Senegambia"
+  },
+  "Q521646": {
+   "coord": [
+    29.8969,
+    31.1819
+   ],
+   "classes": [
+    "Q44539",
+    "Q281132",
+    "Q867143"
+   ],
+   "label": "Serapeum of Alexandria",
+   "title": "Serapeum of Alexandria"
+  },
+  "Q1548392": {
+   "coord": [
+    34.4826,
+    31.2825
+   ],
+   "classes": [
+    "Q12404340",
+    "Q15661340"
+   ],
+   "label": "Sharuhen",
+   "title": "Sharuhen"
+  },
+  "Q7334692": {
+   "coord": [
+    116.3914,
+    39.905
+   ],
+   "classes": [
+    "Q839328"
+   ],
+   "label": "Shuntian Fu",
+   "title": "Shuntian Prefecture"
+  },
+  "Q1012627": {
+   "coord": [
+    116.6536,
+    35.2253
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Si River",
+   "title": "Si River"
+  },
+  "Q1322486": {
+   "coord": [
+    31.0859,
+    -29.5226
+   ],
+   "classes": [
+    "Q35509",
+    "Q839954",
+    "Q1149405"
+   ],
+   "label": "Sibudu Cave",
+   "title": "Sibudu Cave"
+  },
+  "Q2751": {
+   "coord": [
+    11.3314,
+    43.3183
+   ],
+   "classes": [
+    "Q515",
+    "Q747074",
+    "Q1187811"
+   ],
+   "label": "Siena",
+   "title": "Siena"
+  },
+  "Q163820": {
+   "coord": [
+    -122.0675,
+    37.3775
+   ],
+   "classes": [
+    "Q2399626",
+    "Q7631958"
+   ],
+   "label": "Silicon Valley",
+   "title": "Silicon Valley"
+  },
+  "Q36755": {
+   "coord": [
+    34,
+    29.5
+   ],
+   "classes": [
+    "Q8514",
+    "Q34763"
+   ],
+   "label": "Sinai Peninsula",
+   "title": "Sinai Peninsula"
+  },
+  "Q3392954": {
+   "coord": [
+    22.8056,
+    40.6706
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Sindos",
+   "title": "Sindos"
+  },
+  "Q757169": {
+   "coord": [
+    62,
+    31
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Sistan",
+   "title": "Sistan"
+  },
+  "Q1495996": {
+   "coord": [
+    25.2824,
+    36.7317
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Skarkos",
+   "title": "Skarkos"
+  },
+  "Q1378602": {
+   "coord": [
+    127.7306,
+    35.3378
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Sobaek Mountains",
+   "title": "Sobaek Mountains"
+  },
+  "Q195413": {
+   "coord": [
+    -3.6667,
+    54.75
+   ],
+   "classes": [
+    "Q39594",
+    "Q45776"
+   ],
+   "label": "Solway Firth",
+   "title": "Solway Firth"
+  },
+  "Q771405": {
+   "coord": [
+    72.2,
+    26.9
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "South Asia",
+   "title": "South Asia"
+  },
+  "Q11708": {
+   "coord": [
+    105.1,
+    12
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Southeast Asia",
+   "title": "Southeast Asia"
+  },
+  "Q49042": {
+   "coord": [
+    -89.5,
+    33.9
+   ],
+   "classes": [
+    "Q518261",
+    "Q57766005",
+    "Q123615496"
+   ],
+   "label": "Southern United States",
+   "title": "Southern United States"
+  },
+  "Q2416732": {
+   "coord": [
+    37.6214,
+    55.7525
+   ],
+   "classes": [
+    "Q685204",
+    "Q853854",
+    "Q2319498"
+   ],
+   "label": "Spasskaya Tower",
+   "title": "Spasskaya Tower"
+  },
+  "Q41963": {
+   "coord": [
+    79.9164,
+    6.9
+   ],
+   "classes": [
+    "Q129319315"
+   ],
+   "label": "Sri Jayawardenepura Kotte",
+   "title": "Sri Jayawardenepura Kotte"
+  },
+  "Q7593137": {
+   "coord": [
+    0.3684,
+    51.4441
+   ],
+   "classes": [
+    "Q16970"
+   ],
+   "label": "St George's Church, Gravesend",
+   "title": "St George's Church, Gravesend"
+  },
+  "Q3495342": {
+   "coord": [
+    -0.1731,
+    51.5172
+   ],
+   "classes": [
+    "Q1059324"
+   ],
+   "label": "St Mary's Hospital",
+   "title": "St Mary's Hospital, London"
+  },
+  "Q3028848": {
+   "coord": [
+    -101.2,
+    45.75
+   ],
+   "classes": [
+    "Q5398059"
+   ],
+   "label": "Standing Rock Indian Reservation",
+   "title": "Standing Rock Sioux Reservation"
+  },
+  "Q1510781": {
+   "coord": [
+    -2.2827,
+    55.0052
+   ],
+   "classes": [
+    "Q194029",
+    "Q14752696"
+   ],
+   "label": "Stanegate",
+   "title": "Stanegate"
+  },
+  "Q12245": {
+   "coord": [
+    -57.8496,
+    -51.6939
+   ],
+   "classes": [
+    "Q5119",
+    "Q56061",
+    "Q141763519"
+   ],
+   "label": "Stanley",
+   "title": "Stanley, Falkland Islands"
+  },
+  "Q3388829": {
+   "coord": [
+    -71.0569,
+    42.3589
+   ],
+   "classes": [
+    "Q79007"
+   ],
+   "label": "State Street",
+   "title": "State Street (Boston)"
+  },
+  "Q1476862": {
+   "coord": [
+    27.7346,
+    -26.016
+   ],
+   "classes": [
+    "Q35509",
+    "Q473972",
+    "Q839954",
+    "Q9096832"
+   ],
+   "label": "Sterkfontein",
+   "title": "Sterkfontein"
+  },
+  "Q2621779": {
+   "coord": [
+    30.018,
+    50.1004
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Stuhna River",
+   "title": "Stuhna"
+  },
+  "Q1501150": {
+   "coord": [
+    33.0167,
+    49.1833
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Sula River",
+   "title": "Sula (Dnieper)"
+  },
+  "Q1058501": {
+   "coord": [
+    -100,
+    32
+   ],
+   "classes": [
+    "Q123615496"
+   ],
+   "label": "Sun Belt",
+   "title": "Sun Belt"
+  },
+  "Q15757": {
+   "coord": [
+    40.4489,
+    56.4211
+   ],
+   "classes": [
+    "Q7930989",
+    "Q106389302"
+   ],
+   "label": "Suzdal",
+   "title": "Suzdal"
+  },
+  "Q11812551": {
+   "coord": [
+    10,
+    48.4
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Swabia",
+   "title": "Swabia"
+  },
+  "Q7653482": {
+   "coord": [
+    -146.0739,
+    64.2733
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Swan Point Archaeological Site",
+   "title": "Swan Point Archaeological Site"
+  },
+  "Q2302325": {
+   "coord": [
+    -71.1903,
+    41.7481
+   ],
+   "classes": [
+    "Q15127012"
+   ],
+   "label": "Swansea",
+   "title": "Swansea, Massachusetts"
+  },
+  "Q211230": {
+   "coord": [
+    24.9,
+    37.45
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Syros",
+   "title": "Syros"
+  },
+  "Q3512436": {
+   "coord": [
+    32.6034,
+    25.7255
+   ],
+   "classes": [
+    "Q381885",
+    "Q839954"
+   ],
+   "label": "TT40",
+   "title": "TT40"
+  },
+  "Q3531157": {
+   "coord": [
+    32.6,
+    25.7333
+   ],
+   "classes": [
+    "Q381885",
+    "Q839954"
+   ],
+   "label": "TT69",
+   "title": "TT69"
+  },
+  "Q2080025": {
+   "coord": [
+    32.8889,
+    24.09
+   ],
+   "classes": [
+    "Q223706"
+   ],
+   "label": "Ta-Seti",
+   "title": "Ta-Seti"
+  },
+  "Q330618": {
+   "coord": [
+    125.2642,
+    38.6861
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Taedong River",
+   "title": "Taedong River"
+  },
+  "Q17226122": {
+   "coord": [
+    129.7722,
+    33.4269
+   ],
+   "classes": [
+    "Q11558926"
+   ],
+   "label": "Takashima Kōzaki Site",
+   "title": "Takashima Kōzaki Site"
+  },
+  "Q841915": {
+   "coord": [
+    -147,
+    64.4
+   ],
+   "classes": [
+    "Q39816"
+   ],
+   "label": "Tanana Valley",
+   "title": "Tanana Valley"
+  },
+  "Q696228": {
+   "coord": [
+    130.9811,
+    30.5739
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Tanegashima",
+   "title": "Tanegashima"
+  },
+  "Q515809": {
+   "coord": [
+    22.35,
+    36.9535
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Taygetus",
+   "title": "Taygetus"
+  },
+  "Q2402271": {
+   "coord": [
+    34.8467,
+    31.6994
+   ],
+   "classes": [
+    "Q12232785"
+   ],
+   "label": "Tell es-Safi",
+   "title": "Tell es-Safi"
+  },
+  "Q3983175": {
+   "coord": [
+    12.8253,
+    37.5832
+   ],
+   "classes": [
+    "Q109607",
+    "Q267596",
+    "Q839954"
+   ],
+   "label": "Temple C",
+   "title": "Temple C (Selinus)"
+  },
+  "Q2654754": {
+   "coord": [
+    19.9183,
+    39.6072
+   ],
+   "classes": [
+    "Q267596",
+    "Q839954"
+   ],
+   "label": "Temple of Artemis",
+   "title": "Temple of Artemis, Corfu"
+  },
+  "Q22350866": {
+   "coord": [
+    32.95,
+    23.3831
+   ],
+   "classes": [
+    "Q839954",
+    "Q22674925"
+   ],
+   "label": "Dendur",
+   "title": "Temple of Dendur"
+  },
+  "Q7698721": {
+   "coord": [
+    32.2622,
+    22.7325
+   ],
+   "classes": [
+    "Q855747"
+   ],
+   "label": "Temple of Derr",
+   "title": "Temple of Derr"
+  },
+  "Q2288275": {
+   "coord": [
+    12.4791,
+    41.8972
+   ],
+   "classes": [
+    "Q44539",
+    "Q109607",
+    "Q839954"
+   ],
+   "label": "Temple of Isis and Serapis",
+   "title": "Temple of Isis and Serapis"
+  },
+  "Q11704302": {
+   "coord": [
+    32.8673,
+    23.9609
+   ],
+   "classes": [
+    "Q44539",
+    "Q855747"
+   ],
+   "label": "Temple of Kalabsha",
+   "title": "Temple of Kalabsha"
+  },
+  "Q547795": {
+   "coord": [
+    -157.8167,
+    21.3
+   ],
+   "classes": [
+    "Q1620919",
+    "Q19953632",
+    "Q26934845"
+   ],
+   "label": "Territory of Hawaii",
+   "title": "Territory of Hawaii"
+  },
+  "Q170361": {
+   "coord": [
+    6.8333,
+    49.3833
+   ],
+   "classes": [
+    "Q426759"
+   ],
+   "label": "Territory of the Saar Basin",
+   "title": "Territory of the Saar Basin"
+  },
+  "Q11208": {
+   "coord": [
+    -77.055,
+    38.8708
+   ],
+   "classes": [
+    "Q1021645",
+    "Q5611017",
+    "Q16831714",
+    "Q47272186"
+   ],
+   "label": "The Pentagon",
+   "title": "The Pentagon"
+  },
+  "Q30994": {
+   "coord": [
+    -63.0517,
+    18.2208
+   ],
+   "classes": [
+    "Q515",
+    "Q16678127"
+   ],
+   "label": "The Valley",
+   "title": "The Valley, Anguilla"
+  },
+  "Q768515": {
+   "coord": [
+    32.9543,
+    23.9362
+   ],
+   "classes": [
+    "Q3455524"
+   ],
+   "label": "Thebaid",
+   "title": "Thebaid"
+  },
+  "Q1141295": {
+   "coord": [
+    23.1583,
+    38.3036
+   ],
+   "classes": [
+    "Q515",
+    "Q148837",
+    "Q839954",
+    "Q22674925"
+   ],
+   "label": "Thespiae",
+   "title": "Thespiae"
+  },
+  "Q1153959": {
+   "coord": [
+    31.9,
+    26.3333
+   ],
+   "classes": [
+    "Q2974842"
+   ],
+   "label": "Thinis",
+   "title": "Thinis"
+  },
+  "Q41741": {
+   "coord": [
+    26,
+    42
+   ],
+   "classes": [
+    "Q1620908",
+    "Q28171280"
+   ],
+   "label": "Thrace",
+   "title": "Thrace"
+  },
+  "Q16611485": {
+   "coord": [
+    22.7556,
+    37.7308
+   ],
+   "classes": [
+    "Q261201"
+   ],
+   "label": "Tomb of Aegisthus",
+   "title": "Tomb of Aegisthus"
+  },
+  "Q16831618": {
+   "coord": [
+    22.755,
+    37.7307
+   ],
+   "classes": [
+    "Q261201"
+   ],
+   "label": "Tomb of Clytemnestra",
+   "title": "Tomb of Clytemnestra"
+  },
+  "Q1615667": {
+   "coord": [
+    31.4255,
+    50.0294
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Trubizh River",
+   "title": "Trubizh"
+  },
+  "Q18575": {
+   "coord": [
+    -110.9264,
+    32.2217
+   ],
+   "classes": [
+    "Q62049",
+    "Q1093829",
+    "Q1549591"
+   ],
+   "label": "Tucson",
+   "title": "Tucson, Arizona"
+  },
+  "Q55499": {
+   "coord": [
+    128.1822,
+    41.9694
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Tumen River",
+   "title": "Tumen River"
+  },
+  "Q265670": {
+   "coord": [
+    27.7297,
+    52.0717
+   ],
+   "classes": [
+    "Q79324274"
+   ],
+   "label": "Turov",
+   "title": "Turov, Belarus"
+  },
+  "Q1273": {
+   "coord": [
+    11.2,
+    43.45
+   ],
+   "classes": [
+    "Q16110"
+   ],
+   "label": "Tuscany",
+   "title": "Tuscany"
+  },
+  "Q2019115": {
+   "coord": [
+    30.3505,
+    46.2009
+   ],
+   "classes": [
+    "Q148837",
+    "Q486972",
+    "Q839954"
+   ],
+   "label": "Tyras",
+   "title": "Tyras"
+  },
+  "Q10704": {
+   "coord": [
+    -6.7713,
+    62.0098
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Tórshavn",
+   "title": "Tórshavn"
+  },
+  "Q203751": {
+   "coord": [
+    32.7,
+    24.1
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Upper Egypt",
+   "title": "Upper Egypt"
+  },
+  "Q81011": {
+   "coord": [
+    18.0324,
+    50.4338
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Upper Silesia",
+   "title": "Upper Silesia"
+  },
+  "Q33986": {
+   "coord": [
+    -71.6197,
+    -33.0461
+   ],
+   "classes": [
+    "Q11204",
+    "Q1549591",
+    "Q2264924",
+    "Q25412763"
+   ],
+   "label": "Valparaíso",
+   "title": "Valparaíso"
+  },
+  "Q20109102": {
+   "coord": [
+    12.7772,
+    41.6874
+   ],
+   "classes": [
+    "Q515",
+    "Q839954",
+    "Q15661340"
+   ],
+   "label": "Velitrae",
+   "title": "Velitrae"
+  },
+  "Q713628": {
+   "coord": [
+    -77.0478,
+    38.8911
+   ],
+   "classes": [
+    "Q575759",
+    "Q1967454",
+    "Q35989030"
+   ],
+   "label": "Vietnam Veterans Memorial",
+   "title": "Vietnam Veterans Memorial"
+  },
+  "Q1231824": {
+   "coord": [
+    21.1666,
+    44.7165
+   ],
+   "classes": [
+    "Q213468",
+    "Q839954"
+   ],
+   "label": "Viminacium",
+   "title": "Viminacium"
+  },
+  "Q216085": {
+   "coord": [
+    12.4942,
+    41.8992
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Viminal Hill",
+   "title": "Viminal Hill"
+  },
+  "Q2575777": {
+   "coord": [
+    34,
+    22.5
+   ],
+   "classes": [
+    "Q39816",
+    "Q187971"
+   ],
+   "label": "Wadi Allaqi",
+   "title": "Wadi Allaqi"
+  },
+  "Q740865": {
+   "coord": [
+    31.3775,
+    21.7928
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Wadi Halfa",
+   "title": "Wadi Halfa"
+  },
+  "Q7960797": {
+   "coord": [
+    139.5504,
+    35.3163
+   ],
+   "classes": [
+    "Q667783",
+    "Q1006835"
+   ],
+   "label": "Wakamiya Ōji",
+   "title": "Wakamiya Ōji"
+  },
+  "Q1248150": {
+   "coord": [
+    -1.5311,
+    54.9913
+   ],
+   "classes": [
+    "Q3957",
+    "Q7897276"
+   ],
+   "label": "Wallsend",
+   "title": "Wallsend"
+  },
+  "Q4412": {
+   "coord": [
+    3,
+    12
+   ],
+   "classes": [
+    "Q82794",
+    "Q3502482"
+   ],
+   "label": "West Africa",
+   "title": "West Africa"
+  },
+  "Q323420": {
+   "coord": [
+    6.5701,
+    52.9217
+   ],
+   "classes": [
+    "Q328468",
+    "Q575759",
+    "Q1264690",
+    "Q5996900"
+   ],
+   "label": "Westerbork Transit Camp",
+   "title": "Westerbork transit camp"
+  },
+  "Q71551737": {
+   "coord": [
+    30.4099,
+    19.6008
+   ],
+   "classes": [
+    "Q57821"
+   ],
+   "label": "Western deffufa",
+   "title": "Western Deffufa"
+  },
+  "Q27496": {
+   "coord": [
+    2.5369,
+    47.4093
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Western Europe",
+   "title": "Western Europe"
+  },
+  "Q12612": {
+   "coord": [
+    -113,
+    40
+   ],
+   "classes": [
+    "Q123615496"
+   ],
+   "label": "Western United States",
+   "title": "Western United States"
+  },
+  "Q357761": {
+   "coord": [
+    15.4049,
+    48.3226
+   ],
+   "classes": [
+    "Q11183787"
+   ],
+   "label": "Willendorf in der Wachau",
+   "title": "Willendorf in der Wachau"
+  },
+  "Q2011497": {
+   "coord": [
+    -2.239,
+    53.325
+   ],
+   "classes": [
+    "Q3957",
+    "Q1115575"
+   ],
+   "label": "Wilmslow",
+   "title": "Wilmslow"
+  },
+  "Q1839733": {
+   "coord": [
+    -102.545,
+    43.4364
+   ],
+   "classes": [
+    "Q47521"
+   ],
+   "label": "Wounded Knee Creek",
+   "title": "Wounded Knee Creek"
+  },
+  "Q3107990": {
+   "coord": [
+    114.9959,
+    35.701
+   ],
+   "classes": [
+    "Q10300916"
+   ],
+   "label": "Xishuipo",
+   "title": "Xishuipo"
+  },
+  "Q31026": {
+   "coord": [
+    166.9209,
+    -0.5477
+   ],
+   "classes": [
+    "Q3957",
+    "Q319796",
+    "Q129319205"
+   ],
+   "label": "Yaren District",
+   "title": "Yaren"
+  },
+  "Q1126808": {
+   "coord": [
+    37.6403,
+    55.7472
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Yauza",
+   "title": "Yauza (river)"
+  },
+  "Q489956": {
+   "coord": [
+    126.3559,
+    34.7893
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Yeongsan River",
+   "title": "Yeongsan River"
+  },
+  "Q102728": {
+   "coord": [
+    2.885,
+    50.8508
+   ],
+   "classes": [
+    "Q493522",
+    "Q15273785"
+   ],
+   "label": "Ypres",
+   "title": "Ypres"
+  },
+  "Q534611": {
+   "coord": [
+    31.2,
+    29.9
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Zawyet el'Aryan",
+   "title": "Zawyet El Aryan"
+  },
+  "Q27494": {
+   "coord": [
+    7.7461,
+    46.0193
+   ],
+   "classes": [
+    "Q70208",
+    "Q581830",
+    "Q54935504"
+   ],
+   "label": "Zermatt",
+   "title": "Zermatt"
+  },
+  "Q198244": {
+   "coord": [
+    115.9918,
+    39.4887
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Zhuozhou",
+   "title": "Zhuozhou"
+  },
+  "Q327895": {
+   "coord": [
+    19.4414,
+    51.8014
+   ],
+   "classes": [
+    "Q2583015"
+   ],
+   "label": "Łódź Ghetto",
+   "title": "Łódź Ghetto"
+  },
+  "Q423525": {
+   "coord": [
+    -157.859,
+    21.3066
+   ],
+   "classes": [
+    "Q16560"
+   ],
+   "label": "ʻIolani Palace",
+   "title": "ʻIolani Palace"
   }
  },
  "links": {
