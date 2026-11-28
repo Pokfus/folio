@@ -32,6 +32,8 @@
    entity or a country (a people with no face gets nothing: a dot is not a people); and a term tagged an event, a person or a thing (`event`, `war`, `treaty`, `battle`, `person`, `ruler`, `deity`, `concept`,
    `practice`, `object`, `text`, `institution`, `fossil`, `hominin`, `title`, `law`, `theory`, `industry`) NEVER gets one, whatever its other tags — a tag to fix, not a rule to bend. The pin's own 211 terms
    (the points and the countries of the input file) keep their pin and get a window regardless: they are places by construction.
+    (2026-11-28) The input's `reviewed` table — slug → registry id — gives a pin and a window to a term tagged a place whose title or alias names a registry row, each pair read by hand
+   (docs/glossary-atlas-windows.md §0 "The reviewed table"); it still obeys THE RULE (a term whose tags stop making it a location is left out and listed).
    A term the cards place by a locator COORDINATE only (no registry row; every such card within 25 km) gets a window at that coordinate, kind "coord", and no pin.
    NOTHING IS GUESSED: a term whose cards disagree (two rows named for it farther than 25 km apart, or coordinates that disagree) is left out and listed.
 
@@ -226,10 +228,19 @@ function build(opts) {
   const GW = require(path.join(ROOT, ".claude", "gloss-io.js")).loadGlossary();
   const terms = {}; for (const k of Object.keys(GW.GLOSSARY || {})) terms[k] = { tags: [].concat((GW.GLOSSARY_TAGS || {})[k] || []), aliases: [].concat((GW.GLOSSARY_ALIASES || {})[k] || []) };
   const cards = require(path.join(ROOT, ".claude", "card-io.js")).loadCards();
-  const J = joinCards({ terms, cards: Array.isArray(cards) ? cards : cards.cards || [], reg, fold: R.fold, pinned: T.ids });
+  /* the reviewed table (2026-11-28): slug → registry id, a place term matched by name to a registry row and read by hand; a polity id is a window only */
+  const V = {}; for (const slug of Object.keys(w.reviewed || {}).sort()) {
+    const id = w.reviewed[slug];
+    if (!reg.rows.has(id)) T.left.push({ slug, via: "reviewed", why: "the reviewed id " + id + " is not in the registry" });
+    else if (!(GW.GLOSSARY || {}).hasOwnProperty(slug)) T.left.push({ slug, via: "reviewed", why: "no glossary term has this slug" });
+    else if (!locationClass(terms[slug].tags)) T.left.push({ slug, via: "reviewed", why: "its tags no longer make it a location" });
+    else V[slug] = id;
+  }
+  const J = joinCards({ terms, cards: Array.isArray(cards) ? cards : cards.cards || [], reg, fold: R.fold, pinned: Object.assign({}, V, T.ids) });
   const ids = Object.assign({}, T.ids);
   for (const k of Object.keys(J.ids)) if (!ENTITY_KINDS.includes(reg.rows.get(J.ids[k]).kind)) ids[k] = J.ids[k];   // a polity is a window, never a pin
-  const allIds = Object.assign({}, J.ids, T.ids);
+  for (const k of Object.keys(V)) if (!ids[k] && !ENTITY_KINDS.includes(reg.rows.get(V[k]).kind)) ids[k] = V[k];
+  const allIds = Object.assign({}, J.ids, V, T.ids);
   /* the frames: card-faces.js's boxes for a present-day face, history.bin for an entity at its greatest extent */
   const cfw = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "card-faces.js"), "utf8"))(cfw);
   const F = require(path.join(ROOT, "atlas", "atlas-format.js"));

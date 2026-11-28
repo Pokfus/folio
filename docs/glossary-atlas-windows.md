@@ -52,6 +52,31 @@ a state's window stays today's map, centred and named. Tiers 3, 5 and 6 of §2 a
 a Wikidata pass remain the way to the other 900 location terms. A term wrongly tagged (a river tagged `event`) gets no window
 until retagged — the rule is strict by design.
 
+**The reviewed table (2026-11-28).** Tier 5 of §2, read by hand: `glossary-places-input.json` gained `reviewed` — slug → registry
+id — for **318 terms** tagged a place whose title or alias is the name of a registry row and that had no window (world and US state
+capitals, Chinese, Indian and Russian cities, rivers, seas, islands, ranges, regions, Scotland and Wales as faces, Scythia and the
+state of Zhao at their greatest extent; and Black Sea, Rhodes, Volga, Abydos, Georgia (state) and Tula, which the cards' join had
+left out). Each gets a pin and a window (a polity a window only); the table still obeys THE RULE (a term retagged out is left out and
+listed). Rejected on reading, 24: the four continents (a name alone at the locator's zoom shows nothing), a wrong namesake (Charleston
+SC → Charleston WV, Portland ME → Portland OR, Ontario → the lake, Yukon → the river, Larisa of Argos → Larissa in Thessaly, Kumamoto
+Prefecture → the city, Lake Beloye → a Louisiana lake…), a biome (Savanna), an animal (Sturgeon), an extent (Messenia), a polity for a
+city (Pisa) or a region (Pontus). Windows: 1,786 → 2,104; the file 119 → 143 KB, still lazy. About 800 place terms match no registry
+row by name — Tier 6, a Wikidata lookup each — and remain without a window.
+
+**Batch 2 (2026-11-28): Tier 6, through Wikidata.** For the place terms still without a window, the slug read as an English
+Wikipedia title: 55 are a registry row's own `wiki` title (Russian oblasts and republics as faces, Victoria, Hamilton, Punjab…); for
+the rest the query service gave the item, its coordinate and its classes, and **396 new registry rows** were written to
+`places-spec.json` exactly as `add-place.js` writes one (`manual: true`, the service's coordinate, the kind by `migrate-places.js`
+`kindOf` — the first-match rule — with a camp, a ghetto or a necropolis taken as a `site`, the Golden Horn a gulf and a county a
+region where the classes offer it), each with the reason "the glossary term …". So `reviewed` holds 769 terms; windows 2,104 → 2,555;
+`places.js` 67 → 97 KB (300 KB budget), `glossary-places.js` 179 KB. Nine cards whose own locator names one of the new rows (the
+Dormition Cathedral, Peoria, Kawa, Canopus, Kalinovka) were given it with `add-places.js`, as `migrate-places.js --check` asks.
+Left out on reading, 31: the continents and East Asia; a namesake (Dover → England for Delaware's capital; Krisa → a village in
+Papua New Guinea); a line drawn as a point (the Great Wall, the Erie Canal, the Inca roads, the inner German border, the Nile
+cataracts); Spanish Texas and Roman Africa (the item's point is not the province); and every item whose classes the taxonomy does
+not map (geological formations, a plantation, a prison, a hippodrome… — `add-place.js` refuses those too). About 170 slugs are not a
+Wikipedia title and 175 items have no coordinate (mostly generic terms: an agora, a stoa, a dolmen); they remain without a window.
+
 ## 1. What the window would be (the design, as examined before building)
 
 **The contract, as asked.** Inside a glossary popup (`.gloss-win`, 375 px wide on a desktop, a sheet on a phone), a map

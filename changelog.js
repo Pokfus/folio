@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1436", released: "2026-11-28T04:40Z" };
+window.FOLIO_VERSION = { v: "1.1438", released: "2026-11-28T04:46Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-28",
-    t: "Portraits, 23 glossary terms, four games resting, numbers as numerals",
+    t: "India to the Guptas, portraits, glossary maps, four games resting",
     items: [
+      "<b>100 new cards</b> in the India collection, from the first sermon and Jainism through the Mauryas and Ashoka to the Gupta age, with 79 new glossary terms.",
       "<b>100 cards gain a picture</b>: portraits across China, Ancient Greece, Ancient Rome, Russia, Ancient Egypt, World History, Psychology and three more.",
       "<b>23 new glossary terms</b>, and new glossary links on 8 cards in World History, Philosophy and Palaeontology.",
       "5 World History cards corrected: a new picture, a longer quotation, a fuller date line and figures written as numbers.",
@@ -50,6 +51,7 @@ window.CHANGELOG = [
       "<b>Common Thread</b> now uses only level 1 terms.",
       "Admins can edit each minigame's questions and answers in a new <b>Minigames</b> tab.",
       "The Russian stress-mark card shows the accent alone, and a speaker now says when the device has no voice for the card's language.",
+      "<b>769 more glossary terms</b> for places — cities, rivers, seas, islands, regions, sites and buildings — now show a small Atlas map in their popup.",
     ],
   },
   {
