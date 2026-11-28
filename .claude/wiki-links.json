@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T23:53Z",
+ "generated": "2026-11-28T04:10Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 9180,
-  "redirect-broader": 874,
-  "redirect-variant": 523,
-  "section-redirect": 206,
+  "ok": 9259,
+  "redirect-broader": 879,
+  "redirect-variant": 531,
+  "section-redirect": 210,
   "disambiguation": 166,
-  "none": 1296,
+  "none": 1300,
   "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
@@ -98382,6 +98382,769 @@
    "via": "answer",
    "status": "redirect-variant",
    "from": "Soviet montage"
+  },
+  "in-151": {
+   "answer": "Shunga Empire",
+   "title": "Shunga Empire",
+   "url": "https://en.wikipedia.org/wiki/Shunga_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-152": {
+   "answer": "Pushyamitra Shunga",
+   "title": "Pushyamitra Shunga",
+   "url": "https://en.wikipedia.org/wiki/Pushyamitra_Shunga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-153": {
+   "answer": "Bharhut",
+   "title": "Bharhut",
+   "url": "https://en.wikipedia.org/wiki/Bharhut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-154": {
+   "answer": "Torana",
+   "title": "Torana (architecture)",
+   "url": "https://en.wikipedia.org/wiki/Torana_(architecture)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Torana"
+  },
+  "in-155": {
+   "answer": "Indo-Greek Kingdom",
+   "title": "Indo-Greek Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Indo-Greek_Kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-156": {
+   "answer": "Menander I",
+   "title": "Menander I",
+   "url": "https://en.wikipedia.org/wiki/Menander_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-157": {
+   "answer": "Milinda Panha",
+   "title": "Milinda Panha",
+   "url": "https://en.wikipedia.org/wiki/Milinda_Panha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-158": {
+   "answer": "Indo-Greek coinage",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Indo-Greek coinage",
+   "target": "Coinage of India#Coins of the Indo-Greeks"
+  },
+  "in-159": {
+   "answer": "Indo-Scythians",
+   "title": "Indo-Scythian Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Indo-Scythian_Kingdom",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Indo-Scythians"
+  },
+  "in-160": {
+   "answer": "Indo-Parthian Kingdom",
+   "title": "Indo-Parthian kingdom",
+   "url": "https://en.wikipedia.org/wiki/Indo-Parthian_kingdom",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Indo-Parthian Kingdom"
+  },
+  "in-111": {
+   "answer": "Alexander's Indian campaign",
+   "title": "Indian campaign of Alexander the Great",
+   "url": "https://en.wikipedia.org/wiki/Indian_campaign_of_Alexander_the_Great",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Alexander's Indian campaign"
+  },
+  "in-112": {
+   "answer": "Battle of the Hydaspes",
+   "title": "Battle of the Hydaspes",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Hydaspes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-113": {
+   "answer": "Porus",
+   "title": "Porus",
+   "url": "https://en.wikipedia.org/wiki/Porus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-114": {
+   "answer": "Ctesias",
+   "title": "Ctesias",
+   "url": "https://en.wikipedia.org/wiki/Ctesias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-115": {
+   "answer": "Jambudvipa",
+   "title": "Jambudvīpa",
+   "url": "https://en.wikipedia.org/wiki/Jambudv%C4%ABpa",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jambudvipa"
+  },
+  "in-116": {
+   "answer": "Maurya Empire",
+   "title": "Maurya Empire",
+   "url": "https://en.wikipedia.org/wiki/Maurya_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-117": {
+   "answer": "Chandragupta Maurya",
+   "title": "Chandragupta Maurya",
+   "url": "https://en.wikipedia.org/wiki/Chandragupta_Maurya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-118": {
+   "answer": "Chanakya",
+   "title": "Chanakya",
+   "url": "https://en.wikipedia.org/wiki/Chanakya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-119": {
+   "answer": "Arthashastra",
+   "title": "Arthashastra",
+   "url": "https://en.wikipedia.org/wiki/Arthashastra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-120": {
+   "answer": "Dhana Nanda",
+   "title": "Dhana Nanda",
+   "url": "https://en.wikipedia.org/wiki/Dhana_Nanda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-121": {
+   "answer": "Seleucid–Mauryan War",
+   "title": "Seleucid–Mauryan War",
+   "url": "https://en.wikipedia.org/wiki/Seleucid%E2%80%93Mauryan_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-122": {
+   "answer": "Megasthenes",
+   "title": "Megasthenes",
+   "url": "https://en.wikipedia.org/wiki/Megasthenes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-123": {
+   "answer": "Indica",
+   "title": "Indica (Megasthenes)",
+   "url": "https://en.wikipedia.org/wiki/Indica_(Megasthenes)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-124": {
+   "answer": "Bindusara",
+   "title": "Bindusara",
+   "url": "https://en.wikipedia.org/wiki/Bindusara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-125": {
+   "answer": "Ashoka",
+   "title": "Ashoka",
+   "url": "https://en.wikipedia.org/wiki/Ashoka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-126": {
+   "answer": "Kalinga War",
+   "title": "Kalinga War",
+   "url": "https://en.wikipedia.org/wiki/Kalinga_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-127": {
+   "answer": "Minor Rock Edicts",
+   "title": "Minor Rock Edicts",
+   "url": "https://en.wikipedia.org/wiki/Minor_Rock_Edicts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-128": {
+   "answer": "Ashoka's dhamma",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ashoka's policy of Dhamma",
+    "Ashoka",
+    "Pillars of Ashoka",
+    "Edicts of Ashoka",
+    "Mahamatra"
+   ]
+  },
+  "in-129": {
+   "answer": "Edicts of Ashoka",
+   "title": "Edicts of Ashoka",
+   "url": "https://en.wikipedia.org/wiki/Edicts_of_Ashoka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-130": {
+   "answer": "Major Rock Edicts",
+   "title": "Major Rock Edicts",
+   "url": "https://en.wikipedia.org/wiki/Major_Rock_Edicts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-101": {
+   "answer": "Dhammacakkappavattana Sutta",
+   "title": "Dhammacakkappavattana Sutta",
+   "url": "https://en.wikipedia.org/wiki/Dhammacakkappavattana_Sutta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-102": {
+   "answer": "Sangha",
+   "title": "Sangha",
+   "url": "https://en.wikipedia.org/wiki/Sangha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-103": {
+   "answer": "Vinaya",
+   "title": "Vinaya",
+   "url": "https://en.wikipedia.org/wiki/Vinaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-104": {
+   "answer": "Mahavira",
+   "title": "Mahavira",
+   "url": "https://en.wikipedia.org/wiki/Mahavira",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-105": {
+   "answer": "Jainism",
+   "title": "Jainism",
+   "url": "https://en.wikipedia.org/wiki/Jainism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-106": {
+   "answer": "Ahimsa",
+   "title": "Ahimsa",
+   "url": "https://en.wikipedia.org/wiki/Ahimsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-107": {
+   "answer": "Anekantavada",
+   "title": "Anekantavada",
+   "url": "https://en.wikipedia.org/wiki/Anekantavada",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-108": {
+   "answer": "Ajivika",
+   "title": "Ājīvika",
+   "url": "https://en.wikipedia.org/wiki/%C4%80j%C4%ABvika",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-109": {
+   "answer": "Charvaka",
+   "title": "Charvaka",
+   "url": "https://en.wikipedia.org/wiki/Charvaka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-110": {
+   "answer": "Hindush",
+   "title": "Hindush",
+   "url": "https://en.wikipedia.org/wiki/Hindush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-161": {
+   "answer": "Kushan Empire",
+   "title": "Kushan Empire",
+   "url": "https://en.wikipedia.org/wiki/Kushan_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-162": {
+   "answer": "Kanishka",
+   "title": "Kanishka",
+   "url": "https://en.wikipedia.org/wiki/Kanishka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-163": {
+   "answer": "Fourth Buddhist council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Fourth Buddhist council",
+   "target": "Buddhist councils#The two \"fourth councils\""
+  },
+  "in-164": {
+   "answer": "Mahayana",
+   "title": "Mahayana",
+   "url": "https://en.wikipedia.org/wiki/Mahayana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-165": {
+   "answer": "Greco-Buddhist art",
+   "title": "Greco-Buddhist art",
+   "url": "https://en.wikipedia.org/wiki/Greco-Buddhist_art",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-166": {
+   "answer": "Mathura art",
+   "title": "Art of Mathura",
+   "url": "https://en.wikipedia.org/wiki/Art_of_Mathura",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Mathura art"
+  },
+  "in-167": {
+   "answer": "Buddhist aniconism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Aniconism in Buddhism",
+    "Aniconism",
+    "Sanchi Stupa",
+    "The Buddha",
+    "Buddhist art"
+   ]
+  },
+  "in-168": {
+   "answer": "Satavahana dynasty",
+   "title": "Satavahana dynasty",
+   "url": "https://en.wikipedia.org/wiki/Satavahana_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-169": {
+   "answer": "Gautamiputra Satakarni",
+   "title": "Gautamiputra Satakarni",
+   "url": "https://en.wikipedia.org/wiki/Gautamiputra_Satakarni",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-170": {
+   "answer": "Sangam period",
+   "title": "Sangam literature",
+   "url": "https://en.wikipedia.org/wiki/Sangam_literature",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Sangam period"
+  },
+  "in-171": {
+   "answer": "Three Crowned Kings",
+   "title": "Three Crowned Kings",
+   "url": "https://en.wikipedia.org/wiki/Three_Crowned_Kings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-172": {
+   "answer": "Indo-Roman trade",
+   "title": "Indo-Roman trade relations",
+   "url": "https://en.wikipedia.org/wiki/Indo-Roman_trade_relations",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Indo-Roman trade"
+  },
+  "in-173": {
+   "answer": "Periplus of the Erythraean Sea",
+   "title": "Periplus of the Erythraean Sea",
+   "url": "https://en.wikipedia.org/wiki/Periplus_of_the_Erythraean_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-174": {
+   "answer": "Hippalus",
+   "title": "Hippalus",
+   "url": "https://en.wikipedia.org/wiki/Hippalus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-175": {
+   "answer": "Nigama",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Municipal corporation (India)",
+    "Economic history of India",
+    "List of urban local bodies in Odisha",
+    "Brindavan Gardens",
+    "Tenali Rama"
+   ]
+  },
+  "in-176": {
+   "answer": "Gupta Empire",
+   "title": "Gupta Empire",
+   "url": "https://en.wikipedia.org/wiki/Gupta_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-177": {
+   "answer": "Chandragupta I",
+   "title": "Chandragupta I",
+   "url": "https://en.wikipedia.org/wiki/Chandragupta_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-178": {
+   "answer": "Samudragupta",
+   "title": "Samudragupta",
+   "url": "https://en.wikipedia.org/wiki/Samudragupta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-179": {
+   "answer": "Allahabad pillar inscription",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Allahabad Pillar",
+    "Pillars of Ashoka",
+    "Minor Pillar Edicts",
+    "Prayagraj",
+    "Iron pillar of Delhi"
+   ]
+  },
+  "in-180": {
+   "answer": "Chandragupta II",
+   "title": "Chandragupta II",
+   "url": "https://en.wikipedia.org/wiki/Chandragupta_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-131": {
+   "answer": "Major Pillar Edicts",
+   "title": "Major Pillar Edicts",
+   "url": "https://en.wikipedia.org/wiki/Major_Pillar_Edicts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-132": {
+   "answer": "Pillars of Ashoka",
+   "title": "Pillars of Ashoka",
+   "url": "https://en.wikipedia.org/wiki/Pillars_of_Ashoka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-133": {
+   "answer": "Lion Capital of Ashoka",
+   "title": "Lion Capital of Ashoka",
+   "url": "https://en.wikipedia.org/wiki/Lion_Capital_of_Ashoka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-134": {
+   "answer": "decipherment of Brahmi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Brahmi script",
+    "James Prinsep",
+    "Tamil-Brahmi",
+    "Indus script",
+    "Agathocles of Bactria"
+   ]
+  },
+  "in-135": {
+   "answer": "Brahmi script",
+   "title": "Brahmi script",
+   "url": "https://en.wikipedia.org/wiki/Brahmi_script",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-136": {
+   "answer": "Kharosthi",
+   "title": "Kharosthi",
+   "url": "https://en.wikipedia.org/wiki/Kharosthi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-137": {
+   "answer": "dhammavijaya",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ashoka",
+    "Waithali kingdom",
+    "JL50",
+    "U Nu"
+   ]
+  },
+  "in-138": {
+   "answer": "Third Buddhist Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Third Buddhist Council",
+   "target": "Buddhist councils#Theravada accounts of a third council"
+  },
+  "in-139": {
+   "answer": "Mahinda",
+   "title": "Mahinda (Buddhist monk)",
+   "url": "https://en.wikipedia.org/wiki/Mahinda_(Buddhist_monk)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-140": {
+   "answer": "Mahamatra",
+   "title": "Mahamatra",
+   "url": "https://en.wikipedia.org/wiki/Mahamatra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-141": {
+   "answer": "Tosali",
+   "title": "Tosali",
+   "url": "https://en.wikipedia.org/wiki/Tosali",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-142": {
+   "answer": "Lumbini pillar inscription",
+   "title": "Lumbini pillar inscription",
+   "url": "https://en.wikipedia.org/wiki/Lumbini_pillar_inscription",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-143": {
+   "answer": "Uttarapatha",
+   "title": "Uttarapatha",
+   "url": "https://en.wikipedia.org/wiki/Uttarapatha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-144": {
+   "answer": "Kumrahar",
+   "title": "Kumhrar",
+   "url": "https://en.wikipedia.org/wiki/Kumhrar",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kumrahar"
+  },
+  "in-145": {
+   "answer": "Mauryan art",
+   "title": "Mauryan art",
+   "url": "https://en.wikipedia.org/wiki/Mauryan_art",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-146": {
+   "answer": "Didarganj Yakshi",
+   "title": "Didarganj Yakshi",
+   "url": "https://en.wikipedia.org/wiki/Didarganj_Yakshi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-147": {
+   "answer": "Dharmarajika Stupa",
+   "title": "Dharmarajika Stupa",
+   "url": "https://en.wikipedia.org/wiki/Dharmarajika_Stupa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-148": {
+   "answer": "Sanchi",
+   "title": "Sanchi Stupa",
+   "url": "https://en.wikipedia.org/wiki/Sanchi_Stupa",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sanchi"
+  },
+  "in-149": {
+   "answer": "Brihadratha Maurya",
+   "title": "Brihadratha Maurya",
+   "url": "https://en.wikipedia.org/wiki/Brihadratha_Maurya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-150": {
+   "answer": "Ashoka Chakra",
+   "title": "Ashoka Chakra",
+   "url": "https://en.wikipedia.org/wiki/Ashoka_Chakra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-181": {
+   "answer": "Vishaya",
+   "title": "Vishaya",
+   "url": "https://en.wikipedia.org/wiki/Vishaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-182": {
+   "answer": "Agrahara",
+   "title": "Agraharam",
+   "url": "https://en.wikipedia.org/wiki/Agraharam",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Agrahara"
+  },
+  "in-183": {
+   "answer": "Faxian",
+   "title": "Faxian",
+   "url": "https://en.wikipedia.org/wiki/Faxian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-184": {
+   "answer": "Dinara",
+   "title": "Dinara",
+   "url": "https://en.wikipedia.org/wiki/Dinara",
+   "via": "answer",
+   "status": "ok"
+  },
+  "in-185": {
+   "answer": "Iron pillar of Delhi",
+   "title": "Iron pillar of Delhi",
+   "url": "https://en.wikipedia.org/wiki/Iron_pillar_of_Delhi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-186": {
+   "answer": "Dashavatara Temple",
+   "title": "Dashavatara Temple, Deogarh",
+   "url": "https://en.wikipedia.org/wiki/Dashavatara_Temple,_Deogarh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-187": {
+   "answer": "Ajanta Caves",
+   "title": "Ajanta Caves",
+   "url": "https://en.wikipedia.org/wiki/Ajanta_Caves",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-188": {
+   "answer": "Sarnath school",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Sarnath school",
+   "target": "Gupta art#Sarnath school"
+  },
+  "in-189": {
+   "answer": "Kalidasa",
+   "title": "Kalidasa",
+   "url": "https://en.wikipedia.org/wiki/Kalidasa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-190": {
+   "answer": "Abhijnanashakuntalam",
+   "title": "Shakuntala (play)",
+   "url": "https://en.wikipedia.org/wiki/Shakuntala_(play)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Abhijnanashakuntalam"
+  },
+  "in-191": {
+   "answer": "Aryabhata",
+   "title": "Aryabhata",
+   "url": "https://en.wikipedia.org/wiki/Aryabhata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-192": {
+   "answer": "Varahamihira",
+   "title": "Varāhamihira",
+   "url": "https://en.wikipedia.org/wiki/Var%C4%81hamihira",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-193": {
+   "answer": "Nalanda",
+   "title": "Nalanda mahavihara",
+   "url": "https://en.wikipedia.org/wiki/Nalanda_mahavihara",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Nalanda"
+  },
+  "in-194": {
+   "answer": "Puranas",
+   "title": "Puranas",
+   "url": "https://en.wikipedia.org/wiki/Puranas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-195": {
+   "answer": "Golden age",
+   "title": "Golden age (metaphor)",
+   "url": "https://en.wikipedia.org/wiki/Golden_age_(metaphor)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-196": {
+   "answer": "Alchon Huns",
+   "title": "Alchon Huns",
+   "url": "https://en.wikipedia.org/wiki/Alchon_Huns",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-197": {
+   "answer": "Skandagupta",
+   "title": "Skandagupta",
+   "url": "https://en.wikipedia.org/wiki/Skandagupta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-198": {
+   "answer": "Harsha",
+   "title": "Harsha",
+   "url": "https://en.wikipedia.org/wiki/Harsha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-199": {
+   "answer": "Xuanzang",
+   "title": "Xuanzang",
+   "url": "https://en.wikipedia.org/wiki/Xuanzang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-200": {
+   "answer": "Maukhari dynasty",
+   "title": "Maukharis of Kannauj",
+   "url": "https://en.wikipedia.org/wiki/Maukharis_of_Kannauj",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Maukhari dynasty"
   }
  }
 }
